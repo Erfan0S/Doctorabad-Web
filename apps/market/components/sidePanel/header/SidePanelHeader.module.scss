@@ -1,0 +1,54 @@
+@import '@/assets/styles/functions';
+
+.sidePanelHeader {
+  background: linear-gradient(to right, #00db00, #00bc00);
+  padding: space(2) space(3) space(2) space(2);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  > span {
+    font-weight: 800;
+    font-size: 20px;
+    color: #fff;
+    max-width: calc(100% - 100px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &Suffix {
+    margin-right: auto;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    button {
+      background-color: #fff;
+      margin: 0 space(2) 0 0;
+      border: unset;
+      border-radius: radius(2);
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      outline: none;
+
+      &:active,
+      &:focus {
+        outline: none;
+      }
+
+      img,
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

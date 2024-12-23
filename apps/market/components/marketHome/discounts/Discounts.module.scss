@@ -1,0 +1,121 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/functions';
+
+.discounts {
+  padding: space(10) 0;
+
+  &Wrapper {
+    border-radius: radius(5);
+    background: $header-nav-bg;
+    display: flex;
+    padding: 20px 0;
+  }
+
+  &Right {
+    flex: 0 0 200px;
+    max-width: 200px;
+    padding-right: space(5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 1200px) {
+      & {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: 100%;
+      }
+    }
+
+    > span {
+      font-weight: 800;
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: space(3);
+    }
+
+    img {
+      margin-bottom: space(3);
+    }
+
+    a {
+      line-height: 30px;
+      max-width: 150px;
+      width: 100%;
+      color: #fff;
+      border-radius: radius(3);
+      border: 2px solid #fff;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  &Content {
+    flex: 0 0 calc(100% - 200px);
+    max-width: calc(100% - 200px);
+
+    @media screen and (max-width: 1200px) {
+      & {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    :global {
+      .swiper {
+        padding: space(5);
+      }
+    }
+  }
+
+  &CountDown {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row-reverse;
+    font-size: 24px;
+    margin-bottom: space(3);
+
+    span {
+      background-color: #fff;
+      color: $orange;
+      min-width: 30px;
+      font-weight: 700;
+      border-radius: radius(2);
+      font-size: 16px;
+      line-height: 30px;
+      margin: 0 space(0.2);
+    }
+  }
+
+  :global {
+    .swiper {
+      &-slide {
+        height: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .discounts {
+    padding: 0 0 space(4) 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .discounts {
+    &Wrapper {
+      border-radius: 0;
+    }
+    :global {
+      .container {
+        padding: 0;
+      }
+    }
+  }
+}

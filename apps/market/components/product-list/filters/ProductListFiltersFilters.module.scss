@@ -1,0 +1,192 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.archiveFilters {
+  background-color: #fff;
+  border-radius: radius(3);
+  padding: space(6);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 168px;
+  margin-bottom: space(10);
+  max-height: 730px;
+  overflow: scroll;
+
+  &::-webkit-scrollbar-track {
+    background-color: #ccc;
+    border-radius: space(2.5);
+    border: 10px solid #fff;
+  }
+  &::-webkit-scrollbar-thumb {
+    width: 23px;
+    background-color: #fc7a34;
+    border-radius: space(2.5);
+    border-left: 9px solid #fff;
+    border-right: 9px solid #fff;
+  }
+  &::-webkit-scrollbar {
+    border-radius: space(2);
+    width: 23px;
+  }
+
+  &Header {
+    display: flex;
+    align-items: center;
+    margin-bottom: space(6);
+    font-weight: 600;
+  }
+
+  &ClearAll {
+    margin-right: auto;
+    color: $orange;
+    border-bottom: 1px solid $orange;
+    cursor: pointer;
+  }
+
+  &CheckboxList {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 5px 0;
+      max-height: 300px;
+      overflow: auto;
+      &::-webkit-scrollbar-track {
+        background-color: #ccc;
+        border-radius: space(2.5);
+        border: 10px solid #fff;
+      }
+      &::-webkit-scrollbar-thumb {
+        width: 25px;
+        background-color: #fc7a34;
+        border-radius: space(2.5);
+        border-left: 9px solid #fff;
+        border-right: 9px solid #fff;
+      }
+      &::-webkit-scrollbar {
+        border-radius: space(2);
+        width: 25px;
+      }
+      li {
+        border-bottom: 1px solid #eee;
+
+        label {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 0;
+          line-height: 40px;
+          cursor: pointer;
+          position: relative;
+          padding-right: space(6);
+
+          span {
+            &:first-of-type {
+              font-weight: 600;
+            }
+
+            &:last-of-type {
+              color: #777;
+            }
+          }
+
+          &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: radius(1);
+            border: 1px solid #eee;
+          }
+
+          &:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(calc(-50% - 1px)) rotate(-45deg);
+            width: 8px;
+            height: 5px;
+            border-width: 0 0 1px 1px;
+            border-style: solid;
+            border-color: #fff;
+            right: 4px;
+          }
+        }
+
+        input {
+          display: none;
+
+          &:checked {
+            + label {
+              &:before {
+                background-color: $orange;
+                border-color: $orange;
+              }
+            }
+          }
+        }
+      }
+    }
+    > input {
+      border: unset;
+      outline: unset;
+      width: 100%;
+      border-radius: space(2);
+      background-color: #fff;
+      color: #121212;
+      line-height: 30px;
+      padding: 0 space(2);
+      border: 2px solid $orange;
+      margin-top: space(2);
+      margin-bottom: 10px;
+    }
+  }
+  &Content {
+    > span {
+      font-weight: 600;
+    }
+  }
+
+  &SliderMark {
+    :global {
+      .rc-slider-mark .rc-slider-mark-text:last-child {
+        left: calc(100% - 10px) !important;
+      }
+      .rc-slider-handle {
+        border-color: $orange;
+      }
+      .rc-slider-track {
+        background: $orange;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .archiveFilters {
+    &Header {
+      margin-bottom: unset;
+
+      span {
+        cursor: pointer;
+      }
+    }
+
+    &Content {
+      display: none;
+      padding-top: space(3);
+
+      &.open {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .archiveFilters {
+    margin-bottom: space(4);
+  }
+}

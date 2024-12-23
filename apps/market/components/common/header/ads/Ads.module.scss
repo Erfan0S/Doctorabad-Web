@@ -1,0 +1,128 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/functions';
+
+.ads {
+  &Wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    height: auto;
+    color: #fff;
+    padding: 12px 0;
+    padding-right: 30px;
+    flex-wrap: wrap;
+
+    br {
+      flex: 1;
+    }
+
+    > span {
+      font-weight: 600;
+      font-size: 19px;
+    }
+  }
+
+  &Interactives {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: center;
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &CloseButton {
+    margin-left: space(6);
+    font-size: 35px;
+    font-weight: 600;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    margin: 0;
+  }
+
+  &CountDown {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row-reverse;
+    font-size: 24px;
+
+    span {
+      background-color: #fff;
+      color: $orange;
+      min-width: 30px;
+      font-weight: 700;
+      border-radius: radius(2);
+      font-size: 16px;
+      line-height: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &Button {
+    margin-right: space(5);
+
+    a {
+      padding: 0 space(7);
+      font-weight: 600;
+      font-size: 14px;
+      background-color: #fff;
+      border-radius: radius(2);
+      color: $orange;
+      font-weight: 600;
+      line-height: 30px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .ads {
+    &Wrapper {
+      min-height: 90px;
+      padding-bottom: 5px;
+      padding-left: 15px;
+      padding-right: 5px;
+    }
+    &Interactives {
+      width: 100%;
+      margin-top: 5px;
+    }
+    span {
+      font-size: 16px;
+    }
+    &CloseButton {
+      left: 0;
+      right: auto;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .ads {
+    &Wrapper {
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .ads {
+    &CountDown {
+      span {
+        margin: 0 3px;
+      }
+    }
+  }
+}

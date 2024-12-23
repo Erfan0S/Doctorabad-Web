@@ -1,0 +1,115 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.sidePanelOrdersLearning {
+    &Item {
+        background-color: #fff;
+        margin-bottom: space(2);
+        padding: space(2);
+        border-radius: radius(4);
+        position: relative;
+        transition: 0.15s;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        >a {
+            border-radius: radius(4);
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        }
+
+        &Image {
+            flex: 0 0 100px;
+            width: 100px;
+            height: 65px;
+            border-radius: radius(2);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+            img {
+                max-width: 100px;
+                border-radius: radius(2);
+                max-height: 65px;
+            }
+        }
+
+        &Content {
+            flex: 0 0 calc(100% - 100px);
+            padding-right: space(3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        &Title {
+            margin-bottom: space(1);
+
+            span {
+                font-size: 14px;
+                font-weight: 500;
+            }
+        }
+
+        &Cart {
+            margin-bottom: space(1);
+            span {
+                display: flex;
+                align-items: center;
+                color: #f54f1a;
+                font-size: 16px;
+                font-weight: 600;
+                margin-left: space(2);
+
+                &:last-of-type {
+                    margin-left: unset;
+                }
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: space(1);
+                    fill: #f54f1a;
+                }
+            }
+        }
+
+        &Footer {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+
+            span {
+                display: flex;
+                align-items: center;
+                color: $gray;
+                font-size: 11px;
+                margin-left: space(2);
+
+                &:last-of-type {
+                    margin-left: unset;
+                    margin-right: auto;
+                }
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                    margin-left: space(1);
+                }
+            }
+
+            small {
+                margin-right: auto;
+                background-color: #ccc;
+                color: #fff;
+                padding: 0 space(1);
+                border-radius: radius(1);
+                line-height: 20px;
+            }
+        }
+    }
+}

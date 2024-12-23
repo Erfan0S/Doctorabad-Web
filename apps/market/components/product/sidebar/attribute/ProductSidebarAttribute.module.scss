@@ -1,0 +1,51 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.productSidebarAttribute {
+  margin-bottom: space(4);
+
+  select {
+    width: 100%;
+    display: block;
+    border: 2px solid $orange;
+    border-radius: radius(1.5);
+    line-height: 31px;
+    height: 35px;
+    text-align: center;
+    color: $gray;
+    font-size: 18px;
+  }
+
+  ul {
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    margin-top: 20px;
+    li {
+      margin-top: 15px;
+    }
+    > li:first-of-type {
+      margin-top: 0;
+    }
+  }
+  input,
+  textArea {
+    display: block;
+    width: 100%;
+    padding: 0 space(3) 0 space(12);
+    border: 2px solid $gray;
+    border-radius: radius(2);
+  }
+  input {
+    line-height: 36px;
+  }
+  textArea {
+    font-size: 11px;
+  }
+
+  input:focus-visible,
+  textArea:focus-visible {
+    border-color: $orange;
+    outline: none;
+  }
+}

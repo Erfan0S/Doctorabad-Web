@@ -1,0 +1,11 @@
+@import '@/assets/styles/functions';
+
+.intro {
+    margin-bottom: space(10);
+}
+
+@media (max-width: 768px) {
+    .intro {
+        margin-bottom: space(4);
+    }
+}

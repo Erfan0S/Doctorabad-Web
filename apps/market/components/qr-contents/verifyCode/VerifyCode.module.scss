@@ -1,0 +1,29 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/functions';
+
+.VerifyContent {
+  width: 250px;
+  margin: 0 auto;
+  input {
+    width: 100%;
+    border: 2px solid $green;
+    line-height: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  button {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    padding: space(2);
+    background: $green;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: space(2);
+    display: block;
+    width: 100%;
+    border: unset;
+  }
+}

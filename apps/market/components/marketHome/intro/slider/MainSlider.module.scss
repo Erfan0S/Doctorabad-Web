@@ -1,0 +1,50 @@
+@import '@/assets/styles/functions';
+
+.mainSlider {
+  &Item {
+    height: 380px;
+    border-radius: radius(5);
+
+    a {
+      display: block;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      border-radius: radius(5);
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  :global {
+    .swiper-pagination-bullet {
+      width: 16px;
+      height: 16px;
+      border: 2px solid $orange;
+      background-color: #fff;
+      opacity: 1;
+
+      &.swiper-pagination-bullet-active {
+        background-color: $orange;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .mainSlider {
+    &Item {
+      height: 240px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mainSlider {
+    &Item {
+      height: 52vw;
+    }
+  }
+}

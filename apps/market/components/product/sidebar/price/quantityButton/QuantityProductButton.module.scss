@@ -1,0 +1,41 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.quantityProductButton {
+  background: $button-bg-orange;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row-reverse;
+  color: #fff;
+  border-radius: radius(2);
+  width: 60%;
+  flex: 0 0 60%;
+  font-size: 14px;
+  padding: 0 space(1);
+
+  span {
+    width: 25px;
+    text-align: center;
+  }
+
+  button {
+    color: #fff;
+    background-color: unset;
+    border: unset;
+    padding: 0;
+    margin: 0;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: unset;
+    }
+  }
+}
