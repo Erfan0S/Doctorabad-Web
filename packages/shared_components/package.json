@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./icons": "./assets/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -20,7 +21,7 @@
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "react": "19.0.0-rc-5c56b873-20241107",
-    "react-dom": "19.0.0-rc-5c56b873-20241107"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

@@ -1,29 +1,15 @@
-import { CategoryList } from "@/types/category";
 import { Request } from "@repo/core";
+import { defaultBaseUrl, isServerSide } from "../constants/constants";
+import { toast } from "react-toastify";
 import {
-  AvatarList,
   LiveChatInformation,
   MessageItem,
   ShareToFriends,
   SingleMessage,
   User,
   VerifyPhoneInput,
-} from "@/types/user";
-import { ProvidersList } from "@/types/providers";
-import {
-  PaginatedRequest,
-  PaginatedResponse,
-  ResponseType,
-  SelectionItem,
-} from "@/types/general";
-import {
-  ProductListOptions,
-  Product,
-  SingleProduct,
-  AmazingProduct,
-  ProductComments,
-  ProductShare,
-} from "@/types/product";
+} from "../types/user";
+import { ResponseType, SelectionItem } from "../types/general";
 import {
   CartResponse,
   CreateOrderRequest,
@@ -32,23 +18,18 @@ import {
   PaymentResult,
   ShippingAddress,
   ShippingMethod,
-} from "@/types/cart";
-import { Banner } from "@/types/banner";
-import { LastProcessingOrder, PreviousOrder } from "@/types/orders";
-import { FestivalInfo } from "@/types/festival";
+} from "../types/cart";
+import { ProductVariantsValue } from "../types/productVariants";
+import { LastProcessingOrder, PreviousOrder } from "../types/orders";
+import { Product } from "../types/product";
 import {
   BuyOfferResponse,
   ClubOffer,
   ClubTransaction,
   HelpText,
   UserClubInfo,
-} from "@/types/doctorClub";
-import { BookContents } from "@/types/bookContents";
-import { HomeStatisticsType } from "@/types/homeStatistics";
-import { BlogType } from "@/types/blog";
-import { ProductVariantsValue } from "@/types/productVariants";
-import { defaultBaseUrl, isServerSide } from "@/constants/constants";
-import { toast } from "react-toastify";
+} from "../types/doctorClub";
+import { BookContents } from "../types/bookContents";
 
 class Api extends Request {
   constructor() {
@@ -88,165 +69,6 @@ class Api extends Request {
       province: data.province_id,
       city: data.city_id,
     });
-  };
-
-  // categories
-  getCategoriesList(): Promise<ResponseType<CategoryList>> {
-    return this.request.get<CategoryList>("/user/shop/category", {
-      next: { revalidate: 3600 },
-    });
-  }
-
-  // providers
-  getProviders(): Promise<ResponseType<PaginatedResponse<ProvidersList>>> {
-    return this.request.get<PaginatedResponse<ProvidersList>>(
-      "/user/shop/provider",
-      {
-        next: { revalidate: 3600 },
-      }
-    );
-  }
-
-  // product
-  getProductList = (
-    params: PaginatedRequest<ProductListOptions>
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/list",
-      { params }
-    );
-  };
-
-  searchProducts = (
-    params: PaginatedRequest<{ q: string }>
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/search",
-      { params }
-    );
-  };
-
-  getAmazingProductList = (
-    params: PaginatedRequest
-  ): Promise<
-    ResponseType<{ data: AmazingProduct[]; amazing_time: string }>
-  > => {
-    return this.request.get<{ data: AmazingProduct[]; amazing_time: string }>(
-      "/user/shop/product/new/amazing",
-      { params }
-    );
-  };
-
-  getSuggestedProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/suggest",
-      { params }
-    );
-  };
-
-  getNewestProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/newest",
-      { params }
-    );
-  };
-
-  getBesSellingProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/bestselling",
-      { params }
-    );
-  };
-
-  getLastSeenProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/lastSeen",
-      {
-        params,
-        cache: "no-store",
-      }
-    );
-  };
-
-  getProductCount = (): Promise<ResponseType<{ data: number }>> => {
-    return this.request.get<{ data: number }>("/user/shop/product/count");
-  };
-
-  shareProduct(id: number): Promise<ResponseType<{ data: ProductShare }>> {
-    return this.request.get<{ data: ProductShare }>(
-      `/user/shop/product/share/${id}`
-    );
-  }
-
-  restockNotification(
-    id: number
-  ): Promise<ResponseType<{ data: ProductShare }>> {
-    return this.request.get<{ data: ProductShare }>(
-      `/user/shop/product/letMeKnow/${id}`
-    );
-  }
-
-  // single product
-  getSingleProduct(id: number): Promise<ResponseType<{ data: SingleProduct }>> {
-    return this.request.get<{ data: SingleProduct }>(
-      `/user/shop/product/single/${id}`
-    );
-  }
-
-  getSingleProductBySlug(
-    slug: string
-  ): Promise<ResponseType<{ data: SingleProduct }>> {
-    return this.request.get<{ data: SingleProduct }>(
-      `/user/shop/product/slug/${slug}`
-    );
-  }
-
-  getRelatedProducts(id: number): Promise<ResponseType<{ data: Product[] }>> {
-    return this.request.get<{ data: Product[] }>(
-      `/user/shop/product/new/related/${id}`
-    );
-  }
-
-  createCOmment(data: {
-    id: number;
-    text: string;
-    rate: number;
-  }): Promise<any> {
-    return this.request.post("/user/shop/comment", data);
-  }
-
-  getCommentsList(
-    productID: number,
-    page: number
-  ): Promise<ResponseType<ProductComments>> {
-    return this.request.get<ProductComments>(
-      `/user/shop/comment/new/${productID}`,
-      { params: { page } }
-    );
-  }
-
-  getAvatarList = (): Promise<ResponseType<AvatarList>> => {
-    return this.request.get<AvatarList>("/user/avatar/list");
-  };
-
-  selectAvatar = (filename: string): Promise<any> => {
-    return this.request.post(`/user/avatar/select`, { filename });
-  };
-
-  addToFavorite = (id: number): Promise<any> => {
-    return this.request.post(`/user/shop/favorite`, { id });
-  };
-
-  removeFromFavorite = (id: number): Promise<any> => {
-    return this.request.delete(`/user/shop/favorite/${id}`);
   };
 
   // cart
@@ -389,13 +211,6 @@ class Api extends Request {
     });
   };
 
-  // home page sliders
-  getMainSliders(): Promise<ResponseType<{ data: Banner[] }>> {
-    return this.request.get<{ data: Banner[] }>("/user/shop/sliders", {
-      next: { revalidate: 3600 },
-    });
-  }
-
   // account
   getMessageList = (
     page: number
@@ -454,21 +269,6 @@ class Api extends Request {
     });
   };
 
-  getFestivalInfo = (): Promise<ResponseType<{ data: FestivalInfo }>> => {
-    return this.request.get<{ data: FestivalInfo }>("/user/shop/festival");
-  };
-
-  getFestivalProductList = ({
-    id,
-    ...params
-  }: PaginatedRequest<{ id: number }>): Promise<
-    ResponseType<{ data: Product[] }>
-  > => {
-    return this.request.get<{ data: Product[] }>(`/user/shop/festival/${id}`, {
-      params,
-    });
-  };
-
   getLiveChatInformation = (): Promise<
     ResponseType<{ data: LiveChatInformation }>
   > => {
@@ -480,22 +280,6 @@ class Api extends Request {
   ): Promise<ResponseType<LastProcessingOrder>> => {
     return this.request.get<LastProcessingOrder>(
       `/user/shop/order/details/${orderCode}`
-    );
-  };
-
-  getProductTypes = (): Promise<
-    ResponseType<{ data: { id: number; title: string }[] }>
-  > => {
-    return this.request.get<{ data: { id: number; title: string }[] }>(
-      `/user/find/product/types`
-    );
-  };
-
-  getProductPriceRange = (): Promise<
-    ResponseType<{ data: { min: number; max: number } }>
-  > => {
-    return this.request.get<{ data: { min: number; max: number } }>(
-      `/user/shop/product/price/range`
     );
   };
 
@@ -546,13 +330,6 @@ class Api extends Request {
     token: string;
   }): Promise<any> {
     return this.request.post("/user/qrcode/verify", data);
-  }
-
-  getHomeStatistics(): Promise<ResponseType<{ data: HomeStatisticsType }>> {
-    return this.request.get<{ data: HomeStatisticsType }>(
-      "/user/home/counter",
-      { next: { revalidate: 36000 } }
-    );
   }
 }
 
