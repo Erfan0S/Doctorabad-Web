@@ -1,13 +1,12 @@
-import { ShippingAddress } from '@/types/cart';
-import style from './AddAddress.module.scss';
+import { ShippingAddress } from "@/types/cart";
+import style from "./AddAddress.module.scss";
 
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { ProvinceCitySelection } from './ProvinceCitySelection';
-import { useEffect, useState } from 'react';
-import Loading from '../common/loading';
-import { shippingAddressValidator } from '@/constants/validators/userValidator';
-import { isServerSide } from '@/constants/constants';
-import { useLoadHeavyModule } from '@/hooks/useLoadHeavyModule';
+import { ErrorMessage, Field, Formik } from "formik";
+import { ProvinceCitySelection } from "./ProvinceCitySelection";
+import Loading from "../common/loading";
+import { shippingAddressValidator } from "@/constants/validators/userValidator";
+import { isServerSide } from "@/constants/constants";
+import { useLoadHeavyModule } from "@/hooks/useLoadHeavyModule";
 
 type Props = {
   initialData: Partial<ShippingAddress> | null;
@@ -15,25 +14,29 @@ type Props = {
   isLoading: boolean;
 };
 const defaultInitialData = {
-  receiver: '',
-  mobile: '',
-  national_code: '',
-  province_id: '',
-  city_id: '',
-  urban_area: '',
-  address: '',
-  postal_code: '',
-  longitude: '',
-  latitude: '',
+  receiver: "",
+  mobile: "",
+  national_code: "",
+  province_id: "",
+  city_id: "",
+  urban_area: "",
+  address: "",
+  postal_code: "",
+  longitude: "",
+  latitude: "",
 };
 const AddAddress = ({ initialData, submit, isLoading }: Props) => {
-  const [Map, loadingMap] = useLoadHeavyModule(() => import('./map'));
+  const [Map, loadingMap] = useLoadHeavyModule(() => import("./map"));
 
   if (isServerSide) return null;
 
   return (
     <Formik
-      initialValues={initialData ? { ...defaultInitialData, ...initialData } : defaultInitialData}
+      initialValues={
+        initialData
+          ? { ...defaultInitialData, ...initialData }
+          : defaultInitialData
+      }
       onSubmit={(data) => {
         submit(data as Partial<ShippingAddress>);
       }}
@@ -41,7 +44,9 @@ const AddAddress = ({ initialData, submit, isLoading }: Props) => {
     >
       {({ submitForm }) => (
         <div className={style.addAddress}>
-          <div className={style.addAddressMap}>{!loadingMap && Map ? <Map /> : <Loading size={15} />}</div>
+          <div className={style.addAddressMap}>
+            {!loadingMap && Map ? <Map /> : <Loading size={15} />}
+          </div>
           <ErrorMessage name="latitude" component="p" />
           <div className="row">
             <div className="col-lg-12">
@@ -63,11 +68,17 @@ const AddAddress = ({ initialData, submit, isLoading }: Props) => {
             <ProvinceCitySelection />
             <div className="col-lg-12">
               <label>آدرس</label>
-              <Field as="textarea" name="address" placeholder="آدرس دقیق"></Field>
+              <Field
+                as="textarea"
+                name="address"
+                placeholder="آدرس دقیق"
+              ></Field>
               <ErrorMessage name="address" component="p" />
             </div>
           </div>
-          <button onClick={submitForm}>{isLoading ? <Loading size={8} /> : 'ثبت آدرس'}</button>
+          <button onClick={submitForm}>
+            {isLoading ? <Loading size={8} /> : "ثبت آدرس"}
+          </button>
         </div>
       )}
     </Formik>
