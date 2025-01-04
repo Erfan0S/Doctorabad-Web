@@ -1,0 +1,76 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.sidePanelFriends {
+    text-align: center;
+    padding: space(5);
+
+    h3 {
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: space(2);
+    }
+
+    p {
+        line-height: 28px;
+        font-size: 13px;
+        margin-bottom: space(2);
+        font-weight: 600;
+    }
+
+    h4 {
+        color: $green;
+        font-size: 28px;
+        margin-bottom: space(2);
+    }
+
+    &Message {
+        padding: space(3) space(3) space(8.5);
+        border: 2px solid $green;
+        border-radius: radius(4);
+        height: 250px;
+
+        textarea {
+            border: unset;
+            line-height: 28px;
+            font-size: 13px;
+            height: 100%;
+            width: 100%;
+            resize: none;
+            display: block;
+            font-weight: 600;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        button {
+            background: $button-bg-green;
+            border: unset;
+            line-height: 45px;
+            height: 45px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: radius(2);
+            position: relative;
+            padding: 0 space(10);
+            bottom: -12px;
+            text-align: center;
+            min-width: 175px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+            &:focus,
+            &:active {
+                outline: unset;
+                box-shadow: unset;
+            }
+
+            &:hover {
+                box-sizing: 0 3px 10px rgba(0, 0, 0, 0);
+            }
+        }
+    }
+}

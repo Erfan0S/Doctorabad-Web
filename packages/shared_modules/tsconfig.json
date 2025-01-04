@@ -1,0 +1,19 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "plugins": [
+    {
+      "name": "next"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "ESNext",
+    "moduleResolution": "bundler", // Ensure Node-style module resolution
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src", "api"],
+  "exclude": ["node_modules", "dist"]
+}

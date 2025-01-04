@@ -1,0 +1,134 @@
+@import '@/assets/styles/functions';
+
+.sidePanelMainMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // club
+  &Header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: space(4) space(3);
+    background-color: #fff;
+
+    &:before {
+      content: '';
+      height: 50%;
+      top: 0;
+      right: 0;
+      left: 0;
+      position: absolute;
+      z-index: 1;
+      background: linear-gradient(to right, #00db00, #00bc00);
+    }
+
+    &Image {
+      width: 90px;
+      height: 90px;
+      flex: 0 0 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      overflow: hidden;
+
+      position: relative;
+      z-index: 2;
+      background-color: #fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      border: 3px solid #fff;
+
+      img {
+        border-radius: radius(4);
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    &Content {
+      flex: 0 0 calc(100% - 90px);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      padding-right: space(3);
+
+      span {
+        line-height: 30px;
+
+        &:first-of-type {
+          font-weight: 800;
+          font-size: 20px;
+          color: #fff;
+          margin-bottom: space(1);
+        }
+
+        &:last-of-type {
+          font-weight: 700;
+          font-size: 16px;
+          color: #00bc00;
+        }
+      }
+    }
+  }
+
+  // club
+  &Wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: space(3);
+    padding: space(2) space(8);
+    &Notification {
+      position: absolute;
+      background: $red;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff !important;
+      top: 0;
+      left: 0;
+    }
+
+    > div {
+      flex: 0 0 calc(33.333333% - space(3));
+      width: calc(33.333333% - space(3));
+      margin: 0 space(1.5) space(3);
+      aspect-ratio: 1/1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: radius(2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      span {
+        font-weight: 500;
+        font-size: 11px;
+      }
+
+      svg,
+      img {
+        width: 35px;
+        height: 35px;
+        margin-bottom: space(2);
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &Image {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
