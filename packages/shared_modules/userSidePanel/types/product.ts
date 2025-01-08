@@ -1,10 +1,9 @@
-import { ProviderInList } from './providers';
-import { StaticImageData } from 'next/image';
-import { ReactNode, SourceHTMLAttributes } from 'react';
-import { NextPageProps } from './general';
-import { ShortCategory } from './category';
-import { DiscountFestival } from './discount';
-import { Variants } from './productVariants';
+import { StaticImageData } from "next/image";
+import { ReactNode } from "react";
+import { NextPageProps } from "./general";
+import { Variants } from "./productVariants";
+
+// checkLater
 
 export interface Product {
   id: number;
@@ -138,10 +137,10 @@ export interface ProductSampleFile {
 }
 
 export enum ProductTab {
-  DESCRIPTION = 'description',
-  SPECIFICATIONS = 'specifications',
-  RELATED_PRODUCTS = 'relatedProducts',
-  COMMENTS = 'comments',
+  DESCRIPTION = "description",
+  SPECIFICATIONS = "specifications",
+  RELATED_PRODUCTS = "relatedProducts",
+  COMMENTS = "comments",
 }
 
 export interface ProductTabData {
@@ -151,18 +150,18 @@ export interface ProductTabData {
 
 export interface ProductListOptions {
   category?: string;
-  onlyAvailable?: '0' | '1';
-  sort?: 'cheapest' | 'expensive' | 'newest' | 'bestselling' | 'favorite';
+  onlyAvailable?: "0" | "1";
+  sort?: "cheapest" | "expensive" | "newest" | "bestselling" | "favorite";
 }
 
 export enum ProductListType {
-  ARCHIVE = 'archive',
-  SUGGESTED = 'suggested',
-  NEWEST = 'newest',
-  AMAZING = 'amazing',
-  SEARCH = 'search',
-  FESTIVAL = 'festival',
-  BEST_SELLING = 'bestselling',
+  ARCHIVE = "archive",
+  SUGGESTED = "suggested",
+  NEWEST = "newest",
+  AMAZING = "amazing",
+  SEARCH = "search",
+  FESTIVAL = "festival",
+  BEST_SELLING = "bestselling",
 }
 
 export type ProductListProps = NextPageProps<{ type: ProductListType }>;

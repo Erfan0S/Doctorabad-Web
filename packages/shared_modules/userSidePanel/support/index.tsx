@@ -1,11 +1,7 @@
-import { SidePanelPage, SidePanelPageProps } from '@/types/sidePanel';
-import SidePanelHeader from '../header';
-import { useEffect } from 'react';
-import { api } from '@/api/Api';
-import { useQuery } from '@tanstack/react-query';
-import Loading from '@/components/common/loading';
-import { isUserLoggedIn } from '@/utils/authUtils';
-import { modalActions } from '@/states/modals';
+import { SidePanelPage, SidePanelPageProps } from "../types/sidePanel";
+import SidePanelHeader from "../header";
+import { isUserLoggedIn } from "../utils/authUtils";
+import { modalActions } from "@repo/core";
 
 const SidePanelSupport: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const onBack = () => {
@@ -20,8 +16,8 @@ const SidePanelSupport: React.FC<SidePanelPageProps> = ({ setPage }) => {
     <>
       <SidePanelHeader onBack={onBack} title="پشتیبانی" />
       <iframe
-        style={{ height: window.innerHeight - 61 + 'px', width: '100%' }}
-        src={'https://www.goftino.com/c/cskpcR'}
+        style={{ height: window.innerHeight - 61 + "px", width: "100%" }}
+        src={"https://www.goftino.com/c/cskpcR"}
       />
     </>
   );

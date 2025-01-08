@@ -1,25 +1,25 @@
-import Image from 'next/image';
-import { learningData } from '../learning/learning-data';
-import style from '../learning/SidePanelOrdersLearning.module.scss';
-import Link from 'next/link';
-import Basket from '@/assets/svg/basket';
-import Clock from '@/assets/svg/clock';
-import Dollar from '@/assets/svg/dollar';
-import { priceFormatter } from '@/utils/priceFormatter';
-import { PreviousOrder } from '@/types/orders';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
-import InfiniteScroll from 'react-infinite-scroller';
-import React, { useState } from 'react';
-import { toFullPersianDateString } from '@/utils/toFullPersianDateString';
-import { modalActions } from '@/states/modals';
-import { ModalTypes } from '@/types/modals';
+import style from "../learning/SidePanelOrdersLearning.module.scss";
+import Basket from "../../../assets/svg/basket";
+import Clock from "../../../assets/svg/clock";
+import Dollar from "../../../assets/svg/dollar";
+import { priceFormatter } from "../../utils/priceFormatter";
+import { PreviousOrder } from "../../types/orders";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
+import Loading from "../../loading";
+import InfiniteScroll from "react-infinite-scroller";
+import React from "react";
+import { toFullPersianDateString } from "../../utils/toFullPersianDateString";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "../../types/modals";
 
 const SidePanelOrdersLearning: React.FC = () => {
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<PreviousOrder[]>({
-    queryFn: ({ pageParam }) => api.getOrdersList(Number(pageParam)).then((res) => res.data.data),
-    queryKey: ['previousOrders'],
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
+    PreviousOrder[]
+  >({
+    queryFn: ({ pageParam }) =>
+      api.getOrdersList(Number(pageParam)).then((res) => res.data.data),
+    queryKey: ["previousOrders"],
     initialPageParam: 1,
     staleTime: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -37,9 +37,11 @@ const SidePanelOrdersLearning: React.FC = () => {
       loadMore={() => fetchNextPage()}
       hasMore={hasNextPage}
       useWindow={false}
-      getScrollParent={() => document.getElementById('orderListContainer') as HTMLElement}
+      getScrollParent={() =>
+        document.getElementById("orderListContainer") as HTMLElement
+      }
       loader={
-        <div style={{ height: '30px', overflow: 'hidden' }}>
+        <div style={{ height: "30px", overflow: "hidden" }}>
           <Loading size={20} />
         </div>
       }
@@ -51,7 +53,11 @@ const SidePanelOrdersLearning: React.FC = () => {
               <div
                 key={id}
                 className={style.sidePanelOrdersLearningItem}
-                onClick={() => modalActions.addModal(ModalTypes.ORDER_DETAIL, { orderCode: order_code })}
+                onClick={() =>
+                  modalActions.addModal(ModalTypes.ORDER_DETAIL, {
+                    orderCode: order_code,
+                  })
+                }
               >
                 <div className={style.sidePanelOrdersLearningItemContent}>
                   <div className={style.sidePanelOrdersLearningItemCart}>
@@ -62,10 +68,12 @@ const SidePanelOrdersLearning: React.FC = () => {
                   </div>
                   <div className={style.sidePanelOrdersLearningItemFooter}>
                     <span>
-                      <Clock fill="#949494" /> {toFullPersianDateString(created_at)}
+                      <Clock fill="#949494" />{" "}
+                      {toFullPersianDateString(created_at)}
                     </span>
                     <span>
-                      <Dollar stroke="#949494" /> {priceFormatter(price_paid)} تومن
+                      <Dollar stroke="#949494" /> {priceFormatter(price_paid)}{" "}
+                      تومن
                     </span>
                   </div>
                 </div>

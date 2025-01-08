@@ -1,19 +1,16 @@
-import { Dispatch, SetStateAction } from 'react';
-import { PROFILE_COMPONENT } from '.';
-import Image from 'next/image';
-import avatarImage from '@/assets/img/avatars/01.png';
-import style from './SidePanelProfile.module.scss';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import { UserAvatar } from '@/types/user';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
+import Image from "next/image";
+import style from "./SidePanelProfile.module.scss";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { api } from "../../api/Api";
+import { UserAvatar } from "../types/user";
+import { placeHolderDataUrl } from "../constants/placeHolderDataUrl";
 
 interface Props {
   onAvatarSelect: (data: UserAvatar) => void;
 }
 const ProfileAvatars: React.FC<Props> = ({ onAvatarSelect }) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['avatars'],
+    queryKey: ["avatars"],
     queryFn: api.getAvatarList,
     staleTime: Infinity,
   });

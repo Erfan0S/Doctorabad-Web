@@ -1,16 +1,15 @@
-import { api } from '@/api/Api';
-import { User } from '@/types/user';
-import { useQuery } from '@tanstack/react-query';
-import { ErrorMessage, Field, useFormikContext } from 'formik';
-import React from 'react';
-import style from './SidePanelProfile.module.scss';
+import { api } from "../../api/Api";
+import { User } from "../types/user";
+import { useQuery } from "@tanstack/react-query";
+import { ErrorMessage, Field, useFormikContext } from "formik";
+import style from "./SidePanelProfile.module.scss";
 
 export const FieldGradeSelection = () => {
   const { values } = useFormikContext<User>();
 
   const { data: fields, isLoading: loadingFields } = useQuery({
     queryFn: () => api.getFields(1),
-    queryKey: ['fields'],
+    queryKey: ["fields"],
     staleTime: Infinity,
   });
 
@@ -20,12 +19,13 @@ export const FieldGradeSelection = () => {
     fetchStatus,
   } = useQuery({
     queryFn: () => api.getGrades(Number(values.field_id), 1),
-    queryKey: ['grades', values.field_id],
+    queryKey: ["grades", values.field_id],
     enabled: !!values.field_id,
     staleTime: Infinity,
   });
 
-  const waitingToSelectField = fetchStatus === 'idle' && !grades?.data.data.length;
+  const waitingToSelectField =
+    fetchStatus === "idle" && !grades?.data.data.length;
 
   return (
     <>

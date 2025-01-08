@@ -1,16 +1,14 @@
-import { SidePanelPageProps } from '@/types/sidePanel';
-import SidePanelHeader from '../../header';
-import style from './SidePanelClubSingle.module.scss';
-import Image from 'next/image';
-import clubImage from '@/assets/img/club.png';
-import { modalActions } from '@/states/modals';
-import { ModalTypes } from '@/types/modals';
-import { ClubOffer, OfferType } from '@/types/doctorClub';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { toFullPersianDateString } from '@/utils/toFullPersianDateString';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
+import SidePanelHeader from "../../header";
+import style from "./SidePanelClubSingle.module.scss";
+import Image from "next/image";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "../../types/modals";
+import { ClubOffer, OfferType } from "../../types/doctorClub";
+import { placeHolderDataUrl } from "../../constants/placeHolderDataUrl";
+import { toFullPersianDateString } from "../../utils/toFullPersianDateString";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
+import Loading from "../../loading";
 
 interface Props {
   offer: ClubOffer;
@@ -18,14 +16,23 @@ interface Props {
 }
 
 const SidePanelClubSingle: React.FC<Props> = ({ offer, onBack }) => {
-  const { coins, description, expired_at, id, pic_url, response_description, title, type } = offer;
+  const {
+    coins,
+    description,
+    expired_at,
+    id,
+    pic_url,
+    response_description,
+    title,
+    type,
+  } = offer;
 
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => api.buyOffer(id),
     onSuccess: (data) => {
-      queryClient.setQueryData(['user_club_info'], (oldData: any) => {
+      queryClient.setQueryData(["user_club_info"], (oldData: any) => {
         return {
           ...oldData,
           data: {
@@ -40,9 +47,13 @@ const SidePanelClubSingle: React.FC<Props> = ({ offer, onBack }) => {
       onBack();
 
       if (type === OfferType.DISCOUNT) {
-        modalActions.addModal(ModalTypes.CLUB_SINGLE_GET_CODE, { code: data.data.data.code });
+        modalActions.addModal(ModalTypes.CLUB_SINGLE_GET_CODE, {
+          code: data.data.data.code,
+        });
       } else {
-        modalActions.addModal(ModalTypes.CLUB_SINGLE_SHOW_DESC, { description: response_description! });
+        modalActions.addModal(ModalTypes.CLUB_SINGLE_SHOW_DESC, {
+          description: response_description!,
+        });
       }
     },
   });
@@ -53,7 +64,12 @@ const SidePanelClubSingle: React.FC<Props> = ({ offer, onBack }) => {
       <div className={style.sidePanelClubSingle}></div>
       <div className={style.sidePanelClubSingleHeader}>
         <div className={style.sidePanelClubSingleHeaderImage}>
-          <Image width={75} height={75} src={pic_url || placeHolderDataUrl} alt="clubImage" />
+          <Image
+            width={75}
+            height={75}
+            src={pic_url || placeHolderDataUrl}
+            alt="clubImage"
+          />
         </div>
         <div className={style.sidePanelClubSingleHeaderContent}>
           <span>{title}</span>
@@ -65,7 +81,9 @@ const SidePanelClubSingle: React.FC<Props> = ({ offer, onBack }) => {
         <p>{description}</p>
       </div>
       <div className={style.sidePanelClubSingleFooter}>
-        <button onClick={() => mutate()}>{isPending ? <Loading size={12} /> : 'دریافت'}</button>
+        <button onClick={() => mutate()}>
+          {isPending ? <Loading size={12} /> : "دریافت"}
+        </button>
       </div>
     </>
   );

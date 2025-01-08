@@ -1,13 +1,11 @@
-import Image from 'next/image';
-import style from './SidePanelMessagesDetail.module.scss';
-import image from '@/assets/img/banner-01.png';
-import { modalActions } from '@/states/modals';
-import { toFullPersianDateString } from '@/utils/toFullPersianDateString';
-import { use } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
+import Image from "next/image";
+import style from "./SidePanelMessagesDetail.module.scss";
+import { modalActions } from "@repo/core";
+import { toFullPersianDateString } from "../../utils/toFullPersianDateString";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
+import Loading from "../../loading";
+import { placeHolderDataUrl } from "../../constants/placeHolderDataUrl";
 type Props = {
   id: number;
 };
@@ -15,7 +13,7 @@ type Props = {
 const MessagesDetail: React.FC<Props> = ({ id }: Props) => {
   const { data, isLoading } = useQuery({
     queryFn: () => api.getSingleMessage(id).then((res) => res.data.data),
-    queryKey: ['message_detail', id],
+    queryKey: ["message_detail", id],
     retry: 1,
   });
 
@@ -29,13 +27,21 @@ const MessagesDetail: React.FC<Props> = ({ id }: Props) => {
       ) : (
         <>
           <div className={style.sidePanelMessagesDetialImage}>
-            <Image src={data?.pic_url || placeHolderDataUrl} width={100} height={100} alt="OrdersImage" />
+            <Image
+              src={data?.pic_url || placeHolderDataUrl}
+              width={100}
+              height={100}
+              alt="OrdersImage"
+            />
           </div>
           <div className={style.sidePanelMessagesDetialTitle}>
             <span>{data?.title}</span>
           </div>
           <div className={style.sidePanelMessagesDetialContent}>
-            <p dangerouslySetInnerHTML={{ __html: data!.body }} style={{ whiteSpace: 'pre-wrap' }}></p>
+            <p
+              dangerouslySetInnerHTML={{ __html: data!.body }}
+              style={{ whiteSpace: "pre-wrap" }}
+            ></p>
           </div>
           <div className={style.sidePanelMessagesDetialDate}>
             <span>{toFullPersianDateString(data!.created_at)}</span>

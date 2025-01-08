@@ -1,9 +1,9 @@
-import { Field } from 'formik';
+import { Field } from "formik";
 
-import style from './SidePanelProfile.module.scss';
-import DatePickerInput from '@/components/common/DatePickerInput';
-import { FieldGradeSelection } from './Field&GradeSelection';
-import { ProvinceCitySelection } from './ProvinceCitySelection';
+import style from "./SidePanelProfile.module.scss";
+import DatePickerInput from "../../common/DatePickerInput";
+import { FieldGradeSelection } from "./Field&GradeSelection";
+import { ProvinceCitySelection } from "./ProvinceCitySelection";
 
 const ProfileForm = () => {
   return (
@@ -31,7 +31,12 @@ const ProfileForm = () => {
         </div>
         <div className={style.formText}>
           <label htmlFor="email">تاریخ تولد</label>
-          <DatePickerInput name="birthday" placeholder="تاریخ تولد" color="#00db00" position="left" />
+          <DatePickerInput
+            name="birthday"
+            placeholder="تاریخ تولد"
+            color="#00db00"
+            position="left"
+          />
         </div>
         <div className="row">
           <FieldGradeSelection />

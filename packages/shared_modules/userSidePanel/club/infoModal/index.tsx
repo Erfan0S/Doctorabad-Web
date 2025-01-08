@@ -1,15 +1,15 @@
-import { modalActions } from '@/states/modals';
-import style from './SidePanelClubInfo.module.scss';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
+import { modalActions } from "@repo/core";
+import style from "./SidePanelClubInfo.module.scss";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
+import Loading from "../../loading";
 interface Props {
   title: string;
 }
 const ClubInfo: React.FC<Props> = ({ title }) => {
   const { data, isLoading } = useQuery({
     queryFn: api.getClubHelpText,
-    queryKey: ['getClubHelpText'],
+    queryKey: ["getClubHelpText"],
     retry: 1,
     staleTime: Infinity,
   });

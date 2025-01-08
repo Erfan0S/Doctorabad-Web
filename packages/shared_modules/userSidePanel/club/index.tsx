@@ -1,27 +1,26 @@
-import { useState } from 'react';
-import { SidePanelClubTab, SidePanelPage, SidePanelPageProps } from '@/types/sidePanel';
-import SidePanelHeader from '../header';
-import infoImage from '@/assets/img/info.png';
-import Image from 'next/image';
-import { clubTabsData } from './tabs-data';
-import SidePanelClubHistory from './history';
-import SidePanelClubDiscounts from './discounts';
-import style from './SidePanelClub.module.scss';
-import sidePanelStyle from '../sidePanel.module.scss';
-import { modalActions } from '@/states/modals';
-import { ModalTypes } from '@/types/modals';
-import SidePanelClubSingle from './singleShow';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
-import { ClubOffer } from '@/types/doctorClub';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import InfoIcon from '@/assets/svg/newIcons/info';
+import { useState } from "react";
+import { SidePanelClubTab, SidePanelPageProps } from "../types/sidePanel";
+import SidePanelHeader from "../header";
+import Image from "next/image";
+import { clubTabsData } from "./tabs-data";
+import SidePanelClubHistory from "./history";
+import SidePanelClubDiscounts from "./discounts";
+import style from "./SidePanelClub.module.scss";
+import sidePanelStyle from "../sidePanel.module.scss";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "../types/modals";
+import SidePanelClubSingle from "./singleShow";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../api/Api";
+import Loading from "../loading";
+import { ClubOffer } from "../types/doctorClub";
+import { placeHolderDataUrl } from "../constants/placeHolderDataUrl";
+import InfoIcon from "../../assets/svg/info";
 
 const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { data, isLoading } = useQuery({
     queryFn: api.getUserClubInfo,
-    queryKey: ['user_club_info'],
+    queryKey: ["user_club_info"],
     retry: 1,
   });
 
@@ -31,7 +30,9 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const [singleOffer, setSingleOfferInfo] = useState<ClubOffer | null>(null);
 
   const onChangeTab = (content: SidePanelClubTab) => {
-    setTabData((prev) => prev.map((item) => ({ ...item, active: item.content === content })));
+    setTabData((prev) =>
+      prev.map((item) => ({ ...item, active: item.content === content }))
+    );
     setCurrentTab(content);
   };
 
@@ -46,7 +47,12 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
   };
 
   if (singleOffer) {
-    return <SidePanelClubSingle offer={singleOffer} onBack={() => setSingleOfferInfo(null)} />;
+    return (
+      <SidePanelClubSingle
+        offer={singleOffer}
+        onBack={() => setSingleOfferInfo(null)}
+      />
+    );
   }
 
   return (
@@ -81,7 +87,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
               {tabData.map(({ id, title, active, content }) => (
                 <li
                   key={id}
-                  className={active ? sidePanelStyle.active : ''}
+                  className={active ? sidePanelStyle.active : ""}
                   onClick={() => onChangeTab(content)}
                 >
                   {title}

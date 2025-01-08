@@ -1,6 +1,5 @@
-import { modalActions } from '@/states/modals';
-import style from './SidePanelSingleDesc.module.scss';
-import CopyCode from '@/assets/svg/copyCode';
+import { modalActions } from "@repo/core";
+import style from "./SidePanelSingleDesc.module.scss";
 interface Props {
   title: string;
   description: string;

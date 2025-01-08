@@ -2,6 +2,7 @@ import { Request } from "@repo/core";
 import { defaultBaseUrl, isServerSide } from "../src/constants/constants";
 import { toast } from "react-toastify";
 import {
+  AvatarList,
   LiveChatInformation,
   MessageItem,
   ShareToFriends,
@@ -69,6 +70,14 @@ class Api extends Request {
       province: data.province_id,
       city: data.city_id,
     });
+  };
+
+  getAvatarList = (): Promise<ResponseType<AvatarList>> => {
+    return this.request.get<AvatarList>("/user/avatar/list");
+  };
+
+  selectAvatar = (filename: string): Promise<any> => {
+    return this.request.post(`/user/avatar/select`, { filename });
   };
 
   // cart

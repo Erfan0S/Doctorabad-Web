@@ -1,6 +1,6 @@
-import { SidePanelPage, SidePanelPageProps } from "@/types/sidePanel";
+import { SidePanelPage, SidePanelPageProps } from "../types/sidePanel";
 import style from "./SidePanelHeader.module.scss";
-import BackIcon from "@/assets/svg/newIcons/back";
+import BackIcon from "../../assets/svg/back";
 
 interface Props extends Partial<SidePanelPageProps> {
   title: string;

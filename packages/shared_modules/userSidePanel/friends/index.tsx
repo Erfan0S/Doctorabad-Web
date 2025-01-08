@@ -1,15 +1,15 @@
-import { SidePanelPageProps } from '@/types/sidePanel';
-import SidePanelHeader from '../header';
-import style from './SidePanelFriends.module.scss';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
-import { copyText } from '@/utils/copyText';
+import { SidePanelPageProps } from "../types/sidePanel";
+import SidePanelHeader from "../header";
+import style from "./SidePanelFriends.module.scss";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../api/Api";
+import Loading from "../../userSidePanel/loading";
+import { copyText } from "../utils/copyText";
 
 const SidePanelFriends: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { isLoading, data } = useQuery({
     queryFn: api.shareInformation,
-    queryKey: ['share'],
+    queryKey: ["share"],
   });
 
   if (isLoading) return <Loading size={22} />;
@@ -25,7 +25,9 @@ const SidePanelFriends: React.FC<SidePanelPageProps> = ({ setPage }) => {
         <h4>{introduction_code}</h4>
         <div className={style.sidePanelFriendsMessage}>
           <textarea>{invite}</textarea>
-          <button onClick={() => copyText(invite, 'دعوتنامه کپی شد')}>اشتراک گذاری</button>
+          <button onClick={() => copyText(invite, "دعوتنامه کپی شد")}>
+            اشتراک گذاری
+          </button>
         </div>
       </div>
     </>
