@@ -14,7 +14,6 @@
   "dependencies": {
     "@neshan-maps-platform/mapbox-gl-react": "^1.0.0",
     "@repo/ui": "*",
-    "@tanstack/react-query": "^5.62.2",
     "@tanstack/react-query-devtools": "^5.14.6",
     "@zxing/browser": "^0.1.4",
     "classnames": "^2.5.1",

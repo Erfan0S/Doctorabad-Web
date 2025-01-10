@@ -21,7 +21,6 @@
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.62.12",
     "eslint": "^8.45.0",
     "eslint-config-next": "^13.4.10",
     "formik": "^2.4.6",
