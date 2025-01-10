@@ -9,6 +9,10 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
+  "paths": {
+    "@/*": ["./*"],
+    "src/*": ["./*"]
+  },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

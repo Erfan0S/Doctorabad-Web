@@ -554,6 +554,12 @@ class Api extends Request {
       { next: { revalidate: 36000 } }
     );
   }
+
+  getMagazinePosts(): Promise<ResponseType<{ data: BlogType[] }>> {
+    return this.request.get<{ data: BlogType[] }>("/user/shop/magazine/posts", {
+      next: { revalidate: 36000 },
+    });
+  }
 }
 
 export const api = new Api();

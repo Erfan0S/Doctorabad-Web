@@ -13,7 +13,7 @@ import ProfileAvatars from "./avatars";
 import { api } from "../../api/Api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import Loading from "../../common/loading";
+import Loading from "../../common/components/loading";
 import { profileValidation } from "../constants/validators/userValidator";
 
 import { toast } from "react-toastify";

@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { ModalProps } from '@/types/modals';
-import { SidePanelPage } from '@/types/sidePanel';
-import { sidePanelPageList } from './pageList';
-import { motion } from 'framer-motion';
-import styles from './sidePanel.module.scss';
-import { slideLeftAnimation } from '@/constants/animationConfigs';
-import Close from '@/assets/svg/close';
+"use client";
+import { useState } from "react";
+import { ModalProps } from "../common/types/modals";
+import { SidePanelPage } from "./types/sidePanel";
+import { sidePanelPageList } from "./pageList";
+import { motion } from "framer-motion";
+import styles from "./sidePanel.module.scss";
+import { slideLeftAnimation } from "../common/constants/animationConfigs";
 
 type Props = ModalProps<{ initialPage?: SidePanelPage }>;
 

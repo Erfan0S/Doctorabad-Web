@@ -1,7 +1,7 @@
 import { Field } from "formik";
 
 import style from "./SidePanelProfile.module.scss";
-import DatePickerInput from "../../common/DatePickerInput";
+import DatePickerInput from "../../common/components/DatePickerInput";
 import { FieldGradeSelection } from "./Field&GradeSelection";
 import { ProvinceCitySelection } from "./ProvinceCitySelection";
 

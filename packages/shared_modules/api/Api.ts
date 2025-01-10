@@ -1,5 +1,5 @@
 import { Request } from "@repo/core";
-import { defaultBaseUrl, isServerSide } from "../src/constants/constants";
+import { defaultBaseUrl, isServerSide } from "../common/constants/constants";
 import { toast } from "react-toastify";
 import {
   AvatarList,
@@ -10,7 +10,7 @@ import {
   User,
   VerifyPhoneInput,
 } from "../userSidePanel/types/user";
-import { ResponseType, SelectionItem } from "../src/types/general";
+import { ResponseType, SelectionItem } from "../common/types/general";
 import {
   CartResponse,
   CreateOrderRequest,
