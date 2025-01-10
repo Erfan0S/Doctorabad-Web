@@ -30,9 +30,11 @@ export interface ModalProps<D = any> {
 // this type throws error if ModalList is empty
 
 // @ts-ignore
-export type ModalData<T extends ModalTypes> = Parameters<
-  (typeof ModalsList)[T]
->["0"]["data"];
+// export type ModalData<T extends ModalTypes> = Parameters<
+//   (typeof ModalsList)[T]
+// >["0"]["data"];
+
+export type ModalData<T extends ModalTypes> = any;
 
 export type ModalList = {
   [key in ModalTypes]: React.FC<ModalProps>;

@@ -3,10 +3,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "ESNext",
-    "moduleResolution": "node",  // Ensure Node-style module resolution
+    "moduleResolution": "node", // Ensure Node-style module resolution
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
+    "jsx": "react"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

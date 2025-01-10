@@ -4,14 +4,17 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { lockPageScroll } from "../utils/lockPageScroll";
-import { modalActions, useModals } from "../states/modals";
+import { modalActions, useModals } from "./modals";
 import { useRouter } from "next/navigation";
-import { ModalsList } from "./modalsList";
 import styles from "./modal.module.scss";
 import { ModalProps } from "../types/modals";
 import { fadeInAnimation } from "../constants/animationConfigs";
 
-const ModalCreator = () => {
+type ModalCreatorProps = {
+  ModalsList: any;
+};
+
+const ModalCreator = ({ ModalsList }: ModalCreatorProps) => {
   const router = useRouter();
 
   const modals = useModals((s) => s.modals);
