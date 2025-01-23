@@ -1,6 +1,6 @@
-import { routePath } from '@/constants/routePath';
-import { purgeObjectFromFalsyValues } from './purgeObjectFromFalsyValues';
-import { isServerSide } from '@/constants/constants';
+import { routePath } from "@repo/core/constants";
+import { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
+import { isServerSide } from "@repo/core/constants";
 
 interface ParamsStringifyOptions {
   appendPrevSearchParams?: boolean;
@@ -10,11 +10,14 @@ interface ParamsStringifyOptions {
 
 export class SearchParamsUtils {
   static paramsToObject(search?: string) {
-    const searchParams = search || (!isServerSide ? window.location.search : '');
-    const startSearchParamsPosition = searchParams.indexOf('?');
+    const searchParams =
+      search || (!isServerSide ? window.location.search : "");
+    const startSearchParamsPosition = searchParams.indexOf("?");
 
     const queryParams = new URLSearchParams(
-      searchParams.slice(startSearchParamsPosition === -1 ? 0 : startSearchParamsPosition + 1)
+      searchParams.slice(
+        startSearchParamsPosition === -1 ? 0 : startSearchParamsPosition + 1
+      )
     );
 
     const queryObject: { [key: string]: string } = {};
@@ -28,16 +31,24 @@ export class SearchParamsUtils {
 
   static paramsStringify(
     qs: { [key: string]: any },
-    { appendPrevSearchParams, customPrevSearchParam, questionMarkPrefix }: ParamsStringifyOptions = {}
+    {
+      appendPrevSearchParams,
+      customPrevSearchParam,
+      questionMarkPrefix,
+    }: ParamsStringifyOptions = {}
   ) {
     const paramsObject = {
       ...(appendPrevSearchParams
-        ? SearchParamsUtils.paramsToObject(customPrevSearchParam ? customPrevSearchParam : undefined)
+        ? SearchParamsUtils.paramsToObject(
+            customPrevSearchParam ? customPrevSearchParam : undefined
+          )
         : {}),
       ...qs,
     };
 
-    let params = new URLSearchParams(purgeObjectFromFalsyValues(paramsObject, true)).toString();
+    let params = new URLSearchParams(
+      purgeObjectFromFalsyValues(paramsObject, true)
+    ).toString();
     if (questionMarkPrefix) params = `?${params}`;
 
     return params;
@@ -52,7 +63,10 @@ export const generateSingleProviderUrlFromId = (id: number) => {
   return `${routePath.archive}?provider=${id}`;
 };
 
-export const generateSingleProductUrlFromId = (id: number, slug: string = '') => {
+export const generateSingleProductUrlFromId = (
+  id: number,
+  slug: string = ""
+) => {
   return `/market/product/${id}/${slug}`;
 };
 

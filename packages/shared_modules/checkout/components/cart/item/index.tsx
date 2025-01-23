@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import style from "./CartItem.module.scss";
-import { priceFormatter } from "../../../utils/priceFormatter";
+import { priceFormatter } from "@repo/core/utils";
 import RecycleBin from "../../../../assets/svg/recycleBin";
 import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "../../../states/cart";
-import { placeHolderDataUrl } from "../../../constants/placeHolderDataUrl";
-import { Order } from "../../../types/cart";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { Order } from "@repo/core/types";
 import { generateSingleProductUrlFromId } from "../../../utils/UrlUtils";
 import React from "react";
 

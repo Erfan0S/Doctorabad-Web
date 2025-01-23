@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import style from "./OrderDetailItem.module.scss";
-import { priceFormatter } from "../../../utils/priceFormatter";
-import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
-import { placeHolderDataUrl } from "../../../constants/placeHolderDataUrl";
-import { Order } from "../../../types/cart";
-import { generateSingleProductUrlFromId } from "../../../utils/UrlUtils";
+import { priceFormatter } from "@repo/core/utils";
+import { calcDiscountPercentage } from "@repo/core/utils";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { Order } from "@repo/core/types";
+import { generateSingleProductUrlFromId } from "@repo/core/utils";
 import { modalActions } from "@repo/core";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";

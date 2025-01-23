@@ -1,12 +1,12 @@
-import Accordion from '@/components/app/accordion';
-import { priceFormatter } from '@/utils/priceFormatter';
-import Slider from 'rc-slider';
-import React, { useEffect, useState } from 'react';
-import 'rc-slider/assets/index.css';
-import style from '../ProductListFiltersFilters.module.scss';
-import useDebounceAction from '@/hooks/useDebounceAction';
-import { useChangeSearchParamsFilter } from '@/hooks/useChangeSearchParamsFilter';
-import { useSearchParams } from 'next/navigation';
+import Accordion from "@/components/app/accordion";
+import { priceFormatter } from "@repo/core/utils";
+import Slider from "rc-slider";
+import React, { useEffect, useState } from "react";
+import "rc-slider/assets/index.css";
+import style from "../ProductListFiltersFilters.module.scss";
+import useDebounceAction from "@/hooks/useDebounceAction";
+import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   priceRange: { min: number; max: number };
@@ -16,7 +16,7 @@ const PriceShow = ({ price }: { price: number }) => {
   return (
     <div>
       <span>{priceFormatter(price)}</span>
-      <span style={{ display: 'block' }}>تومان</span>
+      <span style={{ display: "block" }}>تومان</span>
     </div>
   );
 };
@@ -26,10 +26,13 @@ export const MinMaxPrice = ({ priceRange }: Props) => {
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const defaultMin = Number(searchParams.get('min_price'));
-  const defaultMax = Number(searchParams.get('max_price'));
+  const defaultMin = Number(searchParams.get("min_price"));
+  const defaultMax = Number(searchParams.get("max_price"));
 
-  const [values, setValues] = useState([defaultMin || priceRange.min, defaultMax || priceRange.max]);
+  const [values, setValues] = useState([
+    defaultMin || priceRange.min,
+    defaultMax || priceRange.max,
+  ]);
 
   const debounceSetFilters = useDebounceAction(([min, max]: number[]) => {
     changeFilters({ min_price: String(min), max_price: String(max) });

@@ -1,4 +1,4 @@
-import { ShippingAddress } from "../../types/cart";
+import { ShippingAddress } from "@repo/core/types";
 import style from "./AddAddress.module.scss";
 
 import { ErrorMessage, Field, Formik } from "formik";

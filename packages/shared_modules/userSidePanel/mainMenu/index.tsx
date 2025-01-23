@@ -8,7 +8,7 @@ import { api } from "../../api/Api";
 import SidePanelHeader from "../header";
 import Loading from "../loading";
 import avatarImage from "../../assets/img/avatars/01.png";
-import { priceFormatter } from "../utils/priceFormatter";
+import { priceFormatter } from "@repo/core/utils";
 import { modalActions } from "@repo/core";
 
 const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {

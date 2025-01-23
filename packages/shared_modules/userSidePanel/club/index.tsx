@@ -14,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import Loading from "../loading";
 import { ClubOffer } from "../types/doctorClub";
-import { placeHolderDataUrl } from "../constants/placeHolderDataUrl";
+import { placeHolderDataUrl } from "@repo/core/constants";
 import InfoIcon from "../../assets/svg/info";
 
 const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {

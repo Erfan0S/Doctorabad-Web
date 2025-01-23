@@ -1,16 +1,16 @@
-'use client';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
-import { sliderData } from './slider-data';
-import Link from 'next/link';
-import Image from 'next/image';
-import style from './MainSlider.module.scss';
-import 'swiper/css/pagination';
-import 'swiper/css';
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import { sliderData } from "./slider-data";
+import Link from "next/link";
+import Image from "next/image";
+import style from "./MainSlider.module.scss";
+import "swiper/css/pagination";
+import "swiper/css";
 
-import { Banner } from '@/types/banner';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { autoPlayConfig } from '@/constants/sliders';
+import { Banner } from "@/types/banner";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { autoPlayConfig } from "@/constants/sliders";
 
 type Props = {
   banners: Banner[];
@@ -31,7 +31,7 @@ const MainSlider = ({ banners }: Props) => {
           const ImageComponent = () => (
             <Image
               src={pic_url}
-              alt={title || 'Slider'}
+              alt={title || "Slider"}
               fill
               placeholder={placeHolderDataUrl}
               fetchPriority="high"

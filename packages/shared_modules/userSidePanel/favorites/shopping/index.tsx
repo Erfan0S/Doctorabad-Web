@@ -3,15 +3,15 @@ import style from "../learning/SidePanelFavoritesLearning.module.scss";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import { Product } from "../../types/product";
+import { Product } from "@repo/core/types";
 import Loading from "../../loading";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
 import { modalActions } from "@repo/core";
 import { useRouter } from "next/navigation";
-import { generateSingleProductUrlFromId } from "../../utils/UrlUtils";
-import { placeHolderDataUrl } from "../../constants/placeHolderDataUrl";
-import { priceFormatter } from "../../utils/priceFormatter";
+import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { priceFormatter } from "@repo/core/utils";
 import Link from "next/link";
 
 const SidePanelFavoritesShopping: React.FC = () => {

@@ -1,5 +1,5 @@
-import { Register } from '@/components/register';
+import { Register } from "@repo/shared_modules";
 
 export default function RegisterPage() {
-    return <Register />;
+  return <Register />;
 }

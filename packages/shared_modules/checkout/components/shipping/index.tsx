@@ -6,7 +6,7 @@ import { ModalTypes } from "@/types/modals";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../loading";
-import { ShippingAddress, ShippingMethod } from "../../types/cart";
+import { ShippingAddress, ShippingMethod } from "@repo/core/types";
 import React from "react";
 
 type Props = {

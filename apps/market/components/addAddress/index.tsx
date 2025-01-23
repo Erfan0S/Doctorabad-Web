@@ -1,11 +1,11 @@
-import { ShippingAddress } from "@/types/cart";
+import { ShippingAddress } from "@repo/core/types";
 import style from "./AddAddress.module.scss";
 
 import { ErrorMessage, Field, Formik } from "formik";
 import { ProvinceCitySelection } from "./ProvinceCitySelection";
 import Loading from "../common/loading";
 import { shippingAddressValidator } from "@/constants/validators/userValidator";
-import { isServerSide } from "@/constants/constants";
+import { isServerSide } from "@repo/core/constants";
 import { useLoadHeavyModule } from "@/hooks/useLoadHeavyModule";
 
 type Props = {

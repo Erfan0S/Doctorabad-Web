@@ -1,8 +1,8 @@
 import Image, { StaticImageData } from "next/image";
 import style from "./ShippingItem.module.scss";
-import { priceFormatter } from "@/utils/priceFormatter";
-import { ShippingMethod } from "@/types/cart";
-import { placeHolderDataUrl } from "@/constants/placeHolderDataUrl";
+import { priceFormatter } from "@repo/core/utils";
+import { ShippingMethod } from "@repo/core/types";
+import { placeHolderDataUrl } from "@repo/core/constants";
 import classNames from "classnames";
 import Loading from "@/components/common/loading";
 

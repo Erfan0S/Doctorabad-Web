@@ -1,10 +1,10 @@
 import { api } from "../../../api/Api";
-import { routePath } from "../../constants/routePath";
+import { routePath } from "@repo/core/constants";
 import { authorizedActionStorage } from "../../states/athorizedActionStorage";
 import { cartActions } from "../../states/cart";
 import { modalActions } from "@repo/core";
 import { RegisterStep, RegisterStepProps } from "../../types/register";
-import { setAuthCookie } from "../../utils/authUtils";
+import { setAuthCookie } from "@repo/core/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 

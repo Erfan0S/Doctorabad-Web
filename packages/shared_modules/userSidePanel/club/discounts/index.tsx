@@ -5,10 +5,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { ClubOffer } from "../../types/doctorClub";
 import React from "react";
-import { toFullPersianDateString } from "../../utils/toFullPersianDateString";
-import { copyText } from "../../utils/copyText";
+import { toFullPersianDateString } from "@repo/core/utils";
+import { copyText } from "@repo/core/utils";
 import Loading from "../../loading";
-import { placeHolderDataUrl } from "../../constants/placeHolderDataUrl";
+import { placeHolderDataUrl } from "@repo/core/constants";
 import InfiniteScroll from "react-infinite-scroller";
 
 type Props = {

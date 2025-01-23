@@ -4,13 +4,13 @@ import Image from "next/image";
 import clubImage from "../../../assets/img/club.png";
 import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
-import { priceFormatter } from "../../utils/priceFormatter";
+import { priceFormatter } from "@repo/core/utils";
 import { cartActions, useCart } from "../../states/cart";
 import {
   CreateOrderRequest,
   ShippingAddress,
   ShippingMethod,
-} from "../../types/cart";
+} from "@repo/core/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../loading";

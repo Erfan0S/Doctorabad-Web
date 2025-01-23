@@ -1,15 +1,15 @@
-import { api } from '@/api/Api';
-import { ShippingAddress } from '@/types/cart';
-import { useQuery } from '@tanstack/react-query';
-import { ErrorMessage, Field, useFormikContext } from 'formik';
-import React from 'react';
+import { api } from "@/api/Api";
+import { ShippingAddress } from "@repo/core/types";
+import { useQuery } from "@tanstack/react-query";
+import { ErrorMessage, Field, useFormikContext } from "formik";
+import React from "react";
 
 export const ProvinceCitySelection = () => {
   const { values } = useFormikContext<ShippingAddress>();
 
   const { data: province, isLoading: provincesLoading } = useQuery({
     queryFn: api.getProvincesList,
-    queryKey: ['provinces'],
+    queryKey: ["provinces"],
     staleTime: Infinity,
   });
 
@@ -19,12 +19,13 @@ export const ProvinceCitySelection = () => {
     fetchStatus,
   } = useQuery({
     queryFn: () => api.getTopinCitiesList(Number(values.province_id)),
-    queryKey: ['provinces', values.province_id],
+    queryKey: ["provinces", values.province_id],
     enabled: !!values.province_id,
     staleTime: Infinity,
   });
 
-  const waitingToSelectProvince = fetchStatus === 'idle' && !cities?.data.data.length;
+  const waitingToSelectProvince =
+    fetchStatus === "idle" && !cities?.data.data.length;
 
   return (
     <>
@@ -52,7 +53,10 @@ export const ProvinceCitySelection = () => {
         </Field>
         <ErrorMessage name="province_id" component="p" />
       </div>
-      <div className="col-lg-6" key={String(citiesLoading || waitingToSelectProvince)}>
+      <div
+        className="col-lg-6"
+        key={String(citiesLoading || waitingToSelectProvince)}
+      >
         <label>شهر</label>
         <Field
           as="select"
@@ -69,7 +73,11 @@ export const ProvinceCitySelection = () => {
             <>
               <option value="">شهر را انتخاب کنید</option>
               {cities?.data.data.map((p) => (
-                <option key={p.id} value={p.id} selected={String(p.id) === String(values.city_id)}>
+                <option
+                  key={p.id}
+                  value={p.id}
+                  selected={String(p.id) === String(values.city_id)}
+                >
                   {p.title}
                 </option>
               ))}

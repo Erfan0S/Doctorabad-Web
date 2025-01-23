@@ -1,17 +1,17 @@
-'use client';
-import React, { useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
+"use client";
+import React, { useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 
-import Product from '@/components/common/product';
-import { Product as ProductType } from '@/types/product';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import Product from "@/components/common/product";
+import { Product as ProductType } from "@repo/core/types";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { useParams } from 'next/navigation';
-import { purgeObjectFromFalsyValues } from '@/utils/purgeObjectFromFalsyValues';
-import ArchiveEmptyState from '../emptyState';
-import { useGetProductListConfig } from '@/hooks/useGetProductListConfig';
-import Loading from '@/components/common/loading';
-import style from './ProductList.module.scss';
+import { useParams } from "next/navigation";
+import { purgeObjectFromFalsyValues } from "@repo/core/utils";
+import ArchiveEmptyState from "../emptyState";
+import { useGetProductListConfig } from "@/hooks/useGetProductListConfig";
+import Loading from "@/components/common/loading";
+import style from "./ProductList.module.scss";
 
 interface Props {
   hasFilterSideBar?: boolean;
@@ -22,14 +22,16 @@ const ProductList = ({ hasFilterSideBar = false }: Props) => {
 
   const { params, queryFn } = useGetProductListConfig();
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<{ data: ProductType[] }>({
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<{
+    data: ProductType[];
+  }>({
     queryKey: [type, params],
     initialPageParam: 1,
     staleTime: Infinity,
     queryFn: ({ pageParam }) =>
       queryFn({
         page: String(pageParam),
-        limit: '9',
+        limit: "9",
         ...purgeObjectFromFalsyValues(params),
       }).then((res) => {
         return res.data;
@@ -66,7 +68,10 @@ const ProductList = ({ hasFilterSideBar = false }: Props) => {
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.data.map((product) => (
-              <div key={product.id} className={`col-lg-4 col-sm-6 ${!hasFilterSideBar ? 'col-xl-3' : ''}`}>
+              <div
+                key={product.id}
+                className={`col-lg-4 col-sm-6 ${!hasFilterSideBar ? "col-xl-3" : ""}`}
+              >
                 <Product gridView {...product} />
               </div>
             ))}

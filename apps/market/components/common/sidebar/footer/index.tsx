@@ -2,20 +2,16 @@
 
 import style from "../Sidebar.module.scss";
 import Image from "next/image";
-import home from "@/assets/img/home.png";
-import chat from "@/assets/img/chat.png";
 import coin from "@/assets/img/coin.png";
-import qrScanner from "@/assets/img/qr-scanner.png";
 import { modalActions } from "@repo/core";
 import { ModalTypes } from "@/types/modals";
-import { authorizeClientAction, isUserLoggedIn } from "@/utils/authUtils";
+import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
-import { SidePanelPage } from "@/types/sidePanel";
+import { SidePanelPage } from "@repo/core/types";
 import HomeIcon from "@/assets/svg/newIcons/home";
 import ChatIcon from "@/assets/svg/newIcons/chat";
 import QrScannerIcon from "@/assets/svg/newIcons/qrScanner";
-import CoinIcon from "@/assets/svg/newIcons/coin";
 import { ModalsList } from "../../modal/modalsList";
 
 const SidebarFooter = () => {

@@ -1,19 +1,23 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import clubImage from '@/assets/img/club.png';
-import coinIcon from '@/assets/img/coin.png';
-import style from './Pay.module.scss';
-import { priceFormatter } from '@/utils/priceFormatter';
-import { cartActions, useCart } from '@/states/cart';
-import { CreateOrderRequest, ShippingAddress, ShippingMethod } from '@/types/cart';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '@/components/common/loading';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
-import { routePath } from '@/constants/routePath';
-import OptionSwitch from '@/components/common/optionSwithch';
+"use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import clubImage from "@/assets/img/club.png";
+import coinIcon from "@/assets/img/coin.png";
+import style from "./Pay.module.scss";
+import { priceFormatter } from "@repo/core/utils";
+import { cartActions, useCart } from "@/states/cart";
+import {
+  CreateOrderRequest,
+  ShippingAddress,
+  ShippingMethod,
+} from "@repo/core/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { api } from "@/api/Api";
+import Loading from "@/components/common/loading";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { routePath } from "@repo/core/constants";
+import OptionSwitch from "@/components/common/optionSwithch";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;
@@ -25,8 +29,8 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
 
   const { coins, my_profit, count, user_credit, price_paid } = useCart();
 
-  const [discountCode, setDiscountCode] = useState('');
-  const [description, setDescription] = useState('');
+  const [discountCode, setDiscountCode] = useState("");
+  const [description, setDescription] = useState("");
 
   const [payWithCredit, setPayWithCredit] = useState(false);
 
@@ -35,10 +39,10 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
     data: discountInfo,
     isLoading: discountLoading,
   } = useQuery({
-    queryKey: ['discount', discountCode],
+    queryKey: ["discount", discountCode],
     queryFn: () => {
       return api.checkDiscountCode(discountCode).then((res) => {
-        toast('کد تخفیف اعمال شد', { type: 'success', position: 'top-left' });
+        toast("کد تخفیف اعمال شد", { type: "success", position: "top-left" });
         return res;
       });
     },
@@ -53,13 +57,15 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
     onSuccess: (data) => {
       if (data.data.data.identifier) {
         cartActions.getCartData();
-        replace(`${routePath.callback}?identifier=${data.data.data.identifier}`);
+        replace(
+          `${routePath.callback}?identifier=${data.data.data.identifier}`
+        );
       }
 
       const { message, url } = data.data.data!;
 
-      toast(message, { type: 'success', position: 'top-left' });
-      window.open(url, '_self');
+      toast(message, { type: "success", position: "top-left" });
+      window.open(url, "_self");
     },
     onError: (error: any) => {
       if (error?.status === 422) {
@@ -75,9 +81,13 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
   };
 
   const onCreateOrder = () => {
-    if (!count) return toast('سبدخرید خالی است', { type: 'error', position: 'top-left' });
+    if (!count)
+      return toast("سبدخرید خالی است", { type: "error", position: "top-left" });
     if (!shippingMethod)
-      return toast('ابتدا نوع تحویل محصول را انتخاب کنید', { type: 'error', position: 'top-left' });
+      return toast("ابتدا نوع تحویل محصول را انتخاب کنید", {
+        type: "error",
+        position: "top-left",
+      });
 
     const request: CreateOrderRequest = {
       shipping_method_id: shippingMethod.id,
@@ -125,7 +135,9 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [discountCode]);
 
-  const finalPrice = (shippingMethod?.price || 0) + (discountInfo?.data.price_paid || price_paid);
+  const finalPrice =
+    (shippingMethod?.price || 0) +
+    (discountInfo?.data.price_paid || price_paid);
 
   return (
     <div className={style.pay}>
@@ -135,7 +147,8 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
       <div className={style.payClub}>
         <Image src={clubImage} alt="Club" />
         <p>
-          با تکمیل این سفارش {coins} <Image width={20} height={20} src={coinIcon} alt="coin" /> میگیرم!
+          با تکمیل این سفارش {coins}{" "}
+          <Image width={20} height={20} src={coinIcon} alt="coin" /> میگیرم!
         </p>
       </div>
       <div className={style.payDetail}>
@@ -172,7 +185,7 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
             activeSwitchComponent={descriptionInput}
             id="description"
             onToggle={(state) => {
-              state || setDescription('');
+              state || setDescription("");
             }}
           />
           <OptionSwitch
@@ -180,7 +193,7 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
             activeSwitchComponent={discountInput}
             id="discount"
             onToggle={(state) => {
-              state || setDiscountCode('');
+              state || setDiscountCode("");
             }}
           />
           {!!user_credit && (
@@ -195,7 +208,7 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
       {payWithCredit && (
         <>
           <div className={style.paySumPrice}>
-            <span style={{ textDecoration: 'line-through', color: '#000' }}>
+            <span style={{ textDecoration: "line-through", color: "#000" }}>
               {priceFormatter(price_paid)} تومن
             </span>
           </div>
@@ -209,12 +222,20 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
       )}
       <div className={style.paySumPrice}>
         <span>
-          قابل پرداخت: {priceFormatter(Math.max(finalPrice - (payWithCredit ? user_credit : 0), 0))} تومن
+          قابل پرداخت:{" "}
+          {priceFormatter(
+            Math.max(finalPrice - (payWithCredit ? user_credit : 0), 0)
+          )}{" "}
+          تومن
         </span>
       </div>
       <div className={style.payButton}>
         <button disabled={createOrder.isPending} onClick={onCreateOrder}>
-          {createOrder.isPending ? <Loading size={25} /> : 'پرداخت و نهایی کردن سفارش'}
+          {createOrder.isPending ? (
+            <Loading size={25} />
+          ) : (
+            "پرداخت و نهایی کردن سفارش"
+          )}
         </button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { api } from "../../api/Api";
-import { ShippingAddress } from "../types/cart";
+import { ShippingAddress } from "@repo/core/types";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, useFormikContext } from "formik";
 import React from "react";

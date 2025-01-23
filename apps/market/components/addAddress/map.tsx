@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { MapComponent, MapTypes } from '@neshan-maps-platform/mapbox-gl-react';
-import nmp_mapboxgl from '@neshan-maps-platform/mapbox-gl';
+import { MapComponent, MapTypes } from "@neshan-maps-platform/mapbox-gl-react";
+import nmp_mapboxgl from "@neshan-maps-platform/mapbox-gl";
 
-import '@neshan-maps-platform/mapbox-gl-react/dist/style.css';
-import { useEffect, useRef, useState } from 'react';
-import { isServerSide } from '@/constants/constants';
-import { ErrorMessage, useFormikContext } from 'formik';
-import { ShippingAddress } from '@/types/cart';
+import "@neshan-maps-platform/mapbox-gl-react/dist/style.css";
+import { useEffect, useRef, useState } from "react";
+import { isServerSide } from "@repo/core/constants";
+import { ErrorMessage, useFormikContext } from "formik";
+import { ShippingAddress } from "@repo/core/types";
 
 const Map = () => {
   const { setValues, values } = useFormikContext<ShippingAddress>();
@@ -17,7 +17,9 @@ const Map = () => {
 
   useEffect(() => {
     const addMarker = (lat: number, lng: number) => {
-      let marker = new nmp_mapboxgl.Marker().setLngLat([lng, lat]).addTo(mapInstance);
+      let marker = new nmp_mapboxgl.Marker()
+        .setLngLat([lng, lat])
+        .addTo(mapInstance);
       if (prevMarker.current) prevMarker.current.remove();
       prevMarker.current = marker;
     };
@@ -37,7 +39,7 @@ const Map = () => {
       if (values.latitude && values.longitude) {
         addMarker(values.latitude, values.longitude);
       }
-      mapInstance.on('click', (event: any) => {
+      mapInstance.on("click", (event: any) => {
         const { lat, lng } = event.lngLat;
 
         // @ts-ignore
@@ -58,12 +60,14 @@ const Map = () => {
           setMapInstance(e);
         }}
         options={{
-          mapKey: 'web.25bd3d6c30ff4cf8a8171283624126f2',
-          mapTypeControllerOptions: { show: false, position: 'bottom-left' },
+          mapKey: "web.25bd3d6c30ff4cf8a8171283624126f2",
+          mapTypeControllerOptions: { show: false, position: "bottom-left" },
           mapType: MapTypes.neshanRaster,
           zoom: 15,
           center:
-            values.latitude && values.longitude ? [values.longitude, values.latitude] : [51.3347, 35.7219],
+            values.latitude && values.longitude
+              ? [values.longitude, values.latitude]
+              : [51.3347, 35.7219],
         }}
       />
     </>

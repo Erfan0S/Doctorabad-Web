@@ -5,7 +5,8 @@
   "private": true,
   "exports": {
     ".": "./index.ts",
-    "./icons": "./assets/index.ts"
+    "./icons": "./assets/index.ts",
+    "./api": "./api/Api.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -24,7 +25,6 @@
     "eslint": "^8.45.0",
     "eslint-config-next": "^13.4.10",
     "formik": "^2.4.6",
-    "framer-motion": "^11.16.4",
     "next": "^14.1.0",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",

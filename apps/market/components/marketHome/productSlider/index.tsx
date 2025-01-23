@@ -1,12 +1,12 @@
-'use client';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
-import style from './ProductSlider.module.scss';
-import Link from 'next/link';
-import { ProductCard } from '@/types/product';
-import Product from '@/components/common/product';
-import 'swiper/css';
-import { autoPlayConfig, swiperBreakpoints } from '@/constants/sliders';
-import { Autoplay } from 'swiper/modules';
+"use client";
+import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
+import style from "./ProductSlider.module.scss";
+import Link from "next/link";
+import { ProductCard } from "@repo/core/types";
+import Product from "@/components/common/product";
+import "swiper/css";
+import { autoPlayConfig, swiperBreakpoints } from "@/constants/sliders";
+import { Autoplay } from "swiper/modules";
 
 interface Props {
   data: ProductCard[];
@@ -21,9 +21,7 @@ const ProductSlider: React.FC<Props> = ({
   archiveLink = undefined,
   customSliderConfig = {},
 }) => {
-
-if(!data.length) return null;
-
+  if (!data.length) return null;
 
   return (
     <section className={style.productSlider}>
@@ -49,7 +47,7 @@ if(!data.length) return null;
             modules={[Autoplay]}
             autoplay={autoPlayConfig}
             spaceBetween={30}
-            slidesPerView={'auto'}
+            slidesPerView={"auto"}
             speed={700}
             breakpoints={swiperBreakpoints}
             loop

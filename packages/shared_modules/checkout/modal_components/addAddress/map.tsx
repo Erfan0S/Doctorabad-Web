@@ -7,7 +7,7 @@ import "@neshan-maps-platform/mapbox-gl-react/dist/style.css";
 import { useEffect, useRef, useState } from "react";
 import { isServerSide } from "../../constants/constants";
 import { useFormikContext } from "formik";
-import { ShippingAddress } from "../../types/cart";
+import { ShippingAddress } from "@repo/core/types";
 
 const Map = () => {
   const { setValues, values } = useFormikContext<ShippingAddress>();

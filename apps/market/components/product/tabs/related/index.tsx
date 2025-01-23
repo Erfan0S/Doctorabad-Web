@@ -1,6 +1,6 @@
-import { Product } from '@/types/product';
-import ProductSlider from '@/components/marketHome/productSlider';
-import { relatedSliderBreakpoints } from '@/constants/sliders';
+import { Product } from "@repo/core/types";
+import ProductSlider from "@/components/marketHome/productSlider";
+import { relatedSliderBreakpoints } from "@/constants/sliders";
 interface Props {
   relatedProducts: Product[];
 }

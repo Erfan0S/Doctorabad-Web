@@ -3,13 +3,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { lockPageScroll } from "@/utils/lockPageScroll";
+import { lockPageScroll } from "@repo/core/utils";
 import { modalActions, useModals } from "@/states/modals";
 import { useRouter } from "next/navigation";
 import { ModalsList } from "./modalsList";
 import styles from "./modal.module.scss";
 import { ModalProps } from "@/types/modals";
-import { fadeInAnimation } from "@/constants/animationConfigs";
+import { fadeInAnimation } from "@repo/core/constants";
 
 const ModalCreator = () => {
   const router = useRouter();

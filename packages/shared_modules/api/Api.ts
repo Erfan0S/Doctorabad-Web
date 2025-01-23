@@ -9,8 +9,8 @@ import {
   SingleMessage,
   User,
   VerifyPhoneInput,
-} from "../userSidePanel/types/user";
-import { ResponseType, SelectionItem } from "../common/types/general";
+} from "@repo/core/types";
+import { ResponseType, SelectionItem } from "@repo/core/types";
 import {
   CartResponse,
   CreateOrderRequest,
@@ -19,17 +19,17 @@ import {
   PaymentResult,
   ShippingAddress,
   ShippingMethod,
-} from "../checkout/types/cart";
-import { ProductVariantsValue } from "../checkout/types/productVariants";
+} from "@repo/core/types";
+import { ProductVariantsValue } from "@repo/core/types";
 import { LastProcessingOrder, PreviousOrder } from "../checkout/types/orders";
-import { Product } from "../checkout/types/product";
+import { Product } from "@repo/core/types";
 import {
   BuyOfferResponse,
   ClubOffer,
   ClubTransaction,
   HelpText,
-  UserClubInfo,
 } from "../userSidePanel/types/doctorClub";
+import { UserClubInfo } from "@repo/core/types";
 import { BookContents } from "../userSidePanel/types/bookContents";
 
 class Api extends Request {

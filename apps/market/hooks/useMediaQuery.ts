@@ -1,5 +1,5 @@
-import { isServerSide } from '@/constants/constants';
-import { useEffect, useRef, useState } from 'react';
+import { isServerSide } from "@repo/core/constants";
+import { useEffect, useRef, useState } from "react";
 
 type Query = string | { min: number; max: number };
 
@@ -7,7 +7,7 @@ export const useMediaQuery = (query: Query) => {
   const mediaQuery = useRef(
     !isServerSide
       ? window.matchMedia(
-          typeof query === 'string'
+          typeof query === "string"
             ? `(${query})`
             : `(min-width:${query.min}px) and (max-width:${query.max}px)`
         )
@@ -20,8 +20,8 @@ export const useMediaQuery = (query: Query) => {
       const listener = (e: MediaQueryListEvent) => {
         setMatch(e.matches);
       };
-      mediaQuery.addEventListener('change', listener);
-      return () => mediaQuery.removeEventListener('change', listener);
+      mediaQuery.addEventListener("change", listener);
+      return () => mediaQuery.removeEventListener("change", listener);
     }
   }, [mediaQuery]);
 

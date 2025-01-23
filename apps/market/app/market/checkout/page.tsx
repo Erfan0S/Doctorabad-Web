@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { api } from '@/api/Api';
-import Cart from '@/components/checkout/cart';
-import Pay from '@/components/checkout/pay';
-import Shipping from '@/components/checkout/shipping';
-import { useCart } from '@/states/cart';
-import { ShippingMethod } from '@/types/cart';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { api } from "@/api/Api";
+import Cart from "@/components/checkout/cart";
+import Pay from "@/components/checkout/pay";
+import Shipping from "@/components/checkout/shipping";
+import { useCart } from "@/states/cart";
+import { ShippingMethod } from "@repo/core/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function CheckoutPage() {
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
-    queryKey: ['addressList'],
+    queryKey: ["addressList"],
   });
 
   const { data: cartItems } = useCart();
@@ -22,7 +22,10 @@ export default function CheckoutPage() {
 
   const shippingMutation = useMutation({
     mutationFn: (data: ShippingMethod) => {
-      return api.selectShippingMethod({ shipping_method_id: data.id, address_id: addressData!.id });
+      return api.selectShippingMethod({
+        shipping_method_id: data.id,
+        address_id: addressData!.id,
+      });
     },
     retry: 0,
     onSuccess: (resp, data: ShippingMethod) => {
@@ -33,15 +36,22 @@ export default function CheckoutPage() {
     },
   });
 
-  const [currentShippingMethod, setCurrentShippingMethod] = useState<ShippingMethod | undefined>();
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState<ShippingMethod | undefined>();
+  const [currentShippingMethod, setCurrentShippingMethod] = useState<
+    ShippingMethod | undefined
+  >();
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState<
+    ShippingMethod | undefined
+  >();
 
   const onChangeShippingMethod = (method: ShippingMethod) => {
     if (addressData && addressData.mobile && addressData.address) {
       setSelectedShippingMethod(method);
       shippingMutation.mutate(method);
     } else {
-      toast('لطفا ابتدا آدرس خود را تکمیل کنید', { type: 'error', position: 'top-left' });
+      toast("لطفا ابتدا آدرس خود را تکمیل کنید", {
+        type: "error",
+        position: "top-left",
+      });
     }
   };
   3;
@@ -67,7 +77,10 @@ export default function CheckoutPage() {
         />
       </div>
       <div className="col-xl-4">
-        <Pay shippingMethod={currentShippingMethod} currentAddress={addressData} />
+        <Pay
+          shippingMethod={currentShippingMethod}
+          currentAddress={addressData}
+        />
       </div>
     </div>
   );

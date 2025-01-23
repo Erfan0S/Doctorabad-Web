@@ -1,7 +1,7 @@
 import { modalActions } from "@repo/core";
 import style from "./SidePanelSingleGetCode.module.scss";
 import CopyCode from "../../../assets/svg/copyCode";
-import { copyText } from "../../utils/copyText";
+import { copyText } from "@repo/core/utils";
 interface Props {
   title: string;
   code: string;

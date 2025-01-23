@@ -2,13 +2,6 @@ export interface HelpText {
   help_text: string;
 }
 
-export interface UserClubInfo {
-  user_coin: number;
-  club_state_id: number;
-  club_state_title: string;
-  club_state_pic_url: string;
-}
-
 export enum OfferType {
   DISCOUNT = 1,
   CHARITY = 2,

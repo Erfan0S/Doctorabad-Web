@@ -2,14 +2,14 @@ import style from "../learning/SidePanelOrdersLearning.module.scss";
 import Basket from "../../../assets/svg/basket";
 import Clock from "../../../assets/svg/clock";
 import Dollar from "../../../assets/svg/dollar";
-import { priceFormatter } from "../../utils/priceFormatter";
+import { priceFormatter } from "@repo/core/utils";
 import { PreviousOrder } from "../../types/orders";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../loading";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
-import { toFullPersianDateString } from "../../utils/toFullPersianDateString";
+import { toFullPersianDateString } from "@repo/core/utils";
 import { modalActions } from "@repo/core";
 import { ModalTypes } from "../../types/modals";
 

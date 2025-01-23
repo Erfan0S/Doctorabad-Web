@@ -3,7 +3,7 @@ import style from "./SidePanelProfile.module.scss";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import { UserAvatar } from "../types/user";
-import { placeHolderDataUrl } from "../constants/placeHolderDataUrl";
+import { placeHolderDataUrl } from "@repo/core/constants";
 
 interface Props {
   onAvatarSelect: (data: UserAvatar) => void;

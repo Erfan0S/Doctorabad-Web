@@ -1,45 +1,48 @@
-'use client';
+"use client";
 
-import { api } from '@/api/Api';
-import { LazyDataLoader } from '../common/lazyDataLoader';
-import ProductsPlaceholeder from '../marketHome/productsPlaceholder';
-import { routePath } from '@/constants/routePath';
-import ProductSlider from '../marketHome/productSlider';
-import { Product } from '@/types/product';
-import { ResponseType } from '@/types/general';
+import { api } from "@/api/Api";
+import { LazyDataLoader } from "../common/lazyDataLoader";
+import ProductsPlaceholeder from "../marketHome/productsPlaceholder";
+import { routePath } from "@repo/core/constants";
+import ProductSlider from "../marketHome/productSlider";
+import { Product } from "@repo/core/types";
+import { ResponseType } from "@repo/core/types";
 
 type Props = {
-  type: 'suggested' | 'bestSelling' | 'newest' | 'lastSeen';
+  type: "suggested" | "bestSelling" | "newest" | "lastSeen";
 };
 
 export const HomePageProductSliders = ({ type }: Props) => {
   const configs = {
     bestSelling: {
-      loader: () => api.getBesSellingProductList({ limit: '10', page: '1' }),
-      title: 'پرفروشترین محصولات',
+      loader: () => api.getBesSellingProductList({ limit: "10", page: "1" }),
+      title: "پرفروشترین محصولات",
       archiveLink: routePath.bestsellingProducts,
-      queryKey: 'bestSellingsList',
+      queryKey: "bestSellingsList",
     },
     newest: {
-      loader: () => api.getNewestProductList({ page: '1', limit: '10' }),
-      title: 'جدیدترین محصولات',
+      loader: () => api.getNewestProductList({ page: "1", limit: "10" }),
+      title: "جدیدترین محصولات",
       archiveLink: routePath.newestProducts,
-      queryKey: 'newestList',
+      queryKey: "newestList",
     },
     lastSeen: {
       loader: () =>
-        api
-          .getLastSeenProductList({ limit: '10', page: '1' })
-          .catch(() => ({ data: { data: [] } } as unknown as ResponseType<{ data: Product[] }>)),
-      title: 'بازدیدهای‌‌من',
+        api.getLastSeenProductList({ limit: "10", page: "1" }).catch(
+          () =>
+            ({ data: { data: [] } }) as unknown as ResponseType<{
+              data: Product[];
+            }>
+        ),
+      title: "بازدیدهای‌‌من",
       archiveLink: undefined,
-      queryKey: 'lastSeenList',
+      queryKey: "lastSeenList",
     },
     suggested: {
-      loader: () => api.getSuggestedProductList({ page: '1', limit: '10' }),
-      title: 'پیشنهادکدخدای‌دکترآباد',
+      loader: () => api.getSuggestedProductList({ page: "1", limit: "10" }),
+      title: "پیشنهادکدخدای‌دکترآباد",
       archiveLink: routePath.suggestedProducts,
-      queryKey: 'suggestedList',
+      queryKey: "suggestedList",
     },
   };
 

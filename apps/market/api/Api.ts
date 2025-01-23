@@ -1,21 +1,13 @@
 import { CategoryList } from "@/types/category";
 import { Request } from "@repo/core";
-import {
-  AvatarList,
-  LiveChatInformation,
-  MessageItem,
-  ShareToFriends,
-  SingleMessage,
-  User,
-  VerifyPhoneInput,
-} from "@/types/user";
+import { User, VerifyPhoneInput } from "@repo/core/types";
 import { ProvidersList } from "@/types/providers";
 import {
   PaginatedRequest,
   PaginatedResponse,
   ResponseType,
   SelectionItem,
-} from "@/types/general";
+} from "@repo/core/types";
 import {
   ProductListOptions,
   Product,
@@ -23,7 +15,7 @@ import {
   AmazingProduct,
   ProductComments,
   ProductShare,
-} from "@/types/product";
+} from "@repo/core/types";
 import {
   CartResponse,
   CreateOrderRequest,
@@ -32,22 +24,16 @@ import {
   PaymentResult,
   ShippingAddress,
   ShippingMethod,
-} from "@/types/cart";
+} from "@repo/core/types";
 import { Banner } from "@/types/banner";
-import { LastProcessingOrder, PreviousOrder } from "@/types/orders";
+import { LastProcessingOrder } from "@/types/orders";
 import { FestivalInfo } from "@/types/festival";
-import {
-  BuyOfferResponse,
-  ClubOffer,
-  ClubTransaction,
-  HelpText,
-  UserClubInfo,
-} from "@/types/doctorClub";
+import { UserClubInfo } from "@repo/core/types";
 import { BookContents } from "@/types/bookContents";
 import { HomeStatisticsType } from "@/types/homeStatistics";
 import { BlogType } from "@/types/blog";
-import { ProductVariantsValue } from "@/types/productVariants";
-import { defaultBaseUrl, isServerSide } from "@/constants/constants";
+import { ProductVariantsValue } from "@repo/core/types";
+import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
 import { toast } from "react-toastify";
 
 class Api extends Request {
@@ -72,23 +58,23 @@ class Api extends Request {
     return this.request.post<User>("/user", data);
   }
 
-  logout(): Promise<any> {
-    return this.request.get("/user/logout");
-  }
+  // logout(): Promise<any> {
+  //   return this.request.get("/user/logout");
+  // }
 
-  getUser = (): Promise<ResponseType<{ data: User }>> => {
-    return this.request.get<{ data: User }>("/user");
-  };
+  // getUser = (): Promise<ResponseType<{ data: User }>> => {
+  //   return this.request.get<{ data: User }>("/user");
+  // };
 
-  updateUser = (data: Partial<User>): Promise<any> => {
-    return this.request.put("/user", {
-      ...data,
-      grade: data.grade_id,
-      field: data.field_id,
-      province: data.province_id,
-      city: data.city_id,
-    });
-  };
+  // updateUser = (data: Partial<User>): Promise<any> => {
+  //   return this.request.put("/user", {
+  //     ...data,
+  //     grade: data.grade_id,
+  //     field: data.field_id,
+  //     province: data.province_id,
+  //     city: data.city_id,
+  //   });
+  // };
 
   // categories
   getCategoriesList(): Promise<ResponseType<CategoryList>> {
@@ -233,21 +219,21 @@ class Api extends Request {
     );
   }
 
-  getAvatarList = (): Promise<ResponseType<AvatarList>> => {
-    return this.request.get<AvatarList>("/user/avatar/list");
-  };
+  // getAvatarList = (): Promise<ResponseType<AvatarList>> => {
+  //   return this.request.get<AvatarList>("/user/avatar/list");
+  // };
 
-  selectAvatar = (filename: string): Promise<any> => {
-    return this.request.post(`/user/avatar/select`, { filename });
-  };
+  // selectAvatar = (filename: string): Promise<any> => {
+  //   return this.request.post(`/user/avatar/select`, { filename });
+  // };
 
-  addToFavorite = (id: number): Promise<any> => {
-    return this.request.post(`/user/shop/favorite`, { id });
-  };
+  // addToFavorite = (id: number): Promise<any> => {
+  //   return this.request.post(`/user/shop/favorite`, { id });
+  // };
 
-  removeFromFavorite = (id: number): Promise<any> => {
-    return this.request.delete(`/user/shop/favorite/${id}`);
-  };
+  // removeFromFavorite = (id: number): Promise<any> => {
+  //   return this.request.delete(`/user/shop/favorite/${id}`);
+  // };
 
   // cart
   getCartList(): Promise<ResponseType<CartResponse>> {
@@ -294,13 +280,13 @@ class Api extends Request {
     return this.request.get<{ data: SelectionItem[] }>("/user/find/provinces");
   };
 
-  getCitiesList = (
-    provinceId: number
-  ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-    return this.request.post<{ data: SelectionItem[] }>("/user/find/cities", {
-      province_id: provinceId,
-    });
-  };
+  // getCitiesList = (
+  //   provinceId: number
+  // ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
+  //   return this.request.post<{ data: SelectionItem[] }>("/user/find/cities", {
+  //     province_id: provinceId,
+  //   });
+  // };
 
   getTopinCitiesList = (
     provinceId: number
@@ -397,21 +383,21 @@ class Api extends Request {
   }
 
   // account
-  getMessageList = (
-    page: number
-  ): Promise<ResponseType<{ data: MessageItem[] }>> => {
-    return this.request.get<{ data: MessageItem[] }>(
-      `/user/message?page=${page}`
-    );
-  };
+  // getMessageList = (
+  //   page: number
+  // ): Promise<ResponseType<{ data: MessageItem[] }>> => {
+  //   return this.request.get<{ data: MessageItem[] }>(
+  //     `/user/message?page=${page}`
+  //   );
+  // };
 
-  getSingleMessage = (
-    id: number
-  ): Promise<ResponseType<{ data: SingleMessage }>> => {
-    return this.request.get<{ data: SingleMessage }>(
-      `/user/message/show/${id}`
-    );
-  };
+  // getSingleMessage = (
+  //   id: number
+  // ): Promise<ResponseType<{ data: SingleMessage }>> => {
+  //   return this.request.get<{ data: SingleMessage }>(
+  //     `/user/message/show/${id}`
+  //   );
+  // };
 
   getMessagesCount = (): Promise<
     ResponseType<{ data: { counter: number } }>
@@ -421,25 +407,25 @@ class Api extends Request {
     );
   };
 
-  shareInformation = (): Promise<ResponseType<{ data: ShareToFriends }>> => {
-    return this.request.get<{ data: ShareToFriends }>(`/user/share`);
-  };
+  // shareInformation = (): Promise<ResponseType<{ data: ShareToFriends }>> => {
+  //   return this.request.get<{ data: ShareToFriends }>(`/user/share`);
+  // };
 
-  getOrdersList = (
-    page: number
-  ): Promise<ResponseType<{ data: PreviousOrder[] }>> => {
-    return this.request.get<{ data: PreviousOrder[] }>(
-      `/user/shop/order/list?page=${page}`
-    );
-  };
+  // getOrdersList = (
+  //   page: number
+  // ): Promise<ResponseType<{ data: PreviousOrder[] }>> => {
+  //   return this.request.get<{ data: PreviousOrder[] }>(
+  //     `/user/shop/order/list?page=${page}`
+  //   );
+  // };
 
-  getFavoriteList = (
-    page: number
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      `/user/shop/favorite/list?page=${page}`
-    );
-  };
+  // getFavoriteList = (
+  //   page: number
+  // ): Promise<ResponseType<{ data: Product[] }>> => {
+  //   return this.request.get<{ data: Product[] }>(
+  //     `/user/shop/favorite/list?page=${page}`
+  //   );
+  // };
 
   reportIssue = ({
     text,
@@ -469,11 +455,11 @@ class Api extends Request {
     });
   };
 
-  getLiveChatInformation = (): Promise<
-    ResponseType<{ data: LiveChatInformation }>
-  > => {
-    return this.request.get<{ data: LiveChatInformation }>("/user/chat");
-  };
+  // getLiveChatInformation = (): Promise<
+  //   ResponseType<{ data: LiveChatInformation }>
+  // > => {
+  //   return this.request.get<{ data: LiveChatInformation }>("/user/chat");
+  // };
 
   getPreviousOrderDetail = (
     orderCode: string
@@ -500,38 +486,38 @@ class Api extends Request {
   };
 
   // club
-  getClubHelpText = (): Promise<ResponseType<{ data: HelpText }>> => {
-    return this.request.get<{ data: HelpText }>(`/user/club/help/text`);
-  };
+  // getClubHelpText = (): Promise<ResponseType<{ data: HelpText }>> => {
+  //   return this.request.get<{ data: HelpText }>(`/user/club/help/text`);
+  // };
 
   getUserClubInfo = (): Promise<ResponseType<{ data: UserClubInfo }>> => {
     return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
   };
 
-  getOffersList = (
-    page: number
-  ): Promise<ResponseType<{ data: ClubOffer[] }>> => {
-    return this.request.get<{ data: ClubOffer[] }>(`/user/club/plan/list`, {
-      params: { page },
-    });
-  };
+  // getOffersList = (
+  //   page: number
+  // ): Promise<ResponseType<{ data: ClubOffer[] }>> => {
+  //   return this.request.get<{ data: ClubOffer[] }>(`/user/club/plan/list`, {
+  //     params: { page },
+  //   });
+  // };
 
-  buyOffer = (
-    id: number
-  ): Promise<ResponseType<{ data: BuyOfferResponse }>> => {
-    return this.request.get<{ data: BuyOfferResponse }>(
-      `/user/club/plan/buy/${id}`
-    );
-  };
+  // buyOffer = (
+  //   id: number
+  // ): Promise<ResponseType<{ data: BuyOfferResponse }>> => {
+  //   return this.request.get<{ data: BuyOfferResponse }>(
+  //     `/user/club/plan/buy/${id}`
+  //   );
+  // };
 
-  getClubTransactionsList = (
-    page: number
-  ): Promise<ResponseType<{ data: ClubTransaction[] }>> => {
-    return this.request.get<{ data: ClubTransaction[] }>(
-      `/user/club/coin/list`,
-      { params: { page } }
-    );
-  };
+  // getClubTransactionsList = (
+  //   page: number
+  // ): Promise<ResponseType<{ data: ClubTransaction[] }>> => {
+  //   return this.request.get<{ data: ClubTransaction[] }>(
+  //     `/user/club/coin/list`,
+  //     { params: { page } }
+  //   );
+  // };
 
   getMultiMediaContentsFromId(
     id: string

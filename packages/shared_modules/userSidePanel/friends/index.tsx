@@ -4,7 +4,7 @@ import style from "./SidePanelFriends.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import Loading from "../../userSidePanel/loading";
-import { copyText } from "../utils/copyText";
+import { copyText } from "@repo/core/utils";
 
 const SidePanelFriends: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { isLoading, data } = useQuery({

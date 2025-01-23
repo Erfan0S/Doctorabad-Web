@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { MultimediaType } from '@/types/general';
-import React, { useEffect, useState } from 'react';
-import { ImageProps } from 'next/image';
-import PhotoSwipeLightbox from 'photoswipe/lightbox';
-import { ImageViewer } from './imageViewer';
-import { VideoViewer } from './videoViewer';
+import { MultimediaType } from "@repo/core/types";
+import React, { useEffect, useState } from "react";
+import { ImageProps } from "next/image";
+import PhotoSwipeLightbox from "photoswipe/lightbox";
+import { ImageViewer } from "./imageViewer";
+import { VideoViewer } from "./videoViewer";
 
 export type MultiMediaConfig = {
   src: string;
@@ -19,9 +19,12 @@ type ImagesDimensions = { [key: string]: { width: number; height: number } };
 type Props = {
   config: MultiMediaConfig[];
   containerSelector: string;
-  imageProps: Omit<ImageProps, 'src' | 'alt'>;
+  imageProps: Omit<ImageProps, "src" | "alt">;
   renderVideo?: (conf: MultiMediaConfig) => React.ReactNode;
-  renderParent?: (conf: MultiMediaConfig, MediaNode: React.ReactNode) => React.ReactNode;
+  renderParent?: (
+    conf: MultiMediaConfig,
+    MediaNode: React.ReactNode
+  ) => React.ReactNode;
 };
 
 export const MultimediaGallery = ({
@@ -31,13 +34,15 @@ export const MultimediaGallery = ({
   renderVideo,
   containerSelector,
 }: Props) => {
-  const [imagesDimensions, setImagesDimensions] = useState<ImagesDimensions>({});
+  const [imagesDimensions, setImagesDimensions] = useState<ImagesDimensions>(
+    {}
+  );
 
   useEffect(() => {
     let lightbox = new PhotoSwipeLightbox({
       gallery: containerSelector,
-      children: 'a',
-      pswpModule: () => import('photoswipe'),
+      children: "a",
+      pswpModule: () => import("photoswipe"),
     });
     lightbox.init();
 
@@ -60,13 +65,21 @@ export const MultimediaGallery = ({
           <ImageViewer
             imageProps={props}
             imageDimensions={imagesDimensions[src]}
-            setDimensions={(data) => setImagesDimensions((prev) => ({ ...prev, [src]: data }))}
+            setDimensions={(data) =>
+              setImagesDimensions((prev) => ({ ...prev, [src]: data }))
+            }
             key={alt}
           />
         );
         break;
       case MultimediaType.VIDEO:
-        const video = <VideoViewer src={config.video_src!} thumbnailProps={props} key={alt} />;
+        const video = (
+          <VideoViewer
+            src={config.video_src!}
+            thumbnailProps={props}
+            key={alt}
+          />
+        );
         node = renderVideo ? renderVideo(config) : video;
         break;
     }

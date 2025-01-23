@@ -1,9 +1,9 @@
-'use client';
-import { useCart } from '@/states/cart';
-import CartItem from './item';
-import style from './Cart.module.scss';
-import Link from 'next/link';
-import { routePath } from '@/constants/routePath';
+"use client";
+import { useCart } from "@/states/cart";
+import CartItem from "./item";
+import style from "./Cart.module.scss";
+import Link from "next/link";
+import { routePath } from "@repo/core/constants";
 
 const Cart = () => {
   const { data: cartItems, count } = useCart();

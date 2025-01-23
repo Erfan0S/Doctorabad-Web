@@ -1,17 +1,22 @@
-'use client';
-import Image from 'next/image';
-import style from './Blog.module.scss';
-import Link from 'next/link';
+"use client";
+import Image from "next/image";
+import style from "./Blog.module.scss";
+import Link from "next/link";
 
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { BlogType } from '@/types/blog';
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { BlogType } from "@/types/blog";
 
 const Blog: React.FC<BlogType> = ({ pic_url, title, link }) => {
   return (
     <div className={style.blog}>
       <div className={style.blogImage}>
         <a target="_blank" href={link}>
-          <Image fill src={pic_url} alt={title} placeholder={placeHolderDataUrl} />
+          <Image
+            fill
+            src={pic_url}
+            alt={title}
+            placeholder={placeHolderDataUrl}
+          />
         </a>
       </div>
       <div className={style.blogTitle}>

@@ -5,8 +5,8 @@ import Link from "next/link";
 import Basket from "../../../assets/svg/basket";
 import Clock from "../../../assets/svg/clock";
 import Dollar from "../../../assets/svg/dollar";
-import { priceFormatter } from "../../utils/priceFormatter";
-import { placeHolderDataUrl } from "../../constants/placeHolderDataUrl";
+import { priceFormatter } from "@repo/core/utils";
+import { placeHolderDataUrl } from "@repo/core/constants";
 
 const SidePanelOrdersLearning: React.FC = () => {
   return (

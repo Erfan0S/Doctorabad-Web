@@ -1,18 +1,18 @@
-import { priceFormatter } from '@/utils/priceFormatter';
-import style from './ProductSidebarPrice.module.scss';
-import { SingleProduct } from '@/types/product';
-import { calcDiscountPercentage } from '@/utils/calcDiscountPercentage';
-import Props from '@/components/checkout/cart/item/index';
-import QuantityProductButton from './quantityButton';
-import { useCart } from '@/states/cart';
-import { cartActions } from '@/states/cart';
-import { authorizeClientAction } from '@/utils/authUtils';
-import { useCartActionsLoadingHandler } from '@/hooks/useCartActionsLoadingHandler';
-import Loading from '@/components/common/loading';
-import { useRestockNotification } from '@/hooks/useRestockNotification';
-import { ProductVariantsValue } from '@/types/productVariants';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { priceFormatter } from "@repo/core/utils";
+import style from "./ProductSidebarPrice.module.scss";
+import { SingleProduct } from "@repo/core/types";
+import { calcDiscountPercentage } from "@repo/core/utils";
+import Props from "@/components/checkout/cart/item/index";
+import QuantityProductButton from "./quantityButton";
+import { useCart } from "@/states/cart";
+import { cartActions } from "@/states/cart";
+import { authorizeClientAction } from "@repo/core/utils";
+import { useCartActionsLoadingHandler } from "@/hooks/useCartActionsLoadingHandler";
+import Loading from "@/components/common/loading";
+import { useRestockNotification } from "@/hooks/useRestockNotification";
+import { ProductVariantsValue } from "@repo/core/types";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';
   product: SingleProduct;
@@ -22,7 +22,8 @@ interface Props {
 const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
   const { data } = useCart();
 
-  const { cartActionsLoadingHandler, updateCartLoading } = useCartActionsLoadingHandler();
+  const { cartActionsLoadingHandler, updateCartLoading } =
+    useCartActionsLoadingHandler();
 
   const productOrder = data.find((order) => order.product_id === product.id);
 
@@ -31,7 +32,10 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
     let discount = null;
 
     if (product.price_off || product.price_amazing) {
-      discount = calcDiscountPercentage(product.price_main, product.price_amazing || product.price_off);
+      discount = calcDiscountPercentage(
+        product.price_main,
+        product.price_amazing || product.price_off
+      );
       offPrice = product.price_amazing || product.price_off;
     }
     // else if (product.discount_festivals[0]) {
@@ -53,14 +57,17 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
     };
   };
 
-  const { restockNotification, restockNotificationLoading } = useRestockNotification(product.id);
+  const { restockNotification, restockNotificationLoading } =
+    useRestockNotification(product.id);
 
   const { discountPercent, mainPrice, offPrice } = getDiscountInformation();
 
   const isProductHasStock = product.quantity !== 0;
-  const color = isProductHasStock ? 'orange' : 'grey';
+  const color = isProductHasStock ? "orange" : "grey";
   return (
-    <div className={`${style.productSidebarPrice} ${color ? style[color] : ''}`}>
+    <div
+      className={`${style.productSidebarPrice} ${color ? style[color] : ""}`}
+    >
       {isProductHasStock && (
         <div className={style.productSidebarPriceNumber}>
           <div>
@@ -89,10 +96,12 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
           {isProductHasStock ? (
             <button
               onClick={authorizeClientAction(
-                cartActionsLoadingHandler(() => cartActions.addToCart(product.id, variants))
+                cartActionsLoadingHandler(() =>
+                  cartActions.addToCart(product.id, variants)
+                )
               )}
             >
-              {updateCartLoading ? <Loading size={22} /> : 'افزودن به سبد'}
+              {updateCartLoading ? <Loading size={22} /> : "افزودن به سبد"}
             </button>
           ) : (
             <button
@@ -100,7 +109,11 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
               onClick={restockNotification}
               disabled={restockNotificationLoading}
             >
-              {restockNotificationLoading ? <Loading size={22} /> : 'موجود شد خبرم کن!'}
+              {restockNotificationLoading ? (
+                <Loading size={22} />
+              ) : (
+                "موجود شد خبرم کن!"
+              )}
             </button>
           )}
           {/* <button

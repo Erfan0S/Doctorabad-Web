@@ -1,11 +1,11 @@
 import Image from "next/image";
 import style from "./SidePanelMessagesDetail.module.scss";
 import { modalActions } from "@repo/core";
-import { toFullPersianDateString } from "../../utils/toFullPersianDateString";
+import { toFullPersianDateString } from "@repo/core/utils";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../loading";
-import { placeHolderDataUrl } from "../../constants/placeHolderDataUrl";
+import { placeHolderDataUrl } from "@repo/core/constants";
 type Props = {
   id: number;
 };

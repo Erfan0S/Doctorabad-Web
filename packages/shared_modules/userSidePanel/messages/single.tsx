@@ -2,7 +2,7 @@ import { api } from "../../api/Api";
 import Loading from "../loading";
 import { useQuery } from "@tanstack/react-query";
 import style from "./SidePanelMessages.module.scss";
-import { toFullPersianDateString } from "../utils/toFullPersianDateString";
+import { toFullPersianDateString } from "@repo/core/utils";
 
 type Props = { id: number };
 
