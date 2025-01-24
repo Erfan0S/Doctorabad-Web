@@ -227,13 +227,13 @@ class Api extends Request {
   //   return this.request.post(`/user/avatar/select`, { filename });
   // };
 
-  // addToFavorite = (id: number): Promise<any> => {
-  //   return this.request.post(`/user/shop/favorite`, { id });
-  // };
+  addToFavorite = (id: number): Promise<any> => {
+    return this.request.post(`/user/shop/favorite`, { id });
+  };
 
-  // removeFromFavorite = (id: number): Promise<any> => {
-  //   return this.request.delete(`/user/shop/favorite/${id}`);
-  // };
+  removeFromFavorite = (id: number): Promise<any> => {
+    return this.request.delete(`/user/shop/favorite/${id}`);
+  };
 
   // cart
   getCartList(): Promise<ResponseType<CartResponse>> {

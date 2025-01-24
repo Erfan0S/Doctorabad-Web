@@ -1,4 +1,4 @@
-import { ModalProps } from "../../types/modals";
+import { ModalProps } from "@repo/core/types";
 import ClubSingleGetCode from "../../../userSidePanel/modal_components/singleShowGetCodeModal";
 
 type Props = ModalProps<{ code: string }>;

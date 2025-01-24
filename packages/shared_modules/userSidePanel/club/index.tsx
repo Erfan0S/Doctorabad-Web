@@ -8,7 +8,7 @@ import SidePanelClubDiscounts from "./discounts";
 import style from "./SidePanelClub.module.scss";
 import sidePanelStyle from "../sidePanel.module.scss";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "../types/modals";
+import { ModalTypes } from "@repo/core/types";
 import SidePanelClubSingle from "./singleShow";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";

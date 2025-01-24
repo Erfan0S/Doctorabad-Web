@@ -1,4 +1,4 @@
-import { ModalProps } from "../../types/modals";
+import { ModalProps } from "@repo/core/types";
 import ClubSingleDesc from "../../../userSidePanel/modal_components/singleShowDescModal";
 
 type Props = ModalProps<{

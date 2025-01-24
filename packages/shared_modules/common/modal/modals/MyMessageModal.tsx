@@ -1,4 +1,4 @@
-import { ModalProps } from "../../types/modals";
+import { ModalProps } from "@repo/core/types";
 import MessagesDetail from "../../../userSidePanel/modal_components/messagesDetailModal";
 
 type Props = ModalProps<{ id: number }>;

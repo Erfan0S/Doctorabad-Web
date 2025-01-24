@@ -28,8 +28,8 @@ export type {
   ModalList,
   ModalProps,
   ModalState,
-  ModalTypes,
 } from "./modals";
+export { ModalTypes } from "./modals";
 
 export type {
   CartVariants,
@@ -64,10 +64,7 @@ export type {
   ProductListProps,
   ProductShare,
   SingleProduct,
-  ProductListType,
   ProductSampleFile,
-  ProductShippingType,
-  ProductTab,
   ProductTabData,
   SingleProductComment,
   SingleProductFaq,
@@ -77,3 +74,5 @@ export type {
   SingleProductSellerInfo,
   SingleProductSpecification,
 } from "./product";
+
+export { ProductListType, ProductShippingType, ProductTab } from "./product";

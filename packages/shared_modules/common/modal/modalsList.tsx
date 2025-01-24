@@ -10,7 +10,7 @@ import { RegisterModal } from "./modals/RegisterModal";
 // import { VideoModal } from "./modals/VideoModal";
 // import { QRContents } from "./qr-contents";
 import { SidePanel } from "../../userSidePanel";
-import { ModalTypes } from "../types/modals";
+import { ModalTypes } from "@repo/core/types";
 
 export const ModalsList = {
   [ModalTypes.REGISTER]: RegisterModal,

@@ -3,7 +3,7 @@ import style from "./ShippingItem.module.scss";
 import { ShippingMethod } from "@repo/core/types";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import classNames from "classnames";
-import Loading from "../../loading";
+import Loading from "../../../../common/components/loading";
 import React from "react";
 
 interface Props extends ShippingMethod {

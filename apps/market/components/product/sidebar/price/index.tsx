@@ -2,17 +2,15 @@ import { priceFormatter } from "@repo/core/utils";
 import style from "./ProductSidebarPrice.module.scss";
 import { SingleProduct } from "@repo/core/types";
 import { calcDiscountPercentage } from "@repo/core/utils";
-import Props from "@/components/checkout/cart/item/index";
+import { CartItem as Props } from "@repo/shared_modules";
 import QuantityProductButton from "./quantityButton";
-import { useCart } from "@/states/cart";
-import { cartActions } from "@/states/cart";
+import { useCart, cartActions } from "@repo/core/states";
 import { authorizeClientAction } from "@repo/core/utils";
 import { useCartActionsLoadingHandler } from "@/hooks/useCartActionsLoadingHandler";
 import Loading from "@/components/common/loading";
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { ProductVariantsValue } from "@repo/core/types";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';
   product: SingleProduct;

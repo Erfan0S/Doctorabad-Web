@@ -5,7 +5,7 @@ import clubImage from "../../../assets/img/club.png";
 import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
 import { priceFormatter } from "@repo/core/utils";
-import { cartActions, useCart } from "../../states/cart";
+import { cartActions, useCart } from "@repo/core/states";
 import {
   CreateOrderRequest,
   ShippingAddress,
@@ -13,12 +13,11 @@ import {
 } from "@repo/core/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import Loading from "../loading";
+import Loading from "../../../common/components/loading";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { routePath } from "../../constants/routePath";
-import OptionSwitch from "../optionSwithch";
-import React from "react";
+import { routePath } from "@repo/core/constants";
+import OptionSwitch from "../../../common/components/optionSwithch";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;

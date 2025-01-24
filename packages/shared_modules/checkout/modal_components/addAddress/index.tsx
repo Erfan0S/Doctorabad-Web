@@ -6,7 +6,7 @@ import { ProvinceCitySelection } from "./ProvinceCitySelection";
 import Loading from "../../../common/components/loading";
 import { shippingAddressValidator } from "../../constants/validators/userValidator";
 import { isServerSide } from "../../constants/constants";
-import { useLoadHeavyModule } from "../../../common/hooks/useLoadHeavyModule";
+import { useLoadHeavyModule } from "../../../../core/src/hooks/useLoadHeavyModule";
 
 type Props = {
   initialData: Partial<ShippingAddress> | null;

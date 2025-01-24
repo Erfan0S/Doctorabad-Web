@@ -11,7 +11,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
 import { toFullPersianDateString } from "@repo/core/utils";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "../../types/modals";
+import { ModalTypes } from "@repo/core/types";
 
 const SidePanelOrdersLearning: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<

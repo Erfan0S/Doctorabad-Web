@@ -1,5 +1,5 @@
 import { api } from "../../../api/Api";
-import { enterPhoneNumberValidator } from "../../constants/validators/userValidator";
+import { enterPhoneNumberValidator } from "@repo/core/constants";
 import { RegisterStep, RegisterStepProps } from "../../types/register";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import style from "./Register.module.scss";
@@ -22,16 +22,19 @@ export const EnterPhone = ({
     { phone }: Form,
     { setSubmitting }: FormikHelpers<Form>
   ) => {
+    console.log(phone);
     setSubmitting(true);
     try {
       await api.getCsrf();
       await api.sendVerificationCode(phone);
       onCodeSent(phone);
+      console.log("code sent");
     } catch (error: any) {
       if (error?.status && error.status === 422) {
         onCodeSent(phone);
       }
       setSubmitting(false);
+      console.log(error);
     }
   };
 

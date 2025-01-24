@@ -1,5 +1,5 @@
 import { Request } from "@repo/core";
-import { defaultBaseUrl, isServerSide } from "../common/constants/constants";
+import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
 import { toast } from "react-toastify";
 import {
   AvatarList,

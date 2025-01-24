@@ -3,7 +3,7 @@ import Image from "next/image";
 import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
 import { routePath } from "@repo/core/constants";
 import { useRouter } from "next/navigation";
-import { cartActions, useCart } from "@/states/cart";
+import { cartActions, useCart } from "@repo/core/states";
 import cartIcon from "@/assets/img/cart.png";
 import style from "./CartButton.module.scss";
 import { useEffect } from "react";

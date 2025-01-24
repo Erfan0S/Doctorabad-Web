@@ -2,7 +2,7 @@ import { SidePanelPageProps } from "../types/sidePanel";
 import SidePanelHeader from "../header";
 import MessageList from "./list";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "../types/modals";
+import { ModalTypes } from "@repo/core/types";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { MessageItem } from "../types/user";
 

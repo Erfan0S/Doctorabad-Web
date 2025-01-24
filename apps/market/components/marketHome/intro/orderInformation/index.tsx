@@ -16,7 +16,7 @@ import BoxTick from "@/assets/svg/boxTick";
 import Box from "@/assets/svg/box";
 import Card from "@/assets/svg/card";
 import { useEffect } from "react";
-import { useCart } from "@/states/cart";
+import { useCart } from "@repo/core/states";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 import { useRouter } from "next/navigation";
 import { routePath } from "@repo/core/constants";

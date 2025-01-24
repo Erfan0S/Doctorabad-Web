@@ -4,11 +4,10 @@ import style from "./CartItem.module.scss";
 import { priceFormatter } from "@repo/core/utils";
 import RecycleBin from "../../../../assets/svg/recycleBin";
 import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
-import { cartActions } from "../../../states/cart";
+import { cartActions } from "@repo/core/states";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import { Order } from "@repo/core/types";
-import { generateSingleProductUrlFromId } from "../../../utils/UrlUtils";
-import React from "react";
+import { generateSingleProductUrlFromId } from "@repo/core/utils";
 
 const CartItem = ({
   id,

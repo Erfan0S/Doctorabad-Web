@@ -30,7 +30,6 @@ const SidebarFooter = () => {
   });
 
   const openSideMenu = (menu: SidePanelPage) => {
-    console.log(ModalsList);
     return authorizeClientAction(() =>
       modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
     );

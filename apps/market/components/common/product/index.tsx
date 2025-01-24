@@ -10,7 +10,7 @@ import { priceFormatter } from "@repo/core/utils";
 import { calcDiscountPercentage } from "@repo/core/utils";
 import { generateSingleProductUrlFromId } from "@repo/core/utils";
 import FavoriteIcon from "../favoriteIcon";
-import { cartActions, useCart } from "@/states/cart";
+import { cartActions, useCart } from "@repo/core/states";
 import { authorizeClientAction } from "@repo/core/utils";
 import Loading from "../loading";
 import QuantityProductButton from "@/components/product/sidebar/price/quantityButton";

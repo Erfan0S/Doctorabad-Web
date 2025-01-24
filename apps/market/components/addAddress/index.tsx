@@ -4,7 +4,7 @@ import style from "./AddAddress.module.scss";
 import { ErrorMessage, Field, Formik } from "formik";
 import { ProvinceCitySelection } from "./ProvinceCitySelection";
 import Loading from "../common/loading";
-import { shippingAddressValidator } from "@/constants/validators/userValidator";
+import { shippingAddressValidator } from "@repo/core/constants";
 import { isServerSide } from "@repo/core/constants";
 import { useLoadHeavyModule } from "@/hooks/useLoadHeavyModule";
 

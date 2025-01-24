@@ -2,7 +2,7 @@ import SidePanelHeader from "../../header";
 import style from "./SidePanelClubSingle.module.scss";
 import Image from "next/image";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "../../types/modals";
+import { ModalTypes } from "@repo/core/types";
 import { ClubOffer, OfferType } from "../../types/doctorClub";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import { toFullPersianDateString } from "@repo/core/utils";

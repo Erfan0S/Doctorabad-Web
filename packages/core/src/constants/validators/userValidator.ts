@@ -1,5 +1,5 @@
 import { number, object, string } from "yup";
-import { mobileValidator } from "@repo/core/typesValidators";
+import { mobileValidator } from "./generalValidators";
 
 export const enterPhoneNumberValidator = object().shape({
   phone: mobileValidator,

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styles from "./QrContents.module.scss";
 import Loading from "../common/loading";
 import { useEffect, useState } from "react";
-import SidePanelHeader from "../sidePanel/header";
+import { SidePanelHeader } from "@repo/shared_modules";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { Scanner } from "./scanner";
