@@ -6,6 +6,8 @@
   "exports": {
     ".": "./index.ts",
     "./icons": "./assets/index.ts",
+    "./cehckout":"./checkout/components/page.tsx",
+    "./register":"./userSidePanel/modal_components/register/index.tsx",
     "./api": "./api/Api.ts"
   },
   "scripts": {
