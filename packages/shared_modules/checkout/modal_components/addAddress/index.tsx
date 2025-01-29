@@ -4,8 +4,8 @@ import style from "./AddAddress.module.scss";
 import { ErrorMessage, Field, Formik } from "formik";
 import { ProvinceCitySelection } from "./ProvinceCitySelection";
 import Loading from "../../../common/components/loading";
-import { shippingAddressValidator } from "../../constants/validators/userValidator";
-import { isServerSide } from "../../constants/constants";
+import { shippingAddressValidator } from "@repo/core/constants";
+import { isServerSide } from "@repo/core/constants";
 import { useLoadHeavyModule } from "../../../../core/src/hooks/useLoadHeavyModule";
 
 type Props = {

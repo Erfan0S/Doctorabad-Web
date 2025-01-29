@@ -5,7 +5,7 @@ import nmp_mapboxgl from "@neshan-maps-platform/mapbox-gl";
 
 import "@neshan-maps-platform/mapbox-gl-react/dist/style.css";
 import { useEffect, useRef, useState } from "react";
-import { isServerSide } from "../../constants/constants";
+import { isServerSide } from "@repo/core/constants";
 import { useFormikContext } from "formik";
 import { ShippingAddress } from "@repo/core/types";
 

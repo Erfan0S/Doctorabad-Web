@@ -1,13 +1,12 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Product from "@/components/common/product";
-import { discountData } from "./discount-data";
 import DiscountRightContent from "./right-content";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import style from "./Discounts.module.scss";
 import "swiper/css";
-import { autoPlayConfig, swiperBreakpoints } from "@/constants/sliders";
-import { AmazingProduct, Product as ProductType } from "@repo/core/types";
+import { autoPlayConfig } from "@/constants/sliders";
+import { AmazingProduct } from "@repo/core/types";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 
 interface Props {
