@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { MapComponent, MapTypes } from "@neshan-maps-platform/mapbox-gl-react";
 import nmp_mapboxgl from "@neshan-maps-platform/mapbox-gl";
 

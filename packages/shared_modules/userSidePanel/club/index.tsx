@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { SidePanelClubTab, SidePanelPageProps } from "../types/sidePanel";
 import SidePanelHeader from "../header";
 import Image from "next/image";
@@ -8,7 +8,7 @@ import SidePanelClubDiscounts from "./discounts";
 import style from "./SidePanelClub.module.scss";
 import sidePanelStyle from "../sidePanel.module.scss";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "@repo/core/types";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import SidePanelClubSingle from "./singleShow";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";

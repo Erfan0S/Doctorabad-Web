@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "@tanstack/react-query": "^5.62.12",
+    "formik": "^2.4.4",
     "framer-motion": "^12.0.1"
   }
 }

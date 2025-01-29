@@ -1,5 +1,4 @@
-import { purgeObjectFromFalsyValues } from "../Utils/purgeObjectFromFalsyValues";
-
+import { purgeObjectFromFalsyValues } from "../utils/purgeObjectFromFalsyValues";
 
 interface ParamsStringifyOptions {
   appendPrevSearchParams?: boolean;
@@ -8,12 +7,15 @@ interface ParamsStringifyOptions {
 }
 
 export class SearchParamsUtils {
-  static paramsToObject(search?: string,isServerSide = false) {
-    const searchParams = search || (!isServerSide ? window.location.search : '');
-    const startSearchParamsPosition = searchParams.indexOf('?');
+  static paramsToObject(search?: string, isServerSide = false) {
+    const searchParams =
+      search || (!isServerSide ? window.location.search : "");
+    const startSearchParamsPosition = searchParams.indexOf("?");
 
     const queryParams = new URLSearchParams(
-      searchParams.slice(startSearchParamsPosition === -1 ? 0 : startSearchParamsPosition + 1)
+      searchParams.slice(
+        startSearchParamsPosition === -1 ? 0 : startSearchParamsPosition + 1
+      )
     );
 
     const queryObject: { [key: string]: string } = {};
@@ -27,16 +29,24 @@ export class SearchParamsUtils {
 
   static paramsStringify(
     qs: { [key: string]: any },
-    { appendPrevSearchParams, customPrevSearchParam, questionMarkPrefix }: ParamsStringifyOptions = {}
+    {
+      appendPrevSearchParams,
+      customPrevSearchParam,
+      questionMarkPrefix,
+    }: ParamsStringifyOptions = {}
   ) {
     const paramsObject = {
       ...(appendPrevSearchParams
-        ? SearchParamsUtils.paramsToObject(customPrevSearchParam ? customPrevSearchParam : undefined)
+        ? SearchParamsUtils.paramsToObject(
+            customPrevSearchParam ? customPrevSearchParam : undefined
+          )
         : {}),
       ...qs,
     };
 
-    let params = new URLSearchParams(purgeObjectFromFalsyValues(paramsObject, true)).toString();
+    let params = new URLSearchParams(
+      purgeObjectFromFalsyValues(paramsObject, true)
+    ).toString();
     if (questionMarkPrefix) params = `?${params}`;
 
     return params;

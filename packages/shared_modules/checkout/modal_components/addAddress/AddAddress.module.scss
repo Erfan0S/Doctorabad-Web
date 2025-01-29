@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .addAddress {
   width: 400px;
@@ -16,6 +16,7 @@
     color: $red;
   }
   &Map {
+    min-height: 150px;
     height: 200px;
     background-color: #f9f9f9;
     border-radius: radius(2);
@@ -85,7 +86,7 @@
 
     &.loading {
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         left: calc(50% - 13px);
         top: calc(50% - 13px);
@@ -120,5 +121,12 @@
     button {
       margin-bottom: unset;
     }
+  }
+}
+
+@media (max-height: 725px) {
+  .addAddress {
+    height: 100vh;
+    overflow: scroll;
   }
 }

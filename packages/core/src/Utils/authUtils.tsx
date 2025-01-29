@@ -1,5 +1,5 @@
 import { modalActions } from "../index";
-import { ModalTypes } from "../types/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { redirect } from "next/navigation";
 import { routePath } from "../constants/routePath";
 import Cookies from "js-cookie";

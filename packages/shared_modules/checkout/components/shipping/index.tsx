@@ -2,7 +2,7 @@
 import style from "./Shipping.module.scss";
 import ShippingItem from "./shippingItem";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "@repo/core/types";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";

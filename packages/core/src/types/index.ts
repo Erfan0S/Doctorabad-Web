@@ -29,7 +29,6 @@ export type {
   ModalProps,
   ModalState,
 } from "./modals";
-export { ModalTypes } from "./modals";
 
 export type {
   CartVariants,

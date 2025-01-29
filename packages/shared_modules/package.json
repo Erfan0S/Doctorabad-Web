@@ -6,9 +6,11 @@
   "exports": {
     ".": "./index.ts",
     "./icons": "./assets/index.ts",
-    "./cehckout":"./checkout/components/page.tsx",
-    "./register":"./userSidePanel/modal_components/register/index.tsx",
-    "./api": "./api/Api.ts"
+    "./checkout": "./checkout/components/page.tsx",
+    "./register": "./userSidePanel/modal_components/register/index.tsx",
+    "./api": "./api/Api.ts",
+    "./modalsList": "./common/modal/modalsList.tsx",
+    "./modalsTypes": "./common/modal/modalsTypes.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -26,7 +28,6 @@
   "dependencies": {
     "eslint": "^8.45.0",
     "eslint-config-next": "^13.4.10",
-    "formik": "^2.4.6",
     "next": "^14.1.0",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",

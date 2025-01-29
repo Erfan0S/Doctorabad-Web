@@ -1,4 +1,5 @@
-import { ModalData, ModalState, ModalTypes } from "../types/modals";
+import { ModalData, ModalState } from "../types/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { create } from "zustand";
 
 const initialState = { modals: [] };

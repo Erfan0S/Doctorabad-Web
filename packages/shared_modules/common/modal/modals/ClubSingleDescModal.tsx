@@ -1,3 +1,4 @@
+import React from "react";
 import { ModalProps } from "@repo/core/types";
 import ClubSingleDesc from "../../../userSidePanel/modal_components/singleShowDescModal";
 

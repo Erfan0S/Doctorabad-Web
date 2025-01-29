@@ -1,8 +1,9 @@
+import React from "react";
 import SidePanelHeader from "../../header";
 import style from "./SidePanelClubSingle.module.scss";
 import Image from "next/image";
 import { modalActions } from "@repo/core";
-import { ModalTypes } from "@repo/core/types";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { ClubOffer, OfferType } from "../../types/doctorClub";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import { toFullPersianDateString } from "@repo/core/utils";

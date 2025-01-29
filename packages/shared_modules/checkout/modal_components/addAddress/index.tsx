@@ -1,3 +1,5 @@
+"use client";
+
 import { ShippingAddress } from "@repo/core/types";
 import style from "./AddAddress.module.scss";
 
