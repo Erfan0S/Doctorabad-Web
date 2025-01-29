@@ -1,8 +1,6 @@
 import style from "./ProductSeller.module.scss";
-import sellerImage from "@/assets/img/sellers/seller-01.jpg";
 import { placeHolderDataUrl } from "@repo/core/constants";
-import { SingleProduct, SingleProductSellerInfo } from "@repo/core/types";
-import { ProviderInList } from "@/types/providers";
+import { SingleProduct } from "@repo/core/types";
 import { generateSingleProviderUrlFromId } from "@repo/core/utils";
 import Image from "next/image";
 import Link from "next/link";

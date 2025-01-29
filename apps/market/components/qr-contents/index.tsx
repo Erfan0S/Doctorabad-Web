@@ -11,7 +11,7 @@ import { VerifyCode } from "./verifyCode";
 import { ResponseType } from "@repo/core/types";
 import { toast } from "react-toastify";
 import { Contents } from "./contents";
-import { ModalProps } from "@/types/modals";
+import { ModalProps } from "@repo/core/types";
 import QrError from "./error/indext";
 
 export enum MultiMediaQrPage {

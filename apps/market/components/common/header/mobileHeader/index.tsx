@@ -3,8 +3,8 @@
 import coin from "@/assets/img/coin.png";
 
 import Image from "next/image";
-import { modalActions } from "@/states/modals";
-import { ModalTypes } from "@/types/modals";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import style from "./MobileHeader.module.scss";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";

@@ -1,7 +1,7 @@
 "use client";
 import style from "./ProductSidebarHeader.module.scss";
-import { modalActions } from "@/states/modals";
-import { ModalTypes } from "@/types/modals";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import FavoriteIcon from "@/components/common/favoriteIcon";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";

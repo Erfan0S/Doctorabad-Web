@@ -1,13 +1,10 @@
 "use client";
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import style from "./ProductSlider.module.scss";
 import { SingleProductFile } from "@repo/core/types";
 import "swiper/css";
 import "swiper/css/pagination";
-import { useRef, useState } from "react";
-import Play from "@/assets/svg/play";
 import { getAvatarType } from "@/utils/avatarUtils";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import { MultimediaType } from "@repo/core/types";

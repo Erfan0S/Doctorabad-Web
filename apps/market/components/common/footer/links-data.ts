@@ -1,36 +1,35 @@
-import { modalActions } from '@/states/modals';
-import { ModalTypes } from '@/types/modals';
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 export const footerLinks = [
   {
     id: 1,
     action: () => modalActions.addModal(ModalTypes.REGISTER),
-    title: 'ورود/ثبت‌نام',
+    title: "ورود/ثبت‌نام",
   },
   {
     id: 2,
     action: () => modalActions.addModal(ModalTypes.TRACKING),
-    title: 'رهگیری پستی',
+    title: "رهگیری پستی",
   },
   {
     id: 3,
-    href: '#',
-    title: 'راهنما',
+    href: "#",
+    title: "راهنما",
   },
   {
     id: 4,
-    href: '#',
-    title: 'تماس‌با‌ما',
+    href: "#",
+    title: "تماس‌با‌ما",
   },
   {
     id: 5,
-    href: '#',
-    title: 'درباره‌ما',
+    href: "#",
+    title: "درباره‌ما",
   },
   {
     id: 6,
-    href: '#',
-    title: 'همکاری‌باما',
+    href: "#",
+    title: "همکاری‌باما",
   },
-
 ];

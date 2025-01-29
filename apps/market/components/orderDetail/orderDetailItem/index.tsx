@@ -1,12 +1,11 @@
 import Image from "next/image";
 import style from "./OrderDetailItem.module.scss";
-import Link from "next/link";
 import { priceFormatter } from "@repo/core/utils";
 import { calcDiscountPercentage } from "@repo/core/utils";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import { Order } from "@repo/core/types";
 import { generateSingleProductUrlFromId } from "@repo/core/utils";
-import { modalActions } from "@/states/modals";
+import { modalActions } from "@repo/core";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 

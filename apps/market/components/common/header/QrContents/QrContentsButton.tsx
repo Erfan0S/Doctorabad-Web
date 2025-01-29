@@ -1,6 +1,6 @@
 "use client";
-import { modalActions } from "@/states/modals";
-import { ModalTypes } from "@/types/modals";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { authorizeClientAction } from "@repo/core/utils";
 import Image from "next/image";
 import React from "react";
