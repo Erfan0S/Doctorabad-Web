@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function CheckoutPage() {
+export function CheckoutPage() {
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
     queryKey: ["addressList"],
@@ -54,7 +54,6 @@ export default function CheckoutPage() {
       });
     }
   };
-  3;
 
   useEffect(() => {
     if (currentShippingMethod) {
