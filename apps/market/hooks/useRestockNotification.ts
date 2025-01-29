@@ -1,7 +1,7 @@
-import { api } from '@/api/Api';
-import { authorizeClientAction } from '@/utils/authUtils';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { api } from "@/api/Api";
+import { authorizeClientAction } from "@repo/core/utils";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const useRestockNotification = (productId: number) => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ export const useRestockNotification = (productId: number) => {
       setLoading(true);
       await api.restockNotification(productId);
       setLoading(false);
-      toast('درخواست شما با موفقیت ثبت شد', { type: 'success' });
+      toast("درخواست شما با موفقیت ثبت شد", { type: "success" });
     } catch (error) {
       setLoading(false);
     }

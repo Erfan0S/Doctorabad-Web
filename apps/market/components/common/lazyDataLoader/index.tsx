@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { ResponseType } from '@/types/general';
-import { useQuery } from '@tanstack/react-query';
-import { ReactNode } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { ResponseType } from "@repo/core/types";
+import { useQuery } from "@tanstack/react-query";
+import { ReactNode } from "react";
+import { useInView } from "react-intersection-observer";
 
 type Props<D = any> = {
   loader: () => Promise<ResponseType<D>>;
@@ -40,28 +40,30 @@ export const LazyDataLoader = <S extends Object>({
 
   if (isError)
     return (
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: "relative" }}>
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: 0,
             right: 0,
             top: 0,
             bottom: 0,
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            alignContent: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            alignContent: "center",
+            justifyContent: "center",
             zIndex: 10,
           }}
         >
-          <p style={{ flex: '0 0 100%', maxWidth: '100%', textAlign: 'center' }}>
+          <p
+            style={{ flex: "0 0 100%", maxWidth: "100%", textAlign: "center" }}
+          >
             مشکل در دریافت اطلاعات.مجددا تلاش کنید
           </p>
           <button onClick={() => refetch()}>تلاش دوباره</button>
         </div>
-        <div style={{ filter: 'blur(5px)' }}>
+        <div style={{ filter: "blur(5px)" }}>
           <PlaceHolder />
         </div>
       </div>

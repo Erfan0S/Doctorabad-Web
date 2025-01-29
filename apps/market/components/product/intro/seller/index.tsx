@@ -1,13 +1,13 @@
-import style from './ProductSeller.module.scss';
-import sellerImage from '@/assets/img/sellers/seller-01.jpg';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { SingleProduct, SingleProductSellerInfo } from '@/types/product';
-import { ProviderInList } from '@/types/providers';
-import { generateSingleProviderUrlFromId } from '@/utils/UrlUtils';
-import Image from 'next/image';
-import Link from 'next/link';
+import style from "./ProductSeller.module.scss";
+import sellerImage from "@/assets/img/sellers/seller-01.jpg";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { SingleProduct, SingleProductSellerInfo } from "@repo/core/types";
+import { ProviderInList } from "@/types/providers";
+import { generateSingleProviderUrlFromId } from "@repo/core/utils";
+import Image from "next/image";
+import Link from "next/link";
 interface Props {
-  seller: SingleProduct['provider'];
+  seller: SingleProduct["provider"];
 }
 const ProductSeller: React.FC<Props> = ({ seller }) => {
   const { pic_url, id, name } = seller;

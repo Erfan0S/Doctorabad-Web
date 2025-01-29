@@ -1,14 +1,14 @@
-'use client';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Product from '@/components/common/product';
-import { discountData } from './discount-data';
-import DiscountRightContent from './right-content';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import style from './Discounts.module.scss';
-import 'swiper/css';
-import { autoPlayConfig, swiperBreakpoints } from '@/constants/sliders';
-import { AmazingProduct, Product as ProductType } from '@/types/product';
-import { useClientComponentInitiated } from '@/hooks/useClientComponentInitiated';
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Product from "@/components/common/product";
+import { discountData } from "./discount-data";
+import DiscountRightContent from "./right-content";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import style from "./Discounts.module.scss";
+import "swiper/css";
+import { autoPlayConfig, swiperBreakpoints } from "@/constants/sliders";
+import { AmazingProduct, Product as ProductType } from "@repo/core/types";
+import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 
 interface Props {
   products: AmazingProduct[];
@@ -18,13 +18,15 @@ interface Props {
 const Discounts = ({ products, expireTime }: Props) => {
   const shouldRender = useClientComponentInitiated();
 
-  const isDesktop = useMediaQuery('min-width:1200px');
+  const isDesktop = useMediaQuery("min-width:1200px");
 
   return (
     <section className={style.discounts}>
       <div className="container">
         <div className={style.discountsWrapper}>
-          {isDesktop && shouldRender && <DiscountRightContent endDate={expireTime} />}
+          {isDesktop && shouldRender && (
+            <DiscountRightContent endDate={expireTime} />
+          )}
           <div className={`${style.discountsContent}`}>
             <Swiper
               autoplay={isDesktop ? autoPlayConfig : undefined}
@@ -49,7 +51,9 @@ const Discounts = ({ products, expireTime }: Props) => {
                 </SwiperSlide>
               )}
               {products.map((product) => (
-                <SwiperSlide key={product.id}>{<Product {...product} />}</SwiperSlide>
+                <SwiperSlide key={product.id}>
+                  {<Product {...product} />}
+                </SwiperSlide>
               ))}
             </Swiper>
           </div>

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import style from './ProductSidebar.module.scss';
+import { useEffect, useState } from "react";
+import style from "./ProductSidebar.module.scss";
 
-import ProductSidebarCountdown from './countdown';
-import ProductSidebarHeader from './header';
-import ProductSidebarNotice from './notice';
-import ProductSidebarPrice from './price';
-import { SingleProduct } from '@/types/product';
-import ProductSidebarAttribute from './attribute';
-import { ProductVariantsValue } from '@/types/productVariants';
+import ProductSidebarCountdown from "./countdown";
+import ProductSidebarHeader from "./header";
+import ProductSidebarNotice from "./notice";
+import ProductSidebarPrice from "./price";
+import { SingleProduct } from "@repo/core/types";
+import ProductSidebarAttribute from "./attribute";
+import { ProductVariantsValue } from "@repo/core/types";
 
 interface Props {
   product: SingleProduct;
@@ -33,11 +33,17 @@ const ProductSidebar = ({ product }: Props) => {
       <ProductSidebarNotice
         readyToShipState={currentPrduct.sts}
         bonusCoins={currentPrduct.coins}
-        normalDiscount={currentPrduct.price_off ? currentPrduct.price_main - currentPrduct.price_off : null}
+        normalDiscount={
+          currentPrduct.price_off
+            ? currentPrduct.price_main - currentPrduct.price_off
+            : null
+        }
         festivalDiscount={undefined}
       />
       {currentPrduct.amazing_end_date && (
-        <ProductSidebarCountdown discountFestivalEndDate={currentPrduct.amazing_end_date} />
+        <ProductSidebarCountdown
+          discountFestivalEndDate={currentPrduct.amazing_end_date}
+        />
       )}
       <ProductSidebarAttribute
         product={currentPrduct}

@@ -1,6 +1,6 @@
-import { SingleProduct } from '@/types/product';
-import style from './ProductDescription.module.scss';
-import ProductFaq from '../faq';
+import { SingleProduct } from "@repo/core/types";
+import style from "./ProductDescription.module.scss";
+import ProductFaq from "../faq";
 interface Props {
   productData: SingleProduct;
 }

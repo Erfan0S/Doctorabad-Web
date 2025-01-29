@@ -1,27 +1,29 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import style from './OrderInformation.module.scss';
-import clubImage from '@/assets/img/club.png';
-import coinIcon from '@/assets/img/coin.png';
-import { LastProcessingOrder } from '@/types/orders';
-import { toFullPersianDateString } from '@/utils/toFullPersianDateString';
-import { priceFormatter } from '@/utils/priceFormatter';
-import { ORDER_STATUS } from './enum';
-import { modalActions } from '@/states/modals';
-import { ModalTypes } from '@/types/modals';
-import Group from '@/assets/svg/group';
-import BagTick from '@/assets/svg/bagTick';
-import BoxTick from '@/assets/svg/boxTick';
-import Box from '@/assets/svg/box';
-import Card from '@/assets/svg/card';
-import { useEffect } from 'react';
-import { useCart } from '@/states/cart';
-import { useClientComponentInitiated } from '@/hooks/useClientComponentInitiated';
-import { useRouter } from 'next/navigation';
-import { routePath } from '@/constants/routePath';
+import Image from "next/image";
+import style from "./OrderInformation.module.scss";
+import clubImage from "@/assets/img/club.png";
+import coinIcon from "@/assets/img/coin.png";
+import { LastProcessingOrder } from "@/types/orders";
+import { toFullPersianDateString } from "@repo/core/utils";
+import { priceFormatter } from "@repo/core/utils";
+import { ORDER_STATUS } from "./enum";
+import { modalActions } from "@/states/modals";
+import { ModalTypes } from "@/types/modals";
+import Group from "@/assets/svg/group";
+import BagTick from "@/assets/svg/bagTick";
+import BoxTick from "@/assets/svg/boxTick";
+import Box from "@/assets/svg/box";
+import Card from "@/assets/svg/card";
+import { useEffect } from "react";
+import { useCart } from "@repo/core/states";
+import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useRouter } from "next/navigation";
+import { routePath } from "@repo/core/constants";
 
-const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({ order }) => {
+const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
+  order,
+}) => {
   const isInitiated = useClientComponentInitiated();
   const cart = useCart();
   const { refresh, push } = useRouter();
@@ -41,7 +43,9 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({ order }) =
     if (isOrderNotPurchaseYet) {
       push(routePath.checkout);
     } else {
-      modalActions.addModal(ModalTypes.ORDER_DETAIL, { orderCode: order.data.order_code });
+      modalActions.addModal(ModalTypes.ORDER_DETAIL, {
+        orderCode: order.data.order_code,
+      });
     }
   };
 
@@ -49,7 +53,9 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({ order }) =
     <div className={style.orderInformation}>
       <div className={style.orderInformationTitle}>
         <span>سفارش من</span>
-        <span onClick={onClickAction}>{isOrderNotPurchaseYet ? 'تکمیل خرید' : 'جزئیات سفارش'}</span>
+        <span onClick={onClickAction}>
+          {isOrderNotPurchaseYet ? "تکمیل خرید" : "جزئیات سفارش"}
+        </span>
       </div>
       <div className={style.orderInformationBody}>
         <p>{toFullPersianDateString(order.data.created_at)}</p>
@@ -57,19 +63,33 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({ order }) =
           شماره سفارش : <b>{order.data.order_code}</b>
         </p>
         <ul>
-          <li className={orderStatus >= ORDER_STATUS.NEW ? style.active : ''}>
+          <li className={orderStatus >= ORDER_STATUS.NEW ? style.active : ""}>
             <Card height={20} width={20} />
           </li>
-          <li className={orderStatus >= ORDER_STATUS.PREPARING ? style.active : ''}>
+          <li
+            className={
+              orderStatus >= ORDER_STATUS.PREPARING ? style.active : ""
+            }
+          >
             <BagTick height={20} width={20} />
           </li>
-          <li className={orderStatus >= ORDER_STATUS.LEAVING_WAREHOUSE ? style.active : ''}>
+          <li
+            className={
+              orderStatus >= ORDER_STATUS.LEAVING_WAREHOUSE ? style.active : ""
+            }
+          >
             <Box height={20} width={20} />
           </li>
-          <li className={orderStatus >= ORDER_STATUS.POSTED ? style.active : ''}>
+          <li
+            className={orderStatus >= ORDER_STATUS.POSTED ? style.active : ""}
+          >
             <Group height={20} width={20} />
           </li>
-          <li className={orderStatus >= ORDER_STATUS.DELIVERED ? style.active : ''}>
+          <li
+            className={
+              orderStatus >= ORDER_STATUS.DELIVERED ? style.active : ""
+            }
+          >
             <BoxTick height={20} width={20} />
           </li>
         </ul>
@@ -82,12 +102,14 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({ order }) =
         <div className={style.orderInformationFooter}>
           <Image src={clubImage} alt="Club" />
           {order.coin_received && (
-            <p style={{ margin: '5px 0 10px' }}>
-              با این سفارش {order.coin_received} <Image width={20} height={20} src={coinIcon} alt="coin" />{' '}
-              گرفتین!
+            <p style={{ margin: "5px 0 10px" }}>
+              با این سفارش {order.coin_received}{" "}
+              <Image width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
             </p>
           )}
-          {order.discount_code && <p>کد تخفیف برای سفارش بعدیتون : {order.discount_code}</p>}
+          {order.discount_code && (
+            <p>کد تخفیف برای سفارش بعدیتون : {order.discount_code}</p>
+          )}
         </div>
       )}
     </div>

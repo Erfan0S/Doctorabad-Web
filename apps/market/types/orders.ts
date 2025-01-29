@@ -1,11 +1,4 @@
-import { ORDER_STATUS } from '@/components/marketHome/intro/orderInformation/enum';
-
-export type PreviousOrder = {
-  id: number;
-  order_code: string;
-  created_at: string;
-  price_paid: number;
-};
+import { ORDER_STATUS } from "@/components/marketHome/intro/orderInformation/enum";
 
 export type LastProcessingOrder = {
   data: {

@@ -1,20 +1,20 @@
-import { ProductTab } from '@/types/product';
+import { ProductTab } from "@repo/core/types";
 
 export const productTabsData = [
   {
     id: ProductTab.DESCRIPTION,
-    title: 'توضیحات',
+    title: "توضیحات",
   },
   {
     id: ProductTab.SPECIFICATIONS,
-    title: 'مشخصات',
+    title: "مشخصات",
   },
   {
     id: ProductTab.RELATED_PRODUCTS,
-    title: 'مرتبط',
+    title: "مرتبط",
   },
   {
     id: ProductTab.COMMENTS,
-    title: 'نظرات',
+    title: "نظرات",
   },
 ];

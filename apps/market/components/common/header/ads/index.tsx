@@ -1,11 +1,11 @@
-'use client';
-import Countdown, { CountdownRenderProps } from 'react-countdown';
-import style from './Ads.module.scss';
-import Link from 'next/link';
-import { useEffect, useReducer } from 'react';
-import { FestivalInfo } from '@/types/festival';
-import { generateFestivalProductListUrl } from '@/utils/UrlUtils';
-import { useClientComponentInitiated } from '@/hooks/useClientComponentInitiated';
+"use client";
+import Countdown, { CountdownRenderProps } from "react-countdown";
+import style from "./Ads.module.scss";
+import Link from "next/link";
+import { useEffect, useReducer } from "react";
+import { FestivalInfo } from "@/types/festival";
+import { generateFestivalProductListUrl } from "@repo/core/utils";
+import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 
 const Ads: React.FC<NonNullable<FestivalInfo>> = ({
   title,
@@ -20,9 +20,12 @@ const Ads: React.FC<NonNullable<FestivalInfo>> = ({
   const shouldRender = useClientComponentInitiated();
 
   const [hasAds, toggleAds] = useReducer((prev) => !prev, true);
-  const renderer = ({ formatted: { days, hours, minutes, seconds } }: CountdownRenderProps) => (
+  const renderer = ({
+    formatted: { days, hours, minutes, seconds },
+  }: CountdownRenderProps) => (
     <div className={style.adsCountDown}>
-      <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+      <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:
+      <span>{seconds}</span>
     </div>
   );
 
@@ -31,7 +34,10 @@ const Ads: React.FC<NonNullable<FestivalInfo>> = ({
   }
 
   return (
-    <section style={{ backgroundImage: `url(${pic_url})` }} className={style.ads}>
+    <section
+      style={{ backgroundImage: `url(${pic_url})` }}
+      className={style.ads}
+    >
       <div className="container">
         <div className={style.adsWrapper}>
           <div className={style.adsCloseButton} onClick={toggleAds}>
@@ -39,10 +45,14 @@ const Ads: React.FC<NonNullable<FestivalInfo>> = ({
           </div>
           <span>{title}</span>
           <div className={style.adsInteractives}>
-            {shouldRender && show_count_down && <Countdown date={expired_at} renderer={renderer} />}
+            {shouldRender && show_count_down && (
+              <Countdown date={expired_at} renderer={renderer} />
+            )}
             {show_button && (
               <div className={style.adsButton}>
-                <Link href={url || generateFestivalProductListUrl(id)}>{button_text || 'بزن‌بریم'}</Link>
+                <Link href={url || generateFestivalProductListUrl(id)}>
+                  {button_text || "بزن‌بریم"}
+                </Link>
               </div>
             )}
           </div>

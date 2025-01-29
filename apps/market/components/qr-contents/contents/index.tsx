@@ -1,16 +1,16 @@
-import { EffectCards } from 'swiper/modules';
+import { EffectCards } from "swiper/modules";
 
-import 'swiper/css/effect-cards';
+import "swiper/css/effect-cards";
 
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { BookContentFile } from '@/types/bookContents';
-import styles from './bookContents.module.scss';
-import { getMediaType } from '@/utils/getMediaType';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { BookContentFile } from "@/types/bookContents";
+import styles from "./bookContents.module.scss";
+import { getMediaType } from "@/utils/getMediaType";
 
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import 'photoswipe/style.css';
-import { MultimediaGallery } from '@/components/common/multimediaGallery/multimediaGallery';
+import { placeHolderDataUrl } from "@repo/core/constants";
+import "photoswipe/style.css";
+import { MultimediaGallery } from "@/components/common/multimediaGallery/multimediaGallery";
 type Props = { items: BookContentFile[]; title: string };
 
 export const Contents = ({ items, title }: Props) => {
@@ -20,34 +20,42 @@ export const Contents = ({ items, title }: Props) => {
 
       return {
         alt: item.subtitle,
-        src: item.file_detail.thumbnail || item.file_detail.url || placeHolderDataUrl,
+        src:
+          item.file_detail.thumbnail ||
+          item.file_detail.url ||
+          placeHolderDataUrl,
         video_src: item.file_detail.url,
         type: mediaType,
       };
     }),
     imageProps: { fill: true },
-    containerSelector: '#multiMediaContents',
+    containerSelector: "#multiMediaContents",
   });
 
   return (
     <Swiper
       id="multiMediaContents"
-      effect={'cards'}
+      effect={"cards"}
       grabCursor={true}
       modules={[EffectCards]}
       className={styles.ContentsSlider}
     >
       {items.map(({ body, file_detail, subtitle }, i) => {
         return (
-          <SwiperSlide className={styles.ContentsSliderSliderItem} key={file_detail.name}>
+          <SwiperSlide
+            className={styles.ContentsSliderSliderItem}
+            key={file_detail.name}
+          >
             <div className={styles.ContentsSliderInnerItem}>
-              <div className={styles.ContentsSliderInnerItemImage}>{gallery[i]}</div>
+              <div className={styles.ContentsSliderInnerItemImage}>
+                {gallery[i]}
+              </div>
               <h5>{title}</h5>
               <div className={styles.ContentsSliderInnerItemBody}>
                 <h6>{subtitle}</h6>
                 {body && (
                   <div
-                    style={{ overflow: 'auto', maxHeight: '100%' }}
+                    style={{ overflow: "auto", maxHeight: "100%" }}
                     dangerouslySetInnerHTML={{ __html: body }}
                   ></div>
                 )}

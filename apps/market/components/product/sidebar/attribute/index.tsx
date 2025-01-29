@@ -1,15 +1,15 @@
-import { SingleProduct } from '@/types/product';
-import style from './ProductSidebarAttribute.module.scss';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import variantsSorter from './variantsSorter';
-import OptionSwitch from '@/components/common/optionSwithch';
+import { SingleProduct } from "@repo/core/types";
+import style from "./ProductSidebarAttribute.module.scss";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import variantsSorter from "./variantsSorter";
+import OptionSwitch from "@/components/common/optionSwithch";
 import {
   ProductVariants,
   ProductVariantsValue,
   ProductVariantsValues,
   Variant,
   VariantsCheckBox,
-} from '@/types/productVariants';
+} from "@repo/core/types";
 
 interface Props {
   product: SingleProduct;
@@ -26,7 +26,9 @@ const ProductSidebarAttribute: React.FC<Props> = ({
   basePriceOff,
   productVariants,
 }) => {
-  const { checkbox, selections }: ProductVariants = variantsSorter(product.variants);
+  const { checkbox, selections }: ProductVariants = variantsSorter(
+    product.variants
+  );
   const [values, setValues] = useState<ProductVariantsValues>({});
 
   useEffect(() => {
@@ -34,19 +36,25 @@ const ProductSidebarAttribute: React.FC<Props> = ({
     productVariants(
       Object.values(values).map((v) => ({
         ...v,
-        user_explanation: v.user_explanation == null ? 'null' : v.user_explanation,
+        user_explanation:
+          v.user_explanation == null ? "null" : v.user_explanation,
       }))
     );
   }, [values, setValues]);
 
   const updateProductPrice = () => {
-    let addedPrice = Object.entries(values).reduce((prevPrice, [category, vaiant]) => {
-      const selectedVariant = product.variants[category].find((v) => v.id == vaiant.id);
-      if (selectedVariant?.added_price) {
-        return prevPrice + selectedVariant?.added_price;
-      }
-      return prevPrice;
-    }, 0);
+    let addedPrice = Object.entries(values).reduce(
+      (prevPrice, [category, vaiant]) => {
+        const selectedVariant = product.variants[category].find(
+          (v) => v.id == vaiant.id
+        );
+        if (selectedVariant?.added_price) {
+          return prevPrice + selectedVariant?.added_price;
+        }
+        return prevPrice;
+      },
+      0
+    );
 
     setProduct((prev) => ({
       ...prev,
@@ -89,7 +97,11 @@ const ProductSidebarAttribute: React.FC<Props> = ({
         <input
           placeholder={`توضیحات ${category} را وارد کنید.`}
           onChange={(e) => {
-            const { id, option_title: VCategory, user_explanation: explanation } = values[category];
+            const {
+              id,
+              option_title: VCategory,
+              user_explanation: explanation,
+            } = values[category];
 
             setVariantValues({
               id,
@@ -97,7 +109,7 @@ const ProductSidebarAttribute: React.FC<Props> = ({
               explanation: e.target.value,
             });
           }}
-          value={values[category] ? values[category].user_explanation! : ''}
+          value={values[category] ? values[category].user_explanation! : ""}
         />
       </li>
     ) : undefined;
@@ -108,7 +120,11 @@ const ProductSidebarAttribute: React.FC<Props> = ({
       <input
         placeholder={`توضیحات ${variant.category} را وارد کنید.`}
         onChange={(e) => {
-          const { id, option_title: category, user_explanation: explanation } = values[variant.category];
+          const {
+            id,
+            option_title: category,
+            user_explanation: explanation,
+          } = values[variant.category];
 
           setVariantValues({
             id,
@@ -116,7 +132,11 @@ const ProductSidebarAttribute: React.FC<Props> = ({
             explanation: e.target.value,
           });
         }}
-        value={values[variant.category] ? values[variant.category].user_explanation! : ''}
+        value={
+          values[variant.category]
+            ? values[variant.category].user_explanation!
+            : ""
+        }
       />
     ) : null;
   };

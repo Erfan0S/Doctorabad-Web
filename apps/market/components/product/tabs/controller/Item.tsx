@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { ProductTabData } from '@/types/product';
+import React, { useEffect, useState } from "react";
+import { ProductTabData } from "@repo/core/types";
 
-import style from './ProductTabsController.module.scss';
+import style from "./ProductTabsController.module.scss";
 
 type Props = {
   tabData: ProductTabData;
@@ -30,9 +30,9 @@ const Item = ({ tabData }: Props) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabData]);
@@ -42,12 +42,16 @@ const Item = ({ tabData }: Props) => {
     const topPos = element!.offsetTop + sectionHeaderOffset - tabOffset;
     window.scrollTo({
       top: topPos,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   return (
-    <li key={tabData.id} className={isActive ? style.active : ''} onClick={goToSection}>
+    <li
+      key={tabData.id}
+      className={isActive ? style.active : ""}
+      onClick={goToSection}
+    >
       {tabData.title}
     </li>
   );

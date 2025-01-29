@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import style from './ProductSidebarNotice.module.scss';
-import coinIcon from '@/assets/img/coin.png';
-import giftIcon from '@/assets/img/gift.png';
-import { priceFormatter } from '@/utils/priceFormatter';
-import { DiscountFestival } from '@/types/discount';
-import StarIcon from '@/assets/svg/newIcons/star';
+import Image from "next/image";
+import style from "./ProductSidebarNotice.module.scss";
+import coinIcon from "@/assets/img/coin.png";
+import giftIcon from "@/assets/img/gift.png";
+import { priceFormatter } from "@repo/core/utils";
+import { DiscountFestival } from "@/types/discount";
+import StarIcon from "@/assets/svg/newIcons/star";
 
 type Props = {
   bonusCoins?: number;
@@ -13,7 +13,12 @@ type Props = {
   festivalDiscount?: DiscountFestival;
 };
 
-const ProductSidebarNotice = ({ readyToShipState, bonusCoins, normalDiscount, festivalDiscount }: Props) => {
+const ProductSidebarNotice = ({
+  readyToShipState,
+  bonusCoins,
+  normalDiscount,
+  festivalDiscount,
+}: Props) => {
   return (
     <div className={style.productSidebarNotice}>
       <ul>
@@ -29,7 +34,7 @@ const ProductSidebarNotice = ({ readyToShipState, bonusCoins, normalDiscount, fe
             تخفیف و سودت از خرید: {priceFormatter(normalDiscount)} تومن!
           </li>
         )}
-        {readyToShipState !== 'معمولی' && (
+        {readyToShipState !== "معمولی" && (
           <li>
             <Image src={giftIcon} alt="" />
             {readyToShipState}

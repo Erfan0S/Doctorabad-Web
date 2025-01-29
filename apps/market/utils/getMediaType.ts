@@ -1,9 +1,20 @@
-import { MultimediaType } from '@/types/general';
+import { MultimediaType } from "@repo/core/types";
 
 export const getMediaType = (url: string): MultimediaType => {
-  const browserSupportedVideoFormats = ['mp4', 'mpeg', 'webm', 'ogg', 'avi', '3gp', 'mpeg', 'mkv'];
+  const browserSupportedVideoFormats = [
+    "mp4",
+    "mpeg",
+    "webm",
+    "ogg",
+    "avi",
+    "3gp",
+    "mpeg",
+    "mkv",
+  ];
 
-  const fileFormat = url.split('.').pop()!.toLocaleLowerCase();
+  const fileFormat = url.split(".").pop()!.toLocaleLowerCase();
 
-  return browserSupportedVideoFormats.includes(fileFormat) ? MultimediaType.VIDEO : MultimediaType.IMAGE;
+  return browserSupportedVideoFormats.includes(fileFormat)
+    ? MultimediaType.VIDEO
+    : MultimediaType.IMAGE;
 };

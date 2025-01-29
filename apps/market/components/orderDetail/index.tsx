@@ -1,9 +1,9 @@
-import style from './OrderDetail.module.scss';
-import OrderDetailItem from './orderDetailItem';
-import { priceFormatter } from '@/utils/priceFormatter';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import Loading from '../common/loading';
+import style from "./OrderDetail.module.scss";
+import OrderDetailItem from "./orderDetailItem";
+import { priceFormatter } from "@repo/core/utils";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api/Api";
+import Loading from "../common/loading";
 
 interface Props {
   orderCode: string;
@@ -11,7 +11,7 @@ interface Props {
 
 const OrderDetail: React.FC<Props> = ({ orderCode }: Props) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['orderDetail', orderCode],
+    queryKey: ["orderDetail", orderCode],
     queryFn: () => {
       return api.getPreviousOrderDetail(orderCode);
     },
@@ -27,12 +27,22 @@ const OrderDetail: React.FC<Props> = ({ orderCode }: Props) => {
             <div className={style.orderDetailTitle}>
               <span>سفارش {orderCode}</span>
               <small>
-                {data?.data.order_items.reduce((prev, current) => prev + current.quantity, 0)} عدد کالا
+                {data?.data.order_items.reduce(
+                  (prev, current) => prev + current.quantity,
+                  0
+                )}{" "}
+                عدد کالا
               </small>
             </div>
             <div className={style.orderDetailContent}>
               {data?.data.order_items.map((cartItem) => {
-                return <OrderDetailItem variants={[]} key={cartItem.id} {...cartItem} />;
+                return (
+                  <OrderDetailItem
+                    variants={[]}
+                    key={cartItem.id}
+                    {...cartItem}
+                  />
+                );
               })}
             </div>
             {!!data!.data.order_shipping?.price && (
@@ -44,8 +54,9 @@ const OrderDetail: React.FC<Props> = ({ orderCode }: Props) => {
             <div className={style.orderDetailTotalPrice}>
               <span>مجموع:</span>
               {priceFormatter(
-                (data?.data.order_shipping?.price || 0) + data!.data.data.price_calculated
-              )}{' '}
+                (data?.data.order_shipping?.price || 0) +
+                  data!.data.data.price_calculated
+              )}{" "}
               تومن
             </div>
           </>

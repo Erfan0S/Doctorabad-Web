@@ -1,4 +1,4 @@
-import { AvatarFile } from './general';
+import { AvatarFile } from "@repo/core/types";
 
 export interface CategoryInList {
   id: number;
@@ -11,6 +11,6 @@ export interface CategoryInList {
   children: CategoryInList[];
 }
 
-export type ShortCategory = Pick<CategoryInList, 'id' | 'DT_RowId' | 'title'>;
+export type ShortCategory = Pick<CategoryInList, "id" | "DT_RowId" | "title">;
 
 export type CategoryList = CategoryInList[];

@@ -1,18 +1,15 @@
-'use client';
-import { api } from '@/api/Api';
-import style from './ProductCommentsForm.module.scss';
-import starEmpty from '@/assets/img/star-empty.png';
-import starFill from '@/assets/img/star-fill.png';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import Loading from '@/components/common/loading';
-import { authorizeClientAction } from '@/utils/authUtils';
-import { purgeObjectFromFalsyValues } from '@/utils/purgeObjectFromFalsyValues';
-import StarIcon from '@/assets/svg/newIcons/star';
-import StarFillIcon from '@/assets/svg/newIcons/starFill';
+"use client";
+import { api } from "@/api/Api";
+import style from "./ProductCommentsForm.module.scss";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import Loading from "@/components/common/loading";
+import { authorizeClientAction } from "@repo/core/utils";
+import { purgeObjectFromFalsyValues } from "@repo/core/utils";
+import StarIcon from "@/assets/svg/newIcons/star";
+import StarFillIcon from "@/assets/svg/newIcons/starFill";
 
 type Props = {
   productId: number;
@@ -21,26 +18,31 @@ type Props = {
 
 const ProductCommentsForm = ({ productId, userRating }: Props) => {
   const [rate, setRate] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   const mutation = useMutation({
-    mutationFn: (data: Parameters<typeof api.createCOmment>['0']) => {
+    mutationFn: (data: Parameters<typeof api.createCOmment>["0"]) => {
       return api.createCOmment(data);
     },
     onSuccess() {
-      toast('نظر شما با موفقیت ثبت شد و در انتظار تایید است', { type: 'success', position: 'top-left' });
+      toast("نظر شما با موفقیت ثبت شد و در انتظار تایید است", {
+        type: "success",
+        position: "top-left",
+      });
       setRate(0);
-      setComment('');
+      setComment("");
     },
   });
 
-  const isMobile = useMediaQuery('max-width:768px');
+  const isMobile = useMediaQuery("max-width:768px");
 
   const submitComment = () => {
     if (comment) {
-      mutation.mutate(purgeObjectFromFalsyValues({ id: productId, text: comment, rate }));
+      mutation.mutate(
+        purgeObjectFromFalsyValues({ id: productId, text: comment, rate })
+      );
     } else {
-      toast('لطفا نظر خود را وارد کنید', { type: 'warning' });
+      toast("لطفا نظر خود را وارد کنید", { type: "warning" });
     }
   };
 
@@ -53,7 +55,7 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
             .map((_, index) => (
               <div
                 key={index}
-                className={rate >= 5 - index ? style.active : ''}
+                className={rate >= 5 - index ? style.active : ""}
                 onClick={() => setRate(5 - index)}
               >
                 <StarIcon />
@@ -62,11 +64,24 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
             ))}
         </div>
 
-        <button onClick={authorizeClientAction(submitComment)} disabled={mutation.isPending}>
-          {mutation.isPending ? <Loading size={12} /> : isMobile ? 'ارسال' : 'ارسال برای کدخدای دکترآباد'}
+        <button
+          onClick={authorizeClientAction(submitComment)}
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? (
+            <Loading size={12} />
+          ) : isMobile ? (
+            "ارسال"
+          ) : (
+            "ارسال برای کدخدای دکترآباد"
+          )}
         </button>
       </div>
-      <textarea name="comment" value={comment} onChange={(e) => setComment(e.target.value)} />
+      <textarea
+        name="comment"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
     </div>
   );
 };

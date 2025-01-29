@@ -1,39 +1,39 @@
-'use client';
+"use client";
 
-import style from '../Sidebar.module.scss';
-import Image from 'next/image';
-import home from '@/assets/img/home.png';
-import chat from '@/assets/img/chat.png';
-import coin from '@/assets/img/coin.png';
-import qrScanner from '@/assets/img/qr-scanner.png';
-import { modalActions } from '@/states/modals';
-import { ModalTypes } from '@/types/modals';
-import { authorizeClientAction, isUserLoggedIn } from '@/utils/authUtils';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/api/Api';
-import { SidePanelPage } from '@/types/sidePanel';
-import HomeIcon from '@/assets/svg/newIcons/home';
-import ChatIcon from '@/assets/svg/newIcons/chat';
-import QrScannerIcon from '@/assets/svg/newIcons/qrScanner';
-import CoinIcon from '@/assets/svg/newIcons/coin';
+import style from "../Sidebar.module.scss";
+import Image from "next/image";
+import coin from "@/assets/img/coin.png";
+import { modalActions } from "@repo/core";
+import { ModalTypes } from "@/types/modals";
+import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api/Api";
+import { SidePanelPage } from "@repo/core/types";
+import HomeIcon from "@/assets/svg/newIcons/home";
+import ChatIcon from "@/assets/svg/newIcons/chat";
+import QrScannerIcon from "@/assets/svg/newIcons/qrScanner";
+import { ModalsList } from "../../modal/modalsList";
 
 const SidebarFooter = () => {
   const { data, isSuccess } = useQuery({
     queryFn: api.getMessagesCount,
-    queryKey: ['messages_count'],
+    queryKey: ["messages_count"],
     enabled: !!isUserLoggedIn(),
     retry: 1,
   });
 
   const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
     queryFn: api.getUserClubInfo,
-    queryKey: ['user_club_info'],
+    queryKey: ["user_club_info"],
     enabled: !!isUserLoggedIn(),
     retry: 1,
   });
 
-  const openSideMenu = (menu: SidePanelPage) =>
-    authorizeClientAction(() => modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu }));
+  const openSideMenu = (menu: SidePanelPage) => {
+    return authorizeClientAction(() =>
+      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
+    );
+  };
 
   return (
     <div className={style.sidebarFooter}>
@@ -41,20 +41,30 @@ const SidebarFooter = () => {
         {/* <Image src={home} alt="home" width={20} height={20} /> */}
         <HomeIcon />
         {isSuccess && data.data.data.counter > 0 && (
-          <span className={style.sidebarFooterNotification}>{data.data.data.counter}</span>
+          <span className={style.sidebarFooterNotification}>
+            {data.data.data.counter}
+          </span>
         )}
       </button>
       <button
-        onClick={() => modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: SidePanelPage.SUPPORT })}
+        onClick={() =>
+          modalActions.addModal(ModalTypes.SIDE_PANEL, {
+            initialPage: SidePanelPage.SUPPORT,
+          })
+        }
       >
         <ChatIcon />
       </button>
-      <button onClick={authorizeClientAction(() => modalActions.addModal(ModalTypes.QR_CONTENTS))}>
+      <button
+        onClick={authorizeClientAction(() =>
+          modalActions.addModal(ModalTypes.QR_CONTENTS)
+        )}
+      >
         <QrScannerIcon />
       </button>
       <button onClick={openSideMenu(SidePanelPage.CLUB)}>
         <Image src={coin} alt="coin" width={25} height={25} />
-        <span>{isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ''}</span>
+        <span>{isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}</span>
       </button>
     </div>
   );

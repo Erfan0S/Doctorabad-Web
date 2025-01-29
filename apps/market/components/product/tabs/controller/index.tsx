@@ -1,9 +1,9 @@
-'use client';
-import { useEffect } from 'react';
-import { ProductTabData } from '@/types/product';
-import style from './ProductTabsController.module.scss';
-import { elementStickyEventListener } from '@/utils/elementStickyEventListener';
-import Item from './Item';
+"use client";
+import { useEffect } from "react";
+import { ProductTabData } from "@repo/core/types";
+import style from "./ProductTabsController.module.scss";
+import { elementStickyEventListener } from "@/utils/elementStickyEventListener";
+import Item from "./Item";
 interface Props {
   tabData: ProductTabData[];
 }
@@ -13,7 +13,7 @@ const ProductTabsController: React.FC<Props> = ({ tabData }) => {
       selector: `.${style.productTabsController}`,
       top: 138,
       callback: (isSticky, el) => {
-        el.classList[isSticky ? 'add' : 'remove'](style.sticky);
+        el.classList[isSticky ? "add" : "remove"](style.sticky);
       },
     });
   }, []);

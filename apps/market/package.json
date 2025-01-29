@@ -9,19 +9,17 @@
     "start": "next start",
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit",
-        "proxy_server": "lcp --proxyUrl https://drabadapp.ir --credentials --origin http://localhost:3000"
+    "proxy_server": "lcp --proxyUrl https://drabadapp.ir --credentials --origin http://localhost:3000"
   },
   "dependencies": {
     "@neshan-maps-platform/mapbox-gl-react": "^1.0.0",
     "@repo/ui": "*",
-    "@tanstack/react-query": "^5.62.2",
     "@tanstack/react-query-devtools": "^5.14.6",
     "@zxing/browser": "^0.1.4",
     "classnames": "^2.5.1",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
     "formik": "^2.4.4",
-    "framer-motion": "^10.16.4",
     "js-cookie": "^3.0.5",
     "jsqr": "^1.4.0",
     "next": "^14.1.0",

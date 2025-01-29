@@ -1,21 +1,21 @@
-'use client';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import Banners from '../banners';
-import { Banner } from '@/types/banner';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { autoPlayConfig, categoryBannerBreakpoint } from '@/constants/sliders';
-import style from './CategoryBanner.module.scss';
-import { Autoplay } from 'swiper/modules';
-import { useClientComponentInitiated } from '@/hooks/useClientComponentInitiated';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
+"use client";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import Banners from "../banners";
+import { Banner } from "@/types/banner";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
+import Image from "next/image";
+import { autoPlayConfig, categoryBannerBreakpoint } from "@/constants/sliders";
+import style from "./CategoryBanner.module.scss";
+import { Autoplay } from "swiper/modules";
+import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { placeHolderDataUrl } from "@repo/core/constants";
 interface Props {
   data: Banner[];
 }
 const CategoryBanner: React.FC<Props> = ({ data }) => {
   const shouldRender = useClientComponentInitiated();
-  const isMobile = useMediaQuery('max-width:768px');
+  const isMobile = useMediaQuery("max-width:768px");
   const imageOptions = { width: 250, height: 165 };
 
   if (!shouldRender) return null;
@@ -28,7 +28,7 @@ const CategoryBanner: React.FC<Props> = ({ data }) => {
             <Swiper
               modules={[Autoplay]}
               spaceBetween={30}
-              slidesPerView={'auto'}
+              slidesPerView={"auto"}
               loop
               autoplay={autoPlayConfig}
               breakpoints={categoryBannerBreakpoint}
@@ -39,7 +39,7 @@ const CategoryBanner: React.FC<Props> = ({ data }) => {
                     className={style.categoryBannerImage}
                     {...imageOptions}
                     src={pic_url || placeHolderDataUrl}
-                    alt={title || 'Banner'}
+                    alt={title || "Banner"}
                   />
                 );
                 return (

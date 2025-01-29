@@ -1,21 +1,24 @@
-'use client';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import style from './Search.module.scss';
-import Link from 'next/link';
-import Image from 'next/image';
-import { priceFormatter } from '@/utils/priceFormatter';
-import useDebounceAction from '@/hooks/useDebounceAction';
-import { api } from '@/api/Api';
+"use client";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import style from "./Search.module.scss";
+import Link from "next/link";
+import Image from "next/image";
+import { priceFormatter } from "@repo/core/utils";
+import useDebounceAction from "@/hooks/useDebounceAction";
+import { api } from "@/api/Api";
 
-import { getAvatarSource } from '@/utils/avatarUtils';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { SearchParamsUtils, generateSingleProductUrlFromId } from '@/utils/UrlUtils';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { routePath } from '@/constants/routePath';
-import Loading from '../../loading';
-import useClickOutside from '@/hooks/useClickOutside';
-import SearchIcon from '@/assets/svg/search';
+import { getAvatarSource } from "@/utils/avatarUtils";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import {
+  SearchParamsUtils,
+  generateSingleProductUrlFromId,
+} from "@repo/core/utils";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { routePath } from "@repo/core/constants";
+import Loading from "../../loading";
+import useClickOutside from "@/hooks/useClickOutside";
+import SearchIcon from "@/assets/svg/search";
 
 const totalResultsCount = 10;
 const shownResultsCount = 7;
@@ -27,7 +30,7 @@ interface Props {
 const Search = ({ productCount }: Props) => {
   const { push } = useRouter();
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [showResults, setShowResults] = useState(false);
 
   const closeSearchList = () => setShowResults(false);
@@ -40,8 +43,13 @@ const Search = ({ productCount }: Props) => {
     isFetching,
     refetch,
   } = useQuery({
-    queryFn: () => api.searchProducts({ q: searchText, page: '0', limit: String(totalResultsCount) }),
-    queryKey: ['search', searchText],
+    queryFn: () =>
+      api.searchProducts({
+        q: searchText,
+        page: "0",
+        limit: String(totalResultsCount),
+      }),
+    queryKey: ["search", searchText],
     enabled: false,
   });
 
@@ -98,47 +106,72 @@ const Search = ({ productCount }: Props) => {
               <>
                 {results.data?.data
                   .slice(0, shownResultsCount)
-                  .map(({ id, title, product_pic, price_main, price_off, price_amazing, quantity, slug }) => {
-                    const isProductHasStock = quantity !== 0;
+                  .map(
+                    ({
+                      id,
+                      title,
+                      product_pic,
+                      price_main,
+                      price_off,
+                      price_amazing,
+                      quantity,
+                      slug,
+                    }) => {
+                      const isProductHasStock = quantity !== 0;
 
-                    return (
-                      <div key={id} className={style.searchResultParentItem}>
-                        <div className={style.searchResultParentItemImage}>
-                          <Image src={product_pic || placeHolderDataUrl} width={80} height={80} alt={title} />
-                        </div>
-                        <div className={style.searchResultParentItemContent}>
-                          <span>{title}</span>
-                          {isProductHasStock && (
-                            <div className={style.searchResultParentItemPrice}>
-                              <span
-                                className={
-                                  price_off
-                                    ? style.searchResultParentItemPriceRegular
-                                    : style.searchResultParentItemPriceSale
-                                }
+                      return (
+                        <div key={id} className={style.searchResultParentItem}>
+                          <div className={style.searchResultParentItemImage}>
+                            <Image
+                              src={product_pic || placeHolderDataUrl}
+                              width={80}
+                              height={80}
+                              alt={title}
+                            />
+                          </div>
+                          <div className={style.searchResultParentItemContent}>
+                            <span>{title}</span>
+                            {isProductHasStock && (
+                              <div
+                                className={style.searchResultParentItemPrice}
                               >
-                                {priceFormatter(price_main)}
-                                <small>تومن</small>
-                              </span>
-                              {(!!price_off || price_amazing) && (
-                                <span className={style.searchResultParentItemPriceSale}>
-                                  {priceFormatter(price_amazing || price_off)}
+                                <span
+                                  className={
+                                    price_off
+                                      ? style.searchResultParentItemPriceRegular
+                                      : style.searchResultParentItemPriceSale
+                                  }
+                                >
+                                  {priceFormatter(price_main)}
                                   <small>تومن</small>
                                 </span>
-                              )}
-                            </div>
-                          )}
+                                {(!!price_off || price_amazing) && (
+                                  <span
+                                    className={
+                                      style.searchResultParentItemPriceSale
+                                    }
+                                  >
+                                    {priceFormatter(price_amazing || price_off)}
+                                    <small>تومن</small>
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          <Link
+                            onClick={closeSearchList}
+                            href={generateSingleProductUrlFromId(id, slug)}
+                          ></Link>
                         </div>
-                        <Link
-                          onClick={closeSearchList}
-                          href={generateSingleProductUrlFromId(id, slug)}
-                        ></Link>
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
 
                 {results.data?.data.length > shownResultsCount && (
-                  <div onClick={seeFullResult} className={style.searchResultAll}>
+                  <div
+                    onClick={seeFullResult}
+                    className={style.searchResultAll}
+                  >
                     دیدن همه نتایج
                   </div>
                 )}

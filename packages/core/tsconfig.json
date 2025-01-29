@@ -1,13 +1,18 @@
 {
   "extends": "@repo/typescript-config/base",
+  "plugins": [
+    {
+      "name": "next"
+    }
+  ],
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "ESNext",
-    "moduleResolution": "node",  // Ensure Node-style module resolution
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "strict": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "paths": {
+    "@/*": ["./*"],
+    "src/*": ["./*"]
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

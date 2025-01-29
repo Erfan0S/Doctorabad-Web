@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import style from './OrderDetailItem.module.scss';
-import Link from 'next/link';
-import { priceFormatter } from '@/utils/priceFormatter';
-import { calcDiscountPercentage } from '@/utils/calcDiscountPercentage';
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { Order } from '@/types/cart';
-import { generateSingleProductUrlFromId } from '@/utils/UrlUtils';
-import { modalActions } from '@/states/modals';
-import { useRouter } from 'next/navigation';
-import { MouseEvent } from 'react';
+import Image from "next/image";
+import style from "./OrderDetailItem.module.scss";
+import Link from "next/link";
+import { priceFormatter } from "@repo/core/utils";
+import { calcDiscountPercentage } from "@repo/core/utils";
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { Order } from "@repo/core/types";
+import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import { modalActions } from "@/states/modals";
+import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 
 const OrderDetailItem = ({
   id,
@@ -31,7 +31,12 @@ const OrderDetailItem = ({
     <div className={style.OrderDetailItem}>
       <div className={style.OrderDetailItemImage}>
         <a href={url} onClick={navigate}>
-          <Image src={product_pic || placeHolderDataUrl} alt={product_title} width={75} height={75} />
+          <Image
+            src={product_pic || placeHolderDataUrl}
+            alt={product_title}
+            width={75}
+            height={75}
+          />
         </a>
       </div>
       <div className={style.OrderDetailItemContent}>
@@ -56,7 +61,9 @@ const OrderDetailItem = ({
               <small>تومن</small>
             </div>
           </div>
-          <span className={style.OrderDetailItemFooterQuantity}>x {quantity}</span>
+          <span className={style.OrderDetailItemFooterQuantity}>
+            x {quantity}
+          </span>
         </div>
       </div>
     </div>

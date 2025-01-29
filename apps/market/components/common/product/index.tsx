@@ -1,24 +1,24 @@
-'use client';
-import Image from 'next/image';
-import style from './Product.module.scss';
-import { ProductCard } from '@/types/product';
-import Link from 'next/link';
+"use client";
+import Image from "next/image";
+import style from "./Product.module.scss";
+import { ProductCard } from "@repo/core/types";
+import Link from "next/link";
 
-import { placeHolderDataUrl } from '@/constants/placeHolderDataUrl';
-import { priceFormatter } from '@/utils/priceFormatter';
+import { placeHolderDataUrl } from "@repo/core/constants";
+import { priceFormatter } from "@repo/core/utils";
 
-import { calcDiscountPercentage } from '@/utils/calcDiscountPercentage';
-import { generateSingleProductUrlFromId } from '@/utils/UrlUtils';
-import FavoriteIcon from '../favoriteIcon';
-import { cartActions, useCart } from '@/states/cart';
-import { authorizeClientAction } from '@/utils/authUtils';
-import Loading from '../loading';
-import QuantityProductButton from '@/components/product/sidebar/price/quantityButton';
-import { useToggleFavoriteProduct } from '@/hooks/useToggleFavoriteProduct';
-import { useCartActionsLoadingHandler } from '@/hooks/useCartActionsLoadingHandler';
+import { calcDiscountPercentage } from "@repo/core/utils";
+import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import FavoriteIcon from "../favoriteIcon";
+import { cartActions, useCart } from "@repo/core/states";
+import { authorizeClientAction } from "@repo/core/utils";
+import Loading from "../loading";
+import QuantityProductButton from "@/components/product/sidebar/price/quantityButton";
+import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
+import { useCartActionsLoadingHandler } from "@/hooks/useCartActionsLoadingHandler";
 
-import { useRestockNotification } from '@/hooks/useRestockNotification';
-import { FavoriteColors } from '@/components/marketHome/intro/orderInformation/enum';
+import { useRestockNotification } from "@/hooks/useRestockNotification";
+import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 
 const Product: React.FC<ProductCard> = ({
   title,
@@ -34,13 +34,16 @@ const Product: React.FC<ProductCard> = ({
   lazyLoadImage = true,
   has_variant = false,
 }) => {
-  const { isFavorite, isLoading, toggleFavorite } = useToggleFavoriteProduct(!!user_favorite);
+  const { isFavorite, isLoading, toggleFavorite } =
+    useToggleFavoriteProduct(!!user_favorite);
 
-  const { cartActionsLoadingHandler, updateCartLoading } = useCartActionsLoadingHandler();
+  const { cartActionsLoadingHandler, updateCartLoading } =
+    useCartActionsLoadingHandler();
 
   const { data } = useCart();
 
-  const { restockNotification, restockNotificationLoading } = useRestockNotification(id);
+  const { restockNotification, restockNotificationLoading } =
+    useRestockNotification(id);
 
   const productOrder = data.find((order) => order.product_id === id);
 
@@ -49,11 +52,11 @@ const Product: React.FC<ProductCard> = ({
   const isProductHasStock = quantity !== 0;
 
   return (
-    <div className={`${style.product} ${gridView ? style.gridView : ''}`}>
+    <div className={`${style.product} ${gridView ? style.gridView : ""}`}>
       <div className={style.productImage}>
         <Link href={url}>
           <Image
-            loading={lazyLoadImage ? 'lazy' : 'eager'}
+            loading={lazyLoadImage ? "lazy" : "eager"}
             fill
             src={product_pic || placeHolderDataUrl}
             alt={title}
@@ -73,7 +76,13 @@ const Product: React.FC<ProductCard> = ({
               {(!!price_off || !!price_amazing) && (
                 <>
                   <span>{priceFormatter(price_main)} تومن</span>
-                  <small>%{calcDiscountPercentage(price_main, price_amazing || price_off)}</small>{' '}
+                  <small>
+                    %
+                    {calcDiscountPercentage(
+                      price_main,
+                      price_amazing || price_off
+                    )}
+                  </small>{" "}
                 </>
               )}
             </div>
@@ -94,17 +103,22 @@ const Product: React.FC<ProductCard> = ({
               </div>
             ) : isProductHasStock ? (
               has_variant ? (
-                <Link className={style.productAddToCart} href={'/market/product/' + id}>
+                <Link
+                  className={style.productAddToCart}
+                  href={"/market/product/" + id}
+                >
                   انتخاب گزینه‌های خرید
                 </Link>
               ) : (
                 <button
                   className={style.productAddToCart}
                   onClick={authorizeClientAction(
-                    cartActionsLoadingHandler(() => cartActions.addToCart(id, []))
+                    cartActionsLoadingHandler(() =>
+                      cartActions.addToCart(id, [])
+                    )
                   )}
                 >
-                  {updateCartLoading ? <Loading size={22} /> : 'افزودن‌به‌سبد'}
+                  {updateCartLoading ? <Loading size={22} /> : "افزودن‌به‌سبد"}
                 </button>
               )
             ) : (
@@ -113,10 +127,17 @@ const Product: React.FC<ProductCard> = ({
                 onClick={restockNotification}
                 disabled={restockNotificationLoading}
               >
-                {restockNotificationLoading ? <Loading size={22} /> : 'موجود شد خبرم کن!'}
+                {restockNotificationLoading ? (
+                  <Loading size={22} />
+                ) : (
+                  "موجود شد خبرم کن!"
+                )}
               </button>
             )}
-            <button aria-label="AddToFavorite" className={style.productAddToFavorite}>
+            <button
+              aria-label="AddToFavorite"
+              className={style.productAddToFavorite}
+            >
               <FavoriteIcon
                 isFavorite={isFavorite}
                 loading={isLoading}

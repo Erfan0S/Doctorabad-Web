@@ -1,5 +1,5 @@
-import { ProductVariants, Variants } from '@/types/productVariants';
-import React from 'react';
+import { ProductVariants, Variants } from "@repo/core/types";
+import React from "react";
 
 const variantsSorter = (variants: Variants): ProductVariants => {
   const variantsByType: ProductVariants = Object.entries(variants).reduce(
@@ -7,7 +7,10 @@ const variantsSorter = (variants: Variants): ProductVariants => {
       const isCheckboxVariant = variant.some((v) => v.check_box == true);
 
       if (isCheckboxVariant) {
-        prev.checkbox = [...prev.checkbox, { variants: variant, category: variantCategory }];
+        prev.checkbox = [
+          ...prev.checkbox,
+          { variants: variant, category: variantCategory },
+        ];
       } else {
         prev.selections[variantCategory] = variant;
       }

@@ -1,5 +1,5 @@
-import { isServerSide } from '@/constants/constants';
-import { toast } from 'react-toastify';
+import { isServerSide } from "@repo/core/constants";
+import { toast } from "react-toastify";
 
 export const handleErrorPayload = (err: any) => {
   if (err?.data && !isServerSide) {
@@ -15,7 +15,7 @@ export const handleErrorPayload = (err: any) => {
       msg = Object.values(errors)?.[0]?.[0];
     }
 
-    if (msg) toast(msg, { type: 'error' ,position: 'top-left'});
+    if (msg) toast(msg, { type: "error", position: "top-left" });
   }
 
   return Promise.reject(err);

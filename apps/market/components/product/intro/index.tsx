@@ -1,19 +1,21 @@
-'use client';
-import { SingleProduct } from '@/types/product';
-import style from './ProductIntro.module.scss';
-import ProductBreadcrumb from './breadcrumb';
-import ProductSeller from './seller';
-import ProductShortDescription from './shortDescription';
-import ProductSlider from './slider';
-import ProductTitle from './title';
+"use client";
+import { SingleProduct } from "@repo/core/types";
+import style from "./ProductIntro.module.scss";
+import ProductBreadcrumb from "./breadcrumb";
+import ProductSeller from "./seller";
+import ProductShortDescription from "./shortDescription";
+import ProductSlider from "./slider";
+import ProductTitle from "./title";
 
-import ProductSidebar from '../sidebar';
-import { generateProductCategoryUrlFromId } from '@/utils/UrlUtils';
+import ProductSidebar from "../sidebar";
+import { generateProductCategoryUrlFromId } from "@repo/core/utils";
 interface Props {
   productData: SingleProduct;
 }
 const ProductIntro: React.FC<Props> = ({ productData }) => {
-  const category = productData?.category?.length ? productData?.category[0] : null;
+  const category = productData?.category?.length
+    ? productData?.category[0]
+    : null;
 
   return (
     <>
@@ -31,7 +33,10 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
               {category && (
                 <ProductBreadcrumb
                   items={[
-                    { title: category.title, link: generateProductCategoryUrlFromId(category.id) },
+                    {
+                      title: category.title,
+                      link: generateProductCategoryUrlFromId(category.id),
+                    },
                     { title: productData.title },
                   ]}
                 />

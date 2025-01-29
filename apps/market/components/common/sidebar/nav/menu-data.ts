@@ -1,71 +1,71 @@
-import doctorLearn from '@/assets/img/doctor-learn.png';
-import doctorMarket from '@/assets/img/doctor-market.png';
-import doctorTools from '@/assets/img/doctor-tools.png';
-import doctorDownload from '@/assets/img/doctor-download.png';
-import doctorExam from '@/assets/img/doctor-exam.png';
-import menuLogo from '@/assets/img/logo-without-text.png';
-import { routePath } from '@/constants/routePath';
+import doctorLearn from "@/assets/img/doctor-learn.png";
+import doctorMarket from "@/assets/img/doctor-market.png";
+import doctorTools from "@/assets/img/doctor-tools.png";
+import doctorDownload from "@/assets/img/doctor-download.png";
+import doctorExam from "@/assets/img/doctor-exam.png";
+import menuLogo from "@/assets/img/logo-without-text.png";
+import { routePath } from "@repo/core/constants";
 
 export const mobileMenuLogoSchema = {
   id: 0,
-  title: 'دکترآباد',
-  subTitle: 'دکترآباد',
-  href: '/',
+  title: "دکترآباد",
+  subTitle: "دکترآباد",
+  href: "/",
   image: menuLogo,
-  color: 'green',
+  color: "green",
   disabled: false,
-  mobileTitle: 'دکترآباد',
+  mobileTitle: "دکترآباد",
 };
 
 export const sidebarMenuData = [
   {
     id: 1,
-    title: 'دکتـــــــــــــــرلرن',
-    subTitle: 'مرکزآموزش‌دکترآباد',
-    href: 'https://doctorabad.com/app',
+    title: "دکتـــــــــــــــرلرن",
+    subTitle: "مرکزآموزش‌دکترآباد",
+    href: "https://doctorabad.com/app",
     image: doctorLearn,
-    color: 'red',
+    color: "red",
     disabled: true,
-    mobileTitle: '',
+    mobileTitle: "",
   },
   {
     id: 2,
-    title: 'دکتــــــرمارکت',
-    subTitle: 'مرکزخرید‌دکترآباد',
+    title: "دکتــــــرمارکت",
+    subTitle: "مرکزخرید‌دکترآباد",
     href: routePath.marketBasePath,
     image: doctorMarket,
-    color: 'orange',
+    color: "orange",
     disabled: true,
-    mobileTitle: 'مرکزخرید',
+    mobileTitle: "مرکزخرید",
   },
   {
     id: 3,
-    title: 'دکتـــــــــرتولز',
-    subTitle: 'مرکزابزاردکترآباد',
-    href: 'https://doctorabad.com/app',
+    title: "دکتـــــــــرتولز",
+    subTitle: "مرکزابزاردکترآباد",
+    href: "https://doctorabad.com/app",
     image: doctorTools,
-    color: 'green',
+    color: "green",
     disabled: false,
-    mobileTitle: '',
+    mobileTitle: "",
   },
   {
     id: 4,
-    title: 'دکتـــــــــــردانلود',
-    subTitle: 'مرکزمحتوای‌دکترآباد',
-    href: 'https://doctorabad.com/app',
+    title: "دکتـــــــــــردانلود",
+    subTitle: "مرکزمحتوای‌دکترآباد",
+    href: "https://doctorabad.com/app",
     image: doctorDownload,
-    color: 'blue',
+    color: "blue",
     disabled: true,
-    mobileTitle: '',
+    mobileTitle: "",
   },
   {
     id: 5,
-    title: 'دکتـــــــــــراگزم',
-    subTitle: 'مرکزآزمون‌دکترآباد',
-    href: 'https://doctorabad.com/app',
+    title: "دکتـــــــــــراگزم",
+    subTitle: "مرکزآزمون‌دکترآباد",
+    href: "https://doctorabad.com/app",
     image: doctorExam,
-    color: 'purple',
+    color: "purple",
     disabled: true,
-    mobileTitle: '',
+    mobileTitle: "",
   },
 ];

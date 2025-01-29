@@ -1,14 +1,19 @@
-import { api } from '@/api/Api';
-import { generateSingleProductUrlFromId } from '@/utils/UrlUtils';
-import { Metadata } from 'next';
+import { api } from "@/api/Api";
+import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import { Metadata } from "next";
 
-export const generateProductMetaData = async ({ params }: { params: { id: string } }): Promise<Metadata> => {
+export const generateProductMetaData = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> => {
   try {
     const productFetcher = isNaN(Number(params.id))
       ? api.getSingleProductBySlug(params.id)
       : api.getSingleProduct(Number(params.id));
     const { data } = await productFetcher;
-    const { title, product_pic, meta_description, keywords, id, slug } = data.data;
+    const { title, product_pic, meta_description, keywords, id, slug } =
+      data.data;
     return {
       title,
       description: meta_description,
@@ -18,16 +23,16 @@ export const generateProductMetaData = async ({ params }: { params: { id: string
         description: meta_description,
         images: product_pic,
         url: `https://drabadapp.ir/doctormarket/${generateSingleProductUrlFromId(id, slug)}`,
-        siteName: 'دکترمارکت',
+        siteName: "دکترمارکت",
       },
       twitter: {
         title,
         description: meta_description,
         images: product_pic,
-        card: 'summary_large_image',
+        card: "summary_large_image",
       },
     };
   } catch (error) {
-    return { title: 'دکترآباد | محصول' };
+    return { title: "دکترآباد | محصول" };
   }
 };

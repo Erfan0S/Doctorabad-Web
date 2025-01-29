@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { AUTH_COOKIE_KEY, isServerSide } from '@/constants/constants';
-import { routePath } from '@/constants/routePath';
-import { getClientSideCookie } from '@/utils/cookieUtils';
-import { useRouter } from 'next/navigation';
+import { AUTH_COOKIE_KEY, isServerSide } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants";
+import { getClientSideCookie } from "@repo/core/utils";
+import { useRouter } from "next/navigation";
 
 export const AuthorizeClientPage = ({ children }: React.PropsWithChildren) => {
   const { replace } = useRouter();
