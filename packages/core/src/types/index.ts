@@ -25,9 +25,9 @@ export { MultimediaType, SidePanelPage } from "./general";
 export type {
   Modal,
   ModalData,
-  ModalList,
   ModalProps,
   ModalState,
+  ModalListType,
 } from "./modals";
 
 export type {

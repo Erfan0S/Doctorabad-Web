@@ -1,4 +1,4 @@
-import { AutoplayOptions, SwiperOptions } from 'swiper/types';
+import { AutoplayOptions } from "swiper/types";
 
 export const swiperBreakpoints = {
   0: {

@@ -19,3 +19,9 @@ export {
   profileValidation,
   shippingAddressValidator,
 } from "./validators/userValidator";
+export {
+  autoPlayConfig,
+  categoryBannerBreakpoint,
+  relatedSliderBreakpoints,
+  swiperBreakpoints,
+} from "./sliders";

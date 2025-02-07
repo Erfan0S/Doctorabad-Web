@@ -1,4 +1,3 @@
-import ArchiveHeader from "@/components/product-list/header/archive";
 import ArchiveList from "@/components/product-list/productList";
 import { generateProductListMetaData } from "@/metadata/archiveProduct";
 import ArchiveFiltersContainer from "@/components/product-list/filters/archive/archiveFilterContainer";

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { generateSingleProviderUrlFromId } from "@repo/core/utils";
 import style from "./Companies.module.scss";
 import "swiper/css";
-import { autoPlayConfig } from "@/constants/sliders";
+import { autoPlayConfig } from "@repo/core/constants";
 import { placeHolderDataUrl } from "@repo/core/constants";
 
 interface Props {

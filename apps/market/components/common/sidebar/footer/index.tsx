@@ -7,7 +7,7 @@ import { modalActions } from "@repo/core";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
+import { api } from "@repo/shared_modules/api";
 import { SidePanelPage } from "@repo/core/types";
 import HomeIcon from "@/assets/svg/newIcons/home";
 import ChatIcon from "@/assets/svg/newIcons/chat";

@@ -10,7 +10,7 @@ import "swiper/css";
 
 import { Banner } from "@/types/banner";
 import { placeHolderDataUrl } from "@repo/core/constants";
-import { autoPlayConfig } from "@/constants/sliders";
+import { autoPlayConfig } from "@repo/core/constants";
 
 type Props = {
   banners: Banner[];

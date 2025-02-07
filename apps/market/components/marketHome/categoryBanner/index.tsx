@@ -5,7 +5,7 @@ import { Banner } from "@/types/banner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import Image from "next/image";
-import { autoPlayConfig, categoryBannerBreakpoint } from "@/constants/sliders";
+import { autoPlayConfig, categoryBannerBreakpoint } from "@repo/core/constants";
 import style from "./CategoryBanner.module.scss";
 import { Autoplay } from "swiper/modules";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";

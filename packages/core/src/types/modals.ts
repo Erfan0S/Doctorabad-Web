@@ -21,6 +21,10 @@ export interface ModalProps<D = any> {
 
 export type ModalData<T extends ModalTypes> = any;
 
-export type ModalList = {
-  [key in ModalTypes]: React.FC<ModalProps>;
+// export type ModalListType = {
+//   [key in ModalTypes]: React.FC<ModalProps>;
+// };
+
+export type ModalListType = {
+  [key in ModalTypes]: any;
 };

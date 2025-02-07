@@ -1,0 +1,74 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.sidePanelHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: white;
+
+  .sidePanelHeader {
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    align-items: center;
+    background: $button-bg-red;
+    width: 100%;
+
+    .headerButtonContainer {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+    }
+
+    > span {
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      max-width: calc(100% - 100px);
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .headerButton {
+      background-color: #fff;
+      margin: 0 space(2) 0 0;
+      border: unset;
+      border-radius: radius(2);
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      outline: none;
+
+      &:active,
+      &:focus {
+        outline: none;
+      }
+
+      img,
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .sidePanelHeaderChildren {
+    width: 100%;
+    padding: 0 10px;
+    > div {
+      margin: 10px 0;
+    }
+  }
+}

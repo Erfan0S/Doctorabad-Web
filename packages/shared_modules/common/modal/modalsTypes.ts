@@ -11,4 +11,5 @@ export enum ModalTypes {
   MY_MESSAGES_DETAIL = "MY_MESSAGES_DETAIL",
   QR_CONTENTS = "QR_CONTENTS",
   VIDEO = "video",
+  SELECT_FILTER = "select_filter",
 }

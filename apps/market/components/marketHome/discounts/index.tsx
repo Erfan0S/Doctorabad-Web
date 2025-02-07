@@ -5,7 +5,7 @@ import DiscountRightContent from "./right-content";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import style from "./Discounts.module.scss";
 import "swiper/css";
-import { autoPlayConfig } from "@/constants/sliders";
+import { autoPlayConfig } from "@repo/core/constants";
 import { AmazingProduct } from "@repo/core/types";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 

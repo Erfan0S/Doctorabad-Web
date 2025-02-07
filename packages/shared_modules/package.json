@@ -10,7 +10,8 @@
     "./register": "./userSidePanel/modal_components/register/index.tsx",
     "./api": "./api/Api.ts",
     "./modalsList": "./common/modal/modalsList.tsx",
-    "./modalsTypes": "./common/modal/modalsTypes.ts"
+    "./modalsTypes": "./common/modal/modalsTypes.ts",
+    "./components": "./common/components/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

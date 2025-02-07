@@ -23,3 +23,4 @@ export { lockPageScroll } from "./lockPageScroll";
 export { priceFormatter } from "./priceFormatter";
 export { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
 export { toFullPersianDateString } from "./toFullPersianDateString";
+export { elementStickyEventListener } from "./elementStickyEventListener";

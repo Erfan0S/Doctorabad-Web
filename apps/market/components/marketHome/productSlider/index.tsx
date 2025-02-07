@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ProductCard } from "@repo/core/types";
 import Product from "@/components/common/product";
 import "swiper/css";
-import { autoPlayConfig, swiperBreakpoints } from "@/constants/sliders";
+import { autoPlayConfig, swiperBreakpoints } from "@repo/core/constants";
 import { Autoplay } from "swiper/modules";
 
 interface Props {

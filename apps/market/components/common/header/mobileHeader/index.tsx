@@ -10,7 +10,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
 import { SidePanelPage } from "@repo/core/types";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
+import { api } from "@repo/shared_modules/api";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 import Logo from "../logo";
 import HomeIcon from "@/assets/svg/newIcons/home";

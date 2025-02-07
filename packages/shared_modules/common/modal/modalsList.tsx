@@ -8,13 +8,14 @@ import { SidePanel } from "../../userSidePanel";
 import { ModalTypes } from "./modalsTypes";
 import { AddAddressModal } from "./modals/AddAddressModal";
 
-export const ModalsList = {
+export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
   [ModalTypes.SIDE_PANEL]: SidePanel,
   [ModalTypes.ORDER_DETAIL]: OrderDetailModal,
   [ModalTypes.CLUB_INFO]: ClubInfoModal,
   [ModalTypes.CLUB_SINGLE_GET_CODE]: ClubSingleGetCodeModal,
   [ModalTypes.CLUB_SINGLE_SHOW_DESC]: ClubSingleDescModal,
+
   [ModalTypes.MY_MESSAGES_DETAIL]: MyMessageDetailModal,
   [ModalTypes.ADD_ADDRESS]: AddAddressModal,
 };
