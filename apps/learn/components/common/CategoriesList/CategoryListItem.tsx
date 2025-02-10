@@ -10,14 +10,18 @@ type Props = {
 
 const CategoryListItem = ({ category, isProvider }: Props) => {
   return (
-    <div className={style.ListItem}>
+    <div
+      className={style.ListItem}
+      style={{ backgroundImage: `url(${category.pic_url})` }}
+    >
       {!isProvider ? (
         <h2 className={style.ListItemTitle}>
           {/* @ts-ignore */}
           {category?.title || category?.name}
         </h2>
       ) : null}
-      {/* <Image alt="category" src={category.pic_url} /> */}
+
+      {/* <Image alt="category" width={100} height={100} src={category.pic_url} /> */}
     </div>
   );
 };

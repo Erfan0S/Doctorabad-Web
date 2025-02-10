@@ -63,6 +63,7 @@ export enum HomeTabs {
 export interface TabData {
   id: CourseTab | HomeTabs;
   title: string;
+  url?: string;
 }
 
 export type CourseListItemType = {

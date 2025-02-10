@@ -2,6 +2,8 @@
 import style from "./ProductTabsController.module.scss";
 import Item from "./Item";
 import { TabData } from "@/types/courses";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 interface Props {
   tabData: TabData[];
@@ -12,7 +14,7 @@ const TabsController: React.FC<Props> = ({ tabData, className }) => {
     <div className={`${style.productTabsController} ${className}`}>
       <ul>
         {tabData.map((data) => (
-          <Item key={data.id} tabData={data} />
+          <Item key={data.id} tabData={data} url={data?.url} />
         ))}
       </ul>
     </div>

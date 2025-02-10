@@ -1,7 +1,7 @@
 import { Request } from "@repo/core";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
 import { toast } from "react-toastify";
-import { ResponseType } from "@repo/core/types";
+import { PaginatedResponse, ResponseType } from "@repo/core/types";
 import {
   CourseComents,
   CourseDataType,
@@ -114,12 +114,12 @@ class Api extends Request {
   }
 
   // main page
-  getProviders(): Promise<ResponseType<ProviderType>> {
-    return this.request.get("/user/v1/education/providers");
+  getProviders(): Promise<ResponseType<PaginatedResponse<ProviderType[]>>> {
+    return this.request.get("/user/v1/education/provider");
   }
 
-  getCategories(): Promise<ResponseType<CategoryType>> {
-    return this.request.get("/user/v1/education/categories");
+  getCategories(): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
+    return this.request.get("/user/v1/education/category");
   }
 
   getNewestCourses(): Promise<ResponseType<CourseListItemType>> {

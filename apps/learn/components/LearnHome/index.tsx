@@ -178,7 +178,6 @@ const MainPage = () => {
         archiveLink="#"
         customSliderConfig={{ spaceBetween: -45 }}
       />
-      <CategoriesList categories={categories} />
     </div>
   );
 };
