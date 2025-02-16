@@ -7,7 +7,6 @@ import Hat from "@/assets/svg/hat";
 import HomeIcon from "@/assets/svg/home";
 import { CourseListItemType } from "@/types/courses";
 import styles from "./CourseList.module.scss";
-import testImage from "@/assets/img/club.png";
 
 type Props = {
   course: CourseListItemType;
@@ -16,13 +15,17 @@ type Props = {
 const CourseListItem = ({ course }: Props) => {
   return (
     <div className={styles.courseCard}>
-      <Image
-        src={testImage}
-        alt={course.title}
-        width={80}
-        height={80}
-        className={styles.courseImage}
-      />
+      {course.pic_url ? (
+        <Image
+          src={course.pic_url}
+          alt={course.title}
+          width={80}
+          height={80}
+          className={styles.courseImage}
+        />
+      ) : (
+        <div className={styles.courseImage} />
+      )}
       <div className={styles.courseInfo}>
         <h3 className={styles.title}>{course.title}</h3>
         <div className={styles.metadata}>

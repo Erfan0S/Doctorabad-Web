@@ -9,6 +9,7 @@ import {
   VideoType,
 } from "@/types/courses";
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
+import { SortType } from "@/types/filters";
 
 class Api extends Request {
   constructor() {
@@ -114,28 +115,98 @@ class Api extends Request {
   }
 
   // main page
-  getProviders(): Promise<ResponseType<PaginatedResponse<ProviderType[]>>> {
-    return this.request.get("/user/v1/education/provider");
+  getProviders(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<ProviderType[]>>> {
+    return this.request.get("/user/v1/education/provider", {
+      params: { page },
+    });
   }
 
-  getCategories(): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
-    return this.request.get("/user/v1/education/category");
+  getCategories(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
+    return this.request.get("/user/v1/education/category", {
+      params: { page },
+    });
   }
 
-  getNewestCourses(): Promise<ResponseType<CourseListItemType>> {
-    return this.request.get("/user/v1/education/newest");
+  getNewestCourses(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/newest", {
+      params: { page },
+    });
   }
 
-  getBestSellerCourses(): Promise<ResponseType<CourseListItemType>> {
-    return this.request.get("/user/v1/education/best-seller");
+  getBestSellerCourses(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/bestselling", {
+      params: { page },
+    });
   }
 
-  getUserLastViewedCourses(): Promise<ResponseType<CourseListItemType>> {
-    return this.request.get("/user/v1/education/last-viewed");
+  getSuggestedCourses(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/suggest", {
+      params: { page },
+    });
   }
 
-  getMainSlider(): Promise<ResponseType<SliderType>> {
-    return this.request.get("/user/v1/education/main-slider");
+  getUserLastViewedCourses(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/user/last-seen", {
+      params: { page },
+    });
+  }
+
+  getMainSlider(): Promise<ResponseType<{ data: SliderType[] }>> {
+    return this.request.get("/user/v1/education/slider?location=1");
+  }
+
+  // filyer / search
+
+  getSearchList(
+    query: string,
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return query
+      ? this.request.get("/user/v1/education/course/search", {
+          params: { q: query, page },
+        })
+      : this.getNewestCourses(page);
+  }
+
+  getFilterList(
+    sort?: SortType,
+    fields?: number[],
+    grades?: number[],
+    categories?: number[],
+    providers?: number[],
+    minPrice?: number,
+    maxPrice?: number,
+    language?: 1 | 2 | null,
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/filter", {
+      params: {
+        sort,
+        fields,
+        grades,
+        categories,
+        providers,
+        min_price: minPrice,
+        max_price: maxPrice,
+        language,
+        page,
+      },
+    });
+  }
+  getLessonsCount(): Promise<ResponseType<{ data: number; status: string }>> {
+    return this.request.get(`/user/v1/education/lesson/count`);
   }
 }
 

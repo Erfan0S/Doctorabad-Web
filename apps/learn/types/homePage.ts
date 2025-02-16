@@ -1,3 +1,6 @@
+import { PaginatedResponse, ResponseType } from "@repo/core/types";
+import { CourseListItemType } from "./courses";
+
 export interface ProviderType {
   id: number;
   name: string;
@@ -21,3 +24,16 @@ export type SliderType = {
   category_id?: number;
   pic_url: string;
 };
+
+export enum HomePageCourseSliders {
+  Suggested = "suggested",
+  Newest = "newest",
+  BestSeller = "best-seller",
+  LastViewed = "last-viewed",
+}
+
+export enum CourseListType {
+  Suggested = "suggested",
+  Newest = "newest",
+  BestSeller = "best-seller",
+}

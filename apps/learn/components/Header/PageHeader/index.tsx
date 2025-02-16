@@ -1,6 +1,7 @@
 "use client";
 import BackIcon from "@/assets/svg/back";
 import style from "./PageHeader.module.scss";
+import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
@@ -9,15 +10,27 @@ interface Props {
   onBack?: () => void;
 }
 const PageHeader: React.FC<Props> = ({ title, suffix, onBack, children }) => {
+  const router = useRouter();
+
+  const OnBack = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      const refferer = document.referrer;
+      if (refferer) {
+        router.back();
+      } else {
+        router.push("/learn");
+      }
+    }
+  };
+
   return (
     <div className={style.sidePanelHeaderContainer}>
       <div className={style.sidePanelHeader}>
         <span>{title}</span>
         <div className={style.headerButtonContainer}>
-          <button
-            className={style.headerButton}
-            onClick={() => (onBack ? onBack() : null)}
-          >
+          <button className={style.headerButton} onClick={OnBack}>
             <BackIcon />
           </button>
           {suffix}

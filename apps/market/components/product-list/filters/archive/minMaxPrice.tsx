@@ -4,7 +4,7 @@ import Slider from "rc-slider";
 import React, { useEffect, useState } from "react";
 import "rc-slider/assets/index.css";
 import style from "../ProductListFiltersFilters.module.scss";
-import useDebounceAction from "@/hooks/useDebounceAction";
+import { useDebounceAction } from "@repo/core/hooks";
 import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
 import { useSearchParams } from "next/navigation";
 

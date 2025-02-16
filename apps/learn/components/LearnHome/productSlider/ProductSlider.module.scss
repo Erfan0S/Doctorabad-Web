@@ -2,7 +2,7 @@
 @import "@/assets/styles/functions";
 
 .productSlider {
-  padding: space(10) 0;
+  padding: space(2) 0;
 
   &Header {
     position: relative;
@@ -64,11 +64,13 @@
     position: relative;
 
     .course {
-      height: 75px;
-      width: 150px;
+      height: 100px;
+      width: 200px;
       background-color: red;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-size: cover;
+      background-position: center;
     }
 
     &:before {

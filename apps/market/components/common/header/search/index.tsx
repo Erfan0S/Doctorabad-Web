@@ -4,7 +4,7 @@ import style from "./Search.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { priceFormatter } from "@repo/core/utils";
-import useDebounceAction from "@/hooks/useDebounceAction";
+import { useDebounceAction } from "@repo/core/hooks";
 import { api } from "@/api/Api";
 
 import { getAvatarSource } from "@/utils/avatarUtils";

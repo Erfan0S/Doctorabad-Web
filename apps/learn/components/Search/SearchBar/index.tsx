@@ -1,15 +1,40 @@
 "use client";
 import SearchIcon from "@/assets/svg/search";
 import Link from "next/link";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import style from "./SearchBar.module.scss";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api/Api";
+import { useDebounceAction } from "@repo/core/hooks";
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState("");
-  const [showResults, setShowResults] = useState(false);
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const debouncedSearchText = useDebounceAction(() => {
+    if (searchText || pathname === "/learn/search") {
+      router.push("/learn/search?q=" + searchText);
+      console.log("searchText", searchText);
+    }
+  }, 750);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["search_count"],
+    queryFn: () => api.getLessonsCount(),
+  });
+
+  useEffect(() => {
+    debouncedSearchText();
+  }, [searchText]);
+
+  useEffect(() => {
+    setSearchText(params?.get("q") || "");
+  }, [params]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setShowResults(false);
     setSearchText(e.target.value);
   };
 
@@ -19,13 +44,15 @@ const SearchBar = () => {
         <div className={style.searchFormInput}>
           <input
             type="search"
-            onFocus={() => null}
             onChange={onChange}
-            placeholder={`در مباحث ${1234} درس جست و جو کن!`}
+            value={searchText}
+            placeholder={`در مباحث ${data?.data.data || 10000} درس جست و جو کن!`}
           />
-          <SearchIcon />
+          <Link href={"/learn/search?q=" + searchText}>
+            <SearchIcon />
+          </Link>
         </div>
-        <Link href={"#"}>فیلترکردن</Link>
+        <Link href={"/learn/filter"}>فیلترکردن</Link>
       </div>
     </div>
   );

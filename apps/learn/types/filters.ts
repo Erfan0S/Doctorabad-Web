@@ -27,3 +27,10 @@ export type FilterListItemsType = {
   duration: number;
   student_count: number;
 };
+
+export type SortType =
+  | "newest"
+  | "cheapest"
+  | "expensive"
+  | "bestselling"
+  | "favorite";

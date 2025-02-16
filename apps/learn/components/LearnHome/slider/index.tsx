@@ -1,7 +1,7 @@
 "use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import { sliderData } from "./slider-data";
 import Link from "next/link";
 import Image from "next/image";
 import style from "./MainSlider.module.scss";
@@ -12,13 +12,16 @@ import { Banner } from "@/types/banner";
 import { placeHolderDataUrl } from "@repo/core/constants";
 import { autoPlayConfig } from "@repo/core/constants";
 import { SwiperOptions } from "swiper/types";
+import { SliderType } from "@/types/homePage";
 
 type Props = {
-  banners: any[];
+  banners: SliderType[];
   swiperOptions?: SwiperOptions;
 };
 
 const MainSlider = ({ banners, swiperOptions = {} }: Props) => {
+  if (!banners.length) return null;
+
   return (
     <div className={style.mainSlider}>
       <Swiper

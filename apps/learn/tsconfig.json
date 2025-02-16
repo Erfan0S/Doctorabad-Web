@@ -20,7 +20,8 @@
       "esnext"
     ],
     "incremental": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",

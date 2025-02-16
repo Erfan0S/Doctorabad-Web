@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import CourseList from "@/components/common/CourseList";
+import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
 import { Loading } from "@repo/ui/components";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
@@ -24,7 +24,7 @@ const RelatedCourses = ({ CourseId }: Props) => {
   return isLoading ? (
     <Loading />
   ) : (
-    <CourseList courses={data?.data.data ?? []} />
+    <StaticCourseList courses={data?.data.data ?? []} />
   );
 };
 
