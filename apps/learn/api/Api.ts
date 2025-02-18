@@ -9,7 +9,8 @@ import {
   VideoType,
 } from "@/types/courses";
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
-import { SortType } from "@/types/filters";
+import { FilterListItemsType, SortType } from "@/types/filters";
+import { SingleProviderType } from "@/types/ProviderPage";
 
 class Api extends Request {
   constructor() {
@@ -122,6 +123,9 @@ class Api extends Request {
       params: { page },
     });
   }
+  getSingleProvider(id: number): Promise<ResponseType<SingleProviderType>> {
+    return this.request.get(`/user/shop/provider/${id}`);
+  }
 
   getCategories(
     page: number = 1
@@ -181,6 +185,7 @@ class Api extends Request {
   }
 
   getFilterList(
+    page: number = 1,
     sort?: SortType,
     fields?: number[],
     grades?: number[],
@@ -188,9 +193,8 @@ class Api extends Request {
     providers?: number[],
     minPrice?: number,
     maxPrice?: number,
-    language?: 1 | 2 | null,
-    page: number = 1
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    language?: 1 | 2 | null
+  ): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
     return this.request.get("/user/v1/education/course/filter", {
       params: {
         sort,
@@ -207,6 +211,27 @@ class Api extends Request {
   }
   getLessonsCount(): Promise<ResponseType<{ data: number; status: string }>> {
     return this.request.get(`/user/v1/education/lesson/count`);
+  }
+
+  getFields(type: number): Promise<ResponseType<{ data: number[] }>> {
+    return this.request.get("/user/find/fields", { params: { type } });
+  }
+
+  getGrades(
+    type: number,
+    field: number
+  ): Promise<ResponseType<{ data: number[] }>> {
+    return this.request.get("/user/find/grades", { params: { type, field } });
+  }
+
+  getLanguages(): Promise<ResponseType<{ id: number; language: string }[]>> {
+    return this.request.get("/user/v1/education/course/lang");
+  }
+
+  getPriceRange(): Promise<
+    ResponseType<{ min_price: number; max_price: number }>
+  > {
+    return this.request.get("/user/v1/education/course/price");
   }
 }
 

@@ -60,8 +60,13 @@ export enum HomeTabs {
   PROVIDERS = "providers",
 }
 
+export enum ProviderTabs {
+  COURSES = "courses",
+  DESCRIPTION = "description",
+}
+
 export interface TabData {
-  id: CourseTab | HomeTabs;
+  id: CourseTab | HomeTabs | ProviderTabs;
   title: string;
   url?: string;
 }

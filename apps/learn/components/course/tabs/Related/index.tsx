@@ -15,12 +15,6 @@ const RelatedCourses = ({ CourseId }: Props) => {
     retry: false,
   });
 
-  useEffect(() => {
-    console.log("data", data);
-    console.log("status", status);
-    console.log("error", error);
-  }, [data, status, error]);
-
   return isLoading ? (
     <Loading />
   ) : (

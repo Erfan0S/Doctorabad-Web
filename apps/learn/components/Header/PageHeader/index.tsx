@@ -5,11 +5,19 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
+  className?: string;
   suffix?: React.ReactNode;
   children?: React.ReactNode;
+
   onBack?: () => void;
 }
-const PageHeader: React.FC<Props> = ({ title, suffix, onBack, children }) => {
+const PageHeader: React.FC<Props> = ({
+  title,
+  suffix,
+  onBack,
+  children,
+  className,
+}) => {
   const router = useRouter();
 
   const OnBack = () => {
@@ -26,7 +34,7 @@ const PageHeader: React.FC<Props> = ({ title, suffix, onBack, children }) => {
   };
 
   return (
-    <div className={style.sidePanelHeaderContainer}>
+    <div className={`${style.sidePanelHeaderContainer} ${className}`}>
       <div className={style.sidePanelHeader}>
         <span>{title}</span>
         <div className={style.headerButtonContainer}>

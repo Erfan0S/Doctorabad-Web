@@ -1,0 +1,55 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.providerHeaderWrapper {
+  > div:last-child {
+    padding: 0;
+  }
+}
+
+.ProviderHeader {
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  padding: 0 10px;
+
+  img {
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000078;
+  }
+
+  h3 {
+    color: white;
+    font-size: 15px;
+  }
+  h3:last-child {
+    color: rgb(212, 0, 0);
+    margin-top: 10px;
+  }
+}
+
+.providerInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.redBackground {
+  background: $button-bg-red;
+  top: -1px;
+  right: 0;
+  width: 100vw;
+  height: 50%;
+  position: absolute;
+  z-index: -1;
+}
+
+.tabsContainer {
+  background-color: #e0e0e0;
+  margin-top: 15px;
+  ul li {
+    line-height: 40px;
+  }
+}

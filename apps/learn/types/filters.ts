@@ -28,9 +28,10 @@ export type FilterListItemsType = {
   student_count: number;
 };
 
-export type SortType =
-  | "newest"
-  | "cheapest"
-  | "expensive"
-  | "bestselling"
-  | "favorite";
+export enum SortType {
+  NEWEST = "newest",
+  CHEAPEST = "cheapest",
+  EXPENSIVE = "expensive",
+  BESTSELLING = "bestselling",
+  FAVORITE = "favorite",
+}

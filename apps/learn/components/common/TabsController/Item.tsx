@@ -16,11 +16,9 @@ const Item = ({ tabData, url }: Props) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isActive) {
-      setActive(true);
-    } else if (
-      params.get("tab") === tabData.id ||
-      (!params.get("tab") && tabData.id === CourseTab.LESSONS) ||
+    if (
+      params?.get("tab") === tabData.id ||
+      (!params?.get("tab") && tabData.id === CourseTab.LESSONS) ||
       pathname === url
     ) {
       setActive(true);

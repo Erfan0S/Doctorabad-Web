@@ -2,6 +2,7 @@ import { CategoryType, ProviderType } from "@/types/homePage";
 import React from "react";
 import style from "./CategoriesList.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   category: CategoryType | ProviderType;
@@ -10,19 +11,26 @@ type Props = {
 
 const CategoryListItem = ({ category, isProvider }: Props) => {
   return (
-    <div
-      className={style.ListItem}
-      style={{ backgroundImage: `url(${category.pic_url})` }}
+    <Link
+      href={
+        isProvider
+          ? `/learn/providers/${category.id}`
+          : `/learn/categories/${category.id}`
+      }
+      className={style.ListItemWrapper}
     >
-      {!isProvider ? (
-        <h2 className={style.ListItemTitle}>
-          {/* @ts-ignore */}
-          {category?.title || category?.name}
-        </h2>
-      ) : null}
-
-      {/* <Image alt="category" width={100} height={100} src={category.pic_url} /> */}
-    </div>
+      <div
+        className={style.ListItem}
+        style={{ backgroundImage: `url(${category.pic_url})` }}
+      >
+        {!isProvider ? (
+          <h2 className={style.ListItemTitle}>
+            {/* @ts-ignore */}
+            {category?.title || category?.name}
+          </h2>
+        ) : null}
+      </div>
+    </Link>
   );
 };
 
