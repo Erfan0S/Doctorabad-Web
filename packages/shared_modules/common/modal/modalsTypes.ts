@@ -12,4 +12,5 @@ export enum ModalTypes {
   QR_CONTENTS = "QR_CONTENTS",
   VIDEO = "video",
   SELECT_FILTER = "select_filter",
+  VIDEO_QUALITY_SELECTOR = "video_quality_selector",
 }
