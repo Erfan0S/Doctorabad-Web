@@ -1,7 +1,7 @@
 import { SidePanelPage, SidePanelPageProps } from "../types/sidePanel";
 import SidePanelHeader from "../header";
-import { isUserLoggedIn } from "@repo/core/utils";
-import { modalActions } from "@repo/core";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { modalActions } from "@repo/core/modal/modals";
 
 const SidePanelSupport: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const onBack = () => {

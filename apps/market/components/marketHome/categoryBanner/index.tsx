@@ -5,11 +5,14 @@ import { Banner } from "@/types/banner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import Image from "next/image";
-import { autoPlayConfig, categoryBannerBreakpoint } from "@repo/core/constants";
+import {
+  autoPlayConfig,
+  categoryBannerBreakpoint,
+} from "@repo/core/constants/sliders";
 import style from "./CategoryBanner.module.scss";
 import { Autoplay } from "swiper/modules";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 interface Props {
   data: Banner[];
 }

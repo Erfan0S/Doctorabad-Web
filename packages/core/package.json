@@ -1,15 +1,18 @@
 {
   "name": "@repo/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "private": true,
   "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./constants": "./src/constants/index.ts",
-    "./states": "./src/states/index.ts"
+    "./modal/*":"./src/modal/*.ts",
+    "./modalComponents/*":"./src/modal/*.tsx",
+    "./url/*": "./src/Url/*.ts",
+    "./utils/*": "./src/Utils/*.ts",
+    "./constants/*": "./src/constants/*.ts",
+    "./types/*": "./src/types/*.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./states/*": "./src/states/*.ts",
+    "./http-request/*": "./src/HttpRequest/*.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -23,13 +26,15 @@
     "@types/node": "^20.11.24",
     "@types/react": "18.3.0",
     "@types/react-dom": "18.3.1",
-    "typescript": "5.5.4"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "@tanstack/react-query-devtools": "^5.14.6",
     "js-cookie": "^3.0.5",
     "next": "^14.1.0",
     "react-toastify": "^11.0.2",
-    "zustand": "^5.0.2"
+    "zustand": "^5.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

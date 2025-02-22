@@ -1,4 +1,4 @@
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 export const footerLinks = [

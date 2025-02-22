@@ -1,5 +1,5 @@
 "use client";
-import { SingleProduct } from "@repo/core/types";
+import { SingleProduct } from "@repo/core/types/product";
 import style from "./ProductIntro.module.scss";
 import ProductBreadcrumb from "./breadcrumb";
 import ProductSeller from "./seller";
@@ -8,7 +8,7 @@ import ProductSlider from "./slider";
 import ProductTitle from "./title";
 
 import ProductSidebar from "../sidebar";
-import { generateProductCategoryUrlFromId } from "@repo/core/utils";
+import { generateProductCategoryUrlFromId } from "@repo/core/utils/urlutils";
 interface Props {
   productData: SingleProduct;
 }

@@ -1,4 +1,4 @@
-import { SearchParamsUtils } from "@repo/core/utils";
+import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const useChangeSearchParamsFilter = () => {
@@ -10,7 +10,7 @@ export const useChangeSearchParamsFilter = () => {
       SearchParamsUtils.paramsStringify(data, {
         questionMarkPrefix: true,
         appendPrevSearchParams: true,
-        customPrevSearchParam: searchParams.toString(),
+        customPrevSearchParam: searchParams?.toString(),
       }),
       { scroll: true }
     );

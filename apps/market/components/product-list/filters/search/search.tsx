@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
-import { useDebounceAction } from "@repo/core/hooks";
+import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 const SearchFilters = () => {
   const searchParams = useSearchParams();

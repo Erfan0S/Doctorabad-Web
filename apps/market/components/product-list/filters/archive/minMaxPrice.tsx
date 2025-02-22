@@ -1,10 +1,10 @@
 import Accordion from "@/components/app/accordion";
-import { priceFormatter } from "@repo/core/utils";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import Slider from "rc-slider";
 import React, { useEffect, useState } from "react";
 import "rc-slider/assets/index.css";
 import style from "../ProductListFiltersFilters.module.scss";
-import { useDebounceAction } from "@repo/core/hooks";
+import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
 import { useSearchParams } from "next/navigation";
 

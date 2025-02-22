@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { CartResponse, CartState, Order } from "@repo/core/types";
+import { CartResponse, CartState, Order } from "@repo/core/types/cart";
 import { api } from "../../api/Api";
 
-import { ResponseType } from "@repo/core/types";
+import { ResponseType } from "@repo/core/types/general";
 import { toast } from "react-toastify";
-import { ProductVariantsValue } from "@repo/core/types";
+import { ProductVariantsValue } from "@repo/core/types/productVariants";
 
 const initialState = { data: [] as Order[], initLoading: true } as CartState;
 

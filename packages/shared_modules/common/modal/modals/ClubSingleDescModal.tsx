@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalProps } from "@repo/core/types";
+import { ModalProps } from "@repo/core/types/modals";
 import ClubSingleDesc from "../../../userSidePanel/modal_components/singleShowDescModal";
 
 type Props = ModalProps<{

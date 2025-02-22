@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductComments as ProductCommentType } from "@repo/core/types";
+import { ProductComments as ProductCommentType } from "@repo/core/types/product";
 import style from "./ProductComments.module.scss";
 import ProductCommentsForm from "./form";
 import ProductCommentsHeader from "./header";

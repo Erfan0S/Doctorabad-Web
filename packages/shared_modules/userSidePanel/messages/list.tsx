@@ -8,9 +8,9 @@ import { MessageItem } from "../types/user";
 import InfiniteScroll from "react-infinite-scroller";
 import Loading from "../loading";
 import React from "react";
-import { toFullPersianDateString } from "@repo/core/utils";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import classNames from "classnames";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 type Props = {
   openMessage: (id: number) => void;

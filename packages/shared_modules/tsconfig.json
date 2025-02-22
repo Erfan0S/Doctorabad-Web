@@ -12,8 +12,10 @@
   },
   "paths": {
     "@/*": ["./*"],
-    "src/*": ["./*"]
+    "src/*": ["./*"],
+    "react": [ "./node_modules/@types/react" ]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx"], 
   "exclude": ["node_modules"]
 }
+  

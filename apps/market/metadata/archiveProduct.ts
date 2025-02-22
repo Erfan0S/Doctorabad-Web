@@ -1,5 +1,5 @@
-import { NextPageProps } from "@repo/core/types";
-import { ProductListProps, ProductListType } from "@repo/core/types";
+
+import { ProductListProps, ProductListType } from "@repo/core/types/product";
 import { Metadata } from "next";
 
 export const generateProductListMetaData = ({
@@ -41,5 +41,6 @@ export const generateProductListMetaData = ({
     },
   };
 
+  // @ts-ignore
   return metaData[params.type] || fallbackMetaData;
 };

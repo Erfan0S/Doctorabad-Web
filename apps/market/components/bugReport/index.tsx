@@ -2,7 +2,7 @@ import style from "./BugReport.module.scss";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/api/Api";
-import { ModalProps } from "@repo/core/types";
+import { ModalProps } from "@repo/core/types/modals";
 import { toast } from "react-toastify";
 import Loading from "../common/loading";
 import BugIcon from "@/assets/svg/newIcons/bug";

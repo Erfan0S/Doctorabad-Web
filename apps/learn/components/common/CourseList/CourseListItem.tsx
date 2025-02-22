@@ -2,11 +2,12 @@ import Clock from "@/assets/svg/clock";
 import CoinIcon from "@/assets/svg/coin";
 import Image from "next/image";
 import React from "react";
-import { priceFormatter } from "../../../../../packages/core/src/utils/priceFormatter";
+
 import Hat from "@/assets/svg/hat";
 import HomeIcon from "@/assets/svg/home";
 import { CourseListItemType } from "@/types/courses";
 import styles from "./CourseList.module.scss";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 type Props = {
   course: CourseListItemType;

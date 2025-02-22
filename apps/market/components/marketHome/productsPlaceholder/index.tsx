@@ -1,5 +1,8 @@
 "use client";
-import { autoPlayConfig, swiperBreakpoints } from "@repo/core/constants";
+import {
+  autoPlayConfig,
+  swiperBreakpoints,
+} from "@repo/core/constants/sliders";
 import React from "react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";

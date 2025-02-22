@@ -1,13 +1,13 @@
 import { CategoryList } from "@/types/category";
-import { Request } from "@repo/core";
-import { User, VerifyPhoneInput } from "@repo/core/types";
+import { Request } from "@repo/core/http-request/Request";
+import { User, VerifyPhoneInput } from "@repo/core/types/user";
 import { ProvidersList } from "@/types/providers";
 import {
   PaginatedRequest,
   PaginatedResponse,
   ResponseType,
   SelectionItem,
-} from "@repo/core/types";
+} from "@repo/core/types/general";
 import {
   ProductListOptions,
   Product,
@@ -15,25 +15,19 @@ import {
   AmazingProduct,
   ProductComments,
   ProductShare,
-} from "@repo/core/types";
+} from "@repo/core/types/product";
 import {
-  CartResponse,
-  CreateOrderRequest,
-  CreateOrderResponse,
-  DiscountInfo,
   PaymentResult,
-  ShippingAddress,
-  ShippingMethod,
-} from "@repo/core/types";
+
+} from "@repo/core/types/cart";
 import { Banner } from "@/types/banner";
 import { LastProcessingOrder } from "@/types/orders";
 import { FestivalInfo } from "@/types/festival";
-import { UserClubInfo } from "@repo/core/types";
 import { BookContents } from "@/types/bookContents";
 import { HomeStatisticsType } from "@/types/homeStatistics";
 import { BlogType } from "@/types/blog";
-import { ProductVariantsValue } from "@repo/core/types";
-import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
+
+import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 
 class Api extends Request {

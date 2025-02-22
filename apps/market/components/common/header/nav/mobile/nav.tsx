@@ -1,20 +1,20 @@
 "use client";
 import { useEffect, useReducer, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { lockPageScroll } from "@repo/core/utils";
+import { lockPageScroll } from "@repo/core/utils/lockPageScroll";
 import { CategoryInList, CategoryList } from "@/types/category";
 import Menu from "@/assets/svg/menu";
 import style from "../Nav.module.scss";
 import Close from "@/assets/svg/close";
 import MenuItem from "./navItem";
-import { generateProductCategoryUrlFromId } from "@repo/core/utils";
+import { generateProductCategoryUrlFromId } from "@repo/core/utils/urlutils";
 import BackArrow from "@/assets/svg/backArrow";
 import modalStyle from "@/components/common/modal/modal.module.scss";
 import {
   fadeInAnimation,
   mobileNavListReplace,
   slideRightAnimation,
-} from "@repo/core/constants";
+} from "@repo/core/constants/animationConfigs";
 import { useRouter } from "next/navigation";
 
 interface Props {

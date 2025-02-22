@@ -2,7 +2,7 @@ import { api } from "@/api/Api";
 import ProductIntro from "@/components/product/intro";
 import ProductSidebar from "@/components/product/sidebar";
 import ProductTabs from "@/components/product/tabs";
-import { NextPageProps } from "@repo/core/types";
+import { NextPageProps } from "@repo/core/types/general";
 
 export default async function Product({
   params,

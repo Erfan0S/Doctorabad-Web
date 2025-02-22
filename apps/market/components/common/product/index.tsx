@@ -1,17 +1,17 @@
 "use client";
 import Image from "next/image";
 import style from "./Product.module.scss";
-import { ProductCard } from "@repo/core/types";
+import { ProductCard } from "@repo/core/types/product";
 import Link from "next/link";
 
-import { placeHolderDataUrl } from "@repo/core/constants";
-import { priceFormatter } from "@repo/core/utils";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
-import { calcDiscountPercentage } from "@repo/core/utils";
-import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
 import FavoriteIcon from "../favoriteIcon";
-import { cartActions, useCart } from "@repo/core/states";
-import { authorizeClientAction } from "@repo/core/utils";
+import { cartActions, useCart } from "@repo/core/states/cart";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import Loading from "../loading";
 import QuantityProductButton from "@/components/product/sidebar/price/quantityButton";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";

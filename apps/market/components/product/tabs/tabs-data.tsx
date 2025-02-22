@@ -1,4 +1,4 @@
-import { ProductTab } from "@repo/core/types";
+import { ProductTab } from "@repo/core/types/product";
 
 export const productTabsData = [
   {

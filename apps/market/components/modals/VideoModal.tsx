@@ -1,4 +1,4 @@
-import { ModalProps } from "@repo/core/types";
+import { ModalProps } from "@repo/core/types/modals";
 import React from "react";
 
 type Props = ModalProps<{ src: string }>;

@@ -1,4 +1,4 @@
-import { modalActions } from "../index";
+import { modalActions } from "../modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { redirect } from "next/navigation";
 import { routePath } from "../constants/routePath";

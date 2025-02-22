@@ -3,12 +3,15 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import { autoPlayConfig, swiperBreakpoints } from "@repo/core/constants";
+import {
+  autoPlayConfig,
+  swiperBreakpoints,
+} from "@repo/core/constants/sliders";
 import { Autoplay } from "swiper/modules";
 import { CourseListType, HomePageCourseSliders } from "@/types/homePage";
 import { api } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
-import { Loading } from "@repo/ui/components";
+import { Loading } from "@repo/shared_modules/components";
 
 interface Props {
   type: HomePageCourseSliders;

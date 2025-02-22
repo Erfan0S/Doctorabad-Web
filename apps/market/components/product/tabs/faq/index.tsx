@@ -1,4 +1,4 @@
-import { SingleProductFaq } from "@repo/core/types";
+import { SingleProductFaq } from "@repo/core/types/product";
 import style from "./ProductFaq.module.scss";
 interface Props {
   faq: SingleProductFaq[];

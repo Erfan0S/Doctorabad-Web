@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductListType } from "@repo/core/types";
+import { ProductListType } from "@repo/core/types/product";
 import { useParams } from "next/navigation";
 import React from "react";
 import ArchiveHeader from "./archive";

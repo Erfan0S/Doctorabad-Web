@@ -2,10 +2,13 @@
 import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
-import { ProductCard } from "@repo/core/types";
+import { ProductCard } from "@repo/core/types/product";
 import Product from "@/components/common/product";
 import "swiper/css";
-import { autoPlayConfig, swiperBreakpoints } from "@repo/core/constants";
+import {
+  autoPlayConfig,
+  swiperBreakpoints,
+} from "@repo/core/constants/sliders";
 import { Autoplay } from "swiper/modules";
 
 interface Props {

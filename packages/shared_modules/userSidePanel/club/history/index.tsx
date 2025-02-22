@@ -8,8 +8,8 @@ import { ClubTransaction } from "../../types/doctorClub";
 import Loading from "../../loading";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
-import { toFullPersianDateString } from "@repo/core/utils";
-import { copyText } from "@repo/core/utils";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
+import { copyText } from "@repo/core/utils/copyText";
 
 const SidePanelClubHistory: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<

@@ -1,7 +1,7 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { autoPlayConfig } from "@repo/core/constants";
+import { autoPlayConfig } from "@repo/core/constants/sliders";
 import { testimonialsData } from "./testimonials-data";
 import TestimonialsItem from "./TestimonialsItem";
 import style from "./Testimonials.module.scss";

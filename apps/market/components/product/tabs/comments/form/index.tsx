@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import Loading from "@/components/common/loading";
-import { authorizeClientAction } from "@repo/core/utils";
-import { purgeObjectFromFalsyValues } from "@repo/core/utils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFalsyValues";
 import StarIcon from "@/assets/svg/newIcons/star";
 import StarFillIcon from "@/assets/svg/newIcons/starFill";
 

@@ -14,7 +14,7 @@ import { api } from "../../api/Api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Loading from "../../common/components/loading";
-import { profileValidation } from "@repo/core/constants";
+import { profileValidation } from "@repo/core/constants/validators/userValidator";
 
 import { toast } from "react-toastify";
 import { ProfileProgress } from "./ProfileProgress";

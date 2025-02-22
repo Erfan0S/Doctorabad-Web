@@ -1,5 +1,5 @@
 import { api } from "@repo/shared_modules/api";
-import { enterPhoneNumberValidator } from "@repo/core/constants";
+import { enterPhoneNumberValidator } from "@repo/core/constants/validators/userValidator";
 import { RegisterStep, RegisterStepProps } from "../../types/register";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import style from "./Register.module.scss";

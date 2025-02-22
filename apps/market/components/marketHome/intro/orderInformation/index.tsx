@@ -5,10 +5,10 @@ import style from "./OrderInformation.module.scss";
 import clubImage from "@/assets/img/club.png";
 import coinIcon from "@/assets/img/coin.png";
 import { LastProcessingOrder } from "@/types/orders";
-import { toFullPersianDateString } from "@repo/core/utils";
-import { priceFormatter } from "@repo/core/utils";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { ORDER_STATUS } from "./enum";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import Group from "@/assets/svg/group";
 import BagTick from "@/assets/svg/bagTick";
@@ -16,10 +16,10 @@ import BoxTick from "@/assets/svg/boxTick";
 import Box from "@/assets/svg/box";
 import Card from "@/assets/svg/card";
 import { useEffect } from "react";
-import { useCart } from "@repo/core/states";
+import { useCart } from "@repo/core/states/cart";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants/routePath";
 
 const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
   order,

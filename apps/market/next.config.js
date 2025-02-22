@@ -12,6 +12,13 @@ const withPWA = initPwa({
 export default withPWA({
   reactStrictMode: true,
   transpilePackages: ['@repo/core', '@repo/shared_modules'],
+  // typescript: {
+  //   // !! WARN !!
+  //   // Dangerously allow production builds to successfully complete even if
+  //   // your project has type errors.
+  //   // !! WARN !!
+  //   ignoreBuildErrors: true,
+  // },
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },

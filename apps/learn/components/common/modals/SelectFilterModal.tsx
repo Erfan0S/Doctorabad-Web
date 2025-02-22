@@ -1,7 +1,6 @@
 import { SelectFilter } from "@/components/Search/Filters/SelectFilter";
 import React from "react";
-import { ModalProps } from "@repo/core/types";
-import Accordion from "@/components/accordion";
+import { ModalProps } from "@repo/core/types/modals";
 
 const SelectFilterModal = ({
   data,

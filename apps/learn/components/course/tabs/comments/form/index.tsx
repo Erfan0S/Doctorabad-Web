@@ -1,13 +1,13 @@
 "use client";
 import { api } from "@/api/Api";
 import style from "./ProductCommentsForm.module.scss";
-import { useMediaQuery } from "@repo/core/hooks";
+import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Loading } from "@repo/shared_modules/components";
-import { authorizeClientAction } from "@repo/core/utils";
-import { purgeObjectFromFalsyValues } from "@repo/core/utils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFalsyValues";
 import StarIcon from "@/assets/svg/star";
 import StarFillIcon from "@/assets/svg/starFill";
 
@@ -21,8 +21,8 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
   const [comment, setComment] = useState("");
 
   const mutation = useMutation({
-    mutationFn: (data: Parameters<typeof api.createCOmment>["0"]) => {
-      return api.createCOmment(data);
+    mutationFn: (data: Parameters<typeof api.createComment>["0"]) => {
+      return api.createComment(data);
     },
     onSuccess() {
       toast("نظر شما با موفقیت ثبت شد و در انتظار تایید است", {

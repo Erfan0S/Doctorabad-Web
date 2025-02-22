@@ -1,4 +1,3 @@
-import { PaginatedResponse, ResponseType } from "@repo/core/types";
 import { CourseListItemType } from "./courses";
 
 export interface ProviderType {

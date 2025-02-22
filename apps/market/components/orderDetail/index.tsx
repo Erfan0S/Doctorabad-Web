@@ -1,6 +1,6 @@
 import style from "./OrderDetail.module.scss";
 import OrderDetailItem from "./orderDetailItem";
-import { priceFormatter } from "@repo/core/utils";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import Loading from "../common/loading";

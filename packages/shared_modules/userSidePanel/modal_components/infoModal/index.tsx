@@ -1,4 +1,4 @@
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import style from "./SidePanelClubInfo.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";

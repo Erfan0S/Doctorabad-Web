@@ -3,10 +3,10 @@
 import { api } from "@/api/Api";
 import { LazyDataLoader } from "../common/lazyDataLoader";
 import ProductsPlaceholeder from "../marketHome/productsPlaceholder";
-import { routePath } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants/routePath";
 import ProductSlider from "../marketHome/productSlider";
-import { Product } from "@repo/core/types";
-import { ResponseType } from "@repo/core/types";
+import { Product } from "@repo/core/types/product";
+import { ResponseType } from "@repo/core/types/general";
 
 type Props = {
   type: "suggested" | "bestSelling" | "newest" | "lastSeen";

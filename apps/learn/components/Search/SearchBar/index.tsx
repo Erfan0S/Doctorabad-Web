@@ -6,7 +6,7 @@ import style from "./SearchBar.module.scss";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
-import { useDebounceAction } from "@repo/core/hooks";
+import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState("");

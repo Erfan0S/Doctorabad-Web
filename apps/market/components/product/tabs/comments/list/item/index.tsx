@@ -1,6 +1,6 @@
 import Image from "next/image";
 import style from "./ProductCommentsItem.module.scss";
-import { CommentItem, SingleProductComment } from "@repo/core/types";
+import { CommentItem, SingleProductComment } from "@repo/core/types/product";
 import defaultAvatar from "@/assets/img/avatars/01.png";
 import kadKhodaAvatar from "@/assets/img/avatars/KADKHODA.png";
 

@@ -1,7 +1,7 @@
-import { Request } from "@repo/core";
-import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
+import { Request } from "@repo/core/http-request/Request";
+import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
-import { PaginatedResponse, ResponseType } from "@repo/core/types";
+import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
 import {
   CourseComents,
   CourseDataType,

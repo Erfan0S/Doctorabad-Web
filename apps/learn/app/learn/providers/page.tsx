@@ -2,11 +2,11 @@
 import { api } from "@/api/Api";
 import CategoriesList from "@/components/common/CategoriesList";
 import HomeHeader from "@/components/Header/HomeHeader";
-import { CategoryType, ProviderType } from "@/types/homePage";
-import { PaginatedResponse } from "@repo/core/types";
-import { Loading } from "@repo/ui/components";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import { ProviderType } from "@/types/homePage";
+import { PaginatedResponse } from "@repo/core/types/general";
+import { Loading } from "@repo/shared_modules/components";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 const ProvidersPage = () => {

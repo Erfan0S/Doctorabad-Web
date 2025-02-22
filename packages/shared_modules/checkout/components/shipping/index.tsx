@@ -1,12 +1,12 @@
 "use client";
 import style from "./Shipping.module.scss";
 import ShippingItem from "./shippingItem";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
-import { ShippingAddress, ShippingMethod } from "@repo/core/types";
+import { ShippingAddress, ShippingMethod } from "@repo/core/types/cart";
 
 type Props = {
   isLoading: boolean;

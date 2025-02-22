@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { ModalProps } from "@repo/core/types";
+import { ModalProps } from "@repo/core/types/modals";
 import { SidePanelPage } from "./types/sidePanel";
 import { sidePanelPageList } from "./pageList";
 import { motion } from "framer-motion";
 import styles from "./sidePanel.module.scss";
-import { slideLeftAnimation } from "@repo/core/constants";
+import { slideLeftAnimation } from "@repo/core/constants/animationConfigs";
 
 type Props = ModalProps<{ initialPage?: SidePanelPage }>;
 

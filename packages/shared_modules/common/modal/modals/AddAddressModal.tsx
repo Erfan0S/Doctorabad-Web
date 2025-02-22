@@ -1,8 +1,9 @@
 import { api } from "../../../api/Api";
 import AddAddress from "../../../checkout/modal_components/addAddress";
-import { ShippingAddress, ModalProps } from "@repo/core/types";
+import { ShippingAddress } from "@repo/core/types/cart";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { ModalProps } from "@repo/core/types/modals";
 
 type Props = ModalProps<{
   initialData: Partial<ShippingAddress> | null;

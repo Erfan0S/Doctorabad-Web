@@ -1,4 +1,4 @@
-import { isServerSide } from "@repo/core/constants";
+import { isServerSide } from "@repo/core/constants/constants";
 import { useEffect, useRef, useState } from "react";
 
 type Query = string | { min: number; max: number };

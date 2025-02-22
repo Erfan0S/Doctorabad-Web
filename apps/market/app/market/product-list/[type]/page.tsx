@@ -2,7 +2,7 @@ import ArchiveList from "@/components/product-list/productList";
 import { generateProductListMetaData } from "@/metadata/archiveProduct";
 import ArchiveFiltersContainer from "@/components/product-list/filters/archive/archiveFilterContainer";
 import SearchFilters from "@/components/product-list/filters/search/search";
-import { ProductListProps, ProductListType } from "@repo/core/types";
+import { ProductListProps, ProductListType } from "@repo/core/types/product";
 import { ProductListHeader } from "@/components/product-list/header/ProductListHeader";
 
 export const generateMetadata = generateProductListMetaData;

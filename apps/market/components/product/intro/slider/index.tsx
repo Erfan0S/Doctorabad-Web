@@ -2,12 +2,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import style from "./ProductSlider.module.scss";
-import { SingleProductFile } from "@repo/core/types";
+import { SingleProductFile } from "@repo/core/types/product";
 import "swiper/css";
 import "swiper/css/pagination";
 import { getAvatarType } from "@/utils/avatarUtils";
-import { placeHolderDataUrl } from "@repo/core/constants";
-import { MultimediaType } from "@repo/core/types";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { MultimediaType } from "@repo/core/types/general";
 import { MultimediaGallery } from "@/components/common/multimediaGallery/multimediaGallery";
 
 interface Props {

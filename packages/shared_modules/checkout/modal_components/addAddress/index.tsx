@@ -1,14 +1,14 @@
 "use client";
 
-import { ShippingAddress } from "@repo/core/types";
+import { ShippingAddress } from "@repo/core/types/cart";
 import style from "./AddAddress.module.scss";
 
 import { ErrorMessage, Field, Formik } from "formik";
 import { ProvinceCitySelection } from "./ProvinceCitySelection";
 import Loading from "../../../common/components/loading";
-import { shippingAddressValidator } from "@repo/core/constants";
-import { isServerSide } from "@repo/core/constants";
-import { useLoadHeavyModule } from "../../../../core/src/hooks/useLoadHeavyModule";
+import { shippingAddressValidator } from "@repo/core/constants/validators/userValidator";
+import { isServerSide } from "@repo/core/constants/constants";
+import { useLoadHeavyModule } from "@repo/core/hooks/useLoadHeavyModule";
 
 type Props = {
   initialData: Partial<ShippingAddress> | null;

@@ -4,8 +4,8 @@ import Close from "@/assets/svg/close";
 
 import style from "./CallbackDetail.module.scss";
 import Copy from "@/assets/svg/copy";
-import { copyText } from "@repo/core/utils";
-import { toFullPersianDateString } from "@repo/core/utils";
+import { copyText } from "@repo/core/utils/copyText";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 
 type Props = {
   orderDate?: string;

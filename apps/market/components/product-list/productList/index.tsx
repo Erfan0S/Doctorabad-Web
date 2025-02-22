@@ -3,11 +3,11 @@ import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 import Product from "@/components/common/product";
-import { Product as ProductType } from "@repo/core/types";
+import { Product as ProductType } from "@repo/core/types/product";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useParams } from "next/navigation";
-import { purgeObjectFromFalsyValues } from "@repo/core/utils";
+import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFalsyValues";
 import ArchiveEmptyState from "../emptyState";
 import { useGetProductListConfig } from "@/hooks/useGetProductListConfig";
 import Loading from "@/components/common/loading";

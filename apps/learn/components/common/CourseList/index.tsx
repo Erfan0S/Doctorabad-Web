@@ -4,9 +4,9 @@ import { CourseListItemType } from "@/types/courses";
 import CourseListItem from "@/components/common/CourseList/CourseListItem";
 import Link from "next/link";
 import { InfiniteData } from "@tanstack/react-query";
-import { Loading } from "@repo/ui/components";
+import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
-import { PaginatedResponse } from "@repo/core/types";
+import { PaginatedResponse } from "@repo/core/types/general";
 
 interface Props {
   courses:

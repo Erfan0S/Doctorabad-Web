@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import { authorizeClientAction } from "@repo/core/utils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "react-toastify";

@@ -2,8 +2,8 @@
 import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
 import { CourseListItemType } from "@/types/courses";
-import { PaginatedResponse } from "@repo/core/types";
-import { Loading } from "@repo/ui/components";
+import { PaginatedResponse } from "@repo/core/types/general";
+import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { ResponseType } from "@repo/core/types";
+import { ResponseType } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { useInView } from "react-intersection-observer";

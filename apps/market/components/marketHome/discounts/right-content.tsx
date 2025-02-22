@@ -4,7 +4,7 @@ import Link from "next/link";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import style from "./Discounts.module.scss";
 import discountImage from "@/assets/img/shegeftangiz.png";
-import { routePath } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants/routePath";
 
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 

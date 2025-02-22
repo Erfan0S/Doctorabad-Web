@@ -5,7 +5,7 @@ import "swiper/css";
 import Link from "next/link";
 import type { BlogType } from "@/types/blog";
 import Blog from "@/components/common/blog";
-import { swiperBreakpoints } from "@repo/core/constants";
+import { swiperBreakpoints } from "@repo/core/constants/sliders";
 
 interface Props {
   data: BlogType[];

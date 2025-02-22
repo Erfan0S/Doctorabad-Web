@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { lockPageScroll } from "../utils/lockPageScroll";
+import { lockPageScroll } from "../Utils/lockPageScroll";
 import { modalActions, useModals } from "./modals";
 import { useRouter } from "next/navigation";
 import styles from "./modal.module.scss";

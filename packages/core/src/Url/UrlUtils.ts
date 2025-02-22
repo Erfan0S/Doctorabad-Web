@@ -1,4 +1,4 @@
-import { purgeObjectFromFalsyValues } from "../utils/purgeObjectFromFalsyValues";
+import { purgeObjectFromFalsyValues } from "../Utils/purgeObjectFromFalsyValues";
 
 interface ParamsStringifyOptions {
   appendPrevSearchParams?: boolean;

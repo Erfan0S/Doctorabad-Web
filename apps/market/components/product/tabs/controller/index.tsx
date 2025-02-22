@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { ProductTabData } from "@repo/core/types";
+import { ProductTabData } from "@repo/core/types/product";
 import style from "./ProductTabsController.module.scss";
 import { elementStickyEventListener } from "@/utils/elementStickyEventListener";
 import Item from "./Item";

@@ -7,14 +7,14 @@ import SidePanelClubHistory from "./history";
 import SidePanelClubDiscounts from "./discounts";
 import style from "./SidePanelClub.module.scss";
 import sidePanelStyle from "../sidePanel.module.scss";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import SidePanelClubSingle from "./singleShow";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import Loading from "../loading";
 import { ClubOffer } from "../types/doctorClub";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfoIcon from "../../assets/svg/info";
 
 const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {

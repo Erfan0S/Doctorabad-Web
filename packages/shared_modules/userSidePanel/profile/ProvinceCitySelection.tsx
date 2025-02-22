@@ -1,5 +1,5 @@
 import { api } from "../../api/Api";
-import { ShippingAddress } from "@repo/core/types";
+import { ShippingAddress } from "@repo/core/types/cart";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, useFormikContext } from "formik";
 import style from "./SidePanelProfile.module.scss";

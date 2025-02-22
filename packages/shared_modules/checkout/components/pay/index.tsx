@@ -4,19 +4,19 @@ import Image from "next/image";
 import clubImage from "../../../assets/img/club.png";
 import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
-import { priceFormatter } from "@repo/core/utils";
-import { cartActions, useCart } from "@repo/core/states";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import { cartActions, useCart } from "@repo/core/states/cart";
 import {
   CreateOrderRequest,
   ShippingAddress,
   ShippingMethod,
-} from "@repo/core/types";
+} from "@repo/core/types/cart";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants/routePath";
 import OptionSwitch from "../../../common/components/optionSwithch";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { ProductComments } from "@repo/core/types";
+import { ProductComments } from "@repo/core/types/product";
 import style from "./ProductCommentsList.module.scss";
 import ProductCommentsItem from "./item";
 import { InfiniteData } from "@tanstack/react-query";

@@ -9,8 +9,8 @@ import "swiper/css/pagination";
 import "swiper/css";
 
 import { Banner } from "@/types/banner";
-import { placeHolderDataUrl } from "@repo/core/constants";
-import { autoPlayConfig } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { autoPlayConfig } from "@repo/core/constants/sliders";
 
 type Props = {
   banners: Banner[];

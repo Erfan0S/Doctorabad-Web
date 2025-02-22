@@ -7,7 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ProvidersList } from "@/types/providers";
 import { MinMaxPrice } from "./minMaxPrice";
 import { SelectFilter } from "./SelectFilter";
-import { SelectionItem } from "@repo/core/types";
+import { SelectionItem } from "@repo/core/types/general";
 import { GradeFilter } from "./gradeFilter";
 
 interface Props {

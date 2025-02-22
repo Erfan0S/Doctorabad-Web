@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProductTabData } from "@repo/core/types";
+import { ProductTabData } from "@repo/core/types/product";
 
 import style from "./ProductTabsController.module.scss";
 

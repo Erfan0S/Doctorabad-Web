@@ -4,11 +4,11 @@ import { Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { ProvidersList } from "@/types/providers";
 import Link from "next/link";
-import { generateSingleProviderUrlFromId } from "@repo/core/utils";
+import { generateSingleProviderUrlFromId } from "@repo/core/utils/urlutils";
 import style from "./Companies.module.scss";
 import "swiper/css";
-import { autoPlayConfig } from "@repo/core/constants";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { autoPlayConfig } from "@repo/core/constants/sliders";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 interface Props {
   list: ProvidersList;

@@ -1,7 +1,3 @@
-import { api } from "@/api/Api";
-import { FilterListItemsType, SortType } from "@/types/filters";
-import { PaginatedResponse } from "@repo/core/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 

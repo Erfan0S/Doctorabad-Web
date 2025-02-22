@@ -8,7 +8,7 @@ import { BookContentFile } from "@/types/bookContents";
 import styles from "./bookContents.module.scss";
 import { getMediaType } from "@/utils/getMediaType";
 
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import "photoswipe/style.css";
 import { MultimediaGallery } from "@/components/common/multimediaGallery/multimediaGallery";
 type Props = { items: BookContentFile[]; title: string };

@@ -7,9 +7,9 @@ import ProductSidebarCountdown from "./countdown";
 import ProductSidebarHeader from "./header";
 import ProductSidebarNotice from "./notice";
 import ProductSidebarPrice from "./price";
-import { SingleProduct } from "@repo/core/types";
+import { SingleProduct } from "@repo/core/types/product";
 import ProductSidebarAttribute from "./attribute";
-import { ProductVariantsValue } from "@repo/core/types";
+import { ProductVariantsValue } from "@repo/core/types/productVariants";
 
 interface Props {
   product: SingleProduct;
