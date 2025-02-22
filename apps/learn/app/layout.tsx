@@ -12,6 +12,7 @@ import Providers from "@/providers/providers";
 // import { api } from "@/api/Api";
 // import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
 import Script from "next/script";
+import { Suspense } from "react";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -63,7 +64,7 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             {/* <Header /> */}
-            {children}
+            <Suspense fallback={<div>loading...</div>}>{children}</Suspense>
             {/* <Footer statistic={statistic} />
             <InstallBannerShow statistic={statistic} /> */}
           </Providers>
