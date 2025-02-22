@@ -4,7 +4,7 @@ import style from "./Filters.module.scss";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@/utils/useChangeSearchParamsFilter";
 import { useState } from "react";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 type Props = {

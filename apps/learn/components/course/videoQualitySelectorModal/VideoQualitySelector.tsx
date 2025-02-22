@@ -1,6 +1,6 @@
 // import { motion } from "framer-motion";
 // import { animationConfigs } from "@repo/core";
-import { ModalProps } from "@repo/core/types";
+import { ModalProps } from "@repo/core/types/modals";
 import videojs from "video.js";
 import styles from "./VideoQualitySelector.module.scss";
 

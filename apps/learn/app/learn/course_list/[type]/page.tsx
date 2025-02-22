@@ -1,7 +1,7 @@
 import { api } from "@/api/Api";
 import PageHeader from "@/components/Header/PageHeader";
 import { CourseListConfigs } from "@/constants/CourseList";
-import CourseListPage from "@/pages/CourseList";
+import CourseListPage from "@/pagesComponents/CourseList";
 import { CourseListType } from "@/types/homePage";
 import React from "react";
 

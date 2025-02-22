@@ -15,7 +15,6 @@
     "@neshan-maps-platform/mapbox-gl-react": "^1.0.0",
     "@repo/core": "*",
     "@repo/shared_modules": "*",
-    "@tanstack/react-query-devtools": "^5.14.6",
     "@zxing/browser": "^0.1.4",
     "classnames": "^2.5.1",
     "eslint": "8.45.0",

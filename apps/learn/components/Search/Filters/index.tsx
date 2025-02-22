@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { SelectFilter } from "./SelectFilter";
 import style from "./Filters.module.scss";
 import Accordion from "@/components/accordion";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { api } from "@/api/Api";
 import { SortType } from "@/types/filters";

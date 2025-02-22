@@ -3,9 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./VideoPlayer.module.scss";
 import { VideoPlayerProps } from "./types";
 import { PlayerInitiator } from "@/utils/videoPlayer/playerInitiator";
-import videojs from "video.js";
-import { modalActions } from "@repo/core";
-import { ModalTypes } from "@repo/ui/modalsTypes";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import CustomButton from "./videoPlayerCustomElements/CustomButton";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ config, className }) => {

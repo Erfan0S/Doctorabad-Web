@@ -1,4 +1,4 @@
-import ProviderPage from "@/pages/ProviderPage";
+import ProviderPage from "@/pagesComponents/ProviderPage";
 import React from "react";
 
 type Props = {

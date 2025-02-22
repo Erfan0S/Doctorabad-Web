@@ -1,6 +1,6 @@
 import { api } from "@/api/Api";
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
-import { Loading } from "@repo/ui/components";
+import { Loading } from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 

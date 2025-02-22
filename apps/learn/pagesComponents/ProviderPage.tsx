@@ -3,12 +3,12 @@ import { api } from "@/api/Api";
 import PageHeader from "@/components/Header/PageHeader";
 import ProviderHeader from "@/components/Header/ProviderHeader";
 import { CourseListItemType, ProviderTabs } from "@/types/courses";
-import { Loading } from "@repo/ui/components";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import styles from "@/components/Header/ProviderHeader/ProviderHeader.module.scss";
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
+import { Loading } from "@repo/shared_modules/components";
 
 type Props = {
   id: number;

@@ -1,6 +1,6 @@
 import PageHeader from "@/components/Header/PageHeader";
 import SearchBar from "@/components/Search/SearchBar";
-import Search from "@/pages/Search";
+import Search from "@/pagesComponents/Search";
 import React from "react";
 
 const SearchPage = () => {

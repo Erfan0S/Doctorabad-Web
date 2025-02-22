@@ -15,7 +15,6 @@
     "@neshan-maps-platform/mapbox-gl-react": "^1.0.0",
     "@repo/core": "*",
     "@repo/shared_modules": "*",
-    "@tanstack/react-query-devtools": "^5.14.6",
     "@types/video.js": "^7.3.58",
     "@videojs/http-streaming": "^3.17.0",
     "@zxing/browser": "^0.1.4",
