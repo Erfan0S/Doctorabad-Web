@@ -1,4 +1,4 @@
-import { ProductVariants, Variants } from "@repo/core/types";
+import { ProductVariants, Variants } from "@repo/core/types/productVariants";
 import React from "react";
 
 const variantsSorter = (variants: Variants): ProductVariants => {

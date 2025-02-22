@@ -1,0 +1,49 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.accordion {
+  $accordion: &;
+
+  border-radius: radius(3);
+  border: 2px solid $red;
+  padding: 0 space(2);
+
+  &Title {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    span {
+      line-height: 30px;
+      font-weight: 600;
+      color: black;
+      text-align: center;
+      width: 100%;
+    }
+
+    svg {
+      margin-right: auto;
+      fill: $red;
+    }
+  }
+
+  &Content {
+    display: none;
+
+    &--spacing {
+      padding: space(2);
+    }
+  }
+
+  &.active {
+    > #{$accordion}Content {
+      display: block;
+    }
+
+    > #{$accordion}Title {
+      svg {
+        transform: rotateX(180deg);
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { MultimediaType } from "@repo/core/types";
+import { MultimediaType } from "@repo/core/types/general";
 
 export const getMediaType = (url: string): MultimediaType => {
   const browserSupportedVideoFormats = [

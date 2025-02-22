@@ -1,6 +1,6 @@
 "use client";
 
-import { MultimediaType } from "@repo/core/types";
+import { MultimediaType } from "@repo/core/types/general";
 import React, { useEffect, useState } from "react";
 import { ImageProps } from "next/image";
 import PhotoSwipeLightbox from "photoswipe/lightbox";

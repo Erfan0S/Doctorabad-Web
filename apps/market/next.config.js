@@ -11,6 +11,14 @@ const withPWA = initPwa({
 /** @type {import('next').NextConfig} */
 export default withPWA({
   reactStrictMode: true,
+  transpilePackages: ['@repo/core', '@repo/shared_modules'],
+  // typescript: {
+  //   // !! WARN !!
+  //   // Dangerously allow production builds to successfully complete even if
+  //   // your project has type errors.
+  //   // !! WARN !!
+  //   ignoreBuildErrors: true,
+  // },
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },
@@ -33,8 +41,8 @@ export default withPWA({
     return [
       {
         source: "/api/:path*",
-        // destination: 'https://drabadapp.ir/:path*',
-        destination: "http://185.231.180.170/:path*",
+        destination: "https://drabadapp.ir/:path*",
+        // destination: "http://185.231.180.170/:path*",
         basePath: false,
       },
       {

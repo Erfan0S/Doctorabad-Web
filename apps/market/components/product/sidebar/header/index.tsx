@@ -1,15 +1,15 @@
 "use client";
 import style from "./ProductSidebarHeader.module.scss";
-import { modalActions } from "@/states/modals";
-import { ModalTypes } from "@/types/modals";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import FavoriteIcon from "@/components/common/favoriteIcon";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
-import { copyText } from "@repo/core/utils";
+import { copyText } from "@repo/core/utils/copyText";
 import BugIcon from "@/assets/svg/newIcons/bug";
 import ShareIcon from "@/assets/svg/newIcons/share";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
-import { authorizeClientAction } from "@repo/core/utils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 
 interface Props {
   id: number;

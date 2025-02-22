@@ -1,14 +1,17 @@
 "use client";
 import Image from "next/image";
-import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
-import { routePath } from "@repo/core/constants";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
+import { routePath } from "@repo/core/constants/routePath";
 import { useRouter } from "next/navigation";
-import { cartActions, useCart } from "@repo/core/states";
+import { cartActions, useCart } from "@repo/core/states/cart";
 import cartIcon from "@/assets/img/cart.png";
 import style from "./CartButton.module.scss";
 import { useEffect } from "react";
 
-import { isServerSide } from "@repo/core/constants";
+import { isServerSide } from "@repo/core/constants/constants";
 import CartIcon from "@/assets/svg/newIcons/cart";
 
 const CartButton = () => {

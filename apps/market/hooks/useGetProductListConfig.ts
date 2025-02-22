@@ -1,9 +1,8 @@
 import { api } from "@/api/Api";
-import { NextPageProps, ResponseType } from "@repo/core/types";
-import { PaginatedRequest } from "@repo/core/types";
+import {  PaginatedRequest , ResponseType } from "@repo/core/types/general";
 
-import { ProductListType, Product } from "@repo/core/types";
-import { purgeObjectFromFalsyValues } from "@repo/core/utils";
+
+import { ProductListType, Product } from "@repo/core/types/product";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 

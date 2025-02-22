@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .productTabsController {
   position: sticky;
@@ -17,6 +17,7 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    padding: 10px 0;
 
     li {
       margin-left: space(4);
@@ -33,7 +34,7 @@
 
       &:before {
         position: absolute;
-        content: '';
+        content: "";
         left: 0;
         right: 0;
         bottom: -3px;

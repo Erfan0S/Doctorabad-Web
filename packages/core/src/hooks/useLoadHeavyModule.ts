@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-export const useLoadHeavyModule = <M>(loader: () => Promise<{ default: M }>): [M | null, boolean] => {
+export const useLoadHeavyModule = <M>(
+  loader: () => Promise<{ default: M }>
+): [M | null, boolean] => {
   const [loadingModule, setLoadingModule] = useState(true);
   const [module, setModule] = useState<M | null>(null);
 

@@ -7,7 +7,6 @@ import uoloadIcon from "@/assets/svg/uplaod";
 import addIcon from "@/assets/svg/add";
 import iaddMultipleIcon from "@/assets/svg/addmultiple";
 import arrow from "@/assets/svg/svg-images/installArrowDown.svg";
-import { IS_INSTALL_BANNER_SHOW_LOCAL } from "@repo/core/constants";
 import Link from "next/link";
 
 interface StepsType {

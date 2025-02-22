@@ -1,7 +1,7 @@
 import RecycleBin from "@/assets/svg/recycleBin";
 import style from "./QuantityProductButton.module.scss";
 import React, { Dispatch, SetStateAction } from "react";
-import { cartActions } from "@repo/core/states";
+import { cartActions } from "@repo/core/states/cart";
 
 export interface Props {
   id: number;

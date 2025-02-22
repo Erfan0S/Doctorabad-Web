@@ -1,26 +1,30 @@
-import localFont from 'next/font/local';
-import Header from '../components/common/header';
-import Footer from '@/components/common/footer';
-import Content from '@/components/common/content';
-import { homeMetadata, homeViewPort } from '@/metadata/home';
-import 'react-toastify/dist/ReactToastify.css';
-import '../assets/styles/grid.scss';
-import '../assets/styles/general.scss';
-import Providers from '@/providers/providers';
-import NextTopLoader from 'nextjs-toploader';
-import { api } from '@/api/Api';
-import { InstallBannerShow } from '@/components/appDownload/installBanner/installBannerShow';
-import Script from 'next/script';
+import localFont from "next/font/local";
+import Header from "../components/common/header";
+import Footer from "@/components/common/footer";
+import Content from "@/components/common/content";
+import { homeMetadata, homeViewPort } from "@/metadata/home";
+import "react-toastify/dist/ReactToastify.css";
+import "../assets/styles/grid.scss";
+import "../assets/styles/general.scss";
+import Providers from "@/providers/providers";
+import NextTopLoader from "nextjs-toploader";
+import { api } from "@/api/Api";
+import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
+import Script from "next/script";
 
 const font = localFont({
-  src: '../assets/fonts/IRANSansXV.woff2',
-  display: 'swap',
+  src: "../assets/fonts/IRANSansXV.woff2",
+  display: "swap",
 });
 
 export const metadata = homeMetadata;
 export const viewPort = homeViewPort;
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const statistic = (await api.getHomeStatistics()).data.data;
   return (
     <html lang="fa">
@@ -58,7 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <div className="root">
           <Providers>
             <Header />
-            {children}
+            {children as any}
             <Footer statistic={statistic} />
             <InstallBannerShow statistic={statistic} />
           </Providers>

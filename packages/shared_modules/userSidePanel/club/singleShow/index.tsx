@@ -1,11 +1,12 @@
+import React from "react";
 import SidePanelHeader from "../../header";
 import style from "./SidePanelClubSingle.module.scss";
 import Image from "next/image";
-import { modalActions } from "@repo/core";
-import { ModalTypes } from "@repo/core/types";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { ClubOffer, OfferType } from "../../types/doctorClub";
-import { placeHolderDataUrl } from "@repo/core/constants";
-import { toFullPersianDateString } from "@repo/core/utils";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../loading";

@@ -1,0 +1,30 @@
+$spacing: 4;
+$radius: 4;
+
+$body-bg: #fff;
+
+$header-bg: #f2f2f2;
+$header-nav-bg: linear-gradient(to right, #f99917, #f54f1a);
+$button-bg-orange: $header-nav-bg;
+$button-bg-blue: linear-gradient(to right, #09b6f3, #0478ad);
+$button-bg-green: linear-gradient(to right, #46d900, #3bb600);
+$button-bg-red: linear-gradient(
+  90deg,
+  rgba(255, 0, 0, 1) 0%,
+  rgb(200, 0, 0) 100%
+);
+
+$sidebar-bg: #f2f2f2;
+$sidebar-collapse-width: 150px;
+$sidebar-expand-width: 230px;
+$header-with-spacing-height: 160px;
+
+$red: #ff0000;
+$orange: #f54f1a;
+$green: #33cc33;
+$blue: #00b0f0;
+$darkBlue: #0478ad;
+$purple: #7030a0;
+$gray: #949494;
+
+$placeHolderItemsBackGround: #d1d1d1;

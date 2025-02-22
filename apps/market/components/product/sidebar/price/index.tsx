@@ -1,15 +1,15 @@
-import { priceFormatter } from "@repo/core/utils";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import style from "./ProductSidebarPrice.module.scss";
-import { SingleProduct } from "@repo/core/types";
-import { calcDiscountPercentage } from "@repo/core/utils";
+import { SingleProduct } from "@repo/core/types/product";
+import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
 import { CartItem as Props } from "@repo/shared_modules";
 import QuantityProductButton from "./quantityButton";
-import { useCart, cartActions } from "@repo/core/states";
-import { authorizeClientAction } from "@repo/core/utils";
+import { useCart, cartActions } from "@repo/core/states/cart";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useCartActionsLoadingHandler } from "@/hooks/useCartActionsLoadingHandler";
 import Loading from "@/components/common/loading";
 import { useRestockNotification } from "@/hooks/useRestockNotification";
-import { ProductVariantsValue } from "@repo/core/types";
+import { ProductVariantsValue } from "@repo/core/types/productVariants";
 
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';

@@ -1,7 +1,6 @@
 "use client";
 
-// import ModalCreator from '@/components/common/modal/ModalCreator';
-import { ModalCreator } from "@repo/core";
+import ModalCreator from "@repo/core/modalComponents/ModalCreator";
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import SidebarProvider from "./sidebar";

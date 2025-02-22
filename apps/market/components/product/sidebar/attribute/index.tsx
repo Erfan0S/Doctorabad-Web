@@ -1,4 +1,4 @@
-import { SingleProduct } from "@repo/core/types";
+import { SingleProduct } from "@repo/core/types/product";
 import style from "./ProductSidebarAttribute.module.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import variantsSorter from "./variantsSorter";
@@ -9,7 +9,7 @@ import {
   ProductVariantsValues,
   Variant,
   VariantsCheckBox,
-} from "@repo/core/types";
+} from "@repo/core/types/productVariants";
 
 interface Props {
   product: SingleProduct;

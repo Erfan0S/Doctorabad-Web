@@ -1,7 +1,7 @@
 import Image from "next/image";
 import style from "./ShippingItem.module.scss";
-import { ShippingMethod } from "@repo/core/types";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { ShippingMethod } from "@repo/core/types/cart";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import classNames from "classnames";
 import Loading from "../../../../common/components/loading";
 import React from "react";

@@ -1,5 +1,5 @@
-import { Request } from "@repo/core";
-import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
+import { Request } from "@repo/core/http-request/Request";
+import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import {
   AvatarList,
@@ -9,8 +9,8 @@ import {
   SingleMessage,
   User,
   VerifyPhoneInput,
-} from "@repo/core/types";
-import { ResponseType, SelectionItem } from "@repo/core/types";
+} from "@repo/core/types/user";
+import { ResponseType, SelectionItem } from "@repo/core/types/general";
 import {
   CartResponse,
   CreateOrderRequest,
@@ -19,17 +19,17 @@ import {
   PaymentResult,
   ShippingAddress,
   ShippingMethod,
-} from "@repo/core/types";
-import { ProductVariantsValue } from "@repo/core/types";
+} from "@repo/core/types/cart";
+import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import { LastProcessingOrder, PreviousOrder } from "../checkout/types/orders";
-import { Product } from "@repo/core/types";
+import { Product } from "@repo/core/types/product";
 import {
   BuyOfferResponse,
   ClubOffer,
   ClubTransaction,
   HelpText,
 } from "../userSidePanel/types/doctorClub";
-import { UserClubInfo } from "@repo/core/types";
+import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
 
 class Api extends Request {

@@ -3,7 +3,7 @@ import Image from "next/image";
 import style from "./Blog.module.scss";
 import Link from "next/link";
 
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { BlogType } from "@/types/blog";
 
 const Blog: React.FC<BlogType> = ({ pic_url, title, link }) => {

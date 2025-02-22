@@ -3,16 +3,18 @@
 import style from "../Sidebar.module.scss";
 import Image from "next/image";
 import coin from "@/assets/img/coin.png";
-import { modalActions } from "@repo/core";
-import { ModalTypes } from "@/types/modals";
-import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
-import { SidePanelPage } from "@repo/core/types";
+import { api } from "@repo/shared_modules/api";
+import { SidePanelPage } from "@repo/core/types/general";
 import HomeIcon from "@/assets/svg/newIcons/home";
 import ChatIcon from "@/assets/svg/newIcons/chat";
 import QrScannerIcon from "@/assets/svg/newIcons/qrScanner";
-import { ModalsList } from "../../modal/modalsList";
 
 const SidebarFooter = () => {
   const { data, isSuccess } = useQuery({

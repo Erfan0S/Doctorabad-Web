@@ -1,4 +1,4 @@
-import { isServerSide } from "@repo/core/constants";
+import { isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 
 export const handleErrorPayload = (err: any) => {

@@ -2,7 +2,7 @@ import Image from "next/image";
 import style from "./ProductSidebarNotice.module.scss";
 import coinIcon from "@/assets/img/coin.png";
 import giftIcon from "@/assets/img/gift.png";
-import { priceFormatter } from "@repo/core/utils";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { DiscountFestival } from "@/types/discount";
 import StarIcon from "@/assets/svg/newIcons/star";
 

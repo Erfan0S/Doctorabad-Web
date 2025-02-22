@@ -2,15 +2,15 @@ import style from "./SidePanelMessages.module.scss";
 import Image from "next/image";
 import EmailOpen from "../../assets/svg/emailOpen";
 import EmailClose from "../../assets/svg/emailClose";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import { MessageItem } from "../types/user";
 import InfiniteScroll from "react-infinite-scroller";
 import Loading from "../loading";
 import React from "react";
-import { toFullPersianDateString } from "@repo/core/utils";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import classNames from "classnames";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 type Props = {
   openMessage: (id: number) => void;

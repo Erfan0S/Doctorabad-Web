@@ -1,6 +1,6 @@
 import { SidePanelPage } from "../types/sidePanel";
 import coinIcon from "../../assets/img/coin.png";
-import { logOut } from "@repo/core/utils";
+import { logOut } from "@repo/core/utils/authUtils";
 import ChatIcon from "../../assets/svg/chat";
 import ExitIcon from "../../assets/svg/exit";
 import OrdersIcon from "../../assets/svg/orders";

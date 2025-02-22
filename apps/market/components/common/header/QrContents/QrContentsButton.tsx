@@ -1,7 +1,7 @@
 "use client";
-import { modalActions } from "@/states/modals";
-import { ModalTypes } from "@/types/modals";
-import { authorizeClientAction } from "@repo/core/utils";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import Image from "next/image";
 import React from "react";
 import QRScannerIcon from "@/assets/img/gift.png";

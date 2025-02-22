@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import style from "./Header.module.scss";
 
 import MobileHeader from "./mobileHeader";
-import { routePath } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants/routePath";
 
 const modulesWithCustomHeader = [routePath.marketBasePath];
 

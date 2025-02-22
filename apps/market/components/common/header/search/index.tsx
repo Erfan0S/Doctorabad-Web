@@ -3,19 +3,18 @@ import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import style from "./Search.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import { priceFormatter } from "@repo/core/utils";
-import useDebounceAction from "@/hooks/useDebounceAction";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 import { api } from "@/api/Api";
 
-import { getAvatarSource } from "@/utils/avatarUtils";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import {
   SearchParamsUtils,
   generateSingleProductUrlFromId,
-} from "@repo/core/utils";
+} from "@repo/core/utils/urlutils";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants";
+import { routePath } from "@repo/core/constants/routePath";
 import Loading from "../../loading";
 import useClickOutside from "@/hooks/useClickOutside";
 import SearchIcon from "@/assets/svg/search";

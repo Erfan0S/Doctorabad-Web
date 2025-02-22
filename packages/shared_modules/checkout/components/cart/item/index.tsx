@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import style from "./CartItem.module.scss";
-import { priceFormatter } from "@repo/core/utils";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import RecycleBin from "../../../../assets/svg/recycleBin";
 import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
-import { cartActions } from "@repo/core/states";
-import { placeHolderDataUrl } from "@repo/core/constants";
-import { Order } from "@repo/core/types";
-import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import { cartActions } from "@repo/core/states/cart";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { Order } from "@repo/core/types/cart";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
 
 const CartItem = ({
   id,

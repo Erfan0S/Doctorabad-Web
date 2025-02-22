@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import { generateSingleProductUrlFromId } from "@repo/core/utils";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
 import { Metadata } from "next";
 
 export const generateProductMetaData = async ({

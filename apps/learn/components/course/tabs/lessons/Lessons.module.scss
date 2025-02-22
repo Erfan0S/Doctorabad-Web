@@ -1,0 +1,133 @@
+.container {
+  direction: rtl;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 15px 10px;
+}
+
+.section,
+.chapter {
+  margin-bottom: 7px;
+  border-radius: 8px;
+  &Open {
+    border-right: 2px solid;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    > .sectionTitle,
+    > .chapterTitle {
+      border-right: 0;
+    }
+  }
+}
+
+.section {
+  border-color: #14a107;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  border: 2px solid #14a107;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.chapter {
+  overflow: hidden;
+  border-color: #1ac70a;
+
+  &:first-child {
+    margin-top: 8px;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.chapterTitle {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  color: #495057;
+  border: 2px solid #1ac70a;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.lessonList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.lesson {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border: 2px solid #2cc51eb9;
+  margin-top: 7px;
+}
+
+.playIcon {
+  width: 20px;
+  height: 20px;
+  color: #6c757d;
+  min-width: 20px;
+  margin: 0 3px;
+  margin-right: 12px;
+  direction: ltr;
+}
+
+.lessonTitle {
+  flex: 1;
+  font-size: 13px;
+  color: #495057;
+}
+
+.lessonDuration {
+  font-size: 13px;
+  color: #495057;
+  direction: ltr;
+}
+
+.contentCollapse {
+  height: 0;
+  overflow: hidden;
+
+  &.open {
+    padding-right: 10px;
+    height: auto; // Adjust based on your content
+  }
+}

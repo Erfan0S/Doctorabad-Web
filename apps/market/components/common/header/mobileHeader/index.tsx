@@ -3,14 +3,17 @@
 import coin from "@/assets/img/coin.png";
 
 import Image from "next/image";
-import { modalActions } from "@/states/modals";
-import { ModalTypes } from "@/types/modals";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import style from "./MobileHeader.module.scss";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { authorizeClientAction, isUserLoggedIn } from "@repo/core/utils";
-import { SidePanelPage } from "@repo/core/types";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
+import { SidePanelPage } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
+import { api } from "@repo/shared_modules/api";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 import Logo from "../logo";
 import HomeIcon from "@/assets/svg/newIcons/home";

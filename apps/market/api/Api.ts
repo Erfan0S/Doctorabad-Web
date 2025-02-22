@@ -1,13 +1,13 @@
 import { CategoryList } from "@/types/category";
-import { Request } from "@repo/core";
-import { User, VerifyPhoneInput } from "@repo/core/types";
+import { Request } from "@repo/core/http-request/Request";
+import { User, VerifyPhoneInput } from "@repo/core/types/user";
 import { ProvidersList } from "@/types/providers";
 import {
   PaginatedRequest,
   PaginatedResponse,
   ResponseType,
   SelectionItem,
-} from "@repo/core/types";
+} from "@repo/core/types/general";
 import {
   ProductListOptions,
   Product,
@@ -15,25 +15,19 @@ import {
   AmazingProduct,
   ProductComments,
   ProductShare,
-} from "@repo/core/types";
+} from "@repo/core/types/product";
 import {
-  CartResponse,
-  CreateOrderRequest,
-  CreateOrderResponse,
-  DiscountInfo,
   PaymentResult,
-  ShippingAddress,
-  ShippingMethod,
-} from "@repo/core/types";
+
+} from "@repo/core/types/cart";
 import { Banner } from "@/types/banner";
 import { LastProcessingOrder } from "@/types/orders";
 import { FestivalInfo } from "@/types/festival";
-import { UserClubInfo } from "@repo/core/types";
 import { BookContents } from "@/types/bookContents";
 import { HomeStatisticsType } from "@/types/homeStatistics";
 import { BlogType } from "@/types/blog";
-import { ProductVariantsValue } from "@repo/core/types";
-import { defaultBaseUrl, isServerSide } from "@repo/core/constants";
+
+import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 
 class Api extends Request {
@@ -235,50 +229,50 @@ class Api extends Request {
     return this.request.delete(`/user/shop/favorite/${id}`);
   };
 
-  // cart
-  getCartList(): Promise<ResponseType<CartResponse>> {
-    return this.request.get<CartResponse>("/user/shop/cart");
-  }
+  // // cart
+  // getCartList(): Promise<ResponseType<CartResponse>> {
+  //   return this.request.get<CartResponse>("/user/shop/cart");
+  // }
 
-  addToCart(
-    productId: number,
-    variants?: ProductVariantsValue[]
-  ): Promise<ResponseType<CartResponse>> {
-    return this.request.post<CartResponse>("/user/shop/cart", {
-      id: productId,
-      quantity: 1,
-      variants: variants,
-    });
-  }
+  // addToCart(
+  //   productId: number,
+  //   variants?: ProductVariantsValue[]
+  // ): Promise<ResponseType<CartResponse>> {
+  //   return this.request.post<CartResponse>("/user/shop/cart", {
+  //     id: productId,
+  //     quantity: 1,
+  //     variants: variants,
+  //   });
+  // }
 
-  removeFromCart(orderId: number): Promise<any> {
-    return this.request.delete(`/user/shop/cart/${orderId}`);
-  }
+  // removeFromCart(orderId: number): Promise<any> {
+  //   return this.request.delete(`/user/shop/cart/${orderId}`);
+  // }
 
-  decreaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
-    return this.request.put<CartResponse>("/user/shop/cart/decrease", {
-      id: orderId,
-    });
-  }
+  // decreaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
+  //   return this.request.put<CartResponse>("/user/shop/cart/decrease", {
+  //     id: orderId,
+  //   });
+  // }
 
-  increaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
-    return this.request.put<CartResponse>("/user/shop/cart/increase", {
-      id: orderId,
-    });
-  }
+  // increaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
+  //   return this.request.put<CartResponse>("/user/shop/cart/increase", {
+  //     id: orderId,
+  //   });
+  // }
 
   getLastProcessingOrder = (): Promise<ResponseType<LastProcessingOrder>> => {
     return this.request.get<LastProcessingOrder>("/user/shop/order/last/doing");
   };
 
   // address
-  getAddressesList = (): Promise<ResponseType<{ data: ShippingAddress[] }>> => {
-    return this.request.get<{ data: ShippingAddress[] }>("/user/shop/address");
-  };
+  // getAddressesList = (): Promise<ResponseType<{ data: ShippingAddress[] }>> => {
+  //   return this.request.get<{ data: ShippingAddress[] }>("/user/shop/address");
+  // };
 
-  getProvincesList = (): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-    return this.request.get<{ data: SelectionItem[] }>("/user/find/provinces");
-  };
+  // getProvincesList = (): Promise<ResponseType<{ data: SelectionItem[] }>> => {
+  //   return this.request.get<{ data: SelectionItem[] }>("/user/find/provinces");
+  // };
 
   // getCitiesList = (
   //   provinceId: number
@@ -288,63 +282,63 @@ class Api extends Request {
   //   });
   // };
 
-  getTopinCitiesList = (
-    provinceId: number
-  ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-    return this.request.post<{ data: SelectionItem[] }>(
-      "/user/find/tapin/cities",
-      {
-        province_id: provinceId,
-      }
-    );
-  };
+  // getTopinCitiesList = (
+  //   provinceId: number
+  // ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
+  //   return this.request.post<{ data: SelectionItem[] }>(
+  //     "/user/find/tapin/cities",
+  //     {
+  //       province_id: provinceId,
+  //     }
+  //   );
+  // };
 
-  addAddress = (
-    data: Partial<ShippingAddress>
-  ): Promise<ResponseType<{ data: ShippingAddress }>> => {
-    return this.request.post<{ data: ShippingAddress }>(
-      "/user/shop/address",
-      data
-    );
-  };
+  // addAddress = (
+  //   data: Partial<ShippingAddress>
+  // ): Promise<ResponseType<{ data: ShippingAddress }>> => {
+  //   return this.request.post<{ data: ShippingAddress }>(
+  //     "/user/shop/address",
+  //     data
+  //   );
+  // };
 
-  updateAddress = (
-    addressId: number,
-    data: Partial<ShippingAddress>
-  ): Promise<ResponseType<{ data: ShippingAddress }>> => {
-    return this.request.put<{ data: ShippingAddress }>(
-      `/user/shop/address/${addressId}`,
-      data
-    );
-  };
+  // updateAddress = (
+  //   addressId: number,
+  //   data: Partial<ShippingAddress>
+  // ): Promise<ResponseType<{ data: ShippingAddress }>> => {
+  //   return this.request.put<{ data: ShippingAddress }>(
+  //     `/user/shop/address/${addressId}`,
+  //     data
+  //   );
+  // };
 
-  getShippingMethods = (): Promise<
-    ResponseType<{ data: ShippingMethod[] }>
-  > => {
-    return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
-  };
+  // getShippingMethods = (): Promise<
+  //   ResponseType<{ data: ShippingMethod[] }>
+  // > => {
+  //   return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
+  // };
 
-  selectShippingMethod = (data: {
-    shipping_method_id: number;
-    address_id: number;
-  }): Promise<ResponseType<{ data: { price: number } }>> => {
-    return this.request.post<{ data: { price: number } }>(
-      "/user/shop/shipping/select",
-      data
-    );
-  };
+  // selectShippingMethod = (data: {
+  //   shipping_method_id: number;
+  //   address_id: number;
+  // }): Promise<ResponseType<{ data: { price: number } }>> => {
+  //   return this.request.post<{ data: { price: number } }>(
+  //     "/user/shop/shipping/select",
+  //     data
+  //   );
+  // };
 
-  checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
-    return this.request.get<DiscountInfo>(
-      `/user/shop/discountCode/check?code=${code}`
-    );
-  }
+  // checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
+  //   return this.request.get<DiscountInfo>(
+  //     `/user/shop/discountCode/check?code=${code}`
+  //   );
+  // }
 
-  createOrder(
-    data: CreateOrderRequest
-  ): Promise<ResponseType<CreateOrderResponse>> {
-    return this.request.post<CreateOrderResponse>("/user/shop/order", data);
-  }
+  // createOrder(
+  //   data: CreateOrderRequest
+  // ): Promise<ResponseType<CreateOrderResponse>> {
+  //   return this.request.post<CreateOrderResponse>("/user/shop/order", data);
+  // }
 
   getOrderResult = (
     paymentToken: string
@@ -490,9 +484,9 @@ class Api extends Request {
   //   return this.request.get<{ data: HelpText }>(`/user/club/help/text`);
   // };
 
-  getUserClubInfo = (): Promise<ResponseType<{ data: UserClubInfo }>> => {
-    return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
-  };
+  // getUserClubInfo = (): Promise<ResponseType<{ data: UserClubInfo }>> => {
+  //   return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
+  // };
 
   // getOffersList = (
   //   page: number

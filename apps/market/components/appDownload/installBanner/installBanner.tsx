@@ -5,7 +5,7 @@ import logo from "@/assets/img/logo-without-text.png";
 import Close_X from "@/assets/svg/close_x";
 import { isIOS } from "react-device-detect";
 import { useRouter } from "next/navigation";
-import { IS_INSTALL_BANNER_SHOW_LOCAL } from "@repo/core/constants";
+import { IS_INSTALL_BANNER_SHOW_LOCAL } from "@repo/core/constants/constants";
 
 type Props = {
   androidDownloadLink: string;

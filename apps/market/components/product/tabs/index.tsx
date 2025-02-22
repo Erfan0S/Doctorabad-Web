@@ -1,4 +1,4 @@
-import { Product, ProductTab, SingleProduct } from "@repo/core/types";
+import { Product, ProductTab, SingleProduct } from "@repo/core/types/product";
 import style from "./ProductTabs.module.scss";
 import ProductComments from "./comments";
 import ProductTabsController from "./controller";

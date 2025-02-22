@@ -1,18 +1,24 @@
-'use client';
-import style from '../ProductListFiltersFilters.module.scss';
-import { ChangeEvent, useCallback, useEffect, useReducer, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useChangeSearchParamsFilter } from '@/hooks/useChangeSearchParamsFilter';
-import useDebounceAction from '@/hooks/useDebounceAction';
+"use client";
+import style from "../ProductListFiltersFilters.module.scss";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
+import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 const SearchFilters = () => {
   const searchParams = useSearchParams();
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const search = searchParams.get('search');
+  const search = searchParams.get("search");
 
-  const [searchText, setSearchText] = useState(() => search || '');
+  const [searchText, setSearchText] = useState(() => search || "");
 
   const changeSearchText = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -40,7 +46,11 @@ const SearchFilters = () => {
       <div className={`${style.archiveFiltersContent}`}>
         <span>جستجو</span>
         <div className={style.archiveFiltersCheckboxList}>
-          <input value={searchText} onChange={changeSearchText} placeholder="نام محصول" />
+          <input
+            value={searchText}
+            onChange={changeSearchText}
+            placeholder="نام محصول"
+          />
         </div>
       </div>
     </aside>

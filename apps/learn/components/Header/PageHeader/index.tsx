@@ -1,0 +1,52 @@
+"use client";
+import BackIcon from "@/assets/svg/back";
+import style from "./PageHeader.module.scss";
+import { useRouter } from "next/navigation";
+
+interface Props {
+  title: string;
+  className?: string;
+  suffix?: React.ReactNode;
+  children?: React.ReactNode;
+
+  onBack?: () => void;
+}
+const PageHeader: React.FC<Props> = ({
+  title,
+  suffix,
+  onBack,
+  children,
+  className,
+}) => {
+  const router = useRouter();
+
+  const OnBack = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      const refferer = document.referrer;
+      if (refferer) {
+        router.back();
+      } else {
+        router.push("/learn");
+      }
+    }
+  };
+
+  return (
+    <div className={`${style.sidePanelHeaderContainer} ${className}`}>
+      <div className={style.sidePanelHeader}>
+        <span>{title}</span>
+        <div className={style.headerButtonContainer}>
+          <button className={style.headerButton} onClick={OnBack}>
+            <BackIcon />
+          </button>
+          {suffix}
+        </div>
+      </div>
+      <div className={style.sidePanelHeaderChildren}>{children}</div>
+    </div>
+  );
+};
+
+export default PageHeader;

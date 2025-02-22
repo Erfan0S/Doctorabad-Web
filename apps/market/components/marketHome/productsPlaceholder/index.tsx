@@ -1,12 +1,15 @@
-'use client';
-import { autoPlayConfig, swiperBreakpoints } from '@/constants/sliders';
-import React from 'react';
-import { Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import ProductPlaceHolder from './product';
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import style from './productsPlaceholder.module.scss';
+"use client";
+import {
+  autoPlayConfig,
+  swiperBreakpoints,
+} from "@repo/core/constants/sliders";
+import React from "react";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import ProductPlaceHolder from "./product";
+import "swiper/css";
+import "swiper/css/autoplay";
+import style from "./productsPlaceholder.module.scss";
 
 const ProductsPlaceholeder = () => {
   return (
@@ -21,7 +24,12 @@ const ProductsPlaceholeder = () => {
           </div>
         </div>
         <div className={style.sliderWrapper}>
-          <Swiper spaceBetween={30} slidesPerView={'auto'} breakpoints={swiperBreakpoints} loop>
+          <Swiper
+            spaceBetween={30}
+            slidesPerView={"auto"}
+            breakpoints={swiperBreakpoints}
+            loop
+          >
             {Array.from({ length: 10 }).map((item, i) => (
               <SwiperSlide key={i}>
                 <ProductPlaceHolder />

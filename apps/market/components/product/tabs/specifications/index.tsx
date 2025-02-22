@@ -1,4 +1,4 @@
-import { SingleProduct } from "@repo/core/types";
+import { SingleProduct } from "@repo/core/types/product";
 import style from "./ProductSpecifications.module.scss";
 interface Props {
   productData: SingleProduct;

@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 import { ReactNode } from "react";
-import { NextPageProps } from "./index";
-import { Variants } from "./index";
+import { NextPageProps } from "./general";
+import { Variants } from "./productVariants";
 
 export interface Product {
   id: number;

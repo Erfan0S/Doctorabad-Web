@@ -1,13 +1,14 @@
 "use client";
 
+import React from "react";
 import { MapComponent, MapTypes } from "@neshan-maps-platform/mapbox-gl-react";
 import nmp_mapboxgl from "@neshan-maps-platform/mapbox-gl";
 
 import "@neshan-maps-platform/mapbox-gl-react/dist/style.css";
 import { useEffect, useRef, useState } from "react";
-import { isServerSide } from "../../constants/constants";
+import { isServerSide } from "@repo/core/constants/constants";
 import { useFormikContext } from "formik";
-import { ShippingAddress } from "@repo/core/types";
+import { ShippingAddress } from "@repo/core/types/cart";
 
 const Map = () => {
   const { setValues, values } = useFormikContext<ShippingAddress>();

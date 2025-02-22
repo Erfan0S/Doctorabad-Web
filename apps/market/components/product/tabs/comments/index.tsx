@@ -3,7 +3,7 @@
 import {
   ProductComments as ProductCommentType,
   SingleProduct,
-} from "@repo/core/types";
+} from "@repo/core/types/product";
 import style from "./ProductComments.module.scss";
 import ProductCommentsForm from "./form";
 import ProductCommentsHeader from "./header";

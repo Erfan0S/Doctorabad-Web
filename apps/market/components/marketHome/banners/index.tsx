@@ -2,7 +2,7 @@ import Image, { ImageProps } from "next/image";
 import style from "./Banners.module.scss";
 import Link from "next/link";
 import { Banner } from "@/types/banner";
-import { placeHolderDataUrl } from "@repo/core/constants";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 interface Props {
   data: Banner[];

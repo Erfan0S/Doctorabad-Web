@@ -1,4 +1,4 @@
-import { AvatarFile } from "@repo/core/types";
+import { AvatarFile } from "@repo/core/types/general";
 
 export interface ProviderInList {
   id: number;

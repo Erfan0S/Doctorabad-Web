@@ -1,8 +1,8 @@
 "use client";
 
-import { AUTH_COOKIE_KEY, isServerSide } from "@repo/core/constants";
-import { routePath } from "@repo/core/constants";
-import { getClientSideCookie } from "@repo/core/utils";
+import { AUTH_COOKIE_KEY, isServerSide } from "@repo/core/constants/constants";
+import { routePath } from "@repo/core/constants/routePath";
+import { getClientSideCookie } from "@repo/core/utils/cookieUtils";
 import { useRouter } from "next/navigation";
 
 export const AuthorizeClientPage = ({ children }: React.PropsWithChildren) => {
