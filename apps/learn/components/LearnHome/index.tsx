@@ -6,7 +6,7 @@ import MainSlider from "./slider";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { HomePageCourseSliders } from "@/types/homePage";
-import { Loading } from "@repo/ui/components";
+import { Loading } from "@repo/shared_modules/components";
 
 const MainPage = () => {
   const { data: banners, isLoading: isBannersLoading } = useQuery({

@@ -1,5 +1,4 @@
 import initPwa from "next-pwa";
-import path from "path";
 
 const withPWA = initPwa({
   dest: "public",
@@ -12,9 +11,9 @@ const withPWA = initPwa({
 export default withPWA({
   reactStrictMode: true,
   transpilePackages: ['@repo/core', '@repo/shared_modules'],
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "development",
-  },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV !== "development",
+  // },
   images: {
     remotePatterns: [
       {

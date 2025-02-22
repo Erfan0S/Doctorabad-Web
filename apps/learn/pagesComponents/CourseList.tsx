@@ -1,5 +1,4 @@
 "use client";
-import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
 import { CourseListConfigs } from "@/constants/CourseList";
 import { CourseListItemType } from "@/types/courses";
@@ -8,17 +7,16 @@ import { PaginatedResponse } from "@repo/core/types/general";
 import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import InfiniteScroll from "react-infinite-scroller";
 
 type Props = {
   type: CourseListType;
 };
 
-function CourseListPage({ type }: Props) {
+const CourseListPage = ({ type }: Props) => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryKey: ["courses", CourseListConfigs[type].title],
+    queryKey: ["courses", `CourseListConfigs[type].title`],
     queryFn: ({ pageParam }) =>
       CourseListConfigs[type].api().then((res) => res.data),
     initialPageParam: 1,
@@ -43,6 +41,6 @@ function CourseListPage({ type }: Props) {
       )}
     </div>
   );
-}
+};
 
 export default CourseListPage;

@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import VideoPlayer from "./videoPlayer";
+
 import Image from "next/image";
 import style from "./course.module.scss";
 import testImage from "@/assets/img/club.png";
 import { api } from "@/api/Api";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import TabsController from "../common/TabsController";
 import CourseContent from "./tabs/lessons";
@@ -16,8 +16,9 @@ import CourseDescription from "./tabs/Description";
 import CourseComments from "./tabs/comments";
 import RelatedCourses from "./tabs/Related";
 import { useQuery } from "@tanstack/react-query";
-import { Loading } from "@repo/ui/components";
+import { Loading } from "@repo/shared_modules/components";
 import { useSearchParams } from "next/navigation";
+import VideoPlayer from "./video-player/VideoPlayer";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -41,7 +42,12 @@ const Course = ({ id, slug }: Props) => {
     enabled: !!id,
     retry: false,
   });
-
+  const { data: courseData, isLoading: isVideoLoading } = useQuery({
+    queryKey: ["course-videop", `test-${id} 15163`],
+    queryFn: () => api.getVideo(Number(id), 15163),
+    enabled: true,
+    retry: false,
+  });
   const course = data?.data.data;
 
   useEffect(() => {
@@ -49,14 +55,15 @@ const Course = ({ id, slug }: Props) => {
       setActiveTab(params?.get("tab") as CourseTab);
     }
   }, [activeTab, setActiveTab, params]);
-
-  return isLoading && !data ? (
+  console.log(isLoading, isVideoLoading);
+  console.log(courseData?.data?.data?.urls);
+  return isLoading || isVideoLoading ? (
     <Loading />
   ) : (
     <div className={style.container}>
       <div className={style.courseHeader}>
         <div style={{ padding: "0 15px" }}>
-          <VideoPlayer />
+          <VideoPlayer config={courseData!.data.data!.urls} />
           <div className={style["course-title"]}>
             <Image src={testImage} alt="company" width={40} height={40} />
             <h1>{isLoading ? <Loading /> : course?.title}</h1>

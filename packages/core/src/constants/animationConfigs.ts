@@ -27,3 +27,11 @@ export const mobileNavListReplace: MotionProps = {
   exit: { x: '100%', opacity: 0, position: 'absolute' },
   transition: { type: 'spring', duration: 0.5, bounce: 0.1 },
 };
+
+export const slideBottomAnimation: MotionProps = {
+  initial: { y: '100%', opacity: 0 },
+  animate: { y: 0, opacity: 1 },
+  exit: { y: '100%', opacity: 0 },
+  transition: { type: 'spring', duration: 0.5, bounce: 0.1 },
+};
+

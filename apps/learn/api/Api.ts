@@ -75,8 +75,8 @@ class Api extends Request {
   getVideo(
     courseID: number,
     lessonID: number
-  ): Promise<ResponseType<VideoType>> {
-    return this.request.get<VideoType>(
+  ): Promise<ResponseType<{ data: VideoType }>> {
+    return this.request.get<{ data: VideoType }>(
       `/user/v1/education/course/${courseID}/lesson/${lessonID}/video`
     );
   }

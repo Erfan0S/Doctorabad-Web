@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { ProductComments as ProductCommentType } from "@repo/core/types/product";

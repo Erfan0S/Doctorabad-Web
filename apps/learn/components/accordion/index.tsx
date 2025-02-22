@@ -3,7 +3,7 @@ import { useReducer } from "react";
 import style from "./Accordion.module.scss";
 import TriangleDown from "@/assets/svg/triangleDown";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { modalActions } from "@repo/core";
+import { modalActions } from "@repo/core/modal/modals";
 
 interface Props {
   title: string;
