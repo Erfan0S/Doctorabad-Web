@@ -184,17 +184,27 @@ class Api extends Request {
       : this.getNewestCourses(page);
   }
 
-  getFilterList(
-    page: number = 1,
-    sort?: SortType,
-    fields?: number[],
-    grades?: number[],
-    categories?: number[],
-    providers?: number[],
-    minPrice?: number,
-    maxPrice?: number,
-    language?: 1 | 2 | null
-  ): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
+  getFilterList({
+    page = 1,
+    categories,
+    fields,
+    grades,
+    language,
+    maxPrice,
+    minPrice,
+    providers,
+    sort,
+  }: {
+    page: number;
+    sort?: SortType;
+    fields?: number;
+    grades?: number;
+    categories?: number;
+    providers?: number;
+    minPrice?: number;
+    maxPrice?: number;
+    language?: 1 | 2 | null;
+  }): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
     return this.request.get("/user/v1/education/course/filter", {
       params: {
         sort,

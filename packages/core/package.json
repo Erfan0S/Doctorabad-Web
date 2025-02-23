@@ -4,10 +4,10 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./modal/*":"./src/modal/*.ts",
-    "./modalComponents/*":"./src/modal/*.tsx",
+    "./modal/*": "./src/modal/*.ts",
+    "./modalComponents/*": "./src/modal/*.tsx",
     "./url/*": "./src/Url/*.ts",
-    "./utils/*": "./src/Utils/*.ts",
+    "./utils/*": "./src/utils/*.ts",
     "./constants/*": "./src/constants/*.ts",
     "./types/*": "./src/types/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
