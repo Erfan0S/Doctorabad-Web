@@ -38,6 +38,7 @@ const ProviderHeader = ({ id, tite, summery, image, alt }: Props) => {
       </div>
       <TabsController
         tabData={ProviderTabsData}
+        defaultTab={ProviderTabs.COURSES}
         className={styles.tabsContainer}
       />
     </div>

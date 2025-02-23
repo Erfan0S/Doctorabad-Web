@@ -6,26 +6,12 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 type Props = {
   tabData: TabData;
+  isActive?: boolean;
   url?: string;
 };
 
-const Item = ({ tabData, url }: Props) => {
-  const [isActive, setActive] = useState(false);
-  const params = useSearchParams();
+const Item = ({ tabData, url, isActive }: Props) => {
   const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (
-      params?.get("tab") === tabData.id ||
-      (!params?.get("tab") && tabData.id === CourseTab.LESSONS) ||
-      pathname === url
-    ) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  }, [tabData, params]);
 
   const changeTab = () => {
     router.push(url ? url : `?tab=${tabData.id}`);

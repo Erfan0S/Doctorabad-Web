@@ -55,21 +55,24 @@ const Course = ({ id, slug }: Props) => {
       setActiveTab(params?.get("tab") as CourseTab);
     }
   }, [activeTab, setActiveTab, params]);
-  console.log(isLoading, isVideoLoading);
-  console.log(courseData?.data?.data?.urls);
+  console.log(" isLoading, isVideoLoading", isLoading, isVideoLoading);
+  console.log(" courseData", courseData?.data?.data?.urls);
   return isLoading || isVideoLoading ? (
     <Loading />
   ) : (
     <div className={style.container}>
       <div className={style.courseHeader}>
         <div style={{ padding: "0 15px" }}>
-          <VideoPlayer config={courseData!.data.data!.urls} />
+          {/* <VideoPlayer config={courseData!.data.data!.urls} /> */}
           <div className={style["course-title"]}>
             <Image src={testImage} alt="company" width={40} height={40} />
             <h1>{isLoading ? <Loading /> : course?.title}</h1>
           </div>
         </div>
-        <TabsController tabData={CourseTabsData} />
+        <TabsController
+          tabData={CourseTabsData}
+          defaultTab={CourseTab.LESSONS}
+        />
       </div>
       <div style={{ padding: "0 15px", marginTop: "15px" }}>
         {Object.entries(CourseTabsComponents).map(([id, Component]) =>
