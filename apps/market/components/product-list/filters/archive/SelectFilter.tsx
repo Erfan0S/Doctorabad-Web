@@ -1,8 +1,8 @@
-import Accordion from '@/components/app/accordion';
-import style from '../ProductListFiltersFilters.module.scss';
-import { useSearchParams } from 'next/navigation';
-import { useChangeSearchParamsFilter } from '@/hooks/useChangeSearchParamsFilter';
-import { useState } from 'react';
+import Accordion from "@/components/app/accordion";
+import style from "../ProductListFiltersFilters.module.scss";
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { useState } from "react";
 
 type Props = {
   title: string;
@@ -11,8 +11,13 @@ type Props = {
   singleSelection?: boolean;
 };
 
-export const SelectFilter = ({ items, queryKey, title, singleSelection }: Props) => {
-  const [searchInList, setSearchInList] = useState('');
+export const SelectFilter = ({
+  items,
+  queryKey,
+  title,
+  singleSelection,
+}: Props) => {
+  const [searchInList, setSearchInList] = useState("");
 
   const searchParams = useSearchParams();
 
@@ -20,16 +25,21 @@ export const SelectFilter = ({ items, queryKey, title, singleSelection }: Props)
 
   const filter = searchParams.get(queryKey);
 
-  const activeItems = filter ? filter.split(',') : [];
+  const activeItems = filter ? filter.split(",") : [];
+
+  const filteredItems = searchInList
+    ? items.filter(({ title }) => title.includes(searchInList))
+    : items;
+
   const changeCategoryFilter = (filterId: number, checked: boolean) => {
     const updatedItems = checked
       ? [...(singleSelection ? [] : activeItems), String(filterId)]
       : activeItems.filter((item) => item !== String(filterId));
 
-    changeFilters({ [queryKey]: updatedItems.length ? updatedItems.join(',') : null });
+    changeFilters({
+      [queryKey]: updatedItems.length ? updatedItems.join(",") : null,
+    });
   };
-
-  const filteredItems = searchInList ? items.filter(({ title }) => title.includes(searchInList)) : items;
 
   return (
     <Accordion title={title} isActive={!!filter}>

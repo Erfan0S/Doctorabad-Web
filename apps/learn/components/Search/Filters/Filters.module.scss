@@ -6,6 +6,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: space(2);
+  margin-top: 10px;
 
   &Accordion {
     width: calc(50% - space(2));

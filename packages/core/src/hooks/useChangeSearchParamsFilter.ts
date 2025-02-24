@@ -1,4 +1,4 @@
-import { SearchParamsUtils } from "@repo/core/utils/urlutils";
+import { SearchParamsUtils } from "../utils/UrlUtils";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const useChangeSearchParamsFilter = () => {

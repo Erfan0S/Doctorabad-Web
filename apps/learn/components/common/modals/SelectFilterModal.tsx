@@ -1,17 +1,13 @@
 import { SelectFilter } from "@/components/Search/Filters/SelectFilter";
 import React from "react";
 import { ModalProps } from "@repo/core/types/modals";
+import { FilterModalType } from "@/types/filters";
 
 const SelectFilterModal = ({
   data,
   closeModal,
-}: ModalProps<{
-  title: string;
-  items: { id: number; title: string }[];
-  queryKey: string;
-  singleSelection?: boolean;
-}>) => {
-  return <SelectFilter {...data} />;
+}: ModalProps<FilterModalType>) => {
+  return <SelectFilter closeModal={closeModal} {...data} />;
 };
 
 export default SelectFilterModal;

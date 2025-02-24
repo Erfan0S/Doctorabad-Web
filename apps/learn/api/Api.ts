@@ -171,7 +171,7 @@ class Api extends Request {
     return this.request.get("/user/v1/education/slider?location=1");
   }
 
-  // filyer / search
+  // filter / search
 
   getSearchList(
     query: string,
@@ -232,6 +232,14 @@ class Api extends Request {
     field: number
   ): Promise<ResponseType<{ data: number[] }>> {
     return this.request.get("/user/find/grades", { params: { type, field } });
+  }
+
+  getCategoriesByGrade(
+    grade_id: number
+  ): Promise<ResponseType<{ data: CategoryType[] }>> {
+    return this.request.get(`/user/v1/education/category/search`, {
+      params: { grade_id },
+    });
   }
 
   getLanguages(): Promise<ResponseType<{ id: number; language: string }[]>> {
