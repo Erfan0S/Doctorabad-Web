@@ -1,17 +1,23 @@
 import style from "./BugReport.module.scss";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { api } from "@/api/Api";
+import { api } from "../../../api/Api";
 import { ModalProps } from "@repo/core/types/modals";
 import { toast } from "react-toastify";
-import Loading from "../common/loading";
-import BugIcon from "@/assets/svg/newIcons/bug";
+import Loading from "../../components/loading";
+import BugIcon from "../../../assets/svg/bug";
 
-const BugReport = ({ data, closeModal }: ModalProps<{ productId: number }>) => {
+const BugReport = ({
+  data,
+  closeModal,
+}: ModalProps<{ productId: number; type: string }>) => {
   const [text, setText] = useState("");
 
   const { isPending, mutate } = useMutation({
-    mutationFn: () => api.reportIssue({ text, productId: data.productId }),
+    mutationFn: () =>
+      data.type == "course"
+        ? api.courseReportIssue({ text, productId: data.productId })
+        : api.prodoctReportIssue({ text, productId: data.productId }),
     onSuccess: () => {
       toast("گزارش شما ثبت شد", { type: "success", position: "top-left" });
       closeModal();
@@ -24,7 +30,9 @@ const BugReport = ({ data, closeModal }: ModalProps<{ productId: number }>) => {
   };
 
   return (
-    <div className={style.bugReportModal}>
+    <div
+      className={`${style.bugReportModal} ${data.type == "course" ? style.course : ""}`}
+    >
       <div className={style.bugReportModalIcon}>
         <BugIcon />
       </div>
