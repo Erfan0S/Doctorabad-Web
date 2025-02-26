@@ -8,6 +8,7 @@ import SidePanelFavoritesShopping from "./shopping";
 import SidePanelFavoritesContent from "./content";
 import SidePanelFavoritesExam from "./exam";
 import classNames from "classnames";
+import { api } from "../../api/Api";
 
 const SidePanelFavorites: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const [currentTab, setCurrentTab] = useState(
@@ -30,6 +31,7 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({ setPage }) => {
   };
 
   const CurrentTabComponent = clubTabsComponents[currentTab];
+
   return (
     <>
       <SidePanelHeader setPage={setPage} title="علاقه‌مندی‌های‌من" />
@@ -53,7 +55,7 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({ setPage }) => {
           </ul>
         </div>
         <div className={sidePanelStyle.sidePanelTabContents}>
-          <SidePanelFavoritesShopping />
+          <CurrentTabComponent key={currentTab} />
         </div>
       </div>
     </>

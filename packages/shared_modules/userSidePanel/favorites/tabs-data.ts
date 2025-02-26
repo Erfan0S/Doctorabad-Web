@@ -4,16 +4,16 @@ export const favoriteTabsData = [
   {
     id: 1,
     title: "مرکز‌خرید",
-    content: SidePanelFavoriteTab.LEARNING_CENTER,
+    content: SidePanelFavoriteTab.SHOPPING_CENTER,
     active: true,
     disabled: false,
   },
   {
     id: 2,
     title: "مرکز‌آموزش",
-    content: SidePanelFavoriteTab.SHOPPING_CENTER,
+    content: SidePanelFavoriteTab.LEARNING_CENTER,
     active: false,
-    disabled: true,
+    disabled: false,
   },
   {
     id: 3,
