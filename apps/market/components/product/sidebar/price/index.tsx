@@ -1,15 +1,16 @@
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import style from "./ProductSidebarPrice.module.scss";
 import { SingleProduct } from "@repo/core/types/product";
-import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
+import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import { CartItem as Props } from "@repo/shared_modules";
 import QuantityProductButton from "./quantityButton";
 import { useCart, cartActions } from "@repo/core/states/cart";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { useCartActionsLoadingHandler } from "@/hooks/useCartActionsLoadingHandler";
+import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import Loading from "@/components/common/loading";
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
+import { OrderType } from "@repo/core/types/cart";
 
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';
@@ -25,40 +26,14 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
 
   const productOrder = data.find((order) => order.product_id === product.id);
 
-  const getDiscountInformation = () => {
-    let offPrice = null;
-    let discount = null;
-
-    if (product.price_off || product.price_amazing) {
-      discount = calcDiscountPercentage(
-        product.price_main,
-        product.price_amazing || product.price_off
-      );
-      offPrice = product.price_amazing || product.price_off;
-    }
-    // else if (product.discount_festivals[0]) {
-    //   const discountFestival = product.discount_festivals[0];
-
-    //   if (discountFestival.percent) {
-    //     discount = discountFestival.percent;
-    //     const discountPrice = (product.main_price / 100) * discount;
-    //     offPrice = product.main_price - Math.min(discountFestival.max_cost || 0, discountPrice);
-    //   } else if (discountFestival?.amount) {
-    //     offPrice = product.main_price - discountFestival.amount;
-    //   }
-    // }
-
-    return {
-      discountPercent: discount,
-      offPrice,
-      mainPrice: product.price_main,
-    };
-  };
-
   const { restockNotification, restockNotificationLoading } =
     useRestockNotification(product.id);
 
-  const { discountPercent, mainPrice, offPrice } = getDiscountInformation();
+  const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
+    product.price_main,
+    product.price_off,
+    product.price_amazing || undefined
+  );
 
   const isProductHasStock = product.quantity !== 0;
   const color = isProductHasStock ? "orange" : "grey";
@@ -95,7 +70,11 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
             <button
               onClick={authorizeClientAction(
                 cartActionsLoadingHandler(() =>
-                  cartActions.addToCart(product.id, variants)
+                  cartActions.addToCart(
+                    product.id,
+                    OrderType.ShopProduct,
+                    variants
+                  )
                 )
               )}
             >

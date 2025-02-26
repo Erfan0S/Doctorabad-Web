@@ -8,10 +8,11 @@ import testImage from "@/assets/img/club.png";
 import { api } from "@/api/Api";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import TabsController from "../common/TabsController";
 import CourseContent from "./tabs/lessons";
 import { CourseTabsData } from "./tabs/tabs-data";
-import { CourseTab } from "@/types/courses";
+import { CourseDataType, CourseTab } from "@/types/courses";
 import CourseDescription from "./tabs/Description";
 import CourseComments from "./tabs/comments";
 import RelatedCourses from "./tabs/Related";
@@ -19,6 +20,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
 import { useSearchParams } from "next/navigation";
 import VideoPlayer from "./video-player/VideoPlayer";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
+import { useCart, cartActions } from "@repo/core/states/cart";
+import { OrderType } from "@repo/core/types/cart";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -35,6 +41,8 @@ type Props = {
 const Course = ({ id, slug }: Props) => {
   const [activeTab, setActiveTab] = useState<CourseTab>(CourseTab.LESSONS);
   const params = useSearchParams();
+  const { cartActionsLoadingHandler, updateCartLoading } =
+    useCartActionsLoadingHandler();
 
   const { data, isLoading } = useQuery({
     queryKey: ["course", id],
@@ -48,6 +56,12 @@ const Course = ({ id, slug }: Props) => {
     enabled: true,
     retry: false,
   });
+  const { data: cartList, isLoading: isCartLoading } = useQuery({
+    queryKey: ["cartList"],
+    queryFn: () => api.getCardList(),
+    enabled: true,
+    retry: false,
+  });
   const course = data?.data.data;
 
   useEffect(() => {
@@ -57,6 +71,16 @@ const Course = ({ id, slug }: Props) => {
   }, [activeTab, setActiveTab, params]);
   console.log(" isLoading, isVideoLoading", isLoading, isVideoLoading);
   console.log(" courseData", courseData?.data?.data?.urls);
+
+  useEffect(() => {
+    console.log("cartList", cartList);
+  }, [cartList]);
+
+  const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
+    course?.price_main,
+    course?.price_off || undefined,
+    course?.price_amazing || undefined
+  );
   return isLoading || isVideoLoading ? (
     <Loading />
   ) : (
@@ -89,11 +113,28 @@ const Course = ({ id, slug }: Props) => {
       <div className={style.purchaseBar}>
         <button
           className={style.purchaseButton}
-          onClick={() => {
-            modalActions.addModal(ModalTypes.SIDE_PANEL);
-          }}
+          onClick={authorizeClientAction(
+            cartActionsLoadingHandler(() =>
+              cartActions.addToCart(+id, OrderType.Course)
+            )
+          )}
         >
-          شروع یادگیری کل دوره | {course?.price_main} تومن
+          <span> شروع یادگیری کل دوره | </span>
+          <div>
+            <div>
+              {/* {discountPercent && <small>٪{discountPercent}</small>} */}
+              {offPrice && (
+                <span className={style.priceOff}>
+                  {priceFormatter(mainPrice)}
+                  تومن
+                </span>
+              )}
+            </div>
+            <div>
+              {priceFormatter(offPrice || mainPrice)}
+              تومن
+            </div>
+          </div>
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { CartVariants } from "./productVariants";
 
 export type Order = {
+  discount_plan_type: null;
   id: number;
   product_pic: string;
   product_title: string;
@@ -13,12 +14,23 @@ export type Order = {
   variants: CartVariants[];
 };
 
+// export type CartResponse = {
+//   data: Order[];
+//   count: string;
+//   coins: number;
+//   price_main: number;
+//   my_profit: number;
+//   price_paid: number;
+//   user_credit: number;
+// };
+
 export type CartResponse = {
-  data: Order[];
-  count: string;
   coins: number;
-  price_main: number;
+  count: number;
+  data: Order[];
   my_profit: number;
+  need_shipping: boolean;
+  price_main: number;
   price_paid: number;
   user_credit: number;
 };
@@ -82,3 +94,13 @@ export type PaymentResult = {
   coin_received: number;
   discount_code: string;
 };
+
+export enum OrderType {
+  ShopProduct = "shopProduct",
+  Course = "course",
+}
+
+export enum ChangeQuantityType {
+  Increase = "increase",
+  Decrease = "decrease",
+}

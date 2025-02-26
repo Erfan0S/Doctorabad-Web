@@ -105,7 +105,7 @@ export interface SingleProduct {
   product_pic: string;
   price_main: number;
   price_off: number;
-  price_amazing: null;
+  price_amazing: number | null;
   amazing_end_date: null;
   user_favorite?: boolean;
   variants: Variants;

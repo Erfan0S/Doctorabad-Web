@@ -1,7 +1,7 @@
 import { api } from "../../../api/Api";
 import { routePath } from "@repo/core/constants/routePath";
 import { authorizedActionStorage } from "../../states/athorizedActionStorage";
-import { cartActions } from "../../states/cart";
+import { cartActions } from "@repo/core/states/cart";
 import { modalActions } from "@repo/core/modal/modals";
 import { RegisterStep, RegisterStepProps } from "../../types/register";
 import { setAuthCookie } from "@repo/core/utils/authUtils";
