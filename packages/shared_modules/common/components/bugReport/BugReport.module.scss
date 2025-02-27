@@ -1,9 +1,24 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+html .course {
+  img,
+  svg,
+  label,
+  textarea {
+    color: $red;
+    fill: $red;
+    border-color: $red;
+  }
+  button {
+    background: $button-bg-red;
+  }
+}
 
 .bugReportModal {
   width: 400px;
   max-width: 100%;
+  min-width: 250px;
   margin: 0 auto;
   padding: 0 space(5);
   background-color: #fff;
@@ -80,7 +95,7 @@
 
     &.loading {
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         left: calc(50% - 13px);
         top: calc(50% - 13px);

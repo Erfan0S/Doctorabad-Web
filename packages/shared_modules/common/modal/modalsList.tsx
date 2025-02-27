@@ -7,6 +7,7 @@ import { RegisterModal } from "./modals/RegisterModal";
 import { SidePanel } from "../../userSidePanel";
 import { ModalTypes } from "./modalsTypes";
 import { AddAddressModal } from "./modals/AddAddressModal";
+import { BugReportModal } from "./modals/BugReportModal";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -15,7 +16,7 @@ export const ModalsList: any = {
   [ModalTypes.CLUB_INFO]: ClubInfoModal,
   [ModalTypes.CLUB_SINGLE_GET_CODE]: ClubSingleGetCodeModal,
   [ModalTypes.CLUB_SINGLE_SHOW_DESC]: ClubSingleDescModal,
-
+  [ModalTypes.BUG_REPORT]: BugReportModal,
   [ModalTypes.MY_MESSAGES_DETAIL]: MyMessageDetailModal,
   [ModalTypes.ADD_ADDRESS]: AddAddressModal,
 };

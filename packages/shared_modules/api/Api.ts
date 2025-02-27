@@ -265,7 +265,7 @@ class Api extends Request {
     );
   };
 
-  reportIssue = ({
+  prodoctReportIssue = ({
     text,
     productId,
   }: {
@@ -273,6 +273,19 @@ class Api extends Request {
     productId: number;
   }): Promise<any> => {
     return this.request.post(`/user/shop/error/report`, {
+      error_report_text: text,
+      id: productId,
+    });
+  };
+
+  courseReportIssue = ({
+    text,
+    productId,
+  }: {
+    text: string;
+    productId: number;
+  }): Promise<any> => {
+    return this.request.post(`/user/v1/education/error/report`, {
       error_report_text: text,
       id: productId,
     });

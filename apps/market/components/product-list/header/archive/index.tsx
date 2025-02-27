@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import style from '../ArchiveHeader.module.scss';
-import { useSearchParams } from 'next/navigation';
-import { useChangeSearchParamsFilter } from '@/hooks/useChangeSearchParamsFilter';
+import Link from "next/link";
+import style from "../ArchiveHeader.module.scss";
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 
 const sortByConfigs = [
-  { title: 'جدیدترین‌ها', value: 'newest' },
-  { title: 'پرفروش ترین ها', value: 'bestselling' },
-  { title: 'محبوب ترین', value: 'favorite' },
-  { title: 'ارزان ترین', value: 'cheapest' },
-  { title: 'گران ترین', value: 'expensive' },
+  { title: "جدیدترین‌ها", value: "newest" },
+  { title: "پرفروش ترین ها", value: "bestselling" },
+  { title: "محبوب ترین", value: "favorite" },
+  { title: "ارزان ترین", value: "cheapest" },
+  { title: "گران ترین", value: "expensive" },
 ];
 
 const ArchiveHeader = () => {
@@ -19,8 +19,8 @@ const ArchiveHeader = () => {
   const changeFilters = useChangeSearchParamsFilter();
 
   const activeValues = {
-    sort: searchParams.get('sort') || sortByConfigs[0].value,
-    onlyAvailable: searchParams.get('onlyAvailable'),
+    sort: searchParams.get("sort") || sortByConfigs[0].value,
+    onlyAvailable: searchParams.get("onlyAvailable"),
   };
 
   return (
@@ -39,7 +39,9 @@ const ArchiveHeader = () => {
       </ul>
       <select
         value={activeValues.sort}
-        onChange={(e) => changeFilters({ sort: (e.target as HTMLSelectElement).value })}
+        onChange={(e) =>
+          changeFilters({ sort: (e.target as HTMLSelectElement).value })
+        }
       >
         {sortByConfigs.map(({ title, value }) => (
           <option key={value} value={value}>
@@ -54,7 +56,9 @@ const ArchiveHeader = () => {
           name="onlyAvailable"
           id="onlyAvailable"
           checked={!!Number(activeValues.onlyAvailable)}
-          onChange={(e) => changeFilters({ onlyAvailable: String(Number(e.target.checked)) })}
+          onChange={(e) =>
+            changeFilters({ onlyAvailable: String(Number(e.target.checked)) })
+          }
         />
         <label htmlFor="onlyAvailable"></label>
       </div>

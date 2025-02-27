@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import "rc-slider/assets/index.css";
 import style from "../ProductListFiltersFilters.module.scss";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
-import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { useSearchParams } from "next/navigation";
 
 type Props = {

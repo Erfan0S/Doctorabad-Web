@@ -171,7 +171,7 @@ class Api extends Request {
     return this.request.get("/user/v1/education/slider?location=1");
   }
 
-  // filyer / search
+  // filter / search
 
   getSearchList(
     query: string,
@@ -184,17 +184,27 @@ class Api extends Request {
       : this.getNewestCourses(page);
   }
 
-  getFilterList(
-    page: number = 1,
-    sort?: SortType,
-    fields?: number[],
-    grades?: number[],
-    categories?: number[],
-    providers?: number[],
-    minPrice?: number,
-    maxPrice?: number,
-    language?: 1 | 2 | null
-  ): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
+  getFilterList({
+    page = 1,
+    categories,
+    fields,
+    grades,
+    language,
+    maxPrice,
+    minPrice,
+    providers,
+    sort,
+  }: {
+    page: number;
+    sort?: SortType;
+    fields?: number;
+    grades?: number;
+    categories?: number;
+    providers?: number;
+    minPrice?: number;
+    maxPrice?: number;
+    language?: 1 | 2 | null;
+  }): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
     return this.request.get("/user/v1/education/course/filter", {
       params: {
         sort,
@@ -222,6 +232,14 @@ class Api extends Request {
     field: number
   ): Promise<ResponseType<{ data: number[] }>> {
     return this.request.get("/user/find/grades", { params: { type, field } });
+  }
+
+  getCategoriesByGrade(
+    grade_id: number
+  ): Promise<ResponseType<{ data: CategoryType[] }>> {
+    return this.request.get(`/user/v1/education/category/search`, {
+      params: { grade_id },
+    });
   }
 
   getLanguages(): Promise<ResponseType<{ id: number; language: string }[]>> {

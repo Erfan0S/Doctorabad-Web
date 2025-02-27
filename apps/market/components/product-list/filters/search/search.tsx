@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@/hooks/useChangeSearchParamsFilter";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 const SearchFilters = () => {

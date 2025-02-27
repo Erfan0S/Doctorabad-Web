@@ -26,6 +26,7 @@ const Accordion: React.FC<Props> = ({
   const [active, toggleActive] = useReducer((show) => !show, isActive);
 
   const handleClick = () => {
+    if (!isActive) return;
     toggleActive();
     onClick?.();
     if (modalType) {
@@ -34,7 +35,9 @@ const Accordion: React.FC<Props> = ({
   };
 
   return (
-    <div className={`${style.accordion} ${className}`}>
+    <div
+      className={`${style.accordion} ${!isActive ? style.deActive : ""} ${className}`}
+    >
       <div className={style.accordionTitle} onClick={handleClick}>
         <span>{title}</span>
         <TriangleDown width={18} height={18} />

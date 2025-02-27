@@ -1,15 +1,28 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+html .deActive {
+  border-color: $gray;
+  color: $gray;
+  cursor: default;
+
+  svg {
+    fill: $gray;
+  }
+  span {
+    color: $gray;
+  }
+}
+
 .accordion {
   $accordion: &;
 
   border-radius: radius(3);
   border: 2px solid $red;
   padding: 0 space(2);
+  cursor: pointer;
 
   &Title {
-    cursor: pointer;
     display: flex;
     align-items: center;
 

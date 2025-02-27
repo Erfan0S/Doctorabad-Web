@@ -1,11 +1,11 @@
-import { api } from '@/api/Api';
-import Accordion from '@/components/app/accordion';
-import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'next/navigation';
-import { SelectFilter } from './SelectFilter';
-import { useEffect } from 'react';
-import { useChangeSearchParamsFilter } from '@/hooks/useChangeSearchParamsFilter';
-import { useClientComponentInitiated } from '@/hooks/useClientComponentInitiated';
+import { api } from "@/api/Api";
+import Accordion from "@/components/app/accordion";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { SelectFilter } from "./SelectFilter";
+import { useEffect } from "react";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 
 export const GradeFilter = () => {
   const isInitialized = useClientComponentInitiated();
@@ -13,11 +13,11 @@ export const GradeFilter = () => {
   const searchParams = useSearchParams();
   const changeFilters = useChangeSearchParamsFilter();
 
-  const fieldFilter = searchParams.get('field');
+  const fieldFilter = searchParams.get("field");
 
   const { data, isLoading, fetchStatus } = useQuery({
     queryFn: () => api.getGrades(Number(fieldFilter), 5),
-    queryKey: ['grades', fieldFilter],
+    queryKey: ["grades", fieldFilter],
     enabled: !!fieldFilter,
     staleTime: Infinity,
   });
@@ -32,13 +32,17 @@ export const GradeFilter = () => {
 
   if (!fieldFilter || isLoading) {
     return (
-      <Accordion title={'موضوع'} isActive={false}>
-        <p style={{ margin: '8px 0' }}>
-          {isLoading ? 'در حال دریافت لیست موضوعات' : 'ابتدا رشته را انتخاب کنید'}
+      <Accordion title={"موضوع"} isActive={false}>
+        <p style={{ margin: "8px 0" }}>
+          {isLoading
+            ? "در حال دریافت لیست موضوعات"
+            : "ابتدا رشته را انتخاب کنید"}
         </p>
       </Accordion>
     );
   }
 
-  return <SelectFilter items={data!.data!.data} queryKey="grade" title={'موضوع'} />;
+  return (
+    <SelectFilter items={data!.data!.data} queryKey="grade" title={"موضوع"} />
+  );
 };

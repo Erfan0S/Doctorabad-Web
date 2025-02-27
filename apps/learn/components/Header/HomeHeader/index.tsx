@@ -12,7 +12,7 @@ function HomeHeader() {
         <div className={styles.childContainer}>
           <MobileHeader />
         </div>
-        <TabsController tabData={TabsData} />
+        <TabsController tabData={TabsData} defaultTab={TabsData[0].id} />
       </div>
       <div className={styles.childContainer}>
         <SearchBar />

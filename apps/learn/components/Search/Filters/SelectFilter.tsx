@@ -1,17 +1,12 @@
 "use client";
-import Accordion from "@/components/accordion";
 import style from "./Filters.module.scss";
+import { useEffect, useState } from "react";
+import { FilterModalType } from "@/types/filters";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@/utils/useChangeSearchParamsFilter";
-import { useState } from "react";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 type Props = {
-  title: string;
-  items: { id: number; title: string }[];
-  queryKey: string;
-  singleSelection?: boolean;
+  closeModal?: (clearModals?: boolean) => void;
 };
 
 export const SelectFilter = ({
@@ -19,31 +14,33 @@ export const SelectFilter = ({
   queryKey,
   title,
   singleSelection,
-}: Props) => {
+  closeModal,
+}: FilterModalType & Props) => {
   const [searchInList, setSearchInList] = useState("");
 
-  const searchParams = useSearchParams();
+  const params = useSearchParams();
 
-  // const changeFilters = useChangeSearchParamsFilter();
+  const changeFilters = useChangeSearchParamsFilter();
 
-  // const filter = searchParams.get(queryKey);
+  const filter = params.get(queryKey);
 
-  const filter = false;
-
-  // const activeItems = filter ? filter.split(",") : [];
-  // const changeCategoryFilter = (filterId: number, checked: boolean) => {
-  //   const updatedItems = checked
-  //     ? [...(singleSelection ? [] : activeItems), String(filterId)]
-  //     : activeItems.filter((item) => item !== String(filterId));
-
-  //   changeFilters({
-  //     [queryKey]: updatedItems.length ? updatedItems.join(",") : null,
-  //   });
-  // };
+  const activeItems = filter ? filter.split(",") : [];
 
   const filteredItems = searchInList
     ? items.filter(({ title }) => title.includes(searchInList))
     : items;
+
+  const changeCategoryFilter = (filterId: number, checked: boolean) => {
+    const updatedItems = checked
+      ? [...(singleSelection ? [] : activeItems), String(filterId)]
+      : activeItems.filter((item) => item !== String(filterId));
+
+    changeFilters({
+      [queryKey]: updatedItems.length ? updatedItems.join(",") : null,
+    });
+
+    // closeModal && closeModal();
+  };
 
   return (
     <div className={style.archiveFiltersCheckboxList}>
@@ -62,8 +59,8 @@ export const SelectFilter = ({
               <input
                 id={uniqueId}
                 type="checkbox"
-                // checked={activeItems.includes(String(id))}
-                // onChange={(e) => changeCategoryFilter(id, e.target.checked)}
+                checked={activeItems.includes(String(id))}
+                onChange={(e) => changeCategoryFilter(id, e.target.checked)}
               />
               <label htmlFor={uniqueId}>
                 <span>{title}</span>
