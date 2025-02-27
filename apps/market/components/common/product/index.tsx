@@ -113,9 +113,7 @@ const Product: React.FC<ProductCard> = ({
                 <button
                   className={style.productAddToCart}
                   onClick={authorizeClientAction(
-                    cartActionsLoadingHandler(() =>
-                      cartActions.addToCart(id, [])
-                    )
+                    cartActionsLoadingHandler(() => cartActions.addToCart(id))
                   )}
                 >
                   {updateCartLoading ? <Loading size={22} /> : "افزودن‌به‌سبد"}

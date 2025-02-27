@@ -50,6 +50,7 @@ const ProductSidebar = ({ product }: Props) => {
         setProduct={setCurrentProduct}
         basePriceMain={product.price_main}
         basePriceOff={product.price_off}
+        baseAmazingPrice={product.price_amazing}
         productVariants={setVariants}
       />
       <ProductSidebarPrice product={currentPrduct} variants={variants} />
