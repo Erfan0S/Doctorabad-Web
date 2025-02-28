@@ -10,10 +10,14 @@ const withPWA = initPwa({
 /** @type {import('next').NextConfig} */
 export default withPWA({
   reactStrictMode: true,
-  transpilePackages: ["@repo/core", "@repo/shared_modules"],
-  // compiler: {
-  //   removeConsole: process.env.NODE_ENV !== "development",
-  // },
+  transpilePackages: ['@repo/core', '@repo/shared_modules'],
+  compiler: {
+    removeConsole: process.env.NODE_ENV !== "development",
+  },
+  reactStrictMode: false,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {

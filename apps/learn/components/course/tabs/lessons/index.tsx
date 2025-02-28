@@ -1,16 +1,16 @@
 import { FC, useEffect, useState } from "react";
-import { Section } from "@/types/courses";
+import { Lesson, Section } from "@/types/courses";
 import Play from "@/assets/svg/play";
 import styles from "./Lessons.module.scss";
 import formatDuration from "@/utils/formatDuration";
 import clsx from "clsx";
-import { set } from "video.js/dist/types/tech/middleware";
 
 interface CourseContentProps {
   sections: Section[];
+  onLessonClick: (leason: Lesson) => void;
 }
 
-const CourseContent: FC<CourseContentProps> = ({ sections }) => {
+const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
   const [openSections, setOpenSections] = useState<Set<number>>(new Set());
 
   const toggleSection = (sectionId: number) => {
@@ -84,7 +84,11 @@ const CourseContent: FC<CourseContentProps> = ({ sections }) => {
                 >
                   <ul className={styles.lessonList}>
                     {chapter.lessons.map((lesson) => (
-                      <li key={lesson.id} className={styles.lesson}>
+                      <li
+                        key={lesson.id}
+                        className={styles.lesson}
+                        onClick={() => onLessonClick(lesson)}
+                      >
                         <span className={styles.lessonTitle}>
                           {lesson.title}
                         </span>

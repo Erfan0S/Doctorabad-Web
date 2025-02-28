@@ -15,8 +15,10 @@ class CustomButton extends Button {
     this.onClick = options.onClick;
 
 
-    // Add any additional initialization here
-    this.addClass("vjs-custom-button");
+
+    if (options.className) {
+      this.addClass(options.className);
+    }
     this.updateContent(options.initialContent);
   }
 
@@ -42,7 +44,7 @@ class CustomButton extends Button {
 
   // Optional: Override the button's CSS class name
   buildCSSClass() {
-    return `vjs-custom-button hello ${super.buildCSSClass()}`;
+    return `${super.buildCSSClass()}`;
   }
 }
 

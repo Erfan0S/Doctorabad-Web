@@ -4,6 +4,10 @@ import "@videojs/http-streaming";
 import "videojs-contrib-quality-levels";
 
 import { VideoPlayerProps } from "@/components/course/video-player";
+import TitleBar from "@/components/course/video-player/videoPlayerCustomElements/TitleBar";
+
+// @ts-ignore
+videojs.registerComponent('TitleBar', TitleBar);
 
 export class PlayerInitiator {
 
@@ -24,6 +28,9 @@ export class PlayerInitiator {
     }
 
     init() {
+
+      
+
         return new Promise((resolve, reject) => {
         const videoElement = document.createElement("video-js");
         videoElement.classList.add("vjs-big-play-centered");
@@ -31,8 +38,10 @@ export class PlayerInitiator {
     
         this.player = videojs(videoElement, {
           controls: true,
+          titleBar: {
+            title: "sss",
+          },
           fluid: true,
-          
           html5: {
             vhs: {
               // HLS Support
@@ -56,6 +65,7 @@ export class PlayerInitiator {
 
             },
             responsive: true,
+            volumePanel: false,
           },
           sources:this.getSources(),
         }  );

@@ -104,3 +104,5 @@ export type VideoType = {
   urls: Urls;
   duration: number;
 };
+
+
