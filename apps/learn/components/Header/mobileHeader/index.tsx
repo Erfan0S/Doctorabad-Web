@@ -43,7 +43,7 @@ const MobileHeader = () => {
       modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
     );
 
-  if (!isMobile || !shouldRender) return;
+  // if (!isMobile || !shouldRender) return;
   return (
     <div className={style.mobileHeader}>
       <Logo />

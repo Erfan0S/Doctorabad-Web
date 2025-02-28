@@ -100,7 +100,7 @@ class Api extends Request {
     return this.request.post<CartResponse>("/user/shop/cart", {
       id: productId,
       type: type,
-      // quantity: 1,
+      quantity: 1,
       variants: variants,
     });
   }
@@ -110,7 +110,7 @@ class Api extends Request {
   }
 
   changeQuantity(orderId: number, type: ChangeQuantityType): Promise<any> {
-    return this.request.put(`/user/v1/cart/change/count`, {
+    return this.request.post(`/user/v1/cart/change/count`, {
       order_item_id: orderId,
       type: type,
     });

@@ -89,7 +89,12 @@ const Course = ({ id, slug }: Props) => {
         <div style={{ padding: "0 15px" }}>
           {/* <VideoPlayer config={courseData!.data.data!.urls} /> */}
           <div className={style["course-title"]}>
-            <Image src={testImage} alt="company" width={40} height={40} />
+            <Image
+              src={course?.provider.pic_url || ""}
+              alt="company"
+              width={40}
+              height={40}
+            />
             <h1>{isLoading ? <Loading /> : course?.title}</h1>
           </div>
         </div>

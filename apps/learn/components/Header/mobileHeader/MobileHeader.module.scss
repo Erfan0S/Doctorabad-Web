@@ -1,12 +1,14 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 .mobileHeader {
-  display: none;
+  // display: none;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   padding: 5px 0;
   width: 100%;
+  display: flex;
 }
 
 .buttons {

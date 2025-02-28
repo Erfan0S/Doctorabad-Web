@@ -3,15 +3,13 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import {
-  autoPlayConfig,
-  swiperBreakpoints,
-} from "@repo/core/constants/sliders";
+import { autoPlayConfig, swiperBreakpoints } from "@/constants/sliders";
 import { Autoplay } from "swiper/modules";
 import { CourseListType, HomePageCourseSliders } from "@/types/homePage";
 import { api } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
+import { useEffect, useState } from "react";
 
 interface Props {
   type: HomePageCourseSliders;
@@ -49,6 +47,27 @@ const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
     queryFn: Configs[type].loader,
   });
 
+  const [slidesPerView, setSlidesPerView] = useState(1);
+  const spaceBetween = 5; // Set your desired space between slides here
+
+  useEffect(() => {
+    const handleResize = () => {
+      const containerWidth =
+        document.querySelector(`.${style.productSliderSlider}`)?.clientWidth ||
+        0;
+      const slideWidth = 175; // Assume each slide has a fixed width of 200px
+      const newSlidesPerView = containerWidth / (slideWidth + spaceBetween);
+      setSlidesPerView(newSlidesPerView);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const { title, archiveLink } = Configs[type];
 
   if (!isLoading && !data?.data.data.length) return null;
@@ -79,10 +98,11 @@ const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
             <Swiper
               modules={[Autoplay]}
               autoplay={autoPlayConfig}
-              spaceBetween={10}
-              slidesPerView={"auto"}
+              // spaceBetween={150}
+              slidesPerView={slidesPerView}
+              spaceBetween={spaceBetween}
               speed={700}
-              breakpoints={swiperBreakpoints}
+              // breakpoints={swiperBreakpoints}
               {...customSliderConfig}
             >
               {data?.data?.data?.map((course, i) => (

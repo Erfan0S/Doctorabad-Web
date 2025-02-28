@@ -10,8 +10,8 @@
     align-items: center;
     &Input {
       position: relative;
-      width: 280px;
-
+      flex: 0 0 calc(100% - 92px);
+      width: calc(100% - 92px);
       input {
         position: relative;
         line-height: 36px;
