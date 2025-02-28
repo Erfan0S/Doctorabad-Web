@@ -21,7 +21,7 @@ const SidePanelFavoritesShopping: React.FC = () => {
     Product[]
   >({
     queryFn: ({ pageParam }) =>
-      api.getFavoriteList(Number(pageParam)).then((res) => res.data.data),
+      api.getShopFavoriteList(Number(pageParam)).then((res) => res.data.data),
     queryKey: ["favorite"],
     initialPageParam: 1,
     staleTime: 0,

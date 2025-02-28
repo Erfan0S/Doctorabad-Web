@@ -10,6 +10,7 @@ import { api } from "@/api/Api";
 import HeartFillIcon from "@/assets/svg/heartFill";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { copyText } from "@repo/core/utils/copyText";
 
 interface Button {
   icon: React.ReactNode;
@@ -18,6 +19,13 @@ interface Button {
 
 type Props = {
   id: string;
+};
+
+const shareProduct = async () => {
+  // const res = await api.shareProduct(id);
+  const url = window.location.toString();
+
+  copyText(`${url}`, "متن اشتراک گذاری کپی شد");
 };
 
 const CourseHeaderSiffix = ({ id }: Props) => {
@@ -47,7 +55,7 @@ const CourseHeaderSiffix = ({ id }: Props) => {
     },
     {
       icon: <ShareIcon />,
-      onClick: () => null,
+      onClick: shareProduct,
     },
     {
       icon: <BugIcon />,

@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 // import Footer from "@/components/common/footer";
 // import { homeMetadata, homeViewPort } from "@/metadata/home";
 
-// import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 // import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
 

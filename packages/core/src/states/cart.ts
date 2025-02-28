@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CartResponse, CartState, Order } from "../types/cart";
+import { CartResponse, CartState, Order, OrderType } from "../types/cart";
 import { api } from "@repo/shared_modules/api";
 
 import { ResponseType } from "../types/general";
@@ -17,12 +17,16 @@ export const cartActions = {
   async getCartData() {
     updateCart(await api.getCartList());
   },
-  async addToCart(cartItem: number, variants: ProductVariantsValue[]) {
-    updateCart(await api.addToCart(cartItem, variants));
+  async addToCart(
+    cartItem: number,
+    type: OrderType = OrderType.ShopProduct,
+    variants?: ProductVariantsValue[]
+  ) {
+    updateCart(await api.addToCart(cartItem, type, variants));
     toast("محصول به سبدخرید اضافه شد", { type: "success" });
   },
   async removeFromCart(cartItemId: number) {
-    await api.removeFromCart(cartItemId);
+    await api.decreaseQuantity(cartItemId);
 
     await this.getCartData();
 

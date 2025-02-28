@@ -2,13 +2,11 @@
 @import "@/assets/styles/functions";
 
 .productSlider {
-  padding: space(2) 0;
-
   &Header {
     position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: space(4);
+    margin-bottom: space(2);
 
     &:before {
       content: "";
@@ -17,7 +15,7 @@
       right: 0;
       top: 50%;
       height: 1px;
-      background-color: $orange;
+      background-color: $red;
       z-index: 1;
     }
 
@@ -64,9 +62,9 @@
     position: relative;
 
     .course {
-      height: 100px;
-      width: 200px;
-      background-color: red;
+      height: 95px;
+      width: 175px;
+      background-color: white;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       background-size: cover;
@@ -86,8 +84,7 @@
 
     :global {
       .swiper {
-        padding: space(2.5) space(3.75) space(4);
-        // margin: space(-2.5) space(-3.75) space(-4);
+        padding-bottom: 12px;
       }
     }
   }
@@ -98,7 +95,6 @@
     &Slider {
       :global {
         .swiper {
-          padding: space(2.5) space(3.75) space(4) space(22);
         }
       }
     }
@@ -111,6 +107,22 @@
       &:before {
         display: none;
       }
+      :global {
+        .swiper {
+          // padding-left: space(55);
+        }
+      }
     }
   }
 }
+
+// @media (max-width: 576px) {
+//   .productSlider {
+//     &Slider {
+//       .course {
+//         height: 75px;
+//         width: 150px;
+//       }
+//     }
+//   }
+// }

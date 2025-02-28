@@ -70,6 +70,10 @@ export const generateSingleProductUrlFromId = (
   return `/market/product/${id}/${slug}`;
 };
 
+export const generateCourseUrlFromId = (id: number, slug: string = "") => {
+  return `/learn/course/${id}/${slug}`;
+};
+
 export const generateFestivalProductListUrl = (id: number) => {
   return `/market/product-list/festival?festival_id=${id}`;
 };

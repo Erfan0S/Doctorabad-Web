@@ -10,12 +10,18 @@ import {
   User,
   VerifyPhoneInput,
 } from "@repo/core/types/user";
-import { ResponseType, SelectionItem } from "@repo/core/types/general";
+import {
+  PaginatedResponse,
+  ResponseType,
+  SelectionItem,
+} from "@repo/core/types/general";
 import {
   CartResponse,
+  ChangeQuantityType,
   CreateOrderRequest,
   CreateOrderResponse,
   DiscountInfo,
+  OrderType,
   PaymentResult,
   ShippingAddress,
   ShippingMethod,
@@ -31,6 +37,7 @@ import {
 } from "../userSidePanel/types/doctorClub";
 import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
+import { CourseFavoriteItem, CourseOrderItem } from "@repo/core/types/course";
 
 class Api extends Request {
   constructor() {
@@ -82,15 +89,17 @@ class Api extends Request {
 
   // cart
   getCartList(): Promise<ResponseType<CartResponse>> {
-    return this.request.get<CartResponse>("/user/shop/cart");
+    return this.request.get<CartResponse>("/user/v1/cart");
   }
 
   addToCart(
     productId: number,
+    type: OrderType,
     variants?: ProductVariantsValue[]
   ): Promise<ResponseType<CartResponse>> {
     return this.request.post<CartResponse>("/user/shop/cart", {
       id: productId,
+      type: type,
       quantity: 1,
       variants: variants,
     });
@@ -100,16 +109,19 @@ class Api extends Request {
     return this.request.delete(`/user/shop/cart/${orderId}`);
   }
 
-  decreaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
-    return this.request.put<CartResponse>("/user/shop/cart/decrease", {
-      id: orderId,
+  changeQuantity(orderId: number, type: ChangeQuantityType): Promise<any> {
+    return this.request.post(`/user/v1/cart/change/count`, {
+      order_item_id: orderId,
+      type: type,
     });
   }
 
+  decreaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
+    return this.changeQuantity(orderId, ChangeQuantityType.Decrease);
+  }
+
   increaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
-    return this.request.put<CartResponse>("/user/shop/cart/increase", {
-      id: orderId,
-    });
+    return this.changeQuantity(orderId, ChangeQuantityType.Increase);
   }
 
   getLastProcessingOrder = (): Promise<ResponseType<LastProcessingOrder>> => {
@@ -249,7 +261,7 @@ class Api extends Request {
     return this.request.get<{ data: ShareToFriends }>(`/user/share`);
   };
 
-  getOrdersList = (
+  getShopOrdersList = (
     page: number
   ): Promise<ResponseType<{ data: PreviousOrder[] }>> => {
     return this.request.get<{ data: PreviousOrder[] }>(
@@ -257,12 +269,26 @@ class Api extends Request {
     );
   };
 
-  getFavoriteList = (
+  getLearnOrdersList = (
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseOrderItem[]>>> => {
+    return this.request.get(`/user/v1/education/previous/orders`, {
+      params: { page },
+    });
+  };
+
+  getLearnFavoriteList = (
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseFavoriteItem[]>>> => {
+    return this.request.get("/user/v1/education/favorite", {
+      params: { page },
+    });
+  };
+
+  getShopFavoriteList = (
     page: number
   ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      `/user/shop/favorite/list?page=${page}`
-    );
+    return this.request.get(`/user/shop/favorite/list?page=${page}`);
   };
 
   prodoctReportIssue = ({

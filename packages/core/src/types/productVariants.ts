@@ -1,11 +1,11 @@
 export interface Variant {
-  added_price: number;
-  check_box: Boolean;
   id: number;
-  need_user_explanation
-: boolean;
-  option_value: string;
   quantity: number;
+  added_price: number;
+  subtracted_price: number;
+  option_value: string;
+  need_user_explanation: boolean;
+  check_box: Boolean;
 }
 
 export interface Variants {

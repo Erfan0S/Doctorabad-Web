@@ -1,7 +1,11 @@
 import { SingleProduct } from "@repo/core/types/product";
 import style from "./ProductSidebarAttribute.module.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import variantsSorter from "./variantsSorter";
+
+import {
+  updateProductPrice,
+  variantsSorter,
+} from "@repo/core/utils/variantsUtils";
 import OptionSwitch from "@/components/common/optionSwithch";
 import {
   ProductVariants,
@@ -16,6 +20,7 @@ interface Props {
   setProduct: Dispatch<SetStateAction<SingleProduct>>;
   basePriceMain: number;
   basePriceOff: number;
+  baseAmazingPrice: number | null;
   productVariants: Dispatch<SetStateAction<ProductVariantsValue[]>>;
 }
 
@@ -24,6 +29,7 @@ const ProductSidebarAttribute: React.FC<Props> = ({
   setProduct,
   basePriceMain,
   basePriceOff,
+  baseAmazingPrice,
   productVariants,
 }) => {
   const { checkbox, selections }: ProductVariants = variantsSorter(
@@ -32,7 +38,23 @@ const ProductSidebarAttribute: React.FC<Props> = ({
   const [values, setValues] = useState<ProductVariantsValues>({});
 
   useEffect(() => {
-    updateProductPrice();
+    let { addedPrice, subtractedPrice } = updateProductPrice(values, product);
+
+    let mainPrice = basePriceMain + addedPrice;
+
+    setProduct((prev) => ({
+      ...prev,
+      price_main: mainPrice,
+      price_off: basePriceOff
+        ? basePriceOff + addedPrice - subtractedPrice
+        : subtractedPrice
+          ? mainPrice - subtractedPrice
+          : 0,
+      price_amazing: baseAmazingPrice
+        ? baseAmazingPrice + addedPrice - subtractedPrice
+        : null,
+    }));
+
     productVariants(
       Object.values(values).map((v) => ({
         ...v,
@@ -41,27 +63,6 @@ const ProductSidebarAttribute: React.FC<Props> = ({
       }))
     );
   }, [values, setValues]);
-
-  const updateProductPrice = () => {
-    let addedPrice = Object.entries(values).reduce(
-      (prevPrice, [category, vaiant]) => {
-        const selectedVariant = product.variants[category].find(
-          (v) => v.id == vaiant.id
-        );
-        if (selectedVariant?.added_price) {
-          return prevPrice + selectedVariant?.added_price;
-        }
-        return prevPrice;
-      },
-      0
-    );
-
-    setProduct((prev) => ({
-      ...prev,
-      price_main: basePriceMain + addedPrice,
-      price_off: basePriceOff ? basePriceOff + addedPrice : basePriceOff,
-    }));
-  };
 
   const setVariantValues = (variant: {
     explanation?: string | null;

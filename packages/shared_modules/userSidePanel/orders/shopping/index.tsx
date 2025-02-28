@@ -18,7 +18,7 @@ const SidePanelOrdersLearning: React.FC = () => {
     PreviousOrder[]
   >({
     queryFn: ({ pageParam }) =>
-      api.getOrdersList(Number(pageParam)).then((res) => res.data.data),
+      api.getShopOrdersList(Number(pageParam)).then((res) => res.data.data),
     queryKey: ["previousOrders"],
     initialPageParam: 1,
     staleTime: 0,

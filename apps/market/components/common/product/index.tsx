@@ -15,7 +15,7 @@ import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import Loading from "../loading";
 import QuantityProductButton from "@/components/product/sidebar/price/quantityButton";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
-import { useCartActionsLoadingHandler } from "@/hooks/useCartActionsLoadingHandler";
+import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
@@ -113,9 +113,7 @@ const Product: React.FC<ProductCard> = ({
                 <button
                   className={style.productAddToCart}
                   onClick={authorizeClientAction(
-                    cartActionsLoadingHandler(() =>
-                      cartActions.addToCart(id, [])
-                    )
+                    cartActionsLoadingHandler(() => cartActions.addToCart(id))
                   )}
                 >
                   {updateCartLoading ? <Loading size={22} /> : "افزودن‌به‌سبد"}

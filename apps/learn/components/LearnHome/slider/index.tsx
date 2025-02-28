@@ -22,41 +22,43 @@ const MainSlider = ({ banners, swiperOptions = {} }: Props) => {
   if (!banners.length) return null;
 
   return (
-    <div className={style.mainSlider}>
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        autoplay={autoPlayConfig}
-        slidesPerView={1}
-        spaceBetween={-30}
-        pagination={{ clickable: true }}
-        loop
-        {...swiperOptions}
-      >
-        {banners.map(({ id, pic_url, url, title }) => {
-          const ImageComponent = () => (
-            <Image
-              src={pic_url}
-              alt={title || "Slider"}
-              fill
-              placeholder={placeHolderDataUrl}
-              fetchPriority="high"
-            />
-          );
-          return (
-            <SwiperSlide key={id}>
-              <div className={style.mainSliderItem}>
-                {url ? (
-                  <Link href={url}>
+    <div className="container">
+      <div className={style.mainSlider}>
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          autoplay={autoPlayConfig}
+          slidesPerView={1}
+          spaceBetween={-30}
+          pagination={{ clickable: true }}
+          loop
+          {...swiperOptions}
+        >
+          {banners.map(({ id, pic_url, url, title }) => {
+            const ImageComponent = () => (
+              <Image
+                src={pic_url}
+                alt={title || "Slider"}
+                fill
+                placeholder={placeHolderDataUrl}
+                fetchPriority="high"
+              />
+            );
+            return (
+              <SwiperSlide key={id}>
+                <div className={style.mainSliderItem}>
+                  {url ? (
+                    <Link href={url}>
+                      <ImageComponent />
+                    </Link>
+                  ) : (
                     <ImageComponent />
-                  </Link>
-                ) : (
-                  <ImageComponent />
-                )}
-              </div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+                  )}
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import SidePanelOrdersShopping from "./shopping";
 import SidePanelOrdersContent from "./content";
 import SidePanelOrdersExam from "./exam";
 import classNames from "classnames";
+import { api } from "../../api/Api";
 
 const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const [currentTab, setCurrentTab] = useState(
@@ -30,6 +31,7 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
   };
 
   const CurrentTabComponent = clubTabsComponents[currentTab];
+
   return (
     <>
       <SidePanelHeader setPage={setPage} title="سفارش‌های‌من" />
@@ -53,7 +55,7 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
           </ul>
         </div>
         <div className={sidePanelStyle.sidePanelTabContents}>
-          <SidePanelOrdersShopping />
+          <CurrentTabComponent />
         </div>
       </div>
     </>

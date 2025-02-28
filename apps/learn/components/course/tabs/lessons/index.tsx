@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Section } from "@/types/courses";
 import Play from "@/assets/svg/play";
 import styles from "./Lessons.module.scss";
 import formatDuration from "@/utils/formatDuration";
 import clsx from "clsx";
+import { set } from "video.js/dist/types/tech/middleware";
 
 interface CourseContentProps {
   sections: Section[];
@@ -24,6 +25,23 @@ const CourseContent: FC<CourseContentProps> = ({ sections }) => {
     });
   };
 
+  const isSectionTitleValid = (title: string) => title !== "" && title !== ".";
+
+  useEffect(() => {
+    const newSet = new Set<number>();
+    sections.forEach((section) => {
+      if (!isSectionTitleValid(section.title)) {
+        newSet.add(section.id);
+      }
+      section.chapters.forEach((chapter) => {
+        if (!isSectionTitleValid(chapter.title)) {
+          newSet.add(chapter.id);
+        }
+      });
+    });
+    setOpenSections(newSet);
+  }, [sections]);
+
   return (
     <div className={styles.container}>
       {sections.map((section) => (
@@ -31,13 +49,14 @@ const CourseContent: FC<CourseContentProps> = ({ sections }) => {
           key={section.id}
           className={clsx(styles.section, {
             [styles.sectionOpen]: openSections.has(section.id),
+            [styles.emptySection]: !isSectionTitleValid(section.title),
           })}
         >
           <h2
             className={styles.sectionTitle}
             onClick={() => toggleSection(section.id)}
           >
-            {section.title}
+            {isSectionTitleValid(section.title) && section.title}
           </h2>
           <div
             className={clsx(styles.contentCollapse, {
@@ -49,14 +68,15 @@ const CourseContent: FC<CourseContentProps> = ({ sections }) => {
                 key={chapter.id}
                 className={clsx(styles.chapter, {
                   [styles.chapterOpen]: openSections.has(chapter.id),
+                  [styles.emptySection]: !isSectionTitleValid(chapter.title),
                 })}
               >
-                <h3
+                <h2
                   className={styles.chapterTitle}
                   onClick={() => toggleSection(chapter.id)}
                 >
-                  {chapter.title}
-                </h3>
+                  {isSectionTitleValid(chapter.title) && chapter.title}
+                </h2>
                 <div
                   className={clsx(styles.contentCollapse, {
                     [styles.open]: openSections.has(chapter.id),

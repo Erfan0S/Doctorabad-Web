@@ -11,7 +11,7 @@ const withPWA = initPwa({
 /** @type {import('next').NextConfig} */
 export default withPWA({
   reactStrictMode: true,
-  transpilePackages: ['@repo/core', '@repo/shared_modules'],
+  transpilePackages: ["@repo/core", "@repo/shared_modules"],
   // typescript: {
   //   // !! WARN !!
   //   // Dangerously allow production builds to successfully complete even if

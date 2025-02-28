@@ -251,6 +251,10 @@ class Api extends Request {
   > {
     return this.request.get("/user/v1/education/course/price");
   }
+
+  getCardList(): Promise<ResponseType<any>> {
+    return this.request.get("/user/v1/cart");
+  }
 }
 
 export const api = new Api();

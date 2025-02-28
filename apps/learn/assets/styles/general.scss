@@ -9,7 +9,7 @@ body {
   direction: rtl;
   text-align: right;
   background-color: $body-bg;
-  padding-right: $sidebar-collapse-width;
+  // padding-right: $sidebar-collapse-width;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -427,6 +427,12 @@ img[data-nimg="fill"] {
 }
 
 .container {
-  margin: 0 auto;
   padding: 0 1rem;
+}
+
+.learn-container {
+  max-width: 800px;
+  padding-bottom: 15px;
+  margin: 0 auto;
+  position: relative;
 }
