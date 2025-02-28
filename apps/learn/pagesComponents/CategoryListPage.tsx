@@ -12,9 +12,10 @@ import React from "react";
 
 type Props = {
   id: number;
+  name?: string;
 };
 
-function CategoryListPage({ id }: Props) {
+function CategoryListPage({ id, name }: Props) {
   const params = useSearchParams();
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
@@ -39,7 +40,7 @@ function CategoryListPage({ id }: Props) {
 
   return (
     <div>
-      <CategoryListHeader title="CategoryListHeader" />
+      <CategoryListHeader title={name || ""} />
       {isLoading ? (
         <Loading />
       ) : (
