@@ -2,27 +2,74 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 300px;
-  background-color: #000;
+  margin-top: 20px;
   
   :global {
     .video-js {
       width: 100%;
       height: 100%;
+
+      video {
+        border-radius: 10px;
+      }
+
+
+// multiline controlbar 
+.vjs-control-bar{
+  flex-wrap: wrap !important;
+    height: 60px !important;
+    align-items: start !important;
+    justify-content: center !important;
+}
+.vjs-control-bar button,.vjs-control-bar .vjs-playback-rate{
+  height: 30px !important;
+}
+.vjs-control-bar .vjs-time-control{
+  height: 30px !important;
+  order: 2;
+}
+.vjs-control-bar .vjs-progress-control{
+  flex: 0 0 calc(100% - 50px) !important;
+  max-width: calc(100% - 50px) !important;
+  order: 1;
+  height: 30px !important;
+}
+
+// end of multiline controlbar 
+
+.vjs-icon-previous-item,.vjs-icon-next-item{
+  font-size: 2em;
+  width: 25px;
+}
+
       &.vjs-user-active .vjs-header-buttons{
         opacity: 1;
       }
       .vjs-header-buttons {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 0;
+        right: 0;
+        left: 0;
         z-index: 2;
         display: flex;
-        gap: 10px;
         opacity: 0;
         transition: opacity 0.2s ease-in-out;
-      }
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), 70%, rgba(0, 0, 0, 0));
+        height: 40px;
+        padding: 10px;
 
+      }
+.vjs-title-bar{
+  background: transparent !important;
+  width: auto !important;
+  left: 10px !important;
+  z-index: 2;
+  font-family: var(--font-iran-sans);
+  font-size: 14px;
+  max-width: 50%;
+  text-align: center;
+
+}
       &:hover .vjs-header-buttons {
         opacity: 1;
       }
@@ -35,11 +82,14 @@
         padding: 8px 12px;
         border-radius: 4px;
         font-size: 14px;
+        line-height: 30px;
+        height: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: background-color 0.2s ease;
-        
+        font-family: var(--font-iran-sans);
+        margin-left: 10px;
         &:hover {
           background: rgba(43, 51, 63, 0.9);
           color: #fff;
@@ -69,6 +119,10 @@
         border-color: rgba(255, 255, 255, 0.7);
       }
     }
+
+
+
+
   }
 }
 

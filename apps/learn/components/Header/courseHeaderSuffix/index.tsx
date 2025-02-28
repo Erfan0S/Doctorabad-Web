@@ -12,40 +12,31 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { copyText } from "@repo/core/utils/copyText";
 
+import { CourseDataType } from "@/types/courses";
+import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 interface Button {
   icon: React.ReactNode;
   onClick: () => void;
 }
 
 type Props = {
-  id: string;
+  course: CourseDataType;
 };
 
-const shareProduct = async () => {
-  // const res = await api.shareProduct(id);
-  const url = window.location.toString();
+const CourseHeaderSiffix = ({ course }: Props) => {
+  const { isFavorite, toggleFavorite } = useToggleFavoriteProduct(
+    !!course.user_favorite
+  );
 
-  copyText(`${url}`, "متن اشتراک گذاری کپی شد");
-};
+  const shareProduct = async () => {
+    // const res = await api.shareProduct(id);
+    const url = window.location.toString();
 
-const CourseHeaderSiffix = ({ id }: Props) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["course", id],
-    queryFn: () => api.getCourse(Number(id)),
-    enabled: !!id,
-    retry: false,
-  });
-
-  useEffect(() => {
-    setIsFavorite(!!data?.data.data.user_favorite);
-  }, [data]);
+    copyText(`${url}`, "متن اشتراک گذاری کپی شد");
+  };
 
   const favoriteOnClick = () => {
-    isFavorite ? api.removeFavorite(+id) : api.addFavorite(+id);
-    console.log(id);
-    setIsFavorite((prev) => !prev);
+    toggleFavorite(course.id);
   };
 
   const buttons: Button[] = [
@@ -61,13 +52,13 @@ const CourseHeaderSiffix = ({ id }: Props) => {
       icon: <BugIcon />,
       onClick: () =>
         modalActions.addModal(ModalTypes.BUG_REPORT, {
-          productId: id,
+          productId: course.id,
           type: "course",
         }),
     },
     {
       icon: <ProfileIcon />,
-      onClick: () => null,
+      onClick: () => modalActions.addModal(ModalTypes.VIDEO_NOTES_LIST),
     },
   ];
   return (

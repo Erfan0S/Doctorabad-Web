@@ -17,6 +17,7 @@ import { Suspense } from "react";
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
   display: "swap",
+  variable: "--font-iran-sans",
 });
 
 // export const metadata = homeMetadata;
@@ -59,7 +60,7 @@ export default async function RootLayout({
         `,
         }}
       />
-      <body className={font.className}>
+      <body className={`${font.className} ${font.variable}`}>
         {/* <NextTopLoader color="#f54f1a" /> */}
         <div className="root">
           <Providers>

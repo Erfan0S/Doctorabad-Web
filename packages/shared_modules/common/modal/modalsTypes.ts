@@ -13,4 +13,6 @@ export enum ModalTypes {
   VIDEO = "video",
   SELECT_FILTER = "select_filter",
   VIDEO_QUALITY_SELECTOR = "video_quality_selector",
+  ADD_NOTE = "add_note",
+  VIDEO_NOTES_LIST = "video_notes_list",
 }

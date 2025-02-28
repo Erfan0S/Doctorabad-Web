@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import Image from "next/image";
 import style from "./course.module.scss";
@@ -12,7 +12,7 @@ import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation"
 import TabsController from "../common/TabsController";
 import CourseContent from "./tabs/lessons";
 import { CourseTabsData } from "./tabs/tabs-data";
-import { CourseDataType, CourseTab } from "@/types/courses";
+import { CourseDataType, CourseTab, Lesson } from "@/types/courses";
 import CourseDescription from "./tabs/Description";
 import CourseComments from "./tabs/comments";
 import RelatedCourses from "./tabs/Related";
@@ -25,6 +25,8 @@ import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoa
 import { useCart, cartActions } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import PageHeader from "../Header/PageHeader";
+import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -34,113 +36,158 @@ const CourseTabsComponents = {
 };
 
 type Props = {
-  id: string;
-  slug: string;
+  course: CourseDataType;
 };
 
-const Course = ({ id, slug }: Props) => {
+const Course = ({ course }: Props) => {
   const [activeTab, setActiveTab] = useState<CourseTab>(CourseTab.LESSONS);
   const params = useSearchParams();
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["course", id],
-    queryFn: () => api.getCourse(Number(id)),
-    enabled: !!id,
+  const [currentLeasson, setCurrentLeasson] = useState<Lesson | null>(null);
+
+  const { data: leassonData, isPending } = useQuery({
+    queryKey: ["course-videop", `leason-${course.id}-${currentLeasson?.id}`],
+    queryFn: () => api.getVideo(Number(course.id), currentLeasson?.id!),
+    enabled: !!currentLeasson?.id,
     retry: false,
   });
-  const { data: courseData, isLoading: isVideoLoading } = useQuery({
-    queryKey: ["course-videop", `test-${id} 15163`],
-    queryFn: () => api.getVideo(Number(id), 15163),
-    enabled: true,
+
+  const { data: bookMarkData } = useQuery({
+    queryKey: ["course-bookMark", `leason-${course.id}-${currentLeasson?.id}`],
+    queryFn: () => api.getVideowBookmark(Number(course.id)),
+    enabled: !!currentLeasson?.id,
     retry: false,
   });
-  const { data: cartList, isLoading: isCartLoading } = useQuery({
-    queryKey: ["cartList"],
-    queryFn: () => api.getCardList(),
-    enabled: true,
-    retry: false,
-  });
-  const course = data?.data.data;
+
+  useEffect(() => {
+    if (course?.user_has_access) {
+      setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);
+    }
+  }, [course]);
 
   useEffect(() => {
     if (params?.get("tab")) {
       setActiveTab(params?.get("tab") as CourseTab);
     }
   }, [activeTab, setActiveTab, params]);
-  console.log(" isLoading, isVideoLoading", isLoading, isVideoLoading);
-  console.log(" courseData", courseData?.data?.data?.urls);
 
-  useEffect(() => {
-    console.log("cartList", cartList);
-  }, [cartList]);
+  const flatLeasons = useMemo(() => {
+    return course.sections.flatMap((section) =>
+      section.chapters.flatMap((chapter) => chapter.lessons)
+    );
+  }, [course]);
 
+  const goToNextTrack = () => {
+    const nextLeasson =
+      flatLeasons[
+        flatLeasons.findIndex((leasson) => leasson.id === currentLeasson?.id) +
+          1
+      ];
+    if (nextLeasson) {
+      setCurrentLeasson(nextLeasson);
+    }
+  };
+
+  const goToPreviousTrack = () => {
+    const previousLeasson =
+      flatLeasons[
+        flatLeasons.findIndex((leasson) => leasson.id === currentLeasson?.id) -
+          1
+      ];
+    if (previousLeasson) {
+      setCurrentLeasson(previousLeasson);
+    }
+  };
   const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
     course?.price_main,
     course?.price_off || undefined,
     course?.price_amazing || undefined
   );
-  return isLoading || isVideoLoading ? (
-    <Loading />
-  ) : (
-    <div className={style.container}>
-      <div className={style.courseHeader}>
-        <div style={{ padding: "0 15px" }}>
-          {/* <VideoPlayer config={courseData!.data.data!.urls} /> */}
-          <div className={style["course-title"]}>
-            <Image
-              src={course?.provider.pic_url || ""}
-              alt="company"
-              width={40}
-              height={40}
+
+  return (
+    <div>
+      <PageHeader title="" suffix={<CourseHeaderSiffix course={course} />} />
+      <div className="row">
+        <div className={style.container}>
+          <div className={style.courseHeader}>
+            <div style={{ padding: "0 15px" }}>
+              {isPending ? (
+                <div className={style.loadingWrapper}>
+                  <Loading />
+                </div>
+              ) : (
+                <VideoPlayer
+                  key={currentLeasson?.id || "preview"}
+                  config={
+                    course?.user_has_access
+                      ? leassonData!.data.data!.urls
+                      : { source: course?.course_preview! }
+                  }
+                  title={currentLeasson?.title || "پیش نمایش"}
+                  isUserHasAccess={!!course?.user_has_access}
+                  lessonId={currentLeasson?.id!}
+                  goToNextTrack={goToNextTrack}
+                  goToPreviousTrack={goToPreviousTrack}
+                />
+              )}
+              <div className={style["course-title"]}>
+                <Image
+                  src={course?.provider.pic_url || ""}
+                  alt="company"
+                  width={40}
+                  height={40}
+                />
+                <h1>{course?.title}</h1>
+              </div>
+            </div>
+            <TabsController
+              tabData={CourseTabsData}
+              defaultTab={CourseTab.LESSONS}
             />
-            <h1>{isLoading ? <Loading /> : course?.title}</h1>
+          </div>
+          <div style={{ padding: "0 15px", marginTop: "15px" }}>
+            {Object.entries(CourseTabsComponents).map(([id, Component]) =>
+              id === activeTab && course ? (
+                <Component
+                  description={course.description}
+                  CourseData={course}
+                  CourseId={course.id}
+                  sections={course.sections}
+                  onLessonClick={setCurrentLeasson}
+                />
+              ) : null
+            )}
+          </div>
+          <div className={style.purchaseBar}>
+            <button
+              className={style.purchaseButton}
+              onClick={authorizeClientAction(
+                cartActionsLoadingHandler(() =>
+                  cartActions.addToCart(+course.id, OrderType.Course)
+                )
+              )}
+            >
+              <span> شروع یادگیری کل دوره | </span>
+              <div>
+                <div>
+                  {/* {discountPercent && <small>٪{discountPercent}</small>} */}
+                  {offPrice && (
+                    <span className={style.priceOff}>
+                      {priceFormatter(mainPrice)}
+                      تومن
+                    </span>
+                  )}
+                </div>
+                <div>
+                  {priceFormatter(offPrice || mainPrice)}
+                  تومن
+                </div>
+              </div>
+            </button>
           </div>
         </div>
-        <TabsController
-          tabData={CourseTabsData}
-          defaultTab={CourseTab.LESSONS}
-        />
-      </div>
-      <div style={{ padding: "0 15px", marginTop: "15px" }}>
-        {Object.entries(CourseTabsComponents).map(([id, Component]) =>
-          id === activeTab && course ? (
-            <Component
-              description={course.description}
-              CourseData={course}
-              CourseId={course.id}
-              sections={course.sections}
-            />
-          ) : null
-        )}
-      </div>
-      <div className={style.purchaseBar}>
-        <button
-          className={style.purchaseButton}
-          onClick={authorizeClientAction(
-            cartActionsLoadingHandler(() =>
-              cartActions.addToCart(+id, OrderType.Course)
-            )
-          )}
-        >
-          <span> شروع یادگیری کل دوره | </span>
-          <div>
-            <div>
-              {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-              {offPrice && (
-                <span className={style.priceOff}>
-                  {priceFormatter(mainPrice)}
-                  تومن
-                </span>
-              )}
-            </div>
-            <div>
-              {priceFormatter(offPrice || mainPrice)}
-              تومن
-            </div>
-          </div>
-        </button>
       </div>
     </div>
   );

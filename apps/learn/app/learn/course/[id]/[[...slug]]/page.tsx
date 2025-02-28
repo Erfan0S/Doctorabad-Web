@@ -1,3 +1,4 @@
+import { api } from "@/api/Api";
 import Course from "@/components/course";
 
 type Props = {
@@ -8,5 +9,7 @@ type Props = {
 };
 
 export default async function CoursePage({ params }: Props) {
-  return <Course id={params.id} slug={params.slug} />;
+  const { data } = await api.getCourse(Number(params.id));
+
+  return <Course course={data.data} />;
 }

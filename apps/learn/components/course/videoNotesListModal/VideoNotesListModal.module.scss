@@ -1,0 +1,49 @@
+.container {
+  max-width: 90vw;
+  width: 500px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+
+}
+
+.header {
+  background-color: #ff0000;
+  color: white;
+  padding: 16px;
+  text-align: right;
+  font-size: 20px;
+}
+
+.notesList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.noteItem {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.noteText {
+  text-align: right;
+  font-size: 16px;
+  color: #333;
+  padding-right: 10px;
+}
+
+.timestamp {
+  color: #666;
+  font-size: 14px;
+  direction: ltr;
+} 
