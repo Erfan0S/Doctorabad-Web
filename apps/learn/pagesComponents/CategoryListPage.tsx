@@ -21,7 +21,7 @@ function CategoryListPage({ id, name }: Props) {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryKey: ["category", id],
+    queryKey: ["category", id, params.get("sort")],
     queryFn: ({ pageParam }) =>
       api
         .getFilterList({

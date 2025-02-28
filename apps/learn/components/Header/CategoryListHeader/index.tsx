@@ -27,14 +27,9 @@ const CategoryListHeader = ({ title }: Props) => {
         <Accordion
           title="نمایش براساس..."
           className={styles.filter}
-          onClick={() =>
-            modalActions.addModal(ModalTypes.SELECT_FILTER, {
-              title: "نمایش براساس...",
-              items: filterData,
-              queryKey: "sort",
-              singleSelection: true,
-            })
-          }
+          items={filterData}
+          queryKey="sort"
+          singleSelection={true}
         />
       }
     />

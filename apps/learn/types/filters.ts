@@ -2,12 +2,12 @@ import { ProviderType } from "./homePage";
 
 export type FilterModalType = {
   title: string;
-  items: { id: number; title: string }[];
+  items: { id: number | string; title: string }[];
   queryKey: string;
   singleSelection?: boolean;
 };
 
-export type FieldGrade = {
+export type FieldGradeType = {
   id: number;
   title: string;
 };
