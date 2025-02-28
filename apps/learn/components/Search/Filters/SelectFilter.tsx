@@ -35,11 +35,13 @@ export const SelectFilter = ({
       ? [...(singleSelection ? [] : activeItems), String(filterId)]
       : activeItems.filter((item) => item !== String(filterId));
 
-    changeFilters({
-      [queryKey]: updatedItems.length ? updatedItems.join(",") : null,
-    });
+    setTimeout(() => {
+      changeFilters({
+        [queryKey]: updatedItems.length ? updatedItems.join(",") : null,
+      });
+    }, 100);
 
-    // closeModal && closeModal();
+    if (closeModal) closeModal();
   };
 
   return (

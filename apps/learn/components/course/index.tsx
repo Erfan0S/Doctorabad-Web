@@ -27,6 +27,7 @@ import { OrderType } from "@repo/core/types/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import PageHeader from "../Header/PageHeader";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
+import Link from "next/link";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -133,12 +134,14 @@ const Course = ({ course }: Props) => {
                 />
               )}
               <div className={style["course-title"]}>
-                <Image
-                  src={course?.provider.pic_url || ""}
-                  alt="company"
-                  width={40}
-                  height={40}
-                />
+                <Link href={`/learn/providers/${course?.provider.id}`}>
+                  <Image
+                    src={course?.provider.pic_url || ""}
+                    alt="company"
+                    width={40}
+                    height={40}
+                  />
+                </Link>
                 <h1>{course?.title}</h1>
               </div>
             </div>
