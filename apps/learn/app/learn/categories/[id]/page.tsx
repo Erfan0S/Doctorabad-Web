@@ -1,7 +1,14 @@
+import CategoryListPage from "@/pagesComponents/CategoryListPage";
 import React from "react";
 
-const CategoryPage = () => {
-  return <div>CategoryPage</div>;
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+const CategoryPage = ({ params }: Props) => {
+  return <CategoryListPage id={+params.id} />;
 };
 
 export default CategoryPage;
