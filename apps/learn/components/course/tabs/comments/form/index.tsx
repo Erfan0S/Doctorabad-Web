@@ -8,15 +8,12 @@ import { toast } from "react-toastify";
 import { Loading } from "@repo/shared_modules/components";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFalsyValues";
-import StarIcon from "@/assets/svg/star";
-import StarFillIcon from "@/assets/svg/starFill";
 
 type Props = {
-  productId: number;
-  userRating: number;
+  courseId: number;
 };
 
-const ProductCommentsForm = ({ productId, userRating }: Props) => {
+const ProductCommentsForm = ({ courseId }: Props) => {
   const [rate, setRate] = useState(0);
   const [comment, setComment] = useState("");
 
@@ -39,7 +36,7 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
   const submitComment = () => {
     if (comment) {
       mutation.mutate(
-        purgeObjectFromFalsyValues({ id: productId, text: comment, rate })
+        purgeObjectFromFalsyValues({ courseId, text: comment, rate })
       );
     } else {
       toast("لطفا نظر خود را وارد کنید", { type: "warning" });
@@ -49,21 +46,6 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
   return (
     <div className={style.productCommentsForm}>
       <div className={style.productCommentsFormHeader}>
-        <div className={style.productCommentsFormHeaderRating}>
-          {Array(5)
-            .fill(0)
-            .map((_, index) => (
-              <div
-                key={index}
-                className={rate >= 5 - index ? style.active : ""}
-                onClick={() => setRate(5 - index)}
-              >
-                <StarIcon />
-                <StarFillIcon />
-              </div>
-            ))}
-        </div>
-
         <button
           onClick={authorizeClientAction(submitComment)}
           disabled={mutation.isPending}

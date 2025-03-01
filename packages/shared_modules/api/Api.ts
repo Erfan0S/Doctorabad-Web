@@ -97,7 +97,7 @@ class Api extends Request {
     type: OrderType,
     variants?: ProductVariantsValue[]
   ): Promise<ResponseType<CartResponse>> {
-    return this.request.post<CartResponse>("/user/shop/cart", {
+    return this.request.post<CartResponse>("/user/v1/cart", {
       id: productId,
       type: type,
       quantity: 1,

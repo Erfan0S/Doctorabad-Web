@@ -4,10 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import Image from "next/image";
 import style from "./course.module.scss";
-import testImage from "@/assets/img/club.png";
 import { api } from "@/api/Api";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import TabsController from "../common/TabsController";
 import CourseContent from "./tabs/lessons";
@@ -114,7 +111,23 @@ const Course = ({ course }: Props) => {
         <div className={style.container}>
           <div className={style.courseHeader}>
             <div style={{ padding: "0 15px" }}>
-              {isPending ? (
+              {!course.user_has_access && !course.course_preview ? (
+                <div
+                  style={{
+                    position: "relative",
+                    maxHeight: "600px",
+                    minHeight: "300px",
+                    background: "#eee",
+                  }}
+                >
+                  <Image
+                    src={course.course_pic}
+                    alt={course.title}
+                    fill
+                    style={{ objectFit: "none" }}
+                  />
+                </div>
+              ) : isPending ? (
                 <div className={style.loadingWrapper}>
                   <Loading />
                 </div>
@@ -164,31 +177,47 @@ const Course = ({ course }: Props) => {
             )}
           </div>
           <div className={style.purchaseBar}>
-            <button
-              className={style.purchaseButton}
-              onClick={authorizeClientAction(
-                cartActionsLoadingHandler(() =>
-                  cartActions.addToCart(+course.id, OrderType.Course)
-                )
-              )}
-            >
-              <span> شروع یادگیری کل دوره | </span>
-              <div>
-                <div>
-                  {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-                  {offPrice && (
-                    <span className={style.priceOff}>
-                      {priceFormatter(mainPrice)}
-                      تومن
-                    </span>
-                  )}
-                </div>
-                <div>
-                  {priceFormatter(offPrice || mainPrice)}
-                  تومن
-                </div>
-              </div>
-            </button>
+            {course.user_has_access ? (
+              <button
+                className={style.purchaseButton}
+                style={{ background: "rgb(0, 174, 0)" }}
+              >
+                دانشجو این دوره ام!
+              </button>
+            ) : (
+              <button
+                className={style.purchaseButton}
+                onClick={authorizeClientAction(
+                  cartActionsLoadingHandler(() =>
+                    cartActions.addToCart(+course.id, OrderType.Course)
+                  )
+                )}
+              >
+                {updateCartLoading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    {" "}
+                    <span> شروع یادگیری کل دوره | </span>
+                    <div>
+                      <div>
+                        {/* {discountPercent && <small>٪{discountPercent}</small>} */}
+                        {offPrice && (
+                          <span className={style.priceOff}>
+                            {priceFormatter(mainPrice)}
+                            تومن
+                          </span>
+                        )}
+                      </div>
+                      <div>
+                        {priceFormatter(offPrice || mainPrice)}
+                        تومن
+                      </div>
+                    </div>
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

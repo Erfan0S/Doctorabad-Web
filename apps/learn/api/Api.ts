@@ -30,19 +30,22 @@ class Api extends Request {
   }
 
   createComment(data: {
-    id: number;
+    courseId: number;
     text: string;
     rate: number;
   }): Promise<any> {
-    return this.request.post("/user/shop/comment", data);
+    return this.request.post(
+      `/user/v1/education/course/${data.courseId}/comment`,
+      data
+    );
   }
 
   getCommentsList(
-    productID: number,
+    courseID: number,
     page: number
   ): Promise<ResponseType<CourseComents>> {
     return this.request.get<CourseComents>(
-      `/user/shop/comment/new/${productID}`,
+      `/user/v1/education/course/${courseID}/comment`,
       { params: { page } }
     );
   }

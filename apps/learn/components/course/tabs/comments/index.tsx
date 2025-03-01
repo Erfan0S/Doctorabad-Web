@@ -4,7 +4,6 @@
 import { ProductComments as ProductCommentType } from "@repo/core/types/product";
 import style from "./ProductComments.module.scss";
 import ProductCommentsForm from "./form";
-import ProductCommentsHeader from "./header";
 import ProductCommentsList from "./list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
@@ -36,10 +35,6 @@ const CourseComments: React.FC<Props> = ({ CourseData }) => {
 
   return (
     <div className={style.productComments}>
-      <ProductCommentsHeader
-        averageRating={Number(Number(data!.pages[0].rate).toFixed(1))}
-        totalRating={data!.pages[0].rate_count}
-      />
       <ProductCommentsForm productId={CourseData.id} userRating={3} />
       <ProductCommentsList
         comments={data!}
