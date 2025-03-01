@@ -74,10 +74,18 @@ export interface TabData {
 export type CourseListItemType = {
   id: number;
   title: string;
-  pic_url: string | null;
+  pic_url: string;
   price_main: number;
   price_off: number | null;
   price_amazing: number | null;
+  language: number;
+  provider: {
+    id: number;
+    name: string;
+    pic_url: string;
+  };
+  duration: number;
+  student_count: number;
 };
 
 export type CourseComents = {
@@ -105,4 +113,9 @@ export type VideoType = {
   duration: number;
 };
 
-
+export type previousOrders = {
+  id: number;
+  created_at: string;
+  order_code: string;
+  price_paid: number;
+};

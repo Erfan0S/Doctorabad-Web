@@ -6,10 +6,11 @@ import {
   CourseComents,
   CourseDataType,
   CourseListItemType,
+  previousOrders,
   VideoType,
 } from "@/types/courses";
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
-import { FieldGradeType, FilterListItemsType, SortType } from "@/types/filters";
+import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 
 class Api extends Request {
@@ -171,7 +172,9 @@ class Api extends Request {
     return this.request.get("/user/v1/education/slider?location=1");
   }
 
-  getUserPreviousOrders(): Promise<ResponseType<any>> {
+  getUserPreviousOrders(): Promise<
+    ResponseType<PaginatedResponse<previousOrders[]>>
+  > {
     return this.request.get("/user/v1/education/previous/orders");
   }
 
@@ -208,7 +211,7 @@ class Api extends Request {
     maxPrice?: number;
     language?: number;
     page?: number;
-  }): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
+  }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/list", {
       params: {
         sort,

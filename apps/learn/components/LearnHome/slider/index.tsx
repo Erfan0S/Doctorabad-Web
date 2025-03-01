@@ -20,6 +20,7 @@ type Props = {
 
 const MainSlider = ({ banners, swiperOptions = {} }: Props) => {
   if (!banners.length) return null;
+  console.log(banners);
 
   return (
     <div className="container">

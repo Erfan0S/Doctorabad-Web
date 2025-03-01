@@ -47,10 +47,6 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   useEffect(() => {
     const filter = params.get(queryKey);
     setSelected(items.find((item) => item.id == filter)?.title || null);
-    console.log("filter ", filter);
-    items.forEach((item) => {
-      console.log("item ", item.id);
-    });
   }, [params.get(queryKey)]);
 
   return (
