@@ -7,6 +7,7 @@
     ".": "./index.ts",
     "./icons": "./assets/index.ts",
     "./checkout": "./checkout/components/page.tsx",
+    "./navbar/mobile": "./navbar/mobileNavBar/index.tsx",
     "./register": "./userSidePanel/modal_components/register/index.tsx",
     "./api": "./api/Api.ts",
     "./modalsList": "./common/modal/modalsList.tsx",

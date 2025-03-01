@@ -8,6 +8,7 @@ import HomeIcon from "@/assets/svg/home";
 import { CourseListItemType } from "@/types/courses";
 import styles from "./CourseList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import formatDuration from "@/utils/formatDuration";
 
 type Props = {
   course: CourseListItemType;
@@ -33,27 +34,40 @@ const CourseListItem = ({ course }: Props) => {
           <div className={styles.metadataWrapper}>
             <div className={styles.metadataItem}>
               <Clock fontSize={16} />
-              <span>03:28</span>
+              <span>{formatDuration(course.duration)} ساعت</span>
             </div>
 
             <div className={styles.metadataItem}>
               <CoinIcon fontSize={16} />
-              <span>{priceFormatter(course.price_main)}</span>
+              <div className={styles.coursePrice}>
+                <span
+                  style={{
+                    textDecoration: course.price_off ? "line-through" : "",
+                  }}
+                >
+                  {priceFormatter(course.price_main)} تومن
+                </span>
+                {course.price_off ? (
+                  <span>{priceFormatter(course.price_off)} تومن</span>
+                ) : null}
+              </div>
             </div>
           </div>
           <div className={styles.metadataWrapper}>
             <div className={styles.metadataItem}>
               <Hat fontSize={16} />
-              <span>دکترآباد</span>
+              <span>{course.provider.name}</span>
             </div>
             <div className={styles.metadataItem}>
               <HomeIcon fontSize={16} />
-              <span>1020</span>
+              <span>{course.student_count} دانشجو</span>
             </div>
           </div>
         </div>
       </div>
-      <div className={styles.courseLanguageTag}>Fa</div>
+      <div className={styles.courseLanguageTag}>
+        {course.language == 1 ? "Fa" : "En"}
+      </div>
     </div>
   );
 };

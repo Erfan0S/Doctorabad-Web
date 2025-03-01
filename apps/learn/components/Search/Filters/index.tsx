@@ -75,21 +75,21 @@ const Filters = () => {
   const FiltersData = [
     {
       title: "رشته",
-      data: field?.data.data,
+      data: field?.data.data || [],
       name: FiltersNames.FIELD,
       loading: fieldLoading,
       isActive: true,
     },
     {
       title: "مقطع",
-      data: grade?.data.data,
+      data: grade?.data.data || [],
       name: FiltersNames.GRADE,
       loading: gradeLoading,
       isActive: !!params?.get(FiltersNames.FIELD),
     },
     {
       title: "موضوع",
-      data: category?.data.data,
+      data: category?.data.data || [],
       name: FiltersNames.CATEGORY,
       loading: categoryLoading,
       isActive:
@@ -130,14 +130,9 @@ const Filters = () => {
         <Accordion
           className={style.filtersAccordion}
           title={filter.title}
-          onClick={() =>
-            modalActions.addModal(ModalTypes.SELECT_FILTER, {
-              title: filter.title,
-              items: filter.data,
-              queryKey: filter.name,
-              singleSelection: true,
-            })
-          }
+          items={filter.data || []}
+          queryKey={filter.name}
+          singleSelection={true}
           isActive={!filter.loading && filter.isActive}
         />
       ))}

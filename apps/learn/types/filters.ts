@@ -2,12 +2,12 @@ import { ProviderType } from "./homePage";
 
 export type FilterModalType = {
   title: string;
-  items: { id: number; title: string }[];
+  items: { id: number | string; title: string }[];
   queryKey: string;
   singleSelection?: boolean;
 };
 
-export type FieldGrade = {
+export type FieldGradeType = {
   id: number;
   title: string;
 };
@@ -20,19 +20,6 @@ export type Language = {
 export type PriceRange = {
   min_price: number;
   max_price: number;
-};
-
-export type FilterListItemsType = {
-  id: number;
-  title: string;
-  pic_url: string;
-  price_main: number;
-  price_off: number | null;
-  price_amazing: number | null;
-  language: number;
-  provider: ProviderType;
-  duration: number;
-  student_count: number;
 };
 
 export type categories = {

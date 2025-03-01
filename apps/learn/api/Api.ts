@@ -6,10 +6,11 @@ import {
   CourseComents,
   CourseDataType,
   CourseListItemType,
+  previousOrders,
   VideoType,
 } from "@/types/courses";
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
-import { FilterListItemsType, SortType } from "@/types/filters";
+import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 
 class Api extends Request {
@@ -174,6 +175,12 @@ class Api extends Request {
     return this.request.get("/user/v1/education/slider?location=1");
   }
 
+  getUserPreviousOrders(): Promise<
+    ResponseType<PaginatedResponse<previousOrders[]>>
+  > {
+    return this.request.get("/user/v1/education/previous/orders");
+  }
+
   // filter / search
 
   getSearchList(
@@ -188,7 +195,7 @@ class Api extends Request {
   }
 
   getFilterList({
-    page = 1,
+    page,
     categories,
     fields,
     grades,
@@ -198,7 +205,6 @@ class Api extends Request {
     providers,
     sort,
   }: {
-    page: number;
     sort?: SortType;
     fields?: number;
     grades?: number;
@@ -206,9 +212,10 @@ class Api extends Request {
     providers?: number;
     minPrice?: number;
     maxPrice?: number;
-    language?: 1 | 2 | null;
-  }): Promise<ResponseType<PaginatedResponse<FilterListItemsType[]>>> {
-    return this.request.get("/user/v1/education/course/filter", {
+    language?: number;
+    page?: number;
+  }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/list", {
       params: {
         sort,
         fields,
@@ -226,15 +233,17 @@ class Api extends Request {
     return this.request.get(`/user/v1/education/lesson/count`);
   }
 
-  getFields(type: number): Promise<ResponseType<{ data: number[] }>> {
+  getFields(type: number): Promise<ResponseType<{ data: FieldGradeType[] }>> {
     return this.request.get("/user/find/fields", { params: { type } });
   }
 
   getGrades(
     type: number,
-    field: number
-  ): Promise<ResponseType<{ data: number[] }>> {
-    return this.request.get("/user/find/grades", { params: { type, field } });
+    field_id: number
+  ): Promise<ResponseType<{ data: FieldGradeType[] }>> {
+    return this.request.get("/user/find/grades", {
+      params: { type, field_id },
+    });
   }
 
   getCategoriesByGrade(

@@ -435,4 +435,11 @@ img[data-nimg="fill"] {
   padding-bottom: 15px;
   margin: 0 auto;
   position: relative;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  .learn-container {
+    margin-bottom: 65px;
+  }
 }

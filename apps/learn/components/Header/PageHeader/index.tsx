@@ -8,7 +8,7 @@ interface Props {
   className?: string;
   suffix?: React.ReactNode;
   children?: React.ReactNode;
-
+  haveMargin?: boolean;
   onBack?: () => void;
 }
 const PageHeader: React.FC<Props> = ({
@@ -16,6 +16,7 @@ const PageHeader: React.FC<Props> = ({
   suffix,
   onBack,
   children,
+  haveMargin = true,
   className,
 }) => {
   const router = useRouter();
@@ -34,7 +35,10 @@ const PageHeader: React.FC<Props> = ({
   };
 
   return (
-    <div className={`${style.sidePanelHeaderContainer} ${className}`}>
+    <div
+      style={{ marginBottom: haveMargin ? 10 : 0 }}
+      className={`${style.sidePanelHeaderContainer} ${className}`}
+    >
       <div className={style.sidePanelHeader}>
         <span>{title}</span>
         <div className={style.headerButtonContainer}>

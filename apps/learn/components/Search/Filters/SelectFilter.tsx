@@ -30,7 +30,10 @@ export const SelectFilter = ({
     ? items.filter(({ title }) => title.includes(searchInList))
     : items;
 
-  const changeCategoryFilter = (filterId: number, checked: boolean) => {
+  const changeCategoryFilter = (
+    filterId: number | string,
+    checked: boolean
+  ) => {
     const updatedItems = checked
       ? [...(singleSelection ? [] : activeItems), String(filterId)]
       : activeItems.filter((item) => item !== String(filterId));

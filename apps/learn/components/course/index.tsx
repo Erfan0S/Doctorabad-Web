@@ -106,7 +106,11 @@ const Course = ({ course }: Props) => {
 
   return (
     <div>
-      <PageHeader title="" suffix={<CourseHeaderSiffix course={course} />} />
+      <PageHeader
+        title=""
+        suffix={<CourseHeaderSiffix course={course} />}
+        haveMargin={false}
+      />
       <div className="row">
         <div className={style.container}>
           <div className={style.courseHeader}>
