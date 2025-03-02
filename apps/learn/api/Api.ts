@@ -67,7 +67,7 @@ class Api extends Request {
     return this.request.post("/user/v1/education/error/report", data);
   }
 
-  addFavorite(id: number): Promise<any> {
+  addFavorite(id: number): Promise<{}> {
     return this.request.post(`/user/v1/education/favorite`, { id });
   }
 
