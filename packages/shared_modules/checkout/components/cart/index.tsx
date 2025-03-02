@@ -4,9 +4,31 @@ import CartItem from "./item";
 import style from "./Cart.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
+import { CheckoutPageTypes } from "@repo/core/types/cart";
+import { useEffect } from "react";
 
-const Cart = () => {
+type Props = {
+  type: CheckoutPageTypes;
+};
+
+const Cart = ({ type }: Props) => {
   const { data: cartItems, count } = useCart();
+
+  const redirectPath = (): string => {
+    switch (type) {
+      case CheckoutPageTypes.Market:
+        return routePath.archive;
+      case CheckoutPageTypes.Learn:
+        return routePath.learnBasePath;
+
+      default:
+        return routePath.checkout;
+    }
+  };
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   return (
     <div className={style.cart}>
@@ -23,7 +45,7 @@ const Cart = () => {
             return <CartItem key={cartItem.id} {...cartItemProps} />;
           })
         ) : (
-          <Link href={routePath.archive} className={style.cartEmpty}>
+          <Link href={redirectPath()} className={style.cartEmpty}>
             مشاهده محصولات
           </Link>
         )}

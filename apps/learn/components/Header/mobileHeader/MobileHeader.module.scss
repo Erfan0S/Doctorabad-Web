@@ -63,8 +63,9 @@
 @media (max-width: 375px) {
   .buttons {
     button {
-      min-width: 28px;
-      height: 28px;
+      min-width: 25px;
+      height: 25px;
+      margin-left: space(1);
       svg,
       img {
         width: 18px;

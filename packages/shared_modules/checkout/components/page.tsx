@@ -4,18 +4,26 @@ import { api } from "@repo/shared_modules/api";
 import Cart from "./cart";
 import Pay from "./pay";
 import Shipping from "./shipping";
-import { useCart } from "@repo/core/states/cart";
-import { ShippingMethod } from "@repo/core/types/cart";
+import { cartActions, useCart } from "@repo/core/states/cart";
+import { CheckoutPageTypes, ShippingMethod } from "@repo/core/types/cart";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
-export function CheckoutPage() {
+type Props = {
+  type?: CheckoutPageTypes;
+};
+
+export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
     queryKey: ["addressList"],
   });
 
+  useEffect(() => {
+    if (isUserLoggedIn()) cartActions.getCartData();
+  }, []);
   const { data: cartItems } = useCart();
 
   const addressData = address?.data.data?.find((address) => address.default);
@@ -35,6 +43,8 @@ export function CheckoutPage() {
       setSelectedShippingMethod(undefined);
     },
   });
+
+  let customeClassName = "";
 
   const [currentShippingMethod, setCurrentShippingMethod] = useState<
     ShippingMethod | undefined
@@ -56,6 +66,15 @@ export function CheckoutPage() {
   };
 
   useEffect(() => {
+    switch (type) {
+      case CheckoutPageTypes.Market:
+        break;
+      case CheckoutPageTypes.Learn:
+        break;
+    }
+  }, []);
+
+  useEffect(() => {
     if (currentShippingMethod) {
       shippingMutation.mutate(currentShippingMethod);
     }
@@ -64,7 +83,7 @@ export function CheckoutPage() {
   return (
     <div className="row">
       <div className="col-xl-4">
-        <Cart />
+        <Cart type={type} />
       </div>
       <div className="col-xl-4">
         <Shipping
