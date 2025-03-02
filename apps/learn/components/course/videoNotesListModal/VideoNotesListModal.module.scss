@@ -29,7 +29,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  cursor: pointer;
   &:last-child {
     border-bottom: none;
   }
@@ -47,3 +47,10 @@
   font-size: 14px;
   direction: ltr;
 } 
+
+.emptyState {
+  text-align: center;
+  padding: 16px;
+  color: #666;
+}
+

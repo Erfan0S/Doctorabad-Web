@@ -119,3 +119,13 @@ export type previousOrders = {
   order_code: string;
   price_paid: number;
 };
+
+
+export interface Note {
+  id: number;
+  jump_time: number;
+  title: string;
+  description: string;
+  lesson_id: number;
+  lesson_title: string;
+}

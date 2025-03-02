@@ -25,6 +25,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import PageHeader from "../Header/PageHeader";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
+import { modalActions } from "@repo/core/modal/modals";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -44,19 +45,16 @@ const Course = ({ course }: Props) => {
     useCartActionsLoadingHandler();
 
   const [currentLeasson, setCurrentLeasson] = useState<Lesson | null>(null);
+  const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
+    number | null
+  >(null);
 
-  const { data: leassonData, isPending } = useQuery({
+  const { data: leassonData, isLoading } = useQuery({
     queryKey: ["course-videop", `leason-${course.id}-${currentLeasson?.id}`],
     queryFn: () => api.getVideo(Number(course.id), currentLeasson?.id!),
     enabled: !!currentLeasson?.id,
     retry: false,
-  });
-
-  const { data: bookMarkData } = useQuery({
-    queryKey: ["course-bookMark", `leason-${course.id}-${currentLeasson?.id}`],
-    queryFn: () => api.getVideowBookmark(Number(course.id)),
-    enabled: !!currentLeasson?.id,
-    retry: false,
+    placeholderData: (data) => data,
   });
 
   useEffect(() => {
@@ -84,6 +82,7 @@ const Course = ({ course }: Props) => {
           1
       ];
     if (nextLeasson) {
+      setSuggestedCurrentTime(null);
       setCurrentLeasson(nextLeasson);
     }
   };
@@ -95,9 +94,24 @@ const Course = ({ course }: Props) => {
           1
       ];
     if (previousLeasson) {
+      setSuggestedCurrentTime(null);
       setCurrentLeasson(previousLeasson);
     }
   };
+
+  const onLessonClick = (lesson: Lesson) => {
+    if (course.user_has_access) {
+      setSuggestedCurrentTime(null);
+      setCurrentLeasson(lesson);
+    }
+  };
+
+  const goToBookmark = (lessonId: number, jumpTime: number) => {
+    setCurrentLeasson(flatLeasons.find((leasson) => leasson.id === lessonId)!);
+    setSuggestedCurrentTime(jumpTime);
+    modalActions.removeLastModal();
+  };
+
   const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
     course?.price_main,
     course?.price_off || undefined,
@@ -108,7 +122,13 @@ const Course = ({ course }: Props) => {
     <div>
       <PageHeader
         title=""
-        suffix={<CourseHeaderSiffix course={course} />}
+        suffix={
+          <CourseHeaderSiffix
+            course={course}
+            currentLessonId={currentLeasson?.id!}
+            goToBookmark={goToBookmark}
+          />
+        }
         haveMargin={false}
       />
       <div className="row">
@@ -131,23 +151,25 @@ const Course = ({ course }: Props) => {
                     style={{ objectFit: "none" }}
                   />
                 </div>
-              ) : isPending ? (
+              ) : course.user_has_access && isLoading ? (
                 <div className={style.loadingWrapper}>
                   <Loading />
                 </div>
               ) : (
                 <VideoPlayer
-                  key={currentLeasson?.id || "preview"}
+                  // key={currentLeasson?.id || "preview"}
                   config={
                     course?.user_has_access
-                      ? leassonData!.data.data!.urls
+                      ? leassonData?.data?.data?.urls
                       : { source: course?.course_preview! }
                   }
                   title={currentLeasson?.title || "پیش نمایش"}
                   isUserHasAccess={!!course?.user_has_access}
                   lessonId={currentLeasson?.id!}
+                  courseId={course.id}
                   goToNextTrack={goToNextTrack}
                   goToPreviousTrack={goToPreviousTrack}
+                  suggestedCurrentTime={suggestedCurrentTime}
                 />
               )}
               <div className={style["course-title"]}>
@@ -175,7 +197,7 @@ const Course = ({ course }: Props) => {
                   CourseData={course}
                   CourseId={course.id}
                   sections={course.sections}
-                  onLessonClick={setCurrentLeasson}
+                  onLessonClick={onLessonClick}
                 />
               ) : null
             )}

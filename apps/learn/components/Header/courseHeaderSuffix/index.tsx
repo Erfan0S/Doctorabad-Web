@@ -22,9 +22,15 @@ interface Button {
 
 type Props = {
   course: CourseDataType;
+  currentLessonId: number;
+  goToBookmark: (lessonId: number, jumpTime: number) => void;
 };
 
-const CourseHeaderSiffix = ({ course }: Props) => {
+const CourseHeaderSiffix = ({
+  course,
+  currentLessonId,
+  goToBookmark,
+}: Props) => {
   const { isFavorite, toggleFavorite } = useToggleFavoriteProduct(
     !!course.user_favorite
   );
@@ -60,7 +66,12 @@ const CourseHeaderSiffix = ({ course }: Props) => {
     },
     {
       icon: <ProfileIcon />,
-      onClick: () => modalActions.addModal(ModalTypes.VIDEO_NOTES_LIST),
+      onClick: () =>
+        modalActions.addModal(ModalTypes.VIDEO_NOTES_LIST, {
+          courseId: course.id,
+          goToBookmark,
+          currentLessonId,
+        }),
     },
   ];
   return (

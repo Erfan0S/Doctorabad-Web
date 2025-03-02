@@ -9,6 +9,16 @@ interface Props {
 }
 
 const StaticCourseList = ({ courses }: Props) => {
+  if (!courses || courses.length === 0) {
+    return (
+      <div className={styles.relatedCoursesWrapper}>
+        <p style={{ textAlign: "center", padding: "20px" }}>
+          هیچ دوره‌ای یافت نشد
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.relatedCoursesWrapper}>
       {courses.map((course) => (
