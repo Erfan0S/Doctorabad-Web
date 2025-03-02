@@ -37,7 +37,7 @@ import {
 } from "../userSidePanel/types/doctorClub";
 import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
-import { CourseFavoriteItem, CourseOrderItem } from "@repo/core/types/course";
+import { CourseListItemType, CourseOrderItem } from "@repo/core/types/course";
 
 class Api extends Request {
   constructor() {
@@ -279,7 +279,7 @@ class Api extends Request {
 
   getLearnFavoriteList = (
     page: number = 1
-  ): Promise<ResponseType<PaginatedResponse<CourseFavoriteItem[]>>> => {
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> => {
     return this.request.get("/user/v1/education/favorite", {
       params: { page },
     });

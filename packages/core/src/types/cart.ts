@@ -1,16 +1,17 @@
 import { CartVariants } from "./productVariants";
 
 export type Order = {
-  discount_plan_type: null;
   id: number;
-  product_pic: string;
+  product_type: string;
+  product_id: number;
   product_title: string;
   quantity: number;
+  product_pic: string;
   price_main: number;
   price_off: number;
-  price_paid: number;
-  product_id: number;
   price_amazing: number | null;
+  price_paid: number;
+  discount_plan_type: null;
   variants: CartVariants[];
 };
 
@@ -103,4 +104,9 @@ export enum OrderType {
 export enum ChangeQuantityType {
   Increase = "increase",
   Decrease = "decrease",
+}
+
+export enum CheckoutPageTypes {
+  Market = "market",
+  Learn = "learn",
 }

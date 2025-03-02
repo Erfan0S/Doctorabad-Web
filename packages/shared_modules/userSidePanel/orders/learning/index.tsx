@@ -55,7 +55,7 @@ const SidePanelFavoritesLearning: React.FC = () => {
                 onClick={() => modalActions.removeLastModal()}
               >
                 <div className={style.sidePanelFavoritesLearningItem}>
-                  {oder_code}
+                  {/* {oder_code} */}
                 </div>
               </Link>
             ))}
