@@ -7,7 +7,6 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Loading } from "@repo/shared_modules/components";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFalsyValues";
 
 type Props = {
   courseId: number;
@@ -35,9 +34,7 @@ const ProductCommentsForm = ({ courseId }: Props) => {
 
   const submitComment = () => {
     if (comment) {
-      mutation.mutate(
-        purgeObjectFromFalsyValues({ courseId, text: comment, rate })
-      );
+      mutation.mutate({ courseId, text: comment });
     } else {
       toast("لطفا نظر خود را وارد کنید", { type: "warning" });
     }

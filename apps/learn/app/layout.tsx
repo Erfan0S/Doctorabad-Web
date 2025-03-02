@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/general.scss";
 
 import Providers from "@/providers/providers";
-// import NextTopLoader from "nextjs-toploader";
+import NextTopLoader from "nextjs-toploader";
 // import { api } from "@/api/Api";
 // import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
 import Script from "next/script";
@@ -61,11 +61,11 @@ export default async function RootLayout({
         }}
       />
       <body className={`${font.className} ${font.variable}`}>
-        {/* <NextTopLoader color="#f54f1a" /> */}
+        <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>
             {/* <Header /> */}
-            <Suspense fallback={<div>loading...</div>}>{children}</Suspense>
+            <Suspense fallback={<div></div>}>{children}</Suspense>
             {/* <Footer statistic={statistic} />
             <InstallBannerShow statistic={statistic} /> */}
           </Providers>

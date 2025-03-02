@@ -1,83 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./VideoNotesListModal.module.scss";
+import { convertSecondsToNormalTime } from "@/utils/convertSecondsToNormalTime";
+import { Note } from "@/types/courses";
+import { ModalProps } from "@repo/core/types/modals";
+import { api } from "@/api/Api";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loading } from "@repo/shared_modules/components";
+import InfiniteScroll from "react-infinite-scroller";
 
-interface Note {
-  id: string;
-  text: string;
-  timestamp: string;
-}
+type Props = ModalProps<{
+  courseId: number;
+  goToBookmark: (lessonId: number, jumpTime: number) => void;
+  currentLessonId: number;
+}>;
 
-interface VideoNotesListModalProps {
-  notes: Note[];
-}
-
-const MOCK_NOTES: Note[] = [
-  {
-    id: "1",
-    text: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
-    timestamp: "03:40",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-  {
-    id: "2",
-    text: "خوبی؟",
-    timestamp: "10:35",
-  },
-];
-
-export const VideoNotesListModal: React.FC<VideoNotesListModalProps> = ({
-  notes = MOCK_NOTES,
+export const VideoNotesListModal: React.FC<Props> = ({
+  data: { courseId, goToBookmark, currentLessonId },
 }) => {
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["videoBookmarks", courseId, currentLessonId],
+    queryFn: ({ pageParam }) =>
+      api
+        .getVideowBookmarks(courseId, currentLessonId, pageParam)
+        .then((res) => res.data),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (lastPage.links.next) {
+        return (lastPageParam as number) + 1;
+      }
+      return undefined;
+    },
+  });
+
+  // Flatten the notes data from all pages
+  const notes = React.useMemo(() => {
+    if (!data) return [];
+    return data.pages.flatMap((page) => page.data);
+  }, [data]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>لیست یادداشت‌ها</div>
-      <ul className={styles.notesList}>
-        {notes.map((note) => (
-          <li key={note.id} className={styles.noteItem}>
-            <span className={styles.timestamp}>{note.timestamp}</span>
-            <span className={styles.noteText}>{note.text}</span>
-          </li>
-        ))}
-      </ul>
+      {isLoading ? (
+        <div style={{ margin: "20px auto" }}>
+          <Loading size={36} />
+        </div>
+      ) : (
+        <InfiniteScroll
+          pageStart={1}
+          loadMore={() => fetchNextPage()}
+          hasMore={hasNextPage}
+          loader={<Loading size={24} key={0} />}
+          useWindow={false}
+          getScrollParent={() =>
+            document.querySelector(`.${styles.notesList}`) as HTMLElement
+          }
+        >
+          <ul className={styles.notesList}>
+            {notes.length > 0 ? (
+              notes.map((note) => (
+                <li
+                  key={note.id}
+                  className={styles.noteItem}
+                  onClick={() => goToBookmark(note.lesson_id, note.jump_time)}
+                >
+                  <span className={styles.timestamp}>
+                    {convertSecondsToNormalTime(note.jump_time)}
+                  </span>
+                  <span className={styles.noteText}>{note.description}</span>
+                </li>
+              ))
+            ) : (
+              <li className={styles.emptyState}>هیچ یادداشتی یافت نشد</li>
+            )}
+          </ul>
+        </InfiniteScroll>
+      )}
     </div>
   );
 };

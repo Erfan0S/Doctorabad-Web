@@ -35,7 +35,7 @@ const CourseComments: React.FC<Props> = ({ CourseData }) => {
 
   return (
     <div className={style.productComments}>
-      <ProductCommentsForm productId={CourseData.id} userRating={3} />
+      <ProductCommentsForm courseId={CourseData.id} />
       <ProductCommentsList
         comments={data!}
         fetchNextPage={fetchNextPage}

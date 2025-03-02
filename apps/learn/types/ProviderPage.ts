@@ -17,13 +17,39 @@ export interface ShopProduct {
   DT_RowId: number;
 }
 
+
 export interface SingleProviderType {
-  id: number;
-  name: string;
-  summary: string;
-  description: string;
-  avatar: number;
-  DT_RowId: number;
-  shop_products: ShopProduct[];
-  avatar_file: AvatarFile;
+  data: {
+    id: number;
+    title: string;
+    pic_url: string;
+    price_main: number;
+    price_off: number | null;
+    price_amazing: number | null;
+    language: number;
+    duration: number;
+    student_count: number;
+  }[];
+  links: {
+    first: string;
+    last: string;
+    prev: string;
+    next: string;
+  };
+  meta: {
+    current_page: number;
+    from: number;
+    last_page: number;
+    path: string;
+    per_page: number;
+    to: number;
+    total: number;
+  };
+  provider: {
+    id: number;
+    name: string;
+    summary: string;
+    description: string;
+    pic_url: string;
+  };
 }

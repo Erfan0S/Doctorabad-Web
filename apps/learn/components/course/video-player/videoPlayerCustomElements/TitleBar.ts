@@ -23,7 +23,6 @@ class TitleBar extends Component {
 
   // The `createEl` function of a component creates its DOM element.
   createEl() {
-    console.log("createEl",this.el());
     return videojs.dom.createEl('div', {
 
       // Prefixing classes of elements within a player with "vjs-" 

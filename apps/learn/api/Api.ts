@@ -6,6 +6,7 @@ import {
   CourseComents,
   CourseDataType,
   CourseListItemType,
+  Note,
   previousOrders,
   VideoType,
 } from "@/types/courses";
@@ -33,7 +34,6 @@ class Api extends Request {
   createComment(data: {
     courseId: number;
     text: string;
-    rate: number;
   }): Promise<any> {
     return this.request.post(
       `/user/v1/education/course/${data.courseId}/comment`,
@@ -67,11 +67,11 @@ class Api extends Request {
     return this.request.post("/user/v1/education/error/report", data);
   }
 
-  addFavorite(id: number): Promise<any> {
+  addFavorite = (id: number): Promise<any> => {
     return this.request.post(`/user/v1/education/favorite`, { id });
-  }
+  };
 
-  removeFavorite(id: number): Promise<any> {
+  removeFavorite = (id: number): Promise<any> => {
     return this.request.delete(`/user/v1/education/favorite/${id}`);
   }
 
@@ -85,9 +85,14 @@ class Api extends Request {
     );
   }
 
-  getVideowBookmark(courseID: number): Promise<ResponseType<VideoType>> {
-    return this.request.get<VideoType>(
-      `/user/v1/education/course/${courseID}/pins`
+  getVideowBookmarks(
+    courseID: number,
+    lessonID: number,
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<Note[]>>> {
+    return this.request.get<PaginatedResponse<Note[]>>(
+      `/user/v1/education/course/${courseID}/lesson/${lessonID}/pins`,
+      { params: { page } }
     );
   }
 
@@ -127,8 +132,12 @@ class Api extends Request {
       params: { page },
     });
   }
-  getSingleProvider(id: number): Promise<ResponseType<SingleProviderType>> {
-    return this.request.get(`/user/shop/provider/${id}`);
+  getSingleProvider(id: number,page:number=1): Promise<ResponseType<SingleProviderType>> {
+    return this.request.get(`/user/v1/education/provider/${id}`,{
+      params:{
+        page
+      }
+    });
   }
 
   getCategories(

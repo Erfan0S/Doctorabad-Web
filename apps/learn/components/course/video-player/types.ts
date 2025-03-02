@@ -12,11 +12,13 @@ export interface VideoQuality {
 }
 
 export interface VideoPlayerProps {
-  config: VideoConfig;
+  config?: VideoConfig;
   className?: string;
   title?: string;
   isUserHasAccess: boolean;
   lessonId: number;
   goToNextTrack: () => void;
   goToPreviousTrack: () => void;
+  courseId: number;
+  suggestedCurrentTime?: number | null;
 }
