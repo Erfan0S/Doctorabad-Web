@@ -19,8 +19,11 @@ import Logo from "../logo";
 import HomeIcon from "@/assets/svg/home";
 import ChatIcon from "@/assets/svg/chat";
 import QrScannerIcon from "@/assets/svg/qrScanner";
+import CartIcon from "@/assets/svg/cart";
+import { useRouter } from "next/navigation";
 
 const MobileHeader = () => {
+  const router = useRouter();
   const shouldRender = useClientComponentInitiated();
   const isMobile = useMediaQuery("max-width:768px");
 
@@ -75,6 +78,11 @@ const MobileHeader = () => {
           <span>
             {isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}
           </span>
+        </button>
+        <button
+          onClick={authorizeClientAction(() => router.push("/learn/checkout"))}
+        >
+          <CartIcon />
         </button>
       </div>
     </div>

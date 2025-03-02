@@ -1,3 +1,4 @@
+"use client";
 import { api } from "@/api/Api";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useMutation } from "@tanstack/react-query";
@@ -9,9 +10,7 @@ export const useToggleFavoriteProduct = (initialState: boolean) => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (id: number) => {
-      const toggle = api[!isFavorite ? "addFavorite" : "removeFavorite"];
-
-      return toggle(id);
+      return api[!isFavorite ? "addFavorite" : "removeFavorite"](id);
     },
     onSuccess() {
       const newFavoriteState = !isFavorite;
@@ -23,6 +22,9 @@ export const useToggleFavoriteProduct = (initialState: boolean) => {
           : "دوره از علاقه‌مندی‌ها حذف شد",
         { type: "success", position: "top-left" }
       );
+    },
+    onError(error, variables, context) {
+      console.log(error);
     },
   });
 

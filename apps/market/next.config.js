@@ -41,8 +41,8 @@ export default withPWA({
     return [
       {
         source: "/api/:path*",
-        destination: "https://drabadapp.ir/:path*",
-        // destination: "http://185.231.180.170/:path*",
+        // destination: "https://drabadapp.ir/:path*",
+        destination: "http://185.231.180.170/:path*",
         basePath: false,
       },
       {

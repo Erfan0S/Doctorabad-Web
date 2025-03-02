@@ -14,6 +14,7 @@ import { copyText } from "@repo/core/utils/copyText";
 
 import { CourseDataType } from "@/types/courses";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 interface Button {
   icon: React.ReactNode;
   onClick: () => void;
@@ -43,6 +44,7 @@ const CourseHeaderSiffix = ({
 
   const favoriteOnClick = () => {
     toggleFavorite(course.id);
+    // api.removeFavorite(course.id);
   };
 
   const buttons: Button[] = [

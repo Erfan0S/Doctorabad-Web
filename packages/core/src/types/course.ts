@@ -13,3 +13,20 @@ export type CourseOrderItem = {
   oder_code: string;
   price_paid: number;
 };
+
+export type CourseListItemType = {
+  id: number;
+  title: string;
+  pic_url: string;
+  price_main: number;
+  price_off: number | null;
+  price_amazing: number | null;
+  language: number;
+  provider: {
+    id: number;
+    name: string;
+    pic_url: string;
+  };
+  duration: number;
+  student_count: number;
+};

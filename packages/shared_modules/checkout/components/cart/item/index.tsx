@@ -6,7 +6,7 @@ import RecycleBin from "../../../../assets/svg/recycleBin";
 import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import { Order } from "@repo/core/types/cart";
+import { Order, OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
 
 const CartItem = ({
@@ -19,6 +19,7 @@ const CartItem = ({
   product_id,
   price_amazing,
   variants,
+  product_type,
 }: Order) => {
   const onDecrease = () => {
     quantity > 1
@@ -74,8 +75,12 @@ const CartItem = ({
             <button onClick={onDecrease}>
               {quantity > 1 ? "-" : <RecycleBin height={20} width={20} />}
             </button>
-            <span>{quantity}</span>
-            <button onClick={onIncrease}>+</button>
+            {product_type !== OrderType.Course && (
+              <>
+                <span>{quantity}</span>
+                <button onClick={onIncrease}>+</button>
+              </>
+            )}
           </div>
         </div>
       </div>
