@@ -2,6 +2,7 @@ import { appendNextRequestCookies, getClientSideCookie, getServerSideCookie } fr
 import { RequestMethods } from './RequestMethods';
 import { handleErrorPayload } from './utilts/handleErrorPayload';
 import { RequestConfig } from './types/Request';
+import { toast } from 'react-toastify';
 
 export class Request {
 request: RequestMethods;
@@ -29,7 +30,7 @@ request: RequestMethods;
   }
 
   protected handlingErrors() {
-    this.request.interceptors.response(undefined, (er)=>handleErrorPayload(er,this.config.isServerSide(),()=>{}));
+    this.request.interceptors.response(undefined, (er)=>handleErrorPayload(er,this.config.isServerSide(),toast));
   }
 
   static async getCsrfToken(isServerSide:boolean) {

@@ -115,7 +115,7 @@
 
     input:focus-visible,
     textArea:focus-visible {
-      border-color: $orange;
+      border-color: var(--primary-color);
       outline: none;
     }
     button {
@@ -125,7 +125,7 @@
       transform: translateY(-50%);
       line-height: 32px;
       padding: 0 space(2);
-      background: $header-nav-bg;
+      background: var(--secondary-color);
       color: #fff;
       border: unset;
       border-radius: radius(1);
@@ -140,7 +140,7 @@
     span {
       font-size: 14px;
       font-weight: 600;
-      color: $orange;
+      color: var(--primary-color);
       display: block;
     }
   }
@@ -151,7 +151,7 @@
     button {
       width: 100%;
       border: unset;
-      background: $header-nav-bg;
+      background: var(--secondary-color);
       color: #fff;
       font-weight: 600;
       text-align: center;

@@ -44,6 +44,8 @@ const Course = ({ course }: Props) => {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
 
+  const { data, initLoading } = useCart();
+
   const [currentLeasson, setCurrentLeasson] = useState<Lesson | null>(null);
   const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
     number | null
@@ -60,6 +62,9 @@ const Course = ({ course }: Props) => {
   useEffect(() => {
     if (course?.user_has_access) {
       setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);
+    }
+    if (initLoading) {
+      cartActions.getCartData();
     }
   }, [course]);
 
@@ -203,7 +208,14 @@ const Course = ({ course }: Props) => {
             )}
           </div>
           <div className={style.purchaseBar}>
-            {course.user_has_access ? (
+            {data?.find(
+              (item) =>
+                item.product_type === "course" && item.product_id === course.id
+            ) ? (
+              <button className={style.purchaseButton}>
+                به سبد خرید اضافه شد
+              </button>
+            ) : course.user_has_access ? (
               <button
                 className={style.purchaseButton}
                 style={{ background: "rgb(0, 174, 0)" }}

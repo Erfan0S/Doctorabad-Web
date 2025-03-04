@@ -13,6 +13,7 @@ import {
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
 import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
+import { PaymentResult } from "@repo/core/types/cart";
 
 class Api extends Request {
   constructor() {
@@ -23,6 +24,15 @@ class Api extends Request {
     });
   }
 
+
+  getOrderResult = (
+    paymentToken: string
+  ): Promise<ResponseType<PaymentResult>> => {
+    return this.request.get<PaymentResult>(
+      `/user/shop/order/result/${paymentToken}`
+    );
+  };
+
   // single course
 
   getCourse(id: number): Promise<ResponseType<{ data: CourseDataType }>> {
@@ -31,6 +41,7 @@ class Api extends Request {
     );
   }
 
+  
   createComment(data: {
     courseId: number;
     text: string;

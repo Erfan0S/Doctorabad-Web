@@ -106,7 +106,7 @@ class Api extends Request {
   }
 
   removeFromCart(orderId: number): Promise<any> {
-    return this.request.delete(`/user/shop/cart/${orderId}`);
+    return this.request.delete(`/user/v1/cart/${orderId}`);
   }
 
   changeQuantity(orderId: number, type: ChangeQuantityType): Promise<any> {
@@ -193,14 +193,14 @@ class Api extends Request {
 
   checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
     return this.request.get<DiscountInfo>(
-      `/user/shop/discountCode/check?code=${code}`
+      `/user/v1/discountCode/check?code=${code}`
     );
   }
 
   createOrder(
     data: CreateOrderRequest
   ): Promise<ResponseType<CreateOrderResponse>> {
-    return this.request.post<CreateOrderResponse>("/user/shop/order", data);
+    return this.request.post<CreateOrderResponse>("/user/v1/order", data);
   }
 
   getOrderResult = (

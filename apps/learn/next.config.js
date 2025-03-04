@@ -15,9 +15,9 @@ export default withPWA({
     removeConsole: process.env.NODE_ENV !== "development",
   },
   reactStrictMode: false,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // typescript: {
+  //   ignoreBuildErrors: true,
+  // },
   images: {
     remotePatterns: [
       {

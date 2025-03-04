@@ -32,7 +32,7 @@
       font-weight: 600;
       color: #fff;
       padding: 0 space(3);
-      background: $button-bg-orange;
+      background: var(--secondary-color);
       border-radius: radius(2);
       cursor: pointer;
     }
@@ -41,7 +41,7 @@
     margin: space(4) 0;
     text-align: center;
     button {
-      background: $header-nav-bg;
+      background: var(--secondary-color);
       border: unset;
       line-height: 35px;
       height: 35px;
@@ -72,7 +72,7 @@
           width: 10px;
           height: 10px;
           border-radius: radius(1);
-          background-color: $orange;
+          background-color: var(--primary-color);
           position: absolute;
           right: 0;
           top: calc(50% - 5px);

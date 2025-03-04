@@ -8,7 +8,7 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import FavoriteIcon from "../favoriteIcon";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";

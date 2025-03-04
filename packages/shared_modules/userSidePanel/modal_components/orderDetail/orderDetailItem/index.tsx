@@ -5,7 +5,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { Order } from "@repo/core/types/cart";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
@@ -18,7 +18,7 @@ const OrderDetailItem = ({
   product_title,
   quantity,
   product_id,
-}: Order) => {
+}: Omit<Order, "product_type">) => {
   const { push } = useRouter();
 
   const url = generateSingleProductUrlFromId(product_id);

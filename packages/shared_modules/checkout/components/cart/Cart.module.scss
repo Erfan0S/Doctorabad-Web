@@ -18,7 +18,7 @@
   }
   &::-webkit-scrollbar-thumb {
     width: 25px;
-    background-color: #fc7a34;
+    background-color: var(--primary-color);
     border-radius: space(2.5);
     border-left: 9px solid #fff;
     border-right: 9px solid #fff;
@@ -33,7 +33,7 @@
     font-weight: 600;
     color: #fff !important;
     padding: 10px 12px;
-    background: linear-gradient(to right, #f99917, #f54f1a);
+    background: var(--secondary-color);
     border-radius: 8px;
     cursor: pointer;
     margin-top: 20px;

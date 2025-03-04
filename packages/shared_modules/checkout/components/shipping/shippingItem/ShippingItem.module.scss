@@ -46,14 +46,14 @@
       font-size: 11px;
     }
     small {
-      color: $orange;
+      color: var(--primary-color);
       font-size: 12px;
       font-weight: 500;
     }
   }
 
   &.active {
-    background: $header-nav-bg;
+    background: var(--secondary-color);
     cursor: default;
     outline: unset;
     #{$shippingItem}Content {
@@ -65,7 +65,7 @@
   }
 
   &Loading {
-    background-color: rgba(255, 166, 0, 0.418);
+    background-color: var(--primary-color);
   }
 
   .loading {

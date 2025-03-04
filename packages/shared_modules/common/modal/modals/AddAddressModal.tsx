@@ -7,10 +7,14 @@ import { ModalProps } from "@repo/core/types/modals";
 
 type Props = ModalProps<{
   initialData: Partial<ShippingAddress> | null;
+  colors: {
+    primaryColor: string;
+    secondaryColor: string;
+  };
 }>;
 
 export const AddAddressModal = ({
-  data: { initialData },
+  data: { initialData, colors },
   closeModal,
 }: Props) => {
   const queryClient = useQueryClient();
@@ -35,6 +39,7 @@ export const AddAddressModal = ({
       initialData={initialData}
       submit={mutation.mutate}
       isLoading={mutation.isPending}
+      colors={colors}
     />
   );
 };

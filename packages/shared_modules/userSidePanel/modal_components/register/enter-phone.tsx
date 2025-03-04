@@ -22,19 +22,16 @@ export const EnterPhone = ({
     { phone }: Form,
     { setSubmitting }: FormikHelpers<Form>
   ) => {
-    console.log(phone);
     setSubmitting(true);
     try {
       await api.getCsrf();
       await api.sendVerificationCode(phone);
       onCodeSent(phone);
-      console.log("code sent");
     } catch (error: any) {
       if (error?.status && error.status === 422) {
         onCodeSent(phone);
       }
       setSubmitting(false);
-      console.log(error);
     }
   };
 

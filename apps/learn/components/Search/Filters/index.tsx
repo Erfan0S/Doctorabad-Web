@@ -118,12 +118,6 @@ const Filters = () => {
     },
   ];
 
-  useEffect(() => {
-    FiltersData.forEach((filter) => {
-      console.log(filter.title, filter.loading);
-    });
-  }, [FiltersData]);
-
   return (
     <div className={style.filters}>
       {FiltersData.map((filter, index) => (

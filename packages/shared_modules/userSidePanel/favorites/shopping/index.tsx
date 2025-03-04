@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
 import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import Link from "next/link";

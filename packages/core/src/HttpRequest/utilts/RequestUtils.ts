@@ -1,6 +1,6 @@
 
 
-import { SearchParamsUtils } from '../../Url/UrlUtils';
+import { SearchParamsUtils } from '../../url/UrlUtils';
 import { RequestOptions } from '../types/Request';
 
 type InterceptorsType = 'request' | 'responseSuccess' | 'responseFailed';

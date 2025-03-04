@@ -112,12 +112,11 @@ export const useVerifyPhone = (
           exact: true,
         });
         cartActions.getCartData();
-        console.log("success");
+
       })
       .catch((er) => {
         setCode(new Array(codeLength).fill(""));
         focusInputById("0");
-        console.log(er);
       });
   };
 

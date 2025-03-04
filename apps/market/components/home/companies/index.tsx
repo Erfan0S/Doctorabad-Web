@@ -4,7 +4,7 @@ import { Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { ProvidersList } from "@/types/providers";
 import Link from "next/link";
-import { generateSingleProviderUrlFromId } from "@repo/core/utils/urlutils";
+import { generateSingleProviderUrlFromId } from "@repo/core/utils/UrlUtils";
 import style from "./Companies.module.scss";
 import "swiper/css";
 import { autoPlayConfig } from "@repo/core/constants/sliders";

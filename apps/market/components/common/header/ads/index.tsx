@@ -4,7 +4,7 @@ import style from "./Ads.module.scss";
 import Link from "next/link";
 import { useEffect, useReducer } from "react";
 import { FestivalInfo } from "@/types/festival";
-import { generateFestivalProductListUrl } from "@repo/core/utils/urlutils";
+import { generateFestivalProductListUrl } from "@repo/core/utils/UrlUtils";
 import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
 
 const Ads: React.FC<NonNullable<FestivalInfo>> = ({

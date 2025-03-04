@@ -1,4 +1,4 @@
-import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
+import { calcDiscountPercentage } from "./calcDiscountPercentage";
 
 export const getDiscountInformation = (
   price_main: number = 0,

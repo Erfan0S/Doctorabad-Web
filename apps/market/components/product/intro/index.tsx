@@ -8,7 +8,7 @@ import ProductSlider from "./slider";
 import ProductTitle from "./title";
 
 import ProductSidebar from "../sidebar";
-import { generateProductCategoryUrlFromId } from "@repo/core/utils/urlutils";
+import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
 interface Props {
   productData: SingleProduct;
 }

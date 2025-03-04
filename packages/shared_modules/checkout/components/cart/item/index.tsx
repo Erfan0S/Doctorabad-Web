@@ -7,7 +7,7 @@ import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { Order, OrderType } from "@repo/core/types/cart";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/urlutils";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 
 const CartItem = ({
   id,

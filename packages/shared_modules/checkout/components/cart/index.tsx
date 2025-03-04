@@ -26,10 +26,6 @@ const Cart = ({ type }: Props) => {
     }
   };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-
   return (
     <div className={style.cart}>
       <div className={style.cartTitle}>

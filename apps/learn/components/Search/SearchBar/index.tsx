@@ -17,7 +17,6 @@ const SearchBar = () => {
   const debouncedSearchText = useDebounceAction(() => {
     if (searchText || pathname === "/learn/search") {
       router.push("/learn/search?q=" + searchText);
-      console.log("searchText", searchText);
     }
   }, 750);
 

@@ -11,7 +11,7 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import {
   SearchParamsUtils,
   generateSingleProductUrlFromId,
-} from "@repo/core/utils/urlutils";
+} from "@repo/core/utils/UrlUtils";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { routePath } from "@repo/core/constants/routePath";

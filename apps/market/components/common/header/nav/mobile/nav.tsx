@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useReducer, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { lockPageScroll } from "@repo/core/utils/lockPageScroll";
+
 import { CategoryInList, CategoryList } from "@/types/category";
 import Menu from "@/assets/svg/menu";
 import style from "../Nav.module.scss";
 import Close from "@/assets/svg/close";
 import MenuItem from "./navItem";
-import { generateProductCategoryUrlFromId } from "@repo/core/utils/urlutils";
+import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
 import BackArrow from "@/assets/svg/backArrow";
 import modalStyle from "@/components/common/modal/modal.module.scss";
 import {
@@ -16,6 +16,7 @@ import {
   slideRightAnimation,
 } from "@repo/core/constants/animationConfigs";
 import { useRouter } from "next/navigation";
+import { lockPageScroll } from "@repo/core/utils/lockPageScroll";
 
 interface Props {
   navData: CategoryList;

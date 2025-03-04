@@ -1,8 +1,13 @@
 import { CartVariants } from "./productVariants";
 
+export enum OrderType {
+  ShopProduct = "shopProduct",
+  Course = "course",
+}
+
 export type Order = {
   id: number;
-  product_type: string;
+  product_type: OrderType;
   product_id: number;
   product_title: string;
   quantity: number;
@@ -64,8 +69,8 @@ export type ShippingMethod = {
 };
 
 export type CreateOrderRequest = {
-  shipping_method_id: number;
-  address_id: number;
+  shipping_method_id?: number;
+  address_id?: number;
   discount_code_id?: number | null;
   use_credit?: boolean;
   description?: string;
@@ -96,10 +101,7 @@ export type PaymentResult = {
   discount_code: string;
 };
 
-export enum OrderType {
-  ShopProduct = "shopProduct",
-  Course = "course",
-}
+
 
 export enum ChangeQuantityType {
   Increase = "increase",

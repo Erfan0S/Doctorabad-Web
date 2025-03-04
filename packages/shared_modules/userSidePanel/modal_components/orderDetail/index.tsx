@@ -17,8 +17,6 @@ const OrderDetail: React.FC<Props> = ({ orderCode }: Props) => {
     },
   });
 
-  console.log(data);
-
   // fix order descount code
 
   return (
@@ -46,7 +44,6 @@ const OrderDetail: React.FC<Props> = ({ orderCode }: Props) => {
                     key={cartItem.id}
                     {...cartItem}
                     discount_plan_type={null}
-                    product_type=""
                   />
                 );
               })}

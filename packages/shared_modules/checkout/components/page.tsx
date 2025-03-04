@@ -5,7 +5,11 @@ import Cart from "./cart";
 import Pay from "./pay";
 import Shipping from "./shipping";
 import { cartActions, useCart } from "@repo/core/states/cart";
-import { CheckoutPageTypes, ShippingMethod } from "@repo/core/types/cart";
+import {
+  CheckoutPageTypes,
+  OrderType,
+  ShippingMethod,
+} from "@repo/core/types/cart";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -44,8 +48,6 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
     },
   });
 
-  let customeClassName = "";
-
   const [currentShippingMethod, setCurrentShippingMethod] = useState<
     ShippingMethod | undefined
   >();
@@ -66,38 +68,61 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
   };
 
   useEffect(() => {
-    switch (type) {
-      case CheckoutPageTypes.Market:
-        break;
-      case CheckoutPageTypes.Learn:
-        break;
-    }
-  }, []);
-
-  useEffect(() => {
     if (currentShippingMethod) {
       shippingMutation.mutate(currentShippingMethod);
     }
   }, [cartItems]);
 
+  const hasPhysicalProduct = cartItems?.some(
+    (item) => item.product_type === OrderType.ShopProduct
+  );
+
+  const getCartColors = () => {
+    switch (type) {
+      case CheckoutPageTypes.Market:
+        return {
+          primaryColor: "#fc7a34",
+          secondaryColor: "linear-gradient(to right, #f99917, #f54f1a)",
+        };
+      case CheckoutPageTypes.Learn:
+        return {
+          primaryColor: "#ff0000",
+          secondaryColor:
+            "linear-gradient(90deg, rgb(255, 0, 0) 0%, rgb(200, 0, 0) 100%)",
+        };
+    }
+  };
+  const colors = getCartColors();
   return (
-    <div className="row">
+    <div
+      className="row"
+      style={
+        {
+          "--primary-color": colors.primaryColor,
+          "--secondary-color": colors.secondaryColor,
+        } as React.CSSProperties
+      }
+    >
       <div className="col-xl-4">
         <Cart type={type} />
       </div>
-      <div className="col-xl-4">
-        <Shipping
-          isLoading={loadingAddress}
-          address={addressData}
-          onChangeShippingMethod={onChangeShippingMethod}
-          currentShippingMethod={currentShippingMethod}
-          selectedShipingMethod={selectedShippingMethod}
-        />
-      </div>
+      {true && (
+        <div className="col-xl-4">
+          <Shipping
+            isLoading={loadingAddress}
+            address={addressData}
+            onChangeShippingMethod={onChangeShippingMethod}
+            currentShippingMethod={currentShippingMethod}
+            selectedShipingMethod={selectedShippingMethod}
+            colors={colors}
+          />
+        </div>
+      )}
       <div className="col-xl-4">
         <Pay
           shippingMethod={currentShippingMethod}
           currentAddress={addressData}
+          hasPhysicalProduct={hasPhysicalProduct}
         />
       </div>
     </div>

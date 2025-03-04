@@ -22,9 +22,10 @@ import OptionSwitch from "../../../common/components/optionSwithch";
 type Props = {
   shippingMethod: ShippingMethod | undefined;
   currentAddress: ShippingAddress | undefined;
+  hasPhysicalProduct: boolean;
 };
 
-const Pay = ({ shippingMethod, currentAddress }: Props) => {
+const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
   const { replace } = useRouter();
 
   const { coins, my_profit, count, user_credit, price_paid } = useCart();
@@ -83,20 +84,21 @@ const Pay = ({ shippingMethod, currentAddress }: Props) => {
   const onCreateOrder = () => {
     if (!count)
       return toast("سبدخرید خالی است", { type: "error", position: "top-left" });
-    if (!shippingMethod)
+    if (!shippingMethod && hasPhysicalProduct)
       return toast("ابتدا نوع تحویل محصول را انتخاب کنید", {
         type: "error",
         position: "top-left",
       });
 
     const request: CreateOrderRequest = {
-      shipping_method_id: shippingMethod.id,
-      address_id: currentAddress!.id,
       use_credit: payWithCredit,
       discount_code_id: discountInfo?.data?.discount_code_id || null,
       description: description,
     };
-
+    if (hasPhysicalProduct) {
+      request.shipping_method_id = shippingMethod!.id;
+      request.address_id = currentAddress!.id;
+    }
     createOrder.mutate(request);
   };
 

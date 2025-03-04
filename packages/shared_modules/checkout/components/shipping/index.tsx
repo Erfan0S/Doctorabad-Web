@@ -14,6 +14,10 @@ type Props = {
   onChangeShippingMethod: (method: ShippingMethod) => void;
   currentShippingMethod: ShippingMethod | undefined;
   selectedShipingMethod: ShippingMethod | undefined;
+  colors: {
+    primaryColor: string;
+    secondaryColor: string;
+  };
 };
 
 const Shipping = ({
@@ -22,6 +26,7 @@ const Shipping = ({
   onChangeShippingMethod,
   currentShippingMethod,
   selectedShipingMethod,
+  colors,
 }: Props) => {
   const { data: shippingData, isLoading: shippingLoading } = useQuery({
     queryFn: api.getShippingMethods,
@@ -33,6 +38,7 @@ const Shipping = ({
   const handleAddAddress = () => {
     modalActions.addModal(ModalTypes.ADD_ADDRESS, {
       initialData: address || null,
+      colors,
     });
   };
 

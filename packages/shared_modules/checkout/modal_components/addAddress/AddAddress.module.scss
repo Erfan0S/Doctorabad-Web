@@ -40,7 +40,7 @@
     outline: unset;
     color: #000;
     &:focus {
-      border-color: $orange;
+      border-color: var(--primary-color);
     }
   }
 
@@ -54,12 +54,12 @@
     padding: space(1) space(3);
     outline: unset;
     &:focus {
-      border-color: $orange;
+      border-color: var(--primary-color);
     }
   }
 
   button {
-    background: $header-nav-bg;
+    background: var(--secondary-color);
     border: unset;
     line-height: 45px;
     height: 45px;

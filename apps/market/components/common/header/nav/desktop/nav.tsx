@@ -1,4 +1,4 @@
-import { generateProductCategoryUrlFromId } from "@repo/core/utils/urlutils";
+import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
 import { CategoryInList, CategoryList } from "@/types/category";
 import style from "../Nav.module.scss";
 import MenuItem from "./navItem";

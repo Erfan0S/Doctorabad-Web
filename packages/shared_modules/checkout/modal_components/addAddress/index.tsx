@@ -14,6 +14,10 @@ type Props = {
   initialData: Partial<ShippingAddress> | null;
   submit: (data: Partial<ShippingAddress>) => void;
   isLoading: boolean;
+  colors: {
+    primaryColor: string;
+    secondaryColor: string;
+  };
 };
 const defaultInitialData = {
   receiver: "",
@@ -27,7 +31,7 @@ const defaultInitialData = {
   longitude: "",
   latitude: "",
 };
-const AddAddress = ({ initialData, submit, isLoading }: Props) => {
+const AddAddress = ({ initialData, submit, isLoading, colors }: Props) => {
   const [Map, loadingMap] = useLoadHeavyModule(() => import("./map"));
 
   if (isServerSide) return null;
@@ -45,7 +49,15 @@ const AddAddress = ({ initialData, submit, isLoading }: Props) => {
       validationSchema={shippingAddressValidator}
     >
       {({ submitForm }) => (
-        <div className={style.addAddress}>
+        <div
+          className={style.addAddress}
+          style={
+            {
+              "--primary-color": colors.primaryColor,
+              "--secondary-color": colors.secondaryColor,
+            } as React.CSSProperties
+          }
+        >
           <div className={style.addAddressMap}>
             {!loadingMap && Map ? <Map /> : <Loading size={15} />}
           </div>
