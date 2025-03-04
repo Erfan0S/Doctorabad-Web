@@ -117,7 +117,7 @@ const Course = ({ course }: Props) => {
     modalActions.removeLastModal();
   };
 
-  const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
+  const { mainPrice, offPrice } = getDiscountInformation(
     course?.price_main,
     course?.price_off || undefined,
     course?.price_amazing || undefined

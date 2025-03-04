@@ -10,8 +10,8 @@ interface AddLeasonNoteModalProps {
   currentTime: number;
   lessonId: number;
   courseId: number;
+  showOnPlayer?: boolean;
   onSuccess?: () => void;
-  onClose?: () => void;
 }
 
 const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
@@ -20,7 +20,6 @@ const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
 }) => {
   const [note, setNote] = useState("");
   const queryClient = useQueryClient();
-
   const createBookmarkMutation = useMutation({
     mutationFn: () => {
       return api.createVideoBookmark(data.lessonId, {
@@ -39,11 +38,7 @@ const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
       if (data.onSuccess) {
         data.onSuccess();
       }
-      if (data.onClose) {
-        data.onClose();
-      } else if (closeModal) {
-        closeModal();
-      }
+      closeModal();
     },
     onError: (error) => {
       toast.error("خطا در ثبت یادداشت");
@@ -60,31 +55,36 @@ const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
   };
 
   return (
-    <div className={styles.modalContent}>
-      <div className={styles.modalHeader}>
-        <h2 className={styles.title}>یادداشت</h2>
-        <span className={styles.timestamp}>
-          {convertSecondsToNormalTime(data.currentTime)}
-        </span>
+    <>
+      {data.showOnPlayer && (
+        <div className={styles.modalOverlay} onClick={() => closeModal()} />
+      )}
+      <div className={styles.modalContent}>
+        <div className={styles.modalHeader}>
+          <h2 className={styles.title}>یادداشت</h2>
+          <span className={styles.timestamp}>
+            {convertSecondsToNormalTime(data.currentTime)}
+          </span>
+        </div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className={styles.textarea}
+            placeholder="یادداشت خود را وارد کنید..."
+            autoFocus
+            disabled={createBookmarkMutation.isPending}
+          />
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={createBookmarkMutation.isPending}
+          >
+            {createBookmarkMutation.isPending ? "در حال ثبت..." : "ثبت"}
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          className={styles.textarea}
-          placeholder="یادداشت خود را وارد کنید..."
-          autoFocus
-          disabled={createBookmarkMutation.isPending}
-        />
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={createBookmarkMutation.isPending}
-        >
-          {createBookmarkMutation.isPending ? "در حال ثبت..." : "ثبت"}
-        </button>
-      </form>
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,8 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import CustomButton from "./videoPlayerCustomElements/CustomButton";
 import { VideoPlayer as VideoPlayerType } from "@/types/VideoPlayer";
+import { VideoQualitySelector } from "../videoQualitySelectorModal/VideoQualitySelector";
+import AddLeasonNoteModal from "./addNoteModal/AddLeasonNoteModal";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -23,6 +25,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const playerRef = useRef<VideoPlayerType>();
   const titleRef = useRef<{ updateTextContent: (title: string) => void }>();
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+
+  const [isQualitySelectorOpen, setIsQualitySelectorOpen] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
   useEffect(() => {
     if (
@@ -55,12 +60,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           initialContent: "کیفیت",
           className: "vjs-custom-button",
           onClick: () => {
-            player.exitFullscreen();
-
-            modalActions.addModal(ModalTypes.VIDEO_QUALITY_SELECTOR, {
-              player: playerRef.current,
-              selectedQualityLevelIndex: 0,
-            });
+            if (player.isFullscreen()) {
+              setIsQualitySelectorOpen(true);
+            } else {
+              modalActions.addModal(ModalTypes.VIDEO_QUALITY_SELECTOR, {
+                player: playerRef.current,
+                selectedQualityLevelIndex: 0,
+              });
+            }
           },
         });
         headerContainer.appendChild(qualitySelectorButton.el());
@@ -114,12 +121,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           className: "vjs-custom-button",
           onClick: (player) => {
             player.pause();
-            player.exitFullscreen();
-            modalActions.addModal(ModalTypes.ADD_NOTE, {
-              currentTime: player.currentTime(),
-              lessonId,
-              courseId,
-            });
+            if (player.isFullscreen()) {
+              setIsNoteModalOpen(true);
+            } else {
+              modalActions.addModal(ModalTypes.ADD_NOTE, {
+                currentTime: player.currentTime(),
+                lessonId,
+                courseId,
+              });
+            }
           },
         });
         let headerContainer = playerRef
@@ -158,6 +168,34 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         className={`${styles.videoContainer} ${className || ""}`}
         ref={videoRef}
       ></div>
+      {isPlayerReady && [
+        createPortal(
+          isQualitySelectorOpen ? (
+            <VideoQualitySelector
+              closeModal={() => setIsQualitySelectorOpen(false)}
+              data={{
+                player: playerRef.current!,
+                selectedQualityLevelIndex: 0,
+              }}
+            />
+          ) : null,
+          playerRef.current!.el()
+        ),
+        createPortal(
+          isNoteModalOpen ? (
+            <AddLeasonNoteModal
+              closeModal={() => setIsNoteModalOpen(false)}
+              data={{
+                currentTime: playerRef.current!.currentTime() || 0,
+                lessonId,
+                courseId,
+                showOnPlayer: true,
+              }}
+            />
+          ) : null,
+          playerRef.current!.el()
+        ),
+      ]}
     </div>
   );
 };
