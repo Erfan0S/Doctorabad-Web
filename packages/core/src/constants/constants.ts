@@ -1,7 +1,7 @@
 export const defaultBaseUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api"
-    : "https://doctorabad.com/api";
+    : "https://develop.doctorabad.com/api";
 // process.env.NODE_ENV === "development"
 //   ? "http://localhost:3000/api"
 //   : "http://localhost:3000/api";
