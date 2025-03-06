@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import Image from "next/image";
-import style from "./course.module.scss";
+import style from "./Course.module.scss";
 import { api } from "@/api/Api";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import TabsController from "../common/TabsController";
