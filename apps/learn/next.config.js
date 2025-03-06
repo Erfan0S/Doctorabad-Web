@@ -45,10 +45,6 @@ export default withPWA({
         source: "/mag/:path*",
         destination: `https://mag.doctorabad.com/:path*`,
       },
-      {
-        source: "/learn/:path*",
-        destination: `http://localhost:3007/learn/:path*`,
-      },
     ];
   },
 });
