@@ -14,7 +14,7 @@ export default withPWA({
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },
-  reactStrictMode: false,
+  // reactStrictMode: false,
   // typescript: {
   //   ignoreBuildErrors: true,
   // },
