@@ -15,8 +15,8 @@ const SearchBar = () => {
   const pathname = usePathname();
 
   const debouncedSearchText = useDebounceAction(() => {
-    if (searchText || pathname === "/learn/search") {
-      router.push("/learn/search?q=" + searchText);
+    if (searchText || pathname === "/search") {
+      router.push("/search?q=" + searchText);
     }
   }, 750);
 
@@ -47,11 +47,11 @@ const SearchBar = () => {
             value={searchText}
             placeholder={`در مباحث ${data?.data.data || 10000} درس جست و جو کن!`}
           />
-          <Link href={"/learn/search?q=" + searchText}>
+          <Link href={"/search?q=" + searchText}>
             <SearchIcon />
           </Link>
         </div>
-        <Link href={"/learn/filter"}>فیلترکردن</Link>
+        <Link href={"/filter"}>فیلترکردن</Link>
       </div>
     </div>
   );

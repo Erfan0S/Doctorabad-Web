@@ -4,17 +4,17 @@ export const TabsData = [
   {
     id: HomeTabs.COURSES,
     title: "دوره‌ها",
-    url: "/learn",
+    url: "/",
   },
   {
     id: HomeTabs.CATEGORIES,
     title: "موضوعات",
-    url: "/learn/categories",
+    url: "/categories",
   },
 
   {
     id: HomeTabs.PROVIDERS,
     title: "ارائه‌دهنده‌ها",
-    url: "/learn/providers",
+    url: "/providers",
   },
 ];

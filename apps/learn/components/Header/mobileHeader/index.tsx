@@ -79,9 +79,7 @@ const MobileHeader = () => {
             {isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}
           </span>
         </button>
-        <button
-          onClick={authorizeClientAction(() => router.push("/learn/checkout"))}
-        >
+        <button onClick={authorizeClientAction(() => router.push("/checkout"))}>
           <CartIcon />
         </button>
       </div>

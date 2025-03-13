@@ -27,7 +27,7 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>
             {page.data.map((course) => (
-              <Link href={`/learn/course/${course.id}`} key={course.id}>
+              <Link href={`/course/${course.id}`} key={course.id}>
                 <CourseListItem course={course} />
               </Link>
             ))}

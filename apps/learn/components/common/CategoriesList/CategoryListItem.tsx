@@ -14,8 +14,8 @@ const CategoryListItem = ({ category, isProvider }: Props) => {
     <Link
       href={
         isProvider
-          ? `/learn/providers/${category.id}`
-          : `/learn/categories/${category.id}/${(category as CategoryType).title}`
+          ? `/providers/${category.id}`
+          : `/categories/${category.id}/${(category as CategoryType).title}`
       }
       className={style.ListItemWrapper}
     >
