@@ -22,7 +22,7 @@ const StaticCourseList = ({ courses }: Props) => {
   return (
     <div className={styles.relatedCoursesWrapper}>
       {courses.map((course) => (
-        <Link href={`/learn/course/${course.id}`} key={course.id}>
+        <Link href={`/course/${course.id}`} key={course.id}>
           <CourseListItem course={course} />
         </Link>
       ))}

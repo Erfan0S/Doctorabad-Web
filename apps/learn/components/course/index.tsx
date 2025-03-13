@@ -178,7 +178,7 @@ const Course = ({ course }: Props) => {
                 />
               )}
               <div className={style["course-title"]}>
-                <Link href={`/learn/providers/${course?.provider.id}`}>
+                <Link href={`/providers/${course?.provider.id}`}>
                   <Image
                     src={course?.provider.pic_url || ""}
                     alt="company"

@@ -29,7 +29,7 @@ const PageHeader: React.FC<Props> = ({
       if (refferer) {
         router.back();
       } else {
-        router.push("/learn");
+        router.push("/");
       }
     }
   };

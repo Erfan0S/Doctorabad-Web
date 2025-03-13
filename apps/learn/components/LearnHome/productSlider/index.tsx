@@ -20,18 +20,18 @@ const Configs = {
   [HomePageCourseSliders.Suggested]: {
     loader: () => api.getSuggestedCourses(),
     title: "پیشنهاد کدخدای دکترآباد",
-    archiveLink: "/learn/course_list/" + CourseListType.Suggested,
+    archiveLink: "/course_list/" + CourseListType.Suggested,
   },
 
   [HomePageCourseSliders.Newest]: {
     loader: () => api.getNewestCourses(),
     title: "جدید‌ترین ها",
-    archiveLink: "/learn/course_list/" + CourseListType.Newest,
+    archiveLink: "/course_list/" + CourseListType.Newest,
   },
   [HomePageCourseSliders.BestSeller]: {
     loader: () => api.getBestSellerCourses(),
     title: "پرفروش‌ترین ها",
-    archiveLink: "/learn/course_list/" + CourseListType.BestSeller,
+    archiveLink: "/course_list/" + CourseListType.BestSeller,
   },
 
   [HomePageCourseSliders.LastViewed]: {
@@ -107,7 +107,7 @@ const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
             >
               {data?.data?.data?.map((course, i) => (
                 <SwiperSlide key={course.id}>
-                  <Link href={`/learn/course/${course.id}`}>
+                  <Link href={`/course/${course.id}`}>
                     <div
                       className={style.course}
                       style={{ backgroundImage: `url(${course.pic_url})` }}

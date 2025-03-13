@@ -14,7 +14,7 @@ export default withPWA({
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },
-  // reactStrictMode: false,
+  basePath: "/learn",
   // typescript: {
   //   ignoreBuildErrors: true,
   // },
@@ -30,6 +30,7 @@ export default withPWA({
       },
     ],
   },
+  
   sassOptions: {
     quietDeps: true,
   },

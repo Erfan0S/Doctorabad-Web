@@ -13,6 +13,7 @@ import NextTopLoader from "nextjs-toploader";
 // import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
 import Script from "next/script";
 import { Suspense } from "react";
+import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -65,7 +66,11 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             {/* <Header /> */}
-            <Suspense fallback={<div></div>}>{children}</Suspense>
+            <Suspense fallback={<div></div>}>
+              <div className="learn-container">
+                {children} <MobileNavBar />
+              </div>
+            </Suspense>
             {/* <Footer statistic={statistic} />
             <InstallBannerShow statistic={statistic} /> */}
           </Providers>
