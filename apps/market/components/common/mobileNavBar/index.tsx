@@ -2,10 +2,11 @@ import Image from "next/image";
 import style from "./mobileNavbar.module.scss";
 import { navBarData } from "./nav-bar-data";
 import React from "react";
+import { isServerSide } from "@repo/core/constants/constants";
 
 const MobileNavBar = () => {
   const activeCondition = (href: string): boolean => {
-    const pathname = window.location.pathname;
+    const pathname = !isServerSide ? window.location.pathname : "";
     return (
       (pathname.startsWith(href) && href != "/") ||
       (pathname == "/" && href == "/")
