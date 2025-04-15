@@ -35,6 +35,8 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
 
   const [payWithCredit, setPayWithCredit] = useState(false);
 
+  console.log(shippingMethod);
+
   const {
     refetch,
     data: discountInfo,
@@ -155,13 +157,19 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
       </div>
       <div className={style.payDetail}>
         <ul>
-          {shippingMethod && !!shippingMethod.price && Number(count) > 0 && (
+          {shippingMethod && (!!shippingMethod.price || !!shippingMethod.price_text ) && Number(count) > 0 && (
             <li>
               <span>هزینه ارسال:</span>
+              {
+                shippingMethod.price > 0 ?
               <span>
                 {priceFormatter(shippingMethod.price)}
                 <small>تومن</small>
+              </span> : 
+              <span className={style.priceText} >
+                {shippingMethod.price_text}
               </span>
+              }
             </li>
           )}
           <li>

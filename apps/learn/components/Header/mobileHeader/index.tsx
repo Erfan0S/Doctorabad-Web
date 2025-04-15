@@ -21,11 +21,14 @@ import ChatIcon from "@/assets/svg/chat";
 import QrScannerIcon from "@/assets/svg/qrScanner";
 import CartIcon from "@/assets/svg/cart";
 import { useRouter } from "next/navigation";
+import { useCart } from "@repo/core/states/cart";
 
 const MobileHeader = () => {
   const router = useRouter();
   const shouldRender = useClientComponentInitiated();
   const isMobile = useMediaQuery("max-width:768px");
+  const cart = useCart();
+
 
   const { data, isSuccess } = useQuery({
     queryFn: api.getMessagesCount,
@@ -79,8 +82,12 @@ const MobileHeader = () => {
             {isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}
           </span>
         </button>
-        <button onClick={authorizeClientAction(() => router.push("/checkout"))}>
+        <button onClick={authorizeClientAction(() => router.push("/checkout"))} className={style.cartButton} >
           <CartIcon />
+          {
+            cart.count > 0 && 
+            <span>{cart.count}</span>
+          }
         </button>
       </div>
     </div>

@@ -31,7 +31,7 @@ const CartItem = ({
     cartActions.increaseQuantity(id);
   };
 
-  const url = generateSingleProductUrlFromId(product_id);
+  const url = generateSingleProductUrlFromId(product_id, '', product_type);
 
   return (
     <div className={style.cartItem}>

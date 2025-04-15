@@ -106,7 +106,7 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
       <div className="col-xl-4">
         <Cart type={type} />
       </div>
-      {true && (
+      {cartItems.length > 0 && (
         <div className="col-xl-4">
           <Shipping
             isLoading={loadingAddress}

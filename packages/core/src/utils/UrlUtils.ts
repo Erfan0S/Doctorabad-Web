@@ -1,6 +1,7 @@
 import { routePath } from "../constants/routePath";
 import { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
 import { isServerSide } from "../constants/constants";
+import { OrderType } from "../types/cart";
 
 interface ParamsStringifyOptions {
   appendPrevSearchParams?: boolean;
@@ -65,9 +66,18 @@ export const generateSingleProviderUrlFromId = (id: number) => {
 
 export const generateSingleProductUrlFromId = (
   id: number,
-  slug: string = ""
+  slug: string = "",
+  type: OrderType = OrderType.ShopProduct
 ) => {
-  return `/market/product/${id}/${slug}`;
+  switch (type) {
+    case OrderType.ShopProduct:
+      return `/product/${id}/${slug}`;
+    case OrderType.Course:
+      return `/course/${id}/${slug}`;
+  
+    default:
+      return `/product/${id}/${slug}`;
+  }
 };
 
 export const generateCourseUrlFromId = (id: number, slug: string = "") => {

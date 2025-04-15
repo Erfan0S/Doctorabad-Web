@@ -3,15 +3,26 @@ import Image from "next/image";
 import style from "./mobileNavbar.module.scss";
 import { navBarData } from "./nav-bar-data";
 import { isServerSide } from "@repo/core/constants/constants";
+import { usePathname } from "next/navigation";
 
-const MobileNavBar = () => {
+type Porps = {
+  excludePaths?: string[];
+}
+
+const MobileNavBar = ({excludePaths}: Porps) => {
+  const pathname = usePathname();
+  console.log(pathname, "pathname");
+  const isExcludePath = excludePaths?.some((path) => pathname.includes(path));
+
   const activeCondition = (href: string): boolean => {
-    const pathname = !isServerSide ? window.location.pathname : "";
+    const fullPathname = !isServerSide ? window.location.pathname : "";
     return (
-      (pathname.startsWith(href) && href != "/") ||
-      (pathname == "/" && href == "/")
+      (fullPathname.startsWith(href) && href != "/") ||
+      (fullPathname == "/" && href == "/")
     );
   };
+
+  if (isExcludePath) return null;
 
   return (
     <div className={style.sidebarNav}>

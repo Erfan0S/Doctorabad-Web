@@ -9,6 +9,26 @@
   padding: 5px 0;
   width: 100%;
   display: flex;
+
+  .cartButton{
+    position: relative;
+
+    span {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid white;
+      background: #ff0000;
+      left: -7px;
+      top: -7px;
+      line-height: 12px;
+      min-width: 20px;
+      padding: 2px;
+      padding-top: 4px;
+      text-align: center;
+      color: white;
+      font-size: smaller;
+    }
+  }
 }
 
 .buttons {

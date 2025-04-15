@@ -64,6 +64,8 @@ export type ShippingMethod = {
   id: number;
   title: string;
   price: number;
+  price_text?: string;
+  
   pic_url: string;
   description: string;
 };

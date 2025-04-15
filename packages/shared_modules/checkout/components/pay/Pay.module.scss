@@ -59,11 +59,12 @@
         color: $gray;
         font-size: 13px;
         margin-bottom: space(1);
+        justify-content: space-between;
 
+        .priceText{
+          text-align: left;
+        }
         span {
-          &:first-of-type {
-            margin-left: auto;
-          }
 
           &:last-of-type {
             small {

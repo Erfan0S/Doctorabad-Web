@@ -5,7 +5,11 @@ import { TabsData } from "./tabs-data";
 import SearchBar from "@/components/Search/SearchBar";
 import styles from "./HomeHeader.module.scss";
 
-function HomeHeader() {
+type Props= {
+  haveSearch?:boolean;
+}
+
+function HomeHeader({haveSearch = true}:Props) {
   return (
     <div className={styles.container}>
       <div className={styles.topHeaderContainer}>
@@ -14,9 +18,10 @@ function HomeHeader() {
         </div>
         <TabsController tabData={TabsData} defaultTab={TabsData[0].id} />
       </div>
+      {haveSearch &&
       <div className={styles.childContainer}>
         <SearchBar />
-      </div>
+      </div>}
     </div>
   );
 }

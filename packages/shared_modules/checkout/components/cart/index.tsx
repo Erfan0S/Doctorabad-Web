@@ -2,10 +2,9 @@
 import { useCart } from "@repo/core/states/cart";
 import CartItem from "./item";
 import style from "./Cart.module.scss";
-import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import { CheckoutPageTypes } from "@repo/core/types/cart";
-import { useEffect } from "react";
+import Link from "next/link";
 
 type Props = {
   type: CheckoutPageTypes;
@@ -41,7 +40,8 @@ const Cart = ({ type }: Props) => {
             return <CartItem key={cartItem.id} {...cartItemProps} />;
           })
         ) : (
-          <Link href={redirectPath()} className={style.cartEmpty}>
+          // TODO: Might need change
+          <Link href={"/"} className={style.cartEmpty}>
             مشاهده محصولات
           </Link>
         )}
