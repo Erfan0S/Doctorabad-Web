@@ -2,15 +2,24 @@ import { api } from "../../../api/Api";
 import { ShippingAddress } from "@repo/core/types/cart";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, useFormikContext } from "formik";
+import { useEffect, useState } from "react";
 
 export const ProvinceCitySelection = () => {
-  const { values } = useFormikContext<ShippingAddress>();
+  const { values , setFieldValue } = useFormikContext<ShippingAddress>();
+  const [currentProvince, setCurrentProvince] = useState(values.province_id?.toString());
 
   const { data: province, isLoading: provincesLoading } = useQuery({
     queryFn: api.getProvincesList,
     queryKey: ["provinces"],
     staleTime: Infinity,
   });
+
+  useEffect(()=>{
+    console.log(values);
+    if (currentProvince != values.province_id?.toString) {
+      setFieldValue("city_id", null)
+    }
+  }, [currentProvince, setCurrentProvince])
 
   const {
     data: cities,
@@ -36,6 +45,10 @@ export const ProvinceCitySelection = () => {
           name="province_id"
           placeholder="استان"
           disabled={provincesLoading}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>)=>{
+            setFieldValue("province_id", e.target.value);
+            setCurrentProvince(e.target.value);
+          }}
         >
           {provincesLoading ? (
             <option value="">در حال دریافت استان ها</option>
