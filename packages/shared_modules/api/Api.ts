@@ -193,7 +193,7 @@ class Api extends Request {
 
   checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
     return this.request.get<DiscountInfo>(
-      `/user/v1/discountCode/check?code=${code}`
+      `/user/shop/discountCode/check?code=${code}`
     );
   }
 
