@@ -24,6 +24,7 @@ const MainPage = () => {
           swiperOptions={{ spaceBetween: 0 }}
         />
       )}
+      <CourseSlider type={HomePageCourseSliders.MyCourses} />
       <CourseSlider type={HomePageCourseSliders.Suggested} />
       <CourseSlider type={HomePageCourseSliders.Newest} />
       <CourseSlider type={HomePageCourseSliders.BestSeller} />

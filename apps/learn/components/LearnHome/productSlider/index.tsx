@@ -39,6 +39,12 @@ const Configs = {
     title: "آخرین بازدید‌های من",
     archiveLink: null,
   },
+
+  [HomePageCourseSliders.MyCourses]: {
+    loader: () => null,
+    title: "دوره‌ها و طرح‌های من",
+    archiveLink: "/course_list/" + CourseListType.MyCourses
+  }
 };
 
 const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
@@ -96,8 +102,6 @@ const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
             <Loading />
           ) : (
             <Swiper
-              modules={[Autoplay]}
-              autoplay={autoPlayConfig}
               // spaceBetween={150}
               slidesPerView={slidesPerView}
               spaceBetween={spaceBetween}

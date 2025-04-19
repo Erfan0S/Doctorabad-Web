@@ -1,7 +1,6 @@
 import { CategoryType, ProviderType } from "@/types/homePage";
 import React from "react";
 import style from "./CategoriesList.module.scss";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
