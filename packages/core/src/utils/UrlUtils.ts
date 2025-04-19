@@ -64,6 +64,8 @@ export const generateSingleProviderUrlFromId = (id: number) => {
   return `${routePath.archive}?provider=${id}`;
 };
 
+// TODO: Fix Checkout URL
+
 export const generateSingleProductUrlFromId = (
   id: number,
   slug: string = "",

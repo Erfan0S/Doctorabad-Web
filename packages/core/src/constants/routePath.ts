@@ -2,7 +2,7 @@ export const routePath = {
   home: "/",
   marketBasePath: "/market",
   register: "/market/register",
-  checkout: "/market/checkout",
+  checkout: "/checkout",
   callback: "/market/callback",
   archive: "/market/product-list/archive",
   searchList: "/market/product-list/search",
