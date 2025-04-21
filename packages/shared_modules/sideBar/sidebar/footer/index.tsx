@@ -2,7 +2,7 @@
 
 import style from "../Sidebar.module.scss";
 import Image from "next/image";
-import coin from "@/assets/img/coin.png";
+import coin from "../../../assets/img/coin.png";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import {

@@ -1,8 +1,8 @@
-import style from '../Sidebar.module.scss';
-import logoType from '@/assets/img/logo-type.png';
-import Squircle from '@/assets/svg/squircle';
-import Image from 'next/image';
-import Link from 'next/link';
+import style from "../Sidebar.module.scss";
+import logoType from "../../../assets/img/logo-type.png";
+import { Squircle } from "@repo/shared_modules/icons";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Props {
   active?: boolean;

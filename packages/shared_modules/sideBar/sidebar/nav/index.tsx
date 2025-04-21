@@ -4,8 +4,8 @@ import { mobileMenuLogoSchema, sidebarMenuData } from "./menu-data";
 import Link from "next/link";
 import { Squircle } from "@repo/shared_modules/icons";
 import React from "react";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { usePathname } from "next/navigation";
 
 interface Props {

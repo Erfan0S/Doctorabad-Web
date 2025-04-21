@@ -1,14 +1,14 @@
 "use client";
 
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import style from "./Sidebar.module.scss";
 import SidebarFooter from "./footer";
 import SidebarLogo from "./logo";
 import SidebarNav from "./nav";
-import { useSidebar } from "@/states/sidebar";
+import { useSidebar } from "../states/sidebar";
 import { usePathname } from "next/navigation";
 // import MobileNavBar from '../mobileNavBar';
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -28,8 +28,7 @@ const Sidebar = () => {
       onMouseEnter={toggleShow}
       onMouseLeave={toggleShow}
     >
-      {isMobile ? // <MobileNavBar />
-      null : (
+      {isMobile ? null : ( // <MobileNavBar />
         <>
           <SidebarLogo active={isMainLogoActive} />
           <SidebarNav isMainLogoActive={isMainLogoActive} />
