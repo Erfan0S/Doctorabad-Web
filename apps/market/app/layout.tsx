@@ -11,6 +11,7 @@ import NextTopLoader from "nextjs-toploader";
 import { api } from "@/api/Api";
 import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
 import Script from "next/script";
+import MarketHeader from "@/components/common/header/market";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -62,7 +63,9 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <Header />
-            {children as any}
+            <MarketHeader />
+
+            <Content>{children}</Content>
             <Footer statistic={statistic} />
             <InstallBannerShow statistic={statistic} />
           </Providers>

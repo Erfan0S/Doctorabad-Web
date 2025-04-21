@@ -1,7 +1,6 @@
-import { PatchNotesType } from '@/types/patchNote';
-import React from 'react';
-import PatchNote from './patchNote';
-import { patchNotes } from '@/constants/PatchNotes';
+import React from "react";
+import PatchNote from "./patchNote";
+import { patchNotes } from "@/constants/PatchNotes";
 
 const PatchNoteList = () => {
   return (

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import style from "./installBanner.module.scss";
 import Image from "next/image";
 import logo from "@/assets/img/logo-without-text.png";
-import Close_X from "@/assets/svg/close_x";
+import { Close_X } from "@repo/shared_modules/icons";
 import { isIOS } from "react-device-detect";
 import { useRouter } from "next/navigation";
 import { IS_INSTALL_BANNER_SHOW_LOCAL } from "@repo/core/constants/constants";
