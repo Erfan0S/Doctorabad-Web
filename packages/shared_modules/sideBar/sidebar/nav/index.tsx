@@ -71,7 +71,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
               id={String(id)}
             >
               <div className={style.sidebarNavShape} />
-              <Link href={href} className={style[color]}>
+              <a type="button" href={href} className={style[color]}>
                 <Squircle fill="#fff" />
                 <Squircle fill={squircleColor[color]} />
 
@@ -82,7 +82,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
                   <span>{title}</span>
                   <small>{subTitle}</small>
                 </div>
-              </Link>
+              </a>
             </li>
           )
         )}

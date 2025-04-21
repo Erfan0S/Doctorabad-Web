@@ -1,5 +1,5 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 .sidebar {
   $sidebar: &;
@@ -41,13 +41,17 @@
       top: 50%;
       z-index: -1;
       transform: translateY(-50%);
-      background-image: linear-gradient(to right, #fff 80%, rgba(255, 255, 255, 0));
+      background-image: linear-gradient(
+        to right,
+        #fff 80%,
+        rgba(255, 255, 255, 0)
+      );
       transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
       overflow: hidden;
       opacity: 1;
       &:before,
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 0;
@@ -171,13 +175,17 @@
       top: 50%;
       z-index: -1;
       transform: translateY(-50%);
-      background-image: linear-gradient(to right, #fff 80%, rgba(255, 255, 255, 0));
+      background-image: linear-gradient(
+        to right,
+        #fff 80%,
+        rgba(255, 255, 255, 0)
+      );
       transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
       overflow: hidden;
       opacity: 1;
       &:before,
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 0;
