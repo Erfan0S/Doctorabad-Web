@@ -5,9 +5,9 @@ import Image from "next/image";
 import logo from "@/assets/img/logo-without-text.png";
 import uoloadIcon from "@/assets/svg/uplaod";
 import addIcon from "@/assets/svg/add";
-import iaddMultipleIcon from "@/assets/svg/addmultiple";
 import arrow from "@/assets/svg/svg-images/installArrowDown.svg";
 import Link from "next/link";
+import addMultipleIcon from "@/assets/svg/addmultiple";
 
 interface StepsType {
   text: string;
@@ -25,7 +25,7 @@ const STEPS: StepsType[] = [
   },
   {
     text: "در مرحله بعد در قسمت بالا روی Add بزنید.",
-    icon: iaddMultipleIcon,
+    icon: addMultipleIcon,
   },
 ];
 

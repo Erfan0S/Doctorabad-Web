@@ -9,8 +9,8 @@ import "../assets/styles/general.scss";
 
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
-// import { api } from "@/api/Api";
-// import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
+import { api } from "@repo/shared_modules/api";
+import { InstallBannerShow } from "@repo/shared_modules/components";
 import Script from "next/script";
 import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
@@ -21,15 +21,12 @@ const font = localFont({
   variable: "--font-iran-sans",
 });
 
-// export const metadata = homeMetadata;
-// export const viewPort = homeViewPort;
-
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const statistic = (await api.getHomeStatistics()).data.data;
+  const statistic = (await api.getHomeStatistics()).data.data;
   return (
     <html lang="fa">
       <Script
@@ -67,12 +64,12 @@ export default async function RootLayout({
           <Providers>
             <Suspense fallback={<div></div>}>
               <div className="learn-container">
-                {children} 
-                <MobileNavBar excludePaths={["checkout", "course"]}/>
+                {children}
+                <MobileNavBar excludePaths={["checkout", "course"]} />
               </div>
             </Suspense>
-            {/* <Footer statistic={statistic} />
-            <InstallBannerShow statistic={statistic} /> */}
+            {/* <Footer statistic={statistic} /> */}
+            <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>
       </body>

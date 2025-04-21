@@ -16,10 +16,7 @@ import {
   ProductComments,
   ProductShare,
 } from "@repo/core/types/product";
-import {
-  PaymentResult,
-
-} from "@repo/core/types/cart";
+import { PaymentResult } from "@repo/core/types/cart";
 import { Banner } from "@/types/banner";
 import { LastProcessingOrder } from "@/types/orders";
 import { FestivalInfo } from "@/types/festival";
@@ -526,13 +523,6 @@ class Api extends Request {
     token: string;
   }): Promise<any> {
     return this.request.post("/user/qrcode/verify", data);
-  }
-
-  getHomeStatistics(): Promise<ResponseType<{ data: HomeStatisticsType }>> {
-    return this.request.get<{ data: HomeStatisticsType }>(
-      "/user/home/counter",
-      { next: { revalidate: 36000 } }
-    );
   }
 
   getMagazinePosts(): Promise<ResponseType<{ data: BlogType[] }>> {

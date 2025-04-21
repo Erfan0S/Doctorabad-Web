@@ -1,3 +1,4 @@
+"use client";
 import { fadeInAnimation } from "@repo/core/constants/animationConfigs";
 import { motion } from "framer-motion";
 import styles from "./QrContents.module.scss";

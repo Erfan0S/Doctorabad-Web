@@ -38,6 +38,7 @@ import {
 import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
 import { CourseListItemType, CourseOrderItem } from "@repo/core/types/course";
+import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
 
 class Api extends Request {
   constructor() {
@@ -378,6 +379,14 @@ class Api extends Request {
     token: string;
   }): Promise<any> {
     return this.request.post("/user/qrcode/verify", data);
+  }
+
+  // home
+  getHomeStatistics(): Promise<ResponseType<{ data: HomeStatisticsType }>> {
+    return this.request.get<{ data: HomeStatisticsType }>(
+      "/user/home/counter",
+      { next: { revalidate: 36000 } }
+    );
   }
 }
 

@@ -8,8 +8,8 @@ import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
-import { api } from "@/api/Api";
-// import { InstallBannerShow } from "@/components/appDownload/installBanner/installBannerShow";
+import { api } from "@repo/shared_modules/api";
+import { InstallBannerShow } from "@repo/shared_modules/components";
 import Script from "next/script";
 import MarketHeader from "@/components/common/header/market";
 
@@ -67,7 +67,7 @@ export default async function RootLayout({
 
             <Content>{children}</Content>
             <Footer statistic={statistic} />
-            {/* <InstallBannerShow statistic={statistic} /> */}
+            <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>
       </body>

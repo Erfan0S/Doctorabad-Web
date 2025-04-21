@@ -1,7 +1,7 @@
 "use client";
 import { IS_INSTALL_BANNER_SHOW_LOCAL } from "@repo/core/constants/constants";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import InstallBanner from "./installBanner";
 import { usePathname } from "next/navigation";

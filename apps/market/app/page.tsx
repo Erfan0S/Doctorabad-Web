@@ -1,4 +1,5 @@
 import { api } from "@/api/Api";
+import { api as globalApi } from "@repo/shared_modules/api";
 import AppLinkSender from "@/components/home/AppLinkSender";
 import BigBanner from "@/components/home/BigBanner";
 import { bigBannerData } from "@/components/home/BigBanner/big-banner-data";
@@ -11,8 +12,8 @@ import Testimonials from "@/components/home/Testimonials";
 
 export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
-  const statistic = (await api.getHomeStatistics()).data.data;
   const blogPosts = (await api.getMagazinePosts()).data.data;
+  const statistic = (await globalApi.getHomeStatistics()).data.data;
 
   return (
     <>

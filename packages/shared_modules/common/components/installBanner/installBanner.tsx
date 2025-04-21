@@ -1,7 +1,9 @@
+"use client";
 import React, { useState } from "react";
 import style from "./installBanner.module.scss";
 import Image from "next/image";
-import logo from "@/assets/img/logo-without-text.png";
+// @ts-ignore
+import logo from "../../../assets/img/logo-without-text.png";
 import { Close_X } from "@repo/shared_modules/icons";
 import { isIOS } from "react-device-detect";
 import { useRouter } from "next/navigation";
@@ -17,9 +19,9 @@ const InstallBanner = ({ androidDownloadLink }: Props) => {
 
   const onInstallHandler = () => {
     if (isIOS) {
-      router.push("/pwa");
+      window.location.href = window.location.origin + "/pwa";
     } else {
-      router.push("/app");
+      window.location.href = window.location.origin + "/app";
       // window.open(androidDownloadLink, '_blank');
     }
   };
