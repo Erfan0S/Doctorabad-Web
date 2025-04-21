@@ -17,9 +17,9 @@ const SidebarLogo = ({ active = false }: Props) => {
           <Squircle />
         </>
       )}
-      <Link href="/">
+      <a href="/">
         <Image src={logoType} width={140} height={140} alt="دکترآباد" />
-      </Link>
+      </a>
     </div>
   );
 };

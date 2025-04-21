@@ -1,35 +1,69 @@
 import { api } from "@/api/Api";
-import { api as globalApi } from "@repo/shared_modules/api";
-import AppLinkSender from "@/components/home/AppLinkSender";
-import BigBanner from "@/components/home/BigBanner";
-import { bigBannerData } from "@/components/home/BigBanner/big-banner-data";
-import BlogSlider from "@/components/home/blogSlider";
-import { blogSliderData } from "@/components/home/blogSlider/blog-slider-data";
-import Companies from "@/components/home/companies";
-import Intro from "@/components/home/intro";
-import Statistics from "@/components/home/Statistics";
-import Testimonials from "@/components/home/Testimonials";
+import Banners from "@/components/marketHome/banners";
 
-export default async function Home() {
+import Companies from "@/components/marketHome/companies";
+import Discounts from "@/components/marketHome/discounts";
+import Intro from "@/components/marketHome/intro";
+import Link from "next/link";
+import style from "@/components/marketHome/banners/Banners.module.scss";
+import classNames from "classnames";
+import CategoryBanner from "@/components/marketHome/categoryBanner";
+import { HomePageProductSliders } from "@/components/HomePageProductSliders";
+
+export default async function HomeMarket() {
   const ProvidersList = (await api.getProviders()).data.data;
-  const blogPosts = (await api.getMagazinePosts()).data.data;
-  const statistic = (await globalApi.getHomeStatistics()).data.data;
+  const amazingProducts = (
+    await api.getAmazingProductList({ page: "1", limit: "10" })
+  ).data;
+  const sliders = (await api.getMainSliders()).data.data;
 
   return (
     <>
-      <Intro statistic={statistic} />
-      <Statistics statistic={statistic} />
-      {bigBannerData.map((item, index) => (
-        <BigBanner key={index} {...item} />
-      ))}
-      <BlogSlider
-        data={blogPosts}
-        title="دکترمگ"
-        archiveLink="https://mag.doctorabad.com/"
+      <Intro
+        mainSliders={sliders.filter((s) => s.location === 1)}
+        sideSliders={sliders.filter((s) => s.location === 2)}
       />
       <Companies list={ProvidersList} />
-      {/* <Testimonials />
-      <AppLinkSender /> */}
+      {!!amazingProducts.data.length && (
+        <Discounts
+          products={amazingProducts.data}
+          expireTime={amazingProducts.amazing_time}
+        />
+      )}
+
+      <CategoryBanner data={sliders.filter((s) => s.location === 3)} />
+      <HomePageProductSliders type="suggested" />
+      <HomePageProductSliders type="bestSelling" />
+      <HomePageProductSliders type="lastSeen" />
+      <section className={`${style.bannersItem} ${style.bannersItemFull}`}>
+        <div className="container">
+          {sliders
+            .filter((s) => s.location === 4)
+            .map(({ id, title, pic_url, url }) =>
+              url ? (
+                <Link key={id} href={url} title={title} target="_blank">
+                  <img src={pic_url} alt={pic_url} />
+                </Link>
+              ) : (
+                <img key={id} src={pic_url} alt={pic_url} />
+              )
+            )}
+        </div>
+      </section>
+
+      <HomePageProductSliders type="newest" />
+      <Banners
+        data={sliders.filter((s) => s.location === 5)}
+        imageOptions={{ width: 250, height: 165 }}
+        className={classNames("col-6 col-lg-3")}
+      />
+
+      <Banners
+        data={sliders.filter((s) => s.location === 6)}
+        imageOptions={{ width: 140, height: 110 }}
+        className={classNames("col-4 col-lg-2", style.bannersPropertyItem)}
+        showTitles
+      />
     </>
   );
 }

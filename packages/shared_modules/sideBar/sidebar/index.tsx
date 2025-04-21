@@ -11,8 +11,8 @@ import { usePathname } from "next/navigation";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 const Sidebar = () => {
-  const pathname = usePathname();
   const isMobile = useMediaQuery("max-width:768px");
+  const pathname = window.location.pathname;
 
   const isMainLogoActive = pathname === "/";
   const { toggleShow, show } = useSidebar();

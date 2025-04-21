@@ -20,7 +20,7 @@ const squircleColor: { [key: string]: string } = {
 };
 
 const SidebarNav = ({ isMainLogoActive }: Props) => {
-  const pathname = usePathname();
+  const pathname = window.location.pathname;
 
   const isMobile = useMediaQuery("max-width:768px");
   const shouldRender = useClientComponentInitiated();

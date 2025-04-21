@@ -27,6 +27,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const statistic = (await api.getHomeStatistics()).data.data;
+
   return (
     <html lang="fa">
       <Script
