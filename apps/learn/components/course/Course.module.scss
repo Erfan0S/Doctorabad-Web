@@ -55,8 +55,8 @@
 
 .purchaseBar {
   position: fixed;
-  bottom: 78px;
   z-index: 100;
+  bottom: 0;
   left: auto;
   right: auto;
   padding: 16px;
@@ -65,6 +65,10 @@
   width: 100vw;
   max-width: 800px;
   margin: 0 auto;
+
+  :focus{
+    color: #fff;
+  }
 }
 
 .purchaseButton {
@@ -111,10 +115,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media (max-width: 768px) {
-  .purchaseBar {
-    bottom: 65px;
-  }
 }

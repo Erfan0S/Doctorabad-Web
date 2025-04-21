@@ -26,6 +26,7 @@ import PageHeader from "../Header/PageHeader";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
+import { routePath } from "@repo/core/constants/routePath";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -109,6 +110,7 @@ const Course = ({ course }: Props) => {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
     }
+    console.log(lesson);
   };
 
   const goToBookmark = (lessonId: number, jumpTime: number) => {
@@ -147,13 +149,16 @@ const Course = ({ course }: Props) => {
                     maxHeight: "600px",
                     minHeight: "300px",
                     background: "#eee",
+                    paddingTop: "56.25%", // 16:9 aspect ratio (9/16 = 0.5625)
+                    borderRadius: "20px",
+                    overflow: "hidden"
                   }}
                 >
                   <Image
                     src={course.course_pic}
                     alt={course.title}
                     fill
-                    style={{ objectFit: "none" }}
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
               ) : course.user_has_access && isLoading ? (
@@ -212,9 +217,9 @@ const Course = ({ course }: Props) => {
               (item) =>
                 item.product_type === "course" && item.product_id === course.id
             ) ? (
-              <button className={style.purchaseButton}>
+              <Link href={routePath.checkout} className={style.purchaseButton}>
                 به سبد خرید اضافه شد
-              </button>
+              </Link>
             ) : course.user_has_access ? (
               <button
                 className={style.purchaseButton}

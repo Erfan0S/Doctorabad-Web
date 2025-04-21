@@ -30,9 +30,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
   useEffect(() => {
-    if (
+    console.log(!config);
+    console.log(!playerRef.current);
+      if (
       !videoRef.current ||
-      playerRef.current ||
+      // !!playerRef.current ||
       !config ||
       !Object.values(config).length
     )

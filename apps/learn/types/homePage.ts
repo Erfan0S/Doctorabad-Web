@@ -24,15 +24,17 @@ export type SliderType = {
   pic_url: string;
 };
 
-export enum HomePageCourseSliders {
-  Suggested = "suggested",
-  Newest = "newest",
-  BestSeller = "best-seller",
-  LastViewed = "last-viewed",
-}
-
 export enum CourseListType {
   Suggested = "suggested",
   Newest = "newest",
   BestSeller = "best-seller",
+  MyCourses = "my-courses",
+}
+
+export enum HomePageCourseSliders {
+  MyCourses = "my-courses",
+  Suggested = "suggested",
+  Newest = "newest",
+  BestSeller = "best-seller",
+  LastViewed = "last-viewed",
 }

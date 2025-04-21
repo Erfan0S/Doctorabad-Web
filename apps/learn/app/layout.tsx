@@ -65,11 +65,10 @@ export default async function RootLayout({
         <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>
-            {/* <Header /> */}
             <Suspense fallback={<div></div>}>
               <div className="learn-container">
                 {children} 
-                <MobileNavBar excludePaths={["checkout"]}/>
+                <MobileNavBar excludePaths={["checkout", "course"]}/>
               </div>
             </Suspense>
             {/* <Footer statistic={statistic} />
