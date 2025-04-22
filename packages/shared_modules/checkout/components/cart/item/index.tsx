@@ -31,23 +31,25 @@ const CartItem = ({
     cartActions.increaseQuantity(id);
   };
 
-  const url = generateSingleProductUrlFromId(product_id, '', product_type);
+  const url = generateSingleProductUrlFromId(product_id, "", product_type);
 
   return (
     <div className={style.cartItem}>
       <div className={style.cartItemImage}>
-        <Link href={url}>
+        <a href={url} target="_blank">
           <Image
             src={product_pic || placeHolderDataUrl}
             alt={product_title}
             width={75}
             height={75}
           />
-        </Link>
+        </a>
       </div>
       <div className={style.cartItemContent}>
         <div className={style.cartItemTitle}>
-          <Link href={url}>{product_title}</Link>
+          <a href={url} target="_blank">
+            {product_title}
+          </a>
         </div>
         <div className={style.cartItemFooter}>
           <div className={style.cartItemPrice}>

@@ -73,10 +73,10 @@ export const generateSingleProductUrlFromId = (
 ) => {
   switch (type) {
     case OrderType.ShopProduct:
-      return `/product/${id}/${slug}`;
+      return `${routePath.marketBasePath}/product/${id}/${slug}`;
     case OrderType.Course:
-      return `/course/${id}/${slug}`;
-  
+      return `${routePath.learnBasePath}/course/${id}/${slug}`;
+
     default:
       return `/product/${id}/${slug}`;
   }
