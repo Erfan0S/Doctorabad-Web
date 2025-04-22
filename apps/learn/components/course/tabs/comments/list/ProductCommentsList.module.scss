@@ -1,4 +1,13 @@
 .productCommentsHeader {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.noComments {
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-weight: 800;
+  font-size: medium;
+  margin-top: 15px;
 }

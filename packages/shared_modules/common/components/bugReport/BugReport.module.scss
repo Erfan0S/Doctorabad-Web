@@ -124,11 +124,5 @@ html .course {
 @media (max-width: 576px) {
   .bugReportModal {
     width: 100%;
-    border-radius: space(5) space(5) 0 0;
-    padding: space(4) space(6) space(6);
-
-    button {
-      margin-bottom: unset;
-    }
   }
 }

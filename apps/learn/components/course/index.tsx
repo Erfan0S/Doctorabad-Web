@@ -27,6 +27,7 @@ import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { routePath } from "@repo/core/constants/routePath";
+import classNames from "classnames";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -51,6 +52,8 @@ const Course = ({ course }: Props) => {
   const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
     number | null
   >(null);
+
+  const [orderId, serOrderId] = useState<number | undefined>();
 
   const { data: leassonData, isLoading } = useQuery({
     queryKey: ["course-videop", `leason-${course.id}-${currentLeasson?.id}`],
@@ -81,6 +84,15 @@ const Course = ({ course }: Props) => {
     );
   }, [course]);
 
+  useEffect(() => {
+    serOrderId(
+      data?.find(
+        (item) =>
+          item.product_type === "course" && item.product_id === course.id
+      )?.id
+    );
+  }, [data]);
+
   const goToNextTrack = () => {
     const nextLeasson =
       flatLeasons[
@@ -110,7 +122,6 @@ const Course = ({ course }: Props) => {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
     }
-    console.log(lesson);
   };
 
   const goToBookmark = (lessonId: number, jumpTime: number) => {
@@ -138,7 +149,7 @@ const Course = ({ course }: Props) => {
         }
         haveMargin={false}
       />
-      <div className="row">
+      <div>
         <div className={style.container}>
           <div className={style.courseHeader}>
             <div style={{ padding: "0 15px" }}>
@@ -151,7 +162,7 @@ const Course = ({ course }: Props) => {
                     background: "#eee",
                     paddingTop: "56.25%", // 16:9 aspect ratio (9/16 = 0.5625)
                     borderRadius: "20px",
-                    overflow: "hidden"
+                    overflow: "hidden",
                   }}
                 >
                   <Image
@@ -212,14 +223,28 @@ const Course = ({ course }: Props) => {
               ) : null
             )}
           </div>
-          <div className={style.purchaseBar}>
-            {data?.find(
-              (item) =>
-                item.product_type === "course" && item.product_id === course.id
-            ) ? (
-              <Link href={routePath.checkout} className={style.purchaseButton}>
-                به سبد خرید اضافه شد
-              </Link>
+          <div
+            className={classNames(style.purchaseBar, {
+              [style.purchaseBarAccess]: course.user_has_access,
+            })}
+          >
+            {!!orderId ? (
+              <div className={style.addedPurchaseButtonWrapper}>
+                <button
+                  className={style.purchaseButton}
+                  onClick={() => {
+                    cartActions.removeFromCart(orderId);
+                  }}
+                >
+                  حذف از سبد خرید
+                </button>
+                <Link
+                  href={routePath.checkout}
+                  className={style.purchaseButton}
+                >
+                  رفتن به سبد خرید
+                </Link>
+              </div>
             ) : course.user_has_access ? (
               <button
                 className={style.purchaseButton}

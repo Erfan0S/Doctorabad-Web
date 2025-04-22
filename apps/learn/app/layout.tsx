@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 // import { homeMetadata, homeViewPort } from "@/metadata/home";
 
 import "react-toastify/dist/ReactToastify.css";
-// import "../assets/styles/grid.scss";
+import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
 
 import Providers from "@/providers/providers";
