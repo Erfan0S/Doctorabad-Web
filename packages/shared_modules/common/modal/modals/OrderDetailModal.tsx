@@ -1,9 +1,12 @@
 import React from "react";
 import { ModalProps } from "@repo/core/types/modals";
 import OrderDetail from "../../../userSidePanel/modal_components/orderDetail";
+import { OrderType } from "@repo/core/types/cart";
 
-type Props = ModalProps<{ orderCode: string }>;
+type Props = ModalProps<{ orderCode: string; productType?: OrderType }>;
 
 export const OrderDetailModal = ({ data }: Props) => {
-  return <OrderDetail orderCode={data.orderCode} />;
+  return (
+    <OrderDetail orderCode={data.orderCode} productType={data.productType} />
+  );
 };

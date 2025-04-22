@@ -12,6 +12,7 @@ import React from "react";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { OrderType } from "@repo/core/types/cart";
 
 const SidePanelOrdersLearning: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
@@ -56,6 +57,7 @@ const SidePanelOrdersLearning: React.FC = () => {
                 onClick={() =>
                   modalActions.addModal(ModalTypes.ORDER_DETAIL, {
                     orderCode: order_code,
+                    productType: OrderType.ShopProduct,
                   })
                 }
               >
