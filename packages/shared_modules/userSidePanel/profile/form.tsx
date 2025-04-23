@@ -42,7 +42,7 @@ const ProfileForm = () => {
           <FieldGradeSelection />
           <ProvinceCitySelection />
         </div>
-        <div className={style.formText}>
+        <div className={style.formText} style={{ marginTop: "15px" }}>
           <label htmlFor="address">آدرس</label>
           <Field as="textarea" id="address" name="address" />
         </div>

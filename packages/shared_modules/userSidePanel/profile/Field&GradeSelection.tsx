@@ -37,6 +37,7 @@ export const FieldGradeSelection = () => {
             name="field_id"
             placeholder="رشته"
             disabled={loadingFields}
+            required={true}
           >
             {loadingFields ? (
               <option value="">در حال دریافت رشته ها</option>
@@ -63,6 +64,7 @@ export const FieldGradeSelection = () => {
             placeholder="مقطع"
             defaultValue={values.grade_id}
             disabled={loadingGrades || waitingToSelectField}
+            required={true}
           >
             {waitingToSelectField ? (
               <option value="">ابتدا رشته خود را انتخاب کنید</option>
