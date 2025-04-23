@@ -42,26 +42,28 @@ export type LastProcessingShopOrder = {
   discount_code: string | null;
 };
 export type LastProcessingLearnOrder = {
-  id: number;
-  order_code: string;
-  created_at: string;
-  sts: number;
-  price_calculated: number;
-  price_discounted: null;
-  price_paid: number;
-  type: string;
-  order_items: {
+  data: {
     id: number;
-    product_id: number;
-    product_title: string;
-    quantity: number;
-    product_pic: string;
-    price_main: number;
-    price_off: null;
-    price_amazing: null;
+    order_code: string;
+    created_at: string;
+    sts: number;
+    price_calculated: number;
+    price_discounted: null;
     price_paid: number;
-    variants: any[];
-  }[];
-  coin_received: null | number;
-  discount_code: null | string;
+    type: string;
+    order_items: {
+      id: number;
+      product_id: number;
+      product_title: string;
+      quantity: number;
+      product_pic: string;
+      price_main: number;
+      price_off: number;
+      price_amazing: null;
+      price_paid: number;
+      variants: any[];
+    }[];
+    coin_received: null | number;
+    discount_code: null | string;
+  };
 };
