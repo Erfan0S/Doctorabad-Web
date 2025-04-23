@@ -6,6 +6,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { modalActions } from "@repo/core/modal/modals";
 import { useSearchParams } from "next/navigation";
 import { FilterModalType } from "@/types/filters";
+import { useChangeSearchParamsFilter } from "@/utils/useChangeSearchParamsFilter";
 
 interface Props {
   title: string;
@@ -14,6 +15,7 @@ interface Props {
   children?: React.ReactNode;
   className?: string;
   modalType?: ModalTypes;
+  dependencies?: (string | null)[];
   onClick?: () => void;
 }
 
@@ -27,11 +29,13 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   items,
   queryKey,
   contentSpacing,
+  dependencies,
   singleSelection,
 }) => {
   const [active, toggleActive] = useReducer((show) => !show, isActive);
   const params = useSearchParams();
   const [selected, setSelected] = useState<string | null>(null);
+  const changeFilters = useChangeSearchParamsFilter();
 
   const handleClick = () => {
     if (!isActive) return;
@@ -44,9 +48,17 @@ const Accordion: React.FC<Props & FilterModalType> = ({
     });
   };
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     const filter = params.get(queryKey);
     setSelected(items.find((item) => item.id == filter)?.title || null);
+
+    dependencies &&
+      dependencies.forEach((dep) => {
+        if (!dep) return;
+        changeFilters({ [dep]: null });
+      });
   }, [params.get(queryKey)]);
 
   return (

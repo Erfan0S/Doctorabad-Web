@@ -45,7 +45,9 @@ const CourseListItem = ({ course }: Props) => {
                     textDecoration: course.price_off ? "line-through" : "",
                   }}
                 >
-                  {priceFormatter(course.price_main)} تومن
+                  {!(course.price_main <= 0)
+                    ? priceFormatter(course.price_main) + " تومن"
+                    : "رایگان"}
                 </span>
                 {course.price_off ? (
                   <span>{priceFormatter(course.price_off)} تومن</span>

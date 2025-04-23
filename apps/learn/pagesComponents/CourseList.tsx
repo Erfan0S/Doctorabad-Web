@@ -16,7 +16,7 @@ const CourseListPage = ({ type }: Props) => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryKey: ["courses", `CourseListConfigs[type].title`],
+    queryKey: ["courses", CourseListConfigs[type].title],
     queryFn: ({ pageParam }) =>
       CourseListConfigs[type].api().then((res) => res.data),
     initialPageParam: 1,
