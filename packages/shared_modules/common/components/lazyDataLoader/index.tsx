@@ -2,7 +2,7 @@
 
 import { ResponseType } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 type Props<D = any> = {
@@ -24,12 +24,15 @@ export const LazyDataLoader = <S extends Object>({
     retry: false,
     enabled: false,
   });
-  const { ref } = useInView({
-    onChange: (inView) => {
-      if (inView && !isSuccess) refetch();
-    },
+  const { ref, inView } = useInView({
     threshold: 0.5,
   });
+
+  useEffect(() => {
+    if (inView && !isSuccess) {
+      refetch();
+    }
+  }, [inView, isSuccess, refetch]);
 
   if (isLoading || isPending)
     return (

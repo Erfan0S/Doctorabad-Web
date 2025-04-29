@@ -3,56 +3,28 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import { autoPlayConfig, swiperBreakpoints } from "@/constants/sliders";
-import { Autoplay } from "swiper/modules";
-import { CourseListType, HomePageCourseSliders } from "@/types/homePage";
-import { api } from "@/api/Api";
-import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
 import { useEffect, useState } from "react";
+import { CourseListItemType } from "@/types/courses";
+import { PaginatedResponse } from "@repo/core/types/general";
+import Image from "next/image";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 interface Props {
-  type: HomePageCourseSliders;
+  data: PaginatedResponse<CourseListItemType[]>;
+  title: string;
+  archiveLink: string | null;
+  isLoading?: boolean;
   customSliderConfig?: SwiperProps;
 }
 
-const Configs = {
-  [HomePageCourseSliders.Suggested]: {
-    loader: () => api.getSuggestedCourses(),
-    title: "پیشنهاد کدخدای دکترآباد",
-    archiveLink: "/course_list/" + CourseListType.Suggested,
-  },
-
-  [HomePageCourseSliders.Newest]: {
-    loader: () => api.getNewestCourses(),
-    title: "جدید‌ترین ها",
-    archiveLink: "/course_list/" + CourseListType.Newest,
-  },
-  [HomePageCourseSliders.BestSeller]: {
-    loader: () => api.getBestSellerCourses(),
-    title: "پرفروش‌ترین ها",
-    archiveLink: "/course_list/" + CourseListType.BestSeller,
-  },
-
-  [HomePageCourseSliders.LastViewed]: {
-    loader: () => api.getUserLastViewedCourses(),
-    title: "آخرین بازدید‌های من",
-    archiveLink: null,
-  },
-
-  [HomePageCourseSliders.MyCourses]: {
-    loader: () => null,
-    title: "دوره‌ها و طرح‌های من",
-    archiveLink: "/course_list/" + CourseListType.MyCourses
-  }
-};
-
-const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["courses", type],
-    queryFn: Configs[type].loader,
-  });
-
+const CourseSlider: React.FC<Props> = ({
+  customSliderConfig,
+  data,
+  isLoading,
+  archiveLink,
+  title,
+}) => {
   const [slidesPerView, setSlidesPerView] = useState(1);
   const spaceBetween = 5; // Set your desired space between slides here
 
@@ -74,9 +46,7 @@ const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
     };
   }, []);
 
-  const { title, archiveLink } = Configs[type];
-
-  if (!isLoading && !data?.data.data.length) return null;
+  if (!isLoading && !data?.data.length) return null;
 
   return (
     <section className={style.productSlider}>
@@ -109,12 +79,16 @@ const CourseSlider: React.FC<Props> = ({ type, customSliderConfig }) => {
               // breakpoints={swiperBreakpoints}
               {...customSliderConfig}
             >
-              {data?.data?.data?.map((course, i) => (
+              {data?.data?.map((course, i) => (
                 <SwiperSlide key={course.id}>
                   <Link href={`/course/${course.id}`}>
-                    <div
+                    <Image
                       className={style.course}
-                      style={{ backgroundImage: `url(${course.pic_url})` }}
+                      src={course.pic_url || placeHolderDataUrl}
+                      alt={course.title || "دروس"}
+                      width={175}
+                      height={95}
+                      placeholder={placeHolderDataUrl}
                     />
                   </Link>
                 </SwiperSlide>

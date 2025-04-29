@@ -9,6 +9,7 @@ import { CourseListItemType } from "@/types/courses";
 import styles from "./CourseList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import formatDuration from "@/utils/formatDuration";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 type Props = {
   course: CourseListItemType;
@@ -24,6 +25,7 @@ const CourseListItem = ({ course }: Props) => {
           width={80}
           height={80}
           className={styles.courseImage}
+          placeholder={placeHolderDataUrl}
         />
       ) : (
         <div className={styles.courseImage} />
