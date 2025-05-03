@@ -1,4 +1,3 @@
-import React from "react";
 import { SidePanelPageProps } from "../types/sidePanel";
 import SidePanelHeader from "../header";
 import MessageList from "./list";
