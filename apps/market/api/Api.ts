@@ -20,8 +20,6 @@ import { PaymentResult } from "@repo/core/types/cart";
 import { Banner } from "@/types/banner";
 import { LastProcessingOrder } from "@/types/orders";
 import { FestivalInfo } from "@/types/festival";
-import { BookContents } from "@/types/bookContents";
-import { HomeStatisticsType } from "@/types/homeStatistics";
 import { BlogType } from "@/types/blog";
 
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
@@ -509,14 +507,6 @@ class Api extends Request {
   //     { params: { page } }
   //   );
   // };
-
-  getMultiMediaContentsFromId(
-    id: string
-  ): Promise<ResponseType<{ data: BookContents }>> {
-    return this.request.get<{ data: BookContents }>(
-      `/api/user/book/qrcode/files/${id}`
-    );
-  }
 
   verifyMultimediaContent(data: {
     verification_code: string;

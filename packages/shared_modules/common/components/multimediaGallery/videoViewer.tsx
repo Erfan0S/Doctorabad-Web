@@ -3,7 +3,7 @@ import styles from "./Video.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import Image, { ImageProps } from "next/image";
-import Play from "@/assets/svg/play";
+import Play from "../../../assets/svg/play";
 
 type Props = {
   src: string;

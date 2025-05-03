@@ -1,8 +1,14 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import style from './QrError.module.scss';
-import BugIcon from '@/assets/svg/newIcons/bug';
-import { useLoadHeavyModule } from '@/hooks/useLoadHeavyModule';
-import { toast } from 'react-toastify';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import style from "./QrError.module.scss";
+import BugIcon from "../../../../assets/svg/bug";
+import { useLoadHeavyModule } from "@repo/core/hooks/useLoadHeavyModule";
+import { toast } from "react-toastify";
 
 type Props = {
   setId: Dispatch<SetStateAction<string | null>>;
@@ -10,7 +16,7 @@ type Props = {
 
 const QrError = ({ setId }: Props) => {
   const [qrImage, setQrImage] = useState<File>();
-  const [jsQR, loadingQrScanner] = useLoadHeavyModule(() => import('jsqr'));
+  const [jsQR, loadingQrScanner] = useLoadHeavyModule(() => import("jsqr"));
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [qrData, setQrData] = useState<string | null>(null);
@@ -25,16 +31,16 @@ const QrError = ({ setId }: Props) => {
   };
 
   const onResult = (data: string) => {
-    if (data.includes('api/user/book/qrcode/files/')) {
-      return setId(data.split('/').pop()!);
+    if (data.includes("api/user/book/qrcode/files/")) {
+      return setId(data.split("/").pop()!);
     } else {
-      toast('qrcode نامعتبر است', { type: 'error' });
+      toast("qrcode نامعتبر است", { type: "error" });
     }
   };
 
   const scanQRCodeFromImage = () => {
     const canvasElement = canvasRef.current;
-    const canvas = canvasElement?.getContext('2d');
+    const canvas = canvasElement?.getContext("2d");
 
     if (!imageSrc || !canvasElement || !canvas) return;
 
@@ -45,16 +51,26 @@ const QrError = ({ setId }: Props) => {
       canvasElement.height = image.height;
       canvas.drawImage(image, 0, 0, canvasElement.width, canvasElement.height);
 
-      const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-      const code: any = jsQR!(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert',
-      });
+      const imageData = canvas.getImageData(
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height
+      );
+      const code: any = jsQR!(
+        imageData.data,
+        imageData.width,
+        imageData.height,
+        {
+          inversionAttempts: "dontInvert",
+        }
+      );
 
       if (code) {
         setQrData(code.data);
       } else {
         setQrData(null);
-        toast('qrcode نامعتبر است یا کیفیت عکس مناسب نیست ', { type: 'error' });
+        toast("qrcode نامعتبر است یا کیفیت عکس مناسب نیست ", { type: "error" });
       }
     };
   };
@@ -76,13 +92,20 @@ const QrError = ({ setId }: Props) => {
         متاسفانه نتونستیم QrCode شما را اسکن کنیم. <br />
         اگر از صحت QrCode خود اطمینان دارید،
         <br />
-        این ارور میتواند به دلیل محدودیت هایی که مرورگر بر‌روی دوربین اعمال میکند رخداده باشد.
+        این ارور میتواند به دلیل محدودیت هایی که مرورگر بر‌روی دوربین اعمال
+        میکند رخداده باشد.
         <br />
-        لطفا به صورت مجزا و با کیفیت بالا از QrCode خود عکس گرفته و عکس گرفته شده را در کادر زیر وارد کنید.
+        لطفا به صورت مجزا و با کیفیت بالا از QrCode خود عکس گرفته و عکس گرفته
+        شده را در کادر زیر وارد کنید.
       </p>
-      <input type="file" accept="image/*" id="UserQrImage" onChange={handleImageUpload} />
+      <input
+        type="file"
+        accept="image/*"
+        id="UserQrImage"
+        onChange={handleImageUpload}
+      />
       <label htmlFor="UserQrImage">QrCode خود را اینجا وارد کنید</label>
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <canvas ref={canvasRef} style={{ display: "none" }} />
     </div>
   );
 };

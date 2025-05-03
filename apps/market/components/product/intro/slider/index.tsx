@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { getAvatarType } from "@/utils/avatarUtils";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { MultimediaType } from "@repo/core/types/general";
-import { MultimediaGallery } from "@/components/common/multimediaGallery/multimediaGallery";
+import { MultimediaGallery } from "@repo/shared_modules/components";
 
 interface Props {
   slider: SingleProductFile[];

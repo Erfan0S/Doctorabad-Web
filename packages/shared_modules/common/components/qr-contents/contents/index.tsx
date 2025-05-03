@@ -4,13 +4,13 @@ import "swiper/css/effect-cards";
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { BookContentFile } from "@/types/bookContents";
+import { BookContentFile } from "@repo/core/types/bookContents";
 import styles from "./bookContents.module.scss";
-import { getMediaType } from "@/utils/getMediaType";
+import { getMediaType } from "@repo/core/utils/getMediaType";
 
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import "photoswipe/style.css";
-import { MultimediaGallery } from "@/components/common/multimediaGallery/multimediaGallery";
+import { MultimediaGallery } from "../../multimediaGallery/multimediaGallery";
 type Props = { items: BookContentFile[]; title: string };
 
 export const Contents = ({ items, title }: Props) => {

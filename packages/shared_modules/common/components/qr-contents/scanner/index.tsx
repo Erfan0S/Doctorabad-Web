@@ -1,11 +1,10 @@
-import Loading from '@/components/common/loading';
-import { useLoadHeavyModule } from '@/hooks/useLoadHeavyModule';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import styles from './QrScanner.module.scss';
-import { toast } from 'react-toastify';
-import { ScanArea } from '@/assets/svg/scanArea/scanArea';
-import { MultiMediaQrPage } from '..';
-import { time } from 'console';
+import { Loading } from "@repo/shared_modules/components";
+import { useLoadHeavyModule } from "@repo/core/hooks/useLoadHeavyModule";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import styles from "./QrScanner.module.scss";
+import { toast } from "react-toastify";
+import { ScanArea } from "../../../../assets/svg/scanArea/scanArea";
+import { MultiMediaQrPage } from "..";
 
 type Props = {
   setId: Dispatch<SetStateAction<string | null>>;
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export const Scanner = ({ setId, setPage }: Props) => {
-  const [jsQR, loadingQrScanner] = useLoadHeavyModule(() => import('jsqr'));
+  const [jsQR, loadingQrScanner] = useLoadHeavyModule(() => import("jsqr"));
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -23,16 +22,23 @@ export const Scanner = ({ setId, setPage }: Props) => {
   useEffect(() => {
     const video = videoRef.current;
     const canvasElement = canvasRef.current;
-    const canvas = canvasElement?.getContext('2d');
+    const canvas = canvasElement?.getContext("2d");
 
-    if (!video || !canvasElement || !canvas || loadingQrScanner || !isCameraEnabled) return;
+    if (
+      !video ||
+      !canvasElement ||
+      !canvas ||
+      loadingQrScanner ||
+      !isCameraEnabled
+    )
+      return;
     let timeoutID: null | NodeJS.Timeout = null;
     const onResult = (data: string) => {
-      if (data.includes('api/user/book/qrcode/files/')) {
-        return setId(data.split('/').pop()!);
+      if (data.includes("api/user/book/qrcode/files/")) {
+        return setId(data.split("/").pop()!);
       } else {
         if (!timeoutID) {
-          toast('qrcode نامعتبر است', { type: 'error' });
+          toast("qrcode نامعتبر است", { type: "error" });
           timeoutID = setTimeout(() => {
             timeoutID = null;
           }, 5000);
@@ -45,11 +51,22 @@ export const Scanner = ({ setId, setPage }: Props) => {
 
         canvasElement.height = video.videoHeight;
         canvasElement.width = video.videoWidth;
-        canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+        canvas.drawImage(
+          video,
+          0,
+          0,
+          canvasElement.width,
+          canvasElement.height
+        );
 
-        const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+        const imageData = canvas.getImageData(
+          0,
+          0,
+          canvasElement.width,
+          canvasElement.height
+        );
         const code = jsQR!(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: 'dontInvert',
+          inversionAttempts: "dontInvert",
         });
 
         if (code) {
@@ -61,13 +78,15 @@ export const Scanner = ({ setId, setPage }: Props) => {
 
     const initVideoStream = async () => {
       try {
-        stream.current = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        stream.current = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
+        });
         video.srcObject = stream.current;
-        video.setAttribute('playsinline', 'true');
+        video.setAttribute("playsinline", "true");
         video.play();
         requestAnimationFrame(tick);
       } catch (err) {
-        console.error('Error accessing video stream', err);
+        console.error("Error accessing video stream", err);
       }
     };
 
@@ -94,7 +113,12 @@ export const Scanner = ({ setId, setPage }: Props) => {
       ) : (
         <div>
           <video ref={videoRef} />
-          <canvas id="QrCanvas" ref={canvasRef} hidden style={{ width: '100%' }}></canvas>
+          <canvas
+            id="QrCanvas"
+            ref={canvasRef}
+            hidden
+            style={{ width: "100%" }}
+          ></canvas>
           <ScanArea />
           <button onClick={() => setPage(MultiMediaQrPage.ERROR)}>
             QrCode کار نمیکند؟

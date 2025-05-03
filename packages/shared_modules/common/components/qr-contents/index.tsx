@@ -2,11 +2,11 @@
 import { fadeInAnimation } from "@repo/core/constants/animationConfigs";
 import { motion } from "framer-motion";
 import styles from "./QrContents.module.scss";
-import Loading from "../common/loading";
+import { Loading } from "@repo/shared_modules/components";
 import { useEffect, useState } from "react";
 import { SidePanelHeader } from "@repo/shared_modules";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
+import { api } from "../../../api/Api";
 import { Scanner } from "./scanner";
 import { VerifyCode } from "./verifyCode";
 import { ResponseType } from "@repo/core/types/general";
