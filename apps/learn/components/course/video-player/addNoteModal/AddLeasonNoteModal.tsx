@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { toast } from "react-toastify";
 import { convertSecondsToNormalTime } from "@/utils/convertSecondsToNormalTime";
+import { font } from "@/assets/fonts/font";
 
 interface AddLeasonNoteModalProps {
   currentTime: number;
@@ -59,7 +60,7 @@ const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
       {data.showOnPlayer && (
         <div className={styles.modalOverlay} onClick={() => closeModal()} />
       )}
-      <div className={styles.modalContent}>
+      <div className={`${styles.modalContent} ${font.className}`}>
         <div className={styles.modalHeader}>
           <h2 className={styles.title}>یادداشت</h2>
           <span className={styles.timestamp}>
