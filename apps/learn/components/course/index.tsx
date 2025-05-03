@@ -84,6 +84,8 @@ const Course = ({ course }: Props) => {
     );
   }, [course]);
 
+  console.log(course);
+
   useEffect(() => {
     serOrderId(
       data?.find(
@@ -152,25 +154,10 @@ const Course = ({ course }: Props) => {
       <div>
         <div className={style.container}>
           <div className={style.courseHeader}>
-            <div style={{ padding: "0 15px" }}>
+            <div className={style.courseHeaderTop}>
               {!course.user_has_access && !course.course_preview ? (
-                <div
-                  style={{
-                    position: "relative",
-                    maxHeight: "600px",
-                    minHeight: "300px",
-                    background: "#eee",
-                    paddingTop: "56.25%", // 16:9 aspect ratio (9/16 = 0.5625)
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Image
-                    src={course.course_pic}
-                    alt={course.title}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
+                <div className={style.courseImagePrevWrapper}>
+                  <Image src={course.course_pic} alt={course.title} fill />
                 </div>
               ) : course.user_has_access && isLoading ? (
                 <div className={style.loadingWrapper}>
@@ -210,7 +197,7 @@ const Course = ({ course }: Props) => {
               defaultTab={CourseTab.LESSONS}
             />
           </div>
-          <div style={{ padding: "0 15px", marginTop: "15px" }}>
+          <div className={style.tabsContent}>
             {Object.entries(CourseTabsComponents).map(([id, Component]) =>
               id === activeTab && course ? (
                 <Component
@@ -247,7 +234,7 @@ const Course = ({ course }: Props) => {
               </div>
             ) : course.user_has_access ? (
               <button
-                className={style.purchaseButton}
+                className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
                 style={{ background: "rgb(0, 174, 0)" }}
               >
                 دانشجو این دوره ام!

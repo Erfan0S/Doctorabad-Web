@@ -34,6 +34,9 @@ export interface CourseDataType {
   grades: any[];
   course_duration: number;
   student_count: number;
+  keywords?: string[];
+  meta_description: string | null;
+  only_watchable_on_app: boolean;
 
   user_has_access: boolean;
   price_main: number;
@@ -119,7 +122,6 @@ export type previousOrders = {
   order_code: string;
   price_paid: number;
 };
-
 
 export interface Note {
   id: number;

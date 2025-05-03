@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 // import Header from "../components/common/header";
 import { Footer } from "@repo/shared_modules/components";
-import { homeMetadata, homeViewPort } from "@/metadata/home";
+import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";

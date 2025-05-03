@@ -54,3 +54,12 @@
     line-height: 40px;
   }
 }
+
+.pageDescription {
+  width: 100%;
+  padding: 15px;
+
+  > div {
+    font-size: 16px;
+  }
+}

@@ -24,11 +24,8 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   isActive = true,
   children,
   className,
-  modalType,
-  onClick,
   items,
   queryKey,
-  contentSpacing,
   dependencies,
   singleSelection,
 }) => {

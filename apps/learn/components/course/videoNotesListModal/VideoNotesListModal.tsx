@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./VideoNotesListModal.module.scss";
 import { convertSecondsToNormalTime } from "@/utils/convertSecondsToNormalTime";
-import { Note } from "@/types/courses";
 import { ModalProps } from "@repo/core/types/modals";
 import { api } from "@/api/Api";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -42,7 +41,7 @@ export const VideoNotesListModal: React.FC<Props> = ({
     <div className={styles.container}>
       <div className={styles.header}>لیست یادداشت‌ها</div>
       {isLoading ? (
-        <div style={{ margin: "20px auto" }}>
+        <div className={styles.loadingWrapper}>
           <Loading size={36} />
         </div>
       ) : (

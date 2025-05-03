@@ -14,12 +14,16 @@ import { InstallBannerShow } from "@repo/shared_modules/components";
 import Script from "next/script";
 import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
+import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
   display: "swap",
   variable: "--font-iran-sans",
 });
+
+export const metadata = homeMetadata;
+export const viewPort = homeViewPort;
 
 export default async function RootLayout({
   children,

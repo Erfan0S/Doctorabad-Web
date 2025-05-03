@@ -1,5 +1,6 @@
 import { api } from "@/api/Api";
 import { routePath } from "@repo/core/constants/routePath";
+import { OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { Metadata } from "next";
 
@@ -10,30 +11,29 @@ export const generateProductMetaData = async ({
 }): Promise<Metadata> => {
   try {
     const productFetcher = isNaN(Number(params.id))
-      ? api.getSingleProductBySlug(params.id)
-      : api.getSingleProduct(Number(params.id));
+      ? api.getCourse(Number(params.id))
+      : api.getCourse(Number(params.id));
     const { data } = await productFetcher;
-    const { title, product_pic, meta_description, keywords, id, slug } =
-      data.data;
+    const { title, course_pic, meta_description, keywords, id } = data.data;
     return {
       title,
       description: meta_description,
       keywords: keywords,
       openGraph: {
         title,
-        description: meta_description,
-        images: product_pic,
-        url: `${routePath.drAbadBaseUrl}${generateSingleProductUrlFromId(id, slug)}`,
+        description: meta_description || "",
+        images: course_pic,
+        url: `${routePath.drAbadBaseUrl}${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
         siteName: "دکترمارکت",
       },
       twitter: {
         title,
-        description: meta_description,
-        images: product_pic,
+        description: meta_description || "",
+        images: course_pic,
         card: "summary_large_image",
       },
     };
   } catch (error) {
-    return { title: "دکترآباد | محصول" };
+    return { title: "دکترآباد | دوره" };
   }
 };

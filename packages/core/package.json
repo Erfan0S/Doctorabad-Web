@@ -12,7 +12,8 @@
     "./types/*": "./src/types/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./states/*": "./src/states/*.ts",
-    "./http-request/*": "./src/HttpRequest/*.ts"
+    "./http-request/*": "./src/HttpRequest/*.ts",
+    "./metadata/*": "./src/metadata/*.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
