@@ -24,7 +24,7 @@ function Callback() {
     if (!paymentToken) push("/");
   }, [paymentToken, push, isError]);
 
-  if (isLoading) return <Loading size={25} />;
+  if (isLoading) return <Loading size={25} color="red" />;
 
   const isOrderSuccess = !isError && data?.data.type === "success";
 
@@ -52,7 +52,7 @@ function Callback() {
 
 export default function CallbackContainer() {
   return (
-    <Suspense fallback={<Loading size={25} />}>
+    <Suspense fallback={<Loading size={25} color="red" />}>
       <Callback />
     </Suspense>
   );

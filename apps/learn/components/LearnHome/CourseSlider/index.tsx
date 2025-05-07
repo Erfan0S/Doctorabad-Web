@@ -69,7 +69,7 @@ const CourseSlider: React.FC<Props> = ({
         )}
         <div className={style.productSliderSlider}>
           {isLoading ? (
-            <Loading />
+            <Loading color="red" />
           ) : (
             <Swiper
               // spaceBetween={150}

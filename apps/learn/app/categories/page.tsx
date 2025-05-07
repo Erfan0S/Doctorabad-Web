@@ -32,12 +32,12 @@ const CategoriesPage = () => {
     <div>
       <HomeHeader />
       {isLoading ? (
-        <Loading />
+        <Loading color="red" />
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading />}
+          loader={<Loading color="red" />}
         >
           {data?.pages.map((page) => (
             <CategoriesList

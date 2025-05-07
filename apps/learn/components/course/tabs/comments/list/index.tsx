@@ -25,7 +25,7 @@ const ProductCommentsList: React.FC<Props> = ({
       hasMore={hasNextPage}
       loader={
         <div className={style.productListLoader} key={0}>
-          <Loading size={36} />
+          <Loading size={36} color="red" />
         </div>
       }
     >

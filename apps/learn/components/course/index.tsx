@@ -162,7 +162,7 @@ const Course = ({ course }: Props) => {
                 </div>
               ) : course.user_has_access && isLoading ? (
                 <div className={style.loadingWrapper}>
-                  <Loading />
+                  <Loading color="red" />
                 </div>
               ) : (
                 <VideoPlayer
@@ -250,7 +250,7 @@ const Course = ({ course }: Props) => {
                 )}
               >
                 {updateCartLoading ? (
-                  <Loading />
+                  <Loading color="red" />
                 ) : (
                   <>
                     {" "}

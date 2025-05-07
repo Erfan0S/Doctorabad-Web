@@ -36,7 +36,7 @@ const ProviderPageContent = ({
             pageStart={1}
             loadMore={fetchNextPage}
             hasMore={hasNextPage}
-            loader={<Loading size={36} key={0} />}
+            loader={<Loading size={36} key={0} color="red" />}
           >
             <StaticCourseList courses={courses} />
           </InfiniteScroll>
@@ -88,7 +88,7 @@ const ProviderPage = ({ id }: Props) => {
   }, [data]);
 
   return isLoading ? (
-    <Loading pageLoader />
+    <Loading pageLoader color="red" />
   ) : (
     <div>
       <PageHeader

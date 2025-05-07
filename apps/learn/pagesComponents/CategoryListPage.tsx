@@ -27,6 +27,7 @@ function CategoryListPage({ id, name }: Props) {
         .getFilterList({
           categories: id,
           sort: (params.get("sort") as SortType) || null,
+          page: pageParam as number,
         })
         .then((res) => res.data),
     initialPageParam: 1,
@@ -42,7 +43,7 @@ function CategoryListPage({ id, name }: Props) {
     <div>
       <CategoryListHeader title={name || ""} />
       {isLoading ? (
-        <Loading />
+        <Loading color="red" />
       ) : (
         <CourseList
           courses={data}

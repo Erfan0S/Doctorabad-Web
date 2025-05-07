@@ -49,7 +49,7 @@ export const VideoNotesListModal: React.FC<Props> = ({
           pageStart={1}
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading size={24} key={0} />}
+          loader={<Loading size={24} key={0} color="red" />}
           useWindow={false}
           getScrollParent={() =>
             document.querySelector(`.${styles.notesList}`) as HTMLElement
