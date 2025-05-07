@@ -33,6 +33,8 @@ const CartItem = ({
 
   const url = generateSingleProductUrlFromId(product_id, "", product_type);
 
+  const canIncrease = product_type === OrderType.ShopProduct;
+
   return (
     <div className={style.cartItem}>
       <div className={style.cartItemImage}>
@@ -77,7 +79,7 @@ const CartItem = ({
             <button onClick={onDecrease}>
               {quantity > 1 ? "-" : <RecycleBin height={20} width={20} />}
             </button>
-            {product_type !== OrderType.Course && (
+            {canIncrease && (
               <>
                 <span>{quantity}</span>
                 <button onClick={onIncrease}>+</button>

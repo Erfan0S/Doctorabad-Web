@@ -1,32 +1,33 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from "react";
 
 export enum SidePanelPage {
-  MAIN = 'main',
-  CLUB = 'club',
-  SUPPORT = 'support',
-  FAVORITES = 'favorites',
-  ORDERS = 'orders',
-  MESSAGES = 'messages',
-  FRIENDS = 'friends',
-  PROFILE = 'profile',
+  MAIN = "main",
+  CLUB = "club",
+  SUPPORT = "support",
+  FAVORITES = "favorites",
+  ORDERS = "orders",
+  MESSAGES = "messages",
+  FRIENDS = "friends",
+  PROFILE = "profile",
+  DISCOUNTS = "discounts",
 }
 
 export enum SidePanelClubTab {
-  DISCOUNTS = 'discounts',
-  HISTORY = 'history',
+  DISCOUNTS = "discounts",
+  HISTORY = "history",
 }
 
 export enum SidePanelFavoriteTab {
-  LEARNING_CENTER = 'learningCenter',
-  SHOPPING_CENTER = 'shoppingCenter',
-  CONTENT_CENTER = 'contentCenter',
-  EXAM_CENTER = 'examCenter',
+  LEARNING_CENTER = "learningCenter",
+  SHOPPING_CENTER = "shoppingCenter",
+  CONTENT_CENTER = "contentCenter",
+  EXAM_CENTER = "examCenter",
 }
 
 export enum DiscountBadge {
-  GREEN = 'GREEN',
-  BRONZE = 'BRONZE',
-  SILVER = 'SILVER',
+  GREEN = "GREEN",
+  BRONZE = "BRONZE",
+  SILVER = "SILVER",
 }
 
 export interface SidePanelPageProps {

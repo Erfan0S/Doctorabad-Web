@@ -90,7 +90,8 @@ const Course = ({ course }: Props) => {
     serOrderId(
       data?.find(
         (item) =>
-          item.product_type === "course" && item.product_id === course.id
+          item.product_type === OrderType.Course &&
+          item.product_id === course.id
       )?.id
     );
   }, [data]);

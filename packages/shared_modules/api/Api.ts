@@ -3,6 +3,7 @@ import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import {
   AvatarList,
+  DiscountPlan,
   LiveChatInformation,
   MessageItem,
   ShareToFriends,
@@ -90,6 +91,10 @@ class Api extends Request {
 
   selectAvatar = (filename: string): Promise<any> => {
     return this.request.post(`/user/avatar/select`, { filename });
+  };
+
+  getDiscountPlans = (): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
+    return this.request.get(`/user/v1/discount/plans?type=${1}`);
   };
 
   // cart
