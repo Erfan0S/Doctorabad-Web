@@ -81,6 +81,7 @@ export type CourseListItemType = {
   price_main: number;
   price_off: number | null;
   price_amazing: number | null;
+  only_watchable_on_app: boolean;
   language: number;
   provider: {
     id: number;
