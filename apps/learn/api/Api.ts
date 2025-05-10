@@ -215,6 +215,12 @@ class Api extends Request {
     });
   }
 
+  // getPreviosPlanCourseOrders (): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+  //   const plans = this.request.get("/user/v1/education/previous/orders/courses/plan");
+  //   const courses = this.request.get("/user/v1/education/previous/orders/courses/buy");
+  //   return ;
+  // }
+
   // filter / search
 
   getSearchList(

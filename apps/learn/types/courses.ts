@@ -69,7 +69,7 @@ export enum ProviderTabs {
 }
 
 export interface TabData {
-  id: CourseTab | HomeTabs | ProviderTabs;
+  id: CourseTab | HomeTabs | ProviderTabs | string;
   title: string;
   url?: string;
 }

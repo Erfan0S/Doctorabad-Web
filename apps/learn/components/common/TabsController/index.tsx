@@ -2,7 +2,6 @@
 import style from "./ProductTabsController.module.scss";
 import Item from "./Item";
 import { TabData } from "@/types/courses";
-import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 interface Props {

@@ -14,8 +14,4 @@ export const CourseListConfigs = {
     title: "پرفروش‌ترین ها",
     api: () => api.getBestSellerCourses(),
   },
-  [CourseListType.MyCourses]: {
-    title: "دوره‌های من",
-    api: () => api.getSuggestedCourses(),
-  },
 };

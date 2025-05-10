@@ -9,9 +9,13 @@ type Props = {
   type: HomePageCourseSliders;
 };
 
-const Test = () => <span>hi</span>;
-
 const Configs = {
+  [HomePageCourseSliders.MyCourses]: {
+    loader: () => api.getPrviosCourseOrders() || api.getPreviosPlanOrders(),
+    title: "دوره‌ها و طرح‌های من",
+    archiveLink: "/my_course",
+    queryKey: "my-courses",
+  },
   [HomePageCourseSliders.Suggested]: {
     loader: () => api.getSuggestedCourses(),
     title: "پیشنهاد کدخدای دکترآباد",
@@ -38,13 +42,6 @@ const Configs = {
     archiveLink: null,
     queryKey: "lastviewed-courses",
   },
-
-  [HomePageCourseSliders.MyCourses]: {
-    loader: () => api.getUserLastViewedCourses(),
-    title: "دوره‌ها و طرح‌های من",
-    archiveLink: "/course_list/" + CourseListType.MyCourses,
-    queryKey: "my-courses",
-  },
 };
 
 export default function LazyCourseSlider({ type }: Props) {
@@ -53,6 +50,7 @@ export default function LazyCourseSlider({ type }: Props) {
       placeHolder={() => <CourseSliderPlaceholder />}
       loader={Configs[type].loader}
       queryKey={Configs[type].queryKey}
+      returnOnError
       component={(d) => (
         <CourseSlider
           title={Configs[type].title}

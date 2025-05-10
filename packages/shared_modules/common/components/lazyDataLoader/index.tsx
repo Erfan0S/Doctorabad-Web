@@ -10,6 +10,7 @@ type Props<D = any> = {
   queryKey: string;
   component: (p: { data: D }) => ReactNode;
   placeHolder: () => ReactNode;
+  returnOnError?: boolean;
 };
 
 export const LazyDataLoader = <S extends Object>({
@@ -17,6 +18,7 @@ export const LazyDataLoader = <S extends Object>({
   component: Component,
   queryKey,
   placeHolder: PlaceHolder,
+  returnOnError,
 }: Props<S>) => {
   const { data, isLoading, isPending, isSuccess, isError, refetch } = useQuery({
     queryFn: loader,
@@ -40,6 +42,10 @@ export const LazyDataLoader = <S extends Object>({
         <PlaceHolder />
       </div>
     );
+
+  if (isError && returnOnError) {
+    return null;
+  }
 
   if (isError)
     return (
