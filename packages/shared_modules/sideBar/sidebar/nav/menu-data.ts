@@ -4,13 +4,13 @@ import doctorTools from "@/assets/img/doctor-tools.png";
 import doctorDownload from "@/assets/img/doctor-download.png";
 import doctorExam from "@/assets/img/doctor-exam.png";
 import menuLogo from "@/assets/img/logo-without-text.png";
-import { routePath } from "@repo/core/constants/routePath";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 export const mobileMenuLogoSchema = {
   id: 0,
   title: "دکترآباد",
   subTitle: "دکترآباد",
-  href: "/",
+  href: baseUrls.base,
   image: menuLogo,
   color: "green",
   disabled: false,
@@ -23,17 +23,17 @@ export const sidebarMenuData = [
     title: "دکتـــــــــــــــرلرن",
     subTitle: "مرکزآموزش‌دکترآباد",
     // href: "https://doctorabad.com/app",
-    href: routePath.learnBasePath,
+    href: baseUrls.learn,
     image: doctorLearn,
     color: "red",
     disabled: true,
-    mobileTitle: "",
+    mobileTitle: "مرکز‌آموزش",
   },
   {
     id: 2,
     title: "دکتــــــرمارکت",
     subTitle: "مرکزخرید‌دکترآباد",
-    href: routePath.marketBasePath,
+    href: baseUrls.market,
     image: doctorMarket,
     color: "orange",
     disabled: true,

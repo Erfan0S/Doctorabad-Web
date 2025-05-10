@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import { routePath } from "@repo/core/constants/routePath";
+import { baseUrls, routePath } from "@repo/core/constants/routePath";
 import { OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { Metadata } from "next";
@@ -23,7 +23,7 @@ export const generateProductMetaData = async ({
         title,
         description: meta_description || "",
         images: course_pic,
-        url: `${routePath.drAbadBaseUrl}${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
+        url: `${baseUrls.market}${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
         siteName: "دکترمارکت",
       },
       twitter: {

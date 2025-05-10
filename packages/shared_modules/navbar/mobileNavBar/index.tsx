@@ -7,15 +7,15 @@ import { usePathname } from "next/navigation";
 
 type Porps = {
   excludePaths?: string[];
-}
+};
 
-const MobileNavBar = ({excludePaths}: Porps) => {
-  const pathname = usePathname();
-  console.log(pathname, "pathname");
-  const isExcludePath = excludePaths?.some((path) => pathname.includes(path));
+const MobileNavBar = ({ excludePaths }: Porps) => {
+  const href = window.location.href;
+  console.log(href, "pathname");
+  const isExcludePath = excludePaths?.some((path) => href.includes(path));
 
   const activeCondition = (href: string): boolean => {
-    const fullPathname = !isServerSide ? window.location.pathname : "";
+    const fullPathname = !isServerSide ? window.location.href : "";
     return (
       (fullPathname.startsWith(href) && href != "/") ||
       (fullPathname == "/" && href == "/")

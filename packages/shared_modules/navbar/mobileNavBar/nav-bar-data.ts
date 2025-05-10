@@ -3,14 +3,14 @@ import doctorMarket from "../../assets/img/doctor-market.png";
 import doctorDownload from "../../assets/img/doctor-download.png";
 import doctorExam from "../../assets/img/doctor-exam.png";
 import menuLogo from "../../assets/img/logo-without-text.png";
-import { routePath } from "@repo/core/constants/routePath";
+import { baseUrls, routePath } from "@repo/core/constants/routePath";
 
 export const navBarData = [
   {
     id: 1,
     title: "دکتـــــــــــــــرلرن",
     subTitle: "مرکزآموزش‌دکترآباد",
-    href: routePath.learnBasePath,
+    href: baseUrls.learn,
     image: doctorLearn,
     color: "red",
     mobileTitle: "مرکز‌آموزش",
@@ -19,7 +19,7 @@ export const navBarData = [
     id: 2,
     title: "دکتــــــرمارکت",
     subTitle: "مرکزخرید‌دکترآباد",
-    href: routePath.marketBasePath,
+    href: baseUrls.market,
     image: doctorMarket,
     color: "orange",
     mobileTitle: "مرکز‌خرید",
@@ -28,7 +28,7 @@ export const navBarData = [
     id: 0,
     title: "دکترآباد",
     subTitle: "دکترآباد",
-    href: "/",
+    href: baseUrls.base,
     image: menuLogo,
     color: "green",
     mobileTitle: "دکترآباد",

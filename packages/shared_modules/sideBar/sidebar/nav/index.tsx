@@ -1,12 +1,9 @@
 import Image from "next/image";
 import style from "../Sidebar.module.scss";
 import { mobileMenuLogoSchema, sidebarMenuData } from "./menu-data";
-import Link from "next/link";
 import { Squircle } from "@repo/shared_modules/icons";
-import React from "react";
 import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
-import { usePathname } from "next/navigation";
 
 interface Props {
   isMainLogoActive: boolean;
@@ -20,7 +17,7 @@ const squircleColor: { [key: string]: string } = {
 };
 
 const SidebarNav = ({ isMainLogoActive }: Props) => {
-  const pathname = window.location.pathname;
+  const href = window.location.href;
 
   const isMobile = useMediaQuery("max-width:768px");
   const shouldRender = useClientComponentInitiated();
@@ -30,7 +27,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
     if (!isMobile) {
       return sidebarMenuData.map((item) => ({
         ...item,
-        disabled: !pathname.startsWith(item.href),
+        disabled: !href.startsWith(item.href),
       }));
     }
     if (isMainLogoActive)
@@ -39,7 +36,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
       );
 
     const activeMenuIndex = sidebarMenuData.findIndex((item) =>
-      pathname.startsWith(item.href)
+      href.startsWith(item.href)
     );
 
     return sidebarMenuData.map((item, i) =>

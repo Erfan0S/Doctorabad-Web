@@ -73,9 +73,9 @@ export const generateSingleProductUrlFromId = (
 ) => {
   switch (type) {
     case OrderType.ShopProduct:
-      return `${routePath.marketBasePath}/product/${id}/${slug}`;
+      return `/product/${id}/${slug}`;
     case OrderType.Course:
-      return `${routePath.learnBasePath}/course/${id}/${slug}`;
+      return `/course/${id}/${slug}`;
 
     default:
       return `/product/${id}/${slug}`;
@@ -87,5 +87,5 @@ export const generateCourseUrlFromId = (id: number, slug: string = "") => {
 };
 
 export const generateFestivalProductListUrl = (id: number) => {
-  return `/market/product-list/festival?festival_id=${id}`;
+  return `/product-list/festival?festival_id=${id}`;
 };

@@ -2,7 +2,7 @@ export const routePath = {
   drAbadBaseUrl: "https://doctorabad.com",
   home: "/",
   marketBasePath: "/market",
-  register: "/market/register",
+  register: "/register",
   checkout: "/checkout",
   callback: "/callback",
   archive: "/product-list/archive",
@@ -12,4 +12,10 @@ export const routePath = {
   suggestedProducts: "/product-list/suggested",
   bestsellingProducts: "/product-list/bestselling",
   learnBasePath: "/learn",
+};
+
+export const baseUrls = {
+  base: "http://localhost:3002",
+  learn: "http://localhost:3000" + routePath.learnBasePath,
+  market: "http://localhost:3001" + routePath.marketBasePath,
 };
