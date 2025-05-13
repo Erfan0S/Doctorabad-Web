@@ -84,8 +84,6 @@ const Course = ({ course }: Props) => {
     );
   }, [course]);
 
-  console.log(course);
-
   useEffect(() => {
     serOrderId(
       data?.find(

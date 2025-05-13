@@ -10,10 +10,6 @@ interface Props {
 
 const DatePickerInput = ({ name, placeholder, position, color }: Props) => {
   const { values, setValues } = useFormikContext<any>();
-  const d = new Date(values[name]);
-  // console.log(new Date(values[name]));
-  // console.log(new Date(values[name]).toLocaleString());
-  // console.log(new Intl.DateTimeFormat("fa-IR").format(d));
 
   const onChange = ({ value }: { value: string }) => {
     setValues((prev: any) => {

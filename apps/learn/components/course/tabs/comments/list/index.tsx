@@ -17,7 +17,6 @@ const ProductCommentsList: React.FC<Props> = ({
   fetchNextPage,
   hasNextPage,
 }) => {
-  console.log(comments);
   return comments.pages[0].data.length > 0 ? (
     <InfiniteScroll
       pageStart={1}

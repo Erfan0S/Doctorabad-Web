@@ -36,11 +36,6 @@ const OrderDetail: React.FC<Props> = ({ orderCode, productType }: Props) => {
       return getApiFounction(productType);
     },
   });
-  let cartData;
-  if (data?.data) {
-  }
-
-  console.log(data?.data?.data);
 
   const orderItems = (data as ResponseType<LastProcessingLearnOrder>)?.data
     ?.data?.order_items

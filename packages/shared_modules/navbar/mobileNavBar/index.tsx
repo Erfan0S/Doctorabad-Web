@@ -11,7 +11,6 @@ type Porps = {
 
 const MobileNavBar = ({ excludePaths }: Porps) => {
   const href = window.location.href;
-  console.log(href, "pathname");
   const isExcludePath = excludePaths?.some((path) => href.includes(path));
 
   const activeCondition = (href: string): boolean => {

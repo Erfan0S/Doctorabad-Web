@@ -24,7 +24,7 @@ const SidePanelFavoritesLearning: React.FC = () => {
   >({
     queryFn: ({ pageParam }) =>
       api.getLearnOrdersList(Number(pageParam)).then((res) => res.data.data),
-    queryKey: ["favorite"],
+    queryKey: ["previousOrdersList"],
     initialPageParam: 1,
     staleTime: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {

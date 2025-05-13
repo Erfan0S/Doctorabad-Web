@@ -13,12 +13,6 @@ const MainPage = () => {
     queryFn: () => api.getMainSlider(),
     queryKey: ["banners"],
   });
-  api.getPrviosCourseOrders().then((res) => {
-    console.log(res);
-  });
-  api.getPreviosPlanOrders().then((res) => {
-    console.log(res);
-  });
 
   return (
     <div className={styles.container}>

@@ -31,8 +31,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [isLessonChanged, setIsLessonChanged] = useState(false);
 
   useEffect(() => {
-    console.log(!config);
-    console.log(!playerRef.current);
     if (
       !videoRef.current ||
       // !playerRef.current ||

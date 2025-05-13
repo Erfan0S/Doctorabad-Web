@@ -20,8 +20,6 @@ export const SidePanelDiscounts: React.FC<SidePanelPageProps> = ({
     queryFn: api.getDiscountPlans,
   });
 
-  console.log(data?.data.data);
-
   const paginationOption: PaginationOptions = {
     type: "bullets",
     clickable: true,

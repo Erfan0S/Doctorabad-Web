@@ -5,8 +5,10 @@ import { ErrorMessage, Field, useFormikContext } from "formik";
 import { useEffect, useState } from "react";
 
 export const ProvinceCitySelection = () => {
-  const { values , setFieldValue } = useFormikContext<ShippingAddress>();
-  const [currentProvince, setCurrentProvince] = useState(values.province_id?.toString());
+  const { values, setFieldValue } = useFormikContext<ShippingAddress>();
+  const [currentProvince, setCurrentProvince] = useState(
+    values.province_id?.toString()
+  );
 
   const { data: province, isLoading: provincesLoading } = useQuery({
     queryFn: api.getProvincesList,
@@ -14,12 +16,11 @@ export const ProvinceCitySelection = () => {
     staleTime: Infinity,
   });
 
-  useEffect(()=>{
-    console.log(values);
+  useEffect(() => {
     if (currentProvince != values.province_id?.toString) {
-      setFieldValue("city_id", null)
+      setFieldValue("city_id", null);
     }
-  }, [currentProvince, setCurrentProvince])
+  }, [currentProvince, setCurrentProvince]);
 
   const {
     data: cities,
@@ -45,7 +46,7 @@ export const ProvinceCitySelection = () => {
           name="province_id"
           placeholder="استان"
           disabled={provincesLoading}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>)=>{
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setFieldValue("province_id", e.target.value);
             setCurrentProvince(e.target.value);
           }}

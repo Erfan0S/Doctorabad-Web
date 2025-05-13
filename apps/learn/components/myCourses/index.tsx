@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import CourseList from "../common/CourseList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { PaginatedResponse } from "@repo/core/types/general";
@@ -38,15 +38,6 @@ export const MyCourses = () => {
       return undefined;
     },
   });
-
-  useEffect(() => {
-    // apiFunction().then((res) => {
-    //   console.log(res);
-    // });
-    api.getPrviosCourseOrders().then((res) => {
-      console.log(res);
-    });
-  }, []);
 
   if (!isLoading && !data) {
     return (

@@ -25,14 +25,6 @@ export const DiscountItem = ({ data }: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("cart data: ", cartData);
-    console.log(
-      "in cart: ",
-      cartData.find(
-        (d) =>
-          d.product_id === data.id && d.product_type === OrderType.DiscountPlan
-      )?.id
-    );
     setIncart(
       !!cartData.find(
         (d) =>
