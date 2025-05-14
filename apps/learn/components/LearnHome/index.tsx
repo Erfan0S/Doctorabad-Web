@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LearnHome.module.scss";
 import MainSlider from "./slider";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +13,12 @@ const MainPage = () => {
     queryFn: () => api.getMainSlider(),
     queryKey: ["banners"],
   });
+
+  useEffect(() => {
+    api.getUserPlans().then((res) => {
+      console.log(res);
+    });
+  }, []);
 
   return (
     <div className={styles.container}>

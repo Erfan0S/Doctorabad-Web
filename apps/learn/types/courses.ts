@@ -132,3 +132,17 @@ export interface Note {
   lesson_id: number;
   lesson_title: string;
 }
+
+export type UserPlanItem = {
+  id: number;
+  title: string;
+  expired_at: string;
+  free: boolean;
+  vip: boolean;
+  created_at: string;
+};
+
+export type UserPlans = {
+  data: UserPlanItem[];
+  used_free: boolean;
+};

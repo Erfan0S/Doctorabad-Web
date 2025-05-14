@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import CourseList from "../common/CourseList";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
@@ -11,6 +11,7 @@ import { Loading } from "@repo/shared_modules/components";
 import styles from "./myCourses.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
+import UserPlanItem from "./UserPlanItem";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
@@ -39,6 +40,11 @@ export const MyCourses = () => {
     },
   });
 
+  const { data: userPlans, isLoading: userPlansLoading } = useQuery({
+    queryKey: ["userPlans"],
+    queryFn: () => api.getUserPlans().then((res) => res.data),
+  });
+
   if (!isLoading && !data) {
     return (
       <div className={styles.noData}>
@@ -55,11 +61,16 @@ export const MyCourses = () => {
       {isLoading ? (
         <Loading color="red" />
       ) : (
-        <CourseList
-          courses={data}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-        />
+        <>
+          {tab === myCoursesTabs.PLANS
+            ? userPlans?.data.map((item) => <UserPlanItem item={item} />)
+            : null}
+          <CourseList
+            courses={data}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+        </>
       )}
     </div>
   );
