@@ -28,6 +28,7 @@ import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { routePath } from "@repo/core/constants/routePath";
 import classNames from "classnames";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -156,7 +157,12 @@ const Course = ({ course }: Props) => {
             <div className={style.courseHeaderTop}>
               {!course.user_has_access && !course.course_preview ? (
                 <div className={style.courseImagePrevWrapper}>
-                  <Image src={course.course_pic} alt={course.title} fill />
+                  <Image
+                    src={course.course_pic}
+                    alt={course.title}
+                    fill
+                    placeholder={placeHolderDataUrl}
+                  />
                 </div>
               ) : course.user_has_access && isLoading ? (
                 <div className={style.loadingWrapper}>
@@ -186,6 +192,7 @@ const Course = ({ course }: Props) => {
                     alt="company"
                     width={40}
                     height={40}
+                    placeholder={placeHolderDataUrl}
                   />
                 </Link>
                 <h1>{course?.title}</h1>

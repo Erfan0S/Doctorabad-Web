@@ -257,7 +257,7 @@ class Api extends Request {
   }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/list", {
       params: {
-        sort,
+        sort: sort || "newest",
         fields,
         grades,
         categories,

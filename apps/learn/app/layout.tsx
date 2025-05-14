@@ -33,35 +33,37 @@ export default async function RootLayout({
   const statistic = (await api.getHomeStatistics()).data.data;
   return (
     <html lang="fa">
-      <Script
-        id="clarity-load"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `    (function(c,l,a,r,i,t,y){
+      <head>
+        <Script
+          id="clarity-load"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `    (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "p86us2vume");`,
-        }}
-      />
-      <Script
-        strategy="beforeInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-XCPDF4Z963"
-        async
-      />
-      <Script
-        strategy="beforeInteractive"
-        id="gtm"
-        dangerouslySetInnerHTML={{
-          __html: `
+          }}
+        />
+        <Script
+          strategy="beforeInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XCPDF4Z963"
+          async
+        />
+        <Script
+          strategy="beforeInteractive"
+          id="gtm"
+          dangerouslySetInnerHTML={{
+            __html: `
           window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-XCPDF4Z963');
         `,
-        }}
-      />
+          }}
+        />
+      </head>
       <body className={`${font.className} ${font.variable}`}>
         <NextTopLoader color="#f54f1a" />
         <div className="root">
@@ -69,7 +71,10 @@ export default async function RootLayout({
             <Suspense fallback={<div></div>}>
               <div className="learn-container">
                 {children}
-                <MobileNavBar excludePaths={["checkout", "course"]} />
+                <MobileNavBar
+                  onlyOnMobile={false}
+                  excludePaths={["checkout", "course"]}
+                />
               </div>
             </Suspense>
             {/* <Footer statistic={statistic} /> */}
