@@ -29,7 +29,6 @@ import {
 } from "@repo/core/types/cart";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import {
-  LastProcessingLearnOrder,
   LastProcessingShopOrder,
   PreviousOrder,
 } from "../checkout/types/orders";
@@ -293,7 +292,7 @@ class Api extends Request {
 
   getLearnOrderDetail = (
     orderCode: string
-  ): Promise<ResponseType<LastProcessingLearnOrder>> => {
+  ): Promise<ResponseType<LastProcessingShopOrder>> => {
     return this.request.get(`/user/v1/education/previous/orders/${orderCode}`);
   };
 
