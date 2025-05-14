@@ -5,10 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
 import { OrderType } from "@repo/core/types/cart";
-import {
-  LastProcessingLearnOrder,
-  LastProcessingShopOrder,
-} from "../../../checkout/types/orders";
+import { LastProcessingShopOrder } from "../../../checkout/types/orders";
 import { ResponseType } from "@repo/core/types/general";
 
 interface Props {
@@ -28,19 +25,14 @@ const OrderDetail: React.FC<Props> = ({ orderCode, productType }: Props) => {
     }
   };
 
-  const { data, isLoading } = useQuery<
-    ResponseType<LastProcessingShopOrder | LastProcessingLearnOrder>
-  >({
+  const { data, isLoading } = useQuery<ResponseType<LastProcessingShopOrder>>({
     queryKey: ["orderDetail", orderCode, productType],
     queryFn: () => {
       return getApiFounction(productType);
     },
   });
 
-  const orderItems = (data as ResponseType<LastProcessingLearnOrder>)?.data
-    ?.data?.order_items
-    ? (data as ResponseType<LastProcessingLearnOrder>)?.data?.data?.order_items
-    : (data as ResponseType<LastProcessingShopOrder>)?.data?.order_items;
+  const orderItems = data?.data.order_items;
 
   // fix order descount code
 

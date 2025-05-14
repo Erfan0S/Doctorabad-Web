@@ -103,7 +103,15 @@
   }
 }
 
+.sidebarNavBarMobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .sidebarNavBarMobile {
+    display: block;
+  }
+
   .sidebar {
     &Nav {
       ul {
