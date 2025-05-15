@@ -8,6 +8,7 @@ import { SidePanel } from "../../userSidePanel";
 import { ModalTypes } from "./modalsTypes";
 import { AddAddressModal } from "./modals/AddAddressModal";
 import { BugReportModal } from "./modals/BugReportModal";
+import { QRContents } from "@repo/shared_modules/components";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -19,4 +20,5 @@ export const ModalsList: any = {
   [ModalTypes.BUG_REPORT]: BugReportModal,
   [ModalTypes.MY_MESSAGES_DETAIL]: MyMessageDetailModal,
   [ModalTypes.ADD_ADDRESS]: AddAddressModal,
+  [ModalTypes.QR_CONTENTS]: QRContents,
 };

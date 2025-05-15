@@ -22,7 +22,7 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
       <InfiniteScroll
         loadMore={() => fetchNextPage()}
         hasMore={hasNextPage}
-        loader={<Loading />}
+        loader={<Loading color="red" />}
       >
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>

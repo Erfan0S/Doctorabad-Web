@@ -11,10 +11,10 @@ interface CourseContentProps {
 }
 
 const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
-  const [openSections, setOpenSections] = useState<Set<number>>(new Set());
+  const [closeSections, setCloseSections] = useState<Set<number>>(new Set());
 
   const toggleSection = (sectionId: number) => {
-    setOpenSections((prev) => {
+    setCloseSections((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(sectionId)) {
         newSet.delete(sectionId);
@@ -39,7 +39,7 @@ const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
         }
       });
     });
-    setOpenSections(newSet);
+    setCloseSections(newSet);
   }, [sections]);
 
   return (
@@ -48,7 +48,7 @@ const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
         <div
           key={section.id}
           className={clsx(styles.section, {
-            [styles.sectionOpen]: openSections.has(section.id),
+            [styles.sectionOpen]: !closeSections.has(section.id),
             [styles.emptySection]: !isSectionTitleValid(section.title),
           })}
         >
@@ -60,14 +60,14 @@ const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
           </h2>
           <div
             className={clsx(styles.contentCollapse, {
-              [styles.open]: openSections.has(section.id),
+              [styles.open]: !closeSections.has(section.id),
             })}
           >
             {section.chapters.map((chapter) => (
               <div
                 key={chapter.id}
                 className={clsx(styles.chapter, {
-                  [styles.chapterOpen]: openSections.has(chapter.id),
+                  [styles.chapterOpen]: !closeSections.has(chapter.id),
                   [styles.emptySection]: !isSectionTitleValid(chapter.title),
                 })}
               >
@@ -79,7 +79,7 @@ const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
                 </h2>
                 <div
                   className={clsx(styles.contentCollapse, {
-                    [styles.open]: openSections.has(chapter.id),
+                    [styles.open]: !closeSections.has(chapter.id),
                   })}
                 >
                   <ul className={styles.lessonList}>

@@ -1,18 +1,17 @@
-import style from './marketHeader.module.scss';
-import Nav from '../nav';
-import CartButton from '../cartButton';
-import Search from '../search';
-import Ads from '../ads';
+import style from "./marketHeader.module.scss";
+import Nav from "../nav";
+import CartButton from "../cartButton";
+import Search from "../search";
+import Ads from "../ads";
 
-import { api } from '@/api/Api';
-import { numLatinToAr } from '@/constants/regex';
-import LogoProvider from '../logo/logoProvider';
+import { api } from "@/api/Api";
+import { numLatinToAr } from "@/constants/regex";
+import LogoProvider from "../logo/logoProvider";
 
 const MarketHeader = async () => {
   const navData = (await api.getCategoriesList()).data;
   const festivalData = (await api.getFestivalInfo()).data;
   const productCounts = (await api.getProductCount()).data.data;
-
   return (
     <>
       {festivalData.data && <Ads {...festivalData.data} />}

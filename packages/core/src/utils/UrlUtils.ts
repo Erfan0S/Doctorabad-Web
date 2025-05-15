@@ -1,4 +1,4 @@
-import { routePath } from "../constants/routePath";
+import { baseUrls, routePath } from "../constants/routePath";
 import { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
 import { isServerSide } from "../constants/constants";
 import { OrderType } from "../types/cart";
@@ -73,12 +73,12 @@ export const generateSingleProductUrlFromId = (
 ) => {
   switch (type) {
     case OrderType.ShopProduct:
-      return `/product/${id}/${slug}`;
+      return `${baseUrls.market}/product/${id}/${slug}`;
     case OrderType.Course:
-      return `/course/${id}/${slug}`;
-  
+      return `${baseUrls.learn}/course/${id}/${slug}`;
+
     default:
-      return `/product/${id}/${slug}`;
+      return `${baseUrls.market}/product/${id}/${slug}`;
   }
 };
 
@@ -87,5 +87,5 @@ export const generateCourseUrlFromId = (id: number, slug: string = "") => {
 };
 
 export const generateFestivalProductListUrl = (id: number) => {
-  return `/market/product-list/festival?festival_id=${id}`;
+  return `/product-list/festival?festival_id=${id}`;
 };

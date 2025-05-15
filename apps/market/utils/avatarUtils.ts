@@ -1,6 +1,6 @@
 import { AvatarFile, MultimediaType } from "@repo/core/types/general";
 import { SingleProductFile } from "@repo/core/types/product";
-import { getMediaType } from "./getMediaType";
+import { getMediaType } from "@repo/core/utils/getMediaType";
 
 export const getAvatarSource = (file: AvatarFile | null) => {
   if (!file) return null;

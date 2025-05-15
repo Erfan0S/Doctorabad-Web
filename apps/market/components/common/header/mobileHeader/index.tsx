@@ -19,6 +19,8 @@ import Logo from "../logo";
 import HomeIcon from "@/assets/svg/newIcons/home";
 import ChatIcon from "@/assets/svg/newIcons/chat";
 import QrScannerIcon from "@/assets/svg/newIcons/qrScanner";
+import { useEffect } from "react";
+import { cartActions } from "@repo/core/states/cart";
 
 const MobileHeader = () => {
   const shouldRender = useClientComponentInitiated();
@@ -42,6 +44,10 @@ const MobileHeader = () => {
     authorizeClientAction(() =>
       modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
     );
+
+  useEffect(() => {
+    cartActions.getCartData();
+  }, []);
 
   if (!isMobile || !shouldRender) return;
   return (

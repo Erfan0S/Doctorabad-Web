@@ -16,15 +16,10 @@ import {
   ProductComments,
   ProductShare,
 } from "@repo/core/types/product";
-import {
-  PaymentResult,
-
-} from "@repo/core/types/cart";
+import { PaymentResult } from "@repo/core/types/cart";
 import { Banner } from "@/types/banner";
 import { LastProcessingOrder } from "@/types/orders";
 import { FestivalInfo } from "@/types/festival";
-import { BookContents } from "@/types/bookContents";
-import { HomeStatisticsType } from "@/types/homeStatistics";
 import { BlogType } from "@/types/blog";
 
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
@@ -513,26 +508,11 @@ class Api extends Request {
   //   );
   // };
 
-  getMultiMediaContentsFromId(
-    id: string
-  ): Promise<ResponseType<{ data: BookContents }>> {
-    return this.request.get<{ data: BookContents }>(
-      `/api/user/book/qrcode/files/${id}`
-    );
-  }
-
   verifyMultimediaContent(data: {
     verification_code: string;
     token: string;
   }): Promise<any> {
     return this.request.post("/user/qrcode/verify", data);
-  }
-
-  getHomeStatistics(): Promise<ResponseType<{ data: HomeStatisticsType }>> {
-    return this.request.get<{ data: HomeStatisticsType }>(
-      "/user/home/counter",
-      { next: { revalidate: 36000 } }
-    );
   }
 
   getMagazinePosts(): Promise<ResponseType<{ data: BlogType[] }>> {

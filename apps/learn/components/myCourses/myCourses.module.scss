@@ -1,0 +1,55 @@
+.tabs {
+  > div {
+    &:last-of-type {
+      padding: 0;
+      background-color: #f5f5f5;
+      padding-top: 5px;
+    }
+  }
+}
+
+.noData {
+  width: 100%;
+  height: calc(100vh - 300px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: medium;
+  }
+
+  a {
+    border: 2px solid red;
+    border-radius: 5px;
+    color: black;
+    text-align: center;
+    width: 165px;
+    line-height: 30px;
+    font-weight: 700;
+    margin-top: 20px;
+    box-shadow: 0 0 3px 0px #737373;
+  }
+}
+
+.UserPlanItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0.5rem;
+  background: white;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: white;
+  p {
+    color: red;
+    text-align: center;
+    font-weight: 700;
+    font-size: small;
+    width: 100%;
+    margin: 0;
+  }
+}

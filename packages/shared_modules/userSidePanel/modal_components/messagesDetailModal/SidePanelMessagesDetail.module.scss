@@ -1,10 +1,10 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 .sidePanelMessagesDetial {
   background-color: #fff;
-  width: 280px;
-  max-height: 350px;
+  width: 500px;
+  max-height: 500px;
   padding: space(4) space(5);
   max-width: 100%;
   text-align: center;
@@ -87,5 +87,12 @@
     &:hover {
       box-sizing: 0 3px 10px rgba(0, 0, 0, 0);
     }
+  }
+}
+
+@media (max-width: 512px) {
+  .sidePanelMessagesDetial {
+    width: 300px;
+    max-height: 400px;
   }
 }

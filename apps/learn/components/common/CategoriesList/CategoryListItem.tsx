@@ -2,6 +2,8 @@ import { CategoryType, ProviderType } from "@/types/homePage";
 import React from "react";
 import style from "./CategoriesList.module.scss";
 import Link from "next/link";
+import Image from "next/image";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 type Props = {
   category: CategoryType | ProviderType;
@@ -18,17 +20,21 @@ const CategoryListItem = ({ category, isProvider }: Props) => {
       }
       className={style.ListItemWrapper}
     >
-      <div
+      <Image
         className={style.ListItem}
-        style={{ backgroundImage: `url(${category.pic_url})` }}
-      >
-        {!isProvider ? (
-          <h2 className={style.ListItemTitle}>
-            {/* @ts-ignore */}
-            {category?.title || category?.name}
-          </h2>
-        ) : null}
-      </div>
+        // style={{ backgroundImage: `url(${category.pic_url})` }}
+        src={category.pic_url}
+        alt={isProvider ? "ارائه‌دهنده" : "دسته بندی"}
+        fill
+        style={{ objectFit: "cover" }}
+        placeholder={placeHolderDataUrl}
+      />
+      {!isProvider ? (
+        <h2 className={style.ListItemTitle}>
+          {/* @ts-ignore */}
+          {category?.title || category?.name}
+        </h2>
+      ) : null}
     </Link>
   );
 };

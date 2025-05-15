@@ -12,15 +12,13 @@ const DatePickerInput = ({ name, placeholder, position, color }: Props) => {
   const { values, setValues } = useFormikContext<any>();
 
   const onChange = ({ value }: { value: string }) => {
-    setValues((prev: any) => ({
-      ...prev,
-      [name]: new Date(value)
-        .toLocaleString()
-        .split(",")[0]!
-        .split("/")
-        .reverse()
-        .join("-"),
-    }));
+    setValues((prev: any) => {
+      const d = new Date(value);
+      return {
+        ...prev,
+        [name]: `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`,
+      };
+    });
   };
 
   return (

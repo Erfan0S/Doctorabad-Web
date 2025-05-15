@@ -3,6 +3,7 @@ import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import {
   AvatarList,
+  DiscountPlan,
   LiveChatInformation,
   MessageItem,
   ShareToFriends,
@@ -27,7 +28,10 @@ import {
   ShippingMethod,
 } from "@repo/core/types/cart";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
-import { LastProcessingOrder, PreviousOrder } from "../checkout/types/orders";
+import {
+  LastProcessingShopOrder,
+  PreviousOrder,
+} from "../checkout/types/orders";
 import { Product } from "@repo/core/types/product";
 import {
   BuyOfferResponse,
@@ -38,6 +42,7 @@ import {
 import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
 import { CourseListItemType, CourseOrderItem } from "@repo/core/types/course";
+import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
 
 class Api extends Request {
   constructor() {
@@ -87,6 +92,10 @@ class Api extends Request {
     return this.request.post(`/user/avatar/select`, { filename });
   };
 
+  getDiscountPlans = (): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
+    return this.request.get(`/user/v1/discount/plans?type=${1}`);
+  };
+
   // cart
   getCartList(): Promise<ResponseType<CartResponse>> {
     return this.request.get<CartResponse>("/user/v1/cart");
@@ -124,8 +133,12 @@ class Api extends Request {
     return this.changeQuantity(orderId, ChangeQuantityType.Increase);
   }
 
-  getLastProcessingOrder = (): Promise<ResponseType<LastProcessingOrder>> => {
-    return this.request.get<LastProcessingOrder>("/user/shop/order/last/doing");
+  getLastProcessingOrder = (): Promise<
+    ResponseType<LastProcessingShopOrder>
+  > => {
+    return this.request.get<LastProcessingShopOrder>(
+      "/user/shop/order/last/doing"
+    );
   };
 
   // address
@@ -277,6 +290,12 @@ class Api extends Request {
     });
   };
 
+  getLearnOrderDetail = (
+    orderCode: string
+  ): Promise<ResponseType<LastProcessingShopOrder>> => {
+    return this.request.get(`/user/v1/education/previous/orders/${orderCode}`);
+  };
+
   getLearnFavoriteList = (
     page: number = 1
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> => {
@@ -325,8 +344,8 @@ class Api extends Request {
 
   getPreviousOrderDetail = (
     orderCode: string
-  ): Promise<ResponseType<LastProcessingOrder>> => {
-    return this.request.get<LastProcessingOrder>(
+  ): Promise<ResponseType<LastProcessingShopOrder>> => {
+    return this.request.get<LastProcessingShopOrder>(
       `/user/shop/order/details/${orderCode}`
     );
   };
@@ -378,6 +397,14 @@ class Api extends Request {
     token: string;
   }): Promise<any> {
     return this.request.post("/user/qrcode/verify", data);
+  }
+
+  // home
+  getHomeStatistics(): Promise<ResponseType<{ data: HomeStatisticsType }>> {
+    return this.request.get<{ data: HomeStatisticsType }>(
+      "/user/home/counter",
+      { next: { revalidate: 36000 } }
+    );
   }
 }
 

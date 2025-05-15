@@ -10,7 +10,6 @@ import styles from "@/components/Header/ProviderHeader/ProviderHeader.module.scs
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
-import { PaginatedResponse } from "@repo/core/types/general";
 
 type Props = {
   id: number;
@@ -37,7 +36,7 @@ const ProviderPageContent = ({
             pageStart={1}
             loadMore={fetchNextPage}
             hasMore={hasNextPage}
-            loader={<Loading size={36} key={0} />}
+            loader={<Loading size={36} key={0} color="red" />}
           >
             <StaticCourseList courses={courses} />
           </InfiniteScroll>
@@ -45,11 +44,8 @@ const ProviderPageContent = ({
       );
     case ProviderTabs.DESCRIPTION:
       return (
-        <div style={{ width: "100%", padding: "15px" }}>
-          <div
-            style={{ fontSize: "16px" }}
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
+        <div className={styles.pageDescription}>
+          <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
       );
     default:
@@ -92,7 +88,7 @@ const ProviderPage = ({ id }: Props) => {
   }, [data]);
 
   return isLoading ? (
-    <Loading pageLoader />
+    <Loading pageLoader color="red" />
   ) : (
     <div>
       <PageHeader

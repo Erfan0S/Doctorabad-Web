@@ -3,19 +3,27 @@ import Image from "next/image";
 import style from "./mobileNavbar.module.scss";
 import { navBarData } from "./nav-bar-data";
 import { isServerSide } from "@repo/core/constants/constants";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, usePathname } from "next/navigation";
 
 type Porps = {
   excludePaths?: string[];
-}
+  onlyOnMobile?: boolean;
+};
 
-const MobileNavBar = ({excludePaths}: Porps) => {
+const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
+  const [isExcludePath, setIsExcludePath] = useState(false);
+  const [fullHref, setFullHref] = useState("");
   const pathname = usePathname();
-  console.log(pathname, "pathname");
-  const isExcludePath = excludePaths?.some((path) => pathname.includes(path));
+
+  useEffect(() => {
+    const href = window.location.href;
+    setFullHref(href);
+    setIsExcludePath(!!excludePaths?.some((path) => href.includes(path)));
+  }, [pathname]);
 
   const activeCondition = (href: string): boolean => {
-    const fullPathname = !isServerSide ? window.location.pathname : "";
+    const fullPathname = fullHref;
     return (
       (fullPathname.startsWith(href) && href != "/") ||
       (fullPathname == "/" && href == "/")
@@ -25,7 +33,9 @@ const MobileNavBar = ({excludePaths}: Porps) => {
   if (isExcludePath) return null;
 
   return (
-    <div className={style.sidebarNav}>
+    <div
+      className={`${style.sidebarNav} ${onlyOnMobile && style.sidebarNavBarMobile}`}
+    >
       <ul>
         {navBarData.map(
           ({ id, title, subTitle, image, color, href, mobileTitle }) => {

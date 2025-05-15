@@ -22,6 +22,7 @@ export default withPWA({
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },
+  basePath: "/market",
   images: {
     remotePatterns: [
       {

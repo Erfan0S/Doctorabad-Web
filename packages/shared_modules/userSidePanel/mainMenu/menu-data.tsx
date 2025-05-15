@@ -61,7 +61,7 @@ export const sidePanelMenuData: SidePanelMenuItem[] = [
     id: 7,
     title: "طرح‌های‌من",
     Icon: PlansIcon,
-    href: SidePanelPage.MAIN,
+    href: SidePanelPage.DISCOUNTS,
   },
   {
     id: 8,

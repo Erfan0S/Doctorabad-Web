@@ -1,0 +1,100 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.discountsWrapper {
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  padding-bottom: 100px;
+
+  .swiper {
+    height: 100%;
+    overflow: visible;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    :global {
+      .swiper-pagination {
+        position: absolute;
+        bottom: -50px;
+        .swiper-pagination-bullet-active {
+          background: #00cc1b !important;
+        }
+
+        .swiper-pagination-bullet {
+          background-color: black;
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}
+
+.discountItemWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 3px solid #00db00;
+  box-shadow: 0 0 9px 0px #b5b5b5;
+  padding: 15px;
+  position: relative;
+
+  > div,
+  > p,
+  > h3 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  > h3 {
+    font-size: x-large;
+  }
+
+  > p {
+    font-weight: 500;
+    font-size: small;
+  }
+
+  > div {
+    flex-direction: column;
+
+    span {
+      font-weight: 700;
+      font-size: x-large;
+    }
+
+    :last-child {
+      color: #818181;
+      text-decoration: line-through;
+      font-size: 19px;
+      margin-top: 5px;
+    }
+  }
+}
+
+.DiscountItemBtn {
+  width: 225px;
+  height: 45px;
+  background-color: #00cc1b;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 500;
+  font-size: large;
+  position: absolute;
+  bottom: -22.5px;
+  box-shadow: 0 0 9px 0px #b5b5b5;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -34,6 +34,9 @@ export interface CourseDataType {
   grades: any[];
   course_duration: number;
   student_count: number;
+  keywords?: string[];
+  meta_description: string | null;
+  only_watchable_on_app: boolean;
 
   user_has_access: boolean;
   price_main: number;
@@ -66,7 +69,7 @@ export enum ProviderTabs {
 }
 
 export interface TabData {
-  id: CourseTab | HomeTabs | ProviderTabs;
+  id: CourseTab | HomeTabs | ProviderTabs | string;
   title: string;
   url?: string;
 }
@@ -78,6 +81,7 @@ export type CourseListItemType = {
   price_main: number;
   price_off: number | null;
   price_amazing: number | null;
+  only_watchable_on_app: boolean;
   language: number;
   provider: {
     id: number;
@@ -120,7 +124,6 @@ export type previousOrders = {
   price_paid: number;
 };
 
-
 export interface Note {
   id: number;
   jump_time: number;
@@ -129,3 +132,17 @@ export interface Note {
   lesson_id: number;
   lesson_title: string;
 }
+
+export type UserPlanItem = {
+  id: number;
+  title: string;
+  expired_at: string;
+  free: boolean;
+  vip: boolean;
+  created_at: string;
+};
+
+export type UserPlans = {
+  data: UserPlanItem[];
+  used_free: boolean;
+};

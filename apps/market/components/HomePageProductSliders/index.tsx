@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@/api/Api";
-import { LazyDataLoader } from "../common/lazyDataLoader";
+import { LazyDataLoader } from "@repo/shared_modules/components";
 import ProductsPlaceholeder from "../marketHome/productsPlaceholder";
 import { routePath } from "@repo/core/constants/routePath";
 import ProductSlider from "../marketHome/productSlider";

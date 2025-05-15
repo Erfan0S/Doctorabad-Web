@@ -1,12 +1,12 @@
 "use client";
-import CourseSlider from "@/components/LearnHome/productSlider";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LearnHome.module.scss";
 import MainSlider from "./slider";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { HomePageCourseSliders } from "@/types/homePage";
-import { Loading } from "@repo/shared_modules/components";
+import LazyCourseSlider from "./LazyCourseSlider";
+import MainSliderPlaceHolder from "../PlaceHolders/Slder";
 
 const MainPage = () => {
   const { data: banners, isLoading: isBannersLoading } = useQuery({
@@ -14,21 +14,27 @@ const MainPage = () => {
     queryKey: ["banners"],
   });
 
+  useEffect(() => {
+    api.getUserPlans().then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <div className={styles.container}>
       {isBannersLoading ? (
-        <Loading />
+        <MainSliderPlaceHolder />
       ) : (
         <MainSlider
           banners={banners?.data.data || []}
           swiperOptions={{ spaceBetween: 0 }}
         />
       )}
-      <CourseSlider type={HomePageCourseSliders.MyCourses} />
-      <CourseSlider type={HomePageCourseSliders.Suggested} />
-      <CourseSlider type={HomePageCourseSliders.Newest} />
-      <CourseSlider type={HomePageCourseSliders.BestSeller} />
-      <CourseSlider type={HomePageCourseSliders.LastViewed} />
+      <LazyCourseSlider type={HomePageCourseSliders.MyCourses} />
+      <LazyCourseSlider type={HomePageCourseSliders.Suggested} />
+      <LazyCourseSlider type={HomePageCourseSliders.Newest} />
+      <LazyCourseSlider type={HomePageCourseSliders.BestSeller} />
+      <LazyCourseSlider type={HomePageCourseSliders.LastViewed} />
     </div>
   );
 };

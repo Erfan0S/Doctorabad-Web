@@ -3,7 +3,7 @@
 import ModalCreator from "@repo/core/modalComponents/ModalCreator";
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
-import SidebarProvider from "./sidebar";
+import { SidebarProvider } from "@repo/shared_modules";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ModalsList } from "../components/common/modal/modalsList";

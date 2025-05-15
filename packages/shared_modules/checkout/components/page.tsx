@@ -14,6 +14,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import styles from "./chekcout.module.scss";
 
 type Props = {
   type?: CheckoutPageTypes;
@@ -95,7 +96,7 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
   const colors = getCartColors();
   return (
     <div
-      className="row"
+      className={`${styles.checkoutWrapper} ${type === CheckoutPageTypes.Learn && styles.learn}`}
       style={
         {
           "--primary-color": colors.primaryColor,
@@ -103,11 +104,11 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
         } as React.CSSProperties
       }
     >
-      <div className="col-xl-4">
+      <div>
         <Cart type={type} />
       </div>
       {cartItems.length > 0 && (
-        <div className="col-xl-4">
+        <div>
           <Shipping
             isLoading={loadingAddress}
             address={addressData}
@@ -118,7 +119,7 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
           />
         </div>
       )}
-      <div className="col-xl-4">
+      <div>
         <Pay
           shippingMethod={currentShippingMethod}
           currentAddress={addressData}

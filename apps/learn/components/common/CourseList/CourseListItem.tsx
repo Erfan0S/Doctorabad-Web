@@ -9,6 +9,7 @@ import { CourseListItemType } from "@/types/courses";
 import styles from "./CourseList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import formatDuration from "@/utils/formatDuration";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 type Props = {
   course: CourseListItemType;
@@ -24,6 +25,7 @@ const CourseListItem = ({ course }: Props) => {
           width={80}
           height={80}
           className={styles.courseImage}
+          placeholder={placeHolderDataUrl}
         />
       ) : (
         <div className={styles.courseImage} />
@@ -45,7 +47,9 @@ const CourseListItem = ({ course }: Props) => {
                     textDecoration: course.price_off ? "line-through" : "",
                   }}
                 >
-                  {priceFormatter(course.price_main)} تومن
+                  {!(course.price_main <= 0)
+                    ? priceFormatter(course.price_main) + " تومن"
+                    : "رایگان"}
                 </span>
                 {course.price_off ? (
                   <span>{priceFormatter(course.price_off)} تومن</span>

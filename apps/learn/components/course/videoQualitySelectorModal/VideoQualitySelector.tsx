@@ -3,6 +3,7 @@
 import { ModalProps } from "@repo/core/types/modals";
 import videojs from "video.js";
 import styles from "./VideoQualitySelector.module.scss";
+import { font } from "@/assets/fonts/font";
 
 export const VideoQualitySelector = ({
   data,
@@ -48,7 +49,7 @@ export const VideoQualitySelector = ({
   };
 
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${font.className}`}>
       <div
         onClick={onAutoQualityClick}
         className={`${styles.option} ${isAutoQualityActive ? styles.selected : ""}`}

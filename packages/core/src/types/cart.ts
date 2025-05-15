@@ -3,6 +3,7 @@ import { CartVariants } from "./productVariants";
 export enum OrderType {
   ShopProduct = "shopProduct",
   Course = "course",
+  DiscountPlan = "discountPlan",
 }
 
 export type Order = {
@@ -65,7 +66,7 @@ export type ShippingMethod = {
   title: string;
   price: number;
   price_text?: string;
-  
+
   pic_url: string;
   description: string;
 };
@@ -102,8 +103,6 @@ export type PaymentResult = {
   coin_received: number;
   discount_code: string;
 };
-
-
 
 export enum ChangeQuantityType {
   Increase = "increase",

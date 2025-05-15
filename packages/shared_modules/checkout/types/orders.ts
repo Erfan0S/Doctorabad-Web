@@ -7,7 +7,7 @@ export type PreviousOrder = {
   price_paid: number;
 };
 
-export type LastProcessingOrder = {
+export type LastProcessingShopOrder = {
   data: {
     id: number;
     order_code: string;

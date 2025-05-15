@@ -79,6 +79,7 @@ const Filters = () => {
       name: FiltersNames.FIELD,
       loading: fieldLoading,
       isActive: true,
+      dependencies: [FiltersNames.CATEGORY, FiltersNames.GRADE],
     },
     {
       title: "مقطع",
@@ -86,6 +87,7 @@ const Filters = () => {
       name: FiltersNames.GRADE,
       loading: gradeLoading,
       isActive: !!params?.get(FiltersNames.FIELD),
+      dependencies: [FiltersNames.CATEGORY],
     },
     {
       title: "موضوع",
@@ -128,6 +130,7 @@ const Filters = () => {
           queryKey={filter.name}
           singleSelection={true}
           isActive={!filter.loading && filter.isActive}
+          dependencies={filter.dependencies}
         />
       ))}
     </div>

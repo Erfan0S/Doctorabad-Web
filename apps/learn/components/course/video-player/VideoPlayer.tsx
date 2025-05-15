@@ -28,11 +28,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   const [isQualitySelectorOpen, setIsQualitySelectorOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [isLessonChanged, setIsLessonChanged] = useState(false);
 
   useEffect(() => {
     if (
       !videoRef.current ||
-      playerRef.current ||
+      // !playerRef.current ||
       !config ||
       !Object.values(config).length
     )
@@ -87,6 +88,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (isLessonChanged) {
+      playerRef.current?.autoplay("play");
+    } else {
+      setIsLessonChanged(true);
+    }
+  }, [lessonId]);
 
   useEffect(() => {
     if (!config || !isPlayerReady) return;

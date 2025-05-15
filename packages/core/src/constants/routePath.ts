@@ -1,14 +1,21 @@
 export const routePath = {
+  drAbadBaseUrl: "https://doctorabad.com",
   home: "/",
   marketBasePath: "/market",
-  register: "/market/register",
+  register: "/register",
   checkout: "/checkout",
-  callback: "/market/callback",
-  archive: "/market/product-list/archive",
-  searchList: "/market/product-list/search",
-  newestProducts: "/market/product-list/newest",
-  amazingProducts: "/market/product-list/amazing",
-  suggestedProducts: "/market/product-list/suggested",
-  bestsellingProducts: "/market/product-list/bestselling",
+  callback: "/callback",
+  archive: "/product-list/archive",
+  searchList: "/product-list/search",
+  newestProducts: "/product-list/newest",
+  amazingProducts: "/product-list/amazing",
+  suggestedProducts: "/product-list/suggested",
+  bestsellingProducts: "/product-list/bestselling",
   learnBasePath: "/learn",
+};
+
+export const baseUrls = {
+  base: "http://localhost:3002",
+  learn: "http://localhost:3000" + routePath.learnBasePath,
+  market: "http://localhost:3001" + routePath.marketBasePath,
 };

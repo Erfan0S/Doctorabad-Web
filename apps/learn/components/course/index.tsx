@@ -26,6 +26,9 @@ import PageHeader from "../Header/PageHeader";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
+import { routePath } from "@repo/core/constants/routePath";
+import classNames from "classnames";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -50,6 +53,8 @@ const Course = ({ course }: Props) => {
   const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
     number | null
   >(null);
+
+  const [orderId, serOrderId] = useState<number | undefined>();
 
   const { data: leassonData, isLoading } = useQuery({
     queryKey: ["course-videop", `leason-${course.id}-${currentLeasson?.id}`],
@@ -79,6 +84,16 @@ const Course = ({ course }: Props) => {
       section.chapters.flatMap((chapter) => chapter.lessons)
     );
   }, [course]);
+
+  useEffect(() => {
+    serOrderId(
+      data?.find(
+        (item) =>
+          item.product_type === OrderType.Course &&
+          item.product_id === course.id
+      )?.id
+    );
+  }, [data]);
 
   const goToNextTrack = () => {
     const nextLeasson =
@@ -136,29 +151,22 @@ const Course = ({ course }: Props) => {
         }
         haveMargin={false}
       />
-      <div className="row">
+      <div>
         <div className={style.container}>
           <div className={style.courseHeader}>
-            <div style={{ padding: "0 15px" }}>
+            <div className={style.courseHeaderTop}>
               {!course.user_has_access && !course.course_preview ? (
-                <div
-                  style={{
-                    position: "relative",
-                    maxHeight: "600px",
-                    minHeight: "300px",
-                    background: "#eee",
-                  }}
-                >
+                <div className={style.courseImagePrevWrapper}>
                   <Image
                     src={course.course_pic}
                     alt={course.title}
                     fill
-                    style={{ objectFit: "none" }}
+                    placeholder={placeHolderDataUrl}
                   />
                 </div>
               ) : course.user_has_access && isLoading ? (
                 <div className={style.loadingWrapper}>
-                  <Loading />
+                  <Loading color="red" />
                 </div>
               ) : (
                 <VideoPlayer
@@ -184,6 +192,7 @@ const Course = ({ course }: Props) => {
                     alt="company"
                     width={40}
                     height={40}
+                    placeholder={placeHolderDataUrl}
                   />
                 </Link>
                 <h1>{course?.title}</h1>
@@ -194,7 +203,7 @@ const Course = ({ course }: Props) => {
               defaultTab={CourseTab.LESSONS}
             />
           </div>
-          <div style={{ padding: "0 15px", marginTop: "15px" }}>
+          <div className={style.tabsContent}>
             {Object.entries(CourseTabsComponents).map(([id, Component]) =>
               id === activeTab && course ? (
                 <Component
@@ -207,17 +216,31 @@ const Course = ({ course }: Props) => {
               ) : null
             )}
           </div>
-          <div className={style.purchaseBar}>
-            {data?.find(
-              (item) =>
-                item.product_type === "course" && item.product_id === course.id
-            ) ? (
-              <button className={style.purchaseButton}>
-                به سبد خرید اضافه شد
-              </button>
+          <div
+            className={classNames(style.purchaseBar, {
+              [style.purchaseBarAccess]: course.user_has_access,
+            })}
+          >
+            {!!orderId ? (
+              <div className={style.addedPurchaseButtonWrapper}>
+                <button
+                  className={style.purchaseButton}
+                  onClick={() => {
+                    cartActions.removeFromCart(orderId);
+                  }}
+                >
+                  حذف از سبد خرید
+                </button>
+                <Link
+                  href={routePath.checkout}
+                  className={style.purchaseButton}
+                >
+                  رفتن به سبد خرید
+                </Link>
+              </div>
             ) : course.user_has_access ? (
               <button
-                className={style.purchaseButton}
+                className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
                 style={{ background: "rgb(0, 174, 0)" }}
               >
                 دانشجو این دوره ام!
@@ -232,7 +255,7 @@ const Course = ({ course }: Props) => {
                 )}
               >
                 {updateCartLoading ? (
-                  <Loading />
+                  <Loading color="red" />
                 ) : (
                   <>
                     {" "}

@@ -12,7 +12,7 @@ import { api } from "../../api/Api";
 
 const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const [currentTab, setCurrentTab] = useState(
-    SidePanelFavoriteTab.LEARNING_CENTER
+    SidePanelFavoriteTab.SHOPPING_CENTER
   );
   const [tabData, setTabData] = useState(favoriteTabsData);
 

@@ -1,4 +1,3 @@
-
 import { ProductListProps, ProductListType } from "@repo/core/types/product";
 import { Metadata } from "next";
 

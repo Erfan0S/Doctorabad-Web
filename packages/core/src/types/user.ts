@@ -58,3 +58,14 @@ export interface LiveChatInformation {
   url: string;
   message: string;
 }
+
+export interface DiscountPlan {
+  id: number;
+  title: string;
+  description: string;
+  duration: number;
+  main_price: number;
+  off_price: number;
+  vip: boolean;
+  free: boolean;
+}

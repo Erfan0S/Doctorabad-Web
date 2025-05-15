@@ -1,4 +1,5 @@
 import { api } from "@/api/Api";
+import { routePath } from "@repo/core/constants/routePath";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { Metadata } from "next";
 
@@ -22,7 +23,7 @@ export const generateProductMetaData = async ({
         title,
         description: meta_description,
         images: product_pic,
-        url: `https://drabadapp.ir/doctormarket/${generateSingleProductUrlFromId(id, slug)}`,
+        url: `${routePath.drAbadBaseUrl}${generateSingleProductUrlFromId(id, slug)}`,
         siteName: "دکترمارکت",
       },
       twitter: {

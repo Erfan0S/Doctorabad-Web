@@ -8,6 +8,7 @@ import {
   CourseListItemType,
   Note,
   previousOrders,
+  UserPlans,
   VideoType,
 } from "@/types/courses";
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
@@ -23,7 +24,6 @@ class Api extends Request {
       showToast: toast,
     });
   }
-
 
   getOrderResult = (
     paymentToken: string
@@ -41,11 +41,7 @@ class Api extends Request {
     );
   }
 
-  
-  createComment(data: {
-    courseId: number;
-    text: string;
-  }): Promise<any> {
+  createComment(data: { courseId: number; text: string }): Promise<any> {
     return this.request.post(
       `/user/v1/education/course/${data.courseId}/comment`,
       data
@@ -78,14 +74,13 @@ class Api extends Request {
     return this.request.post("/user/v1/education/error/report", data);
   }
 
-
   addFavorite(id: number): Promise<{}> {
     return this.request.post(`/user/v1/education/favorite`, { id });
-  };
+  }
 
   removeFavorite = (id: number): Promise<any> => {
     return this.request.delete(`/user/v1/education/favorite/${id}`);
-  }
+  };
 
   // video
   getVideo(
@@ -144,11 +139,14 @@ class Api extends Request {
       params: { page },
     });
   }
-  getSingleProvider(id: number,page:number=1): Promise<ResponseType<SingleProviderType>> {
-    return this.request.get(`/user/v1/education/provider/${id}`,{
-      params:{
-        page
-      }
+  getSingleProvider(
+    id: number,
+    page: number = 1
+  ): Promise<ResponseType<SingleProviderType>> {
+    return this.request.get(`/user/v1/education/provider/${id}`, {
+      params: {
+        page,
+      },
     });
   }
 
@@ -202,6 +200,32 @@ class Api extends Request {
     return this.request.get("/user/v1/education/previous/orders");
   }
 
+  getPrviosCourseOrders(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/previous/orders/courses/buy", {
+      params: { page },
+    });
+  }
+
+  getPreviosPlanOrders(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/previous/orders/courses/plan", {
+      params: { page },
+    });
+  }
+
+  getUserPlans(): Promise<ResponseType<UserPlans>> {
+    return this.request.get("/user/v1/discount/plans/check?type=1");
+  }
+
+  // getPreviosPlanCourseOrders (): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+  //   const plans = this.request.get("/user/v1/education/previous/orders/courses/plan");
+  //   const courses = this.request.get("/user/v1/education/previous/orders/courses/buy");
+  //   return ;
+  // }
+
   // filter / search
 
   getSearchList(
@@ -238,7 +262,7 @@ class Api extends Request {
   }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/list", {
       params: {
-        sort,
+        sort: sort || "newest",
         fields,
         grades,
         categories,

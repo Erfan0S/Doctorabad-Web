@@ -40,3 +40,4 @@ export { StarFillIcon };
 export { default as RecycleBin } from "./svg/recycleBin";
 export { default as Squircle } from "./svg/squircle";
 export { default as AngleDown } from "./svg/angleDown";
+export { default as Close_X } from "./svg/close_x";

@@ -5,6 +5,7 @@ import styles from "./ProviderHeader.module.scss";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 const ProviderTabsData: TabData[] = [
   {
@@ -30,7 +31,13 @@ const ProviderHeader = ({ id, tite, summery, image, alt }: Props) => {
     <div>
       <div className={styles.ProviderHeader}>
         <div className={styles.redBackground} />
-        <Image src={image} alt={alt || "ارائه دهنده"} width={150} height={80} />
+        <Image
+          src={image}
+          alt={alt || "ارائه دهنده"}
+          width={150}
+          height={80}
+          placeholder={placeHolderDataUrl}
+        />
         <div className={styles.providerInfo}>
           <h3>{tite}</h3>
           <h3>{summery}</h3>

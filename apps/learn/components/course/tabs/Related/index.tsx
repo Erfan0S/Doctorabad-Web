@@ -16,7 +16,7 @@ const RelatedCourses = ({ CourseId }: Props) => {
   });
 
   return isLoading ? (
-    <Loading />
+    <Loading color="red" />
   ) : (
     <StaticCourseList courses={data?.data.data ?? []} />
   );

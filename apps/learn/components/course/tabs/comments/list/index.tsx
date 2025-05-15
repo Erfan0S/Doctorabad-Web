@@ -17,14 +17,14 @@ const ProductCommentsList: React.FC<Props> = ({
   fetchNextPage,
   hasNextPage,
 }) => {
-  return (
+  return comments.pages[0].data.length > 0 ? (
     <InfiniteScroll
       pageStart={1}
       loadMore={() => fetchNextPage()}
       hasMore={hasNextPage}
       loader={
         <div className={style.productListLoader} key={0}>
-          <Loading size={36} />
+          <Loading size={36} color="red" />
         </div>
       }
     >
@@ -38,6 +38,8 @@ const ProductCommentsList: React.FC<Props> = ({
         ))}
       </div>
     </InfiniteScroll>
+  ) : (
+    <span className={style.noComments}>اولین نفری باش که نظر میذاره...</span>
   );
 };
 

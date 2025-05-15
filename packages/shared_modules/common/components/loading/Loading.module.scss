@@ -1,5 +1,5 @@
-@import 'src/assets/styles/keyframes';
-@import 'src/assets/styles/variables';
+@import "src/assets/styles/keyframes";
+@import "src/assets/styles/variables";
 
 .pageLoader {
   display: flex;
@@ -15,4 +15,16 @@
   border-color: #ddd #ddd $red;
   animation: 0.5s spinner linear infinite;
   margin: 0 auto;
+}
+
+.red {
+  border-color: #ddd #ddd $red;
+}
+
+.green {
+  border-color: #ddd #ddd $green;
+}
+
+.orange {
+  border-color: #ddd #ddd orange;
 }

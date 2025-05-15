@@ -16,9 +16,10 @@ import { SliderType } from "@/types/homePage";
 type Props = {
   banners: SliderType[];
   swiperOptions?: SwiperOptions;
+  isLoading?: boolean;
 };
 
-const MainSlider = ({ banners, swiperOptions = {} }: Props) => {
+const MainSlider = ({ banners, swiperOptions = {}, isLoading }: Props) => {
   if (!banners.length) return null;
 
   return (

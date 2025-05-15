@@ -48,7 +48,7 @@ const ProductCommentsForm = ({ courseId }: Props) => {
           disabled={mutation.isPending}
         >
           {mutation.isPending ? (
-            <Loading size={12} />
+            <Loading size={12} color="red" />
           ) : isMobile ? (
             "ارسال"
           ) : (
