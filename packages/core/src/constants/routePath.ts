@@ -22,7 +22,7 @@ export const routePath = {
 
 
 export const baseUrls = {
-  base: "https://develop.doctorabad.com/",
-  learn: "https://develop.doctorabad.com/" + routePath.learnBasePath,
-  market: "https://develop.doctorabad.com/" + routePath.marketBasePath,
+  base: "https://develop.doctorabad.com",
+  learn: "https://develop.doctorabad.com" + routePath.learnBasePath,
+  market: "https://develop.doctorabad.com" + routePath.marketBasePath,
 };
