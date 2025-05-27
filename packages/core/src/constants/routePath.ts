@@ -15,7 +15,7 @@ export const routePath = {
 };
 
 export const baseUrls = {
-  base: "http://localhost:3002",
-  learn: "http://localhost:3000" + routePath.learnBasePath,
-  market: "http://localhost:3001" + routePath.marketBasePath,
+  base: "http://localhost:3001",
+  learn: "http://localhost:3003" + routePath.learnBasePath,
+  market: "http://localhost:3002" + routePath.marketBasePath,
 };
