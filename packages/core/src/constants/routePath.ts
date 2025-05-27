@@ -14,8 +14,15 @@ export const routePath = {
   learnBasePath: "/learn",
 };
 
+// export const baseUrls = {
+//   base: "http://localhost:3001",
+//   learn: "http://localhost:3003" + routePath.learnBasePath,
+//   market: "http://localhost:3002" + routePath.marketBasePath,
+// };
+
+
 export const baseUrls = {
-  base: "http://localhost:3001",
-  learn: "http://localhost:3003" + routePath.learnBasePath,
-  market: "http://localhost:3002" + routePath.marketBasePath,
+  base: "https://doctorabad.com",
+  learn: "https://doctorabad.com" + routePath.learnBasePath,
+  market: "https://doctorabad.com" + routePath.marketBasePath,
 };
