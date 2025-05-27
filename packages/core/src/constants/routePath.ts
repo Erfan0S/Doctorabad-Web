@@ -1,5 +1,5 @@
 export const routePath = {
-  drAbadBaseUrl: "https://doctorabad.com",
+  drAbadBaseUrl: "https://develop.doctorabad.com/",
   home: "/",
   marketBasePath: "/market",
   register: "/register",
@@ -22,7 +22,7 @@ export const routePath = {
 
 
 export const baseUrls = {
-  base: "https://doctorabad.com",
-  learn: "https://doctorabad.com" + routePath.learnBasePath,
-  market: "https://doctorabad.com" + routePath.marketBasePath,
+  base: "https://develop.doctorabad.com/",
+  learn: "https://develop.doctorabad.com/" + routePath.learnBasePath,
+  market: "https://develop.doctorabad.com/" + routePath.marketBasePath,
 };
