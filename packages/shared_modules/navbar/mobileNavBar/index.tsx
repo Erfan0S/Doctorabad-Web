@@ -2,9 +2,8 @@
 import Image from "next/image";
 import style from "./mobileNavbar.module.scss";
 import { navBarData } from "./nav-bar-data";
-import { isServerSide } from "@repo/core/constants/constants";
 import { useEffect, useState } from "react";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 type Porps = {
   excludePaths?: string[];
@@ -13,20 +12,20 @@ type Porps = {
 
 const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
   const [isExcludePath, setIsExcludePath] = useState(false);
-  const [fullHref, setFullHref] = useState("");
+  const [fullPathname, setFullPathname] = useState("");
   const pathname = usePathname();
 
   useEffect(() => {
     const href = window.location.href;
-    setFullHref(href);
+    setFullPathname(window.location.pathname);
     setIsExcludePath(!!excludePaths?.some((path) => href.includes(path)));
   }, [pathname]);
 
   const activeCondition = (href: string): boolean => {
-    const fullPathname = fullHref;
+    const tabPathname = new URL(href).pathname;
     return (
-      (fullPathname.startsWith(href) && href != "/") ||
-      (fullPathname == "/" && href == "/")
+      (fullPathname.startsWith(tabPathname) && tabPathname != "/") ||
+      (fullPathname == "/" && tabPathname == "/")
     );
   };
 
