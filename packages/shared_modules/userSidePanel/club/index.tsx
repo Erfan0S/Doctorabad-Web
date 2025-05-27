@@ -24,7 +24,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
     retry: 1,
   });
 
-  const [currentTab, setCurrentTab] = useState(SidePanelClubTab.DISCOUNTS);
+  const [currentTab, setCurrentTab] = useState(SidePanelClubTab.MISSIONS);
   const [tabData, setTabData] = useState(clubTabsData);
 
   const [singleOffer, setSingleOfferInfo] = useState<ClubOffer | null>(null);
@@ -37,8 +37,10 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
   };
 
   const clubTabsComponents = {
-    [SidePanelClubTab.DISCOUNTS]: SidePanelClubDiscounts,
+    [SidePanelClubTab.MISSIONS]: SidePanelClubDiscounts,
     [SidePanelClubTab.HISTORY]: SidePanelClubHistory,
+    [SidePanelClubTab.RANK]: () => <div>Rank</div>,
+    [SidePanelClubTab.SUGGESTIONS]: () => <div>Suggestions</div>,
   };
 
   const CurrentTabComponent = clubTabsComponents[currentTab];
