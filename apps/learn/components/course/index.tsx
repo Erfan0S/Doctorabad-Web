@@ -29,6 +29,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { routePath } from "@repo/core/constants/routePath";
 import classNames from "classnames";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -71,6 +72,8 @@ const Course = ({ course }: Props) => {
     if (initLoading) {
       cartActions.getCartData();
     }
+
+    console.log("course", course);
   }, [course]);
 
   useEffect(() => {
@@ -138,8 +141,83 @@ const Course = ({ course }: Props) => {
     course?.price_amazing || undefined
   );
 
+  // TODO: can be moved to a separate component
+  const courseButton = () => {
+    return (
+      <div
+        className={classNames(style.purchaseBar, {
+          [style.purchaseBarAccess]: course.user_has_access,
+        })}
+      >
+        {!!orderId ? (
+          <div className={style.addedPurchaseButtonWrapper}>
+            <button
+              className={style.purchaseButton}
+              onClick={() => {
+                cartActions.removeFromCart(orderId);
+              }}
+            >
+              حذف از سبد خرید
+            </button>
+            <Link href={routePath.checkout} className={style.purchaseButton}>
+              رفتن به سبد خرید
+            </Link>
+          </div>
+        ) : course.user_has_access ? (
+          <button
+            className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
+            style={{ background: "rgb(0, 174, 0)" }}
+          >
+            دانشجو این دوره ام!
+          </button>
+        ) : (
+          <button
+            className={style.purchaseButton}
+            onClick={
+              course.only_watchable_on_app
+                ? () => modalActions.addModal(ModalTypes.AppOnly)
+                : authorizeClientAction(
+                    cartActionsLoadingHandler(() =>
+                      cartActions.addToCart(+course.id, OrderType.Course)
+                    )
+                  )
+            }
+          >
+            {updateCartLoading ? (
+              <Loading color="red" />
+            ) : (
+              <>
+                {" "}
+                <span> شروع یادگیری کل دوره | </span>
+                <div>
+                  <div>
+                    {/* {discountPercent && <small>٪{discountPercent}</small>} */}
+                    {offPrice && (
+                      <span className={style.priceOff}>
+                        {priceFormatter(mainPrice)}
+                        تومن
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    {priceFormatter(offPrice || mainPrice)}
+                    تومن
+                  </div>
+                </div>
+              </>
+            )}
+          </button>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div>
+    <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>
+      <div
+        className={style.preventContext}
+        onContextMenu={(e) => e.preventDefault()}
+      />
       <PageHeader
         title=""
         suffix={
@@ -212,74 +290,12 @@ const Course = ({ course }: Props) => {
                   CourseId={course.id}
                   sections={course.sections}
                   onLessonClick={onLessonClick}
+                  key={id}
                 />
               ) : null
             )}
           </div>
-          <div
-            className={classNames(style.purchaseBar, {
-              [style.purchaseBarAccess]: course.user_has_access,
-            })}
-          >
-            {!!orderId ? (
-              <div className={style.addedPurchaseButtonWrapper}>
-                <button
-                  className={style.purchaseButton}
-                  onClick={() => {
-                    cartActions.removeFromCart(orderId);
-                  }}
-                >
-                  حذف از سبد خرید
-                </button>
-                <Link
-                  href={routePath.checkout}
-                  className={style.purchaseButton}
-                >
-                  رفتن به سبد خرید
-                </Link>
-              </div>
-            ) : course.user_has_access ? (
-              <button
-                className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
-                style={{ background: "rgb(0, 174, 0)" }}
-              >
-                دانشجو این دوره ام!
-              </button>
-            ) : (
-              <button
-                className={style.purchaseButton}
-                onClick={authorizeClientAction(
-                  cartActionsLoadingHandler(() =>
-                    cartActions.addToCart(+course.id, OrderType.Course)
-                  )
-                )}
-              >
-                {updateCartLoading ? (
-                  <Loading color="red" />
-                ) : (
-                  <>
-                    {" "}
-                    <span> شروع یادگیری کل دوره | </span>
-                    <div>
-                      <div>
-                        {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-                        {offPrice && (
-                          <span className={style.priceOff}>
-                            {priceFormatter(mainPrice)}
-                            تومن
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        {priceFormatter(offPrice || mainPrice)}
-                        تومن
-                      </div>
-                    </div>
-                  </>
-                )}
-              </button>
-            )}
-          </div>
+          {courseButton()}
         </div>
       </div>
     </div>

@@ -37,7 +37,6 @@ export interface CourseDataType {
   keywords?: string[];
   meta_description: string | null;
   only_watchable_on_app: boolean;
-
   user_has_access: boolean;
   price_main: number;
   price_off: number | null;

@@ -1,6 +1,10 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+.wrapper {
+  z-index: 3;
+}
+
 .container {
   width: 100%;
   direction: rtl;
@@ -159,4 +163,15 @@
 .tabsContent {
   margin-top: 15px;
   padding: 0 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.preventContext {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
 }

@@ -58,9 +58,16 @@ const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
   return (
     <>
       {data.showOnPlayer && (
-        <div className={styles.modalOverlay} onClick={() => closeModal()} />
+        <div
+          className={styles.modalOverlay}
+          onClick={() => closeModal()}
+          onContextMenu={(e) => e.preventDefault()}
+        />
       )}
-      <div className={`${styles.modalContent} ${font.className}`}>
+      <div
+        className={`${styles.modalContent} ${font.className}`}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <div className={styles.modalHeader}>
           <h2 className={styles.title}>یادداشت</h2>
           <span className={styles.timestamp}>

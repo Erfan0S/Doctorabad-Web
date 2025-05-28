@@ -76,8 +76,8 @@ const CourseHeaderSiffix = ({
   ];
   return (
     <>
-      {buttons.map((button) => (
-        <button className={style.headerButton} onClick={button.onClick}>
+      {buttons.map((button, i) => (
+        <button className={style.headerButton} onClick={button.onClick} key={i}>
           {button.icon}
         </button>
       ))}
