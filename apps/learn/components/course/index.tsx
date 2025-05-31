@@ -282,8 +282,8 @@ const Course = ({ course }: Props) => {
             />
           </div>
           <div className={style.tabsContent}>
-            {Object.entries(CourseTabsComponents).map(([id, Component]) =>
-              id === activeTab && course ? (
+            {Object.entries(CourseTabsComponents).map(([id, Component]) => {
+              return id === activeTab && course ? (
                 <Component
                   description={course.description}
                   CourseData={course}
@@ -292,8 +292,8 @@ const Course = ({ course }: Props) => {
                   onLessonClick={onLessonClick}
                   key={id}
                 />
-              ) : null
-            )}
+              ) : null;
+            })}
           </div>
           {courseButton()}
         </div>

@@ -28,6 +28,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const handlePlayer = useCallback(
     (player: VideoPlayerType) => {
       playerRef.current = player;
+      player.aspectRatio("16:9");
       player.on("play", () => {
         console.log("play");
         setIsWatermarkActive(true);
