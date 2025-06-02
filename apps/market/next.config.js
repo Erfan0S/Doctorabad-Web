@@ -34,6 +34,7 @@ export default withPWA({
         hostname: "*",
       },
     ],
+    domains: ["doctoabad.com", "drabadapp.ir", "arvanstorage.ir"],
   },
   sassOptions: {
     quietDeps: true,

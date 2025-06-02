@@ -12,6 +12,7 @@ export const routePath = {
   suggestedProducts: "/product-list/suggested",
   bestsellingProducts: "/product-list/bestselling",
   learnBasePath: "/learn",
+  appDownload: "/app",
 };
 
 // export const baseUrls = {

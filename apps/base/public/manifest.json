@@ -1,12 +1,12 @@
 {
-  "name": "Doctor market",
-  "short_name": "DrMarket",
-  "theme_color": "#f67317",
+  "name": "Doctor abad",
+  "short_name": "DrAbad",
+  "theme_color": "#8fcc19",
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/market",
-  "start_url": "/market",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "/icon_48.png",

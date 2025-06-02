@@ -135,11 +135,16 @@
   }
 }
 
-.emptySection {
+body .emptySection {
   padding: 0;
   border: none;
   h2 {
+    margin: 0;
     padding: 0;
     border: none;
+  }
+  > .contentCollapse {
+    padding: 0;
+    margin: 0;
   }
 }

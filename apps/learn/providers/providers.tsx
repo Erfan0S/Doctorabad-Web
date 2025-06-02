@@ -21,11 +21,11 @@ const Providers = ({ children }: React.PropsWithChildren) => {
         <ModalCreator ModalsList={ModalsList} />
         <ToastContainer theme="colored" rtl position="top-left" />
         {children}
-        <ReactQueryDevtools
+        {/* <ReactQueryDevtools
           initialIsOpen={false}
           position="left"
           buttonPosition="bottom-left"
-        />
+        /> */}
       </QueryClientProvider>
     </>
   );

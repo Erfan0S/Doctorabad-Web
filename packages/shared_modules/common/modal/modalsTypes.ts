@@ -15,4 +15,5 @@ export enum ModalTypes {
   VIDEO_QUALITY_SELECTOR = "video_quality_selector",
   ADD_NOTE = "add_note",
   VIDEO_NOTES_LIST = "video_notes_list",
+  AppOnly = "AppOnly",
 }

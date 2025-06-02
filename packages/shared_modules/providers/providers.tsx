@@ -24,19 +24,17 @@ const Providers: React.FC<Props> = ({
   );
 
   return (
-    <>
-      <QueryClientProvider client={client}>
-        <ModalCreator ModalsList={modalList} />
-        <ToastContainer theme="colored" rtl position="top-left" />
-        {haveSideBar && <SidebarProvider />}
-        {children}
-        <ReactQueryDevtools
-          initialIsOpen={false}
-          position="left"
-          buttonPosition="bottom-left"
-        />
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={client}>
+      <ModalCreator ModalsList={modalList} />
+      <ToastContainer theme="colored" rtl position="top-left" />
+      {haveSideBar && <SidebarProvider />}
+      {children}
+      <ReactQueryDevtools
+        initialIsOpen={false}
+        position="left"
+        buttonPosition="bottom-left"
+      />
+    </QueryClientProvider>
   );
 };
 

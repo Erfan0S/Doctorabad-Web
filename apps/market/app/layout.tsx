@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import Header from "../components/common/header";
 import Footer from "@/components/common/footer";
 import Content from "@/components/common/content";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
@@ -61,13 +60,13 @@ export default async function RootLayout({
         `,
           }}
         />
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={font.className}>
         <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>
             <MarketHeader />
-
             <Content>{children}</Content>
             <MobileNavBar />
 
