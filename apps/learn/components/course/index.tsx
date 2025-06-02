@@ -30,6 +30,7 @@ import { routePath } from "@repo/core/constants/routePath";
 import classNames from "classnames";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import PhoneIcon from "@/assets/svg/phone";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -173,15 +174,11 @@ const Course = ({ course }: Props) => {
         ) : (
           <button
             className={style.purchaseButton}
-            onClick={
-              course.only_watchable_on_app
-                ? () => modalActions.addModal(ModalTypes.AppOnly)
-                : authorizeClientAction(
-                    cartActionsLoadingHandler(() =>
-                      cartActions.addToCart(+course.id, OrderType.Course)
-                    )
-                  )
-            }
+            onClick={authorizeClientAction(
+              cartActionsLoadingHandler(() =>
+                cartActions.addToCart(+course.id, OrderType.Course)
+              )
+            )}
           >
             {updateCartLoading ? (
               <Loading color="red" />
@@ -207,6 +204,15 @@ const Course = ({ course }: Props) => {
               </>
             )}
           </button>
+        )}
+        {course.only_watchable_on_app && (
+          <div
+            className={`${style.appOnly} ${style.purchaseButton}`}
+            onClick={() => modalActions.addModal(ModalTypes.AppOnly)}
+          >
+            {/* <PhoneIcon /> */}
+            <span>قابل استفاده فقط در اپ</span>
+          </div>
         )}
       </div>
     );
