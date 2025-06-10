@@ -1,12 +1,12 @@
 {
-  "name": "Doctor market",
-  "short_name": "DrMarket",
-  "theme_color": "#f67317",
+  "name": "Doctor learn",
+  "short_name": "DrLearn",
+  "theme_color": "#fe0000",
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/market",
-  "start_url": "/market",
+  "scope": "/learn",
+  "start_url": "/learn",
   "icons": [
     {
       "src": "/icon_48.png",

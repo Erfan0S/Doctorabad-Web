@@ -15,6 +15,7 @@ import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
 import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 import { PaymentResult } from "@repo/core/types/cart";
+import { User } from "@repo/core/types/user";
 
 class Api extends Request {
   constructor() {
@@ -31,6 +32,10 @@ class Api extends Request {
     return this.request.get<PaymentResult>(
       `/user/shop/order/result/${paymentToken}`
     );
+  };
+
+  getUser = (): Promise<ResponseType<{ data: User }>> => {
+    return this.request.get("/user");
   };
 
   // single course

@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .sidePanel {
   width: 400px;
@@ -44,16 +44,17 @@
       list-style: none;
 
       li {
-        flex: 0 1 100%;
+        flex: 1 1 auto;
         text-align: center;
         line-height: 50px;
-        font-size: 14px;
+        font-size: small;
         cursor: pointer;
         position: relative;
         transition: 0.15s;
+        padding: 0 5px;
 
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           transition: 0.15s;
           height: 6px;

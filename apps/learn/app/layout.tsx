@@ -63,6 +63,8 @@ export default async function RootLayout({
         `,
           }}
         />
+
+        <link rel="manifest" href="/learn/manifest.ts" />
       </head>
       <body className={`${font.className} ${font.variable}`}>
         <NextTopLoader color="#f54f1a" />

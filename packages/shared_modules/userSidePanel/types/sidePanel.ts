@@ -13,7 +13,9 @@ export enum SidePanelPage {
 }
 
 export enum SidePanelClubTab {
-  DISCOUNTS = "discounts",
+  MISSIONS = "missions",
+  SUGGESTIONS = "suggestions",
+  RANK = "rank",
   HISTORY = "history",
 }
 

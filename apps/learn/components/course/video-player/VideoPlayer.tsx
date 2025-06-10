@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./VideoPlayer.module.scss";
 import { VideoPlayerProps } from "./types";
@@ -9,6 +9,7 @@ import CustomButton from "./videoPlayerCustomElements/CustomButton";
 import { VideoPlayer as VideoPlayerType } from "@/types/VideoPlayer";
 import { VideoQualitySelector } from "../videoQualitySelectorModal/VideoQualitySelector";
 import AddLeasonNoteModal from "./addNoteModal/AddLeasonNoteModal";
+import Watermark from "../watermark";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -23,6 +24,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 }) => {
   const videoRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<VideoPlayerType>();
+  const [isWatermarkActive, setIsWatermarkActive] = useState(false);
+  const handlePlayer = useCallback(
+    (player: VideoPlayerType) => {
+      playerRef.current = player;
+      player.aspectRatio("16:9");
+      player.on("play", () => {
+        console.log("play");
+        setIsWatermarkActive(true);
+      });
+      player.on("pause", () => {
+        console.log("pause");
+        setIsWatermarkActive(false);
+      });
+    },
+    [playerRef]
+  );
   const titleRef = useRef<{ updateTextContent: (title: string) => void }>();
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
@@ -80,7 +97,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       setIsPlayerReady(true);
     });
 
-    playerRef.current = playerInitiator.player as VideoPlayerType;
+    handlePlayer(playerInitiator.player as VideoPlayerType);
 
     return () => {
       if (playerRef.current) {
@@ -172,7 +189,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [title, isPlayerReady, suggestedCurrentTime]);
 
   return (
-    <div>
+    <div onContextMenu={(e) => e.preventDefault()}>
       <div
         className={`${styles.videoContainer} ${className || ""}`}
         ref={videoRef}
@@ -202,6 +219,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               }}
             />
           ) : null,
+          playerRef.current!.el()
+        ),
+        createPortal(
+          <Watermark
+            active={isWatermarkActive}
+            shown={isUserHasAccess && isPlayerReady}
+          />,
           playerRef.current!.el()
         ),
       ]}

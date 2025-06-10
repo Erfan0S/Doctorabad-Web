@@ -39,7 +39,9 @@ const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
         }
       });
     });
-    setCloseSections(newSet);
+    // setCloseSections(newSet);
+    console.log("sections ", sections);
+    console.log("newSet ", newSet);
   }, [sections]);
 
   return (

@@ -16,19 +16,17 @@ const Providers = ({ children }: React.PropsWithChildren) => {
   );
 
   return (
-    <>
-      <QueryClientProvider client={client}>
-        <ModalCreator ModalsList={ModalsList} />
-        <ToastContainer theme="colored" rtl position="top-left" />
-        <SidebarProvider />
-        {children}
-        <ReactQueryDevtools
-          initialIsOpen={false}
-          position="left"
-          buttonPosition="bottom-left"
-        />
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={client}>
+      <ModalCreator ModalsList={ModalsList} />
+      <ToastContainer theme="colored" rtl position="top-left" />
+      <SidebarProvider />
+      {children}
+      <ReactQueryDevtools
+        initialIsOpen={false}
+        position="left"
+        buttonPosition="bottom-left"
+      />
+    </QueryClientProvider>
   );
 };
 

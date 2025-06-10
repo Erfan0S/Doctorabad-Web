@@ -1,3 +1,4 @@
+"use client";
 import style from "./marketHeader.module.scss";
 import Nav from "../nav";
 import CartButton from "../cartButton";
@@ -7,19 +8,34 @@ import Ads from "../ads";
 import { api } from "@/api/Api";
 import { numLatinToAr } from "@/constants/regex";
 import LogoProvider from "../logo/logoProvider";
+import { useQuery } from "@tanstack/react-query";
+import { Loading } from "@repo/shared_modules/components";
 
-const MarketHeader = async () => {
-  const navData = (await api.getCategoriesList()).data;
-  const festivalData = (await api.getFestivalInfo()).data;
-  const productCounts = (await api.getProductCount()).data.data;
+const MarketHeader = () => {
+  const { data: navData, isLoading: navLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => (await api.getCategoriesList()).data,
+  });
+
+  const { data: festivalData } = useQuery({
+    queryKey: ["festival"],
+    queryFn: async () => (await api.getFestivalInfo()).data,
+  });
+
+  const { data: productCounts } = useQuery({
+    queryKey: ["productCount"],
+    queryFn: async () => (await api.getProductCount()).data.data,
+  });
   return (
     <>
-      {festivalData.data && <Ads {...festivalData.data} />}
+      {festivalData?.data && <Ads {...festivalData.data} />}
       <header className={style.header}>
         <div className={style.headerTop}>
           <div className="container">
             <div className={style.headerTopWrapper}>
-              <Search productCount={numLatinToAr(productCounts.toString())} />
+              <Search
+                productCount={numLatinToAr((productCounts || 3000).toString())}
+              />
               <LogoProvider />
             </div>
           </div>
@@ -27,7 +43,11 @@ const MarketHeader = async () => {
         <div className={style.headerBottom}>
           <div className="container">
             <div className={style.headerBottomWrapper}>
-              <Nav navData={navData} />
+              {navLoading ? (
+                <Loading color="orange" />
+              ) : (
+                <Nav navData={navData || []} />
+              )}
               <div className={style.headerBottomWrapperLeftSection}>
                 <CartButton />
               </div>

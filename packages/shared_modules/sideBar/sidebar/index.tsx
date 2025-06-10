@@ -9,10 +9,15 @@ import { useSidebar } from "../states/sidebar";
 import { usePathname } from "next/navigation";
 // import MobileNavBar from '../mobileNavBar';
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const isMobile = useMediaQuery("max-width:768px");
-  const pathname = window?.location.pathname;
+  const [pathname, setPathname] = useState("");
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   const isMainLogoActive = pathname === "/";
   const { toggleShow, show } = useSidebar();
