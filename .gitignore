@@ -37,3 +37,7 @@ yarn-error.log*
 .DS_Store
 *.pem
 .idea
+apps/base/public/sw.js
+apps/learn/public/sw.js
+apps/market/public/sw.js
+apps/base/public/workbox-495fd258.js
