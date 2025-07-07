@@ -12,13 +12,14 @@ import { InstallBannerShow } from "@repo/shared_modules/components";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import Script from "next/script";
 import MarketHeader from "@/components/common/header/market";
+import { Metadata } from "next";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
   display: "swap",
 });
 
-export const metadata = homeMetadata;
+export const metadata: Metadata = homeMetadata;
 export const viewPort = homeViewPort;
 
 export default async function RootLayout({
@@ -60,7 +61,6 @@ export default async function RootLayout({
         `,
           }}
         />
-        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={font.className}>
         <NextTopLoader color="#f54f1a" />

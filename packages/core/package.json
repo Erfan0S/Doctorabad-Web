@@ -13,7 +13,8 @@
     "./hooks/*": "./src/hooks/*.ts",
     "./states/*": "./src/states/*.ts",
     "./http-request/*": "./src/HttpRequest/*.ts",
-    "./metadata/*": "./src/metadata/*.ts"
+    "./metadata/*": "./src/metadata/*.ts",
+    "./metadata/homeLinks": "./src/metadata/homeLinks.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
