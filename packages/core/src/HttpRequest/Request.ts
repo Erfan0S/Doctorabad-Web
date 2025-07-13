@@ -3,6 +3,7 @@ import { RequestMethods } from './RequestMethods';
 import { handleErrorPayload } from './utilts/handleErrorPayload';
 import { RequestConfig } from './types/Request';
 import { toast } from 'react-toastify';
+import { logOut } from '../utils/authUtils';
 
 export class Request {
 request: RequestMethods;
@@ -29,8 +30,17 @@ request: RequestMethods;
     });
   }
 
+  private logOutOnError(error:any){
+    if((error.status === 401 || error.status === 419) && !this.config.isServerSide() && !error.requestOptions.preventLogoutOnAuthError){
+      logOut();
+    }
+  }
+
   protected handlingErrors() {
-    this.request.interceptors.response(undefined, (er)=>handleErrorPayload(er,this.config.isServerSide(),toast));
+    this.request.interceptors.response(undefined, (er)=>{
+     this.logOutOnError(er);
+      return handleErrorPayload(er,this.config.isServerSide(),toast)
+    });
   }
 
   static async getCsrfToken(isServerSide:boolean) {

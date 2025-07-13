@@ -67,7 +67,9 @@ class Api extends Request {
   }
 
   logout(): Promise<any> {
-    return this.request.get("/user/logout");
+    return this.request.get("/user/logout",{
+      preventLogoutOnAuthError:true
+    });
   }
 
   getUser = (): Promise<ResponseType<{ data: User }>> => {
@@ -98,7 +100,9 @@ class Api extends Request {
 
   // cart
   getCartList(): Promise<ResponseType<CartResponse>> {
-    return this.request.get<CartResponse>("/user/v1/cart");
+    return this.request.get<CartResponse>("/user/v1/cart",{
+      preventLogoutOnAuthError:true
+    });
   }
 
   addToCart(
@@ -111,7 +115,7 @@ class Api extends Request {
       type: type,
       quantity: 1,
       variants: variants,
-    });
+    })
   }
 
   removeFromCart(orderId: number): Promise<any> {
