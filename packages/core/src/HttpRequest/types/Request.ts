@@ -9,7 +9,8 @@ export enum RequestMethod {
 export type RequestOptions = Omit<RequestInit, 'method' | 'headers'> & {
   params?: { [key: string]: any };
   headers?: { [key: string]: string };
-  next?:any
+  next?:any,
+  preventLogoutOnAuthError?:boolean
 };
 
 export type ResponseSchema<T = any> = {

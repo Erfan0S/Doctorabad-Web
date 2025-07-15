@@ -3,7 +3,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { redirect } from "next/navigation";
 import { routePath } from "../constants/routePath";
 import Cookies from "js-cookie";
-import { AUTH_COOKIE_KEY } from "../constants/constants";
+import { AUTH_COOKIE_KEY, isServerSide } from "../constants/constants";
 import { api } from "@repo/shared_modules/api";
 import { getClientSideCookie, getServerSideCookie } from "./cookieUtils";
 import { authorizedActionStorage } from "../states/athorizedActionStorage";
@@ -33,9 +33,12 @@ export const authorizeServerPage = async () => {
 
 export const isUserLoggedIn = () => getClientSideCookie(AUTH_COOKIE_KEY);
 
-export const logOut = async () => {
-  await api.logout();
-  Cookies.remove(AUTH_COOKIE_KEY);
+export const logOut = async (reloadPage: boolean = false) => {
+  if (!isServerSide && !getClientSideCookie(AUTH_COOKIE_KEY)) return;
 
-  window.location.reload();
+  Cookies.remove(AUTH_COOKIE_KEY);
+  try {
+    await api.logout();
+  } catch (error) {}
+  if (reloadPage) window.location.reload();
 };

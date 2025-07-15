@@ -37,7 +37,7 @@ export const sidePanelMenuData: SidePanelMenuItem[] = [
     id: 3,
     title: "خروج از کلبه",
     Icon: ExitIcon,
-    action: logOut,
+    action: () => logOut(true),
   },
   {
     id: 4,
