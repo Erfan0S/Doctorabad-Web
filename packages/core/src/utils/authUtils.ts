@@ -34,11 +34,11 @@ export const authorizeServerPage = async () => {
 export const isUserLoggedIn = () => getClientSideCookie(AUTH_COOKIE_KEY);
 
 export const logOut = async (reloadPage: boolean = false) => {
-  if(!isServerSide && !getClientSideCookie(AUTH_COOKIE_KEY)) return;
+  if (!isServerSide && !getClientSideCookie(AUTH_COOKIE_KEY)) return;
 
   Cookies.remove(AUTH_COOKIE_KEY);
- try {
-  await api.logout();
- } catch (error) {}
+  try {
+    await api.logout();
+  } catch (error) {}
   if (reloadPage) window.location.reload();
 };
