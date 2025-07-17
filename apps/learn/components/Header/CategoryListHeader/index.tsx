@@ -2,10 +2,7 @@ import React from "react";
 import PageHeader from "../PageHeader";
 import Accordion from "@/components/accordion";
 import styles from "./CategoryListHeader.module.scss";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SortType } from "@/types/filters";
-import { title } from "process";
 
 type Props = {
   title: string;

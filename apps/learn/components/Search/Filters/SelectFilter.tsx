@@ -1,6 +1,6 @@
 "use client";
 import style from "./Filters.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FilterModalType } from "@/types/filters";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@/utils/useChangeSearchParamsFilter";

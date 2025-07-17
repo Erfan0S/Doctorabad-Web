@@ -7,7 +7,6 @@ import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
-import InfiniteScroll from "react-infinite-scroller";
 
 const Search = () => {
   const params = useSearchParams();

@@ -1,12 +1,7 @@
 import { api } from "@/api/Api";
-import CourseList from "@/components/common/CourseList";
 import PageHeader from "@/components/Header/PageHeader";
 import { Loading } from "@repo/shared_modules/components";
-import {
-  InfiniteData,
-  useInfiniteQuery,
-  useQuery,
-} from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 
 type Props = {

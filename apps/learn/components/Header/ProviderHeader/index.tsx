@@ -3,8 +3,6 @@ import { ProviderTabs, TabData } from "@/types/courses";
 import React from "react";
 import styles from "./ProviderHeader.module.scss";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 const ProviderTabsData: TabData[] = [

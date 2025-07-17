@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./ProductTabsController.module.scss";
-import { CourseTab, TabData } from "@/types/courses";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { TabData } from "@/types/courses";
+import { useRouter } from "next/navigation";
 
 type Props = {
   tabData: TabData;

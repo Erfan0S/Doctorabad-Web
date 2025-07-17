@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-
 import Image from "next/image";
 import style from "./Course.module.scss";
 import { api } from "@/api/Api";
@@ -30,7 +29,6 @@ import { routePath } from "@repo/core/constants/routePath";
 import classNames from "classnames";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import PhoneIcon from "@/assets/svg/phone";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,

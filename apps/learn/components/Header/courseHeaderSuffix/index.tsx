@@ -5,16 +5,13 @@ import HeartIcon from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
 import ProfileIcon from "@/assets/svg/profile";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
 import HeartFillIcon from "@/assets/svg/heartFill";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { copyText } from "@repo/core/utils/copyText";
-
 import { CourseDataType } from "@/types/courses";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
+
 interface Button {
   icon: React.ReactNode;
   onClick: () => void;

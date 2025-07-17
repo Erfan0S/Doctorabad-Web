@@ -1,9 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import style from "./Filters.module.scss";
 import Accordion from "@/components/accordion";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { api } from "@/api/Api";
 import { FiltersNames, SortType } from "@/types/filters";
 import { useQuery } from "@tanstack/react-query";
