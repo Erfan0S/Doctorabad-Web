@@ -239,7 +239,8 @@ const Course = ({ course }: Props) => {
         <div className={style.container}>
           <div className={style.courseHeader}>
             <div className={style.courseHeaderTop}>
-              {!course.user_has_access && !course.course_preview ? (
+              {(!course.user_has_access && !course.course_preview) ||
+              (course.user_has_access && course.only_watchable_on_app) ? (
                 <div className={style.courseImagePrevWrapper}>
                   <Image
                     src={course.course_pic}

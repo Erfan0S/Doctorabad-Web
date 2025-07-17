@@ -33,10 +33,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         console.log("play");
         setIsWatermarkActive(true);
       });
-      player.on("pause", () => {
-        console.log("pause");
-        setIsWatermarkActive(false);
-      });
+      // player.on("pause", () => {
+      //   console.log("pause");
+      //   setIsWatermarkActive(false);
+      // });
     },
     [playerRef]
   );

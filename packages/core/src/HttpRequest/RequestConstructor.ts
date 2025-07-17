@@ -39,9 +39,11 @@ export class RequestConstructor {
   }
 
   async constructResponseFailedData(
-    response: Response
+    response: Response,
+    options: RequestOptions
   ): Promise<ResponseType<any>> {
     return this.interceptorsUtils.interceptorResolver("responseFailed", {
+      requestOptions:options,
       status: response.status,
       data:
         response.headers.get("Content-Type") === "application/json"
@@ -66,7 +68,7 @@ export class RequestConstructor {
     if (response.ok) {
       return await this.constructResponseSuccessData<T>(response);
     }
-    return Promise.reject(await this.constructResponseFailedData(response));
+    return Promise.reject(await this.constructResponseFailedData(response,options));
   }
 
   get interceptors() {

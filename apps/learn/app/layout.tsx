@@ -15,6 +15,8 @@ import Script from "next/script";
 import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
+import HomeLinks from "@repo/core/metadata/homeLinks";
+import { Metadata } from "next";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -22,7 +24,7 @@ const font = localFont({
   variable: "--font-iran-sans",
 });
 
-export const metadata = homeMetadata;
+export const metadata: Metadata = homeMetadata;
 export const viewPort = homeViewPort;
 
 export default async function RootLayout({
@@ -64,7 +66,7 @@ export default async function RootLayout({
           }}
         />
 
-        <link rel="manifest" href="/learn/manifest.ts" />
+        <HomeLinks />
       </head>
       <body className={`${font.className} ${font.variable}`}>
         <NextTopLoader color="#f54f1a" />
