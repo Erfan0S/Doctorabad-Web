@@ -5,6 +5,7 @@ import ModalCreator from "@repo/core/modalComponents/ModalCreator";
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ModalsList } from "@/components/common/modals/modalList";
 
 const Providers = ({ children }: React.PropsWithChildren) => {

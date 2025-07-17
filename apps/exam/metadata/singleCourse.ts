@@ -11,29 +11,29 @@ export const generateProductMetaData = async ({
 }): Promise<Metadata> => {
   try {
     const productFetcher = isNaN(Number(params.id))
-      ? api.getCourse(Number(params.id))
-      : api.getCourse(Number(params.id));
+      ? api.getExamDetail(Number(params.id))
+      : api.getExamDetail(Number(params.id));
     const { data } = await productFetcher;
-    const { title, course_pic, meta_description, keywords, id } = data.data;
+    const { title, picture, id } = data.data;
     return {
       title,
-      description: meta_description,
-      keywords: keywords,
+      description: "description",
+      keywords: "keywords",
       openGraph: {
         title,
-        description: meta_description || "",
-        images: course_pic,
+        description: "description",
+        images: picture || "",
         url: `${baseUrls.market}${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
-        siteName: "دکتر‌لرن",
+        siteName: "مرکز آموزش",
       },
       twitter: {
         title,
-        description: meta_description || "",
-        images: course_pic,
+        description: "description",
+        images: picture || "",
         card: "summary_large_image",
       },
     };
   } catch (error) {
-    return { title: "دکترآباد | دوره" };
+    return { title: "دکترآباد | آزمون" };
   }
 };
