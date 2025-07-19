@@ -193,14 +193,6 @@ class Api extends Request {
   getExamSlider = (): Promise<ResponseType<{ data: ExamSliderType[] }>> => {
     return this.request.get("/user/v1/lab/sliders");
   };
-
-  // TODO: duplicated api with learn
-  // getDiscountPlans = (): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
-  //   return this.request.get(`/user/v1/discount/plans?type=${1}`);
-  // };
-  //   getUserPlans(): Promise<ResponseType<UserPlans>> {
-  //   return this.request.get("/user/v1/discount/plans/check?type=1");
-  // }
 }
 
 export const api = new Api();

@@ -7,6 +7,7 @@ import { PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
+import { api as coreApi } from "@repo/shared_modules/api";
 import { Loading } from "@repo/shared_modules/components";
 import styles from "./myCourses.module.scss";
 import Link from "next/link";
@@ -42,7 +43,7 @@ export const MyCourses = () => {
 
   const { data: userPlans, isLoading: userPlansLoading } = useQuery({
     queryKey: ["userPlans"],
-    queryFn: () => api.getUserPlans().then((res) => res.data),
+    queryFn: () => coreApi.getUserPlans().then((res) => res.data),
   });
 
   if (!isLoading && !data) {

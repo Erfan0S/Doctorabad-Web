@@ -9,6 +9,7 @@ import {
   ShareToFriends,
   SingleMessage,
   User,
+  UserPlans,
   VerifyPhoneInput,
 } from "@repo/core/types/user";
 import {
@@ -67,8 +68,8 @@ class Api extends Request {
   }
 
   logout(): Promise<any> {
-    return this.request.get("/user/logout",{
-      preventLogoutOnAuthError:true
+    return this.request.get("/user/logout", {
+      preventLogoutOnAuthError: true,
     });
   }
 
@@ -94,14 +95,20 @@ class Api extends Request {
     return this.request.post(`/user/avatar/select`, { filename });
   };
 
+  // Discount Plans
+
   getDiscountPlans = (): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
     return this.request.get(`/user/v1/discount/plans?type=${1}`);
   };
 
+  getUserPlans(): Promise<ResponseType<UserPlans>> {
+    return this.request.get(`/user/v1/discount/plans/check?type=${1}`);
+  }
+
   // cart
   getCartList(): Promise<ResponseType<CartResponse>> {
-    return this.request.get<CartResponse>("/user/v1/cart",{
-      preventLogoutOnAuthError:true
+    return this.request.get<CartResponse>("/user/v1/cart", {
+      preventLogoutOnAuthError: true,
     });
   }
 
@@ -115,7 +122,7 @@ class Api extends Request {
       type: type,
       quantity: 1,
       variants: variants,
-    })
+    });
   }
 
   removeFromCart(orderId: number): Promise<any> {
