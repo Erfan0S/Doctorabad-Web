@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import PageHeader from "@/components/Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";

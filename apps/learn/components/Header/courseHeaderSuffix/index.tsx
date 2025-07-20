@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import style from "../PageHeader/PageHeader.module.scss";
+import Reac from "react";
+import style from "./courseHeader.module.scss";
 import HeartIcon from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";

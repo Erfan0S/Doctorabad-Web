@@ -21,7 +21,7 @@ import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoa
 import { useCart, cartActions } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import PageHeader from "../Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";

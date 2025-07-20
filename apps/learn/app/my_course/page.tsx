@@ -1,5 +1,5 @@
 import TabsController from "@/components/common/TabsController";
-import PageHeader from "@/components/Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import React from "react";
 import styles from "@/components/myCourses/myCourses.module.scss";
 import { MyCourses } from "@/components/myCourses";

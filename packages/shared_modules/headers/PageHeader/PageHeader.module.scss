@@ -77,3 +77,27 @@
     // }
   }
 }
+
+.base {
+  .sidePanelHeader {
+    background: $button-bg-green;
+  }
+}
+
+.market {
+  .sidePanelHeader {
+    background: $button-bg-orange;
+  }
+}
+
+.learn {
+  .sidePanelHeader {
+    background: $button-bg-red;
+  }
+}
+
+.exam {
+  .sidePanelHeader {
+    background: $button-bg-purple;
+  }
+}

@@ -13,6 +13,7 @@ $button-bg-red: linear-gradient(
   rgba(255, 0, 0, 1) 0%,
   rgb(200, 0, 0) 100%
 );
+$button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
 
 $sidebar-bg: #f2f2f2;
 $sidebar-collapse-width: 150px;
@@ -28,3 +29,5 @@ $purple: #7030a0;
 $gray: #949494;
 
 $placeHolderItemsBackGround: #d1d1d1;
+
+$card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);

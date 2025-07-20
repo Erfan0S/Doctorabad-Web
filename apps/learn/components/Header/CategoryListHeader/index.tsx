@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeader from "../PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import Accordion from "@/components/accordion";
 import styles from "./CategoryListHeader.module.scss";
 import { SortType } from "@/types/filters";

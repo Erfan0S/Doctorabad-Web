@@ -1,5 +1,4 @@
-import { api } from "@/api/Api";
-import PageHeader from "@/components/Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import { CourseListConfigs } from "@/constants/CourseList";
 import CourseListPage from "@/pagesComponents/CourseList";
 import { CourseListType } from "@/types/homePage";

@@ -1,4 +1,4 @@
-import PageHeader from "@/components/Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import SearchBar from "@/components/Search/SearchBar";
 import Search from "@/pagesComponents/Search";
 import React from "react";

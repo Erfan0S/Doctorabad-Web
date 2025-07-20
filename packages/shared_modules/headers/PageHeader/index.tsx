@@ -1,10 +1,12 @@
 "use client";
-import BackIcon from "@/assets/svg/back";
+import { Apps } from "@repo/core/types/general";
+import BackIcon from "../../assets/svg/back";
 import style from "./PageHeader.module.scss";
 import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
+  app?: Apps;
   className?: string;
   suffix?: React.ReactNode;
   children?: React.ReactNode;
@@ -18,6 +20,7 @@ const PageHeader: React.FC<Props> = ({
   children,
   haveMargin = true,
   className,
+  app = Apps.LEARN,
 }) => {
   const router = useRouter();
 
@@ -39,7 +42,7 @@ const PageHeader: React.FC<Props> = ({
   return (
     <div
       style={{ marginBottom: haveMargin ? 10 : 0 }}
-      className={`${style.sidePanelHeaderContainer} ${className}`}
+      className={`${style.sidePanelHeaderContainer} ${className} ${style[app]}`}
     >
       <div className={style.sidePanelHeader}>
         <span>{title}</span>
