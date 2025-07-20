@@ -43,7 +43,7 @@ export class RequestConstructor {
     options: RequestOptions
   ): Promise<ResponseType<any>> {
     return this.interceptorsUtils.interceptorResolver("responseFailed", {
-      requestOptions:options,
+      requestOptions: options,
       status: response.status,
       data:
         response.headers.get("Content-Type") === "application/json"
@@ -57,6 +57,8 @@ export class RequestConstructor {
     method: RequestMethod,
     options: RequestOptions
   ) {
+    console.log(method, url);
+
     const response = await fetch(
       this.requestUtils.getRequestUrl(url, options?.params),
       {
@@ -68,7 +70,9 @@ export class RequestConstructor {
     if (response.ok) {
       return await this.constructResponseSuccessData<T>(response);
     }
-    return Promise.reject(await this.constructResponseFailedData(response,options));
+    return Promise.reject(
+      await this.constructResponseFailedData(response, options)
+    );
   }
 
   get interceptors() {

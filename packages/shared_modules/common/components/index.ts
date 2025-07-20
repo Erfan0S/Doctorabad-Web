@@ -9,3 +9,11 @@ export { LazyDataLoader } from "./lazyDataLoader";
 export { QRContents } from "./qr-contents";
 
 export { MultimediaGallery } from "./multimediaGallery/multimediaGallery";
+
+export { default as Logo } from "./logo";
+
+export { default as MobileHeader } from "./mobileHeader";
+
+export { default as LogoProvider } from "./logo/logoProvider";
+
+export { default as TabsController } from "./TabsController";

@@ -13,7 +13,8 @@
     "./modalsList": "./common/modal/modalsList.tsx",
     "./modalsTypes": "./common/modal/modalsTypes.ts",
     "./components": "./common/components/index.ts",
-    "./assets/styles/*": "./assets/styles/*.scss"
+    "./assets/styles/*": "./assets/styles/*.scss",
+    "./headers": "./headers/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

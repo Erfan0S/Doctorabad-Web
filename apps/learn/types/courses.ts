@@ -67,6 +67,7 @@ export enum ProviderTabs {
   DESCRIPTION = "description",
 }
 
+// TODO: may need to delete
 export interface TabData {
   id: CourseTab | HomeTabs | ProviderTabs | string;
   title: string;

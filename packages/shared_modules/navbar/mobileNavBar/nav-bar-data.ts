@@ -46,7 +46,7 @@ export const navBarData = [
     id: 4,
     title: "دکتـــــــــــراگزم",
     subTitle: "مرکزآزمون‌دکترآباد",
-    href: "https://doctorabad.com/app",
+    href: baseUrls.exam,
     image: doctorExam,
     color: "purple",
     mobileTitle: "مرکز‌آزمون",

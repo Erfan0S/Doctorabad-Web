@@ -1,7 +1,4 @@
 import localFont from "next/font/local";
-// import Header from "../components/common/header";
-// import Footer from "@/components/common/footer";
-// import { homeMetadata, homeViewPort } from "@/metadata/home";
 
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
@@ -81,7 +78,6 @@ export default async function RootLayout({
                 />
               </div>
             </Suspense>
-            {/* <Footer statistic={statistic} /> */}
             <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>
