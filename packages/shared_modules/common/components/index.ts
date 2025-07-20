@@ -17,3 +17,5 @@ export { default as MobileHeader } from "./mobileHeader";
 export { default as LogoProvider } from "./logo/logoProvider";
 
 export { default as TabsController } from "./TabsController";
+
+export { default as Button } from "./Button";

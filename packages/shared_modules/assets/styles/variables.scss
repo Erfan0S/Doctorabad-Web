@@ -31,3 +31,23 @@ $gray: #949494;
 $placeHolderItemsBackGround: #d1d1d1;
 
 $card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+
+.base {
+  --button-bg: #{$button-bg-green};
+  --app-base: #{$green};
+}
+
+.market {
+  --button-bg: #{$button-bg-orange};
+  --app-base: #{$orange};
+}
+
+.learn {
+  --button-bg: #{$button-bg-red};
+  --app-base: #{$red};
+}
+
+.exam {
+  --button-bg: #{$button-bg-purple};
+  --app-base: #{$purple};
+}

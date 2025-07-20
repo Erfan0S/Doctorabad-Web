@@ -17,7 +17,7 @@
     justify-content: space-between;
     padding: 5px 10px;
     align-items: center;
-    background: $button-bg-red;
+    background: var(--button-bg, #{$button-bg-red});
     width: 100%;
 
     .headerButtonContainer {
@@ -75,29 +75,5 @@
     // > div {
     //   margin: 10px 0;
     // }
-  }
-}
-
-.base {
-  .sidePanelHeader {
-    background: $button-bg-green;
-  }
-}
-
-.market {
-  .sidePanelHeader {
-    background: $button-bg-orange;
-  }
-}
-
-.learn {
-  .sidePanelHeader {
-    background: $button-bg-red;
-  }
-}
-
-.exam {
-  .sidePanelHeader {
-    background: $button-bg-purple;
   }
 }
