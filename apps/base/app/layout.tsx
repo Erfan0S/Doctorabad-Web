@@ -60,7 +60,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={font.className}>
-        <NextTopLoader color="#f54f1a" />
+        <NextTopLoader color="#8fcc18" />
         <div className="root">
           <Providers>
             {/* <Header /> */}
