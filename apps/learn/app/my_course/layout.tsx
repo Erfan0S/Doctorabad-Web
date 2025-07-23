@@ -1,4 +1,4 @@
-import { AuthorizeClientPage } from "@/components/common/AuthorizeClientPage";
+import { AuthorizeClientPage } from "@repo/shared_modules/components";
 import { checkoutMetadata } from "@repo/core/metadata/checkout";
 
 export const viewport = checkoutMetadata;

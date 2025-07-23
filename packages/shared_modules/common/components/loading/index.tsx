@@ -1,19 +1,20 @@
 import React from "react";
 import style from "./Loading.module.scss";
+import { Apps } from "@repo/core/types/general";
 
 interface Props {
   size?: number;
   pageLoader?: boolean;
   className?: string;
-  color?: "red" | "green" | "orange";
+  app?: Apps;
 }
 const Loading: React.FC<Props> = ({
   size = 20,
   pageLoader = false,
   className,
-  color = "green",
+  app = Apps.BASE,
 }) => {
-  const classNames = `${style.loading} ${className} ${style[color]}`;
+  const classNames = `${style.loading} ${className} ${style[app]}`;
 
   if (pageLoader) {
     return (

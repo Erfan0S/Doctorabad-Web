@@ -12,6 +12,7 @@ interface Props {
   children?: React.ReactNode;
   haveMargin?: boolean;
   onBack?: () => void;
+  useBaseColor?: boolean;
 }
 const PageHeader: React.FC<Props> = ({
   title,
@@ -20,7 +21,7 @@ const PageHeader: React.FC<Props> = ({
   children,
   haveMargin = true,
   className,
-  app = Apps.LEARN,
+  app = Apps.BASE,
 }) => {
   const router = useRouter();
 
@@ -44,7 +45,7 @@ const PageHeader: React.FC<Props> = ({
       style={{ marginBottom: haveMargin ? 10 : 0 }}
       className={`${style.sidePanelHeaderContainer} ${className} ${style[app]}`}
     >
-      <div className={style.sidePanelHeader}>
+      <div className={`${style.sidePanelHeader}`}>
         <span>{title}</span>
         <div className={style.headerButtonContainer}>
           <button className={style.headerButton} onClick={OnBack}>

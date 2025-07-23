@@ -7,11 +7,16 @@ import {
   myCoursesTabs,
   myCoursesTabsData,
 } from "@/components/course/tabs/tabs-data";
+import { Apps } from "@repo/core/types/general";
 
 function MyCoursePage() {
   return (
     <div>
-      <PageHeader title="دوره‌ها و طرح‌های من" className={styles.tabs}>
+      <PageHeader
+        app={Apps.LEARN}
+        title="دوره‌ها و طرح‌های من"
+        className={styles.tabs}
+      >
         <TabsController
           tabData={myCoursesTabsData}
           defaultTab={myCoursesTabs.COURSES}

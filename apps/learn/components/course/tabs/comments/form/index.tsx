@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Loading } from "@repo/shared_modules/components";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   courseId: number;
@@ -48,7 +49,7 @@ const ProductCommentsForm = ({ courseId }: Props) => {
           disabled={mutation.isPending}
         >
           {mutation.isPending ? (
-            <Loading size={12} color="red" />
+            <Loading size={12} app={Apps.LEARN} />
           ) : isMobile ? (
             "ارسال"
           ) : (

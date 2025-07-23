@@ -23,11 +23,6 @@ export default function Watermark({ active, shown }: Props) {
   });
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
-    console.log(active);
     if (!active) {
       clearInterval(interval);
       return;
@@ -37,10 +32,6 @@ export default function Watermark({ active, shown }: Props) {
     }, 3000);
     return () => clearInterval(interval);
   }, [active]);
-
-  useEffect(() => {
-    console.log(position);
-  }, [position]);
 
   if (!shown || !active) {
     return null;

@@ -4,7 +4,7 @@ import CourseList from "@/components/common/CourseList";
 import CategoryListHeader from "@/components/Header/CategoryListHeader";
 import { CourseListItemType } from "@/types/courses";
 import { SortType } from "@/types/filters";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -43,7 +43,7 @@ function CategoryListPage({ id, name }: Props) {
     <div>
       <CategoryListHeader title={name || ""} />
       {isLoading ? (
-        <Loading color="red" />
+        <Loading app={Apps.LEARN} />
       ) : (
         <CourseList
           courses={data}

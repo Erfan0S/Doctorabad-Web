@@ -10,6 +10,8 @@ import { VideoPlayer as VideoPlayerType } from "@/types/VideoPlayer";
 import { VideoQualitySelector } from "../videoQualitySelectorModal/VideoQualitySelector";
 import AddLeasonNoteModal from "./addNoteModal/AddLeasonNoteModal";
 import Watermark from "../watermark";
+import { Loading } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -30,11 +32,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       playerRef.current = player;
       player.aspectRatio("16:9");
       player.on("play", () => {
-        console.log("play");
         setIsWatermarkActive(true);
       });
       // player.on("pause", () => {
-      //   console.log("pause");
       //   setIsWatermarkActive(false);
       // });
     },
@@ -190,6 +190,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   return (
     <div onContextMenu={(e) => e.preventDefault()}>
+      {!isPlayerReady && (
+        <div className={styles.palceHolder}>
+          <Loading app={Apps.LEARN} />
+        </div>
+      )}
       <div
         className={`${styles.videoContainer} ${className || ""}`}
         ref={videoRef}

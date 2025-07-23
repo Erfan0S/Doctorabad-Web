@@ -57,8 +57,6 @@ export class RequestConstructor {
     method: RequestMethod,
     options: RequestOptions
   ) {
-    console.log(method, url);
-
     const response = await fetch(
       this.requestUtils.getRequestUrl(url, options?.params),
       {

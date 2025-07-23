@@ -9,15 +9,13 @@ import Loading from "../../../common/components/loading";
 import { shippingAddressValidator } from "@repo/core/constants/validators/userValidator";
 import { isServerSide } from "@repo/core/constants/constants";
 import { useLoadHeavyModule } from "@repo/core/hooks/useLoadHeavyModule";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   initialData: Partial<ShippingAddress> | null;
   submit: (data: Partial<ShippingAddress>) => void;
   isLoading: boolean;
-  colors: {
-    primaryColor: string;
-    secondaryColor: string;
-  };
+  app?: Apps;
 };
 const defaultInitialData = {
   receiver: "",
@@ -31,7 +29,12 @@ const defaultInitialData = {
   longitude: "",
   latitude: "",
 };
-const AddAddress = ({ initialData, submit, isLoading, colors }: Props) => {
+const AddAddress = ({
+  initialData,
+  submit,
+  isLoading,
+  app = Apps.BASE,
+}: Props) => {
   const [Map, loadingMap] = useLoadHeavyModule(() => import("./map"));
 
   if (isServerSide) return null;
@@ -49,15 +52,7 @@ const AddAddress = ({ initialData, submit, isLoading, colors }: Props) => {
       validationSchema={shippingAddressValidator}
     >
       {({ submitForm }) => (
-        <div
-          className={style.addAddress}
-          style={
-            {
-              "--primary-color": colors.primaryColor,
-              "--secondary-color": colors.secondaryColor,
-            } as React.CSSProperties
-          }
-        >
+        <div className={`${style.addAddress} ${style[app]}`}>
           <div className={style.addAddressMap}>
             {!loadingMap && Map ? <Map /> : <Loading size={15} />}
           </div>

@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import CourseList from "../common/CourseList";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
@@ -60,7 +60,7 @@ export const MyCourses = () => {
   return (
     <div className="container">
       {isLoading ? (
-        <Loading color="red" />
+        <Loading app={Apps.LEARN} />
       ) : (
         <>
           {tab === myCoursesTabs.PLANS

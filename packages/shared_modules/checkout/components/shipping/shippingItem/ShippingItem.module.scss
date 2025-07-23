@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .shippingItem {
   $shippingItem: &;
@@ -46,14 +46,14 @@
       font-size: 11px;
     }
     small {
-      color: var(--primary-color);
+      color: var(--app-base, $base-green);
       font-size: 12px;
       font-weight: 500;
     }
   }
 
   &.active {
-    background: var(--secondary-color);
+    background: var(--button-bg, $base-green);
     cursor: default;
     outline: unset;
     #{$shippingItem}Content {

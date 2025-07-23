@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import style from "./Course.module.scss";
+import videoPlayerStyle from "./video-player/VideoPlayer.module.scss";
 import { api } from "@/api/Api";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import TabsController from "../common/TabsController";
@@ -29,6 +30,7 @@ import { routePath } from "@repo/core/constants/routePath";
 import classNames from "classnames";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { Apps } from "@repo/core/types/general";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -53,6 +55,7 @@ const Course = ({ course }: Props) => {
   const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
     number | null
   >(null);
+  const [userHasAccess, setUserHasAccess] = useState(false);
 
   const [orderId, serOrderId] = useState<number | undefined>();
 
@@ -65,14 +68,12 @@ const Course = ({ course }: Props) => {
   });
 
   useEffect(() => {
-    if (course?.user_has_access) {
-      setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);
-    }
+    // if (course?.user_has_access) {
+    //   setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);
+    // }
     if (initLoading) {
       cartActions.getCartData();
     }
-
-    console.log("course", course);
   }, [course]);
 
   useEffect(() => {
@@ -98,6 +99,9 @@ const Course = ({ course }: Props) => {
   }, [data]);
 
   const goToNextTrack = () => {
+    if (!userHasAccess) {
+      return;
+    }
     const nextLeasson =
       flatLeasons[
         flatLeasons.findIndex((leasson) => leasson.id === currentLeasson?.id) +
@@ -110,6 +114,10 @@ const Course = ({ course }: Props) => {
   };
 
   const goToPreviousTrack = () => {
+    if (!userHasAccess) {
+      return;
+    }
+
     const previousLeasson =
       flatLeasons[
         flatLeasons.findIndex((leasson) => leasson.id === currentLeasson?.id) -
@@ -122,7 +130,7 @@ const Course = ({ course }: Props) => {
   };
 
   const onLessonClick = (lesson: Lesson) => {
-    if (course.user_has_access) {
+    if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
     }
@@ -139,6 +147,14 @@ const Course = ({ course }: Props) => {
     course?.price_off || undefined,
     course?.price_amazing || undefined
   );
+
+  useEffect(() => {
+    setUserHasAccess(
+      course?.user_has_access &&
+        !!currentLeasson &&
+        !course.only_watchable_on_app
+    );
+  }, [currentLeasson, course]);
 
   // TODO: can be moved to a separate component
   const courseButton = () => {
@@ -165,7 +181,6 @@ const Course = ({ course }: Props) => {
         ) : course.user_has_access ? (
           <button
             className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
-            style={{ background: "rgb(0, 174, 0)" }}
           >
             دانشجو این دوره ام!
           </button>
@@ -179,7 +194,7 @@ const Course = ({ course }: Props) => {
             )}
           >
             {updateCartLoading ? (
-              <Loading color="red" />
+              <Loading app={Apps.LEARN} />
             ) : (
               <>
                 {" "}
@@ -224,6 +239,7 @@ const Course = ({ course }: Props) => {
       />
       <PageHeader
         title=""
+        app={Apps.LEARN}
         suffix={
           <CourseHeaderSiffix
             course={course}
@@ -238,7 +254,7 @@ const Course = ({ course }: Props) => {
           <div className={style.courseHeader}>
             <div className={style.courseHeaderTop}>
               {(!course.user_has_access && !course.course_preview) ||
-              (course.user_has_access && course.only_watchable_on_app) ? (
+              (!currentLeasson && !course.course_preview) ? (
                 <div className={style.courseImagePrevWrapper}>
                   <Image
                     src={course.course_pic}
@@ -248,19 +264,19 @@ const Course = ({ course }: Props) => {
                   />
                 </div>
               ) : course.user_has_access && isLoading ? (
-                <div className={style.loadingWrapper}>
-                  <Loading color="red" />
+                <div className={videoPlayerStyle.palceHolder}>
+                  <Loading app={Apps.LEARN} />
                 </div>
               ) : (
                 <VideoPlayer
                   // key={currentLeasson?.id || "preview"}
                   config={
-                    course?.user_has_access
+                    userHasAccess
                       ? leassonData?.data?.data?.urls
                       : { source: course?.course_preview! }
                   }
                   title={currentLeasson?.title || "پیش نمایش"}
-                  isUserHasAccess={!!course?.user_has_access}
+                  isUserHasAccess={userHasAccess}
                   lessonId={currentLeasson?.id!}
                   courseId={course.id}
                   goToNextTrack={goToNextTrack}

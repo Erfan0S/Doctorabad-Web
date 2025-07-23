@@ -16,9 +16,7 @@ const MainPage = () => {
   });
 
   useEffect(() => {
-    coreApi.getUserPlans().then((res) => {
-      console.log(res);
-    });
+    coreApi.getUserPlans().then((res) => {});
   }, []);
 
   return (

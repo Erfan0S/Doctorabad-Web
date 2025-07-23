@@ -3,6 +3,7 @@ import { PageHeader } from "@repo/shared_modules/headers";
 import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   id: number;
@@ -25,7 +26,7 @@ function CategoryPage({ id }: Props) {
         <Loading />
       ) : (
         <>
-          <PageHeader title="دسته بندی‌ها" />
+          <PageHeader app={Apps.LEARN} title="دسته بندی‌ها" />
           {/* <CourseList
             courses={data}
             fetchNextPage={fetchNextPage}

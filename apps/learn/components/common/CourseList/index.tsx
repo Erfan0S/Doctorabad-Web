@@ -6,7 +6,7 @@ import Link from "next/link";
 import { InfiniteData } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 
 interface Props {
   courses:
@@ -22,7 +22,7 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
       <InfiniteScroll
         loadMore={() => fetchNextPage()}
         hasMore={hasNextPage}
-        loader={<Loading color="red" />}
+        loader={<Loading app={Apps.LEARN} />}
       >
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>

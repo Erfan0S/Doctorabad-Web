@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .pay {
   background-color: #fff;
@@ -61,11 +61,10 @@
         margin-bottom: space(1);
         justify-content: space-between;
 
-        .priceText{
+        .priceText {
           text-align: left;
         }
         span {
-
           &:last-of-type {
             small {
               margin-right: space(1);
@@ -116,7 +115,7 @@
 
     input:focus-visible,
     textArea:focus-visible {
-      border-color: var(--primary-color);
+      border-color: var(--app-base, $base-green);
       outline: none;
     }
     button {
@@ -126,7 +125,7 @@
       transform: translateY(-50%);
       line-height: 32px;
       padding: 0 space(2);
-      background: var(--secondary-color);
+      background: var(--button-bg, $base-green);
       color: #fff;
       border: unset;
       border-radius: radius(1);
@@ -141,7 +140,7 @@
     span {
       font-size: 14px;
       font-weight: 600;
-      color: var(--primary-color);
+      color: var(--app-base, $base-green);
       display: block;
     }
   }
@@ -152,7 +151,7 @@
     button {
       width: 100%;
       border: unset;
-      background: var(--secondary-color);
+      background: var(--button-bg, $base-green);
       color: #fff;
       font-weight: 600;
       text-align: center;

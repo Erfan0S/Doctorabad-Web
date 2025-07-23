@@ -3,18 +3,6 @@ $radius: 4;
 
 $body-bg: #fff;
 
-$header-bg: #f2f2f2;
-$header-nav-bg: linear-gradient(to right, #f99917, #f54f1a);
-$button-bg-orange: $header-nav-bg;
-$button-bg-blue: linear-gradient(to right, #09b6f3, #0478ad);
-$button-bg-green: linear-gradient(to right, #46d900, #3bb600);
-$button-bg-red: linear-gradient(
-  90deg,
-  rgba(255, 0, 0, 1) 0%,
-  rgb(200, 0, 0) 100%
-);
-$button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
-
 $sidebar-bg: #f2f2f2;
 $sidebar-collapse-width: 150px;
 $sidebar-expand-width: 230px;
@@ -28,13 +16,27 @@ $darkBlue: #0478ad;
 $purple: #7030a0;
 $gray: #949494;
 
+$base-green: #8fcc18;
+
 $placeHolderItemsBackGround: #d1d1d1;
+
+$header-bg: #f2f2f2;
+$header-nav-bg: linear-gradient(to right, #f99917, #f54f1a);
+$button-bg-orange: $header-nav-bg;
+$button-bg-blue: linear-gradient(to right, #09b6f3, #0478ad);
+$button-bg-green: linear-gradient(to right, #8fcb18, #8fcb18);
+$button-bg-red: linear-gradient(
+  90deg,
+  rgba(255, 0, 0, 1) 0%,
+  rgb(200, 0, 0) 100%
+);
+$button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
 
 $card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 
 .base {
   --button-bg: #{$button-bg-green};
-  --app-base: #{$green};
+  --app-base: #{$base-green};
 }
 
 .market {

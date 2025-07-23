@@ -6,7 +6,7 @@ import "swiper/css";
 import { Loading } from "@repo/shared_modules/components";
 import { useEffect, useState } from "react";
 import { CourseListItemType } from "@/types/courses";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
@@ -69,7 +69,7 @@ const CourseSlider: React.FC<Props> = ({
         )}
         <div className={style.productSliderSlider}>
           {isLoading ? (
-            <Loading color="red" />
+            <Loading app={Apps.LEARN} />
           ) : (
             <Swiper
               // spaceBetween={150}

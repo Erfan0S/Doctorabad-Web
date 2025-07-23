@@ -1,6 +1,10 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+html .sidePanelHeaderContainer .baseColor {
+  background: #8fcc18;
+}
+
 .sidePanelHeaderContainer {
   display: flex;
   flex-direction: column;

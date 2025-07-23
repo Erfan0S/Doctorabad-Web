@@ -1,4 +1,4 @@
-import { AuthorizeClientPage } from "@/components/common/AuthorizeClientPage";
+import { AuthorizeClientPage } from "@repo/shared_modules/components";
 import { PageHeader } from "@repo/shared_modules/headers";
 import { checkoutMetadata } from "@repo/core/metadata/checkout";
 

@@ -12,19 +12,7 @@
   border-radius: 50%;
   border-width: 2px;
   border-style: solid;
-  border-color: #ddd #ddd $red;
+  border-color: #ddd #ddd var(--app-base, $base-green);
   animation: 0.5s spinner linear infinite;
   margin: 0 auto;
-}
-
-.red {
-  border-color: #ddd #ddd $red;
-}
-
-.green {
-  border-color: #ddd #ddd $green;
-}
-
-.orange {
-  border-color: #ddd #ddd orange;
 }

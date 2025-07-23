@@ -3,7 +3,7 @@ import { api } from "@/api/Api";
 import CategoriesList from "@/components/common/CategoriesList";
 import HomeHeader from "@/components/Header/HomeHeader";
 import { ProviderType } from "@/types/homePage";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
@@ -29,14 +29,14 @@ const ProvidersPage = () => {
 
   return (
     <div>
-      <HomeHeader />
+      <HomeHeader haveSearch={false} />
       {isLoading ? (
-        <Loading color="red" />
+        <Loading app={Apps.LEARN} />
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading color="red" />}
+          loader={<Loading app={Apps.LEARN} />}
         >
           {data?.pages.map((page) => (
             <CategoriesList
