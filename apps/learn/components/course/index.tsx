@@ -17,20 +17,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
 import { useSearchParams } from "next/navigation";
 import VideoPlayer from "./video-player/VideoPlayer";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { useCart, cartActions } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { PageHeader } from "@repo/shared_modules/headers";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
-import { routePath } from "@repo/core/constants/routePath";
-import classNames from "classnames";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { Apps } from "@repo/core/types/general";
+import CourseButton from "./CourseButton";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -46,8 +41,6 @@ type Props = {
 const Course = ({ course }: Props) => {
   const [activeTab, setActiveTab] = useState<CourseTab>(CourseTab.LESSONS);
   const params = useSearchParams();
-  const { cartActionsLoadingHandler, updateCartLoading } =
-    useCartActionsLoadingHandler();
 
   const { data, initLoading } = useCart();
 
@@ -156,81 +149,6 @@ const Course = ({ course }: Props) => {
     );
   }, [currentLeasson, course]);
 
-  // TODO: can be moved to a separate component
-  const courseButton = () => {
-    return (
-      <div
-        className={classNames(style.purchaseBar, {
-          [style.purchaseBarAccess]: course.user_has_access,
-        })}
-      >
-        {!!orderId ? (
-          <div className={style.addedPurchaseButtonWrapper}>
-            <button
-              className={style.purchaseButton}
-              onClick={() => {
-                cartActions.removeFromCart(orderId);
-              }}
-            >
-              حذف از سبد خرید
-            </button>
-            <Link href={routePath.checkout} className={style.purchaseButton}>
-              رفتن به سبد خرید
-            </Link>
-          </div>
-        ) : course.user_has_access ? (
-          <button
-            className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
-          >
-            دانشجو این دوره ام!
-          </button>
-        ) : (
-          <button
-            className={style.purchaseButton}
-            onClick={authorizeClientAction(
-              cartActionsLoadingHandler(() =>
-                cartActions.addToCart(+course.id, OrderType.Course)
-              )
-            )}
-          >
-            {updateCartLoading ? (
-              <Loading app={Apps.LEARN} />
-            ) : (
-              <>
-                {" "}
-                <span> شروع یادگیری کل دوره | </span>
-                <div>
-                  <div>
-                    {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-                    {offPrice && (
-                      <span className={style.priceOff}>
-                        {priceFormatter(mainPrice)}
-                        تومن
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    {priceFormatter(offPrice || mainPrice)}
-                    تومن
-                  </div>
-                </div>
-              </>
-            )}
-          </button>
-        )}
-        {course.only_watchable_on_app && (
-          <div
-            className={`${style.appOnly} ${style.purchaseButton}`}
-            onClick={() => modalActions.addModal(ModalTypes.AppOnly)}
-          >
-            {/* <PhoneIcon /> */}
-            <span>قابل استفاده فقط در اپ</span>
-          </div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>
       <div
@@ -257,7 +175,7 @@ const Course = ({ course }: Props) => {
               (!currentLeasson && !course.course_preview) ? (
                 <div className={style.courseImagePrevWrapper}>
                   <Image
-                    src={course.course_pic}
+                    src={course.course_pic || ""}
                     alt={course.title}
                     fill
                     placeholder={placeHolderDataUrl}
@@ -288,9 +206,9 @@ const Course = ({ course }: Props) => {
                 <Link href={`/providers/${course?.provider.id}`}>
                   <Image
                     src={course?.provider.pic_url || ""}
-                    alt="company"
-                    width={40}
-                    height={40}
+                    alt={course?.provider.name || "ارائه دهنده"}
+                    width={100}
+                    height={44}
                     placeholder={placeHolderDataUrl}
                   />
                 </Link>
@@ -316,7 +234,12 @@ const Course = ({ course }: Props) => {
               ) : null;
             })}
           </div>
-          {courseButton()}
+          <CourseButton
+            course={course}
+            orderId={orderId}
+            mainPrice={mainPrice}
+            offPrice={offPrice}
+          />
         </div>
       </div>
     </div>

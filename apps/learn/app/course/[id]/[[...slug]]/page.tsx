@@ -11,5 +11,7 @@ type Props = {
 export default async function CoursePage({ params }: Props) {
   const { data } = await api.getCourse(Number(params.id));
 
+  console.log(data);
+
   return <Course course={data.data} />;
 }

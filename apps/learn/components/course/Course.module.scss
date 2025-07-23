@@ -8,7 +8,6 @@
 .container {
   width: 100%;
   direction: rtl;
-  padding-bottom: 80px;
 }
 
 .courseHeader {
@@ -150,6 +149,7 @@
 }
 .purchaseButtonActive {
   background: $base-green;
+  cursor: default;
 }
 
 .loadingWrapper {

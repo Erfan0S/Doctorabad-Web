@@ -39,9 +39,9 @@ const CategoriesPage = () => {
           hasMore={hasNextPage}
           loader={<Loading app={Apps.LEARN} />}
         >
-          {data?.pages.map((page) => (
+          {data?.pages.map((page, i) => (
             <CategoriesList
-              key={page.meta.current_page}
+              key={`${page.meta.current_page}-${i}`}
               categories={page.data || []}
             />
           ))}

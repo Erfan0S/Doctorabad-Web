@@ -12,7 +12,7 @@ const Blog: React.FC<BlogType> = ({ pic_url, title, link }) => {
         <a target="_blank" href={link}>
           <Image
             fill
-            src={pic_url}
+            src={pic_url || placeHolderDataUrl}
             alt={title}
             placeholder={placeHolderDataUrl}
           />

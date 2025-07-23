@@ -23,7 +23,7 @@ const CategoryListItem = ({ category, isProvider }: Props) => {
       <Image
         className={style.ListItem}
         // style={{ backgroundImage: `url(${category.pic_url})` }}
-        src={category.pic_url}
+        src={category.pic_url || placeHolderDataUrl}
         alt={isProvider ? "ارائه‌دهنده" : "دسته بندی"}
         fill
         style={{ objectFit: "cover" }}
