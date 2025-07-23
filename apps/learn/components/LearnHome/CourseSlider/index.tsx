@@ -9,6 +9,7 @@ import { CourseListItemType } from "@/types/courses";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
 
 interface Props {
   data: PaginatedResponse<CourseListItemType[]>;
@@ -62,6 +63,7 @@ const CourseSlider: React.FC<Props> = ({
               <div className={style.productSliderHeaderLink}>
                 <Link href={archiveLink} title={title}>
                   مشاهده‌همه
+                  <ArrowLeft fontSize={10} height={15} />
                 </Link>
               </div>
             )}
@@ -86,7 +88,7 @@ const CourseSlider: React.FC<Props> = ({
                       className={style.course}
                       src={course.pic_url || placeHolderDataUrl}
                       alt={course.title || "دروس"}
-                      width={175}
+                      width={170}
                       height={95}
                       placeholder={placeHolderDataUrl}
                     />

@@ -207,8 +207,8 @@ const Course = ({ course }: Props) => {
                   <Image
                     src={course?.provider.pic_url || ""}
                     alt={course?.provider.name || "ارائه دهنده"}
-                    width={100}
-                    height={44}
+                    width={175}
+                    height={95}
                     placeholder={placeHolderDataUrl}
                   />
                 </Link>

@@ -6,6 +6,7 @@
   "exports": {
     ".": "./index.ts",
     "./icons": "./assets/index.ts",
+    "./icons/*": "./assets/svg/*.tsx",
     "./checkout": "./checkout/components/page.tsx",
     "./navbar/mobile": "./navbar/mobileNavBar/index.tsx",
     "./register": "./userSidePanel/modal_components/register/index.tsx",
