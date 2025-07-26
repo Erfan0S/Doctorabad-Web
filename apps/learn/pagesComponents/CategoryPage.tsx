@@ -1,9 +1,9 @@
 import { api } from "@/api/Api";
 import { PageHeader } from "@repo/shared_modules/headers";
-import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { Apps } from "@repo/core/types/general";
+import Loading from "@/components/common/Loading";
 
 type Props = {
   id: number;

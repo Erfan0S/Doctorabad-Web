@@ -3,16 +3,16 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import CourseList from "../common/CourseList";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { Apps, PaginatedResponse } from "@repo/core/types/general";
+import { PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
 import { api as coreApi } from "@repo/shared_modules/api";
-import { Loading } from "@repo/shared_modules/components";
 import styles from "./myCourses.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import UserPlanItem from "./UserPlanItem";
+import Loading from "../common/Loading";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
@@ -60,7 +60,7 @@ export const MyCourses = () => {
   return (
     <div className="container">
       {isLoading ? (
-        <Loading app={Apps.LEARN} />
+        <Loading />
       ) : (
         <>
           {tab === myCoursesTabs.PLANS

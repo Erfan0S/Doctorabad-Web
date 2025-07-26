@@ -1,10 +1,10 @@
 "use client";
 import { api } from "@/api/Api";
 import CategoriesList from "@/components/common/CategoriesList";
+import Loading from "@/components/common/Loading";
 import HomeHeader from "@/components/Header/HomeHeader";
 import { ProviderType } from "@/types/homePage";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
-import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
@@ -31,12 +31,12 @@ const ProvidersPage = () => {
     <div>
       <HomeHeader haveSearch={false} />
       {isLoading ? (
-        <Loading app={Apps.LEARN} />
+        <Loading />
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading app={Apps.LEARN} />}
+          loader={<Loading />}
         >
           {data?.pages.map((page) => (
             <CategoriesList

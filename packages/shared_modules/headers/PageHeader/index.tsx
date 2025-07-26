@@ -29,14 +29,12 @@ const PageHeader: React.FC<Props> = ({
     if (onBack) {
       onBack();
     } else {
-      router.push("/");
-
-      // const refferer = document.referrer;
-      // if (refferer) {
-      //   router.back();
-      // } else {
-      //   router.push("/");
-      // }
+      const refferer = document.referrer;
+      if (refferer) {
+        router.back();
+      } else {
+        router.push("/");
+      }
     }
   };
 

@@ -3,13 +3,13 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import { Loading } from "@repo/shared_modules/components";
 import { useEffect, useState } from "react";
 import { CourseListItemType } from "@/types/courses";
-import { Apps, PaginatedResponse } from "@repo/core/types/general";
+import { PaginatedResponse } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
+import { Loading } from "@repo/shared_modules/components";
 
 interface Props {
   data: PaginatedResponse<CourseListItemType[]>;
@@ -71,7 +71,7 @@ const CourseSlider: React.FC<Props> = ({
         )}
         <div className={style.productSliderSlider}>
           {isLoading ? (
-            <Loading app={Apps.LEARN} />
+            <Loading />
           ) : (
             <Swiper
               // spaceBetween={150}

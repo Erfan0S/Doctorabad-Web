@@ -67,15 +67,18 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
     }
   };
 
+  const hasPhysicalProduct = cartItems?.some(
+    (item) => item.product_type === OrderType.ShopProduct
+  );
+
   useEffect(() => {
     if (currentShippingMethod) {
       shippingMutation.mutate(currentShippingMethod);
     }
+    if (!hasPhysicalProduct) {
+      setCurrentShippingMethod(undefined);
+    }
   }, [cartItems]);
-
-  const hasPhysicalProduct = cartItems?.some(
-    (item) => item.product_type === OrderType.ShopProduct
-  );
 
   return (
     <div

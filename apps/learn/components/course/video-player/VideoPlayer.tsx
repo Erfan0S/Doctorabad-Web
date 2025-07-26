@@ -10,8 +10,7 @@ import { VideoPlayer as VideoPlayerType } from "@/types/VideoPlayer";
 import { VideoQualitySelector } from "../videoQualitySelectorModal/VideoQualitySelector";
 import AddLeasonNoteModal from "./addNoteModal/AddLeasonNoteModal";
 import Watermark from "../watermark";
-import { Loading } from "@repo/shared_modules/components";
-import { Apps } from "@repo/core/types/general";
+import Loading from "@/components/common/Loading";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -192,7 +191,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     <div onContextMenu={(e) => e.preventDefault()}>
       {!isPlayerReady && (
         <div className={styles.palceHolder}>
-          <Loading app={Apps.LEARN} />
+          <Loading />
         </div>
       )}
       <div

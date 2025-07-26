@@ -12,6 +12,7 @@ import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import { useRouter } from "next/navigation";
 import { modalActions } from "@repo/core/modal/modals";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   data: DiscountPlan;
@@ -61,7 +62,7 @@ export const DiscountItem = ({ data }: Props) => {
             )
           )}
         >
-          {updateCartLoading ? <Loading color="green" /> : "بزن بریم!"}
+          {updateCartLoading ? <Loading app={Apps.BASE} /> : "بزن بریم!"}
         </button>
       )}
     </div>

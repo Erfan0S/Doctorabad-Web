@@ -4,17 +4,15 @@ import { ShippingAddress } from "@repo/core/types/cart";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { ModalProps } from "@repo/core/types/modals";
+import { Apps } from "@repo/core/types/general";
 
 type Props = ModalProps<{
   initialData: Partial<ShippingAddress> | null;
-  colors: {
-    primaryColor: string;
-    secondaryColor: string;
-  };
+  app: Apps;
 }>;
 
 export const AddAddressModal = ({
-  data: { initialData, colors },
+  data: { initialData, app },
   closeModal,
 }: Props) => {
   const queryClient = useQueryClient();
@@ -39,7 +37,7 @@ export const AddAddressModal = ({
       initialData={initialData}
       submit={mutation.mutate}
       isLoading={mutation.isPending}
-      colors={colors}
+      app={app}
     />
   );
 };

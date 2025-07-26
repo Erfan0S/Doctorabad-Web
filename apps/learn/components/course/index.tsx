@@ -14,7 +14,6 @@ import CourseDescription from "./tabs/Description";
 import CourseComments from "./tabs/comments";
 import RelatedCourses from "./tabs/Related";
 import { useQuery } from "@tanstack/react-query";
-import { Loading } from "@repo/shared_modules/components";
 import { useSearchParams } from "next/navigation";
 import VideoPlayer from "./video-player/VideoPlayer";
 import { useCart, cartActions } from "@repo/core/states/cart";
@@ -26,6 +25,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { Apps } from "@repo/core/types/general";
 import CourseButton from "./CourseButton";
+import Loading from "../common/Loading";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -183,7 +183,7 @@ const Course = ({ course }: Props) => {
                 </div>
               ) : course.user_has_access && isLoading ? (
                 <div className={videoPlayerStyle.palceHolder}>
-                  <Loading app={Apps.LEARN} />
+                  <Loading />
                 </div>
               ) : (
                 <VideoPlayer

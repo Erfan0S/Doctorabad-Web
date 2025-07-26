@@ -10,6 +10,7 @@ import { numLatinToAr } from "@/constants/regex";
 import LogoProvider from "../logo/logoProvider";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
 const MarketHeader = () => {
   const { data: navData, isLoading: navLoading } = useQuery({
@@ -44,7 +45,7 @@ const MarketHeader = () => {
           <div className="container">
             <div className={style.headerBottomWrapper}>
               {navLoading ? (
-                <Loading color="orange" />
+                <Loading app={Apps.MARKET} />
               ) : (
                 <Nav navData={navData || []} />
               )}

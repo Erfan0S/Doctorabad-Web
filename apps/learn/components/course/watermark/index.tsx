@@ -14,7 +14,7 @@ export default function Watermark({ active, shown }: Props) {
   let interval: ReturnType<typeof setInterval>;
 
   const createRandomPosition = () => {
-    return Math.round(Math.random() * (80 - 30 + 30) + 10);
+    return Math.round(Math.random() * 65 + 15);
   };
 
   const { data, isLoading } = useQuery({
@@ -36,6 +36,10 @@ export default function Watermark({ active, shown }: Props) {
   if (!shown || !active) {
     return null;
   }
+
+  useEffect(() => {
+    console.log(position);
+  }, [position]);
 
   return (
     <div className={styles.wrapper}>

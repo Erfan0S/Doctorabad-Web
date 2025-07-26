@@ -16,6 +16,10 @@ export const routePath = {
   examBasePath: "/exam",
 };
 
+export const learnPaths = {
+  provider: "/providers",
+};
+
 export const baseUrls = {
   base: "http://localhost:3001",
   learn: "http://localhost:3003" + routePath.learnBasePath,

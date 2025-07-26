@@ -4,9 +4,9 @@ import { CourseListItemType } from "@/types/courses";
 import CourseListItem from "@/components/common/CourseList/CourseListItem";
 import Link from "next/link";
 import { InfiniteData } from "@tanstack/react-query";
-import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
-import { Apps, PaginatedResponse } from "@repo/core/types/general";
+import { PaginatedResponse } from "@repo/core/types/general";
+import Loading from "../Loading";
 
 interface Props {
   courses:
@@ -22,7 +22,7 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
       <InfiniteScroll
         loadMore={() => fetchNextPage()}
         hasMore={hasNextPage}
-        loader={<Loading app={Apps.LEARN} />}
+        loader={<Loading />}
       >
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>
