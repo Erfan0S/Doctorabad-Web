@@ -1,15 +1,18 @@
 "use client";
-import BackIcon from "@/assets/svg/back";
+import { Apps } from "@repo/core/types/general";
+import BackIcon from "../../assets/svg/back";
 import style from "./PageHeader.module.scss";
 import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
+  app?: Apps;
   className?: string;
   suffix?: React.ReactNode;
   children?: React.ReactNode;
   haveMargin?: boolean;
   onBack?: () => void;
+  useBaseColor?: boolean;
 }
 const PageHeader: React.FC<Props> = ({
   title,
@@ -18,6 +21,7 @@ const PageHeader: React.FC<Props> = ({
   children,
   haveMargin = true,
   className,
+  app = Apps.BASE,
 }) => {
   const router = useRouter();
 
@@ -25,23 +29,21 @@ const PageHeader: React.FC<Props> = ({
     if (onBack) {
       onBack();
     } else {
-      router.push("/");
-
-      // const refferer = document.referrer;
-      // if (refferer) {
-      //   router.back();
-      // } else {
-      //   router.push("/");
-      // }
+      const refferer = document.referrer;
+      if (refferer) {
+        router.back();
+      } else {
+        router.push("/");
+      }
     }
   };
 
   return (
     <div
       style={{ marginBottom: haveMargin ? 10 : 0 }}
-      className={`${style.sidePanelHeaderContainer} ${className}`}
+      className={`${style.sidePanelHeaderContainer} ${className} ${style[app]}`}
     >
-      <div className={style.sidePanelHeader}>
+      <div className={`${style.sidePanelHeader}`}>
         <span>{title}</span>
         <div className={style.headerButtonContainer}>
           <button className={style.headerButton} onClick={OnBack}>

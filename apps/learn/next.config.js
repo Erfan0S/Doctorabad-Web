@@ -1,4 +1,5 @@
 import initPwa from "next-pwa";
+import { API_DESTINATION } from "@repo/core/constants/constants";
 
 const withPWA = initPwa({
   dest: "public",
@@ -30,7 +31,7 @@ export default withPWA({
       },
     ],
   },
-  
+
   sassOptions: {
     quietDeps: true,
   },
@@ -38,8 +39,7 @@ export default withPWA({
     return [
       {
         source: "/api/:path*",
-        destination: "https://drabadapp.ir/:path*",
-        // destination: "http://185.231.180.170/:path*",
+        destination: API_DESTINATION,
         basePath: false,
       },
       {

@@ -2,7 +2,7 @@
   "extends": "@repo/typescript-config/base",
   "plugins": [
     {
-      "name": "next"
+      "name": "core"
     }
   ],
   "compilerOptions": {

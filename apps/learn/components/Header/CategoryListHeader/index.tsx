@@ -1,11 +1,9 @@
 import React from "react";
-import PageHeader from "../PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import Accordion from "@/components/accordion";
 import styles from "./CategoryListHeader.module.scss";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SortType } from "@/types/filters";
-import { title } from "process";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   title: string;
@@ -23,6 +21,7 @@ const CategoryListHeader = ({ title }: Props) => {
   return (
     <PageHeader
       title={title}
+      app={Apps.LEARN}
       children={
         <Accordion
           title="نمایش براساس..."

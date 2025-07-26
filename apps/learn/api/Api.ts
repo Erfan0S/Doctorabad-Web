@@ -8,14 +8,13 @@ import {
   CourseListItemType,
   Note,
   previousOrders,
-  UserPlans,
   VideoType,
 } from "@/types/courses";
 import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
 import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 import { PaymentResult } from "@repo/core/types/cart";
-import { User } from "@repo/core/types/user";
+import { User, UserPlans } from "@repo/core/types/user";
 
 class Api extends Request {
   constructor() {
@@ -219,10 +218,6 @@ class Api extends Request {
     return this.request.get("/user/v1/education/previous/orders/courses/plan", {
       params: { page },
     });
-  }
-
-  getUserPlans(): Promise<ResponseType<UserPlans>> {
-    return this.request.get("/user/v1/discount/plans/check?type=1");
   }
 
   // getPreviosPlanCourseOrders (): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {

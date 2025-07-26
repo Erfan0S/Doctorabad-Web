@@ -1,10 +1,10 @@
 "use client";
 import CourseList from "@/components/common/CourseList";
+import Loading from "@/components/common/Loading";
 import { CourseListConfigs } from "@/constants/CourseList";
 import { CourseListItemType } from "@/types/courses";
 import { CourseListType } from "@/types/homePage";
 import { PaginatedResponse } from "@repo/core/types/general";
-import { Loading } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 

@@ -72,3 +72,10 @@ export enum SidePanelPage {
   FRIENDS = "friends",
   PROFILE = "profile",
 }
+
+export enum Apps {
+  BASE = "base",
+  MARKET = "market",
+  LEARN = "learn",
+  EXAM = "exam",
+}

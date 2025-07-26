@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-
 import Image from "next/image";
 import style from "./Course.module.scss";
+import videoPlayerStyle from "./video-player/VideoPlayer.module.scss";
 import { api } from "@/api/Api";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import TabsController from "../common/TabsController";
@@ -14,23 +14,18 @@ import CourseDescription from "./tabs/Description";
 import CourseComments from "./tabs/comments";
 import RelatedCourses from "./tabs/Related";
 import { useQuery } from "@tanstack/react-query";
-import { Loading } from "@repo/shared_modules/components";
 import { useSearchParams } from "next/navigation";
 import VideoPlayer from "./video-player/VideoPlayer";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { useCart, cartActions } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import PageHeader from "../Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
-import { routePath } from "@repo/core/constants/routePath";
-import classNames from "classnames";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import PhoneIcon from "@/assets/svg/phone";
+import { Apps } from "@repo/core/types/general";
+import CourseButton from "./CourseButton";
+import Loading from "../common/Loading";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -46,8 +41,6 @@ type Props = {
 const Course = ({ course }: Props) => {
   const [activeTab, setActiveTab] = useState<CourseTab>(CourseTab.LESSONS);
   const params = useSearchParams();
-  const { cartActionsLoadingHandler, updateCartLoading } =
-    useCartActionsLoadingHandler();
 
   const { data, initLoading } = useCart();
 
@@ -55,6 +48,7 @@ const Course = ({ course }: Props) => {
   const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
     number | null
   >(null);
+  const [userHasAccess, setUserHasAccess] = useState(false);
 
   const [orderId, serOrderId] = useState<number | undefined>();
 
@@ -67,14 +61,12 @@ const Course = ({ course }: Props) => {
   });
 
   useEffect(() => {
-    if (course?.user_has_access) {
-      setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);
-    }
+    // if (course?.user_has_access) {
+    //   setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);
+    // }
     if (initLoading) {
       cartActions.getCartData();
     }
-
-    console.log("course", course);
   }, [course]);
 
   useEffect(() => {
@@ -100,6 +92,9 @@ const Course = ({ course }: Props) => {
   }, [data]);
 
   const goToNextTrack = () => {
+    if (!userHasAccess) {
+      return;
+    }
     const nextLeasson =
       flatLeasons[
         flatLeasons.findIndex((leasson) => leasson.id === currentLeasson?.id) +
@@ -112,6 +107,10 @@ const Course = ({ course }: Props) => {
   };
 
   const goToPreviousTrack = () => {
+    if (!userHasAccess) {
+      return;
+    }
+
     const previousLeasson =
       flatLeasons[
         flatLeasons.findIndex((leasson) => leasson.id === currentLeasson?.id) -
@@ -124,7 +123,7 @@ const Course = ({ course }: Props) => {
   };
 
   const onLessonClick = (lesson: Lesson) => {
-    if (course.user_has_access) {
+    if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
     }
@@ -142,81 +141,13 @@ const Course = ({ course }: Props) => {
     course?.price_amazing || undefined
   );
 
-  // TODO: can be moved to a separate component
-  const courseButton = () => {
-    return (
-      <div
-        className={classNames(style.purchaseBar, {
-          [style.purchaseBarAccess]: course.user_has_access,
-        })}
-      >
-        {!!orderId ? (
-          <div className={style.addedPurchaseButtonWrapper}>
-            <button
-              className={style.purchaseButton}
-              onClick={() => {
-                cartActions.removeFromCart(orderId);
-              }}
-            >
-              حذف از سبد خرید
-            </button>
-            <Link href={routePath.checkout} className={style.purchaseButton}>
-              رفتن به سبد خرید
-            </Link>
-          </div>
-        ) : course.user_has_access ? (
-          <button
-            className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
-            style={{ background: "rgb(0, 174, 0)" }}
-          >
-            دانشجو این دوره ام!
-          </button>
-        ) : (
-          <button
-            className={style.purchaseButton}
-            onClick={authorizeClientAction(
-              cartActionsLoadingHandler(() =>
-                cartActions.addToCart(+course.id, OrderType.Course)
-              )
-            )}
-          >
-            {updateCartLoading ? (
-              <Loading color="red" />
-            ) : (
-              <>
-                {" "}
-                <span> شروع یادگیری کل دوره | </span>
-                <div>
-                  <div>
-                    {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-                    {offPrice && (
-                      <span className={style.priceOff}>
-                        {priceFormatter(mainPrice)}
-                        تومن
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    {priceFormatter(offPrice || mainPrice)}
-                    تومن
-                  </div>
-                </div>
-              </>
-            )}
-          </button>
-        )}
-        {course.only_watchable_on_app && (
-          <div
-            className={`${style.appOnly} ${style.purchaseButton}`}
-            onClick={() => modalActions.addModal(ModalTypes.AppOnly)}
-          >
-            {/* <PhoneIcon /> */}
-            <span>قابل استفاده فقط در اپ</span>
-          </div>
-        )}
-      </div>
+  useEffect(() => {
+    setUserHasAccess(
+      course?.user_has_access &&
+        !!currentLeasson &&
+        !course.only_watchable_on_app
     );
-  };
+  }, [currentLeasson, course]);
 
   return (
     <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>
@@ -226,6 +157,7 @@ const Course = ({ course }: Props) => {
       />
       <PageHeader
         title=""
+        app={Apps.LEARN}
         suffix={
           <CourseHeaderSiffix
             course={course}
@@ -240,29 +172,29 @@ const Course = ({ course }: Props) => {
           <div className={style.courseHeader}>
             <div className={style.courseHeaderTop}>
               {(!course.user_has_access && !course.course_preview) ||
-              (course.user_has_access && course.only_watchable_on_app) ? (
+              (!currentLeasson && !course.course_preview) ? (
                 <div className={style.courseImagePrevWrapper}>
                   <Image
-                    src={course.course_pic}
+                    src={course.course_pic || ""}
                     alt={course.title}
                     fill
                     placeholder={placeHolderDataUrl}
                   />
                 </div>
               ) : course.user_has_access && isLoading ? (
-                <div className={style.loadingWrapper}>
-                  <Loading color="red" />
+                <div className={videoPlayerStyle.palceHolder}>
+                  <Loading />
                 </div>
               ) : (
                 <VideoPlayer
                   // key={currentLeasson?.id || "preview"}
                   config={
-                    course?.user_has_access
+                    userHasAccess
                       ? leassonData?.data?.data?.urls
                       : { source: course?.course_preview! }
                   }
                   title={currentLeasson?.title || "پیش نمایش"}
-                  isUserHasAccess={!!course?.user_has_access}
+                  isUserHasAccess={userHasAccess}
                   lessonId={currentLeasson?.id!}
                   courseId={course.id}
                   goToNextTrack={goToNextTrack}
@@ -274,9 +206,9 @@ const Course = ({ course }: Props) => {
                 <Link href={`/providers/${course?.provider.id}`}>
                   <Image
                     src={course?.provider.pic_url || ""}
-                    alt="company"
-                    width={40}
-                    height={40}
+                    alt={course?.provider.name || "ارائه دهنده"}
+                    width={175}
+                    height={95}
                     placeholder={placeHolderDataUrl}
                   />
                 </Link>
@@ -302,7 +234,12 @@ const Course = ({ course }: Props) => {
               ) : null;
             })}
           </div>
-          {courseButton()}
+          <CourseButton
+            course={course}
+            orderId={orderId}
+            mainPrice={mainPrice}
+            offPrice={offPrice}
+          />
         </div>
       </div>
     </div>

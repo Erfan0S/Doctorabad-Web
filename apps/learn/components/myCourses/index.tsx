@@ -7,11 +7,12 @@ import { PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
-import { Loading } from "@repo/shared_modules/components";
+import { api as coreApi } from "@repo/shared_modules/api";
 import styles from "./myCourses.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import UserPlanItem from "./UserPlanItem";
+import Loading from "../common/Loading";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
@@ -42,7 +43,7 @@ export const MyCourses = () => {
 
   const { data: userPlans, isLoading: userPlansLoading } = useQuery({
     queryKey: ["userPlans"],
-    queryFn: () => api.getUserPlans().then((res) => res.data),
+    queryFn: () => coreApi.getUserPlans().then((res) => res.data),
   });
 
   if (!isLoading && !data) {
@@ -59,7 +60,7 @@ export const MyCourses = () => {
   return (
     <div className="container">
       {isLoading ? (
-        <Loading color="red" />
+        <Loading />
       ) : (
         <>
           {tab === myCoursesTabs.PLANS

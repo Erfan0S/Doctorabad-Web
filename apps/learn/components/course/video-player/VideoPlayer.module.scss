@@ -54,7 +54,7 @@
         background-image: url("../../../assets/svg/svg-images/play.svg");
         background-repeat: no-repeat;
         background-size: 100px;
-        background-position: 50% calc(50% + 50px);
+        background-position: 50% calc(50% + 35px);
         border: none !important; // @stylint ignore
         box-shadow: none !important; // @stylint ignore
         &:before {
@@ -154,6 +154,16 @@
       }
     }
   }
+}
+
+.palceHolder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: rgb(212, 212, 212);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .player {

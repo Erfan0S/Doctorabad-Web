@@ -1,13 +1,9 @@
 import { api } from "@/api/Api";
-import CourseList from "@/components/common/CourseList";
-import PageHeader from "@/components/Header/PageHeader";
-import { Loading } from "@repo/shared_modules/components";
-import {
-  InfiniteData,
-  useInfiniteQuery,
-  useQuery,
-} from "@tanstack/react-query";
+import { PageHeader } from "@repo/shared_modules/headers";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
+import { Apps } from "@repo/core/types/general";
+import Loading from "@/components/common/Loading";
 
 type Props = {
   id: number;
@@ -30,7 +26,7 @@ function CategoryPage({ id }: Props) {
         <Loading />
       ) : (
         <>
-          <PageHeader title="دسته بندی‌ها" />
+          <PageHeader app={Apps.LEARN} title="دسته بندی‌ها" />
           {/* <CourseList
             courses={data}
             fetchNextPage={fetchNextPage}

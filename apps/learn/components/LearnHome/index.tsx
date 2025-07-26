@@ -4,6 +4,7 @@ import styles from "./LearnHome.module.scss";
 import MainSlider from "./slider";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
+import { api as coreApi } from "@repo/shared_modules/api";
 import { HomePageCourseSliders } from "@/types/homePage";
 import LazyCourseSlider from "./LazyCourseSlider";
 import MainSliderPlaceHolder from "../PlaceHolders/Slder";
@@ -15,9 +16,7 @@ const MainPage = () => {
   });
 
   useEffect(() => {
-    api.getUserPlans().then((res) => {
-      console.log(res);
-    });
+    coreApi.getUserPlans().then((res) => {});
   }, []);
 
   return (

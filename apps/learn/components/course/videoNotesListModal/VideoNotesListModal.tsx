@@ -6,6 +6,7 @@ import { api } from "@/api/Api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
+import { Apps } from "@repo/core/types/general";
 
 type Props = ModalProps<{
   courseId: number;
@@ -49,7 +50,7 @@ export const VideoNotesListModal: React.FC<Props> = ({
           pageStart={1}
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading size={24} key={0} color="red" />}
+          loader={<Loading size={24} key={0} app={Apps.LEARN} />}
           useWindow={false}
           getScrollParent={() =>
             document.querySelector(`.${styles.notesList}`) as HTMLElement

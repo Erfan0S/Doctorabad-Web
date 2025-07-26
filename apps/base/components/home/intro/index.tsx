@@ -14,7 +14,7 @@ const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
       <div className="container">
         <div className={style.introWrapper}>
           <div className={style.introImage}>
-            <Image src={person} alt="person" />
+            <Image src={person || ""} alt="person" />
           </div>
           <div className={style.introContent}>
             <span>دنیای شیرین علوم‌پزشکی در دستان من!</span>
@@ -24,13 +24,13 @@ const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
             </p>
             <div>
               <Link href={statistic.google_play_url} target={"_blank"}>
-                <Image src={googlePlay} alt="googlePlay" />
+                <Image src={googlePlay || ""} alt="googlePlay" />
               </Link>
               <Link href={statistic.app_store_url} target={"_blank"}>
-                <Image src={appStore} alt="appStore" />
+                <Image src={appStore || ""} alt="appStore" />
               </Link>
               <Link href={statistic.direct_download_url} target={"_blank"}>
-                <Image src={pwaApp} alt="pwaApp" />
+                <Image src={pwaApp || ""} alt="pwaApp" />
               </Link>
             </div>
           </div>

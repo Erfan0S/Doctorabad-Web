@@ -40,7 +40,7 @@
     outline: unset;
     color: #000;
     &:focus {
-      border-color: var(--primary-color);
+      border-color: var(--app-base, $base-green);
     }
   }
 
@@ -54,12 +54,12 @@
     padding: space(1) space(3);
     outline: unset;
     &:focus {
-      border-color: var(--primary-color);
+      border-color: var(--app-base, $base-green);
     }
   }
 
   button {
-    background: var(--secondary-color);
+    background: var(--button-bg, $base-green);
     border: unset;
     line-height: 45px;
     height: 45px;

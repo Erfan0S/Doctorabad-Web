@@ -1,8 +1,8 @@
 import { api } from "@/api/Api";
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
-import { Loading } from "@repo/shared_modules/components";
+import Loading from "@/components/common/Loading";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React from "react";
 
 type Props = {
   CourseId: number;
@@ -16,7 +16,7 @@ const RelatedCourses = ({ CourseId }: Props) => {
   });
 
   return isLoading ? (
-    <Loading color="red" />
+    <Loading />
   ) : (
     <StaticCourseList courses={data?.data.data ?? []} />
   );

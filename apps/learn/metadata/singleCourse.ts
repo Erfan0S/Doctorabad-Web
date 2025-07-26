@@ -10,9 +10,7 @@ export const generateProductMetaData = async ({
   params: { id: string };
 }): Promise<Metadata> => {
   try {
-    const productFetcher = isNaN(Number(params.id))
-      ? api.getCourse(Number(params.id))
-      : api.getCourse(Number(params.id));
+    const productFetcher = api.getCourse(Number(params.id));
     const { data } = await productFetcher;
     const { title, course_pic, meta_description, keywords, id } = data.data;
     return {
@@ -21,10 +19,10 @@ export const generateProductMetaData = async ({
       keywords: keywords,
       openGraph: {
         title,
-        description: meta_description || "",
+        description: meta_description || "دوره",
         images: course_pic,
-        url: `${baseUrls.market}${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
-        siteName: "دکترمارکت",
+        url: `${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
+        siteName: "دکتر‌لرن",
       },
       twitter: {
         title,

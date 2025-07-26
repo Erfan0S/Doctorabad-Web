@@ -1,6 +1,6 @@
 "use client";
 import { api } from "@/api/Api";
-import PageHeader from "@/components/Header/PageHeader";
+import { PageHeader } from "@repo/shared_modules/headers";
 import ProviderHeader from "@/components/Header/ProviderHeader";
 import { CourseListItemType, ProviderTabs } from "@/types/courses";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import styles from "@/components/Header/ProviderHeader/ProviderHeader.module.scs
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   id: number;
@@ -36,7 +37,7 @@ const ProviderPageContent = ({
             pageStart={1}
             loadMore={fetchNextPage}
             hasMore={hasNextPage}
-            loader={<Loading size={36} key={0} color="red" />}
+            loader={<Loading size={36} key={0} app={Apps.LEARN} />}
           >
             <StaticCourseList courses={courses} />
           </InfiniteScroll>
@@ -88,12 +89,13 @@ const ProviderPage = ({ id }: Props) => {
   }, [data]);
 
   return isLoading ? (
-    <Loading pageLoader color="red" />
+    <Loading pageLoader app={Apps.LEARN} />
   ) : (
     <div>
       <PageHeader
         className={styles.providerHeaderWrapper}
         title="ارائه دهنده‌ها"
+        app={Apps.LEARN}
         children={
           data && (
             <ProviderHeader

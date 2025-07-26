@@ -6,6 +6,7 @@
   "exports": {
     ".": "./index.ts",
     "./icons": "./assets/index.ts",
+    "./icons/*": "./assets/svg/*.tsx",
     "./checkout": "./checkout/components/page.tsx",
     "./navbar/mobile": "./navbar/mobileNavBar/index.tsx",
     "./register": "./userSidePanel/modal_components/register/index.tsx",
@@ -13,7 +14,8 @@
     "./modalsList": "./common/modal/modalsList.tsx",
     "./modalsTypes": "./common/modal/modalsTypes.ts",
     "./components": "./common/components/index.ts",
-    "./assets/styles/*": "./assets/styles/*.scss"
+    "./assets/styles/*": "./assets/styles/*.scss",
+    "./headers": "./headers/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

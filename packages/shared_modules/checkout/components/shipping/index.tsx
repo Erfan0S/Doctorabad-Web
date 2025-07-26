@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
 import { ShippingAddress, ShippingMethod } from "@repo/core/types/cart";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   isLoading: boolean;
@@ -14,10 +15,7 @@ type Props = {
   onChangeShippingMethod: (method: ShippingMethod) => void;
   currentShippingMethod: ShippingMethod | undefined;
   selectedShipingMethod: ShippingMethod | undefined;
-  colors: {
-    primaryColor: string;
-    secondaryColor: string;
-  };
+  app?: Apps;
 };
 
 const Shipping = ({
@@ -26,7 +24,7 @@ const Shipping = ({
   onChangeShippingMethod,
   currentShippingMethod,
   selectedShipingMethod,
-  colors,
+  app = Apps.BASE,
 }: Props) => {
   const { data: shippingData, isLoading: shippingLoading } = useQuery({
     queryFn: api.getShippingMethods,
@@ -38,7 +36,7 @@ const Shipping = ({
   const handleAddAddress = () => {
     modalActions.addModal(ModalTypes.ADD_ADDRESS, {
       initialData: address || null,
-      colors,
+      app,
     });
   };
 

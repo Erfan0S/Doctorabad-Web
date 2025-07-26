@@ -3,21 +3,21 @@ import { useCart } from "@repo/core/states/cart";
 import CartItem from "./item";
 import style from "./Cart.module.scss";
 import { routePath } from "@repo/core/constants/routePath";
-import { CheckoutPageTypes } from "@repo/core/types/cart";
 import Link from "next/link";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
-  type: CheckoutPageTypes;
+  app: Apps;
 };
 
-const Cart = ({ type }: Props) => {
+const Cart = ({ app }: Props) => {
   const { data: cartItems, count } = useCart();
 
   const redirectPath = (): string => {
-    switch (type) {
-      case CheckoutPageTypes.Market:
+    switch (app) {
+      case Apps.MARKET:
         return routePath.archive;
-      case CheckoutPageTypes.Learn:
+      case Apps.LEARN:
         return routePath.learnBasePath;
 
       default:
@@ -26,9 +26,9 @@ const Cart = ({ type }: Props) => {
   };
 
   return (
-    <div className={style.cart}>
+    <div className={`${style.cart} ${style[app]}`}>
       <div className={style.cartTitle}>
-        <span>سبدخرید</span>
+        <span>محصولات‌من</span>
         <small>{count} عدد کالا</small>
       </div>
       <div>

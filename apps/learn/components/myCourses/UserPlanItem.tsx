@@ -1,4 +1,4 @@
-import { UserPlanItem as UserPlanItemType } from "@/types/courses";
+import { UserPlanItem as UserPlanItemType } from "@repo/core/types/user";
 import React from "react";
 import styles from "./myCourses.module.scss";
 

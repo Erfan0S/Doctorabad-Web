@@ -3,6 +3,7 @@
 import { api } from "@/api/Api";
 import CallbackDetail from "@/components/callback/callbackDetail";
 import CallbackDiscountInfo from "@/components/callback/callbackDiscountInfo";
+import { Apps } from "@repo/core/types/general";
 import { Loading } from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,7 +25,7 @@ function Callback() {
     if (!paymentToken) push("/");
   }, [paymentToken, push, isError]);
 
-  if (isLoading) return <Loading size={25} color="red" />;
+  if (isLoading) return <Loading size={25} app={Apps.LEARN} />;
 
   const isOrderSuccess = !isError && data?.data.type === "success";
 
@@ -52,7 +53,7 @@ function Callback() {
 
 export default function CallbackContainer() {
   return (
-    <Suspense fallback={<Loading size={25} color="red" />}>
+    <Suspense fallback={<Loading size={25} app={Apps.LEARN} />}>
       <Callback />
     </Suspense>
   );

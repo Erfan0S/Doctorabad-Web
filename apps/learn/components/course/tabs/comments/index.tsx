@@ -9,6 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { Loading } from "@repo/shared_modules/components";
 import { CourseDataType } from "@/types/courses";
+import { Apps } from "@repo/core/types/general";
 
 interface Props {
   CourseData: CourseDataType;
@@ -31,7 +32,7 @@ const CourseComments: React.FC<Props> = ({ CourseData }) => {
       },
     });
 
-  if (isLoading) return <Loading size={10} />;
+  if (isLoading) return <Loading size={10} app={Apps.LEARN} />;
 
   return (
     <div className={style.productComments}>

@@ -20,10 +20,10 @@ const CourseListItem = ({ course }: Props) => {
     <div className={styles.courseCard}>
       {course.pic_url ? (
         <Image
-          src={course.pic_url}
+          src={course.pic_url || placeHolderDataUrl}
           alt={course.title}
-          width={80}
-          height={80}
+          width={115}
+          height={65}
           className={styles.courseImage}
           placeholder={placeHolderDataUrl}
         />

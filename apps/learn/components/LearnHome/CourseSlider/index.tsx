@@ -3,12 +3,13 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import { Loading } from "@repo/shared_modules/components";
 import { useEffect, useState } from "react";
 import { CourseListItemType } from "@/types/courses";
 import { PaginatedResponse } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
+import { Loading } from "@repo/shared_modules/components";
 
 interface Props {
   data: PaginatedResponse<CourseListItemType[]>;
@@ -62,6 +63,7 @@ const CourseSlider: React.FC<Props> = ({
               <div className={style.productSliderHeaderLink}>
                 <Link href={archiveLink} title={title}>
                   مشاهده‌همه
+                  <ArrowLeft fontSize={10} height={15} />
                 </Link>
               </div>
             )}
@@ -69,7 +71,7 @@ const CourseSlider: React.FC<Props> = ({
         )}
         <div className={style.productSliderSlider}>
           {isLoading ? (
-            <Loading color="red" />
+            <Loading />
           ) : (
             <Swiper
               // spaceBetween={150}
@@ -86,7 +88,7 @@ const CourseSlider: React.FC<Props> = ({
                       className={style.course}
                       src={course.pic_url || placeHolderDataUrl}
                       alt={course.title || "دروس"}
-                      width={175}
+                      width={170}
                       height={95}
                       placeholder={placeHolderDataUrl}
                     />

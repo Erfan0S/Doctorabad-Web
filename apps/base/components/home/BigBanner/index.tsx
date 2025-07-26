@@ -38,13 +38,13 @@ const BigBanner = ({
           }}
         >
           <div className={style.bigBannerImage}>
-            <Image src={image} alt="image" />
+            <Image src={image || ""} alt="image" />
           </div>
           <div className={style.bigBannerContent}>
             <div className={style.bigBannerHeader}>
               <div className={style.bigBannerIcon}>
                 <Squircle fill="#fff" />
-                <Image src={icon} alt="image" />
+                <Image src={icon || ""} alt="image" />
               </div>
               <div className={style.bigBannerTitle}>
                 <span>{title}</span>

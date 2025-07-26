@@ -1,12 +1,9 @@
 import React from "react";
 import { CheckoutPage as Checkout } from "@repo/shared_modules/checkout";
-import { CheckoutPageTypes } from "@repo/core/types/cart";
-import HomeHeader from "@/components/Header/HomeHeader";
+import { Apps } from "@repo/core/types/general";
 
 function ChecoutPage() {
-  return <>
-  <Checkout type={CheckoutPageTypes.Learn} />;
-  </>
+  return <Checkout mobileView />;
 }
 
 export default ChecoutPage;

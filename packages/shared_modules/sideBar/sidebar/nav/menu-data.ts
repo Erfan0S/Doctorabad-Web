@@ -1,9 +1,9 @@
-import doctorLearn from "@/assets/img/doctor-learn.png";
-import doctorMarket from "@/assets/img/doctor-market.png";
-import doctorTools from "@/assets/img/doctor-tools.png";
-import doctorDownload from "@/assets/img/doctor-download.png";
-import doctorExam from "@/assets/img/doctor-exam.png";
-import menuLogo from "@/assets/img/logo-without-text.png";
+import doctorLearn from "../../../assets/img/doctor-learn.png";
+import doctorMarket from "../../../assets/img/doctor-market.png";
+import doctorTools from "../../../assets/img/doctor-tools.png";
+import doctorDownload from "../../../assets/img/doctor-download.png";
+import doctorExam from "../../../assets/img/doctor-exam.png";
+import menuLogo from "../../../assets/img/logo-without-text.png";
 import { baseUrls } from "@repo/core/constants/routePath";
 
 export const mobileMenuLogoSchema = {
@@ -22,7 +22,6 @@ export const sidebarMenuData = [
     id: 1,
     title: "دکتـــــــــــــــرلرن",
     subTitle: "مرکزآموزش‌دکترآباد",
-    // href: "https://doctorabad.com/app",
     href: baseUrls.learn,
     image: doctorLearn,
     color: "red",
@@ -63,7 +62,7 @@ export const sidebarMenuData = [
     id: 5,
     title: "دکتـــــــــــراگزم",
     subTitle: "مرکزآزمون‌دکترآباد",
-    href: "https://doctorabad.com/app",
+    href: baseUrls.exam,
     image: doctorExam,
     color: "purple",
     disabled: true,

@@ -1,28 +1,23 @@
 import React from "react";
-import MobileHeader from "../mobileHeader";
-import TabsController from "@/components/common/TabsController";
-import { TabsData } from "./tabs-data";
 import SearchBar from "@/components/Search/SearchBar";
 import styles from "./HomeHeader.module.scss";
+import { MainTabsData } from "@/constants/tabs-data";
+import { MobileHomeHeader } from "@repo/shared_modules/headers";
+import { Apps } from "@repo/core/types/general";
 
-type Props= {
-  haveSearch?:boolean;
-}
+type Props = {
+  haveSearch?: boolean;
+};
 
-function HomeHeader({haveSearch = true}:Props) {
+function HomeHeader({ haveSearch = true }: Props) {
   return (
-    <div className={styles.container}>
-      <div className={styles.topHeaderContainer}>
+    <MobileHomeHeader tabData={MainTabsData} type={Apps.LEARN}>
+      {haveSearch && (
         <div className={styles.childContainer}>
-          <MobileHeader />
+          <SearchBar />
         </div>
-        <TabsController tabData={TabsData} defaultTab={TabsData[0].id} />
-      </div>
-      {haveSearch &&
-      <div className={styles.childContainer}>
-        <SearchBar />
-      </div>}
-    </div>
+      )}
+    </MobileHomeHeader>
   );
 }
 

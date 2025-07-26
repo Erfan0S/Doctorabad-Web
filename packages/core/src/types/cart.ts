@@ -108,8 +108,3 @@ export enum ChangeQuantityType {
   Increase = "increase",
   Decrease = "decrease",
 }
-
-export enum CheckoutPageTypes {
-  Market = "market",
-  Learn = "learn",
-}

@@ -5,22 +5,21 @@ import Cart from "./cart";
 import Pay from "./pay";
 import Shipping from "./shipping";
 import { cartActions, useCart } from "@repo/core/states/cart";
-import {
-  CheckoutPageTypes,
-  OrderType,
-  ShippingMethod,
-} from "@repo/core/types/cart";
+import { OrderType, ShippingMethod } from "@repo/core/types/cart";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import styles from "./chekcout.module.scss";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
-  type?: CheckoutPageTypes;
+  app?: Apps;
+
+  mobileView?: boolean;
 };
 
-export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
+export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
     queryKey: ["addressList"],
@@ -68,46 +67,27 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
     }
   };
 
-  useEffect(() => {
-    if (currentShippingMethod) {
-      shippingMutation.mutate(currentShippingMethod);
-    }
-  }, [cartItems]);
-
   const hasPhysicalProduct = cartItems?.some(
     (item) => item.product_type === OrderType.ShopProduct
   );
 
-  const getCartColors = () => {
-    switch (type) {
-      case CheckoutPageTypes.Market:
-        return {
-          primaryColor: "#fc7a34",
-          secondaryColor: "linear-gradient(to right, #f99917, #f54f1a)",
-        };
-      case CheckoutPageTypes.Learn:
-        return {
-          primaryColor: "#ff0000",
-          secondaryColor:
-            "linear-gradient(90deg, rgb(255, 0, 0) 0%, rgb(200, 0, 0) 100%)",
-        };
+  useEffect(() => {
+    if (currentShippingMethod && hasPhysicalProduct) {
+      shippingMutation.mutate(currentShippingMethod);
+    } else {
+      setCurrentShippingMethod(undefined);
+      shippingMutation.reset();
     }
-  };
-  const colors = getCartColors();
+  }, [cartItems]);
+
   return (
     <div
-      className={`${styles.checkoutWrapper} ${type === CheckoutPageTypes.Learn && styles.learn}`}
-      style={
-        {
-          "--primary-color": colors.primaryColor,
-          "--secondary-color": colors.secondaryColor,
-        } as React.CSSProperties
-      }
+      className={`${styles.checkoutWrapper} ${mobileView && styles.mobileView} ${styles[app]}`}
     >
       <div>
-        <Cart type={type} />
+        <Cart app={app} />
       </div>
-      {cartItems.length > 0 && (
+      {cartItems.length > 0 && hasPhysicalProduct && (
         <div>
           <Shipping
             isLoading={loadingAddress}
@@ -115,7 +95,6 @@ export function CheckoutPage({ type = CheckoutPageTypes.Market }: Props) {
             onChangeShippingMethod={onChangeShippingMethod}
             currentShippingMethod={currentShippingMethod}
             selectedShipingMethod={selectedShippingMethod}
-            colors={colors}
           />
         </div>
       )}

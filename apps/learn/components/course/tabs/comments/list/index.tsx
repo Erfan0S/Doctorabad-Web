@@ -5,6 +5,7 @@ import { InfiniteData } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "@repo/shared_modules/components";
 import React from "react";
+import { Apps } from "@repo/core/types/general";
 
 interface Props {
   comments: InfiniteData<ProductComments, unknown>;
@@ -24,7 +25,7 @@ const ProductCommentsList: React.FC<Props> = ({
       hasMore={hasNextPage}
       loader={
         <div className={style.productListLoader} key={0}>
-          <Loading size={36} color="red" />
+          <Loading size={36} app={Apps.LEARN} />
         </div>
       }
     >

@@ -1,10 +1,10 @@
 "use client";
 import { api } from "@/api/Api";
 import CategoriesList from "@/components/common/CategoriesList";
+import Loading from "@/components/common/Loading";
 import HomeHeader from "@/components/Header/HomeHeader";
 import { CategoryType } from "@/types/homePage";
-import { PaginatedResponse } from "@repo/core/types/general";
-import { Loading } from "@repo/shared_modules/components";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
@@ -30,18 +30,18 @@ const CategoriesPage = () => {
 
   return (
     <div>
-      <HomeHeader />
+      <HomeHeader haveSearch={false} />
       {isLoading ? (
-        <Loading color="red" />
+        <Loading />
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading color="red" />}
+          loader={<Loading />}
         >
-          {data?.pages.map((page) => (
+          {data?.pages.map((page, i) => (
             <CategoriesList
-              key={page.meta.current_page}
+              key={`${page.meta.current_page}-${i}`}
               categories={page.data || []}
             />
           ))}

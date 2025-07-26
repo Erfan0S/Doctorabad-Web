@@ -65,6 +65,13 @@ const MobileHeader = () => {
           )}
         </button>
         <button
+          onClick={authorizeClientAction(() =>
+            modalActions.addModal(ModalTypes.QR_CONTENTS)
+          )}
+        >
+          <QrScannerIcon />
+        </button>
+        <button
           onClick={() =>
             modalActions.addModal(ModalTypes.SIDE_PANEL, {
               initialPage: SidePanelPage.SUPPORT,
@@ -73,19 +80,12 @@ const MobileHeader = () => {
         >
           <ChatIcon />
         </button>
-        <button
-          onClick={authorizeClientAction(() =>
-            modalActions.addModal(ModalTypes.QR_CONTENTS)
-          )}
-        >
-          <QrScannerIcon />
-        </button>
-        <button onClick={openSideMenu(SidePanelPage.CLUB)}>
+        {/* <button onClick={openSideMenu(SidePanelPage.CLUB)}>
           <Image src={coin} alt="coin" width={25} height={25} />
           <span>
             {isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}
           </span>
-        </button>
+        </button> */}
         <button
           onClick={authorizeClientAction(() => router.push("/checkout"))}
           className={style.cartButton}

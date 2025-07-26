@@ -69,3 +69,17 @@ export interface DiscountPlan {
   vip: boolean;
   free: boolean;
 }
+
+export type UserPlanItem = {
+  id: number;
+  title: string;
+  expired_at: string;
+  free: boolean;
+  vip: boolean;
+  created_at: string;
+};
+
+export type UserPlans = {
+  data: UserPlanItem[];
+  used_free: boolean;
+};
