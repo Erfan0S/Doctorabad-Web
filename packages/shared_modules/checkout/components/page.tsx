@@ -72,11 +72,11 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   );
 
   useEffect(() => {
-    if (currentShippingMethod) {
+    if (currentShippingMethod && hasPhysicalProduct) {
       shippingMutation.mutate(currentShippingMethod);
-    }
-    if (!hasPhysicalProduct) {
+    } else {
       setCurrentShippingMethod(undefined);
+      shippingMutation.reset();
     }
   }, [cartItems]);
 
