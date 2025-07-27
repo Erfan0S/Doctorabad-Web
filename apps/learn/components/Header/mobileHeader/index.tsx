@@ -14,7 +14,7 @@ import {
 import { SidePanelPage } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import Logo from "../logo";
 import HomeIcon from "@/assets/svg/home";
 import ChatIcon from "@/assets/svg/chat";

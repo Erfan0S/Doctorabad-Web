@@ -6,6 +6,7 @@ import {
   CourseComents,
   CourseDataType,
   CourseListItemType,
+  CourseShare,
   Note,
   previousOrders,
   VideoType,
@@ -70,7 +71,7 @@ class Api extends Request {
     );
   }
 
-  shareCourse(id: number): Promise<any> {
+  shareCourse(id: number): Promise<ResponseType<{ data: CourseShare }>> {
     return this.request.get(`/user/v1/education/course/${id}/share`);
   }
 
@@ -262,7 +263,7 @@ class Api extends Request {
   }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/list", {
       params: {
-        sort: sort || "newest",
+        sort: sort,
         fields,
         grades,
         categories,

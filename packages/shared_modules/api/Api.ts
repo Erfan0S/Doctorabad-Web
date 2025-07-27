@@ -18,7 +18,9 @@ import {
   SelectionItem,
 } from "@repo/core/types/general";
 import {
+  CartLastSeenSuggestedType,
   CartResponse,
+  CartSuggestedType,
   ChangeQuantityType,
   CreateOrderRequest,
   CreateOrderResponse,
@@ -150,6 +152,24 @@ class Api extends Request {
     return this.request.get<LastProcessingShopOrder>(
       "/user/shop/order/last/doing"
     );
+  };
+
+  getCartLastSeen = (): Promise<
+    ResponseType<{ data: CartLastSeenSuggestedType[] }>
+  > => {
+    return this.request.get("/user/v1/cart/last_seen");
+  };
+
+  getCartSuggested = (): Promise<
+    ResponseType<{ data: CartLastSeenSuggestedType[] }>
+  > => {
+    return this.request.get("/user/v1/cart/suggested");
+  };
+
+  getCartOthersBought = (): Promise<
+    ResponseType<{ data: CartSuggestedType[] }>
+  > => {
+    return this.request.get("/user/v1/cart/others_bought");
   };
 
   // address

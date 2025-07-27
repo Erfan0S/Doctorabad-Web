@@ -5,6 +5,10 @@ import style from "./Cart.module.scss";
 import { routePath } from "@repo/core/constants/routePath";
 import Link from "next/link";
 import { Apps } from "@repo/core/types/general";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
+import { useEffect } from "react";
+import ProductSlider from "./ProductSlider";
 
 type Props = {
   app: Apps;
@@ -12,6 +16,21 @@ type Props = {
 
 const Cart = ({ app }: Props) => {
   const { data: cartItems, count } = useCart();
+
+  const { data: cartSuggested, isLoading: isLoadingSuggested } = useQuery({
+    queryFn: api.getCartSuggested,
+    queryKey: ["cartSuggested"],
+  });
+  const { data: cartLastSeen, isLoading: isLoadingLastSeen } = useQuery({
+    queryFn: api.getCartLastSeen,
+    queryKey: ["cartLastSeen"],
+  });
+  const { data: cartOthersBought, isLoading: isLoadingOthersBought } = useQuery(
+    {
+      queryFn: api.getCartOthersBought,
+      queryKey: ["cartOthersBought"],
+    }
+  );
 
   const redirectPath = (): string => {
     switch (app) {
@@ -25,25 +44,75 @@ const Cart = ({ app }: Props) => {
     }
   };
 
+  useEffect(() => {
+    console.log("cartLastSeen", cartLastSeen);
+    console.log("cartOthersBought", cartOthersBought);
+    console.log("cartSuggested", cartSuggested);
+  }, [cartLastSeen, cartOthersBought, cartSuggested]);
+
   return (
     <div className={`${style.cart} ${style[app]}`}>
-      <div className={style.cartTitle}>
-        <span>محصولات‌من</span>
-        <small>{count} عدد کالا</small>
-      </div>
       <div>
-        {cartItems.length ? (
-          cartItems.map((cartItem) => {
-            const cartItemProps = {
-              ...cartItem,
-            };
-            return <CartItem key={cartItem.id} {...cartItemProps} />;
-          })
-        ) : (
-          // TODO: Might need change
-          <Link href={"/"} className={style.cartEmpty}>
-            مشاهده محصولات
-          </Link>
+        <div className={style.cartTitle}>
+          <span>محصولات‌من</span>
+          <small>{count} عدد کالا</small>
+        </div>
+        <div>
+          {cartItems.length ? (
+            cartItems.map((cartItem) => {
+              const cartItemProps = {
+                ...cartItem,
+              };
+              return <CartItem key={cartItem.id} {...cartItemProps} />;
+            })
+          ) : (
+            // TODO: Might need change
+            <Link href={"/"} className={style.cartEmpty}>
+              مشاهده محصولات
+            </Link>
+          )}
+        </div>
+      </div>
+
+      <div className={style.cartSggestions}>
+        {!!cartLastSeen?.data.data.length && (
+          <ProductSlider
+            data={
+              cartLastSeen?.data.data.map((item) => ({
+                id: item.product_id,
+                pic_url: item.product_picture,
+                product_type: item.product_type,
+              })) || []
+            }
+            isLoading={isLoadingLastSeen}
+            title="بازدیدهای اخیر من"
+          />
+        )}
+        {!!cartSuggested?.data.data.length && (
+          <ProductSlider
+            data={
+              cartSuggested?.data.data.map((item) => ({
+                id: item.product_id,
+                pic_url: item.product_picture,
+                product_type: item.product_type,
+              })) || []
+            }
+            isLoading={isLoadingSuggested}
+            title="پیشنهاد کد‌خدای دکترآباد در کنار محصولات‌من!"
+          />
+        )}
+        {!!cartOthersBought?.data.data.length && (
+          <ProductSlider
+            data={
+              cartOthersBought?.data.data.map((item) => ({
+                id: item.product_id,
+                pic_url: item.product_picture,
+                product_type: item.product_type,
+              })) || []
+            }
+            isLoading={isLoadingOthersBought}
+            title="دکترآبادی‌ها در کنار محصولات‌من، محصولات زیر را هم خریدن!"
+          />
         )}
       </div>
     </div>

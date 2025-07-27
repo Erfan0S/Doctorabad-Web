@@ -5,11 +5,11 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import FavoriteIcon from "@/components/common/favoriteIcon";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
-import { copyText } from "@repo/core/utils/copyText";
 import BugIcon from "@/assets/svg/newIcons/bug";
 import ShareIcon from "@/assets/svg/newIcons/share";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { shareProduct } from "@repo/core/utils/shareProduct";
 
 interface Props {
   id: number;
@@ -25,14 +25,15 @@ const ProductSidebarHeader = ({
   const { isFavorite, isLoading, toggleFavorite } =
     useToggleFavoriteProduct(initialFavoriteState);
 
-  const shareProduct = async () => {
-    const res = await api.shareProduct(id);
-    const url = res.data.data.product_url || window.location.toString();
-
-    copyText(
-      `${res.data.data.description} \n ${url}`,
-      "متن اشتراک گذاری کپی شد"
-    );
+  const onShareProduct = async () => {
+    shareProduct(async () => {
+      const res = await api.shareProduct(id);
+      return {
+        title: res.data.data.title,
+        description: res.data.data.description,
+        url: res.data.data.product_url,
+      };
+    });
   };
 
   const toggleBugModal = () =>
@@ -53,7 +54,7 @@ const ProductSidebarHeader = ({
       <span onClick={toggleBugModal()}>
         <BugIcon />
       </span>
-      <span onClick={shareProduct}>
+      <span onClick={onShareProduct}>
         <ShareIcon />
       </span>
       <span onClick={() => toggleFavorite(id)}>

@@ -132,3 +132,9 @@ export interface Note {
   lesson_id: number;
   lesson_title: string;
 }
+
+export interface CourseShare {
+  title: string;
+  description: string;
+  course_url: null | string;
+}

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { SelectFilter } from "./SelectFilter";
 import { useEffect } from "react";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 export const GradeFilter = () => {
   const isInitialized = useClientComponentInitiated();

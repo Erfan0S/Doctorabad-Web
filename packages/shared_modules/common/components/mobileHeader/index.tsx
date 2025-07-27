@@ -30,8 +30,6 @@ type Props = {
 
 const MobileHeader = ({ type }: Props) => {
   const router = useRouter();
-  const shouldRender = useClientComponentInitiated();
-  const isMobile = useMediaQuery("max-width:768px");
   const cart = useCart();
 
   const { data, isSuccess } = useQuery({
@@ -41,12 +39,12 @@ const MobileHeader = ({ type }: Props) => {
     retry: 1,
   });
 
-  const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
-    queryFn: api.getUserClubInfo,
-    queryKey: ["user_club_info"],
-    enabled: !!isUserLoggedIn(),
-    retry: 1,
-  });
+  // const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
+  //   queryFn: api.getUserClubInfo,
+  //   queryKey: ["user_club_info"],
+  //   enabled: !!isUserLoggedIn(),
+  //   retry: 1,
+  // });
 
   const openSideMenu = (menu: SidePanelPage) =>
     authorizeClientAction(() =>
@@ -57,9 +55,8 @@ const MobileHeader = ({ type }: Props) => {
     cartActions.getCartData();
   }, []);
 
-  // if (!isMobile || !shouldRender) return;
   return (
-    <div className={style.mobileHeader}>
+    <div className={`${style.mobileHeader} ${style[type]}`}>
       <Logo />
       <div className={style.buttons}>
         <button onClick={openSideMenu(SidePanelPage.MAIN)}>

@@ -4,8 +4,7 @@ import { CategoryList } from "@/types/category";
 import DesktopNav from "./desktop/nav";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import MobileNav from "./mobile/nav";
-import { AnimatePresence } from "framer-motion";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 interface Props {
   navData: CategoryList;
