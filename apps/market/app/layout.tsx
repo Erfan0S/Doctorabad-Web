@@ -61,7 +61,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={font.className}>
+      <body className={`${font.className} desktop_body`}>
         <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>

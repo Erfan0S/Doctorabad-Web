@@ -1,22 +1,16 @@
 import { Apps } from "@repo/core/types/general";
 import React from "react";
 import style from "./button.module.scss";
+import { ButtonProps } from "@repo/core/types/componentProps";
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: React.ReactNode;
-  app?: Apps;
-  styleType?: "default" | "outline";
-  disabled?: boolean;
-}
-
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   children,
   app = Apps.BASE,
   styleType = "default",
   disabled,
   className,
   ...rest
-}: Props) => {
+}) => {
   return (
     <button
       className={`${className} ${style[app]} ${style.button} ${style[styleType]} ${

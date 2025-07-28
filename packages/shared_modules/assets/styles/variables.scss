@@ -30,7 +30,8 @@ $button-bg-red: linear-gradient(
   rgba(255, 0, 0, 1) 0%,
   rgb(200, 0, 0) 100%
 );
-$button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
+// $button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
+$button-bg-purple: $purple;
 
 $card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 
