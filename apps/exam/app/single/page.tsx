@@ -1,14 +1,13 @@
 import HomeHeader from "@/components/headers/homeHeader";
-import QuestionBankPage from "@/pages/QuestionBankPage";
 import React from "react";
 
-const HomeExam = () => {
+function singlePage() {
   return (
     <div>
       <HomeHeader />
-      <QuestionBankPage />
+      singlePage
     </div>
   );
-};
+}
 
-export default HomeExam;
+export default singlePage;
