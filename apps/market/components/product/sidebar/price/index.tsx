@@ -42,13 +42,6 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
     product.price_amazing || undefined
   );
 
-  console.log(product);
-
-  useEffect(() => {
-    console.log(data);
-    console.log(haveVariants);
-  }, [data]);
-
   const isProductHasStock = product.quantity !== 0;
   const color = isProductHasStock ? "orange" : "grey";
   return (
