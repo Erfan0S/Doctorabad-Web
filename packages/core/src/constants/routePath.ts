@@ -20,16 +20,16 @@ export const learnPaths = {
   provider: "/providers",
 };
 
-export const baseUrls = {
-  base: "http://localhost:3001",
-  learn: "http://localhost:3003" + routePath.learnBasePath,
-  market: "http://localhost:3002" + routePath.marketBasePath,
-  exam: "http://localhost:3004" + routePath.examBasePath,
-};
-
 // export const baseUrls = {
-//   base: "https://develop.doctorabad.com",
-//   learn: "https://develop.doctorabad.com" + routePath.learnBasePath,
-//   market: "https://develop.doctorabad.com" + routePath.marketBasePath,
-//   exam: "https://develop.doctorabad.com" + routePath.examBasePath,
+//   base: "http://localhost:3001",
+//   learn: "http://localhost:3003" + routePath.learnBasePath,
+//   market: "http://localhost:3002" + routePath.marketBasePath,
+//   exam: "http://localhost:3004" + routePath.examBasePath,
 // };
+
+export const baseUrls = {
+  base: "https://develop.doctorabad.com",
+  learn: "https://develop.doctorabad.com" + routePath.learnBasePath,
+  market: "https://develop.doctorabad.com" + routePath.marketBasePath,
+  exam: "https://develop.doctorabad.com" + routePath.examBasePath,
+};
