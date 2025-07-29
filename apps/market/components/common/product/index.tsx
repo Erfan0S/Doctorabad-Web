@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import style from "./Product.module.scss";
-import { ProductCard } from "@repo/core/types/product";
+import { ProductCard, ProductListType } from "@repo/core/types/product";
 import Link from "next/link";
 
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
@@ -19,6 +19,7 @@ import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoa
 
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
+import { OrderType } from "@repo/core/types/cart";
 
 const Product: React.FC<ProductCard> = ({
   title,
@@ -45,7 +46,10 @@ const Product: React.FC<ProductCard> = ({
   const { restockNotification, restockNotificationLoading } =
     useRestockNotification(id);
 
-  const productOrder = data.find((order) => order.product_id === id);
+  const productOrder = data.find(
+    (order) =>
+      order.product_id === id && order.product_type === OrderType.ShopProduct
+  );
 
   const url = generateSingleProductUrlFromId(id, slug);
 
