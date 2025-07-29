@@ -11,6 +11,7 @@ import Loading from "@/components/common/loading";
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import { OrderType } from "@repo/core/types/cart";
+import { useEffect } from "react";
 
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';
@@ -24,7 +25,13 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
 
-  const productOrder = data.find((order) => order.product_id === product.id);
+  const productOrder = data.find(
+    (order) =>
+      order.product_id === product.id &&
+      order.product_type === OrderType.ShopProduct
+  );
+
+  const haveVariants = Object.keys(product.variants).length > 0;
 
   const { restockNotification, restockNotificationLoading } =
     useRestockNotification(product.id);
@@ -58,7 +65,7 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
           </div>
         </div>
       )}
-      {productOrder && !product.variants ? (
+      {productOrder && !haveVariants ? (
         <QuantityProductButton
           cardActionsLoadingHandler={cartActionsLoadingHandler}
           id={productOrder.id}
