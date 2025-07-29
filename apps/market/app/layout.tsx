@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 import Footer from "@/components/common/footer";
-import Content from "@/components/common/content";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
@@ -67,7 +66,7 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <MarketHeader />
-            <Content>{children}</Content>
+            <main>{children}</main>
             <MobileNavBar />
 
             <Footer statistic={statistic} />

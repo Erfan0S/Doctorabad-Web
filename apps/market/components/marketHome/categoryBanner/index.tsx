@@ -11,7 +11,7 @@ import {
 } from "@repo/core/constants/sliders";
 import style from "./CategoryBanner.module.scss";
 import { Autoplay } from "swiper/modules";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 interface Props {
   data: Banner[];

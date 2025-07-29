@@ -6,7 +6,6 @@ import clubImage from "@/assets/img/club.png";
 import coinIcon from "@/assets/img/coin.png";
 import { LastProcessingOrder } from "@/types/orders";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { ORDER_STATUS } from "./enum";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -17,7 +16,7 @@ import Box from "@/assets/svg/box";
 import Card from "@/assets/svg/card";
 import { useEffect } from "react";
 import { useCart } from "@repo/core/states/cart";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { useRouter } from "next/navigation";
 import { routePath } from "@repo/core/constants/routePath";
 

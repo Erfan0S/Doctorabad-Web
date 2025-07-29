@@ -6,7 +6,7 @@ import style from "./Discounts.module.scss";
 import discountImage from "@/assets/img/shegeftangiz.png";
 import { routePath } from "@repo/core/constants/routePath";
 
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 type Props = {
   endDate: string;

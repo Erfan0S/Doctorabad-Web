@@ -1,5 +1,4 @@
 "use client";
-import Reac from "react";
 import style from "./courseHeader.module.scss";
 import HeartIcon from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
@@ -8,9 +7,10 @@ import ProfileIcon from "@/assets/svg/profile";
 import HeartFillIcon from "@/assets/svg/heartFill";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { copyText } from "@repo/core/utils/copyText";
 import { CourseDataType } from "@/types/courses";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
+import { api } from "@/api/Api";
+import { shareProduct } from "@repo/core/utils/shareProduct";
 
 interface Button {
   icon: React.ReactNode;
@@ -32,11 +32,16 @@ const CourseHeaderSiffix = ({
     !!course.user_favorite
   );
 
-  const shareProduct = async () => {
-    // const res = await api.shareProduct(id);
-    const url = window.location.toString();
+  const onShareProduct = async () => {
+    shareProduct(async () => {
+      const res = await api.shareCourse(course.id);
 
-    copyText(`${url}`, "متن اشتراک گذاری کپی شد");
+      return {
+        title: res.data.data.title,
+        description: res.data.data.description,
+        url: res.data.data.course_url,
+      };
+    });
   };
 
   const favoriteOnClick = () => {
@@ -51,7 +56,7 @@ const CourseHeaderSiffix = ({
     },
     {
       icon: <ShareIcon />,
-      onClick: shareProduct,
+      onClick: onShareProduct,
     },
     {
       icon: <BugIcon />,

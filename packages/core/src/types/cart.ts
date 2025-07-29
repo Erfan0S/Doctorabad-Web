@@ -108,3 +108,23 @@ export enum ChangeQuantityType {
   Increase = "increase",
   Decrease = "decrease",
 }
+
+export type CartSuggestedType = {
+  counter: number;
+  product_id: number;
+  product_type: OrderType;
+  product_picture: string;
+};
+
+export type CartLastSeenSuggestedType = {
+  id: number;
+  product_type: OrderType;
+  product_id: number;
+  product_picture: string;
+};
+
+export type ProductSliderItemType = {
+  id: number;
+  pic_url: string;
+  product_type?: OrderType;
+};

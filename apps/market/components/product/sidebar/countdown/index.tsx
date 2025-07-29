@@ -1,7 +1,7 @@
-'use client';
-import { useClientComponentInitiated } from '@/hooks/useClientComponentInitiated';
-import style from './ProductSidebarCountdown.module.scss';
-import Countdown, { CountdownRenderProps } from 'react-countdown';
+"use client";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
+import style from "./ProductSidebarCountdown.module.scss";
+import Countdown, { CountdownRenderProps } from "react-countdown";
 
 type Props = {
   discountFestivalEndDate: string;
@@ -10,7 +10,9 @@ type Props = {
 const ProductSidebarCountdown = ({ discountFestivalEndDate }: Props) => {
   const shouldRender = useClientComponentInitiated();
 
-  const renderer = ({ formatted: { days, hours, minutes, seconds } }: CountdownRenderProps) => (
+  const renderer = ({
+    formatted: { days, hours, minutes, seconds },
+  }: CountdownRenderProps) => (
     <div className={style.discountsCountDown}>
       <div>
         <span>{days}</span>

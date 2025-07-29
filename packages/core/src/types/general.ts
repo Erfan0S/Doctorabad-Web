@@ -1,3 +1,5 @@
+import { OrderType } from "./cart";
+
 export interface AvatarFile {
   id: number;
   name: string;

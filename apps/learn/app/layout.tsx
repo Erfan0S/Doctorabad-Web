@@ -74,7 +74,7 @@ export default async function RootLayout({
           <Providers>
             <Suspense fallback={<div></div>}>
               <div className="learn-container">
-                {children}
+                <main>{children}</main>
                 <MobileNavBar
                   onlyOnMobile={false}
                   excludePaths={["checkout", "course"]}

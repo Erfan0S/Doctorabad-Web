@@ -10,6 +10,9 @@
   // max-height: calc(100vh - $header-with-spacing-height);
   text-align: center;
   overflow: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 
   &::-webkit-scrollbar-track {
     background-color: #ccc;
@@ -57,6 +60,10 @@
       font-weight: 600;
       color: $gray;
     }
+  }
+
+  .cartSggestions {
+    margin-top: space(10);
   }
 }
 

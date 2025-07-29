@@ -7,7 +7,7 @@ import style from "./Discounts.module.scss";
 import "swiper/css";
 import { autoPlayConfig } from "@repo/core/constants/sliders";
 import { AmazingProduct } from "@repo/core/types/product";
-import { useClientComponentInitiated } from "@/hooks/useClientComponentInitiated";
+import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 interface Props {
   products: AmazingProduct[];
