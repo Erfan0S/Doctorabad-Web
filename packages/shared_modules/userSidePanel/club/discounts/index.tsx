@@ -7,7 +7,7 @@ import { ClubOffer } from "../../types/doctorClub";
 import React from "react";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import { copyText } from "@repo/core/utils/copyText";
-import Loading from "../../loading";
+import { Loading } from "@repo/shared_modules/components";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfiniteScroll from "react-infinite-scroller";
 

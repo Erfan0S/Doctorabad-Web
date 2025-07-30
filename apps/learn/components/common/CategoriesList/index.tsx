@@ -11,9 +11,9 @@ type Props = {
 const CategoriesList = ({ categories, isProvider }: Props) => {
   return (
     <div className={style.ListWrapper}>
-      {categories.map((category) => (
+      {categories.map((category, i) => (
         <CategoryListItem
-          key={category.id}
+          key={`${category.id}-${i}`}
           category={category}
           isProvider={isProvider}
         />

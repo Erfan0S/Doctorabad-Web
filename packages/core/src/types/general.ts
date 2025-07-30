@@ -73,6 +73,7 @@ export enum SidePanelPage {
   MESSAGES = "messages",
   FRIENDS = "friends",
   PROFILE = "profile",
+  DISCOUNTS = "discounts",
 }
 
 export enum Apps {

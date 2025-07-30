@@ -5,7 +5,7 @@ import CopyCode from "../../../assets/svg/copyCode";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { ClubTransaction } from "../../types/doctorClub";
-import Loading from "../../loading";
+import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";

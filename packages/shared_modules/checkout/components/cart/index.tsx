@@ -77,39 +77,21 @@ const Cart = ({ app }: Props) => {
       <div className={style.cartSggestions}>
         {!!cartLastSeen?.data.data.length && (
           <ProductSlider
-            data={
-              cartLastSeen?.data.data.map((item) => ({
-                id: item.product_id,
-                pic_url: item.product_picture,
-                product_type: item.product_type,
-              })) || []
-            }
+            data={cartLastSeen?.data.data || []}
             isLoading={isLoadingLastSeen}
             title="بازدیدهای اخیر من"
           />
         )}
         {!!cartSuggested?.data.data.length && (
           <ProductSlider
-            data={
-              cartSuggested?.data.data.map((item) => ({
-                id: item.product_id,
-                pic_url: item.product_picture,
-                product_type: item.product_type,
-              })) || []
-            }
+            data={cartSuggested?.data.data || []}
             isLoading={isLoadingSuggested}
             title="پیشنهاد کد‌خدای دکترآباد در کنار محصولات‌من!"
           />
         )}
         {!!cartOthersBought?.data.data.length && (
           <ProductSlider
-            data={
-              cartOthersBought?.data.data.map((item) => ({
-                id: item.product_id,
-                pic_url: item.product_picture,
-                product_type: item.product_type,
-              })) || []
-            }
+            data={cartOthersBought?.data.data || []}
             isLoading={isLoadingOthersBought}
             title="دکترآبادی‌ها در کنار محصولات‌من، محصولات زیر را هم خریدن!"
           />

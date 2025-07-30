@@ -4,7 +4,7 @@ import style from "../learning/SidePanelFavoritesLearning.module.scss";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { Product } from "@repo/core/types/product";
-import Loading from "../../loading";
+import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
 import { modalActions } from "@repo/core/modal/modals";

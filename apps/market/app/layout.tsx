@@ -18,7 +18,7 @@ const font = localFont({
   display: "swap",
 });
 
-export const metadata: Metadata = homeMetadata;
+export const metadata: Metadata = homeMetadata("/market");
 export const viewPort = homeViewPort;
 
 export default async function RootLayout({

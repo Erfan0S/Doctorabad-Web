@@ -9,7 +9,7 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import Loading from "../../loading";
+import { Loading } from "@repo/shared_modules/components";
 
 interface Props {
   offer: ClubOffer;

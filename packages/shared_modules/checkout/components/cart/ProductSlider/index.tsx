@@ -9,10 +9,11 @@ import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
 import { Loading } from "@repo/shared_modules/components";
-import { ProductSliderItemType } from "@repo/core/types/cart";
+import { OrderType, CartProductSliderItemType } from "@repo/core/types/cart";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 
 interface Props {
-  data: ProductSliderItemType[];
+  data: CartProductSliderItemType[];
   title: string;
   archiveLink?: string | null;
   isLoading?: boolean;
@@ -83,18 +84,25 @@ const ProductSlider: React.FC<Props> = ({
               // breakpoints={swiperBreakpoints}
               {...customSliderConfig}
             >
-              {data?.map((item, i) => (
-                <SwiperSlide key={item.id + i}>
-                  <Link href={`/course/${item.id}`}>
+              {data.map((item, i) => (
+                <SwiperSlide key={item.product_id + i}>
+                  <a
+                    href={generateSingleProductUrlFromId(
+                      item.product_id,
+                      "",
+                      item.product_type as OrderType
+                    )}
+                    target="_blank"
+                  >
                     <Image
                       className={style.course}
-                      src={item.pic_url || placeHolderDataUrl}
+                      src={item.product_picture || placeHolderDataUrl}
                       alt={item.product_type || "محصول"}
                       width={150}
                       height={95}
                       placeholder={placeHolderDataUrl}
                     />
-                  </Link>
+                  </a>
                 </SwiperSlide>
               ))}
             </Swiper>

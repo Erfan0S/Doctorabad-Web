@@ -12,7 +12,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import SidePanelClubSingle from "./singleShow";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
-import Loading from "../loading";
+import { Loading } from "@repo/shared_modules/components";
 import { ClubOffer } from "../types/doctorClub";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfoIcon from "../../assets/svg/info";

@@ -17,7 +17,7 @@ const font = localFont({
   display: "swap",
 });
 
-export const metadata = homeMetadata;
+export const metadata = homeMetadata();
 export const viewPort = homeViewPort;
 
 export default async function RootLayout({

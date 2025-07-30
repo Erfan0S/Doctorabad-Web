@@ -6,7 +6,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { PreviousOrder } from "../../types/orders";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import Loading from "../../loading";
+import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
