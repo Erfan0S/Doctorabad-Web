@@ -7,7 +7,20 @@
     }
   }
 }
-
+.noPlan {
+  width: 100%;
+  height: calc(100vh - 300px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span {
+    margin-bottom: 20px;
+  }
+  button {
+    flex: none;
+  }
+}
 .noData {
   width: 100%;
   height: calc(100vh - 300px);

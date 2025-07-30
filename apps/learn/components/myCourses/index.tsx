@@ -1,9 +1,13 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import CourseList from "../common/CourseList";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { PaginatedResponse } from "@repo/core/types/general";
+import {
+  Apps,
+  PaginatedResponse,
+  SidePanelPage,
+} from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
@@ -13,6 +17,9 @@ import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import UserPlanItem from "./UserPlanItem";
 import Loading from "../common/Loading";
+import { Button } from "@repo/shared_modules/components";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
@@ -57,22 +64,43 @@ export const MyCourses = () => {
     );
   }
 
-  return (
-    <div className="container">
-      {isLoading ? (
-        <Loading />
+  useEffect(() => {
+    console.log(userPlans);
+  }, [userPlans]);
+
+  const showContent = () => {
+    if (tab === myCoursesTabs.PLANS) {
+      if (userPlansLoading) return <Loading />;
+      return !!userPlans?.data.length ? (
+        userPlans?.data.map((item) => <UserPlanItem item={item} />)
       ) : (
-        <>
-          {tab === myCoursesTabs.PLANS
-            ? userPlans?.data.map((item) => <UserPlanItem item={item} />)
-            : null}
-          <CourseList
-            courses={data}
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-          />
-        </>
-      )}
-    </div>
-  );
+        <div className={styles.noPlan}>
+          <span>هیچ دوره‌ای نیست!</span>
+          <Button
+            styleType="outline"
+            app={Apps.LEARN}
+            onClick={() =>
+              modalActions.addModal(ModalTypes.SIDE_PANEL, {
+                initialPage: SidePanelPage.DISCOUNTS,
+              })
+            }
+          >
+            {" "}
+            ورود به صفحه طرح‌های من{" "}
+          </Button>
+        </div>
+      );
+    } else {
+      if (isLoading) return <Loading />;
+      return (
+        <CourseList
+          courses={data}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+        />
+      );
+    }
+  };
+
+  return <div className="container">{showContent()}</div>;
 };

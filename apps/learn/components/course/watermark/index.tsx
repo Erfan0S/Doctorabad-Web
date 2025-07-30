@@ -37,10 +37,6 @@ export default function Watermark({ active, shown }: Props) {
     return null;
   }
 
-  useEffect(() => {
-    console.log(position);
-  }, [position]);
-
   return (
     <div className={styles.wrapper}>
       <span

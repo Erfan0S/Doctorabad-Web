@@ -37,7 +37,7 @@ const CategoriesPage = () => {
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading />}
+          loader={<Loading key="loader" />}
         >
           {data?.pages.map((page, i) => (
             <CategoriesList

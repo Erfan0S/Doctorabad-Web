@@ -6,7 +6,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import { MessageItem } from "../types/user";
 import InfiniteScroll from "react-infinite-scroller";
-import Loading from "../loading";
+import { Loading } from "@repo/shared_modules/components";
 import React from "react";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import classNames from "classnames";

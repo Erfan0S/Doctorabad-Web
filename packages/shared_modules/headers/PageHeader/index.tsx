@@ -30,7 +30,8 @@ const PageHeader: React.FC<Props> = ({
       onBack();
     } else {
       const refferer = document.referrer;
-      if (refferer) {
+      const historyLen = window.history.length;
+      if (refferer && historyLen > 1) {
         router.back();
       } else {
         router.push("/");

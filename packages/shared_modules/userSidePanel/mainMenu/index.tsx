@@ -6,10 +6,10 @@ import footerImage from "../../assets/img/login.jpg";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import SidePanelHeader from "../header";
-import Loading from "../loading";
 import avatarImage from "../../assets/img/avatars/01.png";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { modalActions } from "@repo/core/modal/modals";
+import { Loading } from "@repo/shared_modules/components";
 
 const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { data: profile, isLoading } = useQuery({

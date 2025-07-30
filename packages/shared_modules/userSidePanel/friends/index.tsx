@@ -3,7 +3,7 @@ import SidePanelHeader from "../header";
 import style from "./SidePanelFriends.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
-import Loading from "../../userSidePanel/loading";
+import { Loading } from "@repo/shared_modules/components";
 import { copyText } from "@repo/core/utils/copyText";
 
 const SidePanelFriends: React.FC<SidePanelPageProps> = ({ setPage }) => {

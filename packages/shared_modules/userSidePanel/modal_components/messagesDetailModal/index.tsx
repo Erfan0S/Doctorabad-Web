@@ -4,7 +4,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import Loading from "../../loading";
+import { Loading } from "@repo/shared_modules/components";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 type Props = {
   id: number;

@@ -1,5 +1,5 @@
 import { api } from "../../api/Api";
-import Loading from "../loading";
+import { Loading } from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import style from "./SidePanelMessages.module.scss";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
