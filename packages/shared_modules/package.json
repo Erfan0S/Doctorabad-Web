@@ -15,7 +15,8 @@
     "./modalsTypes": "./common/modal/modalsTypes.ts",
     "./components": "./common/components/index.ts",
     "./assets/styles/*": "./assets/styles/*.scss",
-    "./headers": "./headers/index.ts"
+    "./headers": "./headers/index.ts",
+    "./ui/*": "./common/components/ui/*.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

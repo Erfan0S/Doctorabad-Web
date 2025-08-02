@@ -1,9 +1,10 @@
 "use client";
 import style from "./Filters.module.scss";
-import { useState } from "react";
-import { FilterModalType } from "@/types/filters";
-import { useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import {useState} from "react";
+import {FilterModalType} from "@repo/core/types/filter";
+import {useSearchParams} from "next/navigation";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
+import Loading from "../loading";
 
 type Props = {
   closeModal?: (clearModals?: boolean) => void;
@@ -14,6 +15,7 @@ export const SelectFilter = ({
   queryKey,
   title,
   singleSelection,
+  app,
   closeModal,
 }: FilterModalType & Props) => {
   const [searchInList, setSearchInList] = useState("");
@@ -27,7 +29,7 @@ export const SelectFilter = ({
   const activeItems = filter ? filter.split(",") : [];
 
   const filteredItems = searchInList
-    ? items.filter(({ title }) => title.includes(searchInList))
+    ? items.filter(({title}) => title.includes(searchInList))
     : items;
 
   const changeCategoryFilter = (
@@ -48,7 +50,7 @@ export const SelectFilter = ({
   };
 
   return (
-    <div className={style.archiveFiltersCheckboxList}>
+    <div className={`${style.archiveFiltersCheckboxList} ${style[app]}`}>
       {items.length > 10 && (
         <input
           value={searchInList}
@@ -57,7 +59,7 @@ export const SelectFilter = ({
         />
       )}
       <ul>
-        {filteredItems.map(({ id, title }) => {
+        {filteredItems.map(({id, title}) => {
           const uniqueId = `checkbox_${queryKey}_${id}_id`;
           return (
             <li key={id}>

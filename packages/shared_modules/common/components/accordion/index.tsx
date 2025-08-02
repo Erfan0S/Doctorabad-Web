@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useReducer, useState } from "react";
+import {useEffect, useState} from "react";
 import style from "./Accordion.module.scss";
-import TriangleDown from "@/assets/svg/triangleDown";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { modalActions } from "@repo/core/modal/modals";
-import { useSearchParams } from "next/navigation";
-import { FilterModalType } from "@/types/filters";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import TriangleDown from "../../../assets/svg/triangleDown";
+import {ModalTypes} from "@repo/shared_modules/modalsTypes";
+import {modalActions} from "@repo/core/modal/modals";
+import {useSearchParams} from "next/navigation";
+import {FilterModalType} from "@repo/core/types/filter";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
+import Loading from "../loading";
 
 interface Props {
   title: string;
@@ -17,6 +18,7 @@ interface Props {
   modalType?: ModalTypes;
   dependencies?: (string | null)[];
   onClick?: () => void;
+  isLoading?: boolean;
 }
 
 const Accordion: React.FC<Props & FilterModalType> = ({
@@ -28,42 +30,43 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   queryKey,
   dependencies,
   singleSelection,
+  app,
+  isLoading,
 }) => {
-  const [active, toggleActive] = useReducer((show) => !show, isActive);
   const params = useSearchParams();
   const [selected, setSelected] = useState<string | null>(null);
   const changeFilters = useChangeSearchParamsFilter();
 
   const handleClick = () => {
-    if (!isActive) return;
-    toggleActive();
+    if (!isActive || isLoading || !items.length) return;
     modalActions.addModal(ModalTypes.SELECT_FILTER, {
-      title: title,
-      items: items,
-      queryKey: queryKey,
-      singleSelection: singleSelection,
+      title,
+      items,
+      queryKey,
+      singleSelection,
+      app,
     });
   };
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     const filter = params.get(queryKey);
     setSelected(items.find((item) => item.id == filter)?.title || null);
 
+    let deps: {[key: string]: any} = {};
     dependencies &&
-      dependencies.forEach((dep) => {
+      dependencies.map((dep) => {
         if (!dep) return;
-        changeFilters({ [dep]: null });
+        deps = {...deps, [dep]: null};
       });
+    changeFilters(deps);
   }, [params.get(queryKey)]);
 
   return (
     <div
-      className={`${style.accordion} ${!isActive ? style.deActive : ""} ${className}`}
+      className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}
     >
       <div className={style.accordionTitle} onClick={handleClick}>
-        <span>{selected || title}</span>
+        <span>{isLoading ? <Loading app={app} /> : selected || title}</span>
         <TriangleDown width={18} height={18} />
       </div>
 
