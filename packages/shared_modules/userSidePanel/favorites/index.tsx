@@ -1,24 +1,27 @@
-import { useState } from "react";
-import { SidePanelFavoriteTab, SidePanelPageProps } from "../types/sidePanel";
+import {useState} from "react";
+import {
+  SidePanelFavoriteTab,
+  SidePanelPageProps,
+} from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
-import { favoriteTabsData } from "./tabs-data";
+import {favoriteTabsData} from "./tabs-data";
 import sidePanelStyle from "../sidePanel.module.scss";
 import SidePanelFavoritesLearning from "./learning";
 import SidePanelFavoritesShopping from "./shopping";
 import SidePanelFavoritesContent from "./content";
 import SidePanelFavoritesExam from "./exam";
 import classNames from "classnames";
-import { api } from "../../api/Api";
 
-const SidePanelFavorites: React.FC<SidePanelPageProps> = ({ setPage }) => {
+const SidePanelFavorites: React.FC<SidePanelPageProps> = ({setPage, data}) => {
   const [currentTab, setCurrentTab] = useState(
-    SidePanelFavoriteTab.SHOPPING_CENTER
+    (data?.initialTab as SidePanelFavoriteTab) ||
+      SidePanelFavoriteTab.SHOPPING_CENTER
   );
   const [tabData, setTabData] = useState(favoriteTabsData);
 
   const onChangeTab = (content: SidePanelFavoriteTab) => {
     setTabData((prev) =>
-      prev.map((item) => ({ ...item, active: item.content === content }))
+      prev.map((item) => ({...item, active: item.content === content}))
     );
     setCurrentTab(content);
   };
@@ -38,7 +41,7 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({ setPage }) => {
       <div className="sidebar-tab-contents" id="favoriteListContainer">
         <div className={sidePanelStyle.sidePanelTabs}>
           <ul>
-            {tabData.map(({ id, title, active, content, disabled }) => (
+            {tabData.map(({id, title, active, content, disabled}) => (
               <li
                 key={id}
                 className={classNames(

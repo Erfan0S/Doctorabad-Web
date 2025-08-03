@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import {Dispatch, SetStateAction} from "react";
 
 export enum SidePanelPage {
   MAIN = "main",
@@ -34,6 +34,7 @@ export enum DiscountBadge {
 
 export interface SidePanelPageProps {
   setPage: Dispatch<SetStateAction<SidePanelPage>>;
+  data?: Record<string, any>;
 }
 
 export type SidePanelList = {

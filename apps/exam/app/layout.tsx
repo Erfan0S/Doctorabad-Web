@@ -4,15 +4,16 @@ import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
 
-import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
-import { api } from "@repo/shared_modules/api";
-import { InstallBannerShow } from "@repo/shared_modules/components";
+import {api} from "@repo/shared_modules/api";
+import {InstallBannerShow} from "@repo/shared_modules/components";
 import Script from "next/script";
-import { Suspense } from "react";
+import {Suspense} from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
-import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
-import { Metadata } from "next";
+import {homeMetadata, homeViewPort} from "@repo/core/metadata/home";
+import {Metadata} from "next";
+import {Providers} from "@repo/shared_modules";
+import {ModalsList} from "@/components/common/modals/modalList";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -65,7 +66,7 @@ export default async function RootLayout({
       <body className={`${font.className} ${font.variable}`}>
         <NextTopLoader color="#7030a0" />
         <div className="root">
-          <Providers>
+          <Providers modalList={ModalsList}>
             <Suspense fallback={<div></div>}>
               <div className="learn-container">
                 {children}

@@ -16,6 +16,11 @@
     "src/*": ["./*"],
     "react": ["./node_modules/@types/react"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "index.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "index.d.ts",
+    "../core/src/types/sidePanel.ts"
+  ],
   "exclude": ["node_modules"]
 }

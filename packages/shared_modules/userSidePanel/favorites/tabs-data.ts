@@ -1,4 +1,4 @@
-import { SidePanelFavoriteTab } from "../types/sidePanel";
+import {SidePanelFavoriteTab} from "@repo/core/types/sidePanel";
 
 export const favoriteTabsData = [
   {

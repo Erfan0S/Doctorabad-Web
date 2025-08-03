@@ -1,21 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../../api/Api";
-import { SidePanelPageProps } from "../types/sidePanel";
-import { Loading } from "../../common/components";
-import { DiscountItem } from "./DiscountItem";
+import {useQuery} from "@tanstack/react-query";
+import {api} from "../../api/Api";
+import {SidePanelPageProps} from "@repo/core/types/sidePanel";
+import {Loading} from "../../common/components";
+import {DiscountItem} from "./DiscountItem";
 import styles from "./Discounts.module.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { PaginationOptions } from "swiper/types";
-import { Pagination } from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {PaginationOptions} from "swiper/types";
+import {Pagination} from "swiper/modules";
 import SidePanelHeader from "../header";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 
-export const SidePanelDiscounts: React.FC<SidePanelPageProps> = ({
-  setPage,
-}) => {
-  const { data, isLoading } = useQuery({
+export const SidePanelDiscounts: React.FC<SidePanelPageProps> = ({setPage}) => {
+  const {data, isLoading} = useQuery({
     queryKey: ["DiscountPlans"],
     queryFn: api.getDiscountPlans,
   });

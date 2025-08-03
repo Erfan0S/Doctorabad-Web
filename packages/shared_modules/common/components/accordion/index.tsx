@@ -49,7 +49,7 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   };
 
   useEffect(() => {
-    const filter = params.get(queryKey);
+    const filter = params?.get(queryKey);
     setSelected(items.find((item) => item.id == filter)?.title || null);
 
     let deps: {[key: string]: any} = {};
@@ -59,7 +59,7 @@ const Accordion: React.FC<Props & FilterModalType> = ({
         deps = {...deps, [dep]: null};
       });
     changeFilters(deps);
-  }, [params.get(queryKey)]);
+  }, [params?.get(queryKey)]);
 
   return (
     <div

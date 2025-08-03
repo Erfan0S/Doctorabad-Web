@@ -27,3 +27,5 @@ export {default as Accordion} from "./accordion";
 export {SelectFilter} from "./selectFilter";
 
 export {default as SelectFilterQroup} from "./selectFilter/qroup";
+
+export {default as OptionSwitch} from "./optionSwitch";

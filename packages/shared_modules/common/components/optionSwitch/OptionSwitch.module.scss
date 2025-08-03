@@ -12,6 +12,11 @@
   margin-bottom: space(1);
   list-style: none;
 
+  label {
+    cursor: pointer;
+    margin: 0;
+  }
+
   &Wrapper {
     margin-right: auto;
     display: flex;

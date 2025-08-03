@@ -20,13 +20,21 @@
   }
 }
 
-.filtersBox {
+.filtersWrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px 15px;
   margin-top: 15px;
+  position: relative;
+
+  .submitBtn {
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    transform: translate(50%, 50%);
+  }
 }
 
 @media (max-width: 768px) {
@@ -34,5 +42,9 @@
     button {
       font-size: 12px;
     }
+  }
+
+  .filtersWrapper {
+    padding-bottom: 25px;
   }
 }

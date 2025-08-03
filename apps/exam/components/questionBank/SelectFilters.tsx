@@ -8,12 +8,6 @@ import {useQuery} from "@tanstack/react-query";
 import {useSearchParams} from "next/navigation";
 import React from "react";
 
-const filtetTest = [
-  {id: 1, title: "test1"},
-  {id: 2, title: "test2"},
-  {id: 3, title: "test3"},
-];
-
 function SelectFilters() {
   const params = useSearchParams();
 
@@ -123,6 +117,7 @@ function SelectFilters() {
           title: topic.title,
         })) || [],
       loading: topicsLoading,
+      multiSelection: true,
       isActive: !!params?.get(QuesTionFilters.LESSON),
     },
     {
@@ -134,6 +129,7 @@ function SelectFilters() {
           title: date.when,
         })) || [],
       loading: datesLoading,
+      multiSelection: true,
       isActive: true,
     },
     {
@@ -146,6 +142,7 @@ function SelectFilters() {
         })) || [],
       loading: placesLoading,
       isActive: true,
+      multiSelection: true,
     },
   ];
   return <SelectFilterQroup items={filters} app={Apps.EXAM} />;

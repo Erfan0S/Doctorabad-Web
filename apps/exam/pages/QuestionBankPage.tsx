@@ -1,11 +1,17 @@
+"use client";
 import React from "react";
 import QuestionBankFilter from "@/components/questionBank/filter";
+import Providers from "@/providers/providers";
+
+// TODO: remove Providers
 
 function QuestionBankPage() {
   return (
-    <div>
-      <QuestionBankFilter />
-    </div>
+    <Providers>
+      <div>
+        <QuestionBankFilter />
+      </div>
+    </Providers>
   );
 }
 

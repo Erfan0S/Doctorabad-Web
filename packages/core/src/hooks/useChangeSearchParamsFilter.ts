@@ -10,7 +10,7 @@ export const useChangeSearchParamsFilter = () => {
       SearchParamsUtils.paramsStringify(data, {
         questionMarkPrefix: true,
         appendPrevSearchParams: true,
-        customPrevSearchParam: searchParams.toString(),
+        customPrevSearchParam: searchParams?.toString(),
       }),
       {scroll: true}
     );

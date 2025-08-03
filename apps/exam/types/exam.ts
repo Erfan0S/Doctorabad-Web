@@ -47,15 +47,15 @@ export type QuestionType = {
 };
 
 export type QuestionListParamsType = {
-  field: number; // required
-  grade?: number;
-  places?: number[];
-  dates?: number[];
+  field: string; // required
+  grade?: string;
+  places?: string[];
+  dates?: string[];
   title?: string;
-  lesson?: number;
-  topics?: number[];
-  budgeting?: number;
-  tip?: number;
+  lesson?: string;
+  topics?: string[];
+  budgeting?: string;
+  tip?: string;
 };
 
 export type BudgetingType = {

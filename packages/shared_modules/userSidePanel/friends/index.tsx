@@ -1,20 +1,20 @@
-import { SidePanelPageProps } from "../types/sidePanel";
+import {SidePanelPageProps} from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
 import style from "./SidePanelFriends.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../../api/Api";
-import { Loading } from "@repo/shared_modules/components";
-import { copyText } from "@repo/core/utils/copyText";
+import {useQuery} from "@tanstack/react-query";
+import {api} from "../../api/Api";
+import {Loading} from "@repo/shared_modules/components";
+import {copyText} from "@repo/core/utils/copyText";
 
-const SidePanelFriends: React.FC<SidePanelPageProps> = ({ setPage }) => {
-  const { isLoading, data } = useQuery({
+const SidePanelFriends: React.FC<SidePanelPageProps> = ({setPage}) => {
+  const {isLoading, data} = useQuery({
     queryFn: api.shareInformation,
     queryKey: ["share"],
   });
 
   if (isLoading) return <Loading size={22} />;
 
-  const { description, introduction_code, invite, title } = data!.data.data;
+  const {description, introduction_code, invite, title} = data!.data.data;
 
   return (
     <>

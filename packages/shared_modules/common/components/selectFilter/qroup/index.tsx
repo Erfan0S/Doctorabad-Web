@@ -18,7 +18,7 @@ const SelectFilterQroup: React.FC<Props> = ({items, app = Apps.BASE}) => {
           title={item.title}
           items={item.data || []}
           queryKey={item.name}
-          singleSelection={true}
+          singleSelection={!item.multiSelection}
           isActive={item.isActive}
           isLoading={item.loading}
           dependencies={item.dependencies}

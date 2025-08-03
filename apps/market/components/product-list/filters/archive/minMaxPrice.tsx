@@ -1,33 +1,33 @@
 import Accordion from "@/components/app/accordion";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import {priceFormatter} from "@repo/core/utils/priceFormatter";
 import Slider from "rc-slider";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "rc-slider/assets/index.css";
 import style from "../ProductListFiltersFilters.module.scss";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import { useSearchParams } from "next/navigation";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
+import {useSearchParams} from "next/navigation";
 
 type Props = {
-  priceRange: { min: number; max: number };
+  priceRange: {min: number; max: number};
 };
 
-const PriceShow = ({ price }: { price: number }) => {
+const PriceShow = ({price}: {price: number}) => {
   return (
     <div>
       <span>{priceFormatter(price)}</span>
-      <span style={{ display: "block" }}>تومان</span>
+      <span style={{display: "block"}}>تومان</span>
     </div>
   );
 };
 
-export const MinMaxPrice = ({ priceRange }: Props) => {
+export const MinMaxPrice = ({priceRange}: Props) => {
   const searchParams = useSearchParams();
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const defaultMin = Number(searchParams.get("min_price"));
-  const defaultMax = Number(searchParams.get("max_price"));
+  const defaultMin = Number(searchParams?.get("min_price"));
+  const defaultMax = Number(searchParams?.get("max_price"));
 
   const [values, setValues] = useState([
     defaultMin || priceRange.min,
@@ -35,7 +35,7 @@ export const MinMaxPrice = ({ priceRange }: Props) => {
   ]);
 
   const debounceSetFilters = useDebounceAction(([min, max]: number[]) => {
-    changeFilters({ min_price: String(min), max_price: String(max) });
+    changeFilters({min_price: String(min), max_price: String(max)});
   }, 2000);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const MinMaxPrice = ({ priceRange }: Props) => {
 
   return (
     <Accordion title="محدوده قیمت">
-      <div style={{ height: 50, paddingTop: 15 }}>
+      <div style={{height: 50, paddingTop: 15}}>
         <Slider
           min={priceRange.min}
           max={priceRange.max}

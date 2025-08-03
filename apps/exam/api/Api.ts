@@ -8,10 +8,10 @@ import {
   QuestionListParamsType,
   QuestionType,
 } from "@/types/exam";
-import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
-import { Request } from "@repo/core/http-request/Request";
-import { ResponseType } from "@repo/core/types/general";
-import { toast } from "react-toastify";
+import {defaultBaseUrl, isServerSide} from "@repo/core/constants/constants";
+import {Request} from "@repo/core/http-request/Request";
+import {ResponseType} from "@repo/core/types/general";
+import {toast} from "react-toastify";
 
 class Api extends Request {
   constructor() {
@@ -29,32 +29,32 @@ class Api extends Request {
     grade_id?: number;
     places?: number[];
     dates?: number[];
-  }): Promise<ResponseType<{ data: ExamType[] }>> => {
-    return this.request.get("/user/v1/lab/exam", { params });
+  }): Promise<ResponseType<{data: ExamType[]}>> => {
+    return this.request.get("/user/v1/lab/exam", {params});
   };
 
-  getExamDetail = (id: number): Promise<ResponseType<{ data: ExamType }>> => {
+  getExamDetail = (id: number): Promise<ResponseType<{data: ExamType}>> => {
     return this.request.get(`/user/v1/lab/exam/${id}`);
   };
 
-  examStart = (id: number): Promise<ResponseType<{ data: ExamType }>> => {
+  examStart = (id: number): Promise<ResponseType<{data: ExamType}>> => {
     return this.request.get(`/user/v1/lab/exam/start/${id}`);
   };
 
-  getExamFields = (): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
+  getExamFields = (): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
     return this.request.get("/user/v1/lab/exam/fields");
   };
 
   getExamGrades = (
     field_id: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
-    return this.request.post(`/user/v1/lab/exam/grades`, { field_id });
+  ): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
+    return this.request.post(`/user/v1/lab/exam/grades`, {field_id});
   };
 
   getExamPlaces = (
     field_id?: number,
     grade_id?: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
+  ): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
     return this.request.post(`/user/v1/lab/exam/places`, {
       field_id,
       grade_id,
@@ -64,8 +64,8 @@ class Api extends Request {
   getExamDates = (
     field_id: number,
     grade_id: number
-  ): Promise<ResponseType<{ data: ExamDateType[] }>> => {
-    return this.request.post(`/user/v1/lab/exam/dates`, { field_id, grade_id });
+  ): Promise<ResponseType<{data: ExamDateType[]}>> => {
+    return this.request.post(`/user/v1/lab/exam/dates`, {field_id, grade_id});
   };
 
   //----------Question----------
@@ -73,7 +73,7 @@ class Api extends Request {
   getQuestions = (
     params: QuestionListParamsType
   ): Promise<
-    ResponseType<{ data: QuestionType[]; budgeting: BudgetingType }>
+    ResponseType<{data: QuestionType[]; budgeting: BudgetingType}>
   > => {
     return this.request.post("/user/v1/lab/question", params);
   };
@@ -81,41 +81,41 @@ class Api extends Request {
   getQuestionExplanation = (params: {
     question_id: number;
     exam_id?: number;
-  }): Promise<ResponseType<{ data: QuestionExplanationType }>> => {
+  }): Promise<ResponseType<{data: QuestionExplanationType}>> => {
     return this.request.post(`/user/v1/lab/question/explanation`, params);
   };
 
   getQuestionMaker = (
     params: QuestionListParamsType
-  ): Promise<ResponseType<{ data: QuestionType[]; budgeting: unknown[] }>> => {
+  ): Promise<ResponseType<{data: QuestionType[]; budgeting: unknown[]}>> => {
     return this.request.post("/user/v1/lab/question/maker", params);
   };
 
   getQuestionSearchTitle = (params: {
     title: string;
-  }): Promise<ResponseType<{ data: QuestionType[] }>> => {
+  }): Promise<ResponseType<{data: QuestionType[]}>> => {
     return this.request.post("/user/v1/lab/question/search/title", params);
   };
 
   //----------Question Find----------
 
   getQuestionFields = (): Promise<
-    ResponseType<{ data: ExamFieldGradeType[] }>
+    ResponseType<{data: ExamFieldGradeType[]}>
   > => {
     return this.request.get("/user/v1/lab/question/fields");
   };
 
   getQuestionGrades = (
     field_id: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
-    return this.request.post(`/user/v1/lab/question/grades`, { field_id });
+  ): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
+    return this.request.post(`/user/v1/lab/question/grades`, {field_id});
   };
 
   getQuestionPlaces = (params: {
     field_id?: number;
     grade_id?: number;
     topics?: number[];
-  }): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
+  }): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
     return this.request.post(`/user/v1/lab/question/places`, params);
   };
 
@@ -123,13 +123,13 @@ class Api extends Request {
     field_id?: number;
     grade_id?: number;
     topics?: number[];
-  }): Promise<ResponseType<{ data: ExamDateType[] }>> => {
+  }): Promise<ResponseType<{data: ExamDateType[]}>> => {
     return this.request.post(`/user/v1/lab/question/dates`, params);
   };
 
   getQuestionTopics = (
     lesson_id: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
+  ): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
     return this.request.post(`/user/v1/lab/question/topics`, {
       lesson_id,
     });
@@ -137,18 +137,24 @@ class Api extends Request {
 
   getQuestionLessons = (
     grade_id: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
-    return this.request.post(`/user/v1/lab/question/lessons`, { grade_id });
+  ): Promise<ResponseType<{data: ExamFieldGradeType[]}>> => {
+    return this.request.post(`/user/v1/lab/question/lessons`, {grade_id});
   };
 
   getQestionCount = (
-    params: QuestionListParamsType
-  ): Promise<ResponseType<{ data: number }>> => {
+    params: Partial<QuestionListParamsType>
+  ): Promise<
+    ResponseType<{
+      data: {
+        count: number;
+      };
+    }>
+  > => {
     return this.request.post("/user/v1/lab/question/count", params);
   };
 
   //----------Question Favorite----------
-  getQuestionFavorite = (): Promise<ResponseType<{ data: QuestionType[] }>> => {
+  getQuestionFavorite = (): Promise<ResponseType<{data: QuestionType[]}>> => {
     return this.request.get("/user/v1/lab/question/favorite");
   };
 
@@ -162,7 +168,7 @@ class Api extends Request {
   //----------Archived Filter----------
   getArcgived = (
     params: QuestionListParamsType
-  ): Promise<ResponseType<{ data: QuestionType[] }>> => {
+  ): Promise<ResponseType<{data: QuestionType[]}>> => {
     return this.request.post("/user/v1/lab/question/archived/filter", params);
   };
 
@@ -174,7 +180,7 @@ class Api extends Request {
 
   addArchived = (
     question: number,
-    params: { exp?: number; favorite?: number }
+    params: {exp?: number; favorite?: number}
   ): Promise<{}> => {
     return this.request.post(
       `/user/v1/lab/question/archived/filter/${question}`,
@@ -190,7 +196,7 @@ class Api extends Request {
     return this.request.post(`/user/v1/lab/report`, params);
   };
 
-  getExamSlider = (): Promise<ResponseType<{ data: ExamSliderType[] }>> => {
+  getExamSlider = (): Promise<ResponseType<{data: ExamSliderType[]}>> => {
     return this.request.get("/user/v1/lab/sliders");
   };
 }

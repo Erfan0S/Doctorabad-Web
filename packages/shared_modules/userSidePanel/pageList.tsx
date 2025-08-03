@@ -1,4 +1,4 @@
-import { SidePanelList, SidePanelPage } from "./types/sidePanel";
+import {SidePanelList, SidePanelPage} from "@repo/core/types/sidePanel";
 import SidePanelMainMenu from "./mainMenu";
 import SidePanelSupport from "./support";
 import SidePanelClub from "./club";
@@ -7,7 +7,7 @@ import SidePanelOrders from "./orders";
 import SidePanelMessages from "./messages";
 import SidePanelFriends from "./friends";
 import SidePanelProfile from "./profile";
-import { SidePanelDiscounts } from "./dicounts";
+import {SidePanelDiscounts} from "./dicounts";
 
 export const sidePanelPageList: SidePanelList = {
   [SidePanelPage.MAIN]: SidePanelMainMenu,

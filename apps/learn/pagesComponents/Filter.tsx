@@ -1,40 +1,40 @@
 "use client";
-import { api } from "@/api/Api";
+import {api} from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
 import Loading from "@/components/common/Loading";
-import { CourseListItemType } from "@/types/courses";
-import { FiltersNames, SortType } from "@/types/filters";
-import { PaginatedResponse } from "@repo/core/types/general";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import {CourseListItemType} from "@/types/courses";
+import {FiltersNames, SortType} from "@/types/filters";
+import {PaginatedResponse} from "@repo/core/types/general";
+import {useInfiniteQuery} from "@tanstack/react-query";
+import {useSearchParams} from "next/navigation";
 import React from "react";
 
 const FilterPageList = () => {
   const params = useSearchParams();
 
   const filterParams = {
-    categories: params.get(FiltersNames.CATEGORY)
-      ? Number(params.get(FiltersNames.CATEGORY))
+    categories: params?.get(FiltersNames.CATEGORY)
+      ? Number(params?.get(FiltersNames.CATEGORY))
       : undefined,
-    sort: (params.get(FiltersNames.SORT) as SortType) || null,
-    fields: params.get(FiltersNames.FIELD)
-      ? Number(params.get(FiltersNames.FIELD))
+    sort: (params?.get(FiltersNames.SORT) as SortType) || null,
+    fields: params?.get(FiltersNames.FIELD)
+      ? Number(params?.get(FiltersNames.FIELD))
       : undefined,
-    grades: params.get(FiltersNames.GRADE)
-      ? Number(params.get(FiltersNames.GRADE))
+    grades: params?.get(FiltersNames.GRADE)
+      ? Number(params?.get(FiltersNames.GRADE))
       : undefined,
-    language: params.get(FiltersNames.LANGUAGE)
-      ? Number(params.get(FiltersNames.LANGUAGE))
+    language: params?.get(FiltersNames.LANGUAGE)
+      ? Number(params?.get(FiltersNames.LANGUAGE))
       : undefined,
-    providers: params.get(FiltersNames.PROVIDER)
-      ? Number(params.get(FiltersNames.PROVIDER))
+    providers: params?.get(FiltersNames.PROVIDER)
+      ? Number(params?.get(FiltersNames.PROVIDER))
       : undefined,
   };
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
+  const {data, isLoading, fetchNextPage, hasNextPage} = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryFn: ({ pageParam }) =>
+    queryFn: ({pageParam}) =>
       api.getFilterList(filterParams).then((res) => res.data),
     queryKey: ["FilterList", filterParams],
     enabled: true,

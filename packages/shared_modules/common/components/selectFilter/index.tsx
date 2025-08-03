@@ -24,7 +24,7 @@ export const SelectFilter = ({
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const filter = params.get(queryKey);
+  const filter = params?.get(queryKey);
 
   const activeItems = filter ? filter.split(",") : [];
 

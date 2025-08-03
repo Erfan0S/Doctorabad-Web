@@ -1,22 +1,27 @@
 "use client";
-import { useState } from "react";
-import { ModalProps } from "@repo/core/types/modals";
-import { SidePanelPage } from "./types/sidePanel";
-import { sidePanelPageList } from "./pageList";
-import { motion } from "framer-motion";
+import {useState} from "react";
+import {ModalProps} from "@repo/core/types/modals";
+import {SidePanelPage} from "@repo/core/types/sidePanel";
+import {sidePanelPageList} from "./pageList";
+import {motion} from "framer-motion";
 import styles from "./sidePanel.module.scss";
-import { slideLeftAnimation } from "@repo/core/constants/animationConfigs";
+import {slideLeftAnimation} from "@repo/core/constants/animationConfigs";
 
-type Props = ModalProps<{ initialPage?: SidePanelPage }>;
+type Props = ModalProps<{
+  initialPage?: SidePanelPage;
+  data?: Record<string, any>;
+}>;
 
-export const SidePanel = ({ data = {}, closeModal }: Props) => {
+export const SidePanel = ({data = {}, closeModal}: Props) => {
   const [page, setPage] = useState(data.initialPage || SidePanelPage.MAIN);
 
   const Page = sidePanelPageList[page];
 
+  console.log(data);
+
   return (
     <motion.div {...slideLeftAnimation} className={styles.sidePanel}>
-      <Page setPage={setPage} />
+      <Page setPage={setPage} data={data.data} />
     </motion.div>
   );
 };

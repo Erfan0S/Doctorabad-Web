@@ -1,23 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 import clubImage from "../../../assets/img/club.png";
 import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { cartActions, useCart } from "@repo/core/states/cart";
+import {priceFormatter} from "@repo/core/utils/priceFormatter";
+import {cartActions, useCart} from "@repo/core/states/cart";
 import {
   CreateOrderRequest,
   ShippingAddress,
   ShippingMethod,
 } from "@repo/core/types/cart";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { api } from "../../../api/Api";
+import {useMutation, useQuery} from "@tanstack/react-query";
+import {api} from "../../../api/Api";
 import Loading from "../../../common/components/loading";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants/routePath";
-import OptionSwitch from "../../../common/components/optionSwithch";
+import {toast} from "react-toastify";
+import {useRouter} from "next/navigation";
+import {routePath} from "@repo/core/constants/routePath";
+import OptionSwitch from "../../../common/components/optionSwitch";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;
@@ -25,10 +25,10 @@ type Props = {
   hasPhysicalProduct: boolean;
 };
 
-const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
-  const { replace } = useRouter();
+const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
+  const {replace} = useRouter();
 
-  const { coins, my_profit, count, user_credit, price_paid } = useCart();
+  const {coins, my_profit, count, user_credit, price_paid} = useCart();
 
   const [discountCode, setDiscountCode] = useState("");
   const [description, setDescription] = useState("");
@@ -43,7 +43,7 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
     queryKey: ["discount", discountCode],
     queryFn: () => {
       return api.checkDiscountCode(discountCode).then((res) => {
-        toast("کد تخفیف اعمال شد", { type: "success", position: "top-left" });
+        toast("کد تخفیف اعمال شد", {type: "success", position: "top-left"});
         return res;
       });
     },
@@ -63,9 +63,9 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
         );
       }
 
-      const { message, url } = data.data.data!;
+      const {message, url} = data.data.data!;
 
-      toast(message, { type: "success", position: "top-left" });
+      toast(message, {type: "success", position: "top-left"});
       window.open(url, "_self");
     },
     onError: (error: any) => {
@@ -83,7 +83,7 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
 
   const onCreateOrder = () => {
     if (!count)
-      return toast("سبدخرید خالی است", { type: "error", position: "top-left" });
+      return toast("سبدخرید خالی است", {type: "error", position: "top-left"});
     if (!shippingMethod && hasPhysicalProduct)
       return toast("ابتدا نوع تحویل محصول را انتخاب کنید", {
         type: "error",
@@ -193,7 +193,7 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
           <OptionSwitch
             title="توضیحات سفارش"
             activeSwitchComponent={descriptionInput}
-            id="description"
+            name="description"
             onToggle={(state) => {
               state || setDescription("");
             }}
@@ -201,7 +201,7 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
           <OptionSwitch
             title="کد تخفیف دارم"
             activeSwitchComponent={discountInput}
-            id="discount"
+            name="discount"
             onToggle={(state) => {
               state || setDiscountCode("");
             }}
@@ -209,7 +209,7 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
           {!!user_credit && (
             <OptionSwitch
               title="استفاده از اعتبار"
-              id="credit"
+              name="credit"
               onToggle={(isChecked) => setPayWithCredit((prev) => isChecked)}
             />
           )}
@@ -218,7 +218,7 @@ const Pay = ({ shippingMethod, currentAddress, hasPhysicalProduct }: Props) => {
       {payWithCredit && (
         <>
           <div className={style.paySumPrice}>
-            <span style={{ textDecoration: "line-through", color: "#000" }}>
+            <span style={{textDecoration: "line-through", color: "#000"}}>
               {priceFormatter(price_paid)} تومن
             </span>
           </div>

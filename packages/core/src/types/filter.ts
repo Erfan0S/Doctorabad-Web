@@ -18,4 +18,5 @@ export type SelectQroupItemType = {
   isActive: boolean;
   dependencies?: string[];
   className?: string;
+  multiSelection?: boolean;
 };

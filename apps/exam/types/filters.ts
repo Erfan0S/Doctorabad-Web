@@ -5,6 +5,7 @@ export enum QuesTionFilters {
   TOPIC = "topic",
   DATE = "date",
   PLACE = "place",
+  EXPLANATION = "explanation",
   BUDGETING = "budgeting",
   TIP = "tip",
 }
