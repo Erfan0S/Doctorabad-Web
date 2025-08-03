@@ -1,3 +1,4 @@
+import {DiscountPlanType} from "@/types/discountPlan";
 import {
   BudgetingType,
   ExamDateType,
@@ -198,6 +199,10 @@ class Api extends Request {
 
   getExamSlider = (): Promise<ResponseType<{data: ExamSliderType[]}>> => {
     return this.request.get("/user/v1/lab/sliders");
+  };
+
+  getDiscountPlans = (): Promise<ResponseType<{data: DiscountPlanType[]}>> => {
+    return this.request.get("/user/v1/discount/plans?type=2");
   };
 }
 

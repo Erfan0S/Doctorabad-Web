@@ -12,8 +12,7 @@ import {Suspense} from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import {homeMetadata, homeViewPort} from "@repo/core/metadata/home";
 import {Metadata} from "next";
-import {Providers} from "@repo/shared_modules";
-import {ModalsList} from "@/components/common/modals/modalList";
+import Providers from "@/providers/providers";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -66,7 +65,7 @@ export default async function RootLayout({
       <body className={`${font.className} ${font.variable}`}>
         <NextTopLoader color="#7030a0" />
         <div className="root">
-          <Providers modalList={ModalsList}>
+          <Providers>
             <Suspense fallback={<div></div>}>
               <div className="learn-container">
                 {children}
