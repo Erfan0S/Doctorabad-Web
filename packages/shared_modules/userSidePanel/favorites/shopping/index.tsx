@@ -1,5 +1,5 @@
 import Image from "next/image";
-import style from "../learning/SidePanelFavoritesLearning.module.scss";
+import style from "./SidePanelFavoritesShopping.module.scss";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
@@ -61,14 +61,13 @@ const SidePanelFavoritesShopping: React.FC = () => {
                   onClick={() => modalActions.removeLastModal()}
                 >
                   <div className={style.sidePanelFavoritesLearningItem}>
-                    <div className={style.sidePanelFavoritesLearningItemImage}>
-                      <Image
-                        width={100}
-                        height={65}
-                        src={product_pic || placeHolderDataUrl}
-                        alt="favoritesImage"
-                      />
-                    </div>
+                    <Image
+                      width={100}
+                      height={65}
+                      src={product_pic || placeHolderDataUrl}
+                      alt="favoritesImage"
+                      className={style.sidePanelFavoritesLearningItemImage}
+                    />
                     <div
                       className={style.sidePanelFavoritesLearningItemContent}
                     >

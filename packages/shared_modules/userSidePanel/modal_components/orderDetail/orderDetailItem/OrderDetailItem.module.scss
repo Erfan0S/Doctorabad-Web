@@ -1,5 +1,5 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 .OrderDetailItem {
   display: flex;
@@ -11,7 +11,7 @@
     flex: 0 0 75px;
     width: 75px;
     height: 75px;
-    border: 1px solid $orange;
+    border: 1px solid $base-green;
     border-radius: radius(2);
 
     img {
@@ -27,7 +27,6 @@
     padding-right: space(3);
     display: flex;
     flex-direction: column;
-
   }
 
   &Title {
@@ -49,7 +48,7 @@
     align-items: flex-end;
     justify-content: space-between;
 
-    &Quantity{
+    &Quantity {
       font-size: 14px;
     }
   }
@@ -61,9 +60,9 @@
         flex-direction: row-reverse;
         align-items: center;
         font-size: 11px;
-        
+
         > small {
-          background: $button-bg-orange;
+          background: $button-bg-green;
           padding: 0 space(2);
           font-size: 11px;
           border-radius: radius(1);
@@ -88,7 +87,7 @@
         font-weight: 600;
         display: flex;
         align-items: center;
-        color: $orange;
+        color: $base-green;
 
         small {
           margin-right: space(1);
@@ -98,7 +97,7 @@
   }
 
   &Button {
-    background: $button-bg-orange;
+    background: $button-bg-green;
     display: flex;
     align-items: center;
     flex-direction: row-reverse;

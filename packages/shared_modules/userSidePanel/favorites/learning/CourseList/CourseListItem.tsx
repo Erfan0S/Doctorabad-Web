@@ -23,8 +23,8 @@ const CourseListItem = ({ course }: Props) => {
         <Image
           src={course.pic_url}
           alt={course.title}
-          width={80}
-          height={80}
+          width={115}
+          height={65}
           className={styles.courseImage}
         />
       ) : (

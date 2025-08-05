@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .sidePanelFavoritesLearning {
   &Item {
@@ -29,16 +29,11 @@
 
     &Image {
       flex: 0 0 70px;
-      width: 70px;
-      height: 70px;
       border-radius: radius(2);
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-
-      img {
-        max-width: 70px;
-        border-radius: radius(2);
-        height: 70px;
-      }
+      max-width: 70px;
+      height: 70px;
+      margin: auto;
     }
 
     &Content {

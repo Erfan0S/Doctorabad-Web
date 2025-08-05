@@ -1,17 +1,17 @@
-import {SidePanelFavoriteTab} from "@repo/core/types/sidePanel";
+import { SidePanelFavoriteTab } from "@repo/core/types/sidePanel";
 
-export const favoriteTabsData = [
-  {
-    id: 1,
-    title: "مرکز خرید",
-    content: SidePanelFavoriteTab.SHOPPING_CENTER,
-    active: true,
-    disabled: false,
-  },
+export const appsTabsData = [
   {
     id: 2,
     title: "مرکز آموزش",
     content: SidePanelFavoriteTab.LEARNING_CENTER,
+    active: true,
+    disabled: false,
+  },
+  {
+    id: 1,
+    title: "مرکز خرید",
+    content: SidePanelFavoriteTab.SHOPPING_CENTER,
     active: false,
     disabled: false,
   },

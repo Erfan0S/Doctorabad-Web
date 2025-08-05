@@ -26,7 +26,7 @@
 }
 
 .title {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 0.5rem;
@@ -35,9 +35,9 @@
 .metadata {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
   color: #666;
-  font-size: 0.875rem;
+  font-size: 0.72rem;
   width: 100%;
   .metadataWrapper {
     display: flex;
@@ -57,11 +57,11 @@
 }
 
 .courseImage {
-  width: 100px;
   height: 65px;
   border-radius: 0.5rem;
   object-fit: cover;
   box-shadow: -1px 4px 10px 0px rgb(0 0 0 / 36%);
+  aspect-ratio: 16 / 9;
 }
 
 .courseLanguageTag {
