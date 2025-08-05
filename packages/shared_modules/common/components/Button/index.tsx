@@ -6,14 +6,14 @@ import { ButtonProps } from "@repo/core/types/componentProps";
 const Button: React.FC<ButtonProps> = ({
   children,
   app = Apps.BASE,
-  styleType = "default",
+  variant = "default",
   disabled,
   className,
   ...rest
 }) => {
   return (
     <button
-      className={`${className} ${style[app]} ${style.button} ${style[styleType]} ${
+      className={`${className} ${style[app]} ${style.button} ${style[variant]} ${
         disabled ? style.disabled : ""
       }`}
       {...rest}

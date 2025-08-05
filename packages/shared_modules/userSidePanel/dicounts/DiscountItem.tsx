@@ -7,8 +7,7 @@ import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoa
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
-import { Loading } from "../../common/components";
-import Link from "next/link";
+import { Button, Loading } from "../../common/components";
 import { routePath } from "@repo/core/constants/routePath";
 import { useRouter } from "next/navigation";
 import { modalActions } from "@repo/core/modal/modals";
@@ -22,17 +21,60 @@ export const DiscountItem = ({ data }: Props) => {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
   const { data: cartData, initLoading } = useCart();
-  const [inCart, setIncart] = useState(false);
+  const [cartId, setCartId] = useState<number | null>();
   const router = useRouter();
 
   useEffect(() => {
-    setIncart(
-      !!cartData.find(
+    setCartId(
+      cartData.find(
         (d) =>
           d.product_id === data.id && d.product_type === OrderType.DiscountPlan
       )?.id
     );
   }, [updateCartLoading, cartData]);
+
+  const ButtonRender = () => {
+    return !!cartId ? (
+      <>
+        <Button
+          type="button"
+          variant="outline"
+          className={styles.DiscountItemBtn}
+          onClick={authorizeClientAction(
+            cartActionsLoadingHandler(() => cartActions.removeFromCart(cartId))
+          )}
+        >
+          {updateCartLoading ? <Loading app={Apps.BASE} /> : "حدف از سبد خرید"}
+        </Button>
+        <Button
+          type="button"
+          className={styles.DiscountItemBtn}
+          onClick={() => {
+            router.push(routePath.checkout);
+            modalActions.clearModals();
+          }}
+        >
+          مشاهده سبد خرید
+        </Button>
+      </>
+    ) : (
+      <Button
+        type="button"
+        className={styles.DiscountItemBtn}
+        onClick={authorizeClientAction(
+          cartActionsLoadingHandler(() =>
+            cartActions.addToCart(data.id, OrderType.DiscountPlan)
+          )
+        )}
+      >
+        {updateCartLoading ? (
+          <Loading app={Apps.BASE} />
+        ) : (
+          "!افزودن به سبد خرید"
+        )}
+      </Button>
+    );
+  };
 
   return (
     <div className={styles.discountItemWrapper}>
@@ -42,29 +84,9 @@ export const DiscountItem = ({ data }: Props) => {
         <span>{priceFormatter(data?.off_price || 0)} تومن</span>
         <span>{priceFormatter(data?.main_price || 0)} تومن</span>
       </div>
-      {inCart ? (
-        <button
-          className={styles.DiscountItemBtn}
-          onClick={() => {
-            router.push(routePath.checkout);
-            modalActions.clearModals();
-          }}
-        >
-          !به سبد خرید اضافه شد
-        </button>
-      ) : (
-        <button
-          type="button"
-          className={styles.DiscountItemBtn}
-          onClick={authorizeClientAction(
-            cartActionsLoadingHandler(() =>
-              cartActions.addToCart(data.id, OrderType.DiscountPlan)
-            )
-          )}
-        >
-          {updateCartLoading ? <Loading app={Apps.BASE} /> : "بزن بریم!"}
-        </button>
-      )}
+      <div className={styles.discountItemBtnWrapper}>
+        <ButtonRender />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .sidePanelProfile {
   padding: space(4) space(4) 0;
@@ -126,7 +126,8 @@
       font-weight: 500;
     }
 
-    input,textarea {
+    input,
+    textarea {
       width: 100%;
       line-height: 25px;
       padding: 0;
@@ -151,7 +152,7 @@
     select,
     input {
       width: 100%;
-      border: 2px solid $green;
+      border: 2px solid $base-green;
       line-height: 40px;
       height: 40px;
       padding: 0 space(3);
