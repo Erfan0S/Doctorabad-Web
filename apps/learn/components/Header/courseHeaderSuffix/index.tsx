@@ -10,7 +10,8 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { CourseDataType } from "@/types/courses";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
-import { shareProduct } from "@repo/core/utils/shareProduct";
+import { useShareProduct } from "@repo/core/hooks/shareProduct";
+import Loading from "@/components/common/Loading";
 
 interface Button {
   icon: React.ReactNode;
@@ -32,8 +33,8 @@ const CourseHeaderSiffix = ({
     !!course.user_favorite
   );
 
-  const onShareProduct = async () => {
-    shareProduct(async () => {
+  const { shareProduct, isLoading: shareLoading } = useShareProduct(
+    async () => {
       const res = await api.shareCourse(course.id);
 
       return {
@@ -41,7 +42,12 @@ const CourseHeaderSiffix = ({
         description: res.data.data.description,
         url: res.data.data.course_url,
       };
-    });
+    }
+  );
+
+  const onShareProduct = async () => {
+    if (shareLoading) return;
+    shareProduct();
   };
 
   const favoriteOnClick = () => {
@@ -55,7 +61,7 @@ const CourseHeaderSiffix = ({
       onClick: favoriteOnClick,
     },
     {
-      icon: <ShareIcon />,
+      icon: shareLoading ? <Loading /> : <ShareIcon />,
       onClick: onShareProduct,
     },
     {
