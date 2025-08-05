@@ -1,6 +1,4 @@
 "use client";
-
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,25 +9,33 @@ import "swiper/css";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { autoPlayConfig } from "@repo/core/constants/sliders";
 import { SwiperOptions } from "swiper/types";
-import { SliderType } from "@/types/homePage";
+import { MainSliderType } from "@repo/core/types/Sliders";
+import { Apps } from "@repo/core/types/general";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 type Props = {
-  banners: SliderType[];
+  banners: MainSliderType[];
   swiperOptions?: SwiperOptions;
   isLoading?: boolean;
+  app?: Apps;
 };
 
-const MainSlider = ({ banners, swiperOptions = {}, isLoading }: Props) => {
+const MainSlider = ({
+  banners,
+  swiperOptions = {},
+  isLoading,
+  app = Apps.BASE,
+}: Props) => {
   if (!banners.length) return null;
 
   return (
-    <div className="container">
+    <div className={`${style[app]} container`}>
       <div className={style.mainSlider}>
         <Swiper
           modules={[Pagination, Autoplay]}
           autoplay={autoPlayConfig}
           slidesPerView={1}
-          spaceBetween={-30}
+          spaceBetween={30}
           pagination={{ clickable: true }}
           loop
           {...swiperOptions}
@@ -47,6 +53,9 @@ const MainSlider = ({ banners, swiperOptions = {}, isLoading }: Props) => {
             return (
               <SwiperSlide key={id}>
                 <div className={style.mainSliderItem}>
+                  {title && (
+                    <div className={style.mainSliderItemTitle}>{title}</div>
+                  )}
                   {url ? (
                     <Link href={url}>
                       <ImageComponent />

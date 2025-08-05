@@ -37,7 +37,6 @@
     "react-leaflet": "^4.2.1",
     "server-only": "^0.0.1",
     "sharp": "^0.33.2",
-    "swiper": "^11.2.4",
     "typescript": "5.1.6",
     "yup": "^1.2.0",
     "zaman": "^2.1.1",

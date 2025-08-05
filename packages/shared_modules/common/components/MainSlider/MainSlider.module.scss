@@ -6,6 +6,8 @@
   margin-bottom: 15px;
   border-radius: radius(5);
   box-shadow: $card-box-shadow;
+  position: relative;
+  overflow: hidden;
 
   div {
     background-color: transparent;
@@ -29,16 +31,32 @@
     }
   }
 
+  .mainSliderItemTitle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    padding-right: 20px;
+    min-height: 50px;
+    background: linear-gradient(to bottom, #161616 0%, transparent 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    z-index: 2;
+  }
+
   :global {
     .swiper-pagination-bullet {
       width: 16px;
       height: 16px;
-      border: 2px solid $red;
+      border: 2px solid var(--app-base, $base-green);
       background-color: #fff;
       opacity: 1;
 
       &.swiper-pagination-bullet-active {
-        background-color: $red;
+        background-color: var(--app-base, $base-green);
       }
     }
   }

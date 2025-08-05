@@ -29,3 +29,5 @@ export {SelectFilter} from "./selectFilter";
 export {default as SelectFilterQroup} from "./selectFilter/qroup";
 
 export {default as OptionSwitch} from "./optionSwitch";
+
+export {default as MainSlider} from "./MainSlider";
