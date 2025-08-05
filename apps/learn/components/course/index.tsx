@@ -26,6 +26,7 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { Apps } from "@repo/core/types/general";
 import CourseButton from "./CourseButton";
 import Loading from "../common/Loading";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -126,6 +127,8 @@ const Course = ({ course }: Props) => {
     if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
+    } else if (course.only_watchable_on_app) {
+      modalActions.addModal(ModalTypes.AppOnly);
     }
   };
 
