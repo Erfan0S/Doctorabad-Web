@@ -2,7 +2,7 @@
 import { Apps } from "@repo/core/types/general";
 import BackIcon from "../../assets/svg/back";
 import style from "./PageHeader.module.scss";
-import { useRouter } from "next/navigation";
+import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 
 interface Props {
   title: string;
@@ -23,19 +23,13 @@ const PageHeader: React.FC<Props> = ({
   className,
   app = Apps.BASE,
 }) => {
-  const router = useRouter();
+  const navHistory = useNavigationHistory();
 
   const OnBack = () => {
     if (onBack) {
       onBack();
     } else {
-      const refferer = document.referrer;
-      const historyLen = window.history.length;
-      if (refferer && historyLen > 1) {
-        router.back();
-      } else {
-        router.push("/");
-      }
+      navHistory.goBack();
     }
   };
 

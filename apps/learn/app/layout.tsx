@@ -6,13 +6,13 @@ import "../assets/styles/general.scss";
 
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
-import {api} from "@repo/shared_modules/api";
-import {InstallBannerShow} from "@repo/shared_modules/components";
+import { api } from "@repo/shared_modules/api";
+import { InstallBannerShow } from "@repo/shared_modules/components";
 import Script from "next/script";
-import {Suspense} from "react";
+import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
-import {homeMetadata, homeViewPort} from "@repo/core/metadata/home";
-import {Metadata} from "next";
+import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
+import { Metadata } from "next";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",

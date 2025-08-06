@@ -8,10 +8,12 @@ import DiscountPlans from "@/components/discountPlans";
 
 function QuestionBankPage() {
   return (
-    <div>
-      <QuestionBankFilter />
-      <DiscountPlans />
-    </div>
+    <Providers>
+      <div>
+        <QuestionBankFilter />
+        <DiscountPlans />
+      </div>
+    </Providers>
   );
 }
 
