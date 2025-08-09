@@ -6,6 +6,7 @@ import {sidePanelPageList} from "./pageList";
 import {motion} from "framer-motion";
 import styles from "./sidePanel.module.scss";
 import {slideLeftAnimation} from "@repo/core/constants/animationConfigs";
+import {api} from "../api/Api";
 
 type Props = ModalProps<{
   initialPage?: SidePanelPage;
@@ -17,7 +18,8 @@ export const SidePanel = ({data = {}, closeModal}: Props) => {
 
   const Page = sidePanelPageList[page];
 
-  console.log(data);
+  // api.getShopOrdersList(1).then((res) => console.log(res));
+  // api.getPreviousOrderDetail("DR130722").then((res) => console.log(res));
 
   return (
     <motion.div {...slideLeftAnimation} className={styles.sidePanel}>

@@ -1,4 +1,4 @@
-import { OrderType } from "./cart";
+import {OrderType} from "./cart";
 
 export interface AvatarFile {
   id: number;
@@ -33,16 +33,16 @@ export interface PaginatedResponse<T> {
   };
 }
 
-export interface PaginatedResponse<T> {
-  data: T;
-  total: number;
-}
+// export interface PaginatedResponse<T> {
+//   data: T;
+//   total: number;
+// }
 
-export type PaginatedRequest<T = {}> = T & { limit: string; page: string };
+export type PaginatedRequest<T = {}> = T & {limit: string; page: string};
 
 export type NextPageProps<P = {}> = {
   params: P;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: {[key: string]: string | string[] | undefined};
 };
 
 export type SelectionItem = {

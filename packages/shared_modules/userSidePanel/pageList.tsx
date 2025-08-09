@@ -8,6 +8,7 @@ import SidePanelMessages from "./messages";
 import SidePanelFriends from "./friends";
 import SidePanelProfile from "./profile";
 import {SidePanelDiscounts} from "./dicounts";
+import SidePanelPrevCards from "./orders/cards";
 
 export const sidePanelPageList: SidePanelList = {
   [SidePanelPage.MAIN]: SidePanelMainMenu,
@@ -15,6 +16,7 @@ export const sidePanelPageList: SidePanelList = {
   [SidePanelPage.SUPPORT]: SidePanelSupport,
   [SidePanelPage.FAVORITES]: SidePanelFavorites,
   [SidePanelPage.ORDERS]: SidePanelOrders,
+  [SidePanelPage.PREV_CARDS]: SidePanelPrevCards,
   [SidePanelPage.MESSAGES]: SidePanelMessages,
   [SidePanelPage.FRIENDS]: SidePanelFriends,
   [SidePanelPage.PROFILE]: SidePanelProfile,

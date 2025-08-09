@@ -89,6 +89,12 @@
   }
 }
 
+html body .suffixButton {
+  width: auto;
+  height: 45px;
+  padding: 0 10px;
+}
+
 @media (max-width: 576px) {
   .sidePanel {
     width: 100%;
