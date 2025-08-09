@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { NavigationHistoryContext } from "@repo/core/contexts/navigationHistoryContext";
+import {useEffect, useRef} from "react";
+import {usePathname, useRouter} from "next/navigation";
+import {NavigationHistoryContext} from "@repo/core/contexts/navigationHistoryContext";
 
 export function NavigationHistoryProvider({
   children,
@@ -17,7 +17,7 @@ export function NavigationHistoryProvider({
   useEffect(() => {
     const last = historyRef.current[historyRef.current.length - 1];
     if (last !== pathname) {
-      historyRef.current.push(pathname);
+      historyRef.current.push(pathname || "");
     }
   }, [pathname]);
 
@@ -40,7 +40,7 @@ export function NavigationHistoryProvider({
 
   return (
     <NavigationHistoryContext.Provider
-      value={{ goBack, history: historyRef.current }}
+      value={{goBack, history: historyRef.current}}
     >
       {children}
     </NavigationHistoryContext.Provider>

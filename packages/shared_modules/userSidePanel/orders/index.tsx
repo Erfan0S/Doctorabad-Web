@@ -45,7 +45,7 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({setPage}) => {
         suffix={
           <button
             className={sidePanelStyle.suffixButton}
-            onClick={() => setPage!(SidePanelPage.PREV_CARDS)}
+            onClick={() => setPage!(SidePanelPage.PREV_CARTS)}
           >
             سبد‌های خرید من
             <CartIcon />

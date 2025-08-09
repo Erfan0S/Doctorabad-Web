@@ -10,7 +10,7 @@ export enum SidePanelPage {
   FRIENDS = "friends",
   PROFILE = "profile",
   DISCOUNTS = "discounts",
-  PREV_CARDS = "prevCards",
+  PREV_CARTS = "prevCarts",
 }
 
 export enum SidePanelClubTab {
