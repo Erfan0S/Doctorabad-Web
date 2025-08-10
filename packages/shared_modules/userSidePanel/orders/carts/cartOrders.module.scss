@@ -1,0 +1,79 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.cartOrders {
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: stretch;
+    padding: 1rem;
+    gap: 1rem;
+    overflow: scroll;
+    max-height: calc(100vh - 61px);
+  }
+}
+
+.cartOrdersItem {
+  border: 1px solid $lightGray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.cartOrdersItemIcon {
+  padding: 0.75rem;
+  border: 1px solid $lightGray;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    color: $green;
+    font-size: 30px;
+    width: 45px;
+    height: auto;
+  }
+}
+
+.cartOrdersItemInfo {
+  color: $gray;
+  font-size: 11px;
+  display: flex;
+  justify-content: start;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1rem;
+  svg {
+    width: 17px;
+    height: auto;
+  }
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 0.5rem;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .cartOrdersItemInfo {
+    font-size: 10px;
+    svg {
+      width: 15px;
+    }
+  }
+}

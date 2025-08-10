@@ -2,12 +2,10 @@ import React from "react";
 import styles from "./CourseList.module.scss";
 import { CourseListItemType } from "@repo/core/types/course";
 import CourseListItem from "./CourseListItem";
-import Link from "next/link";
 import { InfiniteData } from "@tanstack/react-query";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import { PaginatedResponse } from "@repo/core/types/general";
-import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -21,11 +19,6 @@ interface Props {
 const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
   const router = useRouter();
 
-  const onItemClick = (id: number | string) => {
-    modalActions.clearModals();
-    router.push("/learn/course/${course.id}");
-  };
-
   return (
     <div className={styles.relatedCoursesWrapper}>
       <InfiniteScroll
@@ -36,15 +29,7 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>
             {page.data.map((course) => (
-              <a
-                onClick={() => {
-                  modalActions.clearModals();
-                  router.push(`/learn/course/${course.id}`);
-                }}
-                key={course.id}
-              >
-                <CourseListItem course={course} />
-              </a>
+              <CourseListItem course={course} />
             ))}
           </React.Fragment>
         ))}

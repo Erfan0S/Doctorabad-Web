@@ -9,20 +9,19 @@ import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
+import { OrderDetailItemType } from "../../../../checkout/types/orders";
 
 const OrderDetailItem = ({
   id,
-  price_main,
-  price_off,
-  product_pic,
-  product_title,
-  quantity,
-  product_id,
+  pic_url,
+  price,
   product_type,
-}: Order) => {
+  quantity,
+  title,
+}: OrderDetailItemType) => {
   const { replace } = useRouter();
 
-  const url = generateSingleProductUrlFromId(product_id, "", product_type);
+  const url = generateSingleProductUrlFromId(id, "", product_type);
   const navigate = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     modalActions.clearModals();
@@ -33,8 +32,8 @@ const OrderDetailItem = ({
       <div className={style.OrderDetailItemImage}>
         <a href={url} target="_blank" onClick={navigate}>
           <Image
-            src={product_pic || placeHolderDataUrl}
-            alt={product_title}
+            src={pic_url || placeHolderDataUrl}
+            alt={title}
             width={75}
             height={75}
           />
@@ -43,12 +42,12 @@ const OrderDetailItem = ({
       <div className={style.OrderDetailItemContent}>
         <div className={style.OrderDetailItemTitle}>
           <a onClick={navigate} href={url}>
-            {product_title}
+            {title}
           </a>
         </div>
         <div className={style.OrderDetailItemFooter}>
           <div className={style.OrderDetailItemPrice}>
-            {!!price_off && (
+            {/* {!!price_off && (
               <div className="off-price-wrapper">
                 <small>٪{calcDiscountPercentage(price_main, price_off)}</small>
                 <span>
@@ -56,9 +55,9 @@ const OrderDetailItem = ({
                   <small>تومن</small>
                 </span>
               </div>
-            )}
+            )} */}
             <div>
-              {priceFormatter(price_off || price_main)}
+              {priceFormatter(price)}
               <small>تومن</small>
             </div>
           </div>

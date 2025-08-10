@@ -7,21 +7,23 @@ import Hat from "../../../../assets/svg/hat";
 // @ts-ignore
 import HomeIcon from "../../../../assets/svg/home";
 import Image from "next/image";
-import {CourseListItemType, CourseOrderItem} from "@repo/core/types/course";
+import { CourseListItemType, CourseOrderItem } from "@repo/core/types/course";
 import styles from "./CourseList.module.scss";
-import {priceFormatter} from "@repo/core/utils/priceFormatter";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import formatDuration from "@repo/core/utils/formatDuration";
-import {Suspense} from "react";
+import { Suspense } from "react";
 import CartCheckIcon from "../../../../assets/svg/cartCheck";
 import CardCheck from "../../../../assets/svg/cardCheck";
 import CalenderCheck from "../../../../assets/svg/calenderCheck";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+import { OrderType } from "@repo/core/types/cart";
 
 type Props = {
   course: CourseListItemType | CourseOrderItem;
   type?: "course" | "order";
 };
 
-const MetaData = ({course}: {course: CourseListItemType}) => {
+const MetaData = ({ course }: { course: CourseListItemType }) => {
   return (
     <div className={styles.metadata}>
       <div className={styles.metadataWrapper}>
@@ -60,7 +62,7 @@ const MetaData = ({course}: {course: CourseListItemType}) => {
   );
 };
 
-const OrderMetaData = ({orderCourse}: {orderCourse: CourseOrderItem}) => {
+const OrderMetaData = ({ orderCourse }: { orderCourse: CourseOrderItem }) => {
   return (
     <div className={styles.metadata}>
       <div className={styles.metadataWrapper}>
@@ -93,7 +95,7 @@ const OrderMetaData = ({orderCourse}: {orderCourse: CourseOrderItem}) => {
     </div>
   );
 };
-const CourseListItem = ({course, type = "course"}: Props) => {
+const CourseListItem = ({ course, type = "course" }: Props) => {
   let MetaDataComponent;
 
   switch (type) {
@@ -109,29 +111,34 @@ const CourseListItem = ({course, type = "course"}: Props) => {
   }
 
   return (
-    <div className={styles.courseCard}>
-      {course.pic_url ? (
-        <Image
-          src={course.pic_url}
-          alt={course.title}
-          width={115}
-          height={65}
-          className={styles.courseImage}
-        />
-      ) : (
-        <div className={styles.courseImage} />
-      )}
-      <div className={styles.courseInfo}>
-        <h3 className={styles.title}>{course.title}</h3>
-        <MetaDataComponent
-          course={course as CourseListItemType}
-          orderCourse={course as CourseOrderItem}
-        />
+    <a
+      href={generateSingleProductUrlFromId(course.id, "", OrderType.Course)}
+      target="_blank"
+    >
+      <div className={styles.courseCard}>
+        {course.pic_url ? (
+          <Image
+            src={course.pic_url}
+            alt={course.title}
+            width={115}
+            height={65}
+            className={styles.courseImage}
+          />
+        ) : (
+          <div className={styles.courseImage} />
+        )}
+        <div className={styles.courseInfo}>
+          <h3 className={styles.title}>{course.title}</h3>
+          <MetaDataComponent
+            course={course as CourseListItemType}
+            orderCourse={course as CourseOrderItem}
+          />
+        </div>
+        <div className={styles.courseLanguageTag}>
+          {course.language == 1 ? "Fa" : "En"}
+        </div>
       </div>
-      <div className={styles.courseLanguageTag}>
-        {course.language == 1 ? "Fa" : "En"}
-      </div>
-    </div>
+    </a>
   );
 };
 

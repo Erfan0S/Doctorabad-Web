@@ -1,4 +1,4 @@
-import {SidePanelList, SidePanelPage} from "@repo/core/types/sidePanel";
+import { SidePanelList, SidePanelPage } from "@repo/core/types/sidePanel";
 import SidePanelMainMenu from "./mainMenu";
 import SidePanelSupport from "./support";
 import SidePanelClub from "./club";
@@ -7,8 +7,8 @@ import SidePanelOrders from "./orders";
 import SidePanelMessages from "./messages";
 import SidePanelFriends from "./friends";
 import SidePanelProfile from "./profile";
-import {SidePanelDiscounts} from "./dicounts";
-import SidePanelPrevCards from "./orders/cards";
+import { SidePanelDiscounts } from "./dicounts";
+import PrevCarts from "./orders/carts";
 
 export const sidePanelPageList: SidePanelList = {
   [SidePanelPage.MAIN]: SidePanelMainMenu,
@@ -16,8 +16,8 @@ export const sidePanelPageList: SidePanelList = {
   [SidePanelPage.SUPPORT]: SidePanelSupport,
   [SidePanelPage.FAVORITES]: SidePanelFavorites,
   [SidePanelPage.ORDERS]: SidePanelOrders,
-  [SidePanelPage.PREV_CARTS]: SidePanelPrevCards,
-  [SidePanelPage.MESSAGES]: SidePanelMessages,
+  [SidePanelPage.PREV_CARTS]: PrevCarts,
+  [SidePanelPage.MESSAGES]: PrevCarts,
   [SidePanelPage.FRIENDS]: SidePanelFriends,
   [SidePanelPage.PROFILE]: SidePanelProfile,
   [SidePanelPage.DISCOUNTS]: SidePanelDiscounts,
