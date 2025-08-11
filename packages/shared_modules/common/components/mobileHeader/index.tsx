@@ -1,12 +1,8 @@
 "use client";
 
-import coin from "../../../assets/img/coin.png";
-
-import Image from "next/image";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import style from "./MobileHeader.module.scss";
-import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import {
   authorizeClientAction,
   isUserLoggedIn,
@@ -14,7 +10,6 @@ import {
 import { Apps, SidePanelPage } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
-import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import Logo from "../logo";
 import HomeIcon from "../../../assets/svg/home";
 import ChatIcon from "../../../assets/svg/chat";
@@ -76,6 +71,7 @@ const MobileHeader = ({ type }: Props) => {
           onClick={() =>
             modalActions.addModal(ModalTypes.SIDE_PANEL, {
               initialPage: SidePanelPage.SUPPORT,
+              data: { fromHome: true },
             })
           }
         >
