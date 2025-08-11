@@ -5,8 +5,12 @@ import { OrderType } from "@repo/core/types/cart";
 
 type Props = ModalProps<{ orderCode: string; productType?: OrderType }>;
 
-export const OrderDetailModal = ({ data }: Props) => {
+export const OrderDetailModal = ({ data, closeModal }: Props) => {
   return (
-    <OrderDetail orderCode={data.orderCode} productType={data.productType} />
+    <OrderDetail
+      orderCode={data.orderCode}
+      productType={data.productType}
+      closeModal={closeModal}
+    />
   );
 };

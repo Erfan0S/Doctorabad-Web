@@ -10,7 +10,7 @@ import CartOrdersItem from "./CartOrdersItem";
 import style from "./cartOrders.module.scss";
 
 const PrevCarts: React.FC<SidePanelPageProps> = ({ setPage }) => {
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
     queryKey: ["cartOrders"],
     queryFn: ({ pageParam }) =>
       api.getCartOrdersList({ page: pageParam }).then((res) => res.data),
@@ -26,21 +26,25 @@ const PrevCarts: React.FC<SidePanelPageProps> = ({ setPage }) => {
   return (
     <>
       <SidePanelHeader title="سبدهای خرید من" setPage={setPage} />
-      <div className={style.cartOrders}>
-        <InfiniteScroll
-          loadMore={() => fetchNextPage()}
-          hasMore={hasNextPage}
-          loader={<Loading size={22} />}
-        >
-          {data?.pages.map((page, i) => (
-            <React.Fragment key={i}>
-              {page.data.map((order) => (
-                <CartOrdersItem key={order.id} order={order} />
-              ))}
-            </React.Fragment>
-          ))}
-        </InfiniteScroll>
-      </div>
+      {isLoading && !data ? (
+        <Loading pageLoader />
+      ) : (
+        <div className={style.cartOrders}>
+          <InfiniteScroll
+            loadMore={() => fetchNextPage()}
+            hasMore={hasNextPage}
+            loader={<Loading size={22} />}
+          >
+            {data?.pages.map((page, i) => (
+              <React.Fragment key={i}>
+                {page.data.map((order) => (
+                  <CartOrdersItem key={order.id} order={order} />
+                ))}
+              </React.Fragment>
+            ))}
+          </InfiniteScroll>
+        </div>
+      )}
     </>
   );
 };

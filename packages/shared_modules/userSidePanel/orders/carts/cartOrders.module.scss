@@ -9,7 +9,7 @@
     align-items: stretch;
     padding: 1rem;
     gap: 1rem;
-    overflow: scroll;
+    overflow-y: auto;
     max-height: calc(100vh - 61px);
   }
 }

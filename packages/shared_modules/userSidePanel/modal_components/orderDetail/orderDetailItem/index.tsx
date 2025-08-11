@@ -10,6 +10,8 @@ import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 import { OrderDetailItemType } from "../../../../checkout/types/orders";
+import { CoinIcon } from "../../../../assets";
+import PaperIcon from "../../../../assets/svg/paper";
 
 const OrderDetailItem = ({
   id,
@@ -46,23 +48,14 @@ const OrderDetailItem = ({
           </a>
         </div>
         <div className={style.OrderDetailItemFooter}>
-          <div className={style.OrderDetailItemPrice}>
-            {/* {!!price_off && (
-              <div className="off-price-wrapper">
-                <small>٪{calcDiscountPercentage(price_main, price_off)}</small>
-                <span>
-                  {priceFormatter(price_main)}
-                  <small>تومن</small>
-                </span>
-              </div>
-            )} */}
-            <div>
-              {priceFormatter(price)}
-              <small>تومن</small>
-            </div>
-          </div>
-          <span className={style.OrderDetailItemFooterQuantity}>
-            x {quantity}
+          <span className={style.OrderDetailItemFooterInfo}>
+            <CoinIcon />
+            {priceFormatter(price)}
+            <small>تومن</small>
+          </span>
+          <span className={style.OrderDetailItemFooterInfo}>
+            <PaperIcon />
+            {quantity} <small>عدد</small>
           </span>
         </div>
       </div>

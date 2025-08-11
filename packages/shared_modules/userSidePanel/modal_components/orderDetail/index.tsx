@@ -6,13 +6,21 @@ import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
 import { OrderType } from "@repo/core/types/cart";
 import { OrderDetailItemType } from "../../../checkout/types/orders";
+import { CartIcon } from "../../../assets";
+import { Button } from "../../../common/components";
+import { div } from "framer-motion/client";
 
 interface Props {
   orderCode: string;
   productType?: OrderType;
+  closeModal?: () => void;
 }
 
-const OrderDetail: React.FC<Props> = ({ orderCode, productType }: Props) => {
+const OrderDetail: React.FC<Props> = ({
+  orderCode,
+  productType,
+  closeModal,
+}: Props) => {
   const { data, isLoading } = useQuery({
     queryKey: ["orderDetail", orderCode, productType],
     queryFn: () => {
@@ -53,6 +61,41 @@ const OrderDetail: React.FC<Props> = ({ orderCode, productType }: Props) => {
 
   // fix order descount code
 
+  const orderData = data?.data.data;
+
+  const orderDetailsConfig = [
+    { label: "کد سفارش:", value: orderCode },
+    { label: "زمان ثبت:", value: orderData?.created_at },
+    {
+      label: "هزینه سفارش:",
+      value: priceFormatter(orderData?.price_calculated || 0),
+    },
+    {
+      label: "هزینه ارسال:",
+      value: priceFormatter(orderData?.price_shipping || 0),
+      show: !!orderData?.price_shipping,
+    },
+    {
+      label: "پرداخت شده:",
+      value: priceFormatter(orderData?.price_paid || 0),
+    },
+    {
+      label: "روش ارسال:",
+      value: orderData?.order_shipping?.shipping_method,
+      show: !!orderData?.order_shipping,
+    },
+    {
+      label: "توضیح ارسال:",
+      value: orderData?.order_shipping?.shipping_method_description,
+      show: !!orderData?.order_shipping,
+    },
+    {
+      label: "آخرین وضعیت:",
+      value: orderData?.order_shipping?.last_text_status,
+      show: !!orderData?.order_shipping,
+    },
+  ];
+
   return (
     <>
       <div className={style.orderDetail}>
@@ -60,31 +103,32 @@ const OrderDetail: React.FC<Props> = ({ orderCode, productType }: Props) => {
           <Loading size={22} />
         ) : (
           <>
-            <div className={style.orderDetailTitle}>
-              <span>سفارش {orderCode}</span>
-              <small>
-                {orderItems?.reduce(
-                  (prev, current) => prev + current.quantity,
-                  0
-                )}{" "}
-                عدد کالا
-              </small>
+            <div className={`${style.orderDetailLogo} card`}>
+              <CartIcon />
+            </div>
+            <div className={style.orderDetailHeader}>
+              {orderDetailsConfig.map(
+                (item) =>
+                  (item.show === undefined || item.show) && (
+                    <div key={item.label}>
+                      <span>{item.label}</span>
+                      <span>{item.value || "_"}</span>
+                    </div>
+                  )
+              )}
             </div>
             <div className={style.orderDetailContent}>
               {orderItems?.map((cartItem) => {
                 return <OrderDetailItem key={cartItem.id} {...cartItem} />;
               })}
             </div>
-            {!!data!.data.data.price_shipping && (
-              <div className={style.orderDetailTotalPrice}>
-                <span> حمل‌ونقل:</span>
-                {priceFormatter(data!.data.data.price_shipping)} تومن
-              </div>
-            )}
-            <div className={style.orderDetailTotalPrice}>
-              <span>مجموع:</span>
-              {priceFormatter(data?.data.data.price_paid || 0)} تومن
-            </div>
+            <Button
+              type="button"
+              onClick={() => closeModal && closeModal()}
+              className={style.orderDetailButton}
+            >
+              حله!
+            </Button>
           </>
         )}
       </div>
