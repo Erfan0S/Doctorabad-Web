@@ -9,7 +9,7 @@ import BugIcon from "@/assets/svg/newIcons/bug";
 import ShareIcon from "@/assets/svg/newIcons/share";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { useShareProduct } from "@repo/core/hooks/shareProduct";
+import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/loading";
 
 interface Props {
