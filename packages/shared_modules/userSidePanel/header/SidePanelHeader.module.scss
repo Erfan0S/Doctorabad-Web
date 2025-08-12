@@ -1,7 +1,7 @@
-@import '@/assets/styles/functions';
+@import "@/assets/styles/functions";
 
 .sidePanelHeader {
-  background: linear-gradient(to right, #00db00, #00bc00);
+  background: $base-green;
   padding: space(2) space(3) space(2) space(2);
   display: flex;
   align-items: center;

@@ -7,11 +7,25 @@ export interface CourseFavoriteItem {
   title: string;
 }
 
-export type CourseOrderItem = {
+export type CourseOrderItemOld = {
   created_at: string;
   id: number;
   oder_code: string;
   price_paid: number;
+};
+
+export type CourseOrderItem = {
+  created_at: string;
+  duration: number;
+  id: number;
+  language: number;
+  only_watchable_on_app: boolean;
+  order_code: string;
+  pic_url: string;
+  price_amazing: number | null;
+  price_main: number;
+  price_off: number | null;
+  title: string;
 };
 
 export type CourseListItemType = {

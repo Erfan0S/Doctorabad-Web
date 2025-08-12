@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .sidePanelClubSingle {
   &Header {
@@ -10,14 +10,14 @@
     background-color: #fff;
 
     &:before {
-      content: '';
+      content: "";
       height: 45%;
       top: 0;
       right: 0;
       left: 0;
       position: absolute;
       z-index: 1;
-      background: linear-gradient(to right, #00db00, #00bc00);
+      background: $base-green;
     }
     &Image {
       width: 90px;
@@ -60,7 +60,7 @@
         &:nth-last-of-type(2) {
           font-weight: 700;
           font-size: 18px;
-          color: #00bc00;
+          color: $base-green;
           margin-top: 13px;
         }
         &:last-child {
@@ -84,7 +84,7 @@
       border: unset;
       line-height: 40px;
       height: 40px;
-      background-color: #00bc00;
+      background-color: $base-green;
       color: #fff;
       text-align: center;
       width: 100%;

@@ -1,4 +1,4 @@
-import { SidePanelClubTab } from "../types/sidePanel";
+import {SidePanelClubTab} from "@repo/core/types/sidePanel";
 
 export const clubTabsData = [
   {

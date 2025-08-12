@@ -1,12 +1,12 @@
 import Accordion from "@/components/app/accordion";
 import style from "../ProductListFiltersFilters.module.scss";
-import { useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import { useState } from "react";
+import {useSearchParams} from "next/navigation";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
+import {useState} from "react";
 
 type Props = {
   title: string;
-  items: { id: number; title: string }[];
+  items: {id: number; title: string}[];
   queryKey: string;
   singleSelection?: boolean;
 };
@@ -23,12 +23,12 @@ export const SelectFilter = ({
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const filter = searchParams.get(queryKey);
+  const filter = searchParams?.get(queryKey);
 
   const activeItems = filter ? filter.split(",") : [];
 
   const filteredItems = searchInList
-    ? items.filter(({ title }) => title.includes(searchInList))
+    ? items.filter(({title}) => title.includes(searchInList))
     : items;
 
   const changeCategoryFilter = (filterId: number, checked: boolean) => {
@@ -52,7 +52,7 @@ export const SelectFilter = ({
           />
         )}
         <ul>
-          {filteredItems.map(({ id, title }) => {
+          {filteredItems.map(({id, title}) => {
             const uniqueId = `checkbox_${queryKey}_${id}_id`;
             return (
               <li key={id}>

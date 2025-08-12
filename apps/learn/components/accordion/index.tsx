@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useReducer, useState } from "react";
+import {useEffect, useReducer, useState} from "react";
 import style from "./Accordion.module.scss";
 import TriangleDown from "@/assets/svg/triangleDown";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { modalActions } from "@repo/core/modal/modals";
-import { useSearchParams } from "next/navigation";
-import { FilterModalType } from "@/types/filters";
-import { useChangeSearchParamsFilter } from "@/utils/useChangeSearchParamsFilter";
+import {ModalTypes} from "@repo/shared_modules/modalsTypes";
+import {modalActions} from "@repo/core/modal/modals";
+import {useSearchParams} from "next/navigation";
+import {FilterModalType} from "@/types/filters";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
 
 interface Props {
   title: string;
@@ -48,15 +48,15 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   useEffect(() => {}, []);
 
   useEffect(() => {
-    const filter = params.get(queryKey);
+    const filter = params?.get(queryKey);
     setSelected(items.find((item) => item.id == filter)?.title || null);
 
     dependencies &&
       dependencies.forEach((dep) => {
         if (!dep) return;
-        changeFilters({ [dep]: null });
+        changeFilters({[dep]: null});
       });
-  }, [params.get(queryKey)]);
+  }, [params?.get(queryKey)]);
 
   return (
     <div

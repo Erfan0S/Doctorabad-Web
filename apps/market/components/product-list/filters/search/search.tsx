@@ -1,14 +1,8 @@
 "use client";
 import style from "../ProductListFiltersFilters.module.scss";
-import {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import {ChangeEvent, useCallback, useEffect, useReducer, useState} from "react";
+import {useSearchParams} from "next/navigation";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 const SearchFilters = () => {
@@ -16,7 +10,7 @@ const SearchFilters = () => {
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const search = searchParams.get("search");
+  const search = searchParams?.get("search");
 
   const [searchText, setSearchText] = useState(() => search || "");
 
@@ -26,7 +20,7 @@ const SearchFilters = () => {
 
   const changeSearchParam = useCallback(
     (search: string | null) => {
-      if (search) changeFilters({ search: search });
+      if (search) changeFilters({search: search});
     },
     [changeFilters]
   );

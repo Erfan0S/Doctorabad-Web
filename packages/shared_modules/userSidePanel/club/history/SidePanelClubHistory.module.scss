@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .sidePanelClubHistory {
   &Item {
@@ -33,7 +33,7 @@
       &Green {
         span {
           &:last-of-type {
-            color: #01e21b;
+            color: $base-green;
           }
         }
       }
@@ -79,37 +79,38 @@
       }
     }
     &FooterCode {
+      display: flex;
+      align-items: center;
+      padding: space(1) space(2);
+      background-color: #e7e7e7;
+      border-radius: space(1);
+      span {
+        display: block;
+        font-weight: 500;
+        line-height: 22px;
+        background-color: #fff;
+        margin-left: space(2);
+        padding: 0 space(2);
+        border-radius: space(1);
+        flex: 0 0 calc(100% - 87px);
+        max-width: calc(100% - 87px);
+        text-align: center;
+      }
+      button {
         display: flex;
         align-items: center;
-        padding: space(1) space(2);
-        background-color: #e7e7e7;
-        border-radius: space(1);
-        span {
-            display: block;
-            font-weight: 500;
-            line-height: 22px;
-            background-color: #fff;
-            margin-left: space(2);
-            padding: 0 space(2);
-            border-radius: space(1);
-            flex: 0 0 calc(100% - 87px);
-            max-width: calc(100% - 87px);
-            text-align: center;
+        background: unset;
+        border: unset;
+        font-weight: 300;
+        cursor: pointer;
+        &:active,
+        &:focus {
+          outline: unset;
         }
-        button {
-            display: flex;
-            align-items: center;
-            background: unset;
-            border: unset;
-            font-weight: 300;
-            cursor: pointer;
-            &:active, &:focus {
-                outline: unset;
-            }
-            svg {
-                margin-left: space(2);
-            }
+        svg {
+          margin-left: space(2);
         }
+      }
     }
   }
 }

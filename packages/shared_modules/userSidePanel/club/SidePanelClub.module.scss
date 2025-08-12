@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .sidePanelClub {
   overflow-y: auto;
@@ -15,14 +15,14 @@
     background-color: #fff;
 
     &:before {
-      content: '';
+      content: "";
       height: 50%;
       top: 0;
       right: 0;
       left: 0;
       position: absolute;
       z-index: 1;
-      background: linear-gradient(to right, #00db00, #00bc00);
+      background: $base-green;
     }
 
     &Image {
@@ -67,7 +67,7 @@
         &:last-of-type {
           font-weight: 700;
           font-size: 18px;
-          color: #00bc00;
+          color: $base-green;
         }
       }
     }

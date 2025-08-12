@@ -28,6 +28,9 @@
       position: relative;
       padding: 0 space(3);
       padding-bottom: 7px;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
 
       a {
         color: #000;

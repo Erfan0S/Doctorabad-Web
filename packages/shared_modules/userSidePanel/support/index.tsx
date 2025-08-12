@@ -1,10 +1,13 @@
-import { SidePanelPage, SidePanelPageProps } from "../types/sidePanel";
+import { SidePanelPage, SidePanelPageProps } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 
-const SidePanelSupport: React.FC<SidePanelPageProps> = ({ setPage }) => {
+const SidePanelSupport: React.FC<SidePanelPageProps> = ({ setPage, data }) => {
   const onBack = () => {
+    if (!!data?.fromHome) {
+      modalActions.removeLastModal();
+    }
     if (isUserLoggedIn()) {
       setPage(SidePanelPage.MAIN);
     } else {

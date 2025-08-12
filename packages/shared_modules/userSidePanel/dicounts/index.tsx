@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
-import { SidePanelPageProps } from "../types/sidePanel";
+import { SidePanelPageProps } from "@repo/core/types/sidePanel";
 import { Loading } from "../../common/components";
 import { DiscountItem } from "./DiscountItem";
 import styles from "./Discounts.module.scss";
@@ -41,7 +41,7 @@ export const SidePanelDiscounts: React.FC<SidePanelPageProps> = ({
             dir="ltr"
           >
             {data?.data.data.map((item) => (
-              <SwiperSlide>
+              <SwiperSlide key={item.id}>
                 <DiscountItem data={item} key={item.id} />
               </SwiperSlide>
             ))}

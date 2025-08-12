@@ -9,7 +9,7 @@ export const MainTabsData = [
   {
     id: "builder",
     title: "آزمون‌ساز",
-    url: "/builder",
+    url: "/make",
   },
   {
     id: "single",

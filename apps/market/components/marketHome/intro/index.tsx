@@ -1,9 +1,10 @@
-import MainBanner from './banner';
-import MainSlider from './slider';
-import style from './Intro.module.scss';
-import { Banner } from '@/types/banner';
-import OrderInformation from './orderInformation';
-import { api } from '@/api/Api';
+import MainBanner from "./banner";
+import style from "./Intro.module.scss";
+import { Banner } from "@/types/banner";
+import OrderInformation from "./orderInformation";
+import { api } from "@/api/Api";
+import { MainSlider } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 type Props = {
   mainSliders: Banner[];
   sideSliders: Banner[];
@@ -17,7 +18,7 @@ const Intro = async ({ mainSliders, sideSliders }: Props) => {
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-            <MainSlider banners={mainSliders} />
+            <MainSlider app={Apps.MARKET} banners={mainSliders} />
           </div>
           <div className="col-lg-4">
             {!order ? (

@@ -23,7 +23,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
+  const tab = searchParams?.get("tab");
 
   const apiFunction = (pageParam?: number) => {
     if (tab === myCoursesTabs.COURSES || !tab) {
@@ -77,7 +77,7 @@ export const MyCourses = () => {
         <div className={styles.noPlan}>
           <span>هیچ دوره‌ای نیست!</span>
           <Button
-            styleType="outline"
+            variant="outline"
             app={Apps.LEARN}
             onClick={() =>
               modalActions.addModal(ModalTypes.SIDE_PANEL, {

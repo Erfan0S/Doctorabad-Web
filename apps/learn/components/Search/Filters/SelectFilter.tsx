@@ -1,9 +1,9 @@
 "use client";
 import style from "./Filters.module.scss";
-import { useState } from "react";
-import { FilterModalType } from "@/types/filters";
-import { useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@/utils/useChangeSearchParamsFilter";
+import {useState} from "react";
+import {FilterModalType} from "@/types/filters";
+import {useSearchParams} from "next/navigation";
+import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
 
 type Props = {
   closeModal?: (clearModals?: boolean) => void;
@@ -22,12 +22,12 @@ export const SelectFilter = ({
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const filter = params.get(queryKey);
+  const filter = params?.get(queryKey);
 
   const activeItems = filter ? filter.split(",") : [];
 
   const filteredItems = searchInList
-    ? items.filter(({ title }) => title.includes(searchInList))
+    ? items.filter(({title}) => title.includes(searchInList))
     : items;
 
   const changeCategoryFilter = (
@@ -57,7 +57,7 @@ export const SelectFilter = ({
         />
       )}
       <ul>
-        {filteredItems.map(({ id, title }) => {
+        {filteredItems.map(({id, title}) => {
           const uniqueId = `checkbox_${queryKey}_${id}_id`;
           return (
             <li key={id}>

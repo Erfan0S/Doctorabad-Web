@@ -1,11 +1,9 @@
 "use client";
 
-// import ModalCreator from '@/components/common/modal/ModalCreator';
-import ModalCreator from "@repo/core/modalComponents/ModalCreator";
 import React, { useState } from "react";
-import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ModalsList } from "@/components/common/modals/modalList";
+import { Providers as SharedProviders } from "@repo/shared_modules";
 
 const Providers = ({ children }: React.PropsWithChildren) => {
   const [client] = useState(
@@ -14,20 +12,7 @@ const Providers = ({ children }: React.PropsWithChildren) => {
     })
   );
 
-  return (
-    <>
-      <QueryClientProvider client={client}>
-        <ModalCreator ModalsList={ModalsList} />
-        <ToastContainer theme="colored" rtl position="top-left" />
-        {children}
-        {/* <ReactQueryDevtools
-          initialIsOpen={false}
-          position="left"
-          buttonPosition="bottom-left"
-        /> */}
-      </QueryClientProvider>
-    </>
-  );
+  return <SharedProviders modalList={ModalsList}>{children}</SharedProviders>;
 };
 
 export default Providers;

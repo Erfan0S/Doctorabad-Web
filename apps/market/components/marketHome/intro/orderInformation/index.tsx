@@ -19,6 +19,7 @@ import { useCart } from "@repo/core/states/cart";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { useRouter } from "next/navigation";
 import { routePath } from "@repo/core/constants/routePath";
+import { OrderType } from "@repo/core/types/cart";
 
 const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
   order,
@@ -44,6 +45,7 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
     } else {
       modalActions.addModal(ModalTypes.ORDER_DETAIL, {
         orderCode: order.data.order_code,
+        productType: OrderType.Course,
       });
     }
   };

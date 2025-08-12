@@ -9,7 +9,8 @@ import BugIcon from "@/assets/svg/newIcons/bug";
 import ShareIcon from "@/assets/svg/newIcons/share";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { shareProduct } from "@repo/core/utils/shareProduct";
+import { useShareProduct } from "@repo/core/hooks/shareProduct";
+import Loading from "@/components/common/loading";
 
 interface Props {
   id: number;
@@ -25,15 +26,19 @@ const ProductSidebarHeader = ({
   const { isFavorite, isLoading, toggleFavorite } =
     useToggleFavoriteProduct(initialFavoriteState);
 
-  const onShareProduct = async () => {
-    shareProduct(async () => {
+  const { isLoading: shareLoading, shareProduct } = useShareProduct(
+    async () => {
       const res = await api.shareProduct(id);
       return {
         title: res.data.data.title,
         description: res.data.data.description,
         url: res.data.data.product_url,
       };
-    });
+    }
+  );
+
+  const onShareProduct = async () => {
+    shareProduct();
   };
 
   const toggleBugModal = () =>
@@ -55,7 +60,7 @@ const ProductSidebarHeader = ({
         <BugIcon />
       </span>
       <span onClick={onShareProduct}>
-        <ShareIcon />
+        {shareLoading ? <Loading /> : <ShareIcon />}
       </span>
       <span onClick={() => toggleFavorite(id)}>
         <FavoriteIcon

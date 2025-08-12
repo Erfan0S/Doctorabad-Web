@@ -2,25 +2,26 @@ import style from "../learning/SidePanelOrdersLearning.module.scss";
 import Basket from "../../../assets/svg/basket";
 import Clock from "../../../assets/svg/clock";
 import Dollar from "../../../assets/svg/dollar";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { PreviousOrder } from "../../types/orders";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { api } from "../../../api/Api";
-import { Loading } from "@repo/shared_modules/components";
+import {priceFormatter} from "@repo/core/utils/priceFormatter";
+import {PreviousOrder} from "../../types/orders";
+import {useInfiniteQuery} from "@tanstack/react-query";
+import {api} from "../../../api/Api";
+import {Loading} from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
-import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { OrderType } from "@repo/core/types/cart";
+import {toFullPersianDateString} from "@repo/core/utils/toFullPersianDateString";
+import {modalActions} from "@repo/core/modal/modals";
+import {ModalTypes} from "@repo/shared_modules/modalsTypes";
+import {OrderType} from "@repo/core/types/cart";
 
 const SidePanelOrdersLearning: React.FC = () => {
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
+  const {data, isLoading, fetchNextPage, hasNextPage} = useInfiniteQuery<
     PreviousOrder[]
   >({
-    queryFn: ({ pageParam }) =>
+    queryFn: ({pageParam}) =>
       api.getShopOrdersList(Number(pageParam)).then((res) => res.data.data),
-    queryKey: ["previousOrders"],
+    queryKey: ["previousOrders", "shopping"],
+
     initialPageParam: 1,
     staleTime: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -42,7 +43,7 @@ const SidePanelOrdersLearning: React.FC = () => {
         document.getElementById("orderListContainer") as HTMLElement
       }
       loader={
-        <div style={{ height: "30px", overflow: "hidden" }}>
+        <div style={{height: "30px", overflow: "hidden"}}>
           <Loading size={20} />
         </div>
       }
@@ -50,7 +51,7 @@ const SidePanelOrdersLearning: React.FC = () => {
       <div className={style.sidePanelOrdersLearning}>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
-            {data.map(({ id, created_at, order_code, price_paid }) => (
+            {data.map(({id, created_at, order_code, price_paid}) => (
               <div
                 key={id}
                 className={style.sidePanelOrdersLearningItem}

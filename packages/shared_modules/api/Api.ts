@@ -32,6 +32,7 @@ import {
 } from "@repo/core/types/cart";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import {
+  CartOrderDetails,
   LastProcessingShopOrder,
   PreviousOrder,
 } from "../checkout/types/orders";
@@ -44,7 +45,11 @@ import {
 } from "../userSidePanel/types/doctorClub";
 import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
-import { CourseListItemType, CourseOrderItem } from "@repo/core/types/course";
+import {
+  CourseListItemType,
+  CourseOrderItem,
+  CourseOrderItemOld,
+} from "@repo/core/types/course";
 import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
 
 class Api extends Request {
@@ -305,6 +310,22 @@ class Api extends Request {
     return this.request.get<{ data: ShareToFriends }>(`/user/share`);
   };
 
+  // orders
+
+  getCartOrdersList = ({
+    page = 1,
+  }: {
+    page?: number;
+  }): Promise<ResponseType<PaginatedResponse<PreviousOrder[]>>> => {
+    return this.request.get(`/user/v1/order?page=${page}`);
+  };
+
+  getCartOrderDetail = (
+    orderCode: string
+  ): Promise<ResponseType<{ data: CartOrderDetails }>> => {
+    return this.request.get(`/user/v1/order/detail/${orderCode}`);
+  };
+
   getShopOrdersList = (
     page: number
   ): Promise<ResponseType<{ data: PreviousOrder[] }>> => {
@@ -313,10 +334,18 @@ class Api extends Request {
     );
   };
 
+  getLearnOrdersListOld = (
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<CourseOrderItemOld[]>>> => {
+    return this.request.get(`/user/v1/education/previous/orders`, {
+      params: { page },
+    });
+  };
+
   getLearnOrdersList = (
     page: number = 1
-  ): Promise<ResponseType<PaginatedResponse<CourseOrderItem[]>>> => {
-    return this.request.get(`/user/v1/education/previous/orders`, {
+  ): Promise<ResponseType<{ data: CourseListItemType[] }>> => {
+    return this.request.get(`/user/v1/education/previous/orders/courses/buy`, {
       params: { page },
     });
   };
@@ -411,7 +440,9 @@ class Api extends Request {
   ): Promise<ResponseType<{ data: ClubTransaction[] }>> => {
     return this.request.get<{ data: ClubTransaction[] }>(
       `/user/club/coin/list`,
-      { params: { page } }
+      {
+        params: { page },
+      }
     );
   };
 
@@ -434,7 +465,9 @@ class Api extends Request {
   getHomeStatistics(): Promise<ResponseType<{ data: HomeStatisticsType }>> {
     return this.request.get<{ data: HomeStatisticsType }>(
       "/user/home/counter",
-      { next: { revalidate: 36000 } }
+      {
+        next: { revalidate: 36000 },
+      }
     );
   }
 }

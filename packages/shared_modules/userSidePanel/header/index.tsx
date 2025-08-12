@@ -1,4 +1,4 @@
-import { SidePanelPage, SidePanelPageProps } from "../types/sidePanel";
+import {SidePanelPage, SidePanelPageProps} from "@repo/core/types/sidePanel";
 import style from "./SidePanelHeader.module.scss";
 import BackIcon from "../../assets/svg/back";
 
@@ -7,12 +7,7 @@ interface Props extends Partial<SidePanelPageProps> {
   suffix?: React.ReactNode;
   onBack?: () => void;
 }
-const SidePanelHeader: React.FC<Props> = ({
-  title,
-  setPage,
-  suffix,
-  onBack,
-}) => {
+const SidePanelHeader: React.FC<Props> = ({title, setPage, suffix, onBack}) => {
   return (
     <div className={style.sidePanelHeader}>
       <span>{title}</span>

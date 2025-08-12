@@ -1,0 +1,72 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.DiscontPlansWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.planItem {
+  width: 100%;
+  overflow: hidden;
+  > div {
+    height: 65px;
+  }
+
+  .planItemTop {
+    background: $purple;
+    padding: 10px 20px;
+    position: relative;
+
+    h3 {
+      color: #ffffff;
+    }
+
+    p {
+      font-size: small;
+      color: #ffffff;
+      font-weight: 300;
+    }
+
+    span {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ffffff;
+    }
+  }
+  .planItemBottem {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      color: $purple;
+      font-size: 15px;
+    }
+
+    button {
+      flex: none;
+      width: 120px;
+      font-size: small;
+      padding: 0 5px;
+      height: 35px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .planItem {
+    .planItemTop {
+      p {
+        font-size: smaller;
+      }
+    }
+  }
+}

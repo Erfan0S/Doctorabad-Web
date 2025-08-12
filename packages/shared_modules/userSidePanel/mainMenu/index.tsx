@@ -1,24 +1,24 @@
-import { SidePanelPage, SidePanelPageProps } from "../types/sidePanel";
-import { sidePanelMenuData } from "./menu-data";
+import {SidePanelPage, SidePanelPageProps} from "@repo/core/types/sidePanel";
+import {sidePanelMenuData} from "./menu-data";
 import Image from "next/image";
 import style from "./SidePanelMainMenu.module.scss";
 import footerImage from "../../assets/img/login.jpg";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../../api/Api";
+import {useQuery} from "@tanstack/react-query";
+import {api} from "../../api/Api";
 import SidePanelHeader from "../header";
 import avatarImage from "../../assets/img/avatars/01.png";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { modalActions } from "@repo/core/modal/modals";
-import { Loading } from "@repo/shared_modules/components";
+import {priceFormatter} from "@repo/core/utils/priceFormatter";
+import {modalActions} from "@repo/core/modal/modals";
+import {Loading} from "@repo/shared_modules/components";
 
-const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
-  const { data: profile, isLoading } = useQuery({
+const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({setPage}) => {
+  const {data: profile, isLoading} = useQuery({
     queryKey: ["profile"],
     queryFn: api.getUser,
     staleTime: Infinity,
   });
 
-  const { data, isSuccess } = useQuery({
+  const {data, isSuccess} = useQuery({
     queryFn: api.getMessagesCount,
     queryKey: ["messages_count"],
     retry: 1,
@@ -26,7 +26,7 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
 
   if (isLoading)
     return (
-      <div style={{ display: "flex", height: "100vh", alignItems: "center" }}>
+      <div style={{display: "flex", height: "100vh", alignItems: "center"}}>
         <Loading size={32} />
       </div>
     );
@@ -60,7 +60,7 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
         </div>
       </div>
       <div className={style.sidePanelMainMenuWrapper}>
-        {sidePanelMenuData.map(({ id, href, Icon, title, action }) => {
+        {sidePanelMenuData.map(({id, href, Icon, title, action}) => {
           const notifications = id === 6 &&
             isSuccess &&
             data.data.data.counter > 0 && (

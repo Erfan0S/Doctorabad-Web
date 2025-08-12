@@ -1,0 +1,28 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.search_input {
+  width: 100%;
+  position: relative;
+
+  input {
+    width: 100%;
+    border: 2px solid var(--app-base, $base-green);
+    border-radius: 10px;
+    padding: 6px 12px;
+    padding-left: 30px;
+    outline: none;
+    font-size: larger;
+  }
+  svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #969696;
+  }
+
+  &:focus {
+    overflow: hidden;
+  }
+}

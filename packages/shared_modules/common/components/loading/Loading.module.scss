@@ -15,4 +15,6 @@
   border-color: #ddd #ddd var(--app-base, $base-green);
   animation: 0.5s spinner linear infinite;
   margin: 0 auto;
+  width: 25px;
+  aspect-ratio: 1/1;
 }

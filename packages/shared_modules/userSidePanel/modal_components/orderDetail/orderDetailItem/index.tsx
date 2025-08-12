@@ -9,20 +9,21 @@ import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
+import { OrderDetailItemType } from "../../../../checkout/types/orders";
+import { CoinIcon } from "../../../../assets";
+import PaperIcon from "../../../../assets/svg/paper";
 
 const OrderDetailItem = ({
   id,
-  price_main,
-  price_off,
-  product_pic,
-  product_title,
-  quantity,
-  product_id,
+  pic_url,
+  price,
   product_type,
-}: Order) => {
+  quantity,
+  title,
+}: OrderDetailItemType) => {
   const { replace } = useRouter();
 
-  const url = generateSingleProductUrlFromId(product_id, "", product_type);
+  const url = generateSingleProductUrlFromId(id, "", product_type);
   const navigate = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     modalActions.clearModals();
@@ -33,8 +34,8 @@ const OrderDetailItem = ({
       <div className={style.OrderDetailItemImage}>
         <a href={url} target="_blank" onClick={navigate}>
           <Image
-            src={product_pic || placeHolderDataUrl}
-            alt={product_title}
+            src={pic_url || placeHolderDataUrl}
+            alt={title}
             width={75}
             height={75}
           />
@@ -43,27 +44,18 @@ const OrderDetailItem = ({
       <div className={style.OrderDetailItemContent}>
         <div className={style.OrderDetailItemTitle}>
           <a onClick={navigate} href={url}>
-            {product_title}
+            {title}
           </a>
         </div>
         <div className={style.OrderDetailItemFooter}>
-          <div className={style.OrderDetailItemPrice}>
-            {!!price_off && (
-              <div className="off-price-wrapper">
-                <small>٪{calcDiscountPercentage(price_main, price_off)}</small>
-                <span>
-                  {priceFormatter(price_main)}
-                  <small>تومن</small>
-                </span>
-              </div>
-            )}
-            <div>
-              {priceFormatter(price_off || price_main)}
-              <small>تومن</small>
-            </div>
-          </div>
-          <span className={style.OrderDetailItemFooterQuantity}>
-            x {quantity}
+          <span className={style.OrderDetailItemFooterInfo}>
+            <CoinIcon />
+            {priceFormatter(price)}
+            <small>تومن</small>
+          </span>
+          <span className={style.OrderDetailItemFooterInfo}>
+            <PaperIcon />
+            {quantity} <small>عدد</small>
           </span>
         </div>
       </div>
