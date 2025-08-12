@@ -7,7 +7,7 @@ import {
   authorizeClientAction,
   isUserLoggedIn,
 } from "@repo/core/utils/authUtils";
-import { Apps, SidePanelPage } from "@repo/core/types/general";
+import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
 import Logo from "../logo";
@@ -18,6 +18,7 @@ import CartIcon from "../../../assets/svg/cart";
 import { useRouter } from "next/navigation";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { useEffect } from "react";
+import { SidePanelPage } from "@repo/core/types/sidePanel";
 
 type Props = {
   type: Apps;

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SidePanelFavoriteTab,
+  SidePanelPage,
   SidePanelPageProps,
 } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
@@ -11,6 +12,7 @@ import SidePanelFavoritesContent from "./content";
 import SidePanelFavoritesExam from "./exam";
 import classNames from "classnames";
 import { appsTabsData } from "../constants/apps-tabs-data";
+import { modalActions } from "@repo/core/modal/modals";
 
 const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
   setPage,
@@ -29,6 +31,10 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
     setCurrentTab(content);
   };
 
+  useEffect(() => {
+    onChangeTab(currentTab);
+  }, [currentTab]);
+
   const clubTabsComponents = {
     [SidePanelFavoriteTab.LEARNING_CENTER]: SidePanelFavoritesLearning,
     [SidePanelFavoriteTab.SHOPPING_CENTER]: SidePanelFavoritesShopping,
@@ -38,22 +44,29 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
 
   const CurrentTabComponent = clubTabsComponents[currentTab];
 
+  const onBack = () => {
+    if (!!data?.fromHome) modalActions.removeLastModal();
+    else setPage(SidePanelPage.MAIN);
+  };
+
   return (
     <>
-      <SidePanelHeader setPage={setPage} title="علاقه‌مندی‌های‌من" />
+      <SidePanelHeader
+        setPage={setPage}
+        onBack={onBack}
+        title="علاقه‌مندی‌های‌من"
+      />
       <div className="sidebar-tab-contents" id="favoriteListContainer">
         <div className={sidePanelStyle.sidePanelTabs}>
           <ul>
-            {tabData.map(({ id, title, active, content, disabled }) => (
+            {tabData.map(({ id, title, content, disabled }) => (
               <li
                 key={id}
                 className={classNames(
-                  active && sidePanelStyle.active,
+                  currentTab === content && sidePanelStyle.active,
                   disabled && sidePanelStyle.disabled
                 )}
-                onClick={
-                  !active && !disabled ? () => onChangeTab(content) : undefined
-                }
+                onClick={!disabled ? () => onChangeTab(content) : undefined}
               >
                 {title}
               </li>

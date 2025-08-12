@@ -47,10 +47,10 @@ import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
 import {
   CourseListItemType,
-  CourseOrderItem,
   CourseOrderItemOld,
 } from "@repo/core/types/course";
 import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
+import { ExamFavoriteList } from "@repo/core/types/exam";
 
 class Api extends Request {
   constructor() {
@@ -356,6 +356,8 @@ class Api extends Request {
     return this.request.get(`/user/v1/education/previous/orders/${orderCode}`);
   };
 
+  // favorites
+
   getLearnFavoriteList = (
     page: number = 1
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> => {
@@ -370,13 +372,17 @@ class Api extends Request {
     return this.request.get(`/user/shop/favorite/list?page=${page}`);
   };
 
+  getExamFavoriteList = (page: number = 1): Promise<ResponseType<any>> => {
+    return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
+  };
+
   prodoctReportIssue = ({
     text,
     productId,
   }: {
     text: string;
     productId: number;
-  }): Promise<any> => {
+  }): Promise<ResponseType<PaginatedResponse<ExamFavoriteList>>> => {
     return this.request.post(`/user/shop/error/report`, {
       error_report_text: text,
       id: productId,

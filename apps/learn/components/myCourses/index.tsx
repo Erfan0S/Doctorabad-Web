@@ -3,11 +3,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import CourseList from "../common/CourseList";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import {
-  Apps,
-  PaginatedResponse,
-  SidePanelPage,
-} from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
@@ -20,6 +16,7 @@ import Loading from "../common/Loading";
 import { Button } from "@repo/shared_modules/components";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { SidePanelPage } from "@repo/core/types/sidePanel";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();

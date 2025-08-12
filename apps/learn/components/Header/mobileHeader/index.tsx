@@ -11,7 +11,7 @@ import {
   authorizeClientAction,
   isUserLoggedIn,
 } from "@repo/core/utils/authUtils";
-import { SidePanelPage } from "@repo/core/types/general";
+import { SidePanelPage } from "@repo/core/types/sidePanel";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";

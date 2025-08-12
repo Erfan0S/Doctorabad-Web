@@ -1,7 +1,10 @@
 import React from "react";
+import { api } from "../../../api/Api";
 
 const SidePanelFavoritesExam: React.FC = () => {
-  return <>SidePanelFavoritesExam</>;
+  api.getExamFavoriteList().then((res) => console.log(res));
+
+  return <div>هیچ سوالی نیست!</div>;
 };
 
 export default SidePanelFavoritesExam;

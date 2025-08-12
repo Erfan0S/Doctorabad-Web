@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../common/Button/Button";
 import style from "./questionBank.module.scss";
 import SelectFilters from "./SelectFilters";
-import { Apps, SidePanelPage } from "@repo/core/types/general";
+import { Apps } from "@repo/core/types/general";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { QuesTionFilters } from "@/types/filters";
 import { useSearchParams } from "next/navigation";
@@ -11,7 +11,10 @@ import { toast } from "react-toastify";
 import QuestionSearchInpt from "./QuestionSearchInpt";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { SidePanelFavoriteTab } from "@repo/core/types/sidePanel";
+import {
+  SidePanelFavoriteTab,
+  SidePanelPage,
+} from "@repo/core/types/sidePanel";
 import { api } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
@@ -45,7 +48,8 @@ function QuestionBankFilter() {
             modalActions.addModal(ModalTypes.SIDE_PANEL, {
               initialPage: SidePanelPage.FAVORITES,
               data: {
-                initialTab: SidePanelFavoriteTab.LEARNING_CENTER,
+                initialTab: SidePanelFavoriteTab.EXAM_CENTER,
+                fromHome: true,
               },
             })
           }

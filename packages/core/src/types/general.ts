@@ -1,4 +1,4 @@
-import {OrderType} from "./cart";
+import { OrderType } from "./cart";
 
 export interface AvatarFile {
   id: number;
@@ -38,11 +38,11 @@ export interface PaginatedResponse<T> {
 //   total: number;
 // }
 
-export type PaginatedRequest<T = {}> = T & {limit: string; page: string};
+export type PaginatedRequest<T = {}> = T & { limit: string; page: string };
 
 export type NextPageProps<P = {}> = {
   params: P;
-  searchParams: {[key: string]: string | string[] | undefined};
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export type SelectionItem = {
@@ -61,19 +61,6 @@ export interface UserClubInfo {
   club_state_id: number;
   club_state_title: string;
   club_state_pic_url: string;
-}
-
-// duplicated
-export enum SidePanelPage {
-  MAIN = "main",
-  CLUB = "club",
-  SUPPORT = "support",
-  FAVORITES = "favorites",
-  ORDERS = "orders",
-  MESSAGES = "messages",
-  FRIENDS = "friends",
-  PROFILE = "profile",
-  DISCOUNTS = "discounts",
 }
 
 export enum Apps {
