@@ -1,11 +1,11 @@
 "use client";
-import CircleCheck from "@/assets/svg/circleCheck";
-import Close from "@/assets/svg/close";
 
 import style from "./CallbackDetail.module.scss";
-import Copy from "@/assets/svg/copy";
 import { copyText } from "@repo/core/utils/copyText";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
+import CircleCheck from "@repo/shared_modules/icons/circleCheck";
+import Close from "@repo/shared_modules/icons/close";
+import Copy from "@repo/shared_modules/icons/copy";
 
 type Props = {
   orderDate?: string;
