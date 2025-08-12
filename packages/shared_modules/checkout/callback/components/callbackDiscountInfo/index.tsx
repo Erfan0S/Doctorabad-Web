@@ -1,7 +1,9 @@
-import Image from 'next/image';
-import style from './CallbackDiscountInfo.module.scss';
-import coinsImage from '@/assets/img/coins.png';
-import coinIcon from '@/assets/img/coin.png';
+import Image from "next/image";
+import style from "./CallbackDiscountInfo.module.scss";
+// @ts-ignore
+import coinsImage from "@repo/shared_modules/images/coins.png";
+// @ts-ignore
+import coinIcon from "@repo/shared_modules/images/coin.png";
 
 type Props = {
   earnedCoins: number;
@@ -15,7 +17,8 @@ const CallbackDiscountInfo = ({ discountCode, earnedCoins }: Props) => {
       {!!earnedCoins && (
         <>
           <p>
-            با این سفارش {earnedCoins} <Image width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
+            با این سفارش {earnedCoins}{" "}
+            <Image width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
           </p>
           <p>که میتونین تو دکترکلاب ازش استفاده کنین!</p>
         </>

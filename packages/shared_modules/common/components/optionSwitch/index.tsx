@@ -1,10 +1,10 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import style from "./OptionSwitch.module.scss";
 import classNames from "classnames";
-import {Apps} from "@repo/core/types/general";
-import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
-import {useSearchParams} from "next/navigation";
+import { Apps } from "@repo/core/types/general";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   activeSwitchComponent?: JSX.Element | null;
@@ -74,6 +74,7 @@ const OptionSwitch = ({
             <div
               className={classNames(style.optionsSwitch, {
                 [style.optionsSwitchActive]: isChecked,
+                [style.disabled]: !isActive,
               })}
             />
           </label>

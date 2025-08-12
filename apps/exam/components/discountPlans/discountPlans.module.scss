@@ -32,7 +32,7 @@
       font-weight: 300;
     }
 
-    span {
+    svg {
       position: absolute;
       left: 20px;
       top: 50%;
@@ -58,6 +58,17 @@
       padding: 0 5px;
       height: 35px;
     }
+  }
+}
+.addedPurchaseButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  a {
+    color: #fff;
+    text-decoration: none;
   }
 }
 

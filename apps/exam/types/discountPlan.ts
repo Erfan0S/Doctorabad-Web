@@ -8,3 +8,8 @@ export interface DiscountPlanType {
   vip: boolean;
   free: boolean;
 }
+
+export type HasDiscountPlanType = {
+  data: unknown[];
+  used_free: boolean;
+};
