@@ -10,7 +10,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { CourseDataType } from "@/types/courses";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
-import { useShareProduct } from "@repo/core/hooks/shareProduct";
+import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/Loading";
 
 interface Button {
