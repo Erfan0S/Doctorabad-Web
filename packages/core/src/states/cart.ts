@@ -28,7 +28,7 @@ export const cartActions = {
   async removeFromCart(cartItemId: number) {
     await api.decreaseQuantity(cartItemId);
 
-    await this.getCartData();
+    updateCart(await api.getCartList());
 
     toast("محصول از سبدخرید حذف شد", { type: "error", position: "top-left" });
   },

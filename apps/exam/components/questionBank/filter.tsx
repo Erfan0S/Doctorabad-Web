@@ -3,19 +3,39 @@ import React from "react";
 import Button from "../common/Button/Button";
 import style from "./questionBank.module.scss";
 import SelectFilters from "./SelectFilters";
-import SearchInput from "@repo/shared_modules/ui/SearchInput/index";
-import {Apps, SidePanelPage} from "@repo/core/types/general";
-import {OptionSwitch} from "@repo/shared_modules/components";
-import {QuesTionFilters} from "@/types/filters";
-import {useSearchParams} from "next/navigation";
-import {toast} from "react-toastify";
+import { Apps, SidePanelPage } from "@repo/core/types/general";
+import { OptionSwitch } from "@repo/shared_modules/components";
+import { QuesTionFilters } from "@/types/filters";
+import { useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 import QuestionSearchInpt from "./QuestionSearchInpt";
-import {modalActions} from "@repo/core/modal/modals";
-import {ModalTypes} from "@repo/shared_modules/modalsTypes";
-import {SidePanelFavoriteTab} from "@repo/core/types/sidePanel";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { SidePanelFavoriteTab } from "@repo/core/types/sidePanel";
+import { api } from "@/api/Api";
+import { useQuery } from "@tanstack/react-query";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
+  const setSeachParam = useChangeSearchParamsFilter();
+
+  const { data: planData, isLoading: planLoading } = useQuery({
+    queryKey: ["userHasPlan"],
+    queryFn: () => api.userHasPlan(),
+  });
+
+  const onExplanationSelect = () => {
+    if (planLoading) return;
+    if ((planData?.data?.data?.length || 0) > 0) {
+      setSeachParam({ [QuesTionFilters.EXPLANATION]: "1" });
+    } else {
+      toast.error("برای مشاهده پاسخ تشریحی، باید طرح فعال داشته باشید!");
+      document.getElementById("discountPlansElement")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <div className={`${style.filterContainer} container`}>
@@ -42,6 +62,8 @@ function QuestionBankFilter() {
           title="نمایش تشریحی سوالات!"
           app={Apps.EXAM}
           addToQuery
+          onClick={onExplanationSelect}
+          isActive={planLoading || !!planData?.data.data.length}
         />
         <OptionSwitch
           name={QuesTionFilters.BUDGETING}
