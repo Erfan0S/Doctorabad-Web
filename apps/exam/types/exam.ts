@@ -77,3 +77,9 @@ export type ExamSliderType = {
   url: string;
   location: number;
 };
+
+export type ExamTopicType = {
+  id: number;
+  title: string;
+  topics: ExamTopicType[];
+};

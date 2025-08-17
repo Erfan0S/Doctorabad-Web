@@ -1,71 +1,81 @@
 "use client";
-import {api} from "@/api/Api";
-import {QuesTionFilters} from "@/types/filters";
-import {SelectQroupItemType} from "@repo/core/types/filter";
-import {Apps} from "@repo/core/types/general";
-import {SelectFilterQroup} from "@repo/shared_modules/components";
-import {useQuery} from "@tanstack/react-query";
-import {useSearchParams} from "next/navigation";
-import React from "react";
+import { api } from "@/api/Api";
+import { ExamTopicType } from "@/types/exam";
+import { QuesTionFilters } from "@/types/filters";
+import {
+  SelectFilterItems,
+  SelectQroupItemType,
+} from "@repo/core/types/filter";
+import { Apps } from "@repo/core/types/general";
+import { SelectFilterQroup } from "@repo/shared_modules/components";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 
 function SelectFilters() {
   const params = useSearchParams();
 
-  const {data: fieldsData, isLoading: fieldsLoading} = useQuery({
+  const fieldParam = params?.get(QuesTionFilters.FIELD);
+  const gradeParam = params?.get(QuesTionFilters.GRADE);
+  const lessonParam = params?.get(QuesTionFilters.LESSON);
+  const topicParam = params?.get(QuesTionFilters.TOPIC);
+
+  const topicData = (topics: ExamTopicType[]): SelectFilterItems[] => {
+    if (!topics.length) return [];
+    return topics.map((topic) => ({
+      id: topic.id,
+      title: topic.title,
+      childern: !!topic.topics.length ? topicData(topic.topics) : [],
+    }));
+  };
+
+  const { data: fieldsData, isLoading: fieldsLoading } = useQuery({
     queryKey: ["question_fields"],
     queryFn: () => api.getQuestionFields(),
   });
 
-  const {data: gradesData, isLoading: gradesLoading} = useQuery({
-    queryKey: ["question_grades"],
-    queryFn: () =>
-      api.getQuestionGrades(
-        (params?.get(QuesTionFilters.FIELD) || 1) as number
-      ),
-    enabled: !!params?.get(QuesTionFilters.FIELD),
+  const { data: gradesData, isLoading: gradesLoading } = useQuery({
+    queryKey: ["question_grades", fieldParam],
+    queryFn: () => api.getQuestionGrades((fieldParam || 1) as number),
+    enabled: !!fieldParam,
   });
 
-  const {data: lessonsData, isLoading: lessonsLoading} = useQuery({
-    queryKey: ["question_lessons"],
-    queryFn: () =>
-      api.getQuestionLessons(
-        (params?.get(QuesTionFilters.GRADE) || 1) as number
-      ),
-    enabled: !!params?.get(QuesTionFilters.GRADE),
+  const { data: lessonsData, isLoading: lessonsLoading } = useQuery({
+    queryKey: ["question_lessons", gradeParam],
+
+    queryFn: () => api.getQuestionLessons((gradeParam || 1) as number),
+    enabled: !!gradeParam,
   });
 
-  const {data: topicsData, isLoading: topicsLoading} = useQuery({
-    queryKey: ["question_topics"],
-    queryFn: () =>
-      api.getQuestionTopics(
-        (params?.get(QuesTionFilters.TOPIC) || 1) as number
-      ),
-    enabled: !!params?.get(QuesTionFilters.TOPIC),
+  const { data: topicsData, isLoading: topicsLoading } = useQuery({
+    queryKey: ["question_topics", lessonParam],
+    queryFn: () => api.getQuestionTopics((lessonParam || 1) as number),
+    enabled: !!lessonParam,
   });
 
-  const {data: datesData, isLoading: datesLoading} = useQuery({
-    queryKey: ["question_dates"],
+  const { data: datesData, isLoading: datesLoading } = useQuery({
+    queryKey: ["question_dates", gradeParam, topicParam, fieldParam],
     queryFn: () =>
       api.getQuestionDates({
-        field_id: Number(params?.get(QuesTionFilters.FIELD)) || undefined,
-        grade_id: Number(params?.get(QuesTionFilters.GRADE)) || undefined,
-        topics: params?.get(QuesTionFilters.TOPIC)
-          ? params?.get(QuesTionFilters.TOPIC)?.split(",").map(Number)
-          : undefined,
+        field_id: Number(fieldParam) || undefined,
+        grade_id: Number(gradeParam) || undefined,
+        topics: topicParam ? topicParam?.split(",").map(Number) : undefined,
       }),
   });
 
-  const {data: placesData, isLoading: placesLoading} = useQuery({
-    queryKey: ["question_places"],
+  const { data: placesData, isLoading: placesLoading } = useQuery({
+    queryKey: ["question_places", gradeParam, topicParam, fieldParam],
     queryFn: () =>
       api.getQuestionPlaces({
-        field_id: Number(params?.get(QuesTionFilters.FIELD)) || undefined,
-        grade_id: Number(params?.get(QuesTionFilters.GRADE)) || undefined,
-        topics: params?.get(QuesTionFilters.TOPIC)
-          ? params?.get(QuesTionFilters.TOPIC)?.split(",").map(Number)
-          : undefined,
+        field_id: Number(fieldParam) || undefined,
+        grade_id: Number(gradeParam) || undefined,
+        topics: topicParam ? topicParam?.split(",").map(Number) : undefined,
       }),
   });
+
+  // useEffect(() => {
+  //   console.log(topicData);
+  // }, [topicData]);
 
   const filters: SelectQroupItemType[] = [
     {
@@ -93,7 +103,7 @@ function SelectFilters() {
           title: grade.title,
         })) || [],
       loading: gradesLoading,
-      isActive: !!params?.get(QuesTionFilters.FIELD),
+      isActive: !!fieldParam,
       dependencies: [QuesTionFilters.LESSON, QuesTionFilters.TOPIC],
     },
     {
@@ -105,20 +115,17 @@ function SelectFilters() {
           title: lesson.title,
         })) || [],
       loading: lessonsLoading,
-      isActive: !!params?.get(QuesTionFilters.GRADE),
+      isActive: !!gradeParam,
       dependencies: [QuesTionFilters.TOPIC],
     },
     {
       name: QuesTionFilters.TOPIC,
       title: "مبحث",
-      data:
-        topicsData?.data.data.map((topic) => ({
-          id: topic.id,
-          title: topic.title,
-        })) || [],
+      data: topicData(topicsData?.data.data || []),
+
       loading: topicsLoading,
       multiSelection: true,
-      isActive: !!params?.get(QuesTionFilters.LESSON),
+      isActive: !!lessonParam,
     },
     {
       name: QuesTionFilters.DATE,
@@ -145,6 +152,10 @@ function SelectFilters() {
       multiSelection: true,
     },
   ];
+
+  // api.getQuestionTopics(1).then((res) => {
+  //   console.log(res);
+  // });
   return <SelectFilterQroup items={filters} app={Apps.EXAM} />;
 }
 

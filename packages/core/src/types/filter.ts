@@ -1,6 +1,10 @@
-import {Apps} from "./general";
+import { Apps } from "./general";
 
-export type SelectFilterItems = {id: number | string; title: string};
+export type SelectFilterItems = {
+  id: number | string;
+  title: string;
+  childern?: SelectFilterItems[];
+};
 
 export type FilterModalType = {
   title: string;
@@ -12,7 +16,7 @@ export type FilterModalType = {
 
 export type SelectQroupItemType = {
   title: string;
-  data: Array<any>;
+  data: Array<SelectFilterItems>;
   name: string;
   loading: boolean;
   isActive: boolean;

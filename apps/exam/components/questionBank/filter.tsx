@@ -28,6 +28,7 @@ function QuestionBankFilter() {
     queryFn: () => api.userHasPlan(),
   });
 
+  // TODO: see if loading is needed handle differently
   const onExplanationSelect = () => {
     if (planLoading) return;
     if ((planData?.data?.data?.length || 0) > 0) {
@@ -67,7 +68,7 @@ function QuestionBankFilter() {
           app={Apps.EXAM}
           addToQuery
           onClick={onExplanationSelect}
-          isActive={planLoading || !!planData?.data.data.length}
+          isActive={planLoading ? false : !!planData?.data.data.length}
         />
         <OptionSwitch
           name={QuesTionFilters.BUDGETING}

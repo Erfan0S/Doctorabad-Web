@@ -4,6 +4,7 @@ import {
   ExamDateType,
   ExamFieldGradeType,
   ExamSliderType,
+  ExamTopicType,
   ExamType,
   QuestionExplanationType,
   QuestionListParamsType,
@@ -130,7 +131,7 @@ class Api extends Request {
 
   getQuestionTopics = (
     lesson_id: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
+  ): Promise<ResponseType<{ data: ExamTopicType[] }>> => {
     return this.request.post(`/user/v1/lab/question/topics`, {
       lesson_id,
     });

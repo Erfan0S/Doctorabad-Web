@@ -1,14 +1,25 @@
 "use client";
 import style from "./Filters.module.scss";
-import {useState} from "react";
-import {FilterModalType} from "@repo/core/types/filter";
-import {useSearchParams} from "next/navigation";
-import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
-import Loading from "../loading";
+import { useEffect, useState } from "react";
+import { FilterModalType, SelectFilterItems } from "@repo/core/types/filter";
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import ArrowRight from "../../../assets/svg/arrowRight";
+import ArrowBottom from "../../../assets/svg/arrowBottom";
+import { Button } from "..";
+import FilterItmeList from "./FilterItemList";
 
 type Props = {
   closeModal?: (clearModals?: boolean) => void;
 };
+
+export type onCheckType = (
+  id: string,
+  level: number,
+  checked: boolean,
+  children?: SelectFilterItems[],
+  parentIds?: string[]
+) => void;
 
 export const SelectFilter = ({
   items,
@@ -19,6 +30,8 @@ export const SelectFilter = ({
   closeModal,
 }: FilterModalType & Props) => {
   const [searchInList, setSearchInList] = useState("");
+  const [checks, setChecks] = useState<Record<string, boolean>>({});
+  const [isOpen, setIsOpen] = useState<Record<string, boolean>>({});
 
   const params = useSearchParams();
 
@@ -29,16 +42,96 @@ export const SelectFilter = ({
   const activeItems = filter ? filter.split(",") : [];
 
   const filteredItems = searchInList
-    ? items.filter(({title}) => title.includes(searchInList))
+    ? items.filter(({ title }) => title.includes(searchInList))
     : items;
 
-  const changeCategoryFilter = (
-    filterId: number | string,
-    checked: boolean
+  useEffect(() => {
+    activeItems.forEach((item) => {
+      setChecks((prev) => ({ ...prev, [item]: true }));
+    });
+  }, [params]);
+
+  const checkChildren = (children: SelectFilterItems[], check: boolean) => {
+    children.forEach((child) => {
+      setChecks((prev) => ({ ...prev, [child.id]: check }));
+      if (child.childern && child.childern.length > 0)
+        checkChildren(child.childern, check);
+    });
+  };
+
+  const getParentsByIds = (
+    ids: string[],
+    items: SelectFilterItems[],
+    checkedLevel: number,
+    level: number
+  ): SelectFilterItems[] => {
+    // if (level >= checkedLevel) return [];
+    const parent = items.find((item) => ids.includes(item.id.toString()));
+    if (!!parent?.childern?.length) {
+      const parents = getParentsByIds(
+        ids,
+        parent.childern,
+        checkedLevel,
+        level + 1
+      );
+      return [...parents, parent];
+    }
+    return parent ? [parent] : [];
+  };
+
+  const checkParents = (
+    parentIds: string[],
+    check: boolean,
+    childId: string,
+    level: number
   ) => {
-    const updatedItems = checked
-      ? [...(singleSelection ? [] : activeItems), String(filterId)]
-      : activeItems.filter((item) => item !== String(filterId));
+    if (!parentIds.length) return;
+    if (!check) {
+      parentIds.forEach((parentId) => {
+        setChecks((prev) => ({ ...prev, [parentId]: false }));
+      });
+    } else {
+      const parents = getParentsByIds(parentIds, items, level, 0);
+      console.log(parentIds);
+      console.log(parents);
+
+      parents.forEach((parent, i) => {
+        const childrenChecked = parent.childern?.every((child) => {
+          return (
+            checks[child.id] ||
+            child.id == childId ||
+            child.id == parentIds.reverse()[i - 1]
+          );
+        });
+
+        console.log(parent.title, childrenChecked);
+        if (childrenChecked) {
+          setChecks((prev) => ({ ...prev, [parent.id]: check }));
+        }
+      });
+    }
+  };
+
+  const onCheck: onCheckType = (
+    id: string,
+    level: number,
+    checked: boolean,
+    children?: SelectFilterItems[],
+    parentIds?: string[]
+  ) => {
+    if (singleSelection) {
+      setChecks({ [id]: checked });
+      changeCategoryFilter({ [id]: checked });
+      if (closeModal) closeModal();
+    } else {
+      setChecks((prev) => ({ ...prev, [id]: checked }));
+      checkChildren(children || [], checked);
+      checkParents(parentIds || [], checked, id, level);
+    }
+  };
+
+  const changeCategoryFilter = (item: Record<string, boolean>) => {
+    const updatedItems = Object.keys(item).filter((key) => item[key]);
 
     setTimeout(() => {
       changeFilters({
@@ -46,8 +139,17 @@ export const SelectFilter = ({
       });
     }, 100);
 
+    if (closeModal && singleSelection) closeModal();
+  };
+
+  const onSubmit = () => {
+    changeCategoryFilter(checks);
     if (closeModal) closeModal();
   };
+
+  useEffect(() => {
+    // console.log("checks", checks);
+  }, [checks]);
 
   return (
     <div className={`${style.archiveFiltersCheckboxList} ${style[app]}`}>
@@ -58,24 +160,34 @@ export const SelectFilter = ({
           placeholder={`جستجو در ${title}`}
         />
       )}
-      <ul>
-        {filteredItems.map(({id, title}) => {
-          const uniqueId = `checkbox_${queryKey}_${id}_id`;
-          return (
-            <li key={id}>
-              <input
-                id={uniqueId}
-                type="checkbox"
-                checked={activeItems.includes(String(id))}
-                onChange={(e) => changeCategoryFilter(id, e.target.checked)}
-              />
-              <label htmlFor={uniqueId}>
-                <span>{title}</span>
-              </label>
-            </li>
-          );
-        })}
-      </ul>
+      <FilterItmeList
+        items={filteredItems}
+        level={0}
+        checks={checks}
+        onCheck={onCheck}
+        queryKey={queryKey}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+      {!singleSelection && (
+        <div className={style.submitFilters}>
+          <Button type="button" app={app} onClick={onSubmit}>
+            تایید
+          </Button>
+          {/* <Button
+            type="button"
+            app={app}
+            onClick={() => {
+              setChecks({});
+              changeCategoryFilter({});
+              closeModal && closeModal();
+            }}
+            variant="outline"
+          >
+            حذف فیلترها
+          </Button> */}
+        </div>
+      )}
     </div>
   );
 };
