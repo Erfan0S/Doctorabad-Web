@@ -64,8 +64,8 @@ class Api extends Request {
   };
 
   getExamDates = (
-    field_id: number,
-    grade_id: number
+    field_id?: number,
+    grade_id?: number
   ): Promise<ResponseType<{ data: ExamDateType[] }>> => {
     return this.request.post(`/user/v1/lab/exam/dates`, { field_id, grade_id });
   };

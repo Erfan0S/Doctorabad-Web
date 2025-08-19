@@ -38,7 +38,27 @@
   }
 }
 
+.makeInputs {
+  padding-bottom: 45px;
+}
+
+.makeInputsButtonWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  position: absolute;
+  gap: 10px;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 20%);
+}
+
 @media (max-width: 768px) {
+  html .makeInputs {
+    padding-bottom: 85px;
+  }
+
   .topButtons {
     button {
       font-size: 12px;

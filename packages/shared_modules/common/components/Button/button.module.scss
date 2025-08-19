@@ -25,6 +25,11 @@
   }
 }
 
+.secondary {
+  background: #fff;
+  color: var(--app-base, #{$green});
+}
+
 .outline {
   background: #fff;
   color: var(--app-base, #{$green});

@@ -27,12 +27,13 @@ function QuestionBankFilter() {
     queryKey: ["userHasPlan"],
     queryFn: () => api.userHasPlan(),
   });
+  const hasPlan =
+    !!planData?.data.data && planData?.data.data.length > 0 ? true : false;
 
-  // TODO: see if loading is needed handle differently
   const onExplanationSelect = () => {
     if (planLoading) return;
-    if ((planData?.data?.data?.length || 0) > 0) {
-      setSeachParam({ [QuesTionFilters.EXPLANATION]: "1" });
+    if (hasPlan) {
+      toast.success("شماطرح فعال دارید!");
     } else {
       toast.error("برای مشاهده پاسخ تشریحی، باید طرح فعال داشته باشید!");
       document.getElementById("discountPlansElement")?.scrollIntoView({
@@ -68,7 +69,10 @@ function QuestionBankFilter() {
           app={Apps.EXAM}
           addToQuery
           onClick={onExplanationSelect}
-          isActive={planLoading ? false : !!planData?.data.data.length}
+          isActive={hasPlan}
+          isLoading={planLoading}
+          isDefaulChecked={hasPlan}
+          canChange={false}
         />
         <OptionSwitch
           name={QuesTionFilters.BUDGETING}

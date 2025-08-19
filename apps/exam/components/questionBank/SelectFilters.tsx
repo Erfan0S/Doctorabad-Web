@@ -1,7 +1,7 @@
 "use client";
 import { api } from "@/api/Api";
 import { ExamTopicType } from "@/types/exam";
-import { QuesTionFilters } from "@/types/filters";
+import { SharedFilters } from "@/types/filters";
 import {
   SelectFilterItems,
   SelectQroupItemType,
@@ -10,15 +10,15 @@ import { Apps } from "@repo/core/types/general";
 import { SelectFilterQroup } from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
 function SelectFilters() {
   const params = useSearchParams();
 
-  const fieldParam = params?.get(QuesTionFilters.FIELD);
-  const gradeParam = params?.get(QuesTionFilters.GRADE);
-  const lessonParam = params?.get(QuesTionFilters.LESSON);
-  const topicParam = params?.get(QuesTionFilters.TOPIC);
+  const fieldParam = params?.get(SharedFilters.FIELD);
+  const gradeParam = params?.get(SharedFilters.GRADE);
+  const lessonParam = params?.get(SharedFilters.LESSON);
+  const topicParam = params?.get(SharedFilters.TOPIC);
 
   const topicData = (topics: ExamTopicType[]): SelectFilterItems[] => {
     if (!topics.length) return [];
@@ -79,7 +79,7 @@ function SelectFilters() {
 
   const filters: SelectQroupItemType[] = [
     {
-      name: QuesTionFilters.FIELD,
+      name: SharedFilters.FIELD,
       title: "رشته",
       data:
         fieldsData?.data.data.map((field) => ({
@@ -89,13 +89,13 @@ function SelectFilters() {
       loading: fieldsLoading,
       isActive: true,
       dependencies: [
-        QuesTionFilters.GRADE,
-        QuesTionFilters.LESSON,
-        QuesTionFilters.TOPIC,
+        SharedFilters.GRADE,
+        SharedFilters.LESSON,
+        SharedFilters.TOPIC,
       ],
     },
     {
-      name: QuesTionFilters.GRADE,
+      name: SharedFilters.GRADE,
       title: "نام آزمون",
       data:
         gradesData?.data.data.map((grade) => ({
@@ -104,10 +104,10 @@ function SelectFilters() {
         })) || [],
       loading: gradesLoading,
       isActive: !!fieldParam,
-      dependencies: [QuesTionFilters.LESSON, QuesTionFilters.TOPIC],
+      dependencies: [SharedFilters.LESSON, SharedFilters.TOPIC],
     },
     {
-      name: QuesTionFilters.LESSON,
+      name: SharedFilters.LESSON,
       title: "درس",
       data:
         lessonsData?.data.data.map((lesson) => ({
@@ -116,10 +116,10 @@ function SelectFilters() {
         })) || [],
       loading: lessonsLoading,
       isActive: !!gradeParam,
-      dependencies: [QuesTionFilters.TOPIC],
+      dependencies: [SharedFilters.TOPIC],
     },
     {
-      name: QuesTionFilters.TOPIC,
+      name: SharedFilters.TOPIC,
       title: "مبحث",
       data: topicData(topicsData?.data.data || []),
 
@@ -128,7 +128,7 @@ function SelectFilters() {
       isActive: !!lessonParam,
     },
     {
-      name: QuesTionFilters.DATE,
+      name: SharedFilters.DATE,
       title: "زمان",
       data:
         datesData?.data.data.map((date) => ({
@@ -140,7 +140,7 @@ function SelectFilters() {
       isActive: true,
     },
     {
-      name: QuesTionFilters.PLACE,
+      name: SharedFilters.PLACE,
       title: "مکان",
       data:
         placesData?.data.data.map((place) => ({

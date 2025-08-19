@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Apps } from "@repo/core/types/general";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { useSearchParams } from "next/navigation";
+import { Loading } from "..";
 
 type Props = {
   activeSwitchComponent?: JSX.Element | null;
@@ -16,6 +17,9 @@ type Props = {
   app?: Apps;
   addToQuery?: boolean;
   isActive?: boolean;
+  isLoading?: boolean;
+  isDefaulChecked?: boolean;
+  canChange?: boolean;
 };
 
 const OptionSwitch = ({
@@ -28,6 +32,9 @@ const OptionSwitch = ({
   addToQuery,
   isActive = true,
   onClick,
+  isLoading = false,
+  isDefaulChecked,
+  canChange = true,
 }: Props) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const setSeachParam = useChangeSearchParamsFilter();
@@ -36,10 +43,21 @@ const OptionSwitch = ({
   const switchId = "sw_" + name;
 
   useEffect(() => {
-    if (addToQuery) {
+    if (addToQuery && isDefaulChecked !== undefined) {
       setIsChecked(searchParam?.get(name) == "1");
     }
   }, []);
+
+  useEffect(() => {
+    if (isDefaulChecked !== undefined) {
+      setIsChecked(isDefaulChecked);
+      if (addToQuery) {
+        setSeachParam({
+          [name]: isDefaulChecked ? "1" : null,
+        });
+      }
+    }
+  }, [isDefaulChecked]);
 
   useEffect(() => {
     onToggle && onToggle(isChecked);
@@ -47,7 +65,7 @@ const OptionSwitch = ({
 
   const handleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick && onClick(e);
-    if (!isActive) return;
+    if (!isActive || !canChange) return;
     setIsChecked(e.target.checked);
     if (addToQuery) {
       setSeachParam({
@@ -61,23 +79,31 @@ const OptionSwitch = ({
       <li className={`${style.options} ${className} ${style[app]}`}>
         <label htmlFor={switchId}>{title}</label>
         <div className={style.optionsWrapper}>
-          <input
-            type="checkbox"
-            hidden
-            id={switchId}
-            checked={isChecked}
-            onChange={handleSwitch}
-            name={name}
-          />
-          <label htmlFor={switchId}>
-            {" "}
-            <div
-              className={classNames(style.optionsSwitch, {
-                [style.optionsSwitchActive]: isChecked,
-                [style.disabled]: !isActive,
-              })}
-            />
-          </label>
+          {isLoading ? (
+            <Loading app={app} />
+          ) : (
+            <>
+              <input
+                type="checkbox"
+                hidden
+                id={switchId}
+                checked={isChecked}
+                onChange={handleSwitch}
+                defaultValue={isDefaulChecked ? "1" : undefined}
+                name={name}
+                onClick={() => console.log("clicked")}
+              />
+              <label htmlFor={switchId}>
+                {" "}
+                <div
+                  className={classNames(style.optionsSwitch, {
+                    [style.optionsSwitchActive]: isChecked,
+                    [style.disabled]: !isActive,
+                  })}
+                />
+              </label>
+            </>
+          )}
         </div>
       </li>
       {isChecked && activeSwitchComponent && <li>{activeSwitchComponent}</li>}
