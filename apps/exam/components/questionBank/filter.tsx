@@ -2,7 +2,7 @@
 import React from "react";
 import Button from "../common/Button/Button";
 import style from "./questionBank.module.scss";
-import SelectFilters from "./SelectFilters";
+import SelectFilters from "../common/SelectFilters/SelectFilters";
 import { Apps } from "@repo/core/types/general";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { QuesTionFilters } from "@/types/filters";

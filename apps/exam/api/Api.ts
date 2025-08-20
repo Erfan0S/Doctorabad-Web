@@ -12,7 +12,7 @@ import {
 } from "@/types/exam";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { Request } from "@repo/core/http-request/Request";
-import { ResponseType } from "@repo/core/types/general";
+import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
 import { toast } from "react-toastify";
 
 class Api extends Request {
@@ -31,8 +31,9 @@ class Api extends Request {
     grade_id?: number;
     places?: number[];
     dates?: number[];
-  }): Promise<ResponseType<{ data: ExamType[] }>> => {
-    return this.request.get("/user/v1/lab/exam", { params });
+    page?: number;
+  }): Promise<ResponseType<PaginatedResponse<ExamType[]>>> => {
+    return this.request.post("/user/v1/lab/exam", { params });
   };
 
   getExamDetail = (id: number): Promise<ResponseType<{ data: ExamType }>> => {

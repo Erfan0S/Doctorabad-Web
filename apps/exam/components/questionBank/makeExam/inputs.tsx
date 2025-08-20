@@ -8,7 +8,7 @@ import { api } from "@/api/Api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { toast } from "react-toastify";
-import SelectFilters from "../SelectFilters";
+import SelectFilters from "../../common/SelectFilters/SelectFilters";
 import style from "../questionBank.module.scss";
 import Button from "@/components/common/Button/Button";
 

@@ -12,7 +12,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
-function SelectFilters() {
+type Props = {
+  isExamList?: boolean;
+};
+
+function SelectFilters({ isExamList }: Props) {
   const params = useSearchParams();
 
   const fieldParam = params?.get(SharedFilters.FIELD);
@@ -31,12 +35,15 @@ function SelectFilters() {
 
   const { data: fieldsData, isLoading: fieldsLoading } = useQuery({
     queryKey: ["question_fields"],
-    queryFn: () => api.getQuestionFields(),
+    queryFn: () => (isExamList ? api.getExamFields() : api.getQuestionFields()),
   });
 
   const { data: gradesData, isLoading: gradesLoading } = useQuery({
     queryKey: ["question_grades", fieldParam],
-    queryFn: () => api.getQuestionGrades((fieldParam || 1) as number),
+    queryFn: () =>
+      isExamList
+        ? api.getExamGrades((fieldParam || 1) as number)
+        : api.getQuestionGrades((fieldParam || 1) as number),
     enabled: !!fieldParam,
   });
 
@@ -44,40 +51,50 @@ function SelectFilters() {
     queryKey: ["question_lessons", gradeParam],
 
     queryFn: () => api.getQuestionLessons((gradeParam || 1) as number),
-    enabled: !!gradeParam,
+    enabled: !!gradeParam && !isExamList,
   });
 
   const { data: topicsData, isLoading: topicsLoading } = useQuery({
     queryKey: ["question_topics", lessonParam],
     queryFn: () => api.getQuestionTopics((lessonParam || 1) as number),
-    enabled: !!lessonParam,
+    enabled: !!lessonParam && !isExamList,
   });
 
   const { data: datesData, isLoading: datesLoading } = useQuery({
     queryKey: ["question_dates", gradeParam, topicParam, fieldParam],
     queryFn: () =>
-      api.getQuestionDates({
-        field_id: Number(fieldParam) || undefined,
-        grade_id: Number(gradeParam) || undefined,
-        topics: topicParam ? topicParam?.split(",").map(Number) : undefined,
-      }),
+      isExamList
+        ? api.getExamDates(
+            Number(fieldParam) || undefined,
+            Number(gradeParam) || undefined
+          )
+        : api.getQuestionDates({
+            field_id: Number(fieldParam) || undefined,
+            grade_id: Number(gradeParam) || undefined,
+            topics: topicParam ? topicParam?.split(",").map(Number) : undefined,
+          }),
   });
 
   const { data: placesData, isLoading: placesLoading } = useQuery({
     queryKey: ["question_places", gradeParam, topicParam, fieldParam],
     queryFn: () =>
-      api.getQuestionPlaces({
-        field_id: Number(fieldParam) || undefined,
-        grade_id: Number(gradeParam) || undefined,
-        topics: topicParam ? topicParam?.split(",").map(Number) : undefined,
-      }),
+      isExamList
+        ? api.getExamPlaces(
+            Number(fieldParam) || undefined,
+            Number(gradeParam) || undefined
+          )
+        : api.getQuestionPlaces({
+            field_id: Number(fieldParam) || undefined,
+            grade_id: Number(gradeParam) || undefined,
+            topics: topicParam ? topicParam?.split(",").map(Number) : undefined,
+          }),
   });
 
   // useEffect(() => {
   //   console.log(topicData);
   // }, [topicData]);
 
-  const filters: SelectQroupItemType[] = [
+  let filters: SelectQroupItemType[] = [
     {
       name: SharedFilters.FIELD,
       title: "رشته",
@@ -152,6 +169,15 @@ function SelectFilters() {
       multiSelection: true,
     },
   ];
+
+  if (isExamList) {
+    filters = filters.filter((filter) => {
+      return (
+        filter.name !== SharedFilters.LESSON &&
+        filter.name !== SharedFilters.TOPIC
+      );
+    });
+  }
 
   // api.getQuestionTopics(1).then((res) => {
   //   console.log(res);
