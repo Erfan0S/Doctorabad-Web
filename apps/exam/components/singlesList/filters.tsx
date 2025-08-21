@@ -6,7 +6,7 @@ function SingleFilters() {
   return (
     <div className={style.filtersWrapper}>
       <div className="card">
-        <SelectFilters isExamList={true} />
+        <SelectFilters page="exams" isExamList={true} />
       </div>
     </div>
   );

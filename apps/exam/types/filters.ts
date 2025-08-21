@@ -6,19 +6,15 @@ export const SharedFilters = {
   DATE: "date",
   PLACE: "place",
   EXPLANATION: "explanation",
-};
-
-export const QuesTionFilters = {
-  ...SharedFilters,
   BUDGETING: "budgeting",
   TIP: "tip",
 };
 
 export const MakeFilters = {
   ...SharedFilters,
-  BUDGETING: "budgeting",
-  TIP: "tip",
   RECORD: "record",
   MARKING: "marking",
   MANUAL: "manual",
 };
+
+export type filterPages = "maker" | "questionBank" | "exams";

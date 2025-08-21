@@ -18,9 +18,6 @@ export const SidePanel = ({ data = {}, closeModal }: Props) => {
 
   const Page = sidePanelPageList[page];
 
-  // api.getShopOrdersList(1).then((res) => console.log(res));
-  // api.getPreviousOrderDetail("DR130722").then((res) => console.log(res));
-
   return (
     <motion.div {...slideLeftAnimation} className={styles.sidePanel}>
       <Page setPage={setPage} data={data.data} />

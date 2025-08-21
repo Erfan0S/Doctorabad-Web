@@ -11,11 +11,7 @@ type Props = {
   item: DiscountPlanType;
 };
 
-// TODO: Change Button
-
 function DiscountPlanItem({ item }: Props) {
-  console.log(item);
-
   return (
     <div className={`card ${style.planItem}`}>
       <div className={style.planItemTop}>

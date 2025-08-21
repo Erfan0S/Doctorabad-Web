@@ -91,7 +91,6 @@ const OptionSwitch = ({
                 onChange={handleSwitch}
                 defaultValue={isDefaulChecked ? "1" : undefined}
                 name={name}
-                onClick={() => console.log("clicked")}
               />
               <label htmlFor={switchId}>
                 {" "}

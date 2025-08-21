@@ -1,9 +1,9 @@
 import React from "react";
 import { PageHeader } from "@repo/shared_modules/headers";
-import Accordion from "@/components/accordion";
 import styles from "./CategoryListHeader.module.scss";
 import { SortType } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
+import { Accordion } from "@repo/shared_modules/components";
 
 type Props = {
   title: string;
@@ -29,6 +29,7 @@ const CategoryListHeader = ({ title }: Props) => {
           items={filterData}
           queryKey="sort"
           singleSelection={true}
+          app={Apps.LEARN}
         />
       }
     />

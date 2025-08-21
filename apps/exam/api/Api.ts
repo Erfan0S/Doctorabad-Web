@@ -33,7 +33,7 @@ class Api extends Request {
     dates?: number[];
     page?: number;
   }): Promise<ResponseType<PaginatedResponse<ExamType[]>>> => {
-    return this.request.post("/user/v1/lab/exam", { params });
+    return this.request.post("/user/v1/lab/exam", { ...params });
   };
 
   getExamDetail = (id: number): Promise<ResponseType<{ data: ExamType }>> => {

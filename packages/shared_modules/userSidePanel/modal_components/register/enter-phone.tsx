@@ -25,7 +25,6 @@ export const EnterPhone = ({
     setSubmitting(true);
     try {
       const csrf = await api.getCsrf();
-      console.log(csrf);
       await api.sendVerificationCode(phone);
       onCodeSent(phone);
     } catch (error: any) {

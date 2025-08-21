@@ -1,6 +1,5 @@
 "use client";
 import { api } from "@/api/Api";
-import { SharedFilters } from "@/types/filters";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React, { Fragment } from "react";
@@ -8,14 +7,17 @@ import Loading from "../common/Loading/Loading";
 import InfiniteScroll from "react-infinite-scroller";
 import style from "./sinlgesList.module.scss";
 import SingleListItem from "./SingleListItem";
+import { examsFilters } from "@/constants/filters";
 
 function SingleList() {
+  const FiltersNames = examsFilters;
+
   const param = useSearchParams();
 
-  const field = param?.get(SharedFilters.FIELD);
-  const grade = param?.get(SharedFilters.GRADE);
-  const date = param?.get(SharedFilters.DATE);
-  const place = param?.get(SharedFilters.PLACE);
+  const field = param?.get(FiltersNames.FIELD);
+  const grade = param?.get(FiltersNames.GRADE);
+  const date = param?.get(FiltersNames.DATE);
+  const place = param?.get(FiltersNames.PLACE);
 
   const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryFn: ({ pageParam }) =>

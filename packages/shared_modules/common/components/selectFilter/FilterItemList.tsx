@@ -25,7 +25,6 @@ const FilterItmeList = ({
   isOpen,
   setIsOpen,
 }: Props) => {
-  console.log(items);
   return (
     <ul>
       {items.map(({ id, title, childern }, i) => {

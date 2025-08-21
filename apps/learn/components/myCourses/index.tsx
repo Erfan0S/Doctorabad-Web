@@ -61,10 +61,6 @@ export const MyCourses = () => {
     );
   }
 
-  useEffect(() => {
-    console.log(userPlans);
-  }, [userPlans]);
-
   const showContent = () => {
     if (tab === myCoursesTabs.PLANS) {
       if (userPlansLoading) return <Loading />;

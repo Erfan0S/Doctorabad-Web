@@ -35,13 +35,9 @@ function MakeInputs() {
     }
   };
 
-  useEffect(() => {
-    console.log(hasPlan);
-  }, [planData]);
-
   return (
     <div className={`card ${style.filtersWrapper} ${style.makeInputs}`}>
-      <SelectFilters />
+      <SelectFilters page="maker" />
       <OptionSwitch
         name={MakeFilters.EXPLANATION}
         title="نمایش تشریحی سوالات!"

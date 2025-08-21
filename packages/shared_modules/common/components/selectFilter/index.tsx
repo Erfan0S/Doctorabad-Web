@@ -92,8 +92,6 @@ export const SelectFilter = ({
       });
     } else {
       const parents = getParentsByIds(parentIds, items, level, 0);
-      console.log(parentIds);
-      console.log(parents);
 
       parents.forEach((parent, i) => {
         const childrenChecked = parent.childern?.every((child) => {
@@ -104,7 +102,6 @@ export const SelectFilter = ({
           );
         });
 
-        console.log(parent.title, childrenChecked);
         if (childrenChecked) {
           setChecks((prev) => ({ ...prev, [parent.id]: check }));
         }
@@ -132,24 +129,17 @@ export const SelectFilter = ({
 
   const changeCategoryFilter = (item: Record<string, boolean>) => {
     const updatedItems = Object.keys(item).filter((key) => item[key]);
-
     setTimeout(() => {
       changeFilters({
         [queryKey]: updatedItems.length ? updatedItems.join(",") : null,
       });
     }, 100);
-
-    if (closeModal && singleSelection) closeModal();
   };
 
   const onSubmit = () => {
     changeCategoryFilter(checks);
     if (closeModal) closeModal();
   };
-
-  useEffect(() => {
-    // console.log("checks", checks);
-  }, [checks]);
 
   return (
     <div className={`${style.archiveFiltersCheckboxList} ${style[app]}`}>

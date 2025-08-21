@@ -5,7 +5,6 @@ import style from "./questionBank.module.scss";
 import SelectFilters from "../common/SelectFilters/SelectFilters";
 import { Apps } from "@repo/core/types/general";
 import { OptionSwitch } from "@repo/shared_modules/components";
-import { QuesTionFilters } from "@/types/filters";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import QuestionSearchInpt from "./QuestionSearchInpt";
@@ -17,11 +16,10 @@ import {
 } from "@repo/core/types/sidePanel";
 import { api } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { questionBankFilters } from "@/constants/filters";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
-  const setSeachParam = useChangeSearchParamsFilter();
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
@@ -61,10 +59,10 @@ function QuestionBankFilter() {
         <Button disabled>آزمون‌های ساخته شده من</Button>
       </div>
       <div className={`card ${style.filtersWrapper}`}>
-        <SelectFilters />
+        <SelectFilters page="questionBank" />
         <QuestionSearchInpt />
         <OptionSwitch
-          name={QuesTionFilters.EXPLANATION}
+          name={questionBankFilters.EXPLANATION}
           title="نمایش تشریحی سوالات!"
           app={Apps.EXAM}
           addToQuery
@@ -75,18 +73,18 @@ function QuestionBankFilter() {
           canChange={false}
         />
         <OptionSwitch
-          name={QuesTionFilters.BUDGETING}
+          name={questionBankFilters.BUDGETING}
           title="نمایش بودجه‌بندی سوالات!"
           app={Apps.EXAM}
-          isActive={!!searchParams?.get(QuesTionFilters.LESSON)}
+          isActive={!!searchParams?.get(questionBankFilters.LESSON)}
           onClick={() => {
-            !!searchParams?.get(QuesTionFilters.LESSON) ||
+            !!searchParams?.get(questionBankFilters.LESSON) ||
               toast.error("حتما درس باید انتخاب شده باشد!");
           }}
           addToQuery
         />
         <OptionSwitch
-          name={QuesTionFilters.TIP}
+          name={questionBankFilters.TIP}
           title="فقط نمایش سوالات تیپ دار!"
           app={Apps.EXAM}
           addToQuery

@@ -1,7 +1,8 @@
 "use client";
 import { api } from "@/api/Api";
+import { filtersNames } from "@/constants/filters";
 import { ExamTopicType } from "@/types/exam";
-import { SharedFilters } from "@/types/filters";
+import { filterPages } from "@/types/filters";
 import {
   SelectFilterItems,
   SelectQroupItemType,
@@ -13,16 +14,19 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 
 type Props = {
+  page: filterPages;
   isExamList?: boolean;
 };
 
-function SelectFilters({ isExamList }: Props) {
+function SelectFilters({ page, isExamList }: Props) {
+  const FiltersNames = filtersNames(page);
+
   const params = useSearchParams();
 
-  const fieldParam = params?.get(SharedFilters.FIELD);
-  const gradeParam = params?.get(SharedFilters.GRADE);
-  const lessonParam = params?.get(SharedFilters.LESSON);
-  const topicParam = params?.get(SharedFilters.TOPIC);
+  const fieldParam = params?.get(FiltersNames.FIELD);
+  const gradeParam = params?.get(FiltersNames.GRADE);
+  const lessonParam = params?.get(FiltersNames.LESSON);
+  const topicParam = params?.get(FiltersNames.TOPIC);
 
   const topicData = (topics: ExamTopicType[]): SelectFilterItems[] => {
     if (!topics.length) return [];
@@ -90,13 +94,9 @@ function SelectFilters({ isExamList }: Props) {
           }),
   });
 
-  // useEffect(() => {
-  //   console.log(topicData);
-  // }, [topicData]);
-
   let filters: SelectQroupItemType[] = [
     {
-      name: SharedFilters.FIELD,
+      name: FiltersNames.FIELD,
       title: "رشته",
       data:
         fieldsData?.data.data.map((field) => ({
@@ -106,13 +106,13 @@ function SelectFilters({ isExamList }: Props) {
       loading: fieldsLoading,
       isActive: true,
       dependencies: [
-        SharedFilters.GRADE,
-        SharedFilters.LESSON,
-        SharedFilters.TOPIC,
+        FiltersNames.GRADE,
+        FiltersNames.LESSON,
+        FiltersNames.TOPIC,
       ],
     },
     {
-      name: SharedFilters.GRADE,
+      name: FiltersNames.GRADE,
       title: "نام آزمون",
       data:
         gradesData?.data.data.map((grade) => ({
@@ -121,10 +121,10 @@ function SelectFilters({ isExamList }: Props) {
         })) || [],
       loading: gradesLoading,
       isActive: !!fieldParam,
-      dependencies: [SharedFilters.LESSON, SharedFilters.TOPIC],
+      dependencies: [FiltersNames.LESSON, FiltersNames.TOPIC],
     },
     {
-      name: SharedFilters.LESSON,
+      name: FiltersNames.LESSON,
       title: "درس",
       data:
         lessonsData?.data.data.map((lesson) => ({
@@ -133,10 +133,10 @@ function SelectFilters({ isExamList }: Props) {
         })) || [],
       loading: lessonsLoading,
       isActive: !!gradeParam,
-      dependencies: [SharedFilters.TOPIC],
+      dependencies: [FiltersNames.TOPIC],
     },
     {
-      name: SharedFilters.TOPIC,
+      name: FiltersNames.TOPIC,
       title: "مبحث",
       data: topicData(topicsData?.data.data || []),
 
@@ -145,7 +145,7 @@ function SelectFilters({ isExamList }: Props) {
       isActive: !!lessonParam,
     },
     {
-      name: SharedFilters.DATE,
+      name: FiltersNames.DATE,
       title: "زمان",
       data:
         datesData?.data.data.map((date) => ({
@@ -157,7 +157,7 @@ function SelectFilters({ isExamList }: Props) {
       isActive: true,
     },
     {
-      name: SharedFilters.PLACE,
+      name: FiltersNames.PLACE,
       title: "مکان",
       data:
         placesData?.data.data.map((place) => ({
@@ -173,15 +173,11 @@ function SelectFilters({ isExamList }: Props) {
   if (isExamList) {
     filters = filters.filter((filter) => {
       return (
-        filter.name !== SharedFilters.LESSON &&
-        filter.name !== SharedFilters.TOPIC
+        filter.name !== FiltersNames.LESSON &&
+        filter.name !== FiltersNames.TOPIC
       );
     });
   }
-
-  // api.getQuestionTopics(1).then((res) => {
-  //   console.log(res);
-  // });
   return <SelectFilterQroup items={filters} app={Apps.EXAM} />;
 }
 
