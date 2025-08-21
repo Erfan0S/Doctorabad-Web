@@ -5,10 +5,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-
-  a {
-    color: #fff;
-  }
 }
 
 .column {
@@ -17,4 +13,7 @@
 
 .fullWidth {
   width: 100%;
+  > button {
+    width: 100%;
+  }
 }

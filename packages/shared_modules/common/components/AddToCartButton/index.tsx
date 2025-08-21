@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./style.module.scss";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { Apps } from "@repo/core/types/general";
 import { OrderType } from "@repo/core/types/cart";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { Button, Loading } from "@repo/shared_modules/components";
-import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
+import { useRouter } from "next/navigation";
 
 type Props = {
   id: number;
@@ -36,6 +36,7 @@ function AddToCartButton({
   const orderId = data?.find(
     (d) => d.product_id === id && d.product_type === type
   )?.id;
+  const router = useRouter();
 
   return (
     <div
@@ -56,8 +57,14 @@ function AddToCartButton({
           >
             {updateCartLoading ? <Loading app={app} /> : "حذف از سبد خرید"}
           </Button>
-          <Button app={app} onClick={modalActions.clearModals}>
-            <Link href={routePath.checkout}>مشاهده سبد خرید</Link>
+          <Button
+            app={app}
+            onClick={() => {
+              router.push(routePath.checkout);
+              modalActions.clearModals();
+            }}
+          >
+            مشاهده سبد خرید
           </Button>
         </div>
       ) : (
