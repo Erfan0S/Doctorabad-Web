@@ -5,6 +5,9 @@ import React from "react";
 import Button from "../common/Button/Button";
 import style from "./sinlgesList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import { AddToCartButton } from "@repo/shared_modules/components";
+import { OrderType } from "@repo/core/types/cart";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   item: ExamType;
@@ -31,7 +34,7 @@ function SingleListItem({ item }: Props) {
         <span className={style.singleItemPrice}>
           {priceFormatter(item.main_price)} تومن
         </span>
-        <Button>افزودن به سبد خرید</Button>
+        <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
       </div>
     </div>
   );

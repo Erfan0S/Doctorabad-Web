@@ -4,6 +4,9 @@ export enum OrderType {
   ShopProduct = "shopProduct",
   Course = "course",
   DiscountPlan = "discountPlan",
+  Exam = "exam",
+  Insurance = "insurance",
+  Package = "package",
 }
 
 export type Order = {

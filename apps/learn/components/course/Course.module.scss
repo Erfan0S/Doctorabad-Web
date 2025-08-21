@@ -202,7 +202,9 @@
 }
 
 @media (max-width: 425px) {
-  .purchaseButton {
-    font-size: 12px;
+  .purchaseBar {
+    button {
+      font-size: 12px;
+    }
   }
 }

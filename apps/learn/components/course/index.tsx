@@ -17,7 +17,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import VideoPlayer from "./video-player/VideoPlayer";
 import { useCart, cartActions } from "@repo/core/states/cart";
-import { OrderType } from "@repo/core/types/cart";
 import { PageHeader } from "@repo/shared_modules/headers";
 import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 import Link from "next/link";
@@ -51,8 +50,6 @@ const Course = ({ course }: Props) => {
   >(null);
   const [userHasAccess, setUserHasAccess] = useState(false);
 
-  const [orderId, serOrderId] = useState<number | undefined>();
-
   const { data: leassonData, isLoading } = useQuery({
     queryKey: ["course-videop", `leason-${course.id}-${currentLeasson?.id}`],
     queryFn: () => api.getVideo(Number(course.id), currentLeasson?.id!),
@@ -81,16 +78,6 @@ const Course = ({ course }: Props) => {
       section.chapters.flatMap((chapter) => chapter.lessons)
     );
   }, [course]);
-
-  useEffect(() => {
-    serOrderId(
-      data?.find(
-        (item) =>
-          item.product_type === OrderType.Course &&
-          item.product_id === course.id
-      )?.id
-    );
-  }, [data]);
 
   const goToNextTrack = () => {
     if (!userHasAccess) {
@@ -239,7 +226,6 @@ const Course = ({ course }: Props) => {
           </div>
           <CourseButton
             course={course}
-            orderId={orderId}
             mainPrice={mainPrice}
             offPrice={offPrice}
           />
