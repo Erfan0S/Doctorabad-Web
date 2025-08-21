@@ -43,6 +43,8 @@ function SingleList() {
     <div className={style.listWrapper}>
       {isLoading ? (
         <Loading />
+      ) : !!data && data?.pages[0].data.data.length <= 0 ? (
+        <span className={style.noData}>هیچ تک آزمونی پیدا نشد!</span>
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}

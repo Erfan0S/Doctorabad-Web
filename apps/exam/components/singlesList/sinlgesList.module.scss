@@ -72,6 +72,13 @@
   }
 }
 
+.noData {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .singleItem {
     button {
