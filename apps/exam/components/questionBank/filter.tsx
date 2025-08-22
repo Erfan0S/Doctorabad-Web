@@ -5,7 +5,7 @@ import style from "./questionBank.module.scss";
 import SelectFilters from "../common/SelectFilters/SelectFilters";
 import { Apps } from "@repo/core/types/general";
 import { OptionSwitch } from "@repo/shared_modules/components";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import QuestionSearchInpt from "./QuestionSearchInpt";
 import { modalActions } from "@repo/core/modal/modals";
@@ -17,9 +17,12 @@ import {
 import { api } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { questionBankFilters } from "@/constants/filters";
+import { RoutePath } from "@/constants/routPaths";
+import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
@@ -38,6 +41,22 @@ function QuestionBankFilter() {
         behavior: "smooth",
       });
     }
+  };
+
+  const onSubmitHandler = () => {
+    if (!searchParams?.get(questionBankFilters.FIELD)) {
+      toast.error("حداقل رشته را انتخاب کن!");
+      return;
+    }
+
+    let a: Record<string, string> = {};
+    searchParams?.forEach((value, key) => {
+      a[key] = value;
+    });
+    router.push(
+      `${RoutePath.questions}?${SearchParamsUtils.paramsStringify(a)}`
+    );
+    console.log(a);
   };
 
   return (
@@ -90,7 +109,11 @@ function QuestionBankFilter() {
           addToQuery
         />
 
-        <Button className={style.submitBtn} type="submit">
+        <Button
+          className={style.submitBtn}
+          type="button"
+          onClick={onSubmitHandler}
+        >
           فیلتر‌کن و نشون‌بده!
         </Button>
       </div>

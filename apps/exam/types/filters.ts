@@ -8,6 +8,7 @@ export const SharedFilters = {
   EXPLANATION: "explanation",
   BUDGETING: "budgeting",
   TIP: "tip",
+  SORT: "sort",
 };
 
 export const MakeFilters = {
