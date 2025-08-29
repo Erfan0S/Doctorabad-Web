@@ -46,9 +46,22 @@
     justify-content: space-between;
     align-items: center;
 
-    span {
-      color: $purple;
-      font-size: 15px;
+    .planItemPrice {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      span:first-child {
+        text-decoration: line-through;
+        font-size: 12px;
+      }
+      span:last-child {
+        font-size: 15px;
+        text-decoration: none;
+      }
+      span {
+        color: $purple;
+        font-size: 15px;
+      }
     }
 
     button {

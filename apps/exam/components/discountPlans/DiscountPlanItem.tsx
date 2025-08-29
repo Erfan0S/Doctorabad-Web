@@ -12,7 +12,6 @@ type Props = {
 };
 
 function DiscountPlanItem({ item }: Props) {
-  // TODO: add off price
   return (
     <div className={`card ${style.planItem}`}>
       <div className={style.planItemTop}>
@@ -21,7 +20,12 @@ function DiscountPlanItem({ item }: Props) {
         {item.vip && <VipIcon />}
       </div>
       <div className={style.planItemBottem}>
-        <span>{priceFormatter(item.main_price)} تومن</span>
+        <div className={style.planItemPrice}>
+          {!!item.off_price && (
+            <span>{priceFormatter(item.main_price)} تومن</span>
+          )}
+          <span>{priceFormatter(item.off_price || item.main_price)} تومن</span>
+        </div>
         <AddToCartButton
           id={item.id}
           type={OrderType.DiscountPlan}
