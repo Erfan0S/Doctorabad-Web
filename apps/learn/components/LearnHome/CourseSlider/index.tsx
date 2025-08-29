@@ -12,7 +12,7 @@ import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
 import { Loading } from "@repo/shared_modules/components";
 
 interface Props {
-  data: PaginatedResponse<CourseListItemType[]>;
+  data: CourseListItemType[];
   title: string;
   archiveLink: string | null;
   isLoading?: boolean;
@@ -47,7 +47,7 @@ const CourseSlider: React.FC<Props> = ({
     };
   }, []);
 
-  if (!isLoading && !data?.data.length) return null;
+  if (!isLoading && !(data.length > 0)) return null;
 
   return (
     <section className={style.productSlider}>
@@ -81,7 +81,7 @@ const CourseSlider: React.FC<Props> = ({
               // breakpoints={swiperBreakpoints}
               {...customSliderConfig}
             >
-              {data?.data?.map((course, i) => (
+              {data?.map((course, i) => (
                 <SwiperSlide key={course.id}>
                   <Link href={`/course/${course.id}`}>
                     <Image

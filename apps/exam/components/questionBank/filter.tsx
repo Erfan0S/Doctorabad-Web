@@ -14,7 +14,7 @@ import {
   SidePanelFavoriteTab,
   SidePanelPage,
 } from "@repo/core/types/sidePanel";
-import { api } from "@/api/Api";
+import { api } from "@repo/shared_modules/api";
 import { useQuery } from "@tanstack/react-query";
 import { questionBankFilters } from "@/constants/filters";
 import { RoutePath } from "@/constants/routPaths";
@@ -26,7 +26,7 @@ function QuestionBankFilter() {
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
-    queryFn: () => api.userHasPlan(),
+    queryFn: () => api.getUserPlans(2),
   });
   const hasPlan =
     !!planData?.data.data && planData?.data.data.length > 0 ? true : false;

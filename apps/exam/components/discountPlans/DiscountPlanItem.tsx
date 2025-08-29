@@ -12,6 +12,7 @@ type Props = {
 };
 
 function DiscountPlanItem({ item }: Props) {
+  // TODO: add off price
   return (
     <div className={`card ${style.planItem}`}>
       <div className={style.planItemTop}>

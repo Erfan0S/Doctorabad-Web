@@ -104,12 +104,14 @@ class Api extends Request {
 
   // Discount Plans
 
-  getDiscountPlans = (): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
-    return this.request.get(`/user/v1/discount/plans?type=${1}`);
+  getDiscountPlans = (
+    type: 1 | 2 = 1
+  ): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
+    return this.request.get(`/user/v1/discount/plans?type=${type}`);
   };
 
-  getUserPlans(): Promise<ResponseType<UserPlans>> {
-    return this.request.get(`/user/v1/discount/plans/check?type=${1}`);
+  getUserPlans(type: 1 | 2 = 1): Promise<ResponseType<UserPlans>> {
+    return this.request.get(`/user/v1/discount/plans/check?type=${type}`);
   }
 
   // cart

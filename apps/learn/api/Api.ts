@@ -207,7 +207,7 @@ class Api extends Request {
 
   getPrviosCourseOrders(
     page: number = 1
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+  ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
     return this.request.get("/user/v1/education/previous/orders/courses/buy", {
       params: { page },
     });
@@ -220,12 +220,6 @@ class Api extends Request {
       params: { page },
     });
   }
-
-  // getPreviosPlanCourseOrders (): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
-  //   const plans = this.request.get("/user/v1/education/previous/orders/courses/plan");
-  //   const courses = this.request.get("/user/v1/education/previous/orders/courses/buy");
-  //   return ;
-  // }
 
   // filter / search
 

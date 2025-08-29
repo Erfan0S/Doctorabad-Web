@@ -60,11 +60,11 @@ const CourseListItem = ({ course }: Props) => {
           <div className={styles.metadataWrapper}>
             <div className={styles.metadataItem}>
               <Hat fontSize={16} />
-              <span>{course.provider.name}</span>
+              <span>{course?.provider?.name || "_"}</span>
             </div>
             <div className={styles.metadataItem}>
               <HomeIcon fontSize={16} />
-              <span>{course.student_count} دانشجو</span>
+              <span>{course?.student_count || "_"} دانشجو</span>
             </div>
           </div>
         </div>

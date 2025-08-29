@@ -45,24 +45,3 @@
     box-shadow: 0 0 3px 0px #737373;
   }
 }
-
-.UserPlanItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0.5rem;
-  background: white;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-  background-color: white;
-  p {
-    color: red;
-    text-align: center;
-    font-weight: 700;
-    font-size: small;
-    width: 100%;
-    margin: 0;
-  }
-}

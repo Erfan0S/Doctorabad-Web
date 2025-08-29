@@ -202,16 +202,6 @@ class Api extends Request {
   getExamSlider = (): Promise<ResponseType<{ data: ExamSliderType[] }>> => {
     return this.request.get("/user/v1/lab/sliders");
   };
-
-  getDiscountPlans = (): Promise<
-    ResponseType<{ data: DiscountPlanType[] }>
-  > => {
-    return this.request.get("/user/v1/discount/plans?type=2");
-  };
-
-  userHasPlan = (): Promise<ResponseType<HasDiscountPlanType>> => {
-    return this.request.get("/user/v1/discount/plans/check?type=2");
-  };
 }
 
 export const api = new Api();

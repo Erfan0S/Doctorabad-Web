@@ -11,38 +11,41 @@ import { api as coreApi } from "@repo/shared_modules/api";
 import styles from "./myCourses.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
-import UserPlanItem from "./UserPlanItem";
 import Loading from "../common/Loading";
-import { Button } from "@repo/shared_modules/components";
+import { Button, UserPlanItem } from "@repo/shared_modules/components";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
+import CourseListItem from "../common/CourseList/CourseListItem";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
   const tab = searchParams?.get("tab");
 
-  const apiFunction = (pageParam?: number) => {
-    if (tab === myCoursesTabs.COURSES || !tab) {
-      return api.getPrviosCourseOrders(pageParam);
-    } else {
-      return api.getPreviosPlanOrders(pageParam);
-    }
-  };
-
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
-    PaginatedResponse<CourseListItemType[]>
-  >({
-    queryKey: ["myCourses", tab || myCoursesTabs.COURSES],
+  const {
+    data: planData,
+    isLoading: planLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery<PaginatedResponse<CourseListItemType[]>>({
+    queryKey: ["myPlanCourses", tab || myCoursesTabs.COURSES],
     queryFn: ({ pageParam }) =>
-      apiFunction(pageParam as number | undefined).then((res) => res.data),
+      api
+        .getPreviosPlanOrders(pageParam as number | undefined)
+        .then((res) => res.data),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      if (lastPage.links.next) {
+      if (lastPage.links?.next) {
         return (lastPageParam as number) + 1;
       }
       return undefined;
     },
+  });
+
+  // TODO: may api change later
+  const { data: courseData, isLoading: courseLoading } = useQuery({
+    queryKey: ["myCourses", tab || myCoursesTabs.COURSES],
+    queryFn: () => api.getPrviosCourseOrders(),
   });
 
   const { data: userPlans, isLoading: userPlansLoading } = useQuery({
@@ -50,7 +53,7 @@ export const MyCourses = () => {
     queryFn: () => coreApi.getUserPlans().then((res) => res.data),
   });
 
-  if (!isLoading && !data) {
+  if (!planLoading && !planData && !courseLoading && !courseData) {
     return (
       <div className={styles.noData}>
         <span>هیج دوره‌ای نیست!</span>
@@ -60,12 +63,15 @@ export const MyCourses = () => {
       </div>
     );
   }
+  console.log(courseData?.data);
 
   const showContent = () => {
     if (tab === myCoursesTabs.PLANS) {
       if (userPlansLoading) return <Loading />;
       return !!userPlans?.data.length ? (
-        userPlans?.data.map((item) => <UserPlanItem item={item} />)
+        userPlans?.data.map((item) => (
+          <UserPlanItem item={item} app={Apps.LEARN} />
+        ))
       ) : (
         <div className={styles.noPlan}>
           <span>هیچ دوره‌ای نیست!</span>
@@ -84,13 +90,21 @@ export const MyCourses = () => {
         </div>
       );
     } else {
-      if (isLoading) return <Loading />;
+      if (planLoading || courseLoading) return <Loading />;
       return (
-        <CourseList
-          courses={data}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-        />
+        <>
+          {!!courseData?.data.data &&
+            courseData?.data.data.map((course) => (
+              <Link href={`/course/${course.id}`} key={course.id}>
+                <CourseListItem course={course} />
+              </Link>
+            ))}
+          <CourseList
+            courses={planData}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+        </>
       );
     }
   };

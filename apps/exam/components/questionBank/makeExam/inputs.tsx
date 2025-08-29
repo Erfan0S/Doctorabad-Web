@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { MakeFilters } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
+import { api } from "@repo/shared_modules/api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { toast } from "react-toastify";
@@ -19,7 +19,7 @@ function MakeInputs() {
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
-    queryFn: () => api.userHasPlan(),
+    queryFn: () => api.getUserPlans(2),
   });
 
   const hasPlan =
