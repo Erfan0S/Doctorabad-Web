@@ -69,9 +69,16 @@ export const MyCourses = () => {
     if (tab === myCoursesTabs.PLANS) {
       if (userPlansLoading) return <Loading />;
       return !!userPlans?.data.length ? (
-        userPlans?.data.map((item) => (
-          <UserPlanItem item={item} app={Apps.LEARN} />
-        ))
+        <>
+          {userPlans?.data.map((item) => (
+            <UserPlanItem item={item} app={Apps.LEARN} />
+          ))}
+          <CourseList
+            courses={planData}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+        </>
       ) : (
         <div className={styles.noPlan}>
           <span>هیچ دوره‌ای نیست!</span>
@@ -92,19 +99,12 @@ export const MyCourses = () => {
     } else {
       if (planLoading || courseLoading) return <Loading />;
       return (
-        <>
-          {!!courseData?.data.data &&
-            courseData?.data.data.map((course) => (
-              <Link href={`/course/${course.id}`} key={course.id}>
-                <CourseListItem course={course} />
-              </Link>
-            ))}
-          <CourseList
-            courses={planData}
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-          />
-        </>
+        !!courseData?.data.data &&
+        courseData?.data.data.map((course) => (
+          <Link href={`/course/${course.id}`} key={course.id}>
+            <CourseListItem course={course} />
+          </Link>
+        ))
       );
     }
   };
