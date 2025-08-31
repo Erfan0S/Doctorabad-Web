@@ -55,7 +55,13 @@ function SingleList() {
             return (
               <Fragment key={i}>
                 {page.data.data.map((item, i) => {
-                  return <SingleListItem item={item} key={i} />;
+                  return (
+                    <SingleListItem
+                      item={item}
+                      haveGeneralAccess={page.data.has_general_access}
+                      key={i}
+                    />
+                  );
                 })}
               </Fragment>
             );

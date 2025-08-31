@@ -4,13 +4,14 @@ import { OptionSwitch } from "@repo/shared_modules/components";
 import { MakeFilters } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@repo/shared_modules/api";
+import { api as coreApi } from "@repo/shared_modules/api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { toast } from "react-toastify";
 import SelectFilters from "../../common/SelectFilters/SelectFilters";
 import style from "../questionBank.module.scss";
 import Button from "@/components/common/Button/Button";
+import { api } from "@/api/Api";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
@@ -19,7 +20,7 @@ function MakeInputs() {
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
-    queryFn: () => api.getUserPlans(2),
+    queryFn: () => coreApi.getUserPlans(2),
   });
 
   const hasPlan =
@@ -34,6 +35,8 @@ function MakeInputs() {
       // route.push("/");
     }
   };
+
+  api.getExamDetail(13).then((res) => console.log(res));
 
   return (
     <div className={`card ${style.filtersWrapper} ${style.makeInputs}`}>

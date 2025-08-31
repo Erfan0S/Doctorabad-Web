@@ -72,6 +72,20 @@
   }
 }
 
+.singleItemAccessButtons {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+
+  button {
+    flex: none;
+    min-width: 80px;
+    a {
+      color: white;
+    }
+  }
+}
+
 .noData {
   width: 100%;
   text-align: center;

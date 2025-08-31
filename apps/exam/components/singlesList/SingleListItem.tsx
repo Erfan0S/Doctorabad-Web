@@ -2,18 +2,20 @@ import { ExamType } from "@/types/exam";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import Image from "next/image";
 import React from "react";
-import Button from "../common/Button/Button";
 import style from "./sinlgesList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { AddToCartButton } from "@repo/shared_modules/components";
+import { AddToCartButton, Button } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
+import Link from "next/link";
 
 type Props = {
   item: ExamType;
+  haveGeneralAccess?: boolean;
 };
 
-function SingleListItem({ item }: Props) {
+function SingleListItem({ item, haveGeneralAccess }: Props) {
+  const hasAccess = item.user_has_access || haveGeneralAccess;
   return (
     <div className={`${style.singleItem} card`}>
       <div>
@@ -34,7 +36,18 @@ function SingleListItem({ item }: Props) {
         <span className={style.singleItemPrice}>
           {priceFormatter(item.main_price)} تومن
         </span>
-        <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
+        {hasAccess ? (
+          <div className={style.singleItemAccessButtons}>
+            <Button>
+              <Link href={`/single/${item.id}`}>ورود</Link>
+            </Button>
+            <Button app={Apps.EXAM}>
+              <Link href={`/single/${item.id}`}>شروع آزمون</Link>
+            </Button>
+          </div>
+        ) : (
+          <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
+        )}
       </div>
     </div>
   );

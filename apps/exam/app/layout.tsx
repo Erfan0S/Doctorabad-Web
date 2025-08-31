@@ -5,14 +5,15 @@ import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
 
 import NextTopLoader from "nextjs-toploader";
-import {api} from "@repo/shared_modules/api";
-import {InstallBannerShow} from "@repo/shared_modules/components";
+import { api } from "@repo/shared_modules/api";
+import { InstallBannerShow, Loading } from "@repo/shared_modules/components";
 import Script from "next/script";
-import {Suspense} from "react";
+import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
-import {homeMetadata, homeViewPort} from "@repo/core/metadata/home";
-import {Metadata} from "next";
+import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
+import { Metadata } from "next";
 import Providers from "@/providers/providers";
+import { Apps } from "@repo/core/types/general";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -66,7 +67,7 @@ export default async function RootLayout({
         <NextTopLoader color="#7030a0" />
         <div className="root">
           <Providers>
-            <Suspense fallback={<div></div>}>
+            <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
               <div className="learn-container">
                 {children}
                 <MobileNavBar

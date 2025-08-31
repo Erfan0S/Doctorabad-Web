@@ -1,3 +1,5 @@
+import { PaginatedResponse } from "@repo/core/types/general";
+
 export type ExamType = {
   id: number;
   title: string;
@@ -10,6 +12,9 @@ export type ExamType = {
   off_price: number | null;
   user_has_access: boolean;
 };
+export interface ExamPaginatedResponse<T> extends PaginatedResponse<T> {
+  has_general_access: boolean;
+}
 
 export type ExamFieldGradeType = {
   id: number;
@@ -27,6 +32,12 @@ export type QuestionOptionType = {
   is_correct: boolean;
 };
 
+export enum QuestionTypes {
+  SingleSelect = 1,
+  MultipleSelect = 2,
+  Text = 3,
+}
+
 export type QuestionType = {
   id: number;
   title: string;
@@ -41,7 +52,7 @@ export type QuestionType = {
   tip: boolean;
   has_explanation: boolean;
   favorite: boolean;
-  type: number;
+  type: QuestionTypes;
   options: QuestionOptionType[];
   files: any[];
 };
@@ -82,4 +93,34 @@ export type ExamTopicType = {
   id: number;
   title: string;
   topics: ExamTopicType[];
+};
+
+export type ExamDetailType = {
+  id: number;
+  title: string;
+  order_items_count: number | null;
+  main_price: number;
+  off_price: number | null;
+  date: {
+    id: number;
+    when: string;
+    when_fa: string;
+  };
+  place: {
+    id: number;
+    title: string;
+  };
+};
+
+export type LessonType = {
+  id: number;
+  title: string;
+  color_code: string;
+  reputation_count: number;
+};
+
+export type QuestionPageType = {
+  data: QuestionType[];
+  exam: ExamDetailType;
+  lessons: LessonType[];
 };

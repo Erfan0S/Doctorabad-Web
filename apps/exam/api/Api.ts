@@ -3,11 +3,13 @@ import {
   BudgetingType,
   ExamDateType,
   ExamFieldGradeType,
+  ExamPaginatedResponse,
   ExamSliderType,
   ExamTopicType,
   ExamType,
   QuestionExplanationType,
   QuestionListParamsType,
+  QuestionPageType,
   QuestionType,
 } from "@/types/exam";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
@@ -32,11 +34,11 @@ class Api extends Request {
     places?: number[];
     dates?: number[];
     page?: number;
-  }): Promise<ResponseType<PaginatedResponse<ExamType[]>>> => {
+  }): Promise<ResponseType<ExamPaginatedResponse<ExamType[]>>> => {
     return this.request.post("/user/v1/lab/exam", { ...params });
   };
 
-  getExamDetail = (id: number): Promise<ResponseType<{ data: ExamType }>> => {
+  getExamDetail = (id: number): Promise<ResponseType<QuestionPageType>> => {
     return this.request.get(`/user/v1/lab/exam/${id}`);
   };
 

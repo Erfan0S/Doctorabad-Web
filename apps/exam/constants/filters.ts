@@ -10,3 +10,5 @@ export function filtersNames(page: filterPages) {
 export const makerFilters = filtersNames("maker");
 export const questionBankFilters = filtersNames("questionBank");
 export const examsFilters = filtersNames("exams");
+
+export const SingleLessonFilter = "lesson";

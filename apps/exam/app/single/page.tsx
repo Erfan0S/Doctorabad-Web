@@ -2,7 +2,7 @@ import HomeHeader from "@/components/headers/homeHeader";
 import SingleListPage from "@/pages/SingleListPage";
 import React from "react";
 
-function singlePage() {
+function singleListPage() {
   return (
     <div>
       <HomeHeader />
@@ -11,4 +11,4 @@ function singlePage() {
   );
 }
 
-export default singlePage;
+export default singleListPage;

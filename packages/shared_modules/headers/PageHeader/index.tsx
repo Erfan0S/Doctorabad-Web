@@ -5,7 +5,7 @@ import style from "./PageHeader.module.scss";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 
 interface Props {
-  title: string;
+  title: string | React.ReactNode;
   app?: Apps;
   className?: string;
   suffix?: React.ReactNode;

@@ -1,15 +1,31 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./questions.module.scss";
-import { BugIcon, HeartIcon, InfoIcon } from "@repo/shared_modules/icons";
+import {
+  BugIcon,
+  HeartFillIcon,
+  HeartIcon,
+  InfoIcon,
+} from "@repo/shared_modules/icons";
 import Button from "../common/Button/Button";
+import { QuestionType } from "@/types/exam";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
-const buttons = [
+const buttons = (question: QuestionType) => [
   {
     onClick: () => null,
-    component: <HeartIcon />,
+    component: question.favorite ? (
+      <HeartFillIcon className={styles.favoriteFillIcon} />
+    ) : (
+      <HeartIcon />
+    ),
   },
   {
-    onClick: () => null,
+    onClick: () =>
+      modalActions.addModal(ModalTypes.QUESTION_INFO, {
+        question,
+      }),
     component: <InfoIcon />,
   },
   {
@@ -22,44 +38,88 @@ const QuestionRadio = ({
   id,
   name,
   title,
+  showAnswer,
+  isCorrect,
 }: {
   name: string;
   id: string;
   title: string;
+  isCorrect?: boolean;
+  showAnswer?: boolean;
 }) => {
+  const showAnswerClass = showAnswer
+    ? isCorrect
+      ? styles.radioCurrect
+      : styles.radioWrong
+    : "";
   return (
-    <div className={styles.radioWrapper}>
+    <div className={`${styles.radioWrapper} ${showAnswerClass}`}>
       <input type="radio" name={name} id={id} />
       <label htmlFor={id} className={styles.radio}>
         <div />
       </label>
-      <label htmlFor={id}>{title}</label>
+      <label htmlFor={id} className={styles.radioLabel}>
+        {title}
+      </label>
     </div>
   );
 };
 
-function QuestionItem() {
+type Props = {
+  question: QuestionType;
+  index: number;
+  total: number;
+};
+
+function QuestionItem({ question, index, total }: Props) {
+  const [showTestAnswer, setShowTestAnswer] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
+
   return (
     <div className={`${styles.questionItem} card`}>
       <h4>
-        <span>12 - </span>تشستیتشتسیتشتسیتشتسیتشت شتستیشتس تشتسی تشتسی تشسحش
-        <span className={styles.category}>اطفال</span>
+        <span>{`${index + 1}/${total}`} - </span>
+        {question.title}
+        <span
+          className={styles.category}
+          style={{
+            backgroundColor: `#${question.lesson_color_code}`,
+          }}
+        >
+          {question.lesson}
+        </span>
       </h4>
       <div className={styles.optionsWrapper}>
-        <QuestionRadio id="radio1" name="question1" title="تست" />
-        <QuestionRadio id="radio2" name="question1" title="تست" />
-        <QuestionRadio id="radio3" name="question1" title="تست" />
-        <QuestionRadio id="radio4" name="question1" title="تست" />
+        {question.options.map((option) => (
+          <QuestionRadio
+            id={option.id.toString()}
+            name={question.id.toString()}
+            title={option.title}
+            showAnswer={showTestAnswer}
+            isCorrect={option.is_correct}
+          />
+        ))}
       </div>
+      {showAnswer && (
+        <div className={styles.answerWrapper}>
+          <p>asdasdasdasdasdasda</p>
+        </div>
+      )}
       <div className={styles.buttonsWrapper}>
         <div className={styles.actionButtons}>
-          {buttons.map((button) => {
+          {buttons(question).map((button) => {
             return <button onClick={button.onClick}>{button.component}</button>;
           })}
         </div>
         <div>
-          <Button>پاسخ تشریحی</Button>
-          <Button>پاسخ تستی</Button>
+          {question.has_explanation && (
+            <Button onClick={() => setShowAnswer((prev) => !prev)}>
+              پاسخ تشریحی
+            </Button>
+          )}
+          <Button onClick={() => setShowTestAnswer((prev) => !prev)}>
+            پاسخ تستی
+          </Button>
         </div>
       </div>
     </div>

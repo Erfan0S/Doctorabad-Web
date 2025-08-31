@@ -17,7 +17,7 @@ export const SidePanelDiscounts: React.FC<SidePanelPageProps> = ({
 }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["DiscountPlans"],
-    queryFn: api.getDiscountPlans,
+    queryFn: () => api.getDiscountPlans(1),
   });
 
   const paginationOption: PaginationOptions = {
