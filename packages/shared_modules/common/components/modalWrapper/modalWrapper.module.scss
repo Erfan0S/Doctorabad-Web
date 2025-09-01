@@ -1,2 +1,49 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
+
+.modalWrapper {
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 500px;
+  min-height: 300px;
+  padding: 10px;
+}
+.haveAppIcon {
+  padding-top: 50px;
+}
+
+.closeBtn {
+  flex: none;
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translate(50%, 50%);
+  min-width: 100px;
+  cursor: pointer;
+}
+
+.appIcon {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  transform: translate(50%, -50%);
+  background-color: white;
+  padding: 5px;
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 300px) {
+  .modalWrapper {
+    min-width: 100vw;
+  }
+}

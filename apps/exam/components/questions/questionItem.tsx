@@ -12,7 +12,7 @@ import { QuestionType } from "@/types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
-const buttons = (question: QuestionType) => [
+const buttons = (question: QuestionType, examTitle: string) => [
   {
     onClick: () => null,
     component: question.favorite ? (
@@ -25,6 +25,7 @@ const buttons = (question: QuestionType) => [
     onClick: () =>
       modalActions.addModal(ModalTypes.QUESTION_INFO, {
         question,
+        examTitle,
       }),
     component: <InfoIcon />,
   },
@@ -69,9 +70,10 @@ type Props = {
   question: QuestionType;
   index: number;
   total: number;
+  examTitle: string;
 };
 
-function QuestionItem({ question, index, total }: Props) {
+function QuestionItem({ question, index, total, examTitle }: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
@@ -107,7 +109,7 @@ function QuestionItem({ question, index, total }: Props) {
       )}
       <div className={styles.buttonsWrapper}>
         <div className={styles.actionButtons}>
-          {buttons(question).map((button) => {
+          {buttons(question, examTitle).map((button) => {
             return <button onClick={button.onClick}>{button.component}</button>;
           })}
         </div>

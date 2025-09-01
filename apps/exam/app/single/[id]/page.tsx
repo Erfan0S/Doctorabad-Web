@@ -26,7 +26,7 @@ async function SinglePage({ params, searchParams }: Props) {
       <PageHeader title={<PageTitle exam={data.exam} />} app={Apps.EXAM}>
         <QuestionsLessonsFilter lessons={data.lessons} />
       </PageHeader>
-      <Questions questions={questions} />
+      <Questions questions={questions} exam={data.exam} />
     </div>
   );
 }

@@ -35,3 +35,5 @@ export { default as MainSlider } from "./MainSlider";
 export { default as AddToCartButton } from "./AddToCartButton";
 
 export { default as UserPlanItem } from "./UserPlanItem";
+
+export { default as ModalWrapper } from "./modalWrapper";

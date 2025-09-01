@@ -1,14 +1,15 @@
 "use client";
 import React from "react";
 import QuestionItem from "./questionItem";
-import { QuestionType } from "@/types/exam";
+import { ExamDetailType, QuestionType } from "@/types/exam";
 import styles from "./questions.module.scss";
 
 type Props = {
   questions: QuestionType[];
+  exam: ExamDetailType;
 };
 
-function Questions({ questions }: Props) {
+function Questions({ questions, exam }: Props) {
   return (
     <div className={`${styles.questionsWrapper} container`}>
       {questions.map((question, index) => {
@@ -18,6 +19,7 @@ function Questions({ questions }: Props) {
             question={question}
             index={index}
             total={questions.length}
+            examTitle={exam.title}
           />
         );
       })}
