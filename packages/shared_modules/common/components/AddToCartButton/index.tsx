@@ -74,7 +74,7 @@ function AddToCartButton({
             cartActionsLoadingHandler(() => cartActions.addToCart(id, type))
           )}
         >
-          {updateCartLoading || initLoading ? (
+          {updateCartLoading ? (
             <Loading app={app} />
           ) : (
             children || "افزودن به سبد خرید"

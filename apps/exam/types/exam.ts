@@ -78,7 +78,7 @@ export type BudgetingType = {
 export type QuestionExplanationType = {
   explanation: string;
   references: string;
-  files: any[];
+  files: string[];
 };
 
 export type ExamSliderType = {

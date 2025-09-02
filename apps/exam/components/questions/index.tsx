@@ -10,6 +10,7 @@ type Props = {
 };
 
 function Questions({ questions, exam }: Props) {
+  console.log(questions, exam);
   return (
     <div className={`${styles.questionsWrapper} container`}>
       {questions.map((question, index) => {
@@ -20,6 +21,7 @@ function Questions({ questions, exam }: Props) {
             index={index}
             total={questions.length}
             examTitle={exam.title}
+            examId={exam.id}
           />
         );
       })}

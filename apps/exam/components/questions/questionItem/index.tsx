@@ -1,16 +1,22 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./questions.module.scss";
+import styles from "./questionItem.module.scss";
 import {
   BugIcon,
   HeartFillIcon,
   HeartIcon,
   InfoIcon,
 } from "@repo/shared_modules/icons";
-import Button from "../common/Button/Button";
+import Button from "../../common/Button/Button";
 import { QuestionType } from "@/types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api/Api";
+import QuestionInput from "./questionItemInput";
+import Loading from "@/components/common/Loading/Loading";
+import Image from "next/image";
+import QuestionExplanation from "./questionExplanation";
 
 const buttons = (question: QuestionType, examTitle: string) => [
   {
@@ -35,45 +41,15 @@ const buttons = (question: QuestionType, examTitle: string) => [
   },
 ];
 
-const QuestionRadio = ({
-  id,
-  name,
-  title,
-  showAnswer,
-  isCorrect,
-}: {
-  name: string;
-  id: string;
-  title: string;
-  isCorrect?: boolean;
-  showAnswer?: boolean;
-}) => {
-  const showAnswerClass = showAnswer
-    ? isCorrect
-      ? styles.radioCurrect
-      : styles.radioWrong
-    : "";
-  return (
-    <div className={`${styles.radioWrapper} ${showAnswerClass}`}>
-      <input type="radio" name={name} id={id} />
-      <label htmlFor={id} className={styles.radio}>
-        <div />
-      </label>
-      <label htmlFor={id} className={styles.radioLabel}>
-        {title}
-      </label>
-    </div>
-  );
-};
-
 type Props = {
   question: QuestionType;
   index: number;
   total: number;
   examTitle: string;
+  examId: number;
 };
 
-function QuestionItem({ question, index, total, examTitle }: Props) {
+function QuestionItem({ question, index, total, examTitle, examId }: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
@@ -93,7 +69,7 @@ function QuestionItem({ question, index, total, examTitle }: Props) {
       </h4>
       <div className={styles.optionsWrapper}>
         {question.options.map((option) => (
-          <QuestionRadio
+          <QuestionInput
             id={option.id.toString()}
             name={question.id.toString()}
             title={option.title}
@@ -101,11 +77,24 @@ function QuestionItem({ question, index, total, examTitle }: Props) {
             isCorrect={option.is_correct}
           />
         ))}
+        {question.files.map((file, i) => (
+          <Image
+            src={file}
+            alt="عکس سوال"
+            className={styles.questionImages}
+            width={0}
+            height={0}
+            sizes="100vw"
+            key={i}
+          />
+        ))}
       </div>
       {showAnswer && (
-        <div className={styles.answerWrapper}>
-          <p>asdasdasdasdasdasda</p>
-        </div>
+        <QuestionExplanation
+          questionId={question.id}
+          // examId={examId}
+          enabled={showAnswer}
+        />
       )}
       <div className={styles.buttonsWrapper}>
         <div className={styles.actionButtons}>
