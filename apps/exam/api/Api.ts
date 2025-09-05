@@ -163,7 +163,7 @@ class Api extends Request {
     return this.request.get("/user/v1/lab/question/favorite");
   };
 
-  addQuestionFavorite = (question: number, favorite?: boolean): Promise<{}> => {
+  addQuestionFavorite = (question: number, favorite?: number): Promise<{}> => {
     return this.request.post(`/user/v1/lab/question/favorite`, {
       question,
       favorite,

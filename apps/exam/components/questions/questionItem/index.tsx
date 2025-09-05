@@ -11,35 +11,54 @@ import Button from "../../common/Button/Button";
 import { QuestionType } from "@/types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
 import QuestionInput from "./questionItemInput";
-import Loading from "@/components/common/Loading/Loading";
 import Image from "next/image";
 import QuestionExplanation from "./questionExplanation";
+import { useToggleFavoriteQuestion } from "@/hooks/useToggleFavoriteQuestion";
+import Loading from "@/components/common/Loading/Loading";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { Apps } from "@repo/core/types/general";
 
-const buttons = (question: QuestionType, examTitle: string) => [
-  {
-    onClick: () => null,
-    component: question.favorite ? (
-      <HeartFillIcon className={styles.favoriteFillIcon} />
-    ) : (
-      <HeartIcon />
-    ),
-  },
-  {
-    onClick: () =>
-      modalActions.addModal(ModalTypes.QUESTION_INFO, {
-        question,
-        examTitle,
-      }),
-    component: <InfoIcon />,
-  },
-  {
-    onClick: () => null,
-    component: <BugIcon />,
-  },
-];
+const buttons = (question: QuestionType, examTitle: string) => {
+  const { isFavorite, toggleFavorite, isLoading } = useToggleFavoriteQuestion(
+    question.favorite
+  );
+
+  console.log(question.id, question.favorite);
+
+  const bugReport = () =>
+    authorizeClientAction(() =>
+      modalActions.addModal(ModalTypes.BUG_REPORT, {
+        productId: question.id,
+        app: Apps.EXAM,
+      })
+    );
+
+  return [
+    {
+      onClick: () => toggleFavorite(question.id),
+      component: isLoading ? (
+        <Loading />
+      ) : isFavorite ? (
+        <HeartFillIcon className={styles.favoriteFillIcon} />
+      ) : (
+        <HeartIcon />
+      ),
+    },
+    {
+      onClick: () =>
+        modalActions.addModal(ModalTypes.QUESTION_INFO, {
+          question,
+          examTitle,
+        }),
+      component: <InfoIcon />,
+    },
+    {
+      onClick: bugReport(),
+      component: <BugIcon />,
+    },
+  ];
+};
 
 type Props = {
   question: QuestionType;
@@ -75,6 +94,7 @@ function QuestionItem({ question, index, total, examTitle, examId }: Props) {
             title={option.title}
             showAnswer={showTestAnswer}
             isCorrect={option.is_correct}
+            key={option.id}
           />
         ))}
         {question.files.map((file, i) => (
@@ -92,14 +112,18 @@ function QuestionItem({ question, index, total, examTitle, examId }: Props) {
       {showAnswer && (
         <QuestionExplanation
           questionId={question.id}
-          // examId={examId}
+          examId={examId}
           enabled={showAnswer}
         />
       )}
       <div className={styles.buttonsWrapper}>
         <div className={styles.actionButtons}>
-          {buttons(question, examTitle).map((button) => {
-            return <button onClick={button.onClick}>{button.component}</button>;
+          {buttons(question, examTitle).map((button, i) => {
+            return (
+              <button onClick={button.onClick} key={i}>
+                {button.component}
+              </button>
+            );
           })}
         </div>
         <div>

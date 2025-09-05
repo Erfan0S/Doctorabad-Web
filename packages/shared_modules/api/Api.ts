@@ -378,32 +378,6 @@ class Api extends Request {
     return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
   };
 
-  prodoctReportIssue = ({
-    text,
-    productId,
-  }: {
-    text: string;
-    productId: number;
-  }): Promise<ResponseType<PaginatedResponse<ExamFavoriteList>>> => {
-    return this.request.post(`/user/shop/error/report`, {
-      error_report_text: text,
-      id: productId,
-    });
-  };
-
-  courseReportIssue = ({
-    text,
-    productId,
-  }: {
-    text: string;
-    productId: number;
-  }): Promise<any> => {
-    return this.request.post(`/user/v1/education/error/report`, {
-      error_report_text: text,
-      id: productId,
-    });
-  };
-
   getLiveChatInformation = (): Promise<
     ResponseType<{ data: LiveChatInformation }>
   > => {
@@ -478,6 +452,32 @@ class Api extends Request {
       }
     );
   }
+
+  // bug report
+
+  courseReportIssue = (text: string, productId: number): Promise<any> => {
+    return this.request.post(`/user/v1/education/error/report`, {
+      error_report_text: text,
+      id: productId,
+    });
+  };
+
+  prodoctReportIssue = (
+    text: string,
+    productId: number
+  ): Promise<ResponseType<PaginatedResponse<ExamFavoriteList>>> => {
+    return this.request.post(`/user/shop/error/report`, {
+      error_report_text: text,
+      id: productId,
+    });
+  };
+
+  examReportIssue = (text: string, questionId: number): Promise<any> => {
+    return this.request.post(`/user/v1/lab/report`, {
+      message: text,
+      question_id: questionId,
+    });
+  };
 }
 
 export const api = new Api();

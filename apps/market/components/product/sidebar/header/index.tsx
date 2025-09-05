@@ -11,6 +11,7 @@ import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/e
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/loading";
+import { Apps } from "@repo/core/types/general";
 
 interface Props {
   id: number;
@@ -43,7 +44,10 @@ const ProductSidebarHeader = ({
 
   const toggleBugModal = () =>
     authorizeClientAction(() =>
-      modalActions.addModal(ModalTypes.BUG_REPORT, { productId: id })
+      modalActions.addModal(ModalTypes.BUG_REPORT, {
+        productId: id,
+        app: Apps.MARKET,
+      })
     );
 
   return (

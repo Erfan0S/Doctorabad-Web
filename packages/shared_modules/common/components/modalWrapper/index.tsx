@@ -18,6 +18,7 @@ interface Props extends Partial<ModalProps> {
   app?: Apps;
   className?: string;
   haveAppIcon?: boolean;
+  customIcon?: React.ReactNode;
 }
 
 function ModalWrapper({
@@ -26,6 +27,7 @@ function ModalWrapper({
   app = Apps.BASE,
   haveAppIcon = true,
   closeModal,
+  customIcon,
 }: Props) {
   let appIcon;
   switch (app) {
@@ -49,9 +51,9 @@ function ModalWrapper({
     <div
       className={`${style.modalWrapper} ${className} ${style[app]} ${appIcon && style.haveAppIcon}`}
     >
-      {haveAppIcon && appIcon && (
+      {haveAppIcon && (appIcon || customIcon) && (
         <div className={`card ${style.appIcon}`}>
-          <Image src={appIcon} alt="appIcon" />
+          {customIcon ? customIcon : <Image src={appIcon} alt="appIcon" />}
         </div>
       )}
       {children}
