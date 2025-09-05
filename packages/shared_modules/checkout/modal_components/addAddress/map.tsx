@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { isServerSide } from "@repo/core/constants/constants";
 import { useFormikContext } from "formik";
 import { ShippingAddress } from "@repo/core/types/cart";
+import { NESHAN_MAP_API_KEY } from "../../constants/constants";
 
 const Map = () => {
   const { setValues, values } = useFormikContext<ShippingAddress>();
@@ -61,7 +62,7 @@ const Map = () => {
           setMapInstance(e);
         }}
         options={{
-          mapKey: "web.25bd3d6c30ff4cf8a8171283624126f2",
+          mapKey: NESHAN_MAP_API_KEY,
           mapTypeControllerOptions: { show: false, position: "bottom-left" },
           mapType: MapTypes.neshanRaster,
           zoom: 15,
