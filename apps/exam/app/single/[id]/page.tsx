@@ -18,7 +18,9 @@ async function SinglePage({ params, searchParams }: Props) {
   const data = (await api.getExamDetail(Number(params.id))).data;
   const lessonFilter = searchParams[SingleLessonFilter];
   const questions = lessonFilter
-    ? data.data.filter((question) => question.lesson == lessonFilter)
+    ? data.data.filter(
+        (question) => question.lesson_id.toString() == lessonFilter
+      )
     : data.data;
 
   return (

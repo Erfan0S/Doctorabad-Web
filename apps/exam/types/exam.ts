@@ -43,6 +43,7 @@ export type QuestionType = {
   title: string;
   lesson: string;
   lesson_color_code: string;
+  lesson_id: number;
   field: string;
   grade: string;
   dates: string[];
