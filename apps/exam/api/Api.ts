@@ -10,6 +10,7 @@ import {
   QuestionExplanationType,
   QuestionListParamsType,
   QuestionPageType,
+  QuestionPaginatedResponse,
   QuestionType,
 } from "@/types/exam";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
@@ -76,10 +77,8 @@ class Api extends Request {
   //----------Question----------
 
   getQuestions = (
-    params: QuestionListParamsType
-  ): Promise<
-    ResponseType<{ data: QuestionType[]; budgeting: BudgetingType }>
-  > => {
+    params: QuestionListParamsType & { page?: number }
+  ): Promise<ResponseType<QuestionPaginatedResponse>> => {
     return this.request.post("/user/v1/lab/question", params);
   };
 

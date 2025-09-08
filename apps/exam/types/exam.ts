@@ -59,15 +59,15 @@ export type QuestionType = {
 };
 
 export type QuestionListParamsType = {
-  field: number; // required
-  grade?: number;
-  places?: number[];
-  dates?: number[];
-  title?: number;
-  lesson?: number;
-  topics?: number[];
-  budgeting?: number;
-  tip?: number;
+  field: number | string; // required
+  grade?: number | string;
+  places?: number[] | string[];
+  dates?: number[] | string[];
+  title?: number | string;
+  lesson?: number | string;
+  topics?: number[] | string[];
+  budgeting?: number | string;
+  tip?: number | string;
 };
 
 export type BudgetingType = {
@@ -125,3 +125,8 @@ export type QuestionPageType = {
   exam: ExamDetailType;
   lessons: LessonType[];
 };
+
+export interface QuestionPaginatedResponse
+  extends PaginatedResponse<QuestionType[]> {
+  budgeting: BudgetingType;
+}

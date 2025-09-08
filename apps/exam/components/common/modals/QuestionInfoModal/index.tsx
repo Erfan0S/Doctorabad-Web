@@ -10,6 +10,8 @@ type Props = ModalProps<{
   examTitle: string;
 }>;
 
+// ! TODO: need to move to app_shared_components
+
 function QuestionInfoModal({
   closeModal,
   data: { question, examTitle },
@@ -20,10 +22,10 @@ function QuestionInfoModal({
         <h3>اطلاعات سوال</h3>
         <ul>
           <li>
-            <span>رشته {question.grade}</span>
+            <span>رشته {question.field}</span>
           </li>
           <li>
-            <span>نام آزمون: {examTitle}</span>
+            <span>نام آزمون: {question.grade}</span>
           </li>
           <li>
             <span>درس {question.lesson}</span>
