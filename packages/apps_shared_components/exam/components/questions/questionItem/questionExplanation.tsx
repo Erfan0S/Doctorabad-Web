@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./questionItem.module.scss";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
-import Loading from "@/components/common/Loading/Loading";
+import Loading from "../../common/Loading";
+import { api } from "../../../api/Api";
 
 type Props = {
   questionId: number;
@@ -22,7 +22,6 @@ function QuestionExplanation({ questionId, enabled, examId }: Props) {
     enabled,
     retry: (failureCount, error) => {
       const e = error as any;
-      console.log("123", error);
       if (e.status == 422) {
         return false;
       }

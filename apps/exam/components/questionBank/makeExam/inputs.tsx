@@ -12,6 +12,7 @@ import SelectFilters from "../../common/SelectFilters/SelectFilters";
 import style from "../questionBank.module.scss";
 import Button from "@/components/common/Button/Button";
 import { api } from "@/api/Api";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
@@ -37,6 +38,8 @@ function MakeInputs() {
   };
 
   api.getExamDetail(13).then((res) => console.log(res));
+
+  const onStartClick = authorizeClientAction(() => console.log("start"));
 
   return (
     <div className={`card ${style.filtersWrapper} ${style.makeInputs}`}>
@@ -74,7 +77,7 @@ function MakeInputs() {
       />
       <div className={style.makeInputsButtonWrapper}>
         <Button variant="secondary">فیلترکن و نشون بده!</Button>
-        <Button>شروع آزمون</Button>
+        <Button onClick={onStartClick}>شروع آزمون</Button>
       </div>
     </div>
   );

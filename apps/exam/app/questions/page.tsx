@@ -1,4 +1,3 @@
-import Questions from "@/components/questions";
 import QuestionsFilterButton from "@/components/questions/questionsFilter";
 import { Apps } from "@repo/core/types/general";
 import { PageHeader } from "@repo/shared_modules/headers";
@@ -12,7 +11,6 @@ function QuestionsPage() {
         title="بانک سوال"
         suffix={<QuestionsFilterButton />}
       />
-      <Questions />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
+  "moduleResolution": "bundler",
   "compilerOptions": {
     "plugins": [
       {
@@ -7,29 +8,14 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "src/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "src/*": ["./*"]
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "incremental": true,
     "resolveJsonModule": true,
     "strictNullChecks": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

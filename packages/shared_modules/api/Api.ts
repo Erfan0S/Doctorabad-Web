@@ -374,10 +374,6 @@ class Api extends Request {
     return this.request.get(`/user/shop/favorite/list?page=${page}`);
   };
 
-  getExamFavoriteList = (page: number = 1): Promise<ResponseType<any>> => {
-    return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
-  };
-
   getLiveChatInformation = (): Promise<
     ResponseType<{ data: LiveChatInformation }>
   > => {

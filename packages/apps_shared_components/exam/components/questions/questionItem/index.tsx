@@ -7,24 +7,23 @@ import {
   HeartIcon,
   InfoIcon,
 } from "@repo/shared_modules/icons";
-import Button from "../../common/Button/Button";
-import { QuestionType } from "@/types/exam";
+import { Button } from "@repo/shared_modules/components";
+
+import { QuestionType } from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import QuestionInput from "./questionItemInput";
 import Image from "next/image";
 import QuestionExplanation from "./questionExplanation";
-import { useToggleFavoriteQuestion } from "@/hooks/useToggleFavoriteQuestion";
-import Loading from "@/components/common/Loading/Loading";
+import Loading from "../../common/Loading";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
+import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
 
 const buttons = (question: QuestionType, examTitle: string) => {
   const { isFavorite, toggleFavorite, isLoading } = useToggleFavoriteQuestion(
     question.favorite
   );
-
-  console.log(question.id, question.favorite);
 
   const bugReport = () =>
     authorizeClientAction(() =>
@@ -64,16 +63,26 @@ type Props = {
   question: QuestionType;
   index: number;
   total: number;
-  examTitle: string;
-  examId: number;
+  examTitle?: string;
+  examId?: number;
+  mobileMode?: boolean;
 };
 
-function QuestionItem({ question, index, total, examTitle, examId }: Props) {
+function QuestionItem({
+  question,
+  index,
+  total,
+  examTitle,
+  examId,
+  mobileMode,
+}: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
-    <div className={`${styles.questionItem} card`}>
+    <div
+      className={`${styles.questionItem} card ${mobileMode ? styles.mobileMode : ""}`}
+    >
       <h4>
         <span>{`${index + 1}/${total}`} - </span>
         {question.title}
@@ -118,7 +127,7 @@ function QuestionItem({ question, index, total, examTitle, examId }: Props) {
       )}
       <div className={styles.buttonsWrapper}>
         <div className={styles.actionButtons}>
-          {buttons(question, examTitle).map((button, i) => {
+          {buttons(question, examTitle || "_").map((button, i) => {
             return (
               <button onClick={button.onClick} key={i}>
                 {button.component}
@@ -128,11 +137,17 @@ function QuestionItem({ question, index, total, examTitle, examId }: Props) {
         </div>
         <div>
           {question.has_explanation && (
-            <Button onClick={() => setShowAnswer((prev) => !prev)}>
+            <Button
+              app={Apps.EXAM}
+              onClick={() => setShowAnswer((prev) => !prev)}
+            >
               پاسخ تشریحی
             </Button>
           )}
-          <Button onClick={() => setShowTestAnswer((prev) => !prev)}>
+          <Button
+            app={Apps.EXAM}
+            onClick={() => setShowTestAnswer((prev) => !prev)}
+          >
             پاسخ تستی
           </Button>
         </div>

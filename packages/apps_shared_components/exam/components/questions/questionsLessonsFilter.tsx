@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import style from "./questions.module.scss";
-import { LessonType } from "@/types/exam";
+import { LessonType } from "../../types/exam";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import { SingleLessonFilter } from "@/constants/filters";
-import Loading from "../common/Loading/Loading";
+import Loading from "../common/Loading";
+import { SingleLessonFilter } from "../../constants/filters";
 
 type Props = {
   lessons: LessonType[];

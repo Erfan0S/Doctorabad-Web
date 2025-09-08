@@ -1,0 +1,33 @@
+{
+  "name": "@repo/apps_shared_components",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "description": "app specific components that used in other packages or apps",
+  "exports": {
+    "./exam/*": "./exam/*",
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@turbo/gen": "^1.12.4",
+    "@types/css-modules": "^1.0.5",
+    "@types/node": "^20.11.24",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.1",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-next": "^13.4.10",
+    "js-cookie": "^3.0.5",
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

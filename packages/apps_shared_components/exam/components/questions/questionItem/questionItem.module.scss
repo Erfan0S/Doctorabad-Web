@@ -1,6 +1,22 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+html body div .mobileMode {
+  flex-wrap: wrap;
+  gap: 10px;
+  button {
+    font-size: 11px !important;
+  }
+  svg {
+    width: 17px;
+    height: auto;
+  }
+
+  div {
+    gap: 5px;
+  }
+}
+
 .questionItem {
   overflow: hidden;
   display: flex;
