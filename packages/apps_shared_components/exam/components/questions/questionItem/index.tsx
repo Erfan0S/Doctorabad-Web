@@ -20,9 +20,13 @@ import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
 
-const buttons = (question: QuestionType, examTitle: string) => {
+const buttons = (
+  question: QuestionType,
+  examTitle: string,
+  isFavoriteList?: boolean
+) => {
   const { isFavorite, toggleFavorite, isLoading } = useToggleFavoriteQuestion(
-    question.favorite
+    isFavoriteList || question.favorite
   );
 
   const bugReport = () =>
@@ -66,6 +70,7 @@ type Props = {
   examTitle?: string;
   examId?: number;
   mobileMode?: boolean;
+  isFavorite?: boolean;
 };
 
 function QuestionItem({
@@ -75,6 +80,7 @@ function QuestionItem({
   examTitle,
   examId,
   mobileMode,
+  isFavorite,
 }: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -92,7 +98,8 @@ function QuestionItem({
             backgroundColor: `#${question.lesson_color_code}`,
           }}
         >
-          {question.lesson}
+          {/* @ts-ignore TODO : fix */}
+          {question.lesson || question.lesson_title}
         </span>
       </h4>
       <div className={styles.optionsWrapper}>
@@ -127,7 +134,7 @@ function QuestionItem({
       )}
       <div className={styles.buttonsWrapper}>
         <div className={styles.actionButtons}>
-          {buttons(question, examTitle || "_").map((button, i) => {
+          {buttons(question, examTitle || "_", isFavorite).map((button, i) => {
             return (
               <button onClick={button.onClick} key={i}>
                 {button.component}

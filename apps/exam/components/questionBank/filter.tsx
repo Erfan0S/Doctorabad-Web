@@ -14,11 +14,13 @@ import {
   SidePanelFavoriteTab,
   SidePanelPage,
 } from "@repo/core/types/sidePanel";
-import { api } from "@repo/shared_modules/api";
+import { api as sharedApi } from "@repo/shared_modules/api";
 import { useQuery } from "@tanstack/react-query";
 import { questionBankFilters } from "@/constants/filters";
 import { RoutePath } from "@/constants/routPaths";
 import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
+import { api } from "@/api/Api";
+import Link from "next/link";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
@@ -26,10 +28,20 @@ function QuestionBankFilter() {
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
-    queryFn: () => api.getUserPlans(2),
+    queryFn: () => sharedApi.getUserPlans(2),
   });
+  const { data: archivedData, isLoading: archivedLoading } = useQuery({
+    queryKey: ["userHasArchived"],
+    queryFn: () => api.getArcgived(),
+  });
+
   const hasPlan =
     !!planData?.data.data && planData?.data.data.length > 0 ? true : false;
+
+  const hasArchived =
+    !!archivedData?.data.data &&
+    archivedData?.data.data.length > 0 &&
+    !archivedLoading;
 
   const onExplanationSelect = () => {
     if (planLoading) return;
@@ -59,6 +71,8 @@ function QuestionBankFilter() {
     console.log(a);
   };
 
+  api.getArcgived().then((res) => console.log(res));
+
   return (
     <div className={`${style.filterContainer} container`}>
       <div className={`card ${style.topButtons}`}>
@@ -75,7 +89,9 @@ function QuestionBankFilter() {
         >
           سوالات مورد علاقه‌من
         </Button>
-        <Button disabled>آزمون‌های ساخته شده من</Button>
+        <Button disabled={!hasArchived}>
+          <Link href={RoutePath.archived}>آزمون‌های ساخته شده من</Link>
+        </Button>
       </div>
       <div className={`card ${style.filtersWrapper}`}>
         <SelectFilters page="questionBank" />

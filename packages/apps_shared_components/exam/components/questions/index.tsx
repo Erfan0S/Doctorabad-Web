@@ -10,9 +10,10 @@ type Props = {
   questions: QuestionType[];
   exam?: ExamDetailType;
   mobileMode?: boolean;
+  isFavorite?: boolean;
 };
 
-function Questions({ questions, exam, mobileMode }: Props) {
+function Questions({ questions, exam, mobileMode, isFavorite }: Props) {
   const searchParams = useSearchParams();
   const lessonId = searchParams?.get(SharedFilters.LESSON);
 
@@ -31,6 +32,7 @@ function Questions({ questions, exam, mobileMode }: Props) {
             examTitle={exam?.title}
             examId={exam?.id}
             mobileMode={mobileMode}
+            isFavorite={isFavorite}
           />
         );
       })}

@@ -36,7 +36,7 @@ const SidePanelFavoritesExam: React.FC = () => {
         loader={<Loading />}
       >
         {data?.pages.map((questions, i) => (
-          <Questions questions={questions.data} mobileMode key={i} />
+          <Questions questions={questions.data} mobileMode key={i} isFavorite />
         ))}
       </InfiniteScroll>
     </>

@@ -37,7 +37,7 @@ export const SelectFilter = ({
 
   const changeFilters = useChangeSearchParamsFilter();
 
-  const filter = params?.get(queryKey);
+  const filter = !!queryKey && params?.get(queryKey);
 
   const activeItems = filter ? filter.split(",") : [];
 
@@ -128,6 +128,7 @@ export const SelectFilter = ({
   };
 
   const changeCategoryFilter = (item: Record<string, boolean>) => {
+    if (!queryKey) return;
     const updatedItems = Object.keys(item).filter((key) => item[key]);
     setTimeout(() => {
       changeFilters({
@@ -155,7 +156,7 @@ export const SelectFilter = ({
         level={0}
         checks={checks}
         onCheck={onCheck}
-        queryKey={queryKey}
+        queryKey={queryKey || ""}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />

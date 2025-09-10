@@ -171,9 +171,11 @@ class Api extends Request {
 
   //----------Archived Filter----------
   getArcgived = (
-    params: QuestionListParamsType
-  ): Promise<ResponseType<{ data: QuestionType[] }>> => {
-    return this.request.post("/user/v1/lab/question/archived/filter", params);
+    params?: Partial<QuestionListParamsType>
+  ): Promise<ResponseType<PaginatedResponse<ArchivedType[]>>> => {
+    return this.request.get("/user/v1/lab/question/archived/filter", {
+      params,
+    });
   };
 
   deleteArchived = (question: number): Promise<{}> => {
