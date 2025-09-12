@@ -16,6 +16,7 @@ export enum SharedFilters {
   MARKING = "marking",
   STATUS = "status",
   MANUAL_TIME = "time",
+  MANUAL_QUESTIONS = "questions",
   SHOW_RECORD = "show_record",
 }
 

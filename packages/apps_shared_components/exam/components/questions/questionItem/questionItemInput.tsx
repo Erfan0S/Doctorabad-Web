@@ -10,6 +10,7 @@ type Props = {
   isCorrect?: boolean;
   showAnswer?: boolean;
   status?: ExamStatus;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const QuestionInput = ({

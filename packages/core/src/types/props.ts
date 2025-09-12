@@ -1,5 +1,5 @@
-import {Apps} from "./general";
+import { Apps } from "./general";
 
 export type BaseUiProps = {
-  app: Apps;
+  app?: Apps;
 };

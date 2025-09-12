@@ -18,7 +18,7 @@
     "./components": "./common/components/index.ts",
     "./assets/styles/*": "./assets/styles/*.scss",
     "./headers": "./headers/index.ts",
-    "./ui/*": "./common/components/ui/*.tsx"
+    "./ui": "./common/components/ui/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

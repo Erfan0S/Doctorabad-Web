@@ -145,3 +145,12 @@ export enum ExamStatus {
   STARTED = "started",
   FINISHED = "finished",
 }
+
+export enum QuestionStatus {
+  DEFAULT = "default",
+  CORRECT = "correct",
+  WRONG = "wrong",
+  NOT_ANSWERED = "not_answered",
+  NoT_SURE = "not_sure",
+  DONT_KNOW = "dont_know",
+}

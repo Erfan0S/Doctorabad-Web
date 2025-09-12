@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./questionItem.module.scss";
 import {
   BugIcon,
@@ -9,7 +9,7 @@ import {
 } from "@repo/shared_modules/icons";
 import { Button } from "@repo/shared_modules/components";
 
-import { ExamStatus, QuestionType } from "../../../types/exam";
+import { ExamStatus, QuestionStatus, QuestionType } from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import QuestionInput from "./questionItemInput";
@@ -19,6 +19,7 @@ import Loading from "../../common/Loading";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
+import { QuestionsAnswersContext } from "../../../contexts/questionsAnswersContext";
 
 const buttons = (
   question: QuestionType,
@@ -86,6 +87,44 @@ function QuestionItem({
 }: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [questionStatus, setQuestionStatus] = useState<QuestionStatus>(
+    QuestionStatus.DEFAULT
+  );
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>();
+  const { addAnswer, answers, removeAnswer } = useContext(
+    QuestionsAnswersContext
+  );
+
+  useEffect(() => {
+    addAnswer(
+      {
+        options: question.options.map((option) => option.title),
+        answer: question.options
+          .find((option) => option.is_correct)
+          ?.id.toString(),
+        status: questionStatus,
+      },
+      question.id
+    );
+  }, []);
+
+  useEffect(() => {
+    if (selectedAnswer) {
+      addAnswer(
+        {
+          options: question.options.map((option) => option.title),
+          answer: question.options
+            .find((option) => option.is_correct)
+            ?.id.toString(),
+          userAnswer: selectedAnswer,
+          status: questionStatus,
+        },
+        question.id
+      );
+    } else {
+      removeAnswer(question.id);
+    }
+  }, [selectedAnswer]);
 
   useEffect(() => {
     if (status === ExamStatus.FINISHED) setShowTestAnswer(true);
@@ -98,8 +137,18 @@ function QuestionItem({
     if (status === ExamStatus.DRAFT) {
       return (
         <div>
-          <Button app={Apps.EXAM}>شک دارم</Button>
-          <Button app={Apps.EXAM}>بلد نیستم</Button>
+          <Button
+            app={Apps.EXAM}
+            onClick={() => setQuestionStatus(QuestionStatus.NoT_SURE)}
+          >
+            شک دارم
+          </Button>
+          <Button
+            app={Apps.EXAM}
+            onClick={() => setQuestionStatus(QuestionStatus.DONT_KNOW)}
+          >
+            بلد نیستم
+          </Button>
         </div>
       );
     }
@@ -153,6 +202,9 @@ function QuestionItem({
             isCorrect={option.is_correct}
             key={option.id}
             status={status}
+            onChange={(e) => {
+              setSelectedAnswer(e.target.value);
+            }}
           />
         ))}
         {question.files.map((file, i) => (
