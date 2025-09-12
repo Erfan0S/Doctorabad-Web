@@ -37,8 +37,6 @@ function MakeInputs() {
     }
   };
 
-  api.getExamDetail(13).then((res) => console.log(res));
-
   const onStartClick = authorizeClientAction(() => console.log("start"));
 
   return (

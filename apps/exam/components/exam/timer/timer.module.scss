@@ -1,0 +1,31 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.timerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  background-color: $purple;
+
+  border-radius: 15px;
+  padding: 8px 15px;
+  margin: 10px;
+
+  > span {
+    color: #fff;
+    font-size: larger;
+    > span {
+      font-weight: 700;
+    }
+  }
+
+  button {
+    flex: none;
+    font-size: small;
+    color: black;
+    padding: 5px;
+  }
+}

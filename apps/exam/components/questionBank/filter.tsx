@@ -21,6 +21,7 @@ import { RoutePath } from "@/constants/routPaths";
 import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
 import { api } from "@/api/Api";
 import Link from "next/link";
+import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
@@ -48,7 +49,7 @@ function QuestionBankFilter() {
     if (hasPlan) {
       toast.success("شماطرح فعال دارید!");
     } else {
-      toast.error("برای مشاهده پاسخ تشریحی، باید طرح فعال داشته باشید!");
+      toast.error(explanationError);
       document.getElementById("discountPlansElement")?.scrollIntoView({
         behavior: "smooth",
       });

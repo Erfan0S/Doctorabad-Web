@@ -8,6 +8,8 @@ import { AddToCartButton, Button } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 type Props = {
   item: ExamType;
@@ -41,8 +43,13 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
             <Button>
               <Link href={`/single/${item.id}`}>ورود</Link>
             </Button>
-            <Button app={Apps.EXAM}>
-              <Link href={`/single/${item.id}`}>شروع آزمون</Link>
+            <Button
+              app={Apps.EXAM}
+              onClick={() => {
+                modalActions.addModal(ModalTypes.EXAM_START, { exam: item });
+              }}
+            >
+              شروع آزمون
             </Button>
           </div>
         ) : (
