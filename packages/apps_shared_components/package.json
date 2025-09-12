@@ -5,7 +5,8 @@
   "private": true,
   "description": "app specific components that used in other packages or apps",
   "exports": {
-    "./exam/*": "./exam/*",
+    "./exam/*.ts": "./exam/*.ts",
+    "./exam/*.tsx": "./exam/*.tsx",
     ".": "./index.ts"
   },
   "scripts": {

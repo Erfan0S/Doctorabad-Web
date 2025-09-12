@@ -17,4 +17,7 @@ export enum ModalTypes {
   VIDEO_NOTES_LIST = "video_notes_list",
   AppOnly = "AppOnly",
   QUESTION_INFO = "QUESTION_INFO",
+  EXAM_START = "EXAM_START",
+  EXAM_EXIT_CONFIRM = "EXAM_EXIT_CONFIRM",
+  EXAM_END_CONFIRM = "EXAM_END_CONFIRM",
 }

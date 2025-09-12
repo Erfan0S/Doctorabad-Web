@@ -13,6 +13,7 @@
   max-width: 500px;
   min-height: 300px;
   padding: 10px;
+  padding-bottom: 30px;
 }
 .haveAppIcon {
   padding-top: 50px;
@@ -23,9 +24,14 @@
   position: absolute;
   bottom: 0;
   right: 50%;
-  transform: translate(50%, 50%);
+  transform: translate(50%, 25px);
   min-width: 100px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  button {
+    width: 100%;
+  }
 }
 
 .appIcon {

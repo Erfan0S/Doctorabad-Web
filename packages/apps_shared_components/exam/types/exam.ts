@@ -132,3 +132,16 @@ export interface FavoritePaginatedResponse
   extends PaginatedResponse<QuestionType[]> {
   lessons: LessonType[];
 }
+
+export enum ExamStartSearchParams {
+  STATUS = "status",
+  MANUAL_TIME = "time",
+  SHOW_RECORD = "show_record",
+}
+
+export enum ExamStatus {
+  OBSERVING = "observing",
+  DRAFT = "draft",
+  STARTED = "started",
+  FINISHED = "finished",
+}

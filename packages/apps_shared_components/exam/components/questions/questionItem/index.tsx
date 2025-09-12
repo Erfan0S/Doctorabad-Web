@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./questionItem.module.scss";
 import {
   BugIcon,
@@ -9,7 +9,7 @@ import {
 } from "@repo/shared_modules/icons";
 import { Button } from "@repo/shared_modules/components";
 
-import { QuestionType } from "../../../types/exam";
+import { ExamStatus, QuestionType } from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import QuestionInput from "./questionItemInput";
@@ -71,6 +71,7 @@ type Props = {
   examId?: number;
   mobileMode?: boolean;
   isFavorite?: boolean;
+  status?: ExamStatus;
 };
 
 function QuestionItem({
@@ -81,9 +82,49 @@ function QuestionItem({
   examId,
   mobileMode,
   isFavorite,
+  status,
 }: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
+
+  useEffect(() => {
+    if (status === ExamStatus.FINISHED) setShowTestAnswer(true);
+    else setShowTestAnswer(false);
+  }, [status]);
+
+  const AnewrButtons = () => {
+    if (status === ExamStatus.STARTED) return null;
+
+    if (status === ExamStatus.DRAFT) {
+      return (
+        <div>
+          <Button app={Apps.EXAM}>شک دارم</Button>
+          <Button app={Apps.EXAM}>بلد نیستم</Button>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        {question.has_explanation && (
+          <Button
+            app={Apps.EXAM}
+            onClick={() => setShowAnswer((prev) => !prev)}
+          >
+            پاسخ تشریحی
+          </Button>
+        )}
+        {status !== ExamStatus.FINISHED && (
+          <Button
+            app={Apps.EXAM}
+            onClick={() => setShowTestAnswer((prev) => !prev)}
+          >
+            پاسخ تستی
+          </Button>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div
@@ -111,6 +152,7 @@ function QuestionItem({
             showAnswer={showTestAnswer}
             isCorrect={option.is_correct}
             key={option.id}
+            isFinished={status === ExamStatus.FINISHED}
           />
         ))}
         {question.files.map((file, i) => (
@@ -125,7 +167,7 @@ function QuestionItem({
           />
         ))}
       </div>
-      {showAnswer && (
+      {showAnswer && question.has_explanation && (
         <QuestionExplanation
           questionId={question.id}
           examId={examId}
@@ -142,22 +184,7 @@ function QuestionItem({
             );
           })}
         </div>
-        <div>
-          {question.has_explanation && (
-            <Button
-              app={Apps.EXAM}
-              onClick={() => setShowAnswer((prev) => !prev)}
-            >
-              پاسخ تشریحی
-            </Button>
-          )}
-          <Button
-            app={Apps.EXAM}
-            onClick={() => setShowTestAnswer((prev) => !prev)}
-          >
-            پاسخ تستی
-          </Button>
-        </div>
+        <AnewrButtons />
       </div>
     </div>
   );

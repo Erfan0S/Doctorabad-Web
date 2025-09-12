@@ -11,7 +11,7 @@ interface Props {
   suffix?: React.ReactNode;
   children?: React.ReactNode;
   haveMargin?: boolean;
-  onBack?: () => void;
+  onBack?: (callBack: () => void) => void;
   useBaseColor?: boolean;
 }
 const PageHeader: React.FC<Props> = ({
@@ -27,7 +27,7 @@ const PageHeader: React.FC<Props> = ({
 
   const OnBack = () => {
     if (onBack) {
-      onBack();
+      onBack(() => navHistory.goBack());
     } else {
       navHistory.goBack();
     }

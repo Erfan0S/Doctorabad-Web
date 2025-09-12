@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
 import QuestionItem from "./questionItem";
-import { ExamDetailType, QuestionType } from "../../types/exam";
+import {
+  ExamDetailType,
+  ExamStartSearchParams,
+  ExamStatus,
+  QuestionType,
+} from "../../types/exam";
 import styles from "./questions.module.scss";
 import { useSearchParams } from "next/navigation";
 import { SharedFilters } from "../../types/filters";
@@ -16,10 +21,15 @@ type Props = {
 function Questions({ questions, exam, mobileMode, isFavorite }: Props) {
   const searchParams = useSearchParams();
   const lessonId = searchParams?.get(SharedFilters.LESSON);
+  const status = (searchParams?.get(ExamStartSearchParams.STATUS) ||
+    ExamStatus.OBSERVING) as ExamStatus;
 
   const filtredQuestions = lessonId
     ? questions.filter((question) => question.lesson_id.toString() === lessonId)
     : questions;
+
+  console.log(questions);
+
   return (
     <div className={`${styles.questionsWrapper} container`}>
       {filtredQuestions.map((question, index) => {
@@ -33,6 +43,7 @@ function Questions({ questions, exam, mobileMode, isFavorite }: Props) {
             examId={exam?.id}
             mobileMode={mobileMode}
             isFavorite={isFavorite}
+            status={status}
           />
         );
       })}

@@ -13,12 +13,15 @@ import marketIcon from "../../../assets/img/doctor-market.png";
 import baseIcon from "../../../assets/img/logo-without-text.png";
 import Image from "next/image";
 
-interface Props extends Partial<ModalProps> {
+interface Props extends Omit<ModalProps, "data"> {
   children: React.ReactNode;
   app?: Apps;
   className?: string;
   haveAppIcon?: boolean;
   customIcon?: React.ReactNode;
+  submitText?: string;
+  submitButton?: React.ReactNode;
+  onSubmit?: () => void;
 }
 
 function ModalWrapper({
@@ -28,6 +31,9 @@ function ModalWrapper({
   haveAppIcon = true,
   closeModal,
   customIcon,
+  onSubmit,
+  submitText = "تایید",
+  submitButton,
 }: Props) {
   let appIcon;
   switch (app) {
@@ -57,15 +63,18 @@ function ModalWrapper({
         </div>
       )}
       {children}
-      {!!closeModal && (
-        <Button
-          app={app}
-          className={style.closeBtn}
-          onClick={() => closeModal()}
-        >
-          تایید
-        </Button>
-      )}
+      <div className={style.closeBtn}>
+        {submitButton ? (
+          submitButton
+        ) : (
+          <Button
+            app={app}
+            onClick={() => (onSubmit ? onSubmit() : closeModal())}
+          >
+            {submitText}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

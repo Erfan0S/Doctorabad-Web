@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../common/Loading";
 import { api } from "../../../api/Api";
+import { toast } from "react-toastify";
+import { explanationError } from "../../../constants/massages";
 
 type Props = {
   questionId: number;
@@ -12,7 +14,7 @@ type Props = {
 };
 
 function QuestionExplanation({ questionId, enabled, examId }: Props) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["questions", questionId],
     queryFn: () =>
       api.getQuestionExplanation({
@@ -23,6 +25,7 @@ function QuestionExplanation({ questionId, enabled, examId }: Props) {
     retry: (failureCount, error) => {
       const e = error as any;
       if (e.status == 422) {
+        toast.error(explanationError);
         return false;
       }
       return true;
@@ -31,30 +34,28 @@ function QuestionExplanation({ questionId, enabled, examId }: Props) {
 
   const explanation = data?.data.data;
 
+  if (isLoading) return <Loading />;
+
+  if (error) return null;
+
   return (
     <div className={styles.answerWrapper}>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <p>{explanation?.explanation}</p>
-          {explanation?.files.map((file, i) => (
-            <Image
-              src={file}
-              className={styles.questionImages}
-              alt="پاسخ تشریحی"
-              width={0}
-              height={0}
-              sizes="100vw"
-              key={i}
-            />
-          ))}
-          {!!explanation?.references && (
-            <span className={`${styles.explanationReferences} card`}>
-              {explanation.references}
-            </span>
-          )}
-        </>
+      <p>{explanation?.explanation}</p>
+      {explanation?.files.map((file, i) => (
+        <Image
+          src={file}
+          className={styles.questionImages}
+          alt="پاسخ تشریحی"
+          width={0}
+          height={0}
+          sizes="100vw"
+          key={i}
+        />
+      ))}
+      {!!explanation?.references && (
+        <span className={`${styles.explanationReferences} card`}>
+          {explanation.references}
+        </span>
       )}
     </div>
   );
