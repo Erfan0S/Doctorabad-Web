@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import {
   SharedFilters,
@@ -13,13 +13,17 @@ import { toast } from "react-toastify";
 import SelectFilters from "../../common/SelectFilters/SelectFilters";
 import style from "../questionBank.module.scss";
 import Button from "@/components/common/Button/Button";
+import { Input } from "@repo/shared_modules/ui";
 import { RoutePath } from "@/constants/routPaths";
+import { inBoundValue } from "@repo/core/utils/inBoundValue";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
   const route = useRouter();
 
-  // TODO: change diffrent filter types
+  const [manual, setManual] = useState(false);
+  const [time, setTime] = useState<string | number | undefined>();
+  const [questions, setQuestions] = useState<string | number | undefined>();
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
@@ -49,6 +53,13 @@ function MakeInputs() {
       SharedFilters.STATUS,
       start ? ExamStatus.STARTED : ExamStatus.DRAFT
     );
+    if (manual) {
+      params.set(SharedFilters.MANUAL_TIME, time ? time.toString() : "300");
+      params.set(
+        SharedFilters.MANUAL_QUESTIONS,
+        questions ? questions.toString() : "200"
+      );
+    }
 
     route.push(`${RoutePath.make_exam}?${params.toString()}`);
   };
@@ -85,8 +96,36 @@ function MakeInputs() {
         name={SharedFilters.MANUAL_TIME}
         title="تعیین دستی زمان و تداد سوالات!"
         app={Apps.EXAM}
-        addToQuery
+        onToggle={(value) => setManual(value)}
       />
+      {manual && (
+        <div className={style.manualInputsWrapper}>
+          <Input
+            app={Apps.EXAM}
+            type="number"
+            disabled={!manual}
+            placeholder="تعداد سوالات(حداکثر 300)"
+            onChange={(e) =>
+              setQuestions(inBoundValue(Number(e.target.value), 1, 300))
+            }
+            value={questions?.toString()}
+            max={300}
+            min={1}
+          />
+          <Input
+            app={Apps.EXAM}
+            type="number"
+            disabled={!manual}
+            placeholder="زمان آزمو(حداکثر 300 دقیقه)"
+            onChange={(e) =>
+              setTime(inBoundValue(Number(e.target.value), 0, 300))
+            }
+            value={time?.toString()}
+            max={300}
+            min={0}
+          />
+        </div>
+      )}
       <div className={style.makeInputsButtonWrapper}>
         <Button variant="secondary" onClick={() => onStartClick()}>
           فیلترکن و نشون بده!

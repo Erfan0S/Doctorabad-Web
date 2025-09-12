@@ -54,9 +54,28 @@
   transform: translate(-50%, 20%);
 }
 
+.manualInputsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 50px;
+  max-width: 500px;
+
+  input {
+    folex: 1;
+  }
+}
+
 @media (max-width: 768px) {
   html .makeInputs {
     padding-bottom: 85px;
+  }
+
+  .manualInputsWrapper {
+    margin-bottom: 10px;
   }
 
   .topButtons {
@@ -67,5 +86,11 @@
 
   .filtersWrapper {
     padding-bottom: 25px;
+  }
+}
+
+@media (max-width: 425px) {
+  .manualInputsWrapper {
+    flex-direction: column;
   }
 }

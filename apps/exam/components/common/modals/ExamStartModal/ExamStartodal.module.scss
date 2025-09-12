@@ -26,15 +26,6 @@ html .examStartModalWrapper {
     align-items: center;
   }
   .examStartModalTime {
-    border: 1px solid $purple;
-    border-radius: 10px;
-
-    width: 100%;
     max-width: 200px;
-    padding: 5px 10px;
-
-    &:focus {
-      outline: none;
-    }
   }
 }

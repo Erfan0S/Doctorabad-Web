@@ -1,12 +1,18 @@
 "use client";
+import { QuestionsAnswersProvider } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
 import { routePath } from "@repo/core/constants/routePath";
-import { AuthorizeClientPage } from "@repo/shared_modules/components";
-import React from "react";
+import { Apps } from "@repo/core/types/general";
+import { AuthorizeClientPage, Loading } from "@repo/shared_modules/components";
+import React, { Suspense } from "react";
 
 function singleLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthorizeClientPage baseUrl={routePath.examBasePath}>
-      {children}
+      <QuestionsAnswersProvider>
+        <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
+          {children}
+        </Suspense>
+      </QuestionsAnswersProvider>
     </AuthorizeClientPage>
   );
 }

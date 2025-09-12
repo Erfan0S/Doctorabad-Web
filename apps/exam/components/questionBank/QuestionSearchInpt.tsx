@@ -2,7 +2,7 @@
 import { api } from "@/api/Api";
 import useGetFilterParams from "@/hooks/useGetQuestionParams";
 import { Apps } from "@repo/core/types/general";
-import SearchInput from "@repo/shared_modules/ui/SearchInput/index";
+import { SearchInput } from "@repo/shared_modules/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";

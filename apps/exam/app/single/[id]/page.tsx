@@ -38,6 +38,7 @@ async function SinglePage({ params, searchParams }: Props) {
       </div>
     );
   } catch (error) {
+    console.log(error);
     notFound();
   }
 }

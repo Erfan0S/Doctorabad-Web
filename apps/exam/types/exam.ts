@@ -68,6 +68,8 @@ export type QuestionListParamsType = {
   topics?: number[] | string[];
   budgeting?: number | string;
   tip?: number | string;
+  analyse?: boolean;
+  limit?: number | string;
 };
 
 export type BudgetingType = {

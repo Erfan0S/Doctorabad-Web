@@ -10,22 +10,18 @@ import React, { useState } from "react";
 import style from "./ExamStartodal.module.scss";
 import { useRouter } from "next/navigation";
 import { RoutePath } from "@/constants/routPaths";
+import { Input } from "@repo/shared_modules/ui";
+import { inBoundValue } from "@repo/core/utils/inBoundValue";
 
 type Props = ModalProps<{
   exam: ExamType;
 }>;
 
-const inBoundValue = (value: number, min: number, max: number) => {
-  if (value < min) return min;
-  if (value > max) return max;
-  return value;
-};
-
 function ExamStartModal({ closeModal, data }: Props) {
   const { exam } = data;
   const [showRecord, setShowRecord] = useState(false);
   const [haveManualTime, setHaveManualTime] = useState(false);
-  const [manualTime, setManualTime] = useState<number | null>(null);
+  const [manualTime, setManualTime] = useState<number | null | undefined>(null);
   const router = useRouter();
 
   const handleStart = () => {
@@ -76,7 +72,7 @@ function ExamStartModal({ closeModal, data }: Props) {
           onToggle={onTimeToggle}
         />
         {haveManualTime && (
-          <input
+          <Input
             type="number"
             placeholder="زمان آزمون(حداکثر 300 دقیقه)"
             className={style.examStartModalTime}
@@ -86,6 +82,8 @@ function ExamStartModal({ closeModal, data }: Props) {
             value={manualTime?.toString() || ""}
             min="0"
             max="300"
+            app={Apps.EXAM}
+            disabled={!haveManualTime}
           />
         )}
       </div>
