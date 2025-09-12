@@ -5,7 +5,10 @@ import { ModalWrapper } from "@repo/shared_modules/components";
 import React from "react";
 import Button from "../../Button/Button";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import { ExamSearchParams, ExamStatus } from "@/types/exam";
+import {
+  SharedFilters,
+  ExamStatus,
+} from "@repo/apps_shared_components/exam/types/filters.ts";
 
 type Props = ModalProps<{}>;
 
@@ -16,7 +19,7 @@ function EndExamModal({ closeModal, data }: Props) {
     const onFinish = () => {
       setTimeout(() => {
         setSearchParams({
-          [ExamSearchParams.STATUS]: ExamStatus.FINISHED,
+          [SharedFilters.STATUS]: ExamStatus.FINISHED,
         });
       }, 100);
       closeModal();

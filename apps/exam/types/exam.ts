@@ -130,16 +130,3 @@ export interface QuestionPaginatedResponse
   extends PaginatedResponse<QuestionType[]> {
   budgeting: BudgetingType;
 }
-
-export enum ExamSearchParams {
-  STATUS = "status",
-  MANUAL_TIME = "time",
-  SHOW_RECORD = "show_record",
-}
-
-export enum ExamStatus {
-  OBSERVING = "observing",
-  DRAFT = "draft",
-  STARTED = "started",
-  FINISHED = "finished",
-}

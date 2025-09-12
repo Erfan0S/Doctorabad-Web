@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import styles from "./questionItem.module.scss";
+import { ExamStatus } from "../../../types/exam";
 
 type Props = {
   name: string;
@@ -8,7 +9,7 @@ type Props = {
   type?: "radio" | "checkbox" | "text";
   isCorrect?: boolean;
   showAnswer?: boolean;
-  isFinished?: boolean;
+  status?: ExamStatus;
 };
 
 const QuestionInput = ({
@@ -18,7 +19,7 @@ const QuestionInput = ({
   showAnswer,
   isCorrect,
   type = "radio",
-  isFinished,
+  status,
 }: Props) => {
   const showAnswerClass = showAnswer
     ? isCorrect
@@ -31,9 +32,12 @@ const QuestionInput = ({
   }
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement>) => {
-    if (isFinished) {
+    if (status === ExamStatus.FINISHED) {
       e.preventDefault();
       toast.error("آزمون تموم شده!");
+    } else if (status === ExamStatus.DRAFT) {
+      e.preventDefault();
+      toast.warning("آزمون هنوز شروع نشده!");
     }
   };
 

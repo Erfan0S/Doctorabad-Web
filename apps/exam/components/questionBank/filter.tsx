@@ -16,12 +16,12 @@ import {
 } from "@repo/core/types/sidePanel";
 import { api as sharedApi } from "@repo/shared_modules/api";
 import { useQuery } from "@tanstack/react-query";
-import { questionBankFilters } from "@/constants/filters";
 import { RoutePath } from "@/constants/routPaths";
 import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
 import { api } from "@/api/Api";
 import Link from "next/link";
 import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
@@ -57,7 +57,7 @@ function QuestionBankFilter() {
   };
 
   const onSubmitHandler = () => {
-    if (!searchParams?.get(questionBankFilters.FIELD)) {
+    if (!searchParams?.get(SharedFilters.FIELD)) {
       toast.error("حداقل رشته را انتخاب کن!");
       return;
     }
@@ -98,7 +98,7 @@ function QuestionBankFilter() {
         <SelectFilters page="questionBank" />
         <QuestionSearchInpt />
         <OptionSwitch
-          name={questionBankFilters.EXPLANATION}
+          name={SharedFilters.EXPLANATION}
           title="نمایش تشریحی سوالات!"
           app={Apps.EXAM}
           addToQuery
@@ -109,18 +109,18 @@ function QuestionBankFilter() {
           canChange={false}
         />
         <OptionSwitch
-          name={questionBankFilters.BUDGETING}
+          name={SharedFilters.BUDGETING}
           title="نمایش بودجه‌بندی سوالات!"
           app={Apps.EXAM}
-          isActive={!!searchParams?.get(questionBankFilters.LESSON)}
+          isActive={!!searchParams?.get(SharedFilters.LESSON)}
           onClick={() => {
-            !!searchParams?.get(questionBankFilters.LESSON) ||
+            !!searchParams?.get(SharedFilters.LESSON) ||
               toast.error("حتما درس باید انتخاب شده باشد!");
           }}
           addToQuery
         />
         <OptionSwitch
-          name={questionBankFilters.TIP}
+          name={SharedFilters.TIP}
           title="فقط نمایش سوالات تیپ دار!"
           app={Apps.EXAM}
           addToQuery

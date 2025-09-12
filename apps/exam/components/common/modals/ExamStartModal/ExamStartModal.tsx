@@ -1,4 +1,8 @@
-import { ExamSearchParams, ExamStatus, ExamType } from "@/types/exam";
+import { ExamType } from "@/types/exam";
+import {
+  SharedFilters,
+  ExamStatus,
+} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper, OptionSwitch } from "@repo/shared_modules/components";
@@ -28,9 +32,9 @@ function ExamStartModal({ closeModal, data }: Props) {
     setTimeout(
       () =>
         router.push(
-          `${RoutePath.single}/${exam.id}?${ExamSearchParams.STATUS}=${ExamStatus.STARTED}&${ExamSearchParams.SHOW_RECORD}=${showRecord ? 1 : 0}${
+          `${RoutePath.single}/${exam.id}?${SharedFilters.STATUS}=${ExamStatus.STARTED}&${SharedFilters.SHOW_RECORD}=${showRecord ? 1 : 0}${
             haveManualTime && !!manualTime
-              ? `&${ExamSearchParams.MANUAL_TIME}=${manualTime}`
+              ? `&${SharedFilters.MANUAL_TIME}=${manualTime}`
               : ""
           }`
         ),

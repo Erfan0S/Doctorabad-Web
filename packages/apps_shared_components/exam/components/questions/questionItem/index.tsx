@@ -152,7 +152,7 @@ function QuestionItem({
             showAnswer={showTestAnswer}
             isCorrect={option.is_correct}
             key={option.id}
-            isFinished={status === ExamStatus.FINISHED}
+            status={status}
           />
         ))}
         {question.files.map((file, i) => (

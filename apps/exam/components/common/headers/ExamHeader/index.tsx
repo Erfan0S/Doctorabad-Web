@@ -1,6 +1,8 @@
 "use client";
-import PageTitle from "@/components/singleDetail/PageTitle";
-import { ExamDetailType, ExamSearchParams, ExamStatus } from "@/types/exam";
+import {
+  SharedFilters,
+  ExamStatus,
+} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { modalActions } from "@repo/core/modal/modals";
 import { Apps } from "@repo/core/types/general";
 import { PageHeader } from "@repo/shared_modules/headers";
@@ -11,12 +13,12 @@ import { toast } from "react-toastify";
 
 type Props = {
   children: React.ReactNode;
-  exam: ExamDetailType;
+  title: string | React.ReactNode;
 };
 
-function ExamHeader({ children, exam }: Props) {
+function ExamHeader({ children, title }: Props) {
   const searchParams = useSearchParams();
-  const status = searchParams?.get(ExamSearchParams.STATUS);
+  const status = searchParams?.get(SharedFilters.STATUS);
 
   const onBack = () => {
     if (status === ExamStatus.STARTED) {
@@ -27,11 +29,7 @@ function ExamHeader({ children, exam }: Props) {
   };
 
   return (
-    <PageHeader
-      title={<PageTitle exam={exam} />}
-      app={Apps.EXAM}
-      onBack={onBack}
-    >
+    <PageHeader title={title} app={Apps.EXAM} onBack={onBack}>
       {children}
     </PageHeader>
   );

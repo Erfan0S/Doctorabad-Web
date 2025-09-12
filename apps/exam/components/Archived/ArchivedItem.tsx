@@ -9,8 +9,8 @@ import { api } from "@/api/Api";
 import { toast } from "react-toastify";
 import Loading from "../common/Loading/Loading";
 import { useRouter } from "next/navigation";
-import { filtersNames } from "@/constants/filters";
 import { RoutePath } from "@/constants/routPaths";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
 
 type Props = {
   data: ArchivedType;
@@ -23,11 +23,10 @@ interface filtersItemType extends SelectQroupItemType {
 function ArchivedItem({ data }: Props) {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const router = useRouter();
-  const FiltersNames = filtersNames("questionBank");
 
   let filters: filtersItemType[] = [
     {
-      name: FiltersNames.FIELD,
+      name: SharedFilters.FIELD,
       id: data.field,
       title: "رشته",
       data: [{ id: data.field, title: data.field_title }],
@@ -36,7 +35,7 @@ function ArchivedItem({ data }: Props) {
       initialTitle: data.field_title,
     },
     {
-      name: FiltersNames.GRADE,
+      name: SharedFilters.GRADE,
       id: data.grade,
       title: "نام آزمون",
       data: [],
@@ -45,7 +44,7 @@ function ArchivedItem({ data }: Props) {
       initialTitle: data.grade_title || "انتخاب نشده",
     },
     {
-      name: FiltersNames.LESSON,
+      name: SharedFilters.LESSON,
       id: data.lesson,
       title: "درس",
       data: [],
@@ -54,7 +53,7 @@ function ArchivedItem({ data }: Props) {
       initialTitle: data.lesson_title || "انتخاب نشده",
     },
     {
-      name: FiltersNames.TOPIC,
+      name: SharedFilters.TOPIC,
       id: data.topic?.map((topic) => topic.id).join(","),
       title: "مبحث",
       data: [],
@@ -66,7 +65,7 @@ function ArchivedItem({ data }: Props) {
         : "انتخاب نشده",
     },
     {
-      name: FiltersNames.DATE,
+      name: SharedFilters.DATE,
       id: data.date?.map((date) => date.id).join(","),
       title: "زمان",
       data: [],
@@ -80,7 +79,7 @@ function ArchivedItem({ data }: Props) {
         : "انتخاب نشده",
     },
     {
-      name: FiltersNames.PLACE,
+      name: SharedFilters.PLACE,
       id: data.place?.map((place) => place.id).join(","),
       title: "مکان",
       data: [],
@@ -119,10 +118,10 @@ function ArchivedItem({ data }: Props) {
       params.append("q", data.title);
     }
     if (data.budgeting) {
-      params.append(FiltersNames.BUDGETING, data.budgeting.toString());
+      params.append(SharedFilters.BUDGETING, data.budgeting.toString());
     }
     if (data.tip) {
-      params.append(FiltersNames.TIP, data.tip.toString());
+      params.append(SharedFilters.TIP, data.tip.toString());
     }
 
     router.push(`${RoutePath.questions}?${params.toString()}`);

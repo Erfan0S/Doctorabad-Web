@@ -1,4 +1,7 @@
-import { SharedFilters, filterPages } from "@/types/filters";
+import {
+  SharedFilters,
+  filterPages,
+} from "@repo/apps_shared_components/exam/types/filters.ts";
 
 export function filtersNames(page: filterPages) {
   const t = Object.entries(SharedFilters).reduce((acc, [key, value]) => {

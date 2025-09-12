@@ -8,7 +8,10 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import formatDuration from "@repo/core/utils/formatDuration";
-import { ExamSearchParams, ExamStatus } from "@/types/exam";
+import {
+  SharedFilters,
+  ExamStatus,
+} from "@repo/apps_shared_components/exam/types/filters.ts";
 
 // TODO: use context instead of searchParams for end state
 
@@ -20,8 +23,8 @@ function ExamTimer({ totalQuestions }: Props) {
   const [time, setTime] = React.useState(totalQuestions * 60);
 
   const searchParams = useSearchParams();
-  const manual = searchParams?.get(ExamSearchParams.MANUAL_TIME);
-  const status = searchParams?.get(ExamSearchParams.STATUS);
+  const manual = searchParams?.get(SharedFilters.MANUAL_TIME);
+  const status = searchParams?.get(SharedFilters.STATUS);
   const setSearchParams = useChangeSearchParamsFilter();
 
   useEffect(() => {
@@ -45,7 +48,7 @@ function ExamTimer({ totalQuestions }: Props) {
 
   useEffect(() => {
     if (time <= 0) {
-      setSearchParams({ [ExamSearchParams.STATUS]: ExamStatus.FINISHED });
+      setSearchParams({ [SharedFilters.STATUS]: ExamStatus.FINISHED });
     }
     if (status === ExamStatus.FINISHED || time <= 0) {
       clearInterval(timerInterval);
@@ -56,7 +59,7 @@ function ExamTimer({ totalQuestions }: Props) {
     if (status === ExamStatus.STARTED) {
       modalActions.addModal(ModalTypes.EXAM_END_CONFIRM);
     } else {
-      setSearchParams({ [ExamSearchParams.STATUS]: ExamStatus.STARTED });
+      setSearchParams({ [SharedFilters.STATUS]: ExamStatus.STARTED });
     }
   };
 

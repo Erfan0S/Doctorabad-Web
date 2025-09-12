@@ -1,23 +1,25 @@
 "use client";
 import React from "react";
 import { OptionSwitch } from "@repo/shared_modules/components";
-import { MakeFilters } from "@/types/filters";
+import {
+  SharedFilters,
+  ExamStatus,
+} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { api as coreApi } from "@repo/shared_modules/api";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { toast } from "react-toastify";
 import SelectFilters from "../../common/SelectFilters/SelectFilters";
 import style from "../questionBank.module.scss";
 import Button from "@/components/common/Button/Button";
-import { api } from "@/api/Api";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { RoutePath } from "@/constants/routPaths";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
-  const setSeachParam = useChangeSearchParamsFilter();
   const route = useRouter();
+
+  // TODO: change diffrent filter types
 
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
@@ -37,13 +39,25 @@ function MakeInputs() {
     }
   };
 
-  const onStartClick = authorizeClientAction(() => console.log("start"));
+  const onStartClick = (start?: boolean) => {
+    if (!searchParams?.get(SharedFilters.FIELD)) {
+      toast.error("حداقل رشته را انتخاب کن!");
+      return;
+    }
+    const params = new URLSearchParams(searchParams?.toString());
+    params.set(
+      SharedFilters.STATUS,
+      start ? ExamStatus.STARTED : ExamStatus.DRAFT
+    );
+
+    route.push(`${RoutePath.make_exam}?${params.toString()}`);
+  };
 
   return (
     <div className={`card ${style.filtersWrapper} ${style.makeInputs}`}>
       <SelectFilters page="maker" />
       <OptionSwitch
-        name={MakeFilters.EXPLANATION}
+        name={SharedFilters.EXPLANATION}
         title="نمایش تشریحی سوالات!"
         app={Apps.EXAM}
         addToQuery
@@ -54,28 +68,30 @@ function MakeInputs() {
         canChange={false}
       />
       <OptionSwitch
-        name={MakeFilters.RECORD}
+        name={SharedFilters.RECORD}
         title="نمایش کارنامه تحلیلی آزمون"
         app={Apps.EXAM}
         addToQuery
         isDefaulChecked={true}
       />
       <OptionSwitch
-        name={MakeFilters.MARKING}
+        name={SharedFilters.MARKING}
         title="علامت گذاری سوالات و پاسخ برگ"
         app={Apps.EXAM}
         addToQuery
         isDefaulChecked={true}
       />
       <OptionSwitch
-        name={MakeFilters.MANUAL}
+        name={SharedFilters.MANUAL_TIME}
         title="تعیین دستی زمان و تداد سوالات!"
         app={Apps.EXAM}
         addToQuery
       />
       <div className={style.makeInputsButtonWrapper}>
-        <Button variant="secondary">فیلترکن و نشون بده!</Button>
-        <Button onClick={onStartClick}>شروع آزمون</Button>
+        <Button variant="secondary" onClick={() => onStartClick()}>
+          فیلترکن و نشون بده!
+        </Button>
+        <Button onClick={() => onStartClick(true)}>شروع آزمون</Button>
       </div>
     </div>
   );
