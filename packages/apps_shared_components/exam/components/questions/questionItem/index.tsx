@@ -91,39 +91,22 @@ function QuestionItem({
     QuestionStatus.DEFAULT
   );
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>();
-  const { addAnswer, answers, removeAnswer } = useContext(
-    QuestionsAnswersContext
-  );
+  const { addAnswer } = useContext(QuestionsAnswersContext);
 
   useEffect(() => {
+    console.log(selectedAnswer);
     addAnswer(
       {
-        options: question.options.map((option) => option.title),
+        options: question.options,
+        userAnswer: selectedAnswer || undefined,
+        status: questionStatus,
         answer: question.options
           .find((option) => option.is_correct)
           ?.id.toString(),
-        status: questionStatus,
+        lesson_id: question.lesson_id,
       },
       question.id
     );
-  }, []);
-
-  useEffect(() => {
-    if (selectedAnswer) {
-      addAnswer(
-        {
-          options: question.options.map((option) => option.title),
-          answer: question.options
-            .find((option) => option.is_correct)
-            ?.id.toString(),
-          userAnswer: selectedAnswer,
-          status: questionStatus,
-        },
-        question.id
-      );
-    } else {
-      removeAnswer(question.id);
-    }
   }, [selectedAnswer]);
 
   useEffect(() => {
@@ -203,7 +186,7 @@ function QuestionItem({
             key={option.id}
             status={status}
             onChange={(e) => {
-              setSelectedAnswer(e.target.value);
+              setSelectedAnswer(e.target.id);
             }}
           />
         ))}

@@ -41,6 +41,7 @@ function ExamTimer({ totalQuestions }: Props) {
         setTime((time) => time - 1);
       }, 1000);
     } else {
+      setSearchParams({ [SharedFilters.LESSON_FILTER]: null });
       clearInterval(timerInterval);
     }
     return () => clearInterval(timerInterval);

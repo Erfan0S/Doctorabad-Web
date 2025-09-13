@@ -1,20 +1,27 @@
 "use client";
-import { createContext, useState } from "react";
-import { QuestionStatus } from "../types/exam";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { QuestionOptionType, QuestionStatus } from "../types/exam";
 
 export type QuestionsAnswerContextType = {
-  options: string[];
-  answer?: string;
+  options: QuestionOptionType[];
   userAnswer?: string;
   status: QuestionStatus;
+  answer?: string;
+  lesson_id: number;
 };
 
-type QuestionsAnswersContextType = Record<string, QuestionsAnswerContextType>;
+export type QuestionsAnswersContextType = Record<
+  string,
+  QuestionsAnswerContextType
+>;
 
 type QuestionsAnswersContextProviderType = {
   answers: QuestionsAnswersContextType;
   addAnswer: (answer: QuestionsAnswerContextType, id: number | string) => void;
   removeAnswer: (id: number) => void;
+  getCorrectAnswers: () => QuestionsAnswerContextType[];
+  getWrongAnswers: () => QuestionsAnswerContextType[];
+  getUnAnsweredQuestions: () => QuestionsAnswerContextType[];
 };
 
 const QuestionsAnswersContext =
@@ -22,6 +29,9 @@ const QuestionsAnswersContext =
     answers: {},
     addAnswer: () => {},
     removeAnswer: () => {},
+    getCorrectAnswers: () => [],
+    getWrongAnswers: () => [],
+    getUnAnsweredQuestions: () => [],
   });
 
 const QuestionsAnswersProvider = ({
@@ -33,24 +43,51 @@ const QuestionsAnswersProvider = ({
     Record<string, QuestionsAnswerContextType>
   >({});
 
-  const addAnswer = (
-    answer: QuestionsAnswerContextType,
-    id: number | string
-  ) => {
-    setAnswers((prev) => ({ ...prev, [id.toString()]: answer }));
-  };
+  useEffect(() => {
+    console.log(answers);
+  }, [answers]);
 
-  const removeAnswer = (id: number) => {
+  const addAnswer = useCallback(
+    (answer: QuestionsAnswerContextType, id: number | string) => {
+      setAnswers((prev) => ({ ...prev, [id.toString()]: answer }));
+    },
+    []
+  );
+
+  const removeAnswer = useCallback((id: number) => {
     setAnswers((prev) => {
       const newAnswers = { ...prev };
       delete newAnswers[id.toString()];
       return newAnswers;
     });
-  };
+  }, []);
+
+  const getCorrectAnswers = useCallback(() => {
+    return Object.values(answers).filter(({ userAnswer, answer }) =>
+      !!userAnswer && !!answer ? userAnswer === answer : false
+    );
+  }, [answers]);
+
+  const getWrongAnswers = useCallback(() => {
+    return Object.values(answers).filter(({ userAnswer, answer }) =>
+      !!userAnswer && !!answer ? userAnswer !== answer : false
+    );
+  }, [answers]);
+
+  const getUnAnsweredQuestions = useCallback(() => {
+    return Object.values(answers).filter(({ userAnswer }) => !userAnswer);
+  }, [answers]);
 
   return (
     <QuestionsAnswersContext.Provider
-      value={{ answers, addAnswer, removeAnswer }}
+      value={{
+        answers,
+        addAnswer,
+        removeAnswer,
+        getCorrectAnswers,
+        getWrongAnswers,
+        getUnAnsweredQuestions,
+      }}
     >
       {children}
     </QuestionsAnswersContext.Provider>

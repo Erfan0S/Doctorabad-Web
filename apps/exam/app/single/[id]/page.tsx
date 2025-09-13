@@ -12,6 +12,7 @@ import {
 } from "@repo/apps_shared_components";
 import { notFound } from "next/navigation";
 import React from "react";
+import ExamRecord from "@/components/exam/ExamRecord";
 
 type Props = {
   params: {
@@ -26,6 +27,10 @@ async function SinglePage({ params, searchParams }: Props) {
     const status = (searchParams[SharedFilters.STATUS] ||
       ExamStatus.OBSERVING) as ExamStatus;
 
+    const haveRecord = searchParams[SharedFilters.SHOW_RECORD];
+
+    console.log(status);
+    haveRecord;
     return (
       <div>
         <ExamHeader title={<PageTitle exam={data.exam} />}>
@@ -34,6 +39,12 @@ async function SinglePage({ params, searchParams }: Props) {
           )}
           <QuestionsLessonsFilter lessons={data.lessons} />
         </ExamHeader>
+        {!!haveRecord && status === ExamStatus.FINISHED && (
+          <ExamRecord
+            lessons={data.lessons}
+            totalQuestions={data.data.length}
+          />
+        )}
         <Questions questions={data.data} exam={data.exam} />
       </div>
     );

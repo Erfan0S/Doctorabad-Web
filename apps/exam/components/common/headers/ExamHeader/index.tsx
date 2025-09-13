@@ -1,4 +1,5 @@
 "use client";
+import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
 import {
   SharedFilters,
   ExamStatus,
@@ -8,7 +9,7 @@ import { Apps } from "@repo/core/types/general";
 import { PageHeader } from "@repo/shared_modules/headers";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -19,6 +20,12 @@ type Props = {
 function ExamHeader({ children, title }: Props) {
   const searchParams = useSearchParams();
   const status = searchParams?.get(SharedFilters.STATUS);
+
+  const { answers } = useContext(QuestionsAnswersContext);
+
+  useEffect(() => {
+    console.log(answers);
+  }, [answers]);
 
   const onBack = () => {
     if (status === ExamStatus.STARTED) {

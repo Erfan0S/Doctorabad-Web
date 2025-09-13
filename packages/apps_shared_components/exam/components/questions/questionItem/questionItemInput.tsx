@@ -21,10 +21,11 @@ const QuestionInput = ({
   isCorrect,
   type = "radio",
   status,
+  onChange,
 }: Props) => {
   const showAnswerClass = showAnswer
     ? isCorrect
-      ? styles.radioCurrect
+      ? styles.radioCorrect
       : styles.radioWrong
     : "";
 
@@ -32,19 +33,22 @@ const QuestionInput = ({
     return <input type="text" name={name} id={id} />;
   }
 
-  const onClickHandler = (e: React.MouseEvent<HTMLInputElement>) => {
+  const onClickHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (status === ExamStatus.FINISHED) {
       e.preventDefault();
       toast.error("آزمون تموم شده!");
+      return;
     } else if (status === ExamStatus.DRAFT) {
       e.preventDefault();
       toast.warning("آزمون هنوز شروع نشده!");
+      return;
     }
+    onChange && onChange(e);
   };
 
   return (
     <div className={`${styles.radioWrapper} ${showAnswerClass}`}>
-      <input type={type} name={name} id={id} onClick={onClickHandler} />
+      <input type={type} name={name} id={id} onChange={onClickHandler} />
       <label htmlFor={id} className={styles.radio}>
         <div />
       </label>

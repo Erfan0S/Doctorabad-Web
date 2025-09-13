@@ -8,6 +8,7 @@ import {
   SharedFilters,
   ExamStatus,
 } from "@repo/apps_shared_components/exam/types/filters.ts";
+import ExamRecord from "@/components/exam/ExamRecord";
 
 type Props = {
   searchParams: Record<string, string | undefined>;
@@ -36,19 +37,21 @@ async function SinglePage({ searchParams }: Props) {
   try {
     const data = (
       await api.getQuestionMaker({
-        field,
-        grade,
-        lesson,
-        places: places?.split(","),
-        dates: dates?.split(","),
-        topics: topics?.split(","),
-        budgeting,
-        limit: manualQuestions || 200,
-        analyse: !!record,
+        field: Number(field),
+        grade: Number(grade),
+        lesson: lesson ? Number(lesson) : undefined,
+        places: places?.split(",").map(Number),
+        dates: dates?.split(",").map(Number),
+        topics: topics?.split(",").map(Number),
+        budgeting: budgeting ? Number(budgeting) : undefined,
+        // limit: manualQuestions || 200,
+        analyse: record ? 1 : undefined,
       })
     ).data;
     const status = (searchParams[SharedFilters.STATUS] ||
       ExamStatus.OBSERVING) as ExamStatus;
+
+    console.log(data);
 
     return (
       <div>
@@ -56,6 +59,7 @@ async function SinglePage({ searchParams }: Props) {
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />
           )}
+          {/* <ExamRecord lessons={data.lessons} /> */}
         </ExamHeader>
         <Questions questions={data.data} />
       </div>
