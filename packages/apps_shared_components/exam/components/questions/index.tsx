@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useContext } from "react";
 import QuestionItem from "./questionItem";
 import {
   ExamDetailType,
@@ -9,7 +9,7 @@ import {
 } from "../../types/exam";
 import styles from "./questions.module.scss";
 import { useSearchParams } from "next/navigation";
-import { SharedFilters } from "../../types/filters";
+import { QuestionsAnswersContext } from "../../contexts/questionsAnswersContext";
 
 type Props = {
   questions: QuestionType[];
@@ -20,9 +20,10 @@ type Props = {
 
 function Questions({ questions, exam, mobileMode, isFavorite }: Props) {
   const searchParams = useSearchParams();
-  const lessonId = searchParams?.get(SharedFilters.LESSON);
   const status = (searchParams?.get(ExamStartSearchParams.STATUS) ||
     ExamStatus.OBSERVING) as ExamStatus;
+
+  const { lessonId, answers } = useContext(QuestionsAnswersContext);
 
   const filtredQuestions = lessonId
     ? questions.filter((question) => question.lesson_id.toString() === lessonId)
@@ -44,6 +45,7 @@ function Questions({ questions, exam, mobileMode, isFavorite }: Props) {
             mobileMode={mobileMode}
             isFavorite={isFavorite}
             status={status}
+            initUserAnswer={answers[question.id]?.userAnswer}
           />
         );
       })}

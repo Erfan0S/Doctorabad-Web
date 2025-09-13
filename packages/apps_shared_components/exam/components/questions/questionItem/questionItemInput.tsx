@@ -11,6 +11,7 @@ type Props = {
   showAnswer?: boolean;
   status?: ExamStatus;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
 };
 
 const QuestionInput = ({
@@ -22,6 +23,7 @@ const QuestionInput = ({
   type = "radio",
   status,
   onChange,
+  checked,
 }: Props) => {
   const showAnswerClass = showAnswer
     ? isCorrect
@@ -48,7 +50,13 @@ const QuestionInput = ({
 
   return (
     <div className={`${styles.radioWrapper} ${showAnswerClass}`}>
-      <input type={type} name={name} id={id} onChange={onClickHandler} />
+      <input
+        type={type}
+        name={name}
+        id={id}
+        onChange={onClickHandler}
+        checked={checked}
+      />
       <label htmlFor={id} className={styles.radio}>
         <div />
       </label>

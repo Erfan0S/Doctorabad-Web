@@ -2,10 +2,9 @@
 import React, { useEffect } from "react";
 import styles from "./timer.module.scss";
 import Button from "@/components/common/Button/Button";
-import { api } from "@/api/Api";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import formatDuration from "@repo/core/utils/formatDuration";
 import {
@@ -41,7 +40,6 @@ function ExamTimer({ totalQuestions }: Props) {
         setTime((time) => time - 1);
       }, 1000);
     } else {
-      setSearchParams({ [SharedFilters.LESSON_FILTER]: null });
       clearInterval(timerInterval);
     }
     return () => clearInterval(timerInterval);

@@ -11,7 +11,6 @@ export enum SharedFilters {
   BUDGETING = "budgeting",
   TIP = "tip",
   SORT = "sort",
-  LESSON_FILTER = "lessonFilter",
   RECORD = "record",
   MARKING = "marking",
   STATUS = "status",

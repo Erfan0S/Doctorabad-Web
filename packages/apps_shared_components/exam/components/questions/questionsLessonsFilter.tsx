@@ -1,42 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./questions.module.scss";
 import { LessonType } from "../../types/exam";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import Loading from "../common/Loading";
 import { SingleLessonFilter } from "../../constants/filters";
+import { QuestionsAnswersContext } from "../../contexts/questionsAnswersContext";
 
 type Props = {
   lessons: LessonType[];
 };
 
 function QuestionsLessonsFilter({ lessons }: Props) {
-  const changeParams = useChangeSearchParamsFilter();
-  const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState<number | null | undefined>(null);
+  const { setLessonId, lessonId } = useContext(QuestionsAnswersContext);
 
-  const activeLesson = searchParams?.get(SingleLessonFilter) || undefined;
-
-  const onClickHandler = (id: number) => {
-    if (isLoading !== null) return;
-    setIsLoading(id);
-    setTimeout(() => setIsLoading(null), 2000);
-    changeParams({ [SingleLessonFilter]: id > 0 ? id?.toString() : null });
+  const activeLesson = lessonId;
+  const onClickHandler = (id?: number) => {
+    setLessonId(id ? id.toString() : undefined);
   };
-
-  useEffect(() => {
-    setIsLoading(null);
-  }, [lessons]);
 
   return (
     <div className={style.lessonFilterWrapper}>
       <button
         type="button"
-        onClick={() => onClickHandler(-1)}
+        onClick={() => onClickHandler()}
         className={!activeLesson ? style.active : ""}
       >
-        {isLoading === -1 ? <Loading /> : "همه"}
+        همه
       </button>
       {lessons.map((lesson) => (
         <button
@@ -51,7 +42,7 @@ function QuestionsLessonsFilter({ lessons }: Props) {
                 : "",
           }}
         >
-          {isLoading === lesson.id ? <Loading /> : lesson.title}
+          {lesson.title}
         </button>
       ))}
     </div>

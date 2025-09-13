@@ -73,6 +73,7 @@ type Props = {
   mobileMode?: boolean;
   isFavorite?: boolean;
   status?: ExamStatus;
+  initUserAnswer?: string;
 };
 
 function QuestionItem({
@@ -84,14 +85,19 @@ function QuestionItem({
   mobileMode,
   isFavorite,
   status,
+  initUserAnswer,
 }: Props) {
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
   const [questionStatus, setQuestionStatus] = useState<QuestionStatus>(
     QuestionStatus.DEFAULT
   );
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>();
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(
+    initUserAnswer || null
+  );
   const { addAnswer } = useContext(QuestionsAnswersContext);
+
+  useEffect(() => {}, [initUserAnswer]);
 
   useEffect(() => {
     console.log(selectedAnswer);
@@ -188,6 +194,7 @@ function QuestionItem({
             onChange={(e) => {
               setSelectedAnswer(e.target.id);
             }}
+            checked={selectedAnswer === option.id.toString()}
           />
         ))}
         {question.files.map((file, i) => (
