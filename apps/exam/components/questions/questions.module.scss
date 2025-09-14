@@ -1,14 +1,6 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
-html .filterBtn {
-  color: black;
-  margin-left: 10px;
-  svg {
-    margin-right: 10px;
-  }
-}
-
 .questionsWrapper {
   display: flex;
   flex-direction: column;

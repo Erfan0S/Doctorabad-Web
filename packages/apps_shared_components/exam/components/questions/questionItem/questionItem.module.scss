@@ -17,6 +17,28 @@ html body div .mobileMode {
   }
 }
 
+html .notSureQuestion {
+  --not-sure-color: rgba(255, 255, 0, 0.15);
+  background-color: var(--not-sure-color);
+  h4 {
+    background-color: var(--not-sure-color);
+  }
+  .buttonsWrapper {
+    background-color: var(--not-sure-color);
+  }
+}
+
+html .dontKnowQuestion {
+  --dont-know-color: rgba(128, 128, 128, 0.15);
+  background-color: var(--dont-know-color);
+  h4 {
+    background-color: var(--dont-know-color);
+  }
+  .buttonsWrapper {
+    background-color: var(--dont-know-color);
+  }
+}
+
 .questionItem {
   overflow: hidden;
   display: flex;

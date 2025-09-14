@@ -69,7 +69,7 @@ export type QuestionListParamsType = {
   budgeting?: number;
   tip?: number | string;
   analyse?: number;
-  limit?: number | string;
+  per_page?: number | string;
 };
 
 export type BudgetingType = {
@@ -131,4 +131,9 @@ export type QuestionPageType = {
 export interface QuestionPaginatedResponse
   extends PaginatedResponse<QuestionType[]> {
   budgeting: BudgetingType;
+}
+
+export interface MakerPaginatedResponse
+  extends PaginatedResponse<QuestionType[]> {
+  lessons: LessonType[];
 }

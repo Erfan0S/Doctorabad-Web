@@ -1,4 +1,5 @@
 "use client";
+import AnswerSheetIcon from "@/assets/svg/answerSheet";
 import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
 import {
   SharedFilters,
@@ -11,13 +12,16 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
+import style from "./examHeader.module.scss";
+import Button from "../../Button/Button";
 
 type Props = {
   children: React.ReactNode;
   title: string | React.ReactNode;
+  suffix?: React.ReactNode;
 };
 
-function ExamHeader({ children, title }: Props) {
+function ExamHeader({ children, title, suffix }: Props) {
   const searchParams = useSearchParams();
   const status = searchParams?.get(SharedFilters.STATUS);
 
@@ -35,8 +39,24 @@ function ExamHeader({ children, title }: Props) {
     modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM);
   };
 
+  const haveMarking = searchParams?.get(SharedFilters.MARKING);
+
   return (
-    <PageHeader title={title} app={Apps.EXAM} onBack={onBack}>
+    <PageHeader
+      suffix={
+        haveMarking && (
+          <Button
+            onClick={() => modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET)}
+          >
+            پاسخ برگ من
+            <AnswerSheetIcon />
+          </Button>
+        )
+      }
+      title={title}
+      app={Apps.EXAM}
+      onBack={onBack}
+    >
       {children}
     </PageHeader>
   );

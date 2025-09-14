@@ -24,7 +24,7 @@ async function SinglePage({ searchParams }: Props) {
     [SharedFilters.TOPIC]: topics,
     [SharedFilters.BUDGETING]: budgeting,
     [SharedFilters.TIP]: tipId,
-    [SharedFilters.RECORD]: record,
+    [SharedFilters.SHOW_RECORD]: record,
     [SharedFilters.MANUAL_QUESTIONS]: manualQuestions,
     [SharedFilters.MANUAL_TIME]: manualTime,
     ...params
@@ -44,7 +44,7 @@ async function SinglePage({ searchParams }: Props) {
         dates: dates?.split(",").map(Number),
         topics: topics?.split(",").map(Number),
         budgeting: budgeting ? Number(budgeting) : undefined,
-        // limit: manualQuestions || 200,
+        per_page: manualQuestions || 200,
         analyse: record ? 1 : undefined,
       })
     ).data;
@@ -59,8 +59,13 @@ async function SinglePage({ searchParams }: Props) {
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />
           )}
-          {/* <ExamRecord lessons={data.lessons} /> */}
         </ExamHeader>
+        {!!record && status === ExamStatus.FINISHED && (
+          <ExamRecord
+            lessons={data.lessons}
+            totalQuestions={data.data.length}
+          />
+        )}{" "}
         <Questions questions={data.data} />
       </div>
     );

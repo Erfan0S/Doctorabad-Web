@@ -20,6 +20,8 @@ import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
 import { QuestionsAnswersContext } from "../../../contexts/questionsAnswersContext";
+import { generateQuestionId } from "../../../utils/generateQuestionId";
+import { usePathname } from "next/navigation";
 
 const buttons = (
   question: QuestionType,
@@ -100,7 +102,6 @@ function QuestionItem({
   useEffect(() => {}, [initUserAnswer]);
 
   useEffect(() => {
-    console.log(selectedAnswer);
     addAnswer(
       {
         options: question.options,
@@ -113,7 +114,7 @@ function QuestionItem({
       },
       question.id
     );
-  }, [selectedAnswer]);
+  }, [selectedAnswer, questionStatus]);
 
   useEffect(() => {
     if (status === ExamStatus.FINISHED) setShowTestAnswer(true);
@@ -121,26 +122,43 @@ function QuestionItem({
   }, [status]);
 
   const AnewrButtons = () => {
-    if (status === ExamStatus.STARTED) return null;
+    const pathName = usePathname();
 
-    if (status === ExamStatus.DRAFT) {
+    if (
+      (status === ExamStatus.DRAFT || status === ExamStatus.STARTED) &&
+      pathName.includes("make")
+    ) {
       return (
         <div>
           <Button
             app={Apps.EXAM}
-            onClick={() => setQuestionStatus(QuestionStatus.NoT_SURE)}
+            onClick={() =>
+              setQuestionStatus((prev) =>
+                prev === QuestionStatus.NoT_SURE
+                  ? QuestionStatus.DEFAULT
+                  : QuestionStatus.NoT_SURE
+              )
+            }
           >
             شک دارم
           </Button>
           <Button
             app={Apps.EXAM}
-            onClick={() => setQuestionStatus(QuestionStatus.DONT_KNOW)}
+            onClick={() =>
+              setQuestionStatus((prev) =>
+                prev === QuestionStatus.DONT_KNOW
+                  ? QuestionStatus.DEFAULT
+                  : QuestionStatus.DONT_KNOW
+              )
+            }
           >
             بلد نیستم
           </Button>
         </div>
       );
     }
+
+    if (status === ExamStatus.STARTED) return null;
 
     return (
       <div>
@@ -166,7 +184,11 @@ function QuestionItem({
 
   return (
     <div
-      className={`${styles.questionItem} card ${mobileMode ? styles.mobileMode : ""}`}
+      className={`${styles.questionItem} card ${mobileMode ? styles.mobileMode : ""} ${questionStatus === QuestionStatus.NoT_SURE ? styles.notSureQuestion : ""} ${questionStatus === QuestionStatus.DONT_KNOW ? styles.dontKnowQuestion : ""}`}
+      id={generateQuestionId(
+        question.id.toString(),
+        question.lesson_id.toString()
+      )}
     >
       <h4>
         <span>{`${index + 1}/${total}`} - </span>

@@ -57,7 +57,7 @@ const OptionSwitch = ({
         });
       }
     }
-  }, [isDefaulChecked]);
+  }, [isDefaulChecked, addToQuery]);
 
   useEffect(() => {
     onToggle && onToggle(isChecked);

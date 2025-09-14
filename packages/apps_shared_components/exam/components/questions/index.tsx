@@ -29,7 +29,7 @@ function Questions({ questions, exam, mobileMode, isFavorite }: Props) {
     ? questions.filter((question) => question.lesson_id.toString() === lessonId)
     : questions;
 
-  console.log(questions);
+  console.log(filtredQuestions);
 
   return (
     <div className={`${styles.questionsWrapper} container`}>

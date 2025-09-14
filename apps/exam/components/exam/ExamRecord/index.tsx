@@ -63,6 +63,8 @@ function ExamRecord({ lessons, totalQuestions }: Props) {
     }
   };
 
+  console.log(lessons);
+
   return (
     <div className={`${style.examRecordWrapper} card`}>
       <h3>کارنامه تحلیلی آزمون</h3>

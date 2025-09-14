@@ -77,20 +77,23 @@ function MakeInputs() {
         isLoading={planLoading}
         isDefaulChecked={hasPlan}
         canChange={false}
+        key={SharedFilters.EXPLANATION}
       />
       <OptionSwitch
-        name={SharedFilters.RECORD}
+        name={SharedFilters.SHOW_RECORD}
         title="نمایش کارنامه تحلیلی آزمون"
         app={Apps.EXAM}
         addToQuery
-        isDefaulChecked={true}
+        // isDefaulChecked={true}
+        key={SharedFilters.SHOW_RECORD}
       />
       <OptionSwitch
         name={SharedFilters.MARKING}
         title="علامت گذاری سوالات و پاسخ برگ"
         app={Apps.EXAM}
         addToQuery
-        isDefaulChecked={true}
+        // isDefaulChecked={true}
+        key={SharedFilters.MARKING}
       />
       <OptionSwitch
         name={SharedFilters.MANUAL_TIME}
@@ -116,7 +119,7 @@ function MakeInputs() {
             app={Apps.EXAM}
             type="number"
             disabled={!manual}
-            placeholder="زمان آزمو(حداکثر 300 دقیقه)"
+            placeholder="زمان آزمون(حداکثر 300 دقیقه)"
             onChange={(e) =>
               setTime(inBoundValue(Number(e.target.value), 0, 300))
             }

@@ -6,11 +6,9 @@ import React, { Suspense } from "react";
 
 function singleLayout({ children }: { children: React.ReactNode }) {
   return (
-    <QuestionsAnswersProvider>
-      <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
-        {children}
-      </Suspense>
-    </QuestionsAnswersProvider>
+    <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
+      {children}
+    </Suspense>
   );
 }
 

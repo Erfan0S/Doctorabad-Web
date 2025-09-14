@@ -18,6 +18,7 @@ interface Props extends Omit<ModalProps, "data"> {
   app?: Apps;
   className?: string;
   haveAppIcon?: boolean;
+  haveCloseBtn?: boolean;
   customIcon?: React.ReactNode;
   submitText?: string;
   submitButton?: React.ReactNode;
@@ -34,6 +35,7 @@ function ModalWrapper({
   onSubmit,
   submitText = "تایید",
   submitButton,
+  haveCloseBtn = true,
 }: Props) {
   let appIcon;
   switch (app) {
@@ -63,18 +65,20 @@ function ModalWrapper({
         </div>
       )}
       {children}
-      <div className={style.closeBtn}>
-        {submitButton ? (
-          submitButton
-        ) : (
-          <Button
-            app={app}
-            onClick={() => (onSubmit ? onSubmit() : closeModal())}
-          >
-            {submitText}
-          </Button>
-        )}
-      </div>
+      {haveCloseBtn && (
+        <div className={style.closeBtn}>
+          {submitButton ? (
+            submitButton
+          ) : (
+            <Button
+              app={app}
+              onClick={() => (onSubmit ? onSubmit() : closeModal())}
+            >
+              {submitText}
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
