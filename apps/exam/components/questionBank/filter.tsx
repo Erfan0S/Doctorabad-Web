@@ -69,10 +69,7 @@ function QuestionBankFilter() {
     router.push(
       `${RoutePath.questions}?${SearchParamsUtils.paramsStringify(a)}`
     );
-    console.log(a);
   };
-
-  api.getArcgived().then((res) => console.log(res));
 
   return (
     <div className={`${style.filterContainer} container`}>

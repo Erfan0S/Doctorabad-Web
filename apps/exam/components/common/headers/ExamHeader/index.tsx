@@ -27,10 +27,6 @@ function ExamHeader({ children, title, suffix }: Props) {
 
   const { answers } = useContext(QuestionsAnswersContext);
 
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
   const onBack = () => {
     if (status === ExamStatus.STARTED) {
       toast.warning("آزمون هنوز تموم نشده!");

@@ -63,7 +63,6 @@ export const MyCourses = () => {
       </div>
     );
   }
-  console.log(courseData?.data);
 
   const showContent = () => {
     if (tab === myCoursesTabs.PLANS) {

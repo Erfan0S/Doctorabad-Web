@@ -44,14 +44,12 @@ async function SinglePage({ searchParams }: Props) {
         dates: dates?.split(",").map(Number),
         topics: topics?.split(",").map(Number),
         budgeting: budgeting ? Number(budgeting) : undefined,
-        question_count: Number(manualQuestions),
+        question_count: Number(manualQuestions) || 200,
         analyse: record ? 1 : undefined,
       })
     ).data;
     const status = (searchParams[SharedFilters.STATUS] ||
       ExamStatus.OBSERVING) as ExamStatus;
-
-    console.log(data);
 
     return (
       <div>

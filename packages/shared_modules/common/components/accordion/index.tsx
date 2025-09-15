@@ -68,8 +68,6 @@ const Accordion: React.FC<Props & FilterModalType> = ({
     changeFilters(deps);
   }, [queryKey && params?.get(queryKey)]);
 
-  console.log(selected);
-
   return (
     <div
       className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}

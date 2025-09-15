@@ -53,11 +53,6 @@ const QuestionsAnswersProvider = ({
   const [answers, setAnswers] = useState<
     Record<string, QuestionsAnswerContextType>
   >({});
-
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
   const addAnswer = useCallback(
     (answer: QuestionsAnswerContextType, id: number | string) => {
       setAnswers((prev) => ({ ...prev, [id.toString()]: answer }));

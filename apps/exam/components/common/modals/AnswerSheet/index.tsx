@@ -106,10 +106,6 @@ function AnswerSheetModal({ closeModal }: Props) {
     return answer.status === QuestionStatus.DONT_KNOW;
   }).length;
 
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
   return (
     <ModalWrapper
       closeModal={closeModal}

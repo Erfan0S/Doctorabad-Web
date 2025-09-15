@@ -9,7 +9,6 @@ import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../common/components";
 
 const SidePanelFavoritesExam: React.FC = () => {
-  examApi.getExamFavoriteList().then((res) => console.log(res));
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryFn: ({ pageParam }) =>
       examApi.getExamFavoriteList(Number(pageParam)).then((res) => res.data),

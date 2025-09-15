@@ -29,8 +29,6 @@ async function SinglePage({ params, searchParams }: Props) {
 
     const haveRecord = searchParams[SharedFilters.SHOW_RECORD];
 
-    console.log(status);
-    haveRecord;
     return (
       <div>
         <ExamHeader title={<PageTitle exam={data.exam} />}>
