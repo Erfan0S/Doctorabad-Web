@@ -13,8 +13,6 @@ import {
 } from "@repo/apps_shared_components/exam/types/filters.ts";
 import { api } from "@/api/Api";
 
-// TODO: use context instead of searchParams for end state
-
 type Props = {
   totalQuestions: number;
 };

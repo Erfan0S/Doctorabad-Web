@@ -14,9 +14,11 @@ const Providers = ({ children }: React.PropsWithChildren) => {
   );
 
   return (
-    <QuestionsAnswersProvider>
-      <SharedProviders modalList={ModalsList}>{children}</SharedProviders>;
-    </QuestionsAnswersProvider>
+    <QueryClientProvider client={client}>
+      <QuestionsAnswersProvider>
+        <SharedProviders modalList={ModalsList}>{children}</SharedProviders>
+      </QuestionsAnswersProvider>
+    </QueryClientProvider>
   );
 };
 

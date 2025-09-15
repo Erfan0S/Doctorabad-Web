@@ -126,7 +126,7 @@ function QuestionItem({
 
     if (
       (status === ExamStatus.DRAFT || status === ExamStatus.STARTED) &&
-      pathName.includes("make")
+      pathName?.includes("make")
     ) {
       return (
         <div>

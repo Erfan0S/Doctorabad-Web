@@ -14,7 +14,7 @@ export const generateProductMetaData = async ({
       ? api.getExamDetail(Number(params.id))
       : api.getExamDetail(Number(params.id));
     const { data } = await productFetcher;
-    const { title, picture, id } = data.data;
+    const { title, id } = data.exam;
     return {
       title,
       description: "description",
@@ -22,14 +22,12 @@ export const generateProductMetaData = async ({
       openGraph: {
         title,
         description: "description",
-        images: picture || "",
         url: `${baseUrls.market}${generateSingleProductUrlFromId(id, "", OrderType.Course)}`,
         siteName: "مرکز آموزش",
       },
       twitter: {
         title,
         description: "description",
-        images: picture || "",
         card: "summary_large_image",
       },
     };

@@ -3,15 +3,16 @@ import React from "react";
 import style from "./modalWrapper.module.scss";
 import { Button } from "..";
 import { Apps } from "@repo/core/types/general";
-// @ts-expect-error
+// @ts-ignore
 import examIcon from "../../../assets/img/doctor-exam.png";
-// @ts-expect-error
+// @ts-ignore
 import learnIcon from "../../../assets/img/doctor-learn.png";
-// @ts-expect-error
+// @ts-ignore
 import marketIcon from "../../../assets/img/doctor-market.png";
-// @ts-expect-error
+// @ts-ignore
 import baseIcon from "../../../assets/img/logo-without-text.png";
 import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface Props extends Omit<ModalProps, "data"> {
   children: React.ReactNode;
@@ -37,7 +38,7 @@ function ModalWrapper({
   submitButton,
   haveCloseBtn = true,
 }: Props) {
-  let appIcon;
+  let appIcon: string | StaticImport | undefined;
   switch (app) {
     case Apps.EXAM:
       appIcon = examIcon;
@@ -61,7 +62,9 @@ function ModalWrapper({
     >
       {haveAppIcon && (appIcon || customIcon) && (
         <div className={`card ${style.appIcon}`}>
-          {customIcon ? customIcon : <Image src={appIcon} alt="appIcon" />}
+          {customIcon
+            ? customIcon
+            : appIcon && <Image src={appIcon} alt="appIcon" />}
         </div>
       )}
       {children}

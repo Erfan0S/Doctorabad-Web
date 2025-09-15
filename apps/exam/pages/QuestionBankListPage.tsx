@@ -11,8 +11,9 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import BudgetingRecord from "@/components/exam/BudgetingRecord";
+import AppQueryClientProvider from "@/providers/queryClientProvider";
 
-function QuestionBankListPage() {
+function QuestionBankListPageComponent() {
   const {
     budgeting,
     date,
@@ -93,6 +94,14 @@ function QuestionBankListPage() {
         ))}
       </InfiniteScroll>
     </div>
+  );
+}
+
+function QuestionBankListPage() {
+  return (
+    <AppQueryClientProvider>
+      <QuestionBankListPageComponent />
+    </AppQueryClientProvider>
   );
 }
 
