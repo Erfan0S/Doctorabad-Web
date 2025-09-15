@@ -5,65 +5,22 @@ import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/conte
 import { LessonType } from "@/types/exam";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
+import PercentageBar from "./PercentageBar";
+import { calculatePercentage } from "@/utils/calculatePercentage";
 
 type Props = {
   lessons: LessonType[];
   totalQuestions: number | string;
 };
 
-const PercentageBar = ({
-  percentage,
-  title,
-  color,
-}: {
-  percentage: number | string;
-  title: string;
-  color?: "green" | "red" | "yellow";
-}) => {
-  return (
-    <div className={style.percentageBarWrapper}>
-      <div className={style.percentageBarTitle}>
-        <span>{title}</span>
-        <span>%{percentage}</span>
-      </div>
-      <div className={`${style.percentageBar} ${!!color ? style[color] : ""}`}>
-        <div style={{ left: `${percentage}%` }} />
-      </div>
-    </div>
-  );
-};
-
 function ExamRecord({ lessons, totalQuestions }: Props) {
-  const {
-    answers,
-    getCorrectAnswers,
-    getWrongAnswers,
-    getUnAnsweredQuestions,
-  } = useContext(QuestionsAnswersContext);
+  const { getCorrectAnswers, getWrongAnswers, getUnAnsweredQuestions } =
+    useContext(QuestionsAnswersContext);
   const [negativeScore, setNegativeScore] = useState(false);
 
   const correctAnswers = getCorrectAnswers();
   const wrongAnswers = getWrongAnswers();
   const unAnsweredQuestions = getUnAnsweredQuestions();
-
-  useEffect(() => {
-    console.log(unAnsweredQuestions.length);
-  }, [getUnAnsweredQuestions()]);
-
-  const calculatePercentage = (
-    correct: number,
-    wrong: number,
-    total: number,
-    negativeScore: boolean
-  ) => {
-    if (negativeScore) {
-      return (((3 * correct - wrong) / (3 * total)) * 100).toFixed(1);
-    } else {
-      return ((correct / total) * 100).toFixed(1);
-    }
-  };
-
-  console.log(lessons);
 
   return (
     <div className={`${style.examRecordWrapper} card`}>

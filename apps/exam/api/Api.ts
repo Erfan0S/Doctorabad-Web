@@ -7,7 +7,7 @@ import {
   ExamSliderType,
   ExamTopicType,
   ExamType,
-  MakerPaginatedResponse,
+  MakerResponseType,
   QuestionExplanationType,
   QuestionListParamsType,
   QuestionPageType,
@@ -78,7 +78,11 @@ class Api extends Request {
   //----------Question----------
 
   getQuestions = (
-    params: QuestionListParamsType & { page?: number }
+    params: QuestionListParamsType & {
+      page?: number;
+      explanation?: 1;
+      favorite?: 1;
+    }
   ): Promise<ResponseType<QuestionPaginatedResponse>> => {
     return this.request.post("/user/v1/lab/question", params);
   };
@@ -92,7 +96,7 @@ class Api extends Request {
 
   getQuestionMaker = (
     params: QuestionListParamsType
-  ): Promise<ResponseType<MakerPaginatedResponse>> => {
+  ): Promise<ResponseType<MakerResponseType>> => {
     return this.request.post("/user/v1/lab/question/maker", params);
   };
 

@@ -44,7 +44,7 @@ async function SinglePage({ searchParams }: Props) {
         dates: dates?.split(",").map(Number),
         topics: topics?.split(",").map(Number),
         budgeting: budgeting ? Number(budgeting) : undefined,
-        per_page: manualQuestions || 200,
+        question_count: Number(manualQuestions),
         analyse: record ? 1 : undefined,
       })
     ).data;

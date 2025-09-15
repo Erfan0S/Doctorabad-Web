@@ -7,6 +7,11 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { Apps } from "@repo/core/types/general";
 import { SelectFilterItems } from "@repo/core/types/filter";
+import {
+  QuestionListFilters,
+  QuestionListFiltersKey,
+} from "@repo/apps_shared_components/exam/types/questionListFilters.ts";
+import { useSearchParams } from "next/navigation";
 
 const FiltersItems: SelectFilterItems[] = [
   {
@@ -14,33 +19,41 @@ const FiltersItems: SelectFilterItems[] = [
     title: "همه سوالات",
   },
   {
-    id: "favorite",
+    id: QuestionListFilters.FAVORITE,
     title: "سوالات مورد علاقه‌",
   },
   {
-    id: "explanation",
+    id: QuestionListFilters.HAVE_EXPLANATION,
     title: "‌سوالات پاسخ تشریحی‌دار",
   },
   {
-    id: "answered",
+    id: QuestionListFilters.ANSWERED,
     title: "سوالات پاسخ داده شده",
   },
   {
-    id: "unanswered",
+    id: QuestionListFilters.NOT_ANSWERED,
     title: "سوالات پاسخ داده نشده",
   },
 ];
 
 function QuestionsFilterButton() {
+  const searchParams = useSearchParams();
+
+  const questionFilter = searchParams?.get(QuestionListFiltersKey);
+
   const onClickHandler = () => {
     modalActions.addModal(ModalTypes.SELECT_FILTER, {
       title: "چینش سوالات",
       items: FiltersItems,
-      queryKey: "filter",
+      queryKey: QuestionListFiltersKey,
       singleSelection: true,
       app: Apps.EXAM,
     });
   };
+
+  const currectFilter =
+    FiltersItems.find((filter) => filter.id === questionFilter) ||
+    FiltersItems[0];
 
   return (
     <Button
@@ -48,7 +61,7 @@ function QuestionsFilterButton() {
       className={style.filterBtn}
       onClick={onClickHandler}
     >
-      فیلتر <SortIcon />
+      {currectFilter.title || "فیلتر"} <SortIcon />
     </Button>
   );
 }
