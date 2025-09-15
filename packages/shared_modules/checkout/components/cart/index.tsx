@@ -44,12 +44,6 @@ const Cart = ({ app }: Props) => {
     }
   };
 
-  useEffect(() => {
-    console.log("cartLastSeen", cartLastSeen);
-    console.log("cartOthersBought", cartOthersBought);
-    console.log("cartSuggested", cartSuggested);
-  }, [cartLastSeen, cartOthersBought, cartSuggested]);
-
   return (
     <div className={`${style.cart} ${style[app]}`}>
       <div>

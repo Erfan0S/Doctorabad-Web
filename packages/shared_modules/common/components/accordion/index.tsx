@@ -1,12 +1,12 @@
 "use client";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import style from "./Accordion.module.scss";
 import TriangleDown from "../../../assets/svg/triangleDown";
-import {ModalTypes} from "@repo/shared_modules/modalsTypes";
-import {modalActions} from "@repo/core/modal/modals";
-import {useSearchParams} from "next/navigation";
-import {FilterModalType} from "@repo/core/types/filter";
-import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { modalActions } from "@repo/core/modal/modals";
+import { useSearchParams } from "next/navigation";
+import { FilterModalType } from "@repo/core/types/filter";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import Loading from "../loading";
 
 interface Props {
@@ -19,6 +19,7 @@ interface Props {
   dependencies?: (string | null)[];
   onClick?: () => void;
   isLoading?: boolean;
+  initialTitle?: string;
 }
 
 const Accordion: React.FC<Props & FilterModalType> = ({
@@ -32,9 +33,10 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   singleSelection,
   app,
   isLoading,
+  initialTitle,
 }) => {
   const params = useSearchParams();
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(initialTitle || null);
   const changeFilters = useChangeSearchParamsFilter();
 
   const handleClick = () => {
@@ -49,17 +51,22 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   };
 
   useEffect(() => {
+    setSelected(initialTitle || null);
+  }, [initialTitle]);
+
+  useEffect(() => {
+    if (!queryKey) return;
     const filter = params?.get(queryKey);
     setSelected(items.find((item) => item.id == filter)?.title || null);
 
-    let deps: {[key: string]: any} = {};
+    let deps: { [key: string]: any } = {};
     dependencies &&
       dependencies.map((dep) => {
         if (!dep) return;
-        deps = {...deps, [dep]: null};
+        deps = { ...deps, [dep]: null };
       });
     changeFilters(deps);
-  }, [params?.get(queryKey)]);
+  }, [queryKey && params?.get(queryKey)]);
 
   return (
     <div
@@ -67,7 +74,7 @@ const Accordion: React.FC<Props & FilterModalType> = ({
     >
       <div className={style.accordionTitle} onClick={handleClick}>
         <span>{isLoading ? <Loading app={app} /> : selected || title}</span>
-        <TriangleDown width={18} height={18} />
+        {isActive && queryKey && <TriangleDown width={18} height={18} />}
       </div>
 
       <div className={style.accordionContent}>{children}</div>

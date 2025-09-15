@@ -1,92 +1,58 @@
 import React from "react";
 import style from "./Course.module.scss";
 import { CourseDataType } from "@/types/courses";
-import { cartActions } from "@repo/core/states/cart";
-import { routePath } from "@repo/core/constants/routePath";
-import Link from "next/link";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { OrderType } from "@repo/core/types/cart";
-import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
-import Loading from "../common/Loading";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { AddToCartButton } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   course: CourseDataType;
-  orderId?: number | null;
   mainPrice: number;
   offPrice?: number | null;
 };
 
-export default function CourseButton({
-  course,
-  orderId,
-  mainPrice,
-  offPrice,
-}: Props) {
-  const { cartActionsLoadingHandler, updateCartLoading } =
-    useCartActionsLoadingHandler();
-
+export default function CourseButton({ course, mainPrice, offPrice }: Props) {
   return (
     <div
       className={`${style.purchaseBar} ${course.user_has_access && style.purchaseBarAccess}`}
     >
-      {!!orderId ? (
-        <div className={style.addedPurchaseButtonWrapper}>
-          <button
-            className={style.purchaseButton}
-            onClick={() => {
-              cartActions.removeFromCart(orderId);
-            }}
-          >
-            حذف از سبد خرید
-          </button>
-          <Link href={routePath.checkout} className={style.purchaseButton}>
-            رفتن به سبد خرید
-          </Link>
-        </div>
-      ) : course.user_has_access ? (
+      {course.user_has_access ? (
         <span
           className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
         >
           دانشجو این دوره ام!
         </span>
       ) : (
-        <button
-          className={style.purchaseButton}
-          onClick={authorizeClientAction(
-            cartActionsLoadingHandler(() =>
-              cartActions.addToCart(+course.id, OrderType.Course)
-            )
-          )}
+        <AddToCartButton
+          id={+course.id}
+          type={OrderType.Course}
+          app={Apps.LEARN}
+          isFullWidth
         >
-          {updateCartLoading ? (
-            <Loading />
-          ) : (
-            <>
-              {" "}
-              <span> شروع یادگیری کل دوره | </span>
+          <>
+            <span> شروع یادگیری کل دوره | </span>
+            <div>
               <div>
-                <div>
-                  {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-                  {offPrice && (
-                    <span className={style.priceOff}>
-                      {priceFormatter(mainPrice)}
-                      تومن
-                    </span>
-                  )}
-                </div>
-                <div>
-                  {priceFormatter(offPrice || mainPrice)}
-                  تومن
-                </div>
+                {/* {discountPercent && <small>٪{discountPercent}</small>} */}
+                {offPrice && (
+                  <span className={style.priceOff}>
+                    {priceFormatter(mainPrice)}
+                    تومن
+                  </span>
+                )}
               </div>
-            </>
-          )}
-        </button>
+              <div>
+                {priceFormatter(offPrice || mainPrice)}
+                تومن
+              </div>
+            </div>
+          </>
+        </AddToCartButton>
       )}
-      {course.only_watchable_on_app && (
+      {!!true && (
         <div
           className={`${style.appOnly} ${style.purchaseButton}`}
           onClick={() => modalActions.addModal(ModalTypes.AppOnly)}

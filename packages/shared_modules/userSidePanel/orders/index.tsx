@@ -1,21 +1,21 @@
-import {useState} from "react";
+import { useState } from "react";
 import {
   SidePanelFavoriteTab,
   SidePanelPage,
   SidePanelPageProps,
 } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
-import {appsTabsData} from "../constants/apps-tabs-data";
+import { appsTabsData } from "../constants/apps-tabs-data";
 import sidePanelStyle from "../sidePanel.module.scss";
 import SidePanelOrdersLearning from "./learning";
 import SidePanelOrdersShopping from "./shopping";
 import SidePanelOrdersContent from "./content";
 import SidePanelOrdersExam from "./exam";
 import classNames from "classnames";
-import {api} from "../../api/Api";
-import {CartIcon} from "../../assets";
+import { api } from "../../api/Api";
+import { CartIcon } from "../../assets";
 
-const SidePanelOrders: React.FC<SidePanelPageProps> = ({setPage}) => {
+const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const [currentTab, setCurrentTab] = useState(
     SidePanelFavoriteTab.LEARNING_CENTER
   );
@@ -23,7 +23,7 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({setPage}) => {
 
   const onChangeTab = (content: SidePanelFavoriteTab) => {
     setTabData((prev) =>
-      prev.map((item) => ({...item, active: item.content === content}))
+      prev.map((item) => ({ ...item, active: item.content === content }))
     );
     setCurrentTab(content);
   };
@@ -55,16 +55,14 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({setPage}) => {
       <div className="sidebar-tab-contents" id="orderListContainer">
         <div className={sidePanelStyle.sidePanelTabs}>
           <ul>
-            {tabData.map(({id, title, active, content, disabled}) => (
+            {tabData.map(({ id, title, content, disabled }) => (
               <li
                 key={id}
                 className={classNames(
-                  active && sidePanelStyle.active,
+                  currentTab === content && sidePanelStyle.active,
                   disabled && sidePanelStyle.disabled
                 )}
-                onClick={
-                  !active && !disabled ? () => onChangeTab(content) : undefined
-                }
+                onClick={!disabled ? () => onChangeTab(content) : undefined}
               >
                 {title}
               </li>

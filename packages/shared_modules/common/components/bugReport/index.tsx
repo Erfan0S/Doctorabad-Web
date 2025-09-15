@@ -7,18 +7,32 @@ import { ModalProps } from "@repo/core/types/modals";
 import { toast } from "react-toastify";
 import Loading from "../../components/loading";
 import BugIcon from "../../../assets/svg/bug";
+import { Apps } from "@repo/core/types/general";
+import { Button } from "..";
+
+// TODO: need test
 
 const BugReport = ({
   data,
   closeModal,
-}: ModalProps<{ productId: number; type: string }>) => {
+}: ModalProps<{ productId: number; app: Omit<Apps, Apps.BASE> }>) => {
   const [text, setText] = useState("");
 
+  const reportApi = () => {
+    switch (data.app) {
+      case Apps.LEARN:
+        return api.courseReportIssue(text, data.productId);
+      case Apps.MARKET:
+        return api.prodoctReportIssue(text, data.productId);
+      case Apps.EXAM:
+        return api.examReportIssue(text, data.productId);
+      default:
+        return new Promise((resolve) => resolve(null));
+    }
+  };
+
   const { isPending, mutate } = useMutation({
-    mutationFn: () =>
-      data.type == "course"
-        ? api.courseReportIssue({ text, productId: data.productId })
-        : api.prodoctReportIssue({ text, productId: data.productId }),
+    mutationFn: () => reportApi(),
     onSuccess: () => {
       toast("گزارش شما ثبت شد", { type: "success", position: "top-left" });
       closeModal();
@@ -31,9 +45,7 @@ const BugReport = ({
   };
 
   return (
-    <div
-      className={`${style.bugReportModal} ${data.type == "course" ? style.course : ""}`}
-    >
+    <div className={`${style.bugReportModal} ${style[data.app as string]}`}>
       <div className={style.bugReportModalIcon}>
         <BugIcon />
       </div>
@@ -45,9 +57,13 @@ const BugReport = ({
         name="bugReport"
         placeholder="هر چه میخواهد دل تنگت بگو ..."
       />
-      <button onClick={submit}>
-        {isPending ? <Loading size={12} /> : "بفرست بره!"}
-      </button>
+      <Button onClick={submit} app={data.app as Apps}>
+        {isPending ? (
+          <Loading size={12} app={data.app as Apps} />
+        ) : (
+          "بفرست بره!"
+        )}
+      </Button>
     </div>
   );
 };

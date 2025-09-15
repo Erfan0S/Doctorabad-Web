@@ -11,33 +11,35 @@ type Props = {
 
 const Configs = {
   [HomePageCourseSliders.MyCourses]: {
-    loader: () => api.getPrviosCourseOrders() || api.getPreviosPlanOrders(),
+    loader: async () =>
+      (await api.getPrviosCourseOrders()).data.data ||
+      (await api.getPreviosPlanOrders()).data.data,
     title: "دوره‌ها و طرح‌های من",
     archiveLink: "/my_course",
     queryKey: "my-courses",
   },
   [HomePageCourseSliders.Suggested]: {
-    loader: () => api.getSuggestedCourses(),
+    loader: async () => (await api.getSuggestedCourses()).data.data,
     title: "پیشنهاد کدخدای دکترآباد",
     archiveLink: "/course_list/" + CourseListType.Suggested,
     queryKey: "suggested-courses",
   },
 
   [HomePageCourseSliders.Newest]: {
-    loader: () => api.getNewestCourses(),
+    loader: async () => (await api.getNewestCourses()).data.data,
     title: "جدید‌ترین ها",
     archiveLink: "/course_list/" + CourseListType.Newest,
     queryKey: "newest-courses",
   },
   [HomePageCourseSliders.BestSeller]: {
-    loader: () => api.getBestSellerCourses(),
+    loader: async () => (await api.getBestSellerCourses()).data.data,
     title: "پرفروش‌ترین ها",
     archiveLink: "/course_list/" + CourseListType.BestSeller,
     queryKey: "bestseller-courses",
   },
 
   [HomePageCourseSliders.LastViewed]: {
-    loader: () => api.getUserLastViewedCourses(),
+    loader: async () => (await api.getUserLastViewedCourses()).data.data,
     title: "آخرین بازدید‌های من",
     archiveLink: null,
     queryKey: "lastviewed-courses",

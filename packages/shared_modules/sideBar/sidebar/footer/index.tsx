@@ -11,7 +11,7 @@ import {
 } from "@repo/core/utils/authUtils";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
-import { SidePanelPage } from "@repo/core/types/general";
+import { SidePanelPage } from "@repo/core/types/sidePanel";
 import { HomeIcon, ChatIcon, QrScannerIcon } from "@repo/shared_modules/icons";
 
 const SidebarFooter = () => {

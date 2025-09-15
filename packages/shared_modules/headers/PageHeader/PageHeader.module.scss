@@ -29,6 +29,38 @@ html .sidePanelHeaderContainer .baseColor {
       align-items: center;
       flex-direction: row-reverse;
       border-radius: radius(3);
+
+      button {
+        flex-direction: row;
+        background-color: #fff;
+        margin: 0 0 0 space(2);
+        border: unset;
+        border-radius: radius(3);
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        outline: none;
+        color: black;
+        gap: 5px;
+
+        &:first-of-type {
+          margin: 0;
+        }
+
+        &:active,
+        &:focus {
+          outline: none;
+        }
+
+        img,
+        svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
     }
 
     > span {
@@ -43,39 +75,13 @@ html .sidePanelHeaderContainer .baseColor {
     }
 
     .headerButton {
-      background-color: #fff;
-      margin: 0 0 0 space(2);
-      border: unset;
-      border-radius: radius(3);
       width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      outline: none;
-
-      &:first-of-type {
-        margin: 0;
-      }
-
-      &:active,
-      &:focus {
-        outline: none;
-      }
-
-      img,
-      svg {
-        width: 30px;
-        height: 30px;
-      }
     }
   }
 
   .sidePanelHeaderChildren {
     width: 100%;
-    padding: 0 10px;
+    // padding: 0 10px;
     // > div {
     //   margin: 10px 0;
     // }

@@ -1,13 +1,14 @@
 "use client";
-import {api} from "@/api/Api";
-import useGetQuestionParams from "@/hooks/useGetQuestionParams";
-import {Apps} from "@repo/core/types/general";
-import SearchInput from "@repo/shared_modules/ui/SearchInput/index";
-import {useQuery} from "@tanstack/react-query";
-import React from "react";
+import { api } from "@/api/Api";
+import useGetFilterParams from "@/hooks/useGetQuestionParams";
+import { Apps } from "@repo/core/types/general";
+import { SearchInput } from "@repo/shared_modules/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 
 function QuestionSearchInpt() {
-  const params = useGetQuestionParams();
+  const params = useGetFilterParams();
   const {
     budgeting,
     date,
@@ -21,19 +22,19 @@ function QuestionSearchInpt() {
     topics,
   } = params;
 
-  const {data, isLoading} = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["questionCount", params],
     queryFn: () =>
       api.getQestionCount({
-        field: field || undefined,
-        budgeting: budgeting || undefined,
-        dates: date?.split(","),
-        grade: grade || undefined,
-        lesson: lesson || undefined,
-        places: place?.split(","),
+        field: Number(field) || undefined,
+        budgeting: Number(budgeting) || undefined,
+        dates: date?.split(",").map(Number),
+        grade: Number(grade) || undefined,
+        lesson: Number(lesson) || undefined,
+        places: place?.split(",").map(Number),
         tip: tip ? "1" : undefined,
         title: query || undefined,
-        topics: topics?.split(","),
+        topics: topics?.split(",").map(Number),
       }),
   });
 

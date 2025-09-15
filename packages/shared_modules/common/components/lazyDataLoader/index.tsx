@@ -6,7 +6,7 @@ import { ReactNode, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 type Props<D = any> = {
-  loader: () => Promise<ResponseType<D>>;
+  loader: () => Promise<D>;
   queryKey: string;
   component: (p: { data: D }) => ReactNode;
   placeHolder: () => ReactNode;
@@ -78,5 +78,5 @@ export const LazyDataLoader = <S extends Object>({
       </div>
     );
 
-  return <Component data={data!.data} />;
+  return <Component data={data} />;
 };

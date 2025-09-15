@@ -3,15 +3,20 @@ import {
   BudgetingType,
   ExamDateType,
   ExamFieldGradeType,
+  ExamPaginatedResponse,
   ExamSliderType,
+  ExamTopicType,
   ExamType,
+  MakerResponseType,
   QuestionExplanationType,
   QuestionListParamsType,
+  QuestionPageType,
+  QuestionPaginatedResponse,
   QuestionType,
 } from "@/types/exam";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { Request } from "@repo/core/http-request/Request";
-import { ResponseType } from "@repo/core/types/general";
+import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
 import { toast } from "react-toastify";
 
 class Api extends Request {
@@ -30,11 +35,12 @@ class Api extends Request {
     grade_id?: number;
     places?: number[];
     dates?: number[];
-  }): Promise<ResponseType<{ data: ExamType[] }>> => {
-    return this.request.get("/user/v1/lab/exam", { params });
+    page?: number;
+  }): Promise<ResponseType<ExamPaginatedResponse<ExamType[]>>> => {
+    return this.request.post("/user/v1/lab/exam", { ...params });
   };
 
-  getExamDetail = (id: number): Promise<ResponseType<{ data: ExamType }>> => {
+  getExamDetail = (id: number): Promise<ResponseType<QuestionPageType>> => {
     return this.request.get(`/user/v1/lab/exam/${id}`);
   };
 
@@ -63,8 +69,8 @@ class Api extends Request {
   };
 
   getExamDates = (
-    field_id: number,
-    grade_id: number
+    field_id?: number,
+    grade_id?: number
   ): Promise<ResponseType<{ data: ExamDateType[] }>> => {
     return this.request.post(`/user/v1/lab/exam/dates`, { field_id, grade_id });
   };
@@ -72,10 +78,12 @@ class Api extends Request {
   //----------Question----------
 
   getQuestions = (
-    params: QuestionListParamsType
-  ): Promise<
-    ResponseType<{ data: QuestionType[]; budgeting: BudgetingType }>
-  > => {
+    params: QuestionListParamsType & {
+      page?: number;
+      explanation?: 1;
+      favorite?: 1;
+    }
+  ): Promise<ResponseType<QuestionPaginatedResponse>> => {
     return this.request.post("/user/v1/lab/question", params);
   };
 
@@ -88,7 +96,7 @@ class Api extends Request {
 
   getQuestionMaker = (
     params: QuestionListParamsType
-  ): Promise<ResponseType<{ data: QuestionType[]; budgeting: unknown[] }>> => {
+  ): Promise<ResponseType<MakerResponseType>> => {
     return this.request.post("/user/v1/lab/question/maker", params);
   };
 
@@ -130,7 +138,7 @@ class Api extends Request {
 
   getQuestionTopics = (
     lesson_id: number
-  ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
+  ): Promise<ResponseType<{ data: ExamTopicType[] }>> => {
     return this.request.post(`/user/v1/lab/question/topics`, {
       lesson_id,
     });
@@ -159,7 +167,7 @@ class Api extends Request {
     return this.request.get("/user/v1/lab/question/favorite");
   };
 
-  addQuestionFavorite = (question: number, favorite?: boolean): Promise<{}> => {
+  addQuestionFavorite = (question: number, favorite?: number): Promise<{}> => {
     return this.request.post(`/user/v1/lab/question/favorite`, {
       question,
       favorite,
@@ -168,9 +176,11 @@ class Api extends Request {
 
   //----------Archived Filter----------
   getArcgived = (
-    params: QuestionListParamsType
-  ): Promise<ResponseType<{ data: QuestionType[] }>> => {
-    return this.request.post("/user/v1/lab/question/archived/filter", params);
+    params?: Partial<QuestionListParamsType>
+  ): Promise<ResponseType<PaginatedResponse<ArchivedType[]>>> => {
+    return this.request.get("/user/v1/lab/question/archived/filter", {
+      params,
+    });
   };
 
   deleteArchived = (question: number): Promise<{}> => {
@@ -199,16 +209,6 @@ class Api extends Request {
 
   getExamSlider = (): Promise<ResponseType<{ data: ExamSliderType[] }>> => {
     return this.request.get("/user/v1/lab/sliders");
-  };
-
-  getDiscountPlans = (): Promise<
-    ResponseType<{ data: DiscountPlanType[] }>
-  > => {
-    return this.request.get("/user/v1/discount/plans?type=2");
-  };
-
-  userHasPlan = (): Promise<ResponseType<HasDiscountPlanType>> => {
-    return this.request.get("/user/v1/discount/plans/check?type=2");
   };
 }
 

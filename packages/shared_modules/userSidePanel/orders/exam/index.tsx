@@ -1,5 +1,5 @@
 const SidePanelOrdersExam: React.FC = () => {
-  return <>SidePanelOrdersExam</>;
+  return <div>هیچ تک‌آزمونی نیست!</div>;
 };
 
 export default SidePanelOrdersExam;

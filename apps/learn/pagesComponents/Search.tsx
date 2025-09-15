@@ -26,10 +26,6 @@ const Search = () => {
       },
     });
 
-  useEffect(() => {
-    console.log(isError);
-  }, [isError]);
-
   return (
     <div className="container">
       {isLoading && !isError ? (

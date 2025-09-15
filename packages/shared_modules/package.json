@@ -18,13 +18,14 @@
     "./components": "./common/components/index.ts",
     "./assets/styles/*": "./assets/styles/*.scss",
     "./headers": "./headers/index.ts",
-    "./ui/*": "./common/components/ui/*.tsx"
+    "./ui": "./common/components/ui/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
+    "@repo/apps_shared_components": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.12.4",
@@ -34,6 +35,7 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
+    "@repo/apps_shared_components": "*",
     "eslint": "^8.45.0",
     "eslint-config-next": "^13.4.10",
     "next": "^14.1.0",

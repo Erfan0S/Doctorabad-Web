@@ -1,38 +1,39 @@
 "use client";
 import React from "react";
-import style from "./Filters.module.scss";
-import Accordion from "@/components/accordion";
-import {api} from "@/api/Api";
-import {FiltersNames, SortType} from "@/types/filters";
-import {useQuery} from "@tanstack/react-query";
-import {useSearchParams} from "next/navigation";
+import { api } from "@/api/Api";
+import { FiltersNames, SortType } from "@/types/filters";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { SelectFilterQroup } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
+import { SelectQroupItemType } from "@repo/core/types/filter";
 
 const Filters = () => {
   const params = useSearchParams();
 
-  const {data: field, isLoading: fieldLoading} = useQuery({
+  const { data: field, isLoading: fieldLoading } = useQuery({
     queryKey: [FiltersNames.FIELD],
     queryFn: () => api.getFields(2),
   });
-  const {data: grade, isLoading: gradeLoading} = useQuery({
+  const { data: grade, isLoading: gradeLoading } = useQuery({
     queryKey: [FiltersNames.GRADE],
     queryFn: () =>
       api.getGrades(2, (params?.get(FiltersNames.FIELD) || 1) as number),
     enabled: !!params?.get(FiltersNames.FIELD),
   });
-  const {data: language, isLoading: languageLoading} = useQuery({
+  const { data: language, isLoading: languageLoading } = useQuery({
     queryKey: [FiltersNames.LANGUAGE],
     queryFn: () => api.getLanguages(),
     enabled: true,
   });
-  const {data: category, isLoading: categoryLoading} = useQuery({
+  const { data: category, isLoading: categoryLoading } = useQuery({
     queryKey: [FiltersNames.CATEGORY],
     queryFn: () =>
       api.getCategoriesByGrade(+(params?.get(FiltersNames.GRADE) || 1)),
     enabled:
       !!params?.get(FiltersNames.FIELD) && !!params?.get(FiltersNames.GRADE),
   });
-  const {data: provider, isLoading: providerLoading} = useQuery({
+  const { data: provider, isLoading: providerLoading } = useQuery({
     queryKey: [FiltersNames.PROVIDER],
     queryFn: () => api.getProviders(),
   });
@@ -70,7 +71,7 @@ const Filters = () => {
     },
   ];
 
-  const FiltersData = [
+  const FiltersData: SelectQroupItemType[] = [
     {
       title: "رشته",
       data: field?.data.data || [],
@@ -97,14 +98,14 @@ const Filters = () => {
     },
     {
       title: "ارائه‌دهنده",
-      data: ProviderData,
+      data: ProviderData || [],
       name: FiltersNames.PROVIDER,
       loading: providerLoading,
       isActive: true,
     },
     {
       title: "زبان",
-      data: LanguageData,
+      data: LanguageData || [],
       name: FiltersNames.LANGUAGE,
       loading: languageLoading,
       isActive: true,
@@ -118,21 +119,7 @@ const Filters = () => {
     },
   ];
 
-  return (
-    <div className={style.filters}>
-      {FiltersData.map((filter, index) => (
-        <Accordion
-          className={style.filtersAccordion}
-          title={filter.title}
-          items={filter.data || []}
-          queryKey={filter.name}
-          singleSelection={true}
-          isActive={!filter.loading && filter.isActive}
-          dependencies={filter.dependencies}
-        />
-      ))}
-    </div>
-  );
+  return <SelectFilterQroup items={FiltersData} app={Apps.LEARN} />;
 };
 
 export default Filters;

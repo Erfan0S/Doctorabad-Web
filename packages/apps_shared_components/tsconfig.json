@@ -1,0 +1,26 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "plugins": [
+    {
+      "name": "a_s_c"
+    }
+  ],
+
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx"
+  },
+  "paths": {
+    "@/*": ["./*"],
+    "src/*": ["./*"],
+    "react": ["./node_modules/@types/react"]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "index.d.ts",
+    "../core/src/types/sidePanel.ts"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,12 +1,12 @@
 "use client";
-import {api} from "@/api/Api";
+import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
 import Loading from "@/components/common/Loading";
-import {CourseListItemType} from "@/types/courses";
-import {FiltersNames, SortType} from "@/types/filters";
-import {PaginatedResponse} from "@repo/core/types/general";
-import {useInfiniteQuery} from "@tanstack/react-query";
-import {useSearchParams} from "next/navigation";
+import { CourseListItemType } from "@/types/courses";
+import { FiltersNames, SortType } from "@/types/filters";
+import { PaginatedResponse } from "@repo/core/types/general";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 const FilterPageList = () => {
@@ -31,10 +31,10 @@ const FilterPageList = () => {
       : undefined,
   };
 
-  const {data, isLoading, fetchNextPage, hasNextPage} = useInfiniteQuery<
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryFn: ({pageParam}) =>
+    queryFn: ({ pageParam }) =>
       api.getFilterList(filterParams).then((res) => res.data),
     queryKey: ["FilterList", filterParams],
     enabled: true,

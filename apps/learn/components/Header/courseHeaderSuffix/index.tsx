@@ -12,6 +12,7 @@ import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/Loading";
+import { Apps } from "@repo/core/types/general";
 
 interface Button {
   icon: React.ReactNode;
@@ -29,9 +30,11 @@ const CourseHeaderSiffix = ({
   currentLessonId,
   goToBookmark,
 }: Props) => {
-  const { isFavorite, toggleFavorite } = useToggleFavoriteProduct(
-    !!course.user_favorite
-  );
+  const {
+    isFavorite,
+    toggleFavorite,
+    isLoading: favoriteLoading,
+  } = useToggleFavoriteProduct(!!course.user_favorite);
 
   const { shareProduct, isLoading: shareLoading } = useShareProduct(
     async () => {
@@ -57,7 +60,13 @@ const CourseHeaderSiffix = ({
 
   const buttons: Button[] = [
     {
-      icon: isFavorite ? <HeartFillIcon color="red" /> : <HeartIcon />,
+      icon: favoriteLoading ? (
+        <Loading />
+      ) : isFavorite ? (
+        <HeartFillIcon color="red" />
+      ) : (
+        <HeartIcon />
+      ),
       onClick: favoriteOnClick,
     },
     {
@@ -69,7 +78,7 @@ const CourseHeaderSiffix = ({
       onClick: () =>
         modalActions.addModal(ModalTypes.BUG_REPORT, {
           productId: course.id,
-          type: "course",
+          app: Apps.LEARN,
         }),
     },
     {

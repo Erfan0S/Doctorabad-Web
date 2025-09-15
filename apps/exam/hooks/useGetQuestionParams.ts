@@ -1,17 +1,18 @@
-import {useSearchParams} from "next/navigation";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
+import { useSearchParams } from "next/navigation";
 
-export default function useGetQuestionParams() {
+export default function useGetFilterParams() {
   const searchParams = useSearchParams();
-  const query = searchParams?.get("query");
-  const field = searchParams?.get("field");
-  const grade = searchParams?.get("grade");
-  const lesson = searchParams?.get("lesson");
-  const date = searchParams?.get("date");
-  const place = searchParams?.get("place");
-  const explanation = searchParams?.get("explanation");
-  const tip = searchParams?.get("tip");
-  const budgeting = searchParams?.get("budgeting");
-  const topics = searchParams?.get("topics");
+  const query = searchParams?.get("q");
+  const field = searchParams?.get(SharedFilters.FIELD);
+  const grade = searchParams?.get(SharedFilters.GRADE);
+  const lesson = searchParams?.get(SharedFilters.LESSON);
+  const date = searchParams?.get(SharedFilters.DATE);
+  const place = searchParams?.get(SharedFilters.PLACE);
+  const explanation = searchParams?.get(SharedFilters.EXPLANATION);
+  const tip = searchParams?.get(SharedFilters.TIP);
+  const budgeting = searchParams?.get(SharedFilters.BUDGETING);
+  const topics = searchParams?.get(SharedFilters.TOPIC);
 
   const params = {
     query,
@@ -24,6 +25,7 @@ export default function useGetQuestionParams() {
     tip,
     budgeting,
     topics,
+    searchParams,
   };
 
   return params;

@@ -5,13 +5,13 @@ import style from "./PageHeader.module.scss";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 
 interface Props {
-  title: string;
+  title: string | React.ReactNode;
   app?: Apps;
   className?: string;
   suffix?: React.ReactNode;
   children?: React.ReactNode;
   haveMargin?: boolean;
-  onBack?: () => void;
+  onBack?: (callBack: () => void) => void;
   useBaseColor?: boolean;
 }
 const PageHeader: React.FC<Props> = ({
@@ -27,7 +27,7 @@ const PageHeader: React.FC<Props> = ({
 
   const OnBack = () => {
     if (onBack) {
-      onBack();
+      onBack(() => navHistory.goBack());
     } else {
       navHistory.goBack();
     }

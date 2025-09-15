@@ -47,10 +47,10 @@ import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
 import {
   CourseListItemType,
-  CourseOrderItem,
   CourseOrderItemOld,
 } from "@repo/core/types/course";
 import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
+import { ExamFavoriteList } from "@repo/core/types/exam";
 
 class Api extends Request {
   constructor() {
@@ -104,12 +104,14 @@ class Api extends Request {
 
   // Discount Plans
 
-  getDiscountPlans = (): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
-    return this.request.get(`/user/v1/discount/plans?type=${1}`);
+  getDiscountPlans = (
+    type: 1 | 2 = 1
+  ): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
+    return this.request.get(`/user/v1/discount/plans?type=${type}`);
   };
 
-  getUserPlans(): Promise<ResponseType<UserPlans>> {
-    return this.request.get(`/user/v1/discount/plans/check?type=${1}`);
+  getUserPlans(type: 1 | 2 = 1): Promise<ResponseType<UserPlans>> {
+    return this.request.get(`/user/v1/discount/plans/check?type=${type}`);
   }
 
   // cart
@@ -356,6 +358,8 @@ class Api extends Request {
     return this.request.get(`/user/v1/education/previous/orders/${orderCode}`);
   };
 
+  // favorites
+
   getLearnFavoriteList = (
     page: number = 1
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> => {
@@ -368,32 +372,6 @@ class Api extends Request {
     page: number
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get(`/user/shop/favorite/list?page=${page}`);
-  };
-
-  prodoctReportIssue = ({
-    text,
-    productId,
-  }: {
-    text: string;
-    productId: number;
-  }): Promise<any> => {
-    return this.request.post(`/user/shop/error/report`, {
-      error_report_text: text,
-      id: productId,
-    });
-  };
-
-  courseReportIssue = ({
-    text,
-    productId,
-  }: {
-    text: string;
-    productId: number;
-  }): Promise<any> => {
-    return this.request.post(`/user/v1/education/error/report`, {
-      error_report_text: text,
-      id: productId,
-    });
   };
 
   getLiveChatInformation = (): Promise<
@@ -470,6 +448,32 @@ class Api extends Request {
       }
     );
   }
+
+  // bug report
+
+  courseReportIssue = (text: string, productId: number): Promise<any> => {
+    return this.request.post(`/user/v1/education/error/report`, {
+      error_report_text: text,
+      id: productId,
+    });
+  };
+
+  prodoctReportIssue = (
+    text: string,
+    productId: number
+  ): Promise<ResponseType<PaginatedResponse<ExamFavoriteList>>> => {
+    return this.request.post(`/user/shop/error/report`, {
+      error_report_text: text,
+      id: productId,
+    });
+  };
+
+  examReportIssue = (text: string, questionId: number): Promise<any> => {
+    return this.request.post(`/user/v1/lab/report`, {
+      message: text,
+      question_id: questionId,
+    });
+  };
 }
 
 export const api = new Api();

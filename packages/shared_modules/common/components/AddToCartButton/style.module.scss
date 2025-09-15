@@ -1,0 +1,19 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.addedButtonsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.fullWidth {
+  width: 100%;
+  > button {
+    width: 100%;
+  }
+}
