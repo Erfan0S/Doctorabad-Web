@@ -7,6 +7,7 @@ import {
 } from "@repo/apps_shared_components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../common/components";
+import { QuestionsAnswersProvider } from "@repo/apps_shared_components";
 
 const SidePanelFavoritesExam: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -27,17 +28,24 @@ const SidePanelFavoritesExam: React.FC = () => {
 
   return (
     <>
-      <QuestionsLessonsFilter lessons={data?.pages[0].lessons || []} />
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={() => fetchNextPage()}
-        hasMore={hasNextPage}
-        loader={<Loading />}
-      >
-        {data?.pages.map((questions, i) => (
-          <Questions questions={questions.data} mobileMode key={i} isFavorite />
-        ))}
-      </InfiniteScroll>
+      <QuestionsAnswersProvider>
+        <QuestionsLessonsFilter lessons={data?.pages[0].lessons || []} />
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={() => fetchNextPage()}
+          hasMore={hasNextPage}
+          loader={<Loading />}
+        >
+          {data?.pages.map((questions, i) => (
+            <Questions
+              questions={questions.data}
+              mobileMode
+              key={i}
+              isFavorite
+            />
+          ))}
+        </InfiniteScroll>
+      </QuestionsAnswersProvider>
     </>
   );
 };

@@ -25,6 +25,7 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
+    "@repo/apps_shared_components": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.12.4",
