@@ -29,6 +29,16 @@ module.exports = {
                 NODE_ENV: "production",
                 PORT: 3003
             }
-        }
+        },
+        {
+            name: "mono-exam",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/exam",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3004
+            }
+        },
     ]
 };
