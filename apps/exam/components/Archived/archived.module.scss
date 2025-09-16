@@ -20,7 +20,7 @@
 
   p {
     color: $gray;
-    font-size: large;
+    font-size: larger;
     font-weight: 600;
     margin: 0;
   }
@@ -47,5 +47,11 @@
         font-size: larger;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .archivedItemWrapper {
+    width: 100%;
   }
 }

@@ -130,7 +130,9 @@ function ArchivedItem({ data }: Props) {
   return (
     <div className={`${style.archivedItemWrapper} card`}>
       <SelectFilterQroup dontHaveQuery items={filters} app={Apps.EXAM} />
-      {!!data.title && <p>عبات جست و جو شده: {data.title}</p>}
+      {!!data.title && <p>عبارت جست و جو شده: {data.title}</p>}
+      {!!data.budgeting && <p>نمایش بودجه بندی سوالات</p>}
+      {!!data.tip && <p>نمایش سوالات تیپ‌دار</p>}
       <div className={style.archivedItemFooter}>
         <span>{formatTimeJ(data.created_at)}</span>
         <div>

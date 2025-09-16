@@ -1,16 +1,14 @@
-import { QuestionType } from "@/types/exam";
 import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper } from "@repo/shared_modules/components";
 import React from "react";
 import style from "./questionInfoModal.module.scss";
+import { QuestionType } from "../../../../types/exam";
 
 type Props = ModalProps<{
   question: QuestionType;
   examTitle: string;
 }>;
-
-// ! TODO: need to move to app_shared_components
 
 function QuestionInfoModal({
   closeModal,

@@ -1,9 +1,9 @@
 "use client";
-import { api } from "@/api/Api";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { api } from "../api/Api";
 
 export const useToggleFavoriteQuestion = (initialState: boolean) => {
   const [isFavorite, setIsFavorite] = useState(initialState);
