@@ -50,6 +50,11 @@
     width: auto;
     aspect-ratio: 1/1;
   }
+  .noImage {
+    background: white;
+    border: 1px solid $lightGray;
+    padding: 12px;
+  }
 
   &Price {
     font-size: 14px;

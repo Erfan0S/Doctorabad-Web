@@ -97,7 +97,7 @@ function MakeInputs() {
       />
       <OptionSwitch
         name={SharedFilters.MANUAL_TIME}
-        title="تعیین دستی زمان و تداد سوالات!"
+        title="تعیین دستی زمان و تعداد سوالات!"
         app={Apps.EXAM}
         onToggle={(value) => setManual(value)}
       />

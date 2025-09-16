@@ -10,6 +10,7 @@ import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import examIcon from "@repo/shared_modules/images/doctor-exam.png";
 
 type Props = {
   item: ExamType;
@@ -22,11 +23,12 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
     <div className={`${style.singleItem} card`}>
       <div>
         <Image
-          src={item.picture || ""}
+          src={item.picture || examIcon}
           alt={item.title}
           placeholder={placeHolderDataUrl}
           width={100}
           height={100}
+          className={!item.picture ? style.noImage : ""}
         />
         <div className={style.singleItemDescription}>
           <h3>{item.title}</h3>
