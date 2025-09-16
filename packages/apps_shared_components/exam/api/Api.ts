@@ -28,6 +28,13 @@ class Api extends Request {
   ): Promise<ResponseType<FavoritePaginatedResponse>> => {
     return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
   };
+
+  addQuestionFavorite = (question: number, favorite?: number): Promise<{}> => {
+    return this.request.post(`/user/v1/lab/question/favorite`, {
+      question,
+      favorite,
+    });
+  };
 }
 
 export const api = new Api();

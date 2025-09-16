@@ -53,7 +53,7 @@ export const HomePageProductSliders = ({ type }: Props) => {
       queryKey={configs[type].queryKey}
       component={(d) => (
         <ProductSlider
-          data={d.data.data}
+          data={d.data.data.data}
           title={configs[type].title}
           archiveLink={configs[type].archiveLink}
         />
