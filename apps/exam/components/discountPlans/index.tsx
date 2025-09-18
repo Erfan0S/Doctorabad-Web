@@ -7,6 +7,7 @@ import Loading from "../common/Loading/Loading";
 import style from "./discountPlans.module.scss";
 import { UserPlanItem } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 function DiscountPlans() {
   const { data, isLoading } = useQuery({
@@ -16,6 +17,7 @@ function DiscountPlans() {
   const { data: userPlans, isLoading: userPlansLoading } = useQuery({
     queryKey: ["UserPlans"],
     queryFn: () => api.getUserPlans(2),
+    enabled: !!isUserLoggedIn(),
   });
 
   return (

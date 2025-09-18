@@ -16,6 +16,10 @@ import Button from "@/components/common/Button/Button";
 import { Input } from "@repo/shared_modules/ui";
 import { RoutePath } from "@/constants/routPaths";
 import { inBoundValue } from "@repo/core/utils/inBoundValue";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
@@ -28,6 +32,7 @@ function MakeInputs() {
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
     queryFn: () => coreApi.getUserPlans(2),
+    enabled: !!isUserLoggedIn(),
   });
 
   const hasPlan =
@@ -130,10 +135,15 @@ function MakeInputs() {
         </div>
       )}
       <div className={style.makeInputsButtonWrapper}>
-        <Button variant="secondary" onClick={() => onStartClick()}>
+        <Button
+          variant="secondary"
+          onClick={authorizeClientAction(() => onStartClick())}
+        >
           فیلترکن و نشون بده!
         </Button>
-        <Button onClick={() => onStartClick(true)}>شروع آزمون</Button>
+        <Button onClick={authorizeClientAction(() => onStartClick(true))}>
+          شروع آزمون
+        </Button>
       </div>
     </div>
   );

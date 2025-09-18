@@ -22,6 +22,7 @@ import { api } from "@/api/Api";
 import Link from "next/link";
 import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
@@ -30,6 +31,7 @@ function QuestionBankFilter() {
   const { data: planData, isLoading: planLoading } = useQuery({
     queryKey: ["userHasPlan"],
     queryFn: () => sharedApi.getUserPlans(2),
+    enabled: !!isUserLoggedIn(),
   });
   const { data: archivedData, isLoading: archivedLoading } = useQuery({
     queryKey: ["userHasArchived"],

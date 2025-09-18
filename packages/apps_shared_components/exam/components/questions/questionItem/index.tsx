@@ -16,12 +16,17 @@ import QuestionInput from "./questionItemInput";
 import Image from "next/image";
 import QuestionExplanation from "./questionExplanation";
 import Loading from "../../common/Loading";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
 import { QuestionsAnswersContext } from "../../../contexts/questionsAnswersContext";
 import { generateQuestionId } from "../../../utils/generateQuestionId";
 import { usePathname } from "next/navigation";
+import { toast } from "react-toastify";
+import { explanationError } from "../../../constants/massages";
 
 const buttons = (
   question: QuestionType,
@@ -165,7 +170,10 @@ function QuestionItem({
         {question.has_explanation && (
           <Button
             app={Apps.EXAM}
-            onClick={() => setShowAnswer((prev) => !prev)}
+            onClick={() => {
+              if (!isUserLoggedIn()) toast.error(explanationError);
+              else setShowAnswer((prev) => !prev);
+            }}
           >
             پاسخ تشریحی
           </Button>

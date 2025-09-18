@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./questionItem.module.scss";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,7 @@ import Loading from "../../common/Loading";
 import { api } from "../../../api/Api";
 import { toast } from "react-toastify";
 import { explanationError } from "../../../constants/massages";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props = {
   questionId: number;
@@ -15,13 +16,13 @@ type Props = {
 
 function QuestionExplanation({ questionId, enabled, examId }: Props) {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["questions", questionId],
+    queryKey: [`questionExplanation-${questionId}-${examId}`],
     queryFn: () =>
       api.getQuestionExplanation({
         question_id: questionId,
         exam_id: examId,
       }),
-    enabled,
+    enabled: !!isUserLoggedIn() && enabled,
     retry: (failureCount, error) => {
       const e = error as any;
       if (e.status == 422) {
@@ -36,7 +37,7 @@ function QuestionExplanation({ questionId, enabled, examId }: Props) {
 
   if (isLoading) return <Loading />;
 
-  if (error) return null;
+  if (error || !explanation) return null;
 
   return (
     <div className={styles.answerWrapper}>
