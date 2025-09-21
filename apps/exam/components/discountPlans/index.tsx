@@ -35,7 +35,9 @@ function DiscountPlans() {
       {isLoading ? (
         <Loading />
       ) : (
-        data?.data.data.map((item) => <DiscountPlanItem item={item} />)
+        data?.data.data.map((item) => (
+          <DiscountPlanItem key={item.id} item={item} />
+        ))
       )}
     </div>
   );

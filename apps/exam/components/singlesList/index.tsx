@@ -47,17 +47,17 @@ function SingleList() {
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading />}
+          loader={<Loading key="infinite-scroll-loader" />}
         >
           {data?.pages.map((page, i) => {
             return (
-              <Fragment key={i}>
+              <Fragment key={`frag-${i}`}>
                 {page.data.data.map((item, i) => {
                   return (
                     <SingleListItem
                       item={item}
                       haveGeneralAccess={page.data.has_general_access}
-                      key={i}
+                      key={`singleItem-${item.id}-${i}`}
                     />
                   );
                 })}

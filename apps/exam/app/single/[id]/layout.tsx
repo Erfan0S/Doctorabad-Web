@@ -9,7 +9,7 @@ function singleLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthorizeClientPage baseUrl={routePath.examBasePath}>
       <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
-        {children}
+        <QuestionsAnswersProvider>{children}</QuestionsAnswersProvider>
       </Suspense>
     </AuthorizeClientPage>
   );

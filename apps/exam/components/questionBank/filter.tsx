@@ -36,6 +36,7 @@ function QuestionBankFilter() {
   const { data: archivedData, isLoading: archivedLoading } = useQuery({
     queryKey: ["userHasArchived"],
     queryFn: () => api.getArcgived(),
+    enabled: !!isUserLoggedIn(),
   });
 
   const hasPlan =

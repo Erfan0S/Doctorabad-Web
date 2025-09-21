@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button as SharedButton } from "@repo/shared_modules/components";
 import { ButtonProps } from "@repo/core/types/componentProps";

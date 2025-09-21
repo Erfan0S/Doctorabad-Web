@@ -35,7 +35,7 @@ const FilterItmeList = ({
               <input
                 id={uniqueId}
                 type="checkbox"
-                checked={checks[id]}
+                checked={checks[id] || false}
                 onChange={(e) =>
                   onCheck(
                     id.toString(),
