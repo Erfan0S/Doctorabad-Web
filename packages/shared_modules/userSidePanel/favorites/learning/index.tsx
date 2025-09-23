@@ -1,16 +1,16 @@
 import React from "react";
-import {Loading} from "@repo/shared_modules/components";
-import {CourseListItemType} from "@repo/core/types/course";
-import {useInfiniteQuery} from "@tanstack/react-query";
-import {api} from "../../../api/Api";
+import { Loading } from "@repo/shared_modules/components";
+import { CourseListItemType } from "@repo/core/types/course";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
 import CourseList from "../../common/lists/CourseList";
-import {PaginatedResponse} from "@repo/core/types/general";
+import { PaginatedResponse } from "@repo/core/types/general";
 
 const SidePanelFavoritesLearning: React.FC = () => {
-  const {data, isLoading, fetchNextPage, hasNextPage} = useInfiniteQuery<
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryFn: ({pageParam}) =>
+    queryFn: ({ pageParam }) =>
       api.getLearnFavoriteList(Number(pageParam)).then((res) => res.data),
     queryKey: ["favorite", "learning"],
     initialPageParam: 1,

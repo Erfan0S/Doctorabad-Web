@@ -5,7 +5,7 @@ import TriangleDown from "../../../assets/svg/triangleDown";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { modalActions } from "@repo/core/modal/modals";
 import { useSearchParams } from "next/navigation";
-import { FilterModalType } from "@repo/core/types/filter";
+import { FilterModalType, SelectFilterItems } from "@repo/core/types/filter";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import Loading from "../loading";
 
@@ -19,7 +19,6 @@ interface Props {
   dependencies?: (string | null)[];
   onClick?: () => void;
   isLoading?: boolean;
-  initialTitle?: string;
 }
 
 const Accordion: React.FC<Props & FilterModalType> = ({
@@ -33,10 +32,9 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   singleSelection,
   app,
   isLoading,
-  initialTitle,
 }) => {
   const params = useSearchParams();
-  const [selected, setSelected] = useState<string | null>(initialTitle || null);
+  const [selected, setSelected] = useState<SelectFilterItems[] | null>(null);
   const changeFilters = useChangeSearchParamsFilter();
 
   const handleClick = () => {
@@ -51,14 +49,13 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   };
 
   useEffect(() => {
-    setSelected(initialTitle || null);
-  }, [initialTitle]);
+    if (!queryKey) return;
+    const filter = params?.get(queryKey)?.split(",");
+    setSelected(items.filter((item) => filter?.includes(item.id.toString())));
+  }, [queryKey && params?.get(queryKey), items]);
 
   useEffect(() => {
-    if (!queryKey) return;
-    const filter = params?.get(queryKey);
-    setSelected(items.find((item) => item.id == filter)?.title || null);
-
+    if (!dependencies) return;
     let deps: { [key: string]: any } = {};
     dependencies &&
       dependencies.map((dep) => {
@@ -73,7 +70,13 @@ const Accordion: React.FC<Props & FilterModalType> = ({
       className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}
     >
       <div className={style.accordionTitle} onClick={handleClick}>
-        <span>{isLoading ? <Loading app={app} /> : selected || title}</span>
+        <span>
+          {isLoading ? (
+            <Loading app={app} />
+          ) : (
+            selected?.map((item) => item.title)?.join(", ") || title
+          )}
+        </span>
         {isActive && queryKey && <TriangleDown width={18} height={18} />}
       </div>
 

@@ -28,7 +28,6 @@ const SelectFilterQroup: React.FC<Props> = ({
           isLoading={item.loading}
           dependencies={item.dependencies}
           app={app}
-          initialTitle={item.initialTitle}
         />
       ))}
     </div>

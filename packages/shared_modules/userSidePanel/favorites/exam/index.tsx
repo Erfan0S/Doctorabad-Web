@@ -7,34 +7,41 @@ import {
 } from "@repo/apps_shared_components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../common/components";
-import { QuestionsAnswersProvider } from "@repo/apps_shared_components";
+import { QuestionsLessonsFilterProvider } from "@repo/apps_shared_components/exam";
 
 const SidePanelFavoritesExam: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryFn: ({ pageParam }) =>
       examApi.getExamFavoriteList(Number(pageParam)).then((res) => res.data),
-    queryKey: ["favorite", "learning"],
+    queryKey: ["favorite", "exam"],
     initialPageParam: 1,
-    staleTime: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      if (lastPage.links.next) {
+      if (!!lastPage.links.next) {
         return (lastPageParam as number) + 1;
       }
       return undefined;
     },
   });
+  console.log(data);
 
   if (isLoading) return <Loading />;
 
   return (
     <>
-      <QuestionsAnswersProvider>
+      <QuestionsLessonsFilterProvider>
         <QuestionsLessonsFilter lessons={data?.pages[0].lessons || []} />
         <InfiniteScroll
-          pageStart={0}
-          loadMore={() => fetchNextPage()}
+          pageStart={1}
+          loadMore={() => {
+            console.log("load more");
+            fetchNextPage();
+          }}
+          useWindow={false}
           hasMore={hasNextPage}
           loader={<Loading />}
+          getScrollParent={() =>
+            document.getElementById("favoriteListContainer") as HTMLElement
+          }
         >
           {data?.pages.map((questions, i) => (
             <Questions
@@ -42,10 +49,11 @@ const SidePanelFavoritesExam: React.FC = () => {
               mobileMode
               key={i}
               isFavorite
+              fetchNextPage={fetchNextPage}
             />
           ))}
         </InfiniteScroll>
-      </QuestionsAnswersProvider>
+      </QuestionsLessonsFilterProvider>
     </>
   );
 };

@@ -91,7 +91,11 @@ function QuestionBankFilter() {
           سوالات مورد علاقه‌من
         </Button>
         <Button disabled={!hasArchived}>
-          <Link href={RoutePath.archived}>آزمون‌های ساخته شده من</Link>
+          {hasArchived ? (
+            <Link href={RoutePath.archived}>آزمون‌های ساخته شده من</Link>
+          ) : (
+            "آزمون‌های ساخته شده من"
+          )}
         </Button>
       </div>
       <div className={`card ${style.filtersWrapper}`}>
