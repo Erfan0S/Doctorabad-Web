@@ -3,7 +3,7 @@
 
 .singleItem {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border: 1.5px solid $lightGray;
   padding: 10px;
   gap: 10px;
@@ -11,13 +11,17 @@
 
   > div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
   }
+
+  > div:last-child {
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    flex: 1;
+  }
+
   > div:first-child {
-    justify-content: start;
+    align-items: center;
   }
 
   button {
@@ -60,6 +64,7 @@
 .singleItemAccessButtons {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: end;
   gap: 10px;
 
   button {

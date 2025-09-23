@@ -7,7 +7,7 @@ import Loading from "../common/Loading/Loading";
 import InfiniteScroll from "react-infinite-scroller";
 import style from "./sinlgesList.module.scss";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
-import { SingleListItem } from "@repo/apps_shared_components";
+import SingleListItem from "./SingleListItem";
 
 function SingleList() {
   const param = useSearchParams();

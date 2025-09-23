@@ -51,6 +51,7 @@ import {
 } from "@repo/core/types/course";
 import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
 import { ExamFavoriteList } from "@repo/core/types/exam";
+import { ExamOrderItem } from "../userSidePanel/types/orders";
 
 class Api extends Request {
   constructor() {
@@ -356,6 +357,12 @@ class Api extends Request {
     orderCode: string
   ): Promise<ResponseType<LastProcessingShopOrder>> => {
     return this.request.get(`/user/v1/education/previous/orders/${orderCode}`);
+  };
+
+  getExamOrdersList = (
+    page: number = 1
+  ): Promise<ResponseType<PaginatedResponse<ExamOrderItem[]>>> => {
+    return this.request.get(`/user/v1/lab/order/exam`, { params: { page } });
   };
 
   // favorites

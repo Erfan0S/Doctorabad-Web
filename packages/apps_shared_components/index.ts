@@ -9,5 +9,3 @@ export { default as QuestionItem } from "./exam/components/questions/questionIte
 export { default as QuestionInfoModal } from "./exam/components/common/modals/QuestionInfoModal";
 
 export { QuestionsAnswersProvider } from "./exam/contexts/questionsAnswersContext";
-
-export { default as SingleListItem } from "./exam/components/singleList/SingleListItem";

@@ -1,4 +1,4 @@
-import { ExamDetailType } from "@/types/exam";
+import { ExamDetailType } from "@repo/apps_shared_components/exam/types/exam.ts";
 import style from "./singleDetail.module.scss";
 
 type Props = {

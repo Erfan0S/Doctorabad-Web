@@ -1,4 +1,3 @@
-import { ExamType } from "../../types/exam";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import Image from "next/image";
 import React from "react";
@@ -10,8 +9,8 @@ import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-// @ts-ignore
 import examIcon from "@repo/shared_modules/images/doctor-exam.png";
+import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
 
 type Props = {
   item: ExamType;

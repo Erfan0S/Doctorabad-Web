@@ -1,4 +1,4 @@
-import { ExamType } from "@/types/exam";
+import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
 import {
   SharedFilters,
   ExamStatus,
@@ -9,9 +9,10 @@ import { ModalWrapper, OptionSwitch } from "@repo/shared_modules/components";
 import React, { useState } from "react";
 import style from "./ExamStartodal.module.scss";
 import { useRouter } from "next/navigation";
-import { RoutePath } from "@/constants/routPaths";
 import { Input } from "@repo/shared_modules/ui";
 import { inBoundValue } from "@repo/core/utils/inBoundValue";
+import { ExamRoutePath } from "../../../../constants/examRoutPaths";
+import { modalActions } from "@repo/core/modal/modals";
 
 type Props = ModalProps<{
   exam: ExamType;
@@ -28,7 +29,7 @@ function ExamStartModal({ closeModal, data }: Props) {
     setTimeout(
       () =>
         router.push(
-          `${RoutePath.single}/${exam.id}?${SharedFilters.STATUS}=${ExamStatus.STARTED}&${SharedFilters.SHOW_RECORD}=${showRecord ? 1 : 0}${
+          `${ExamRoutePath.single}/${exam.id}?${SharedFilters.STATUS}=${ExamStatus.STARTED}&${SharedFilters.SHOW_RECORD}=${showRecord ? 1 : 0}${
             haveManualTime && !!manualTime
               ? `&${SharedFilters.MANUAL_TIME}=${manualTime}`
               : ""
@@ -36,7 +37,7 @@ function ExamStartModal({ closeModal, data }: Props) {
         ),
       100
     );
-    closeModal();
+    modalActions.clearModals();
   };
 
   const onTimeToggle = (value: boolean) => {
