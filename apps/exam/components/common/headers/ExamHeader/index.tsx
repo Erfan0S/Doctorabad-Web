@@ -25,7 +25,7 @@ function ExamHeader({ children, title, suffix }: Props) {
   const searchParams = useSearchParams();
   const status = searchParams?.get(SharedFilters.STATUS);
 
-  const { answers } = useContext(QuestionsAnswersContext);
+  const questionsAnswersContext = useContext(QuestionsAnswersContext);
 
   const onBack = () => {
     if (status === ExamStatus.STARTED) {
@@ -42,7 +42,11 @@ function ExamHeader({ children, title, suffix }: Props) {
       suffix={
         haveMarking && (
           <Button
-            onClick={() => modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET)}
+            onClick={() =>
+              modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET, {
+                questionsAnswersContext: questionsAnswersContext,
+              })
+            }
           >
             پاسخ برگ من
             <AnswerSheetIcon />

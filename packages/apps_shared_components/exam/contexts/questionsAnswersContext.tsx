@@ -17,7 +17,7 @@ export type QuestionsAnswersContextType = Record<
   QuestionsAnswerContextType
 >;
 
-type QuestionsAnswersContextProviderType = {
+export type QuestionsAnswersContextProviderType = {
   answers: QuestionsAnswersContextType;
   addAnswer: (answer: QuestionsAnswerContextType, id: number | string) => void;
   removeAnswer: (id: number) => void;

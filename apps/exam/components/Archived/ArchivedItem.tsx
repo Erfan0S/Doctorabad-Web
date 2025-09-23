@@ -22,6 +22,7 @@ interface filtersItemType extends SelectQroupItemType {
 
 function ArchivedItem({ data }: Props) {
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const router = useRouter();
 
   let filters: filtersItemType[] = [
@@ -92,6 +93,7 @@ function ArchivedItem({ data }: Props) {
       .deleteArchived(data.id)
       .then(() => {
         toast("آزمون با موفقیت حذف شد", { type: "success" });
+        setDeleted(true);
       })
       .catch(() => {
         toast("خطایی رخ داده است", { type: "error" });
@@ -120,6 +122,8 @@ function ArchivedItem({ data }: Props) {
 
     router.push(`${RoutePath.questions}?${params.toString()}`);
   };
+
+  if (deleted) return null;
 
   return (
     <div className={`${style.archivedItemWrapper} card`}>

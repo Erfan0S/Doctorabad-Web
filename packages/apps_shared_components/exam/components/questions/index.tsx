@@ -53,7 +53,10 @@ function Questions({
         )
       : questions;
 
-  if (filtredQuestions.length === 0 && fetchNextPage) {
+  if (
+    (filtredQuestions.length === 0 || filtredQuestions.length < 10) &&
+    fetchNextPage
+  ) {
     fetchNextPage();
   }
 

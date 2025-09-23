@@ -6,13 +6,15 @@ import React, { useContext, useEffect } from "react";
 import style from "./answerSheetModal.module.scss";
 import {
   QuestionsAnswerContextType,
-  QuestionsAnswersContext,
+  QuestionsAnswersContextProviderType,
 } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
 import { InfoIcon } from "@repo/shared_modules/icons";
 import { QuestionStatus } from "@repo/apps_shared_components/exam/types/exam.ts";
 import { generateQuestionId } from "@repo/apps_shared_components/exam/utils/generateQuestionId.ts";
 
-type Props = ModalProps<{}>;
+type Props = ModalProps<{
+  questionsAnswersContext: QuestionsAnswersContextProviderType;
+}>;
 
 const AnswerSheetStatistic = ({
   title,
@@ -88,13 +90,13 @@ const AnswerSheetQuestion = ({
   );
 };
 
-function AnswerSheetModal({ closeModal }: Props) {
+function AnswerSheetModal({ closeModal, data }: Props) {
   const {
     answers,
     getUnAnsweredQuestions,
     getWrongAnswers,
     getCorrectAnswers,
-  } = useContext(QuestionsAnswersContext);
+  } = data.questionsAnswersContext;
 
   const answeredQuestionsCount =
     getCorrectAnswers().length + getWrongAnswers().length;
