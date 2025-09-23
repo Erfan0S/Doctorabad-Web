@@ -29,7 +29,7 @@ function QuestionBankFilter() {
   const router = useRouter();
 
   const { data: planData, isLoading: planLoading } = useQuery({
-    queryKey: ["userHasPlan"],
+    queryKey: ["auth", "userHasPlan"],
     queryFn: () => sharedApi.getUserPlans(2),
     enabled: !!isUserLoggedIn(),
   });

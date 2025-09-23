@@ -11,6 +11,7 @@ import { BugReportModal } from "./modals/BugReportModal";
 import { QRContents } from "@repo/shared_modules/components";
 import SelectModal from "./modals/SelectModal";
 import { QuestionInfoModal } from "@repo/apps_shared_components";
+import { DiscountPlansBuyModal } from "@repo/apps_shared_components/exam";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -25,4 +26,5 @@ export const ModalsList: any = {
   [ModalTypes.QR_CONTENTS]: QRContents,
   [ModalTypes.SELECT_FILTER]: SelectModal,
   [ModalTypes.QUESTION_INFO]: QuestionInfoModal,
+  [ModalTypes.EXAM_DISCOUNT_PLANS]: DiscountPlansBuyModal,
 };

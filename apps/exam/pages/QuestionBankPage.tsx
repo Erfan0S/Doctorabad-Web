@@ -2,8 +2,8 @@
 import React from "react";
 import QuestionBankFilter from "@/components/questionBank/filter";
 import Providers from "@/providers/providers";
-import DiscountPlans from "@/components/discountPlans";
 import AppQueryClientProvider from "@/providers/queryClientProvider";
+import { DiscountPlans } from "@repo/apps_shared_components/exam";
 
 // TODO: remove Providers
 

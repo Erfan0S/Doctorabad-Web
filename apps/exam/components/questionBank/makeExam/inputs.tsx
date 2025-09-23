@@ -20,6 +20,8 @@ import {
   authorizeClientAction,
   isUserLoggedIn,
 } from "@repo/core/utils/authUtils";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
@@ -30,7 +32,7 @@ function MakeInputs() {
   const [questions, setQuestions] = useState<string | number | undefined>();
 
   const { data: planData, isLoading: planLoading } = useQuery({
-    queryKey: ["userHasPlan"],
+    queryKey: ["auth", "userHasPlan"],
     queryFn: () => coreApi.getUserPlans(2),
     enabled: !!isUserLoggedIn(),
   });
@@ -43,8 +45,7 @@ function MakeInputs() {
     if (hasPlan) {
       toast.success("شماطرح فعال دارید!");
     } else {
-      toast.error("برای مشاهده پاسخ تشریحی، باید طرح فعال داشته باشید!");
-      // route.push("/");
+      modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
     }
   };
 

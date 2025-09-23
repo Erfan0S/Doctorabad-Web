@@ -170,10 +170,10 @@ function QuestionItem({
         {question.has_explanation && (
           <Button
             app={Apps.EXAM}
-            onClick={() => {
-              if (!isUserLoggedIn()) toast.error(explanationError);
-              else setShowAnswer((prev) => !prev);
-            }}
+            onClick={authorizeClientAction(
+              () => setShowAnswer((prev) => !prev),
+              true
+            )}
           >
             پاسخ تشریحی
           </Button>
@@ -244,6 +244,7 @@ function QuestionItem({
           questionId={question.id}
           examId={examId}
           enabled={showAnswer}
+          setEnabled={setShowAnswer}
         />
       )}
       <div className={styles.buttonsWrapper}>

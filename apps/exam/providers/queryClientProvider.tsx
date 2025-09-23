@@ -25,7 +25,17 @@ function AppQueryClientProvider({ children }: React.PropsWithChildren) {
 
   return (
     <PersistQueryClientProvider
-      persistOptions={{ persister: localStoragePersister }}
+      persistOptions={{
+        persister: localStoragePersister,
+        dehydrateOptions: {
+          shouldDehydrateQuery: (query) => {
+            if (query.queryKey[0] === "auth") {
+              return false;
+            }
+            return true;
+          },
+        },
+      }}
       client={client}
     >
       {children}

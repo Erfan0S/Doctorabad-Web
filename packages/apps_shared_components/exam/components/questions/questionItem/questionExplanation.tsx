@@ -7,14 +7,22 @@ import { api } from "../../../api/Api";
 import { toast } from "react-toastify";
 import { explanationError } from "../../../constants/massages";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 type Props = {
   questionId: number;
   examId?: number;
   enabled?: boolean;
+  setEnabled?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function QuestionExplanation({ questionId, enabled, examId }: Props) {
+function QuestionExplanation({
+  questionId,
+  enabled,
+  examId,
+  setEnabled,
+}: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: [`questionExplanation-${questionId}-${examId}`],
     queryFn: () =>
@@ -26,7 +34,8 @@ function QuestionExplanation({ questionId, enabled, examId }: Props) {
     retry: (failureCount, error) => {
       const e = error as any;
       if (e.status == 422) {
-        toast.error(explanationError);
+        modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
+        setEnabled && setEnabled(false);
         return false;
       }
       return true;

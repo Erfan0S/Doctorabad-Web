@@ -10,7 +10,7 @@ import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-// @ts-expect-error
+// @ts-ignore
 import examIcon from "@repo/shared_modules/images/doctor-exam.png";
 
 type Props = {

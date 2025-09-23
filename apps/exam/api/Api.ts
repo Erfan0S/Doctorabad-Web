@@ -1,6 +1,4 @@
-import { DiscountPlanType, HasDiscountPlanType } from "@/types/discountPlan";
 import {
-  BudgetingType,
   ExamDateType,
   ExamFieldGradeType,
   ExamPaginatedResponse,

@@ -7,6 +7,7 @@ import { AUTH_COOKIE_KEY, isServerSide } from "../constants/constants";
 import { api } from "@repo/shared_modules/api";
 import { getClientSideCookie, getServerSideCookie } from "./cookieUtils";
 import { authorizedActionStorage } from "../states/athorizedActionStorage";
+import { toast } from "react-toastify";
 
 export const setAuthCookie = () => {
   const expireTimeInMinute = 60 * 24 * 365;
@@ -16,9 +17,10 @@ export const setAuthCookie = () => {
 };
 
 export const authorizeClientAction =
-  (action: (...params: any) => any) =>
+  (action: (...params: any) => any, showError?: boolean) =>
   (...params: any) => {
     if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
+      if (showError) toast.error("برای انجام این عملیات ابتدا باید وارد شوید");
       modalActions.addModal(ModalTypes.REGISTER);
       authorizedActionStorage.setState(() => () => action(...params));
     } else {
