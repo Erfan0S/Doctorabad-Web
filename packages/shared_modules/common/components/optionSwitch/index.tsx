@@ -39,39 +39,38 @@ const OptionSwitch = ({
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const setSeachParam = useChangeSearchParamsFilter();
   const searchParam = useSearchParams();
+  const searchParamValue = searchParam?.get(name);
 
   const switchId = "sw_" + name;
 
   useEffect(() => {
-    if (addToQuery && isDefaulChecked !== undefined) {
-      setIsChecked(searchParam?.get(name) == "1");
+    if (addToQuery && isDefaulChecked === undefined) {
+      setIsChecked(searchParamValue == "1");
     }
   }, []);
 
   useEffect(() => {
     if (isDefaulChecked !== undefined) {
       setIsChecked(isDefaulChecked);
-      if (addToQuery) {
-        setSeachParam({
-          [name]: isDefaulChecked ? "1" : null,
-        });
-      }
     }
-  }, [isDefaulChecked, addToQuery]);
+  }, [isDefaulChecked]);
 
   useEffect(() => {
     onToggle && onToggle(isChecked);
+  }, [isChecked]);
+
+  useEffect(() => {
+    if (addToQuery) {
+      setSeachParam({
+        [name]: isChecked ? "1" : null,
+      });
+    }
   }, [isChecked]);
 
   const handleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick && onClick(e);
     if (!isActive || !canChange) return;
     setIsChecked(e.target.checked);
-    if (addToQuery) {
-      setSeachParam({
-        [name]: e.target.checked ? "1" : null,
-      });
-    }
   };
 
   return (

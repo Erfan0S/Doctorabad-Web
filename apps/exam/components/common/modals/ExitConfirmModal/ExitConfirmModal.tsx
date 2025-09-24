@@ -5,15 +5,31 @@ import { ModalWrapper } from "@repo/shared_modules/components";
 import React from "react";
 import Button from "../../Button/Button";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+import { useRouter } from "next/navigation";
 
-type Props = ModalProps<{}>;
+type Props = ModalProps<{
+  backUrl?: string;
+  perventParams?: boolean;
+}>;
 
-function ExitConfirmModal({ closeModal }: Props) {
+function ExitConfirmModal({ closeModal, data }: Props) {
   const navHistory = useNavigationHistory();
+  const searchParams = new URLSearchParams(window.location.search);
+  const router = useRouter();
 
   const Buttons = () => {
     const onExit = () => {
-      setTimeout(() => navHistory.goBack(), 100);
+      setTimeout(() => {
+        if (data.backUrl) {
+          router.push(
+            `${data.backUrl}?${data.perventParams ? searchParams.toString() : undefined}`
+          );
+        } else {
+          navHistory.goBack(
+            data.perventParams ? searchParams.toString() : undefined
+          );
+        }
+      }, 100);
       closeModal();
     };
     return (

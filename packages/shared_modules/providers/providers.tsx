@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { SidebarProvider } from "@repo/shared_modules";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { NavigationHistoryProvider } from "./hooks/NavigationHistoryContext";
+import { NavigationHistoryProvider } from "./hooks/NavigationHistoryContextProvider";
 
 type Props = {
   children: React.ReactNode;

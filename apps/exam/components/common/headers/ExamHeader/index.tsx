@@ -19,9 +19,17 @@ type Props = {
   children: React.ReactNode;
   title: string | React.ReactNode;
   suffix?: React.ReactNode;
+  perventParams?: boolean;
+  backUrl?: string;
 };
 
-function ExamHeader({ children, title, suffix }: Props) {
+function ExamHeader({
+  children,
+  title,
+  suffix,
+  perventParams,
+  backUrl,
+}: Props) {
   const searchParams = useSearchParams();
   const status = searchParams?.get(SharedFilters.STATUS);
 
@@ -32,7 +40,10 @@ function ExamHeader({ children, title, suffix }: Props) {
       toast.warning("آزمون هنوز تموم نشده!");
       return;
     }
-    modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM);
+    modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM, {
+      perventParams,
+      backUrl: backUrl,
+    });
   };
 
   const haveMarking = searchParams?.get(SharedFilters.MARKING);
