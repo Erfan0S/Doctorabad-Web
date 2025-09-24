@@ -5,6 +5,19 @@ import { api } from "@repo/shared_modules/api";
 import { ResponseType } from "../types/general";
 import { toast } from "react-toastify";
 import { ProductVariantsValue } from "../types/productVariants";
+import { isUserLoggedIn } from "../utils/authUtils";
+import { isServerSide } from "../constants/constants";
+
+// TODO: may need to intregrate with isUserLoggedIn
+const isLogin = (haveMassage?: boolean) => {
+  if (isServerSide) return true;
+  if (!isUserLoggedIn()) {
+    if (haveMassage)
+      toast("ابتدا وارد شوید", { type: "error", position: "top-left" });
+    return true;
+  }
+  return false;
+};
 
 const initialState = { data: [] as Order[], initLoading: true } as CartState;
 
@@ -15,6 +28,7 @@ const updateCart = (response: ResponseType<CartResponse>) =>
 
 export const cartActions = {
   async getCartData() {
+    if (isLogin()) return;
     updateCart(await api.getCartList());
   },
   async addToCart(
@@ -22,10 +36,14 @@ export const cartActions = {
     type: OrderType = OrderType.ShopProduct,
     variants?: ProductVariantsValue[]
   ) {
+    if (isLogin(true)) return;
+
     updateCart(await api.addToCart(cartItem, type, variants));
     toast("محصول به سبدخرید اضافه شد", { type: "success" });
   },
   async removeFromCart(cartItemId: number) {
+    if (isLogin()) return;
+
     await api.decreaseQuantity(cartItemId);
 
     updateCart(await api.getCartList());
@@ -33,6 +51,8 @@ export const cartActions = {
     toast("محصول از سبدخرید حذف شد", { type: "error", position: "top-left" });
   },
   async increaseQuantity(cartItemId: number) {
+    if (isLogin(true)) return;
+
     try {
       updateCart(await api.increaseQuantity(cartItemId));
 
@@ -40,6 +60,8 @@ export const cartActions = {
     } catch (error) {}
   },
   async decreaseQuantity(cartItemId: number) {
+    if (isLogin()) return;
+
     updateCart(await api.decreaseQuantity(cartItemId));
     toast("تعداد محصول کاهش یافت", { type: "warning", position: "top-left" });
   },

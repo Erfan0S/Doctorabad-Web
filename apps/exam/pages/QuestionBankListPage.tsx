@@ -64,7 +64,7 @@ function QuestionBankListPageComponent() {
     },
   });
 
-  if (!data?.pages.length && !isLoading) return <div>موردی یافت نشد</div>;
+  if (!data?.pages[0].data && !isLoading) return <div>موردی یافت نشد</div>;
 
   return (
     <div>

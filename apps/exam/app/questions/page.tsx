@@ -14,7 +14,12 @@ function QuestionsPage() {
         app={Apps.EXAM}
         title="بانک سوال"
         suffix={<QuestionsFilterButton />}
-        onBack={() => modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM)}
+        onBack={() =>
+          modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM, {
+            perventParams: true,
+            backUrl: "/",
+          })
+        }
       />
       <QuestionBankListPage />
     </div>

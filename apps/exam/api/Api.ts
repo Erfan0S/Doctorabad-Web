@@ -1,19 +1,15 @@
-import { DiscountPlanType, HasDiscountPlanType } from "@/types/discountPlan";
 import {
-  BudgetingType,
   ExamDateType,
   ExamFieldGradeType,
   ExamPaginatedResponse,
   ExamSliderType,
   ExamTopicType,
-  ExamType,
   MakerResponseType,
-  QuestionExplanationType,
   QuestionListParamsType,
   QuestionPageType,
   QuestionPaginatedResponse,
-  QuestionType,
 } from "@/types/exam";
+import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { Request } from "@repo/core/http-request/Request";
 import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
@@ -86,24 +82,10 @@ class Api extends Request {
   ): Promise<ResponseType<QuestionPaginatedResponse>> => {
     return this.request.post("/user/v1/lab/question", params);
   };
-
-  getQuestionExplanation = (params: {
-    question_id: number;
-    exam_id?: number;
-  }): Promise<ResponseType<{ data: QuestionExplanationType }>> => {
-    return this.request.post(`/user/v1/lab/question/explanation`, params);
-  };
-
   getQuestionMaker = (
     params: QuestionListParamsType
   ): Promise<ResponseType<MakerResponseType>> => {
     return this.request.post("/user/v1/lab/question/maker", params);
-  };
-
-  getQuestionSearchTitle = (params: {
-    title: string;
-  }): Promise<ResponseType<{ data: QuestionType[] }>> => {
-    return this.request.post("/user/v1/lab/question/search/title", params);
   };
 
   //----------Question Find----------
@@ -163,9 +145,6 @@ class Api extends Request {
   };
 
   //----------Question Favorite----------
-  getQuestionFavorite = (): Promise<ResponseType<{ data: QuestionType[] }>> => {
-    return this.request.get("/user/v1/lab/question/favorite");
-  };
 
   addQuestionFavorite = (question: number, favorite?: number): Promise<{}> => {
     return this.request.post(`/user/v1/lab/question/favorite`, {

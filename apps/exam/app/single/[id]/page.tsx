@@ -13,6 +13,7 @@ import {
 import { notFound } from "next/navigation";
 import React from "react";
 import ExamRecord from "@/components/exam/ExamRecord";
+import { RoutePath } from "@/constants/routPaths";
 
 type Props = {
   params: {
@@ -31,7 +32,10 @@ async function SinglePage({ params, searchParams }: Props) {
 
     return (
       <div>
-        <ExamHeader title={<PageTitle exam={data.exam} />}>
+        <ExamHeader
+          title={<PageTitle exam={data.exam} />}
+          backUrl={RoutePath.single}
+        >
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />
           )}

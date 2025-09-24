@@ -7,6 +7,7 @@
   "exports": {
     "./exam/*.ts": "./exam/*.ts",
     "./exam/*.tsx": "./exam/*.tsx",
+    "./exam": "./exam/index.ts",
     ".": "./index.ts"
   },
   "scripts": {
@@ -24,6 +25,8 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
+    "@repo/core": "*",
+    "@repo/shared_modules": "*",
     "eslint": "^8.45.0",
     "eslint-config-next": "^13.4.10",
     "js-cookie": "^3.0.5",

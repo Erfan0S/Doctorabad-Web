@@ -19,20 +19,31 @@ type Props = {
   children: React.ReactNode;
   title: string | React.ReactNode;
   suffix?: React.ReactNode;
+  perventParams?: boolean;
+  backUrl?: string;
 };
 
-function ExamHeader({ children, title, suffix }: Props) {
+function ExamHeader({
+  children,
+  title,
+  suffix,
+  perventParams,
+  backUrl,
+}: Props) {
   const searchParams = useSearchParams();
   const status = searchParams?.get(SharedFilters.STATUS);
 
-  const { answers } = useContext(QuestionsAnswersContext);
+  const questionsAnswersContext = useContext(QuestionsAnswersContext);
 
   const onBack = () => {
     if (status === ExamStatus.STARTED) {
       toast.warning("آزمون هنوز تموم نشده!");
       return;
     }
-    modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM);
+    modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM, {
+      perventParams,
+      backUrl: backUrl,
+    });
   };
 
   const haveMarking = searchParams?.get(SharedFilters.MARKING);
@@ -42,7 +53,11 @@ function ExamHeader({ children, title, suffix }: Props) {
       suffix={
         haveMarking && (
           <Button
-            onClick={() => modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET)}
+            onClick={() =>
+              modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET, {
+                questionsAnswersContext: questionsAnswersContext,
+              })
+            }
           >
             پاسخ برگ من
             <AnswerSheetIcon />

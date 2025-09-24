@@ -1,3 +1,4 @@
+"use client";
 import { Apps } from "@repo/core/types/general";
 import React from "react";
 import style from "./button.module.scss";

@@ -1,31 +1,32 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import style from "./questions.module.scss";
 import { LessonType } from "../../types/exam";
-import { useSearchParams } from "next/navigation";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import Loading from "../common/Loading";
-import { SingleLessonFilter } from "../../constants/filters";
-import { QuestionsAnswersContext } from "../../contexts/questionsAnswersContext";
+import { QuestionsLessonsFilterContext } from "../../contexts/questionsLessonFilterContext";
 
 type Props = {
   lessons: LessonType[];
 };
 
 function QuestionsLessonsFilter({ lessons }: Props) {
-  const { setLessonId, lessonId } = useContext(QuestionsAnswersContext);
+  const { addLessonId, clearLessons, removeLessonId, lessonIds } = useContext(
+    QuestionsLessonsFilterContext
+  );
 
-  const activeLesson = lessonId;
-  const onClickHandler = (id?: number) => {
-    setLessonId(id ? id.toString() : undefined);
+  const onClickHandler = (id: number) => {
+    if (lessonIds.includes(id.toString())) {
+      removeLessonId(id.toString());
+    } else {
+      addLessonId(id.toString());
+    }
   };
 
   return (
     <div className={style.lessonFilterWrapper}>
       <button
         type="button"
-        onClick={() => onClickHandler()}
-        className={!activeLesson ? style.active : ""}
+        onClick={() => clearLessons()}
+        className={!lessonIds.length ? style.active : ""}
       >
         همه
       </button>
@@ -34,12 +35,13 @@ function QuestionsLessonsFilter({ lessons }: Props) {
           key={lesson.id}
           onClick={() => onClickHandler(lesson.id)}
           type="button"
-          className={activeLesson === lesson.id.toString() ? style.active : ""}
+          className={
+            lessonIds.includes(lesson.id.toString()) ? style.active : ""
+          }
           style={{
-            backgroundColor:
-              activeLesson === lesson.id.toString()
-                ? `#${lesson.color_code}`
-                : "",
+            backgroundColor: lessonIds.includes(lesson.id.toString())
+              ? `#${lesson.color_code}`
+              : "",
           }}
         >
           {lesson.title}

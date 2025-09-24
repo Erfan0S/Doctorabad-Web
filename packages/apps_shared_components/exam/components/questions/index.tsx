@@ -14,6 +14,7 @@ import {
   QuestionListFilters,
   QuestionListFiltersKey,
 } from "../../types/questionListFilters";
+import { QuestionsLessonsFilterContext } from "../..";
 
 type Props = {
   questions: QuestionType[];
@@ -22,6 +23,7 @@ type Props = {
   isFavorite?: boolean;
   total?: number;
   startIndex?: number;
+  fetchNextPage?: () => void;
 };
 
 function Questions({
@@ -31,6 +33,7 @@ function Questions({
   isFavorite,
   total,
   startIndex = 0,
+  fetchNextPage,
 }: Props) {
   const searchParams = useSearchParams();
   const status = (searchParams?.get(ExamStartSearchParams.STATUS) ||
@@ -40,11 +43,22 @@ function Questions({
     QuestionListFiltersKey
   ) as QuestionListFilters;
 
-  const { lessonId, answers } = useContext(QuestionsAnswersContext);
+  const { answers } = useContext(QuestionsAnswersContext);
+  const { lessonIds } = useContext(QuestionsLessonsFilterContext);
 
-  let filtredQuestions = lessonId
-    ? questions.filter((question) => question.lesson_id.toString() === lessonId)
-    : questions;
+  let filtredQuestions =
+    lessonIds.length > 0
+      ? questions.filter((question) =>
+          lessonIds.includes(question.lesson_id.toString())
+        )
+      : questions;
+
+  if (
+    (filtredQuestions.length === 0 || filtredQuestions.length < 10) &&
+    fetchNextPage
+  ) {
+    fetchNextPage();
+  }
 
   if (
     questionFilter &&
@@ -71,7 +85,11 @@ function Questions({
             key={question.id}
             question={question}
             index={index + startIndex}
-            total={total || questions.length}
+            total={
+              lessonIds.length > 0
+                ? filtredQuestions.length
+                : total || questions.length
+            }
             examTitle={exam?.title}
             examId={exam?.id}
             mobileMode={mobileMode}

@@ -23,6 +23,8 @@ type Props = {
   type?: "course" | "order";
 };
 
+// TODO: Make two seprate components for course and order
+
 const MetaData = ({ course }: { course: CourseListItemType }) => {
   return (
     <div className={styles.metadata}>

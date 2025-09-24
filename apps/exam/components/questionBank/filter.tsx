@@ -22,18 +22,21 @@ import { api } from "@/api/Api";
 import Link from "next/link";
 import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const { data: planData, isLoading: planLoading } = useQuery({
-    queryKey: ["userHasPlan"],
+    queryKey: ["auth", "userHasPlan"],
     queryFn: () => sharedApi.getUserPlans(2),
+    enabled: !!isUserLoggedIn(),
   });
   const { data: archivedData, isLoading: archivedLoading } = useQuery({
     queryKey: ["userHasArchived"],
     queryFn: () => api.getArcgived(),
+    enabled: !!isUserLoggedIn(),
   });
 
   const hasPlan =
@@ -88,7 +91,11 @@ function QuestionBankFilter() {
           سوالات مورد علاقه‌من
         </Button>
         <Button disabled={!hasArchived}>
-          <Link href={RoutePath.archived}>آزمون‌های ساخته شده من</Link>
+          {hasArchived ? (
+            <Link href={RoutePath.archived}>آزمون‌های ساخته شده من</Link>
+          ) : (
+            "آزمون‌های ساخته شده من"
+          )}
         </Button>
       </div>
       <div className={`card ${style.filtersWrapper}`}>

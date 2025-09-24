@@ -6,8 +6,8 @@ import React, { Fragment } from "react";
 import Loading from "../common/Loading/Loading";
 import InfiniteScroll from "react-infinite-scroller";
 import style from "./sinlgesList.module.scss";
-import SingleListItem from "./SingleListItem";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
+import SingleListItem from "./SingleListItem";
 
 function SingleList() {
   const param = useSearchParams();
@@ -47,17 +47,17 @@ function SingleList() {
         <InfiniteScroll
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
-          loader={<Loading />}
+          loader={<Loading key="infinite-scroll-loader" />}
         >
           {data?.pages.map((page, i) => {
             return (
-              <Fragment key={i}>
+              <Fragment key={`frag-${i}`}>
                 {page.data.data.map((item, i) => {
                   return (
                     <SingleListItem
                       item={item}
                       haveGeneralAccess={page.data.has_general_access}
-                      key={i}
+                      key={`singleItem-${item.id}-${i}`}
                     />
                   );
                 })}

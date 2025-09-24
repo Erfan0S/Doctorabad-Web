@@ -2,11 +2,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import style from "./examRecord.module.scss";
 import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
-import { LessonType } from "@/types/exam";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import PercentageBar from "./PercentageBar";
 import { calculatePercentage } from "@/utils/calculatePercentage";
+import { LessonType } from "@repo/apps_shared_components/exam/types/exam.ts";
 
 type Props = {
   lessons: LessonType[];

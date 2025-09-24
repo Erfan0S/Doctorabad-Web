@@ -16,6 +16,12 @@ import Button from "@/components/common/Button/Button";
 import { Input } from "@repo/shared_modules/ui";
 import { RoutePath } from "@/constants/routPaths";
 import { inBoundValue } from "@repo/core/utils/inBoundValue";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
@@ -26,8 +32,9 @@ function MakeInputs() {
   const [questions, setQuestions] = useState<string | number | undefined>();
 
   const { data: planData, isLoading: planLoading } = useQuery({
-    queryKey: ["userHasPlan"],
+    queryKey: ["auth", "userHasPlan"],
     queryFn: () => coreApi.getUserPlans(2),
+    enabled: !!isUserLoggedIn(),
   });
 
   const hasPlan =
@@ -38,8 +45,7 @@ function MakeInputs() {
     if (hasPlan) {
       toast.success("شماطرح فعال دارید!");
     } else {
-      toast.error("برای مشاهده پاسخ تشریحی، باید طرح فعال داشته باشید!");
-      // route.push("/");
+      modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
     }
   };
 
@@ -130,10 +136,15 @@ function MakeInputs() {
         </div>
       )}
       <div className={style.makeInputsButtonWrapper}>
-        <Button variant="secondary" onClick={() => onStartClick()}>
+        <Button
+          variant="secondary"
+          onClick={authorizeClientAction(() => onStartClick())}
+        >
           فیلترکن و نشون بده!
         </Button>
-        <Button onClick={() => onStartClick(true)}>شروع آزمون</Button>
+        <Button onClick={authorizeClientAction(() => onStartClick(true))}>
+          شروع آزمون
+        </Button>
       </div>
     </div>
   );

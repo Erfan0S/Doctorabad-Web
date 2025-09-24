@@ -41,7 +41,7 @@ function QuestionSearchInpt() {
   return (
     <SearchInput
       app={Apps.EXAM}
-      placeholder={`بین ${isLoading ? "..." : data?.data.data.count} سوال جستجو کن!`}
+      placeholder={`بین ${!!isLoading || !data ? "..." : data?.data.data.count} سوال جستجو کن!`}
     />
   );
 }

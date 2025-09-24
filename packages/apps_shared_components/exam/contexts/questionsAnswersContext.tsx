@@ -12,22 +12,16 @@ export type QuestionsAnswerContextType = {
   lesson_id: number;
 };
 
-type LessonIdContextProviderType = React.Dispatch<
-  React.SetStateAction<string | undefined>
->;
-
 export type QuestionsAnswersContextType = Record<
   string,
   QuestionsAnswerContextType
 >;
 
-type QuestionsAnswersContextProviderType = {
+export type QuestionsAnswersContextProviderType = {
   answers: QuestionsAnswersContextType;
-  lessonId?: string;
   addAnswer: (answer: QuestionsAnswerContextType, id: number | string) => void;
   removeAnswer: (id: number) => void;
   getCorrectAnswers: () => QuestionsAnswerContextType[];
-  setLessonId: LessonIdContextProviderType;
   getWrongAnswers: () => QuestionsAnswerContextType[];
   getUnAnsweredQuestions: () => QuestionsAnswerContextType[];
 };
@@ -35,11 +29,9 @@ type QuestionsAnswersContextProviderType = {
 const QuestionsAnswersContext =
   createContext<QuestionsAnswersContextProviderType>({
     answers: {},
-    lessonId: undefined,
     addAnswer: () => {},
     removeAnswer: () => {},
     getCorrectAnswers: () => [],
-    setLessonId: () => {},
     getWrongAnswers: () => [],
     getUnAnsweredQuestions: () => [],
   });
@@ -49,7 +41,7 @@ const QuestionsAnswersProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [lessonId, setLessonId] = useState<string>();
+  const [lessonIds, setLessonIds] = useState<string[]>();
   const [answers, setAnswers] = useState<
     Record<string, QuestionsAnswerContextType>
   >({});
@@ -87,8 +79,6 @@ const QuestionsAnswersProvider = ({
   return (
     <QuestionsAnswersContext.Provider
       value={{
-        setLessonId,
-        lessonId,
         answers,
         addAnswer,
         removeAnswer,

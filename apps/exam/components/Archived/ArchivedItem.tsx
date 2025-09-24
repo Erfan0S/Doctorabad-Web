@@ -22,73 +22,68 @@ interface filtersItemType extends SelectQroupItemType {
 
 function ArchivedItem({ data }: Props) {
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const router = useRouter();
 
   let filters: filtersItemType[] = [
     {
       name: SharedFilters.FIELD,
       id: data.field,
-      title: "رشته",
+      title: data.field_title,
       data: [{ id: data.field, title: data.field_title }],
       loading: false,
       isActive: false,
-      initialTitle: data.field_title,
     },
     {
       name: SharedFilters.GRADE,
       id: data.grade,
-      title: "نام آزمون",
+      title: data.grade_title || "انتخاب نشده",
       data: [],
       loading: false,
       isActive: false,
-      initialTitle: data.grade_title || "انتخاب نشده",
     },
     {
       name: SharedFilters.LESSON,
       id: data.lesson,
-      title: "درس",
+      title: data.lesson_title || "انتخاب نشده",
       data: [],
       loading: false,
       isActive: false,
-      initialTitle: data.lesson_title || "انتخاب نشده",
     },
     {
       name: SharedFilters.TOPIC,
       id: data.topic?.map((topic) => topic.id).join(","),
-      title: "مبحث",
+      title: data.topic
+        ? data.topic?.map((topic) => topic.title).join(",")
+        : "انتخاب نشده",
       data: [],
       loading: false,
       multiSelection: true,
       isActive: false,
-      initialTitle: data.topic
-        ? data.topic?.map((topic) => topic.title).join(",")
-        : "انتخاب نشده",
     },
     {
       name: SharedFilters.DATE,
       id: data.date?.map((date) => date.id).join(","),
-      title: "زمان",
-      data: [],
-      loading: false,
-      multiSelection: true,
-      isActive: false,
-      initialTitle: data.date
+      title: data.date
         ? data.date
             ?.map((date) => formatTimeJ(date.title, "jMMMM jYYYY"))
             .join(",")
         : "انتخاب نشده",
+      data: [],
+      loading: false,
+      multiSelection: true,
+      isActive: false,
     },
     {
       name: SharedFilters.PLACE,
       id: data.place?.map((place) => place.id).join(","),
-      title: "مکان",
+      title: data.place
+        ? data.place?.map((place) => place.title).join(",")
+        : "انتخاب نشده",
       data: [],
       loading: false,
       isActive: false,
       multiSelection: true,
-      initialTitle: data.place
-        ? data.place?.map((place) => place.title).join(",")
-        : "انتخاب نشده",
     },
   ];
 
@@ -98,6 +93,7 @@ function ArchivedItem({ data }: Props) {
       .deleteArchived(data.id)
       .then(() => {
         toast("آزمون با موفقیت حذف شد", { type: "success" });
+        setDeleted(true);
       })
       .catch(() => {
         toast("خطایی رخ داده است", { type: "error" });
@@ -126,6 +122,8 @@ function ArchivedItem({ data }: Props) {
 
     router.push(`${RoutePath.questions}?${params.toString()}`);
   };
+
+  if (deleted) return null;
 
   return (
     <div className={`${style.archivedItemWrapper} card`}>

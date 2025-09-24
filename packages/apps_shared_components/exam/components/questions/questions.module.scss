@@ -31,7 +31,8 @@ html .filterBtn {
     border-radius: 5px;
     background-color: white;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 10px;
+    text-wrap-mode: nowrap;
     &:focus {
       outline: none;
     }

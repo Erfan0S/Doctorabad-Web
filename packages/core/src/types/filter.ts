@@ -24,5 +24,4 @@ export type SelectQroupItemType = {
   dependencies?: string[];
   className?: string;
   multiSelection?: boolean;
-  initialTitle?: string;
 };

@@ -109,6 +109,8 @@ function SelectFilters({ page, isExamList }: Props) {
         SharedFilters.GRADE,
         SharedFilters.LESSON,
         SharedFilters.TOPIC,
+        SharedFilters.DATE,
+        SharedFilters.PLACE,
       ],
     },
     {
@@ -121,7 +123,12 @@ function SelectFilters({ page, isExamList }: Props) {
         })) || [],
       loading: gradesLoading,
       isActive: !!fieldParam,
-      dependencies: [SharedFilters.LESSON, SharedFilters.TOPIC],
+      dependencies: [
+        SharedFilters.LESSON,
+        SharedFilters.TOPIC,
+        SharedFilters.DATE,
+        SharedFilters.PLACE,
+      ],
     },
     {
       name: SharedFilters.LESSON,
@@ -133,7 +140,11 @@ function SelectFilters({ page, isExamList }: Props) {
         })) || [],
       loading: lessonsLoading,
       isActive: !!gradeParam,
-      dependencies: [SharedFilters.TOPIC],
+      dependencies: [
+        SharedFilters.TOPIC,
+        SharedFilters.DATE,
+        SharedFilters.PLACE,
+      ],
     },
     {
       name: SharedFilters.TOPIC,
@@ -143,6 +154,7 @@ function SelectFilters({ page, isExamList }: Props) {
       loading: topicsLoading,
       multiSelection: true,
       isActive: !!lessonParam,
+      dependencies: [SharedFilters.DATE, SharedFilters.PLACE],
     },
     {
       name: SharedFilters.DATE,

@@ -7,7 +7,7 @@ import React, { Suspense } from "react";
 function singleLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
-      {children}
+      <QuestionsAnswersProvider>{children}</QuestionsAnswersProvider>
     </Suspense>
   );
 }
