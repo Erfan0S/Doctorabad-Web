@@ -12,6 +12,16 @@ import { toast } from "react-toastify";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import styles from "./chekcout.module.scss";
 import { Apps } from "@repo/core/types/general";
+import PaymentMethods from "./payment_methods";
+import { Button, Loading } from "../../common/components";
+import {
+  CartPayInfo,
+  CreateOrderRequest,
+  PaymentProviders,
+} from "../types/cart";
+import { useRouter } from "next/navigation";
+import { routePath } from "@repo/core/constants/routePath";
+import CreateOrderButton from "./createOrderButton";
 
 type Props = {
   app?: Apps;
@@ -20,6 +30,13 @@ type Props = {
 };
 
 export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
+  const [payInfo, setPayInfo] = useState<CartPayInfo>({
+    description: "",
+    discountCode: "",
+    payWithCredit: false,
+    paymentMethod: PaymentProviders.CASH,
+  });
+
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
     queryKey: ["addressList"],
@@ -80,6 +97,8 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
     }
   }, [cartItems]);
 
+  const isCartNotEmpty = !!cartItems.length;
+
   return (
     <div
       className={`${styles.checkoutWrapper} ${mobileView && styles.mobileView} ${styles[app]}`}
@@ -87,7 +106,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
       <div>
         <Cart app={app} />
       </div>
-      {cartItems.length > 0 && hasPhysicalProduct && (
+      {isCartNotEmpty && hasPhysicalProduct && (
         <div>
           <Shipping
             isLoading={loadingAddress}
@@ -101,10 +120,27 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
       <div>
         <Pay
           shippingMethod={currentShippingMethod}
-          currentAddress={addressData}
-          hasPhysicalProduct={hasPhysicalProduct}
+          payInfo={payInfo}
+          setPayInfo={setPayInfo}
         />
       </div>
+      {isCartNotEmpty && (
+        <div>
+          <PaymentMethods
+            payInfo={payInfo}
+            setPayInfo={setPayInfo}
+            shippingMethod={currentShippingMethod}
+          />
+        </div>
+      )}
+      {isCartNotEmpty && (
+        <CreateOrderButton
+          shippingMethod={currentShippingMethod}
+          currentAddress={addressData}
+          hasPhysicalProduct={hasPhysicalProduct}
+          payInfo={payInfo}
+        />
+      )}
     </div>
   );
 }

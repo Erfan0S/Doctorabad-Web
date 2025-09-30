@@ -18,7 +18,7 @@ const CourseListPage = ({ type }: Props) => {
   >({
     queryKey: ["courses", CourseListConfigs[type].title],
     queryFn: ({ pageParam }) =>
-      CourseListConfigs[type].api().then((res) => res.data),
+      CourseListConfigs[type].api(pageParam as number).then((res) => res.data),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.links.next) {
