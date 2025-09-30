@@ -22,6 +22,7 @@ export type Order = {
   price_paid: number;
   discount_plan_type: null;
   variants: CartVariants[];
+  installment_payment?: boolean;
 };
 
 // export type CartResponse = {
@@ -72,14 +73,6 @@ export type ShippingMethod = {
 
   pic_url: string;
   description: string;
-};
-
-export type CreateOrderRequest = {
-  shipping_method_id?: number;
-  address_id?: number;
-  discount_code_id?: number | null;
-  use_credit?: boolean;
-  description?: string;
 };
 
 export type DiscountInfo = {

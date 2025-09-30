@@ -1,39 +1,33 @@
 "use client";
-import {useEffect, useState} from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
+// @ts-ignore
 import clubImage from "../../../assets/img/club.png";
+// @ts-ignore
 import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
-import {priceFormatter} from "@repo/core/utils/priceFormatter";
-import {cartActions, useCart} from "@repo/core/states/cart";
-import {
-  CreateOrderRequest,
-  ShippingAddress,
-  ShippingMethod,
-} from "@repo/core/types/cart";
-import {useMutation, useQuery} from "@tanstack/react-query";
-import {api} from "../../../api/Api";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import { useCart } from "@repo/core/states/cart";
+import { ShippingMethod } from "@repo/core/types/cart";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
-import {toast} from "react-toastify";
-import {useRouter} from "next/navigation";
-import {routePath} from "@repo/core/constants/routePath";
+import { toast } from "react-toastify";
 import OptionSwitch from "../../../common/components/optionSwitch";
+import { CartPayInfo } from "../../types/cart";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;
-  currentAddress: ShippingAddress | undefined;
-  hasPhysicalProduct: boolean;
+  payInfo: CartPayInfo;
+  setPayInfo: Dispatch<SetStateAction<CartPayInfo>>;
 };
 
-const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
-  const {replace} = useRouter();
-
-  const {coins, my_profit, count, user_credit, price_paid} = useCart();
-
-  const [discountCode, setDiscountCode] = useState("");
-  const [description, setDescription] = useState("");
-
-  const [payWithCredit, setPayWithCredit] = useState(false);
+const Pay = ({
+  shippingMethod,
+  payInfo: { description, discountCode, payWithCredit },
+  setPayInfo,
+}: Props) => {
+  const { coins, my_profit, count, user_credit, price_paid } = useCart();
 
   const {
     refetch,
@@ -43,7 +37,7 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
     queryKey: ["discount", discountCode],
     queryFn: () => {
       return api.checkDiscountCode(discountCode).then((res) => {
-        toast("کد تخفیف اعمال شد", {type: "success", position: "top-left"});
+        toast("کد تخفیف اعمال شد", { type: "success", position: "top-left" });
         return res;
       });
     },
@@ -52,55 +46,15 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
     staleTime: Infinity,
   });
 
-  const createOrder = useMutation({
-    mutationFn: (data: CreateOrderRequest) => api.createOrder(data),
-    retry: 0,
-    onSuccess: (data) => {
-      if (data.data.data.identifier) {
-        cartActions.getCartData();
-        replace(
-          `${routePath.callback}?identifier=${data.data.data.identifier}`
-        );
-      }
-
-      const {message, url} = data.data.data!;
-
-      toast(message, {type: "success", position: "top-left"});
-      window.open(url, "_self");
-    },
-    onError: (error: any) => {
-      if (error?.status === 422) {
-        cartActions.getCartData();
-      }
-    },
-  });
-
   const onCheckDiscountCode = () => {
     if (discountCode.length) {
       refetch();
     }
   };
 
-  const onCreateOrder = () => {
-    if (!count)
-      return toast("سبدخرید خالی است", {type: "error", position: "top-left"});
-    if (!shippingMethod && hasPhysicalProduct)
-      return toast("ابتدا نوع تحویل محصول را انتخاب کنید", {
-        type: "error",
-        position: "top-left",
-      });
-
-    const request: CreateOrderRequest = {
-      use_credit: payWithCredit,
-      discount_code_id: discountInfo?.data?.discount_code_id || null,
-      description: description,
-    };
-    if (hasPhysicalProduct) {
-      request.shipping_method_id = shippingMethod!.id;
-      request.address_id = currentAddress!.id;
-    }
-    createOrder.mutate(request);
-  };
+  useEffect(() => {
+    setPayInfo((prev) => ({ ...prev, discountInfo: discountInfo?.data }));
+  }, [discountInfo]);
 
   const discountInput = (
     <div className={style.payDiscount}>
@@ -108,7 +62,9 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
         type="text"
         placeholder="کد تخفیف"
         value={discountCode}
-        onChange={(e) => setDiscountCode(e.target.value)}
+        onChange={(e) =>
+          setPayInfo((prev) => ({ ...prev, discountCode: e.target.value }))
+        }
       />
       {discountLoading && (
         <span className={style.payDiscountLoader}>
@@ -126,7 +82,9 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
       <textarea
         placeholder="هر توضیحی درباره این سفارش دارین اینجا بنویسین..."
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) =>
+          setPayInfo((prev) => ({ ...prev, description: e.target.value }))
+        }
       />
     </div>
   );
@@ -195,7 +153,7 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
             activeSwitchComponent={descriptionInput}
             name="description"
             onToggle={(state) => {
-              state || setDescription("");
+              state || setPayInfo((prev) => ({ ...prev, description: "" }));
             }}
           />
           <OptionSwitch
@@ -203,14 +161,16 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
             activeSwitchComponent={discountInput}
             name="discount"
             onToggle={(state) => {
-              state || setDiscountCode("");
+              state || setPayInfo((prev) => ({ ...prev, discountCode: "" }));
             }}
           />
           {!!user_credit && (
             <OptionSwitch
               title="استفاده از اعتبار"
               name="credit"
-              onToggle={(isChecked) => setPayWithCredit((prev) => isChecked)}
+              onToggle={(isChecked) =>
+                setPayInfo((prev) => ({ ...prev, payWithCredit: isChecked }))
+              }
             />
           )}
         </ul>
@@ -218,7 +178,7 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
       {payWithCredit && (
         <>
           <div className={style.paySumPrice}>
-            <span style={{textDecoration: "line-through", color: "#000"}}>
+            <span style={{ textDecoration: "line-through", color: "#000" }}>
               {priceFormatter(price_paid)} تومن
             </span>
           </div>
@@ -238,15 +198,6 @@ const Pay = ({shippingMethod, currentAddress, hasPhysicalProduct}: Props) => {
           )}{" "}
           تومن
         </span>
-      </div>
-      <div className={style.payButton}>
-        <button disabled={createOrder.isPending} onClick={onCreateOrder}>
-          {createOrder.isPending ? (
-            <Loading size={25} />
-          ) : (
-            "پرداخت و نهایی کردن سفارش"
-          )}
-        </button>
       </div>
     </div>
   );

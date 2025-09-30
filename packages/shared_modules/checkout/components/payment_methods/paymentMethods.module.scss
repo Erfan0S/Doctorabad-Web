@@ -1,0 +1,66 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.paymentMethodsWrapper {
+  background-color: $body-bg;
+  padding: space(6);
+}
+
+.paymentMethodsList {
+  display: flex;
+  flex-direction: column;
+  gap: space(2);
+}
+
+.paymentMethodItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: space(2);
+  position: relative;
+  border: 2px solid $lightGray;
+  border-radius: 10px;
+  padding: space(2);
+  cursor: pointer;
+  min-height: 70px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    background-color: $lightGray;
+    border-radius: 15px;
+  }
+
+  .infoWrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: small;
+
+    span:first-of-type {
+      font-weight: 600;
+      padding-left: 20px;
+    }
+    span:last-of-type {
+      color: $gray;
+    }
+  }
+
+  .moreInfo {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: $gray;
+  }
+}
+
+.paymentMethodItem_active {
+  border-color: $base-green;
+}
+
+.paymentMethodItem_disabled {
+  background-color: $lightGray;
+  cursor: not-allowed;
+  .moreInfo {
+    color: rgb(90, 90, 90);
+  }
+}
