@@ -16,6 +16,7 @@ import {
   ShippingMethod,
 } from "@repo/core/types/cart";
 import { ResponseType } from "@repo/core/http-request/types/Request";
+import style from "./chekcout.module.scss";
 
 type Props = {
   payInfo: CartPayInfo;
@@ -93,7 +94,7 @@ function CreateOrderButton({
   };
 
   return (
-    <Button onClick={onCreateOrder}>
+    <Button onClick={onCreateOrder} className={style.createOrderButton}>
       {" "}
       {createOrder.isPending ? (
         <Loading size={25} />

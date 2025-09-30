@@ -125,21 +125,19 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
         />
       </div>
       {isCartNotEmpty && (
-        <div>
+        <div className={styles.checkoutModuleWrapper}>
           <PaymentMethods
             payInfo={payInfo}
             setPayInfo={setPayInfo}
             shippingMethod={currentShippingMethod}
           />
+          <CreateOrderButton
+            shippingMethod={currentShippingMethod}
+            currentAddress={addressData}
+            hasPhysicalProduct={hasPhysicalProduct}
+            payInfo={payInfo}
+          />
         </div>
-      )}
-      {isCartNotEmpty && (
-        <CreateOrderButton
-          shippingMethod={currentShippingMethod}
-          currentAddress={addressData}
-          hasPhysicalProduct={hasPhysicalProduct}
-          payInfo={payInfo}
-        />
       )}
     </div>
   );
