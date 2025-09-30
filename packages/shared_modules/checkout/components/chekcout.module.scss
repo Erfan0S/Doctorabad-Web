@@ -26,6 +26,17 @@
   }
 }
 
+.createOrderButton {
+  flex: none;
+  width: 100%;
+}
+
+.checkoutModuleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: space(4);
+}
+
 @media (min-width: 1200px) {
   .checkoutWrapper {
     > div {
