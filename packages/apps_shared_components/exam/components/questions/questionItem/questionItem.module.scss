@@ -44,6 +44,7 @@ html .dontKnowQuestion {
   display: flex;
   flex-direction: column;
   background-color: white;
+  position: relative;
 
   h4 {
     padding: 12px;
@@ -112,6 +113,7 @@ html .dontKnowQuestion {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    position: relative;
     img {
       margin-top: 10px;
     }
@@ -224,6 +226,21 @@ html .dontKnowQuestion {
     width: auto;
     width: fit-content;
     padding: 4px 9px;
+  }
+}
+
+.questionItemWaterMark {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  opacity: 0.8;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 }
 

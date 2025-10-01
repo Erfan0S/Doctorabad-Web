@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import {
   SharedFilters,
   ExamStatus,
 } from "@repo/apps_shared_components/exam/types/filters.ts";
 import { Apps } from "@repo/core/types/general";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api as coreApi } from "@repo/shared_modules/api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
@@ -22,27 +22,51 @@ import {
 } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { UserPlansQueryKeys } from "@repo/apps_shared_components/exam/constants/constants.ts";
+import { UserPlans } from "@repo/core/types/user";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
   const route = useRouter();
+  const queryClient = useQueryClient();
 
   const [manual, setManual] = useState(false);
   const [time, setTime] = useState<string | number | undefined>();
   const [questions, setQuestions] = useState<string | number | undefined>();
 
-  const { data: planData, isLoading: planLoading } = useQuery({
-    queryKey: ["auth", "userHasPlan"],
+  const {
+    data: planData,
+    isLoading: planLoading,
+    refetch: refetchPlan,
+    dataUpdatedAt: planUpdatedAt,
+  } = useQuery({
+    queryKey: UserPlansQueryKeys,
     queryFn: () => coreApi.getUserPlans(2),
     enabled: !!isUserLoggedIn(),
+    retry: false,
   });
 
-  const hasPlan =
-    !!planData?.data.data && planData?.data.data.length > 0 ? true : false;
+  const hasPlan = (plan?: UserPlans) =>
+    isUserLoggedIn() && !!plan?.data && plan?.data.length > 0 ? true : false;
 
-  const onExplanationSelect = () => {
+  useEffect(() => {
+    if (!isUserLoggedIn()) {
+      queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
+    }
+  }, [isUserLoggedIn()]);
+
+  const onExplanationSelect = async () => {
     if (planLoading) return;
-    if (hasPlan) {
+    if (!isUserLoggedIn()) {
+      queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
+      modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
+      return;
+    }
+    const plan =
+      (Date.now() - planUpdatedAt) / 1000 > 60
+        ? (await refetchPlan()).data
+        : planData;
+    if (hasPlan(plan?.data)) {
       toast.success("شماطرح فعال دارید!");
     } else {
       modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
@@ -79,9 +103,9 @@ function MakeInputs() {
         app={Apps.EXAM}
         addToQuery
         onClick={onExplanationSelect}
-        isActive={hasPlan}
+        isActive={hasPlan(planData?.data)}
         isLoading={planLoading}
-        isDefaulChecked={hasPlan}
+        isDefaulChecked={hasPlan(planData?.data)}
         canChange={false}
         key={SharedFilters.EXPLANATION}
       />

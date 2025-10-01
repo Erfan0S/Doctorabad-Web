@@ -1,28 +1,38 @@
 "use client";
 import { api } from "@repo/shared_modules/api";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useEffect } from "react";
 import DiscountPlanItem from "./DiscountPlanItem";
 import Loading from "../../../../../apps/exam/components/common/Loading/Loading";
 import style from "./discountPlans.module.scss";
 import { UserPlanItem } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { UserPlansQueryKeys } from "../../constants/constants";
 
 type Props = {
   haveUserPlan?: boolean;
 };
 
 function DiscountPlans({ haveUserPlan = true }: Props) {
+  const queryClient = useQueryClient();
+
   const { data, isLoading } = useQuery({
     queryKey: ["DiscountPlans"],
     queryFn: () => api.getDiscountPlans(2),
   });
   const { data: userPlans, isLoading: userPlansLoading } = useQuery({
-    queryKey: ["UserPlans"],
+    queryKey: UserPlansQueryKeys,
     queryFn: () => api.getUserPlans(2),
     enabled: !!isUserLoggedIn() && haveUserPlan,
   });
+
+  useEffect(() => {
+    if (!isUserLoggedIn()) {
+      queryClient.invalidateQueries({ queryKey: ["DiscountPlans"] });
+      queryClient.invalidateQueries({ queryKey: ["UserPlans"] });
+    }
+  }, [isUserLoggedIn()]);
 
   return (
     <div
@@ -32,6 +42,8 @@ function DiscountPlans({ haveUserPlan = true }: Props) {
       {userPlansLoading ? (
         <Loading />
       ) : (
+        !!isUserLoggedIn() &&
+        haveUserPlan &&
         userPlans?.data.data.map((item) => (
           <UserPlanItem item={item} app={Apps.EXAM} />
         ))

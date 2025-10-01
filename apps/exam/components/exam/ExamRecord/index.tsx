@@ -101,7 +101,7 @@ function ExamRecord({ lessons, totalQuestions }: Props) {
               ).length;
 
               return (
-                <tr>
+                <tr key={i}>
                   <td>{lesson.title}</td>
                   <td>{lesson.reputation_count}</td>
                   <td>{lessonCorrectAnswers}</td>
