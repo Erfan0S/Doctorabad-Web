@@ -8,6 +8,8 @@ import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { Order, OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+// @ts-ignore
+import snappayImage from "@repo/shared_modules/images/snapppay_2.png";
 
 const CartItem = ({
   id,
@@ -20,6 +22,7 @@ const CartItem = ({
   price_amazing,
   variants,
   product_type,
+  installment_payment,
 }: Order) => {
   const onDecrease = () => {
     quantity > 1
@@ -37,6 +40,11 @@ const CartItem = ({
 
   return (
     <div className={style.cartItem}>
+      {installment_payment && (
+        <div className={style.cartItemInstallmentProvider}>
+          <Image src={snappayImage} alt="اسنپ پی" width={33} height={20} />
+        </div>
+      )}
       <div className={style.cartItemImage}>
         <a href={url} target="_blank">
           <Image

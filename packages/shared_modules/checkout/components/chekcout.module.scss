@@ -5,10 +5,36 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: space(4);
 
   > div {
     width: 100%;
   }
+}
+
+.title {
+  display: flex;
+  margin-bottom: space(2);
+  padding-bottom: space(2);
+  border-bottom: 1px solid $gray;
+  line-height: 26px;
+
+  span {
+    margin-left: auto;
+    font-weight: 800;
+    font-size: 14px;
+  }
+}
+
+.createOrderButton {
+  flex: none;
+  width: 100%;
+}
+
+.checkoutModuleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: space(4);
 }
 
 @media (min-width: 1200px) {

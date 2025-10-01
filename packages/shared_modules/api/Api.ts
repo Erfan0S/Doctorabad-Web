@@ -22,7 +22,6 @@ import {
   CartResponse,
   CartSuggestedType,
   ChangeQuantityType,
-  CreateOrderRequest,
   CreateOrderResponse,
   DiscountInfo,
   OrderType,
@@ -52,6 +51,12 @@ import {
 import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
 import { ExamFavoriteList } from "@repo/core/types/exam";
 import { ExamOrderItem } from "../userSidePanel/types/orders";
+import {
+  CreateOrderRequest,
+  CreateProviderOrderRequest,
+  IsEligibleForProviderResponse,
+  PaymentProviders,
+} from "../checkout/types/cart";
 
 class Api extends Request {
   constructor() {
@@ -180,6 +185,38 @@ class Api extends Request {
     return this.request.get("/user/v1/cart/others_bought");
   };
 
+  isEligibleForProvider = (
+    price: number,
+    provider: PaymentProviders = PaymentProviders.SNAPP_PAY
+  ): Promise<ResponseType<{ data: IsEligibleForProviderResponse }>> => {
+    return this.request.post("/user/v1/cart/eligibility", {
+      price,
+      provider,
+    });
+  };
+
+  getShippingMethods = (): Promise<
+    ResponseType<{ data: ShippingMethod[] }>
+  > => {
+    return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
+  };
+
+  selectShippingMethod = (data: {
+    shipping_method_id: number;
+    address_id: number;
+  }): Promise<ResponseType<{ data: { price: number } }>> => {
+    return this.request.post<{ data: { price: number } }>(
+      "/user/shop/shipping/select",
+      data
+    );
+  };
+
+  checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
+    return this.request.get<DiscountInfo>(
+      `/user/shop/discountCode/check?code=${code}`
+    );
+  }
+
   // address
   getAddressesList = (): Promise<ResponseType<{ data: ShippingAddress[] }>> => {
     return this.request.get<{ data: ShippingAddress[] }>("/user/shop/address");
@@ -227,32 +264,21 @@ class Api extends Request {
     );
   };
 
-  getShippingMethods = (): Promise<
-    ResponseType<{ data: ShippingMethod[] }>
-  > => {
-    return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
-  };
-
-  selectShippingMethod = (data: {
-    shipping_method_id: number;
-    address_id: number;
-  }): Promise<ResponseType<{ data: { price: number } }>> => {
-    return this.request.post<{ data: { price: number } }>(
-      "/user/shop/shipping/select",
-      data
-    );
-  };
-
-  checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
-    return this.request.get<DiscountInfo>(
-      `/user/shop/discountCode/check?code=${code}`
-    );
-  }
+  // order
 
   createOrder(
     data: CreateOrderRequest
   ): Promise<ResponseType<CreateOrderResponse>> {
     return this.request.post<CreateOrderResponse>("/user/v1/order", data);
+  }
+
+  createProviderOrder(
+    data: CreateProviderOrderRequest
+  ): Promise<ResponseType<CreateOrderResponse>> {
+    return this.request.post<CreateOrderResponse>(
+      "/user/v1/order/installment",
+      data
+    );
   }
 
   getOrderResult = (
