@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../common/Button/Button";
 import style from "./questionBank.module.scss";
 import SelectFilters from "../common/SelectFilters/SelectFilters";
@@ -15,7 +15,7 @@ import {
   SidePanelPage,
 } from "@repo/core/types/sidePanel";
 import { api as sharedApi } from "@repo/shared_modules/api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { RoutePath } from "@/constants/routPaths";
 import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
 import { api } from "@/api/Api";
@@ -23,33 +23,61 @@ import Link from "next/link";
 import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { UserPlansQueryKeys } from "@repo/apps_shared_components/exam/constants/constants.ts";
+import { UserPlans } from "@repo/core/types/user";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const { data: planData, isLoading: planLoading } = useQuery({
-    queryKey: ["auth", "userHasPlan"],
+  const {
+    data: planData,
+    isLoading: planLoading,
+    refetch: refetchPlan,
+    dataUpdatedAt: planUpdatedAt,
+  } = useQuery({
+    queryKey: UserPlansQueryKeys,
     queryFn: () => sharedApi.getUserPlans(2),
     enabled: !!isUserLoggedIn(),
+    retry: false,
   });
   const { data: archivedData, isLoading: archivedLoading } = useQuery({
     queryKey: ["userHasArchived"],
     queryFn: () => api.getArcgived(),
     enabled: !!isUserLoggedIn(),
+    staleTime: 0,
   });
 
-  const hasPlan =
-    !!planData?.data.data && planData?.data.data.length > 0 ? true : false;
+  const hasPlan = (plan?: UserPlans) =>
+    isUserLoggedIn() && !!plan?.data && plan?.data.length > 0 ? true : false;
 
   const hasArchived =
     !!archivedData?.data.data &&
     archivedData?.data.data.length > 0 &&
     !archivedLoading;
 
-  const onExplanationSelect = () => {
+  useEffect(() => {
+    if (!isUserLoggedIn()) {
+      queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
+    }
+  }, [isUserLoggedIn()]);
+
+  const onExplanationSelect = async () => {
     if (planLoading) return;
-    if (hasPlan) {
+    if (!isUserLoggedIn()) {
+      queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
+      toast.error(explanationError);
+      document.getElementById("discountPlansElement")?.scrollIntoView({
+        behavior: "smooth",
+      });
+      return;
+    }
+    const plan =
+      (Date.now() - planUpdatedAt) / 1000 > 60
+        ? (await refetchPlan()).data
+        : planData;
+    if (hasPlan(plan?.data)) {
       toast.success("شماطرح فعال دارید!");
     } else {
       toast.error(explanationError);
@@ -58,6 +86,12 @@ function QuestionBankFilter() {
       });
     }
   };
+
+  useEffect(() => {
+    console.log(planUpdatedAt);
+    console.log(Date.now());
+    console.log();
+  }, [planUpdatedAt]);
 
   const onSubmitHandler = () => {
     if (!searchParams?.get(SharedFilters.FIELD)) {
@@ -107,9 +141,9 @@ function QuestionBankFilter() {
           app={Apps.EXAM}
           addToQuery
           onClick={onExplanationSelect}
-          isActive={hasPlan}
+          isActive={hasPlan(planData?.data)}
           isLoading={planLoading}
-          isDefaulChecked={hasPlan}
+          isDefaulChecked={hasPlan(planData?.data)}
           canChange={false}
         />
         <OptionSwitch

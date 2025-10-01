@@ -27,6 +27,7 @@ import { generateQuestionId } from "../../../utils/generateQuestionId";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 import { explanationError } from "../../../constants/massages";
+import QuestionItemWaterMark from "./questionItemWaterMark";
 
 const buttons = (
   question: QuestionType,
@@ -212,6 +213,8 @@ function QuestionItem({
         </span>
       </h4>
       <div className={styles.optionsWrapper}>
+        <QuestionItemWaterMark />
+
         {question.options.map((option) => (
           <QuestionInput
             id={option.id.toString()}
