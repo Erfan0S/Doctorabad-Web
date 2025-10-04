@@ -32,18 +32,6 @@ const Cart = ({ app }: Props) => {
     }
   );
 
-  const redirectPath = (): string => {
-    switch (app) {
-      case Apps.MARKET:
-        return routePath.archive;
-      case Apps.LEARN:
-        return routePath.learnBasePath;
-
-      default:
-        return routePath.checkout;
-    }
-  };
-
   return (
     <div className={`${style.cart} ${style[app]}`}>
       <div>
