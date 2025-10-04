@@ -78,7 +78,10 @@ function Questions({
   }
 
   return (
-    <div className={`${styles.questionsWrapper} container`}>
+    <div
+      className={`${styles.questionsWrapper} container`}
+      onContextMenu={(e) => e.preventDefault()}
+    >
       {filtredQuestions.map((question, index) => {
         return (
           <QuestionItem

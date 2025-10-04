@@ -13,6 +13,7 @@ import { useEffect } from "react";
 
 import { isServerSide } from "@repo/core/constants/constants";
 import CartIcon from "@/assets/svg/newIcons/cart";
+import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 
 const CartButton = () => {
   const router = useRouter();
@@ -29,7 +30,9 @@ const CartButton = () => {
       className={`${style.cartButton} ${cart.data.length ? style.hasItem : ""}`}
     >
       <span
-        onClick={authorizeClientAction(() => router.push(routePath.checkout))}
+        onClick={authorizeClientAction(() =>
+          window.open(getCheckoutUrl(true), "_self")
+        )}
       >
         {cart.data.length && !loading ? (
           <>

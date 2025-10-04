@@ -7,8 +7,8 @@ import {
   PaymentProviders,
 } from "../types/cart";
 import { api } from "../../api/Api";
-import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants/routePath";
+import { useRouter, useSearchParams } from "next/navigation";
+import { baseUrls, routePath } from "@repo/core/constants/routePath";
 import { toast } from "react-toastify";
 import {
   CreateOrderResponse,
@@ -17,6 +17,7 @@ import {
 } from "@repo/core/types/cart";
 import { ResponseType } from "@repo/core/http-request/types/Request";
 import style from "./chekcout.module.scss";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   payInfo: CartPayInfo;
@@ -33,19 +34,23 @@ function CreateOrderButton({
 }: Props) {
   const { count, price_paid } = useCart();
   const { replace } = useRouter();
+  const searchParams = useSearchParams();
 
   let orderApi: (
     data: CreateOrderRequest
-  ) => Promise<ResponseType<CreateOrderResponse>> = api.createOrder;
+  ) => Promise<ResponseType<CreateOrderResponse>> = async (
+    data: CreateOrderRequest
+  ) => api.createOrder(data);
 
   switch (paymentMethod) {
     case PaymentProviders.SNAPP_PAY:
-      orderApi = async (data: CreateOrderRequest) => {
-        return api.createProviderOrder({
+      orderApi = async (data: CreateOrderRequest) =>
+        api.createProviderOrder({
           ...data,
           provider: PaymentProviders.SNAPP_PAY,
         });
-      };
+      break;
+    default:
       break;
   }
 
@@ -55,8 +60,9 @@ function CreateOrderButton({
     onSuccess: (data) => {
       if (data.data.data.identifier) {
         cartActions.getCartData();
-        replace(
-          `${routePath.callback}?identifier=${data.data.data.identifier}`
+        window.open(
+          `${baseUrls.base}${routePath.callback}?identifier=${data.data.data.identifier}${(searchParams?.get("app") as Apps) ? "&app=" + searchParams?.get("app") : ""}`,
+          "_self"
         );
       }
 
@@ -73,6 +79,8 @@ function CreateOrderButton({
   });
 
   const onCreateOrder = () => {
+    console.log(orderApi);
+    // return;
     if (!count)
       return toast("سبدخرید خالی است", { type: "error", position: "top-left" });
     if (!shippingMethod && hasPhysicalProduct)

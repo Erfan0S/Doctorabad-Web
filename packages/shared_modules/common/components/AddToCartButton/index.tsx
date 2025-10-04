@@ -10,6 +10,7 @@ import { routePath } from "@repo/core/constants/routePath";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
+import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 
 type Props = {
   id: number;
@@ -60,7 +61,7 @@ function AddToCartButton({
           <Button
             app={app}
             onClick={() => {
-              router.push(routePath.checkout);
+              setTimeout(() => window.open(getCheckoutUrl(true), "_self"), 100);
               modalActions.clearModals();
             }}
           >

@@ -10,10 +10,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import Link from "next/link";
 import style from "./Callback.module.scss";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 function Callback({ app }: { app: Apps }) {
   const { push } = useRouter();
 
+  const redirectApp = (useSearchParams()?.get("app") || Apps.BASE) as Apps;
   const paymentToken = useSearchParams()?.get("identifier");
 
   const { data, isLoading, isError } = useQuery({
@@ -52,7 +54,7 @@ function Callback({ app }: { app: Apps }) {
         </div>
       </div>
       <Button>
-        <Link href={"/"}>بازگشت به صفحه اصلی</Link>
+        <a href={baseUrls[redirectApp]}>بازگشت به صفحه اصلی</a>
       </Button>
     </div>
   );

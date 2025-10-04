@@ -31,7 +31,7 @@ async function SinglePage({ params, searchParams }: Props) {
     const haveRecord = searchParams[SharedFilters.SHOW_RECORD];
 
     return (
-      <div>
+      <div contextMenu="none">
         <ExamHeader
           title={<PageTitle exam={data.exam} />}
           backUrl={RoutePath.single}

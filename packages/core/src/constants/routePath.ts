@@ -1,3 +1,5 @@
+import { Apps } from "../types/general";
+
 export const routePath = {
   drAbadBaseUrl: "https://develop.doctorabad.com",
   home: "/",
@@ -21,15 +23,15 @@ export const learnPaths = {
 };
 
 // export const baseUrls = {
-//   base: "http://localhost:3001",
-//   learn: "http://localhost:3003" + routePath.learnBasePath,
-//   market: "http://localhost:3002" + routePath.marketBasePath,
-//   exam: "http://localhost:3004" + routePath.examBasePath,
+//   [Apps.BASE]: "http://localhost:3001",
+//   [Apps.LEARN]: "http://localhost:3003" + routePath.learnBasePath,
+//   [Apps.MARKET]: "http://localhost:3002" + routePath.marketBasePath,
+//   [Apps.EXAM]: "http://localhost:3004" + routePath.examBasePath,
 // };
 
 export const baseUrls = {
-  base: "https://develop.doctorabad.com",
-  learn: "https://develop.doctorabad.com" + routePath.learnBasePath,
-  market: "https://develop.doctorabad.com" + routePath.marketBasePath,
-  exam: "https://develop.doctorabad.com" + routePath.examBasePath,
+  [Apps.BASE]: "https://develop.doctorabad.com",
+  [Apps.LEARN]: "https://develop.doctorabad.com" + routePath.learnBasePath,
+  [Apps.MARKET]: "https://develop.doctorabad.com" + routePath.marketBasePath,
+  [Apps.EXAM]: "https://develop.doctorabad.com" + routePath.examBasePath,
 };

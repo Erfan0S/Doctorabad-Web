@@ -6,6 +6,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: space(4);
+  padding-top: space(4);
 
   > div {
     width: 100%;
@@ -50,6 +51,7 @@
   }
 
   .mobileView {
+    margin-top: 20px;
     > div {
       flex: auto;
       max-width: 100%;

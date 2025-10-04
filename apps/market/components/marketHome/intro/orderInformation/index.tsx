@@ -20,6 +20,7 @@ import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponent
 import { useRouter } from "next/navigation";
 import { routePath } from "@repo/core/constants/routePath";
 import { OrderType } from "@repo/core/types/cart";
+import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 
 const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
   order,
@@ -41,7 +42,7 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
 
   const onClickAction = () => {
     if (isOrderNotPurchaseYet) {
-      push(routePath.checkout);
+      window.open(getCheckoutUrl(true), "_self");
     } else {
       modalActions.addModal(ModalTypes.ORDER_DETAIL, {
         orderCode: order.data.order_code,
