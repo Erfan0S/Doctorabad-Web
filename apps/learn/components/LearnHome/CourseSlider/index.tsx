@@ -10,6 +10,7 @@ import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
 import { Loading } from "@repo/shared_modules/components";
+import { isServerSide } from "@repo/core/constants/constants";
 
 interface Props {
   data: CourseListItemType[];
@@ -40,7 +41,9 @@ const CourseSlider: React.FC<Props> = ({
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    if (!isServerSide) {
+      window.addEventListener("resize", handleResize);
+    }
 
     return () => {
       window.removeEventListener("resize", handleResize);

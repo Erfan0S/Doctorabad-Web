@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
 import getCurrentAppName from "@repo/core/utils/getCurrentAppName";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
+import { isServerSide } from "@repo/core/constants/constants";
 
 type Props = {
   type: Apps;
@@ -44,7 +45,6 @@ const MobileHeader = ({ type }: Props) => {
   //   retry: 1,
   // });
 
-  console.log(getCurrentAppName());
   const openSideMenu = (menu: SidePanelPage) =>
     authorizeClientAction(() =>
       modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
@@ -88,9 +88,11 @@ const MobileHeader = ({ type }: Props) => {
           </span>
         </button> */}
         <button
-          onClick={authorizeClientAction(() =>
-            window.open(getCheckoutUrl(true), "_self")
-          )}
+          onClick={authorizeClientAction(() => {
+            if (!isServerSide) {
+              window.open(getCheckoutUrl(true), "_self");
+            }
+          })}
           className={style.cartButton}
         >
           <CartIcon />
