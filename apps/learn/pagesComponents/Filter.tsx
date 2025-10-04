@@ -1,6 +1,7 @@
 "use client";
 import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
+import FIlterNotFound from "@/components/common/FIlterNotFound";
 import Loading from "@/components/common/Loading";
 import { CourseListItemType } from "@/types/courses";
 import { FiltersNames, SortType } from "@/types/filters";
@@ -38,7 +39,7 @@ const FilterPageList = () => {
       api.getFilterList(filterParams).then((res) => res.data),
     queryKey: ["FilterList", filterParams],
     enabled: true,
-    retry: false,
+    retry: 2,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.links.next) {
@@ -47,6 +48,12 @@ const FilterPageList = () => {
       return undefined;
     },
   });
+
+  if (data?.pages[0].data.length === 0) {
+    return (
+      <FIlterNotFound massage="فیلترهای کمتری اعمال کنین تا دوره‌های بیشتری نشون داده بشه!" />
+    );
+  }
   return (
     <div className="container">
       {isLoading ? (
