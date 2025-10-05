@@ -14,7 +14,7 @@ export default function Watermark({ active, shown }: Props) {
   let interval: ReturnType<typeof setInterval>;
 
   const createRandomPosition = () => {
-    return Math.round(Math.random() * 65 + 15);
+    return Math.round(Math.random() * 55 + 10);
   };
 
   const { data, isLoading } = useQuery({

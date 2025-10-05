@@ -2,6 +2,7 @@
 
 import { SidePanelPageProps } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
+// @ts-ignore
 import avatarImage from "../../assets/img/avatars/01.png";
 import "react-circular-progressbar/dist/styles.css";
 import style from "./SidePanelProfile.module.scss";
