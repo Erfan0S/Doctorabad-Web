@@ -13,8 +13,8 @@
 .courseHeader {
   background-color: #f5f5f5;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  top: 55px;
   z-index: 100;
+  position: relative;
   padding-top: 10px;
 }
 
@@ -194,10 +194,25 @@
     height: 100%;
   }
 }
+.addToCartButton {
+  position: relative;
+}
+.purcheseBarDiscountPercent {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  transform: translate(0, -50%);
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 50px;
+  color: black;
+  background-color: orange;
+}
 
 @media (max-width: 768px) {
   .courseHeader {
     position: sticky;
+    top: 55px;
   }
 }
 

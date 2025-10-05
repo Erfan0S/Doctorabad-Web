@@ -36,7 +36,12 @@ const FilterPageList = () => {
     PaginatedResponse<CourseListItemType[]>
   >({
     queryFn: ({ pageParam }) =>
-      api.getFilterList(filterParams).then((res) => res.data),
+      api
+        .getFilterList({
+          ...filterParams,
+          page: pageParam as number | undefined,
+        })
+        .then((res) => res.data),
     queryKey: ["FilterList", filterParams],
     enabled: true,
     retry: 2,

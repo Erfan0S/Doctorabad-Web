@@ -7,6 +7,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { AddToCartButton } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
+import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 
 type Props = {
   course: CourseDataType;
@@ -15,6 +16,12 @@ type Props = {
 };
 
 export default function CourseButton({ course, mainPrice, offPrice }: Props) {
+  const { discountPercent } = getDiscountInformation(
+    course?.price_main,
+    course?.price_off || undefined,
+    course?.price_amazing || undefined
+  );
+
   return (
     <div
       className={`${style.purchaseBar} ${course.user_has_access && style.purchaseBarAccess}`}
@@ -31,25 +38,28 @@ export default function CourseButton({ course, mainPrice, offPrice }: Props) {
           type={OrderType.Course}
           app={Apps.LEARN}
           isFullWidth
+          className={style.addToCartButton}
         >
-          <>
-            <span> شروع یادگیری کل دوره | </span>
+          <div>
             <div>
-              <div>
-                {/* {discountPercent && <small>٪{discountPercent}</small>} */}
-                {offPrice && (
-                  <span className={style.priceOff}>
-                    {priceFormatter(mainPrice)}
-                    تومن
-                  </span>
-                )}
-              </div>
-              <div>
-                {priceFormatter(offPrice || mainPrice)}
-                تومن
-              </div>
+              {true && (
+                <div className={style.purcheseBarDiscountPercent}>
+                  <span>%{20}</span>
+                </div>
+              )}{" "}
+              {offPrice && (
+                <span className={style.priceOff}>
+                  {priceFormatter(mainPrice)}
+                  تومن
+                </span>
+              )}
             </div>
-          </>
+            <div>
+              {priceFormatter(offPrice || mainPrice)}
+              تومن
+            </div>
+          </div>{" "}
+          <span>&nbsp;&nbsp;|&nbsp;&nbsp;افزودن به سبد خرید</span>
         </AddToCartButton>
       )}
       {!!true && (

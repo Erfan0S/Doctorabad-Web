@@ -44,18 +44,9 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
 
   const CurrentTabComponent = clubTabsComponents[currentTab];
 
-  const onBack = () => {
-    if (!!data?.fromHome) modalActions.removeLastModal();
-    else setPage(SidePanelPage.MAIN);
-  };
-
   return (
     <>
-      <SidePanelHeader
-        setPage={setPage}
-        onBack={onBack}
-        title="علاقه‌مندی‌های‌من"
-      />
+      <SidePanelHeader setPage={setPage} title="علاقه‌مندی‌های‌من" />
       <div className="sidebar-tab-contents" id="favoriteListContainer">
         <div className={sidePanelStyle.sidePanelTabs}>
           <ul>

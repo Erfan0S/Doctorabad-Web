@@ -1,4 +1,4 @@
-import { baseUrls, routePath } from "../constants/routePath";
+import { baseUrls, learnPaths, routePath } from "../constants/routePath";
 import { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
 import { isServerSide } from "../constants/constants";
 import { OrderType } from "../types/cart";
@@ -75,7 +75,9 @@ export const generateSingleProductUrlFromId = (
     case OrderType.ShopProduct:
       return `${baseUrls.market}/product/${id}/${slug}`;
     case OrderType.Course:
-      return `${baseUrls.learn}/course/${id}/${slug}`;
+      return `${baseUrls.learn}${learnPaths.single}/${id}/${slug}`;
+    case OrderType.Exam:
+      return `${baseUrls.exam}/exam/${id}/${slug}`;
 
     default:
       return `${baseUrls.market}/product/${id}/${slug}`;

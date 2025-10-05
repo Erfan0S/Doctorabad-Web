@@ -7,6 +7,12 @@
   flex: 0 1 100%;
   overflow: auto;
 
+  &Empty {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
   &Item {
     display: flex;
     background-color: #fff;

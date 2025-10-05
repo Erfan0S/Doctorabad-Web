@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import SidePanelHeader from "../../header";
-import { SidePanelPageProps } from "@repo/core/types/sidePanel";
+import { SidePanelPage, SidePanelPageProps } from "@repo/core/types/sidePanel";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import InfiniteScroll from "react-infinite-scroller";
@@ -25,7 +25,11 @@ const PrevCarts: React.FC<SidePanelPageProps> = ({ setPage }) => {
 
   return (
     <>
-      <SidePanelHeader title="سبدهای خرید من" setPage={setPage} />
+      <SidePanelHeader
+        title="سبدهای خرید من"
+        setPage={setPage}
+        onBack={() => setPage(SidePanelPage.ORDERS)}
+      />
       {isLoading && !data ? (
         <Loading pageLoader />
       ) : (
