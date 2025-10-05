@@ -1,15 +1,17 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+.sidePanelProfileForm {
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .sidePanelProfile {
   padding: space(4) space(4) 0;
   position: relative;
   height: calc(100% - 61px);
-  form {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
   &Edit {
     position: absolute;
     left: space(4);
@@ -164,6 +166,7 @@
     margin: auto space(-4) 0;
     position: sticky;
     bottom: 0;
+
     button {
       width: 100%;
       line-height: 40px;
