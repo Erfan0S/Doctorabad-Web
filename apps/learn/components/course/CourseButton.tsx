@@ -8,6 +8,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { AddToCartButton } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
+import AmazingStarIcon from "@/assets/svg/amazingStart";
 
 type Props = {
   course: CourseDataType;
@@ -42,9 +43,12 @@ export default function CourseButton({ course, mainPrice, offPrice }: Props) {
         >
           <div>
             <div>
-              {true && (
+              {!!discountPercent && (
                 <div className={style.purcheseBarDiscountPercent}>
-                  <span>%{20}</span>
+                  <div>
+                    <AmazingStarIcon />
+                    <span>%{discountPercent}</span>
+                  </div>
                 </div>
               )}{" "}
               {offPrice && (
