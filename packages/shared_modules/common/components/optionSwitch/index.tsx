@@ -67,6 +67,12 @@ const OptionSwitch = ({
     }
   }, [isChecked]);
 
+  useEffect(() => {
+    if (!isActive) {
+      setIsChecked(false);
+    }
+  }, [isActive]);
+
   const handleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick && onClick(e);
     if (!isActive || !canChange) return;

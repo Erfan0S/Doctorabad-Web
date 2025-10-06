@@ -4,6 +4,9 @@ import ArrowRight from "../../../assets/svg/arrowRight";
 import { Dispatch, SetStateAction } from "react";
 import { onCheckType } from ".";
 
+export const createUniqueId = (id: string, queryKey: string) =>
+  `checkbox_${queryKey}_${id}_id`;
+
 type Props = {
   items: SelectFilterItems[];
   level: number;
@@ -28,7 +31,7 @@ const FilterItmeList = ({
   return (
     <ul>
       {items.map(({ id, title, childern }, i) => {
-        const uniqueId = `checkbox_${queryKey}_${id}_id_${i}`;
+        const uniqueId = createUniqueId(id.toString(), queryKey);
         return (
           <li key={uniqueId}>
             <div>

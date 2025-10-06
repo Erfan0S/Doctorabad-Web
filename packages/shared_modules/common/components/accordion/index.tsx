@@ -48,10 +48,28 @@ const Accordion: React.FC<Props & FilterModalType> = ({
     });
   };
 
+  const getSelectedItems = (items: SelectFilterItems[], filter?: string[]) => {
+    if (!items?.length || !filter?.length) return;
+    let selectedItems: SelectFilterItems[] = [];
+    items.forEach((item) => {
+      if (filter?.includes(item.id.toString())) {
+        selectedItems.push(item);
+      } else if (!!item.childern?.length) {
+        selectedItems.push(...(getSelectedItems(item.childern, filter) || []));
+      }
+    });
+
+    return selectedItems;
+  };
+
   useEffect(() => {
     if (!queryKey) return;
     const filter = params?.get(queryKey)?.split(",");
-    setSelected(items.filter((item) => filter?.includes(item.id.toString())));
+    if (!!filter?.length) {
+      setSelected(getSelectedItems(items, filter) || null);
+    } else {
+      setSelected(null);
+    }
   }, [queryKey && params?.get(queryKey), items]);
 
   useEffect(() => {
@@ -65,6 +83,21 @@ const Accordion: React.FC<Props & FilterModalType> = ({
     changeFilters(deps);
   }, [queryKey && params?.get(queryKey)]);
 
+  const getSelectedTitles = (items?: SelectFilterItems[] | null) => {
+    if (!items?.length) return null;
+    let title = items?.map((item) => item.title)?.join(", ");
+    items.forEach((item) => {
+      if (!!item.childern?.length)
+        title = title + ", " + getSelectedTitles(item.childern);
+    });
+    return title;
+  };
+
+  useEffect(() => {
+    console.log(title, getSelectedTitles(selected));
+    console.log(title, selected);
+  }, [selected]);
+
   return (
     <div
       className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}
@@ -74,7 +107,7 @@ const Accordion: React.FC<Props & FilterModalType> = ({
           {isLoading ? (
             <Loading app={app} />
           ) : (
-            selected?.map((item) => item.title)?.join(", ") || title
+            getSelectedTitles(selected) || title
           )}
         </span>
         {isActive && queryKey && <TriangleDown width={18} height={18} />}
