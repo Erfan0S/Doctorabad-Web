@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import QuestionBankFilter from "@/components/questionBank/filter";
+import QuestionBankFilter from "@/components/questionBank/questionBankFilter";
 import Providers from "@/providers/providers";
 import AppQueryClientProvider from "@/providers/queryClientProvider";
 import { DiscountPlans } from "@repo/apps_shared_components/exam";

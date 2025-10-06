@@ -2,10 +2,12 @@ import { SidePanelPage, SidePanelPageProps } from "@repo/core/types/sidePanel";
 import { sidePanelMenuData } from "./menu-data";
 import Image from "next/image";
 import style from "./SidePanelMainMenu.module.scss";
+// @ts-ignore
 import footerImage from "../../assets/img/login.jpg";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import SidePanelHeader from "../header";
+// @ts-ignore
 import avatarImage from "../../assets/img/avatars/01.png";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { modalActions } from "@repo/core/modal/modals";
@@ -69,9 +71,11 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
             <div
               key={id}
               onClick={() =>
-                modalActions.addModal(ModalTypes.SIDE_PANEL, {
-                  initialPage: href,
-                })
+                action
+                  ? action()
+                  : modalActions.addModal(ModalTypes.SIDE_PANEL, {
+                      initialPage: href,
+                    })
               }
             >
               <Icon />

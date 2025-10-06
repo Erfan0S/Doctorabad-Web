@@ -1,4 +1,3 @@
-import SelectFilters from "@/components/common/SelectFilters/SelectFilters";
 import SingleList from "@/components/singlesList";
 import SingleFilters from "@/components/singlesList/filters";
 import AppQueryClientProvider from "@/providers/queryClientProvider";

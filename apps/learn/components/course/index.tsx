@@ -27,6 +27,7 @@ import CourseButton from "./CourseButton";
 import Loading from "../common/Loading";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { toast } from "react-toastify";
+import { PreventContext } from "@repo/shared_modules/components";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -144,10 +145,7 @@ const Course = ({ course }: Props) => {
 
   return (
     <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>
-      <div
-        className={style.preventContext}
-        onContextMenu={(e) => e.preventDefault()}
-      />
+      <PreventContext />
       <PageHeader
         title=""
         app={Apps.LEARN}

@@ -155,10 +155,11 @@ class Api extends Request {
 
   //----------Archived Filter----------
   getArcgived = (
+    page: number = 1,
     params?: Partial<QuestionListParamsType>
   ): Promise<ResponseType<PaginatedResponse<ArchivedType[]>>> => {
     return this.request.get("/user/v1/lab/question/archived/filter", {
-      params,
+      params: { page, ...params },
     });
   };
 

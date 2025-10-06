@@ -14,6 +14,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
+import { PreventContext } from "@repo/shared_modules/components";
 
 type Props = {
   params: {
@@ -47,6 +48,7 @@ async function SinglePage({ params, searchParams }: Props) {
             totalQuestions={data.data.length}
           />
         )}
+        <PreventContext />
         <Questions questions={data.data} exam={data.exam} />
       </div>
     );

@@ -23,7 +23,10 @@ function ExamRecord({ lessons, totalQuestions }: Props) {
   const unAnsweredQuestions = getUnAnsweredQuestions();
 
   return (
-    <div className={`${style.examRecordWrapper} card`}>
+    <div
+      className={`${style.examRecordWrapper} card`}
+      onContextMenu={(e) => e.preventDefault()}
+    >
       <h3>کارنامه تحلیلی آزمون</h3>
       <div className={style.percentageBars}>
         <PercentageBar

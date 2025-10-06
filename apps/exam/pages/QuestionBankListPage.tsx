@@ -12,6 +12,7 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import BudgetingRecord from "@/components/exam/BudgetingRecord";
 import AppQueryClientProvider from "@/providers/queryClientProvider";
+import { PreventContext } from "@repo/shared_modules/components";
 
 function QuestionBankListPageComponent() {
   const {
@@ -66,11 +67,14 @@ function QuestionBankListPageComponent() {
 
   if (!data?.pages[0].data && !isLoading) return <div>موردی یافت نشد</div>;
 
+  console.log(data?.pages[0].budgeting);
+
   return (
     <div>
+      <PreventContext />
       {!!isLoading && <Loading />}
 
-      {!!budgeting && data?.pages[0].budgeting && (
+      {!!budgeting && !!data?.pages[0].budgeting.length && (
         <BudgetingRecord
           budgets={data?.pages[0].budgeting}
           title={data?.pages[0].data[0].lesson}

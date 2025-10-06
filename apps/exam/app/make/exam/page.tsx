@@ -10,6 +10,7 @@ import {
 } from "@repo/apps_shared_components/exam/types/filters.ts";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
+import { PreventContext } from "@repo/shared_modules/components";
 
 type Props = {
   searchParams: Record<string, string | undefined>;
@@ -56,6 +57,7 @@ async function SinglePage({ searchParams }: Props) {
 
     return (
       <div>
+        <PreventContext />
         <ExamHeader title="آزمون ساز" perventParams backUrl={RoutePath.make}>
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />

@@ -10,6 +10,8 @@
   padding-bottom: 10px;
   overflow: hidden;
   margin: auto;
+  z-index: 2;
+  position: relative;
 
   > h3 {
     width: 100%;

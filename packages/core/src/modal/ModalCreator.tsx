@@ -59,11 +59,13 @@ const ModalCreator = ({ ModalsList }: ModalCreatorProps) => {
             className={styles.modalOverlay}
             style={{ zIndex: 1100 + index }}
             onClick={() => close()}
+            onContextMenu={(e) => e.preventDefault()}
           >
             <div
               className={styles.modalWrapper}
               style={{ zIndex: 1100 + index + 1 }}
               onClick={(e) => e.stopPropagation()}
+              onContextMenu={(e) => e.preventDefault()}
             >
               <ModalComponent closeModal={close} data={modal.data} />
             </div>
