@@ -39,3 +39,5 @@ export { default as UserPlanItem } from "./UserPlanItem";
 export { default as ModalWrapper } from "./modalWrapper";
 
 export { default as PreventContext } from "./PreventContext";
+
+export { default as DiscountCountdown } from "./DiscountCountdown";

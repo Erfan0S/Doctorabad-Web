@@ -8,6 +8,7 @@ import {
   CourseListItemType,
   CourseShare,
   Note,
+  PaginatedAmazingCourses,
   previousOrders,
   VideoType,
 } from "@/types/courses";
@@ -159,6 +160,14 @@ class Api extends Request {
     page: number = 1
   ): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
     return this.request.get("/user/v1/education/category", {
+      params: { page },
+    });
+  }
+
+  getAmazingCourses(
+    page: number = 1
+  ): Promise<ResponseType<PaginatedAmazingCourses>> {
+    return this.request.get("/user/v1/education/course/amazing", {
       params: { page },
     });
   }

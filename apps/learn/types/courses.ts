@@ -1,3 +1,4 @@
+import { PaginatedResponse } from "@repo/core/types/general";
 import { ProviderType } from "./homePage";
 
 export interface Lesson {
@@ -90,7 +91,13 @@ export type CourseListItemType = {
   };
   duration: number;
   student_count: number;
+  installment_payment?: boolean;
 };
+
+export interface PaginatedAmazingCourses
+  extends PaginatedResponse<CourseListItemType[]> {
+  amazing_time: string;
+}
 
 export type CourseComents = {
   id: number;

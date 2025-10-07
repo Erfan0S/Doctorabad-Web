@@ -28,9 +28,11 @@ export enum CourseListType {
   Suggested = "suggested",
   Newest = "newest",
   BestSeller = "best-seller",
+  Amazing = "amazing",
 }
 
 export enum HomePageCourseSliders {
+  Amazing = "amazing",
   MyCourses = "my-courses",
   Suggested = "suggested",
   Newest = "newest",

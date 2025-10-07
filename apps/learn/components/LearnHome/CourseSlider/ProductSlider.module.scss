@@ -32,6 +32,14 @@
       }
     }
 
+    .amazingTimeTitle {
+      span {
+        color: $red;
+        font-size: 16px;
+        font-weight: 800;
+      }
+    }
+
     &Link {
       padding-right: space(3);
       position: relative;
@@ -127,3 +135,15 @@
 //     }
 //   }
 // }
+
+@media (max-width: 425px) {
+  .amazingTimeCountdown {
+    font-size: 20px;
+
+    span {
+      min-width: 25px;
+      font-size: 14px;
+      line-height: 25px;
+    }
+  }
+}

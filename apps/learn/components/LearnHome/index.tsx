@@ -7,6 +7,7 @@ import LazyCourseSlider from "./LazyCourseSlider";
 const MainPage = () => {
   return (
     <div className={styles.container}>
+      <LazyCourseSlider type={HomePageCourseSliders.Amazing} />
       <LazyCourseSlider type={HomePageCourseSliders.MyCourses} />
       <LazyCourseSlider type={HomePageCourseSliders.Suggested} />
       <LazyCourseSlider type={HomePageCourseSliders.Newest} />

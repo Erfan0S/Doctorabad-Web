@@ -5,11 +5,11 @@ import Link from "next/link";
 import "swiper/css";
 import { useEffect, useState } from "react";
 import { CourseListItemType } from "@/types/courses";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
-import { Loading } from "@repo/shared_modules/components";
+import { DiscountCountdown, Loading } from "@repo/shared_modules/components";
 import { isServerSide } from "@repo/core/constants/constants";
 
 interface Props {
@@ -18,6 +18,7 @@ interface Props {
   archiveLink: string | null;
   isLoading?: boolean;
   customSliderConfig?: SwiperProps;
+  amazingTime?: string;
 }
 
 const CourseSlider: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const CourseSlider: React.FC<Props> = ({
   isLoading,
   archiveLink,
   title,
+  amazingTime,
 }) => {
   const [slidesPerView, setSlidesPerView] = useState(1);
   const spaceBetween = 5; // Set your desired space between slides here
@@ -52,14 +54,28 @@ const CourseSlider: React.FC<Props> = ({
 
   if (!isLoading && !(data.length > 0)) return null;
 
+  console.log(amazingTime);
+
   return (
     <section className={style.productSlider}>
       <div className="container">
         {(title || archiveLink) && (
           <div className={style.productSliderHeader}>
             {title && (
-              <div className={style.productSliderHeaderTitle}>
+              <div
+                className={`${style.productSliderHeaderTitle} ${!!amazingTime && style.amazingTimeTitle}`}
+              >
                 <span>{title}</span>
+              </div>
+            )}
+            {amazingTime && (
+              <div className={style.productSliderHeaderAmazingTime}>
+                <DiscountCountdown
+                  endDate={amazingTime}
+                  style="secondary"
+                  app={Apps.LEARN}
+                  className={style.amazingTimeCountdown}
+                />
               </div>
             )}
             {archiveLink && (

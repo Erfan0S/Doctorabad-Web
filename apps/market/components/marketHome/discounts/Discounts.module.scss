@@ -1,5 +1,5 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 .discounts {
   padding: space(10) 0;
@@ -40,6 +40,7 @@
     }
 
     a {
+      margin-top: space(3);
       line-height: 30px;
       max-width: 150px;
       width: 100%;
@@ -67,28 +68,6 @@
       .swiper {
         padding: space(5);
       }
-    }
-  }
-
-  &CountDown {
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: row-reverse;
-    font-size: 24px;
-    margin-bottom: space(3);
-
-    span {
-      background-color: #fff;
-      color: $orange;
-      min-width: 30px;
-      font-weight: 700;
-      border-radius: radius(2);
-      font-size: 16px;
-      line-height: 30px;
-      margin: 0 space(0.2);
     }
   }
 
