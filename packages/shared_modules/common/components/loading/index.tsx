@@ -19,11 +19,11 @@ const Loading: React.FC<Props> = ({
   if (pageLoader) {
     return (
       <div className={style.pageLoader}>
-        <div className={classNames} style={{ width: size }} />
+        <div className={classNames} style={{ width: size, height: size }} />
       </div>
     );
   }
-  return <div className={classNames} style={{ width: size }} />;
+  return <div className={classNames} style={{ width: size, height: size }} />;
 };
 
 export default Loading;
