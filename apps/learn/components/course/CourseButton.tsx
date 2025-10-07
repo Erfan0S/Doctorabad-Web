@@ -39,7 +39,7 @@ export default function CourseButton({ course, mainPrice, offPrice }: Props) {
           type={OrderType.Course}
           app={Apps.LEARN}
           isFullWidth
-          className={style.addToCartButton}
+          className={`${style.addToCartButton} ${!!offPrice && style.priceOffWrapper}`}
         >
           <div>
             <div>
