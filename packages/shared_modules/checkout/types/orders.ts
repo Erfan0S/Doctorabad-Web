@@ -70,6 +70,13 @@ export type CartOrderCourseItem = {
   only_watchable_on_app: boolean;
 };
 
+type CartOrderExamItem = {
+  id: number;
+  exam_title: string;
+  exam_pic_url: string | null;
+  price: number;
+};
+
 export type CartOrderDetails = {
   id: number;
   type: string;
@@ -86,6 +93,7 @@ export type CartOrderDetails = {
   order_shipping: OrderShippingInfo;
   shop_products: CartOrderProductItem[];
   courses: CartOrderCourseItem[];
+  exams: CartOrderExamItem[];
 };
 
 export type OrderDetailItemType = {

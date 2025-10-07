@@ -12,17 +12,12 @@ import { div } from "framer-motion/client";
 
 interface Props {
   orderCode: string;
-  productType?: OrderType;
   closeModal?: () => void;
 }
 
-const OrderDetail: React.FC<Props> = ({
-  orderCode,
-  productType,
-  closeModal,
-}: Props) => {
+const OrderDetail: React.FC<Props> = ({ orderCode, closeModal }: Props) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["orderDetail", orderCode, productType],
+    queryKey: ["orderDetail", orderCode],
     queryFn: () => {
       return api.getCartOrderDetail(orderCode);
     },
@@ -30,21 +25,23 @@ const OrderDetail: React.FC<Props> = ({
 
   let orderItems: OrderDetailItemType[] | undefined = [];
 
-  const shop =
-    data?.data.data.shop_products.map((product) => {
-      return {
-        price: product.price,
-        id: product.id,
-        quantity: product.quantity,
-        title: product.product_title,
-        pic_url: product.product_pic_url,
-        product_type: OrderType.ShopProduct,
-      };
-    }) || [];
+  if (!!data?.data.data.shop_products.length) {
+    const shop =
+      data?.data.data.shop_products.map((product) => {
+        return {
+          price: product.price,
+          id: product.id,
+          quantity: product.quantity,
+          title: product.product_title,
+          pic_url: product.product_pic_url,
+          product_type: OrderType.ShopProduct,
+        };
+      }) || [];
 
-  orderItems = [...orderItems, ...shop];
+    orderItems = [...orderItems, ...shop];
+  }
 
-  if (productType !== OrderType.ShopProduct) {
+  if (!!data?.data.data.courses.length) {
     const course =
       data?.data.data.courses.map((product) => {
         return {
@@ -57,6 +54,21 @@ const OrderDetail: React.FC<Props> = ({
         };
       }) || [];
     orderItems = [...orderItems, ...course];
+  }
+
+  if (!!data?.data.data.exams) {
+    const exam =
+      data?.data.data.exams.map((exam) => {
+        return {
+          price: exam.price,
+          id: exam.id,
+          quantity: 1,
+          title: exam.exam_title,
+          pic_url: exam.exam_pic_url,
+          product_type: OrderType.Exam,
+        };
+      }) || [];
+    orderItems = [...orderItems, ...exam];
   }
 
   // fix order descount code
