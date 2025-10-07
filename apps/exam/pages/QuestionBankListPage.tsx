@@ -13,6 +13,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import BudgetingRecord from "@/components/exam/BudgetingRecord";
 import AppQueryClientProvider from "@/providers/queryClientProvider";
 import { PreventContext } from "@repo/shared_modules/components";
+import FIlterNotFound from "@/components/common/FIlterNotFound";
 
 function QuestionBankListPageComponent() {
   const {
@@ -65,9 +66,7 @@ function QuestionBankListPageComponent() {
     },
   });
 
-  if (!data?.pages[0].data && !isLoading) return <div>موردی یافت نشد</div>;
-
-  console.log(data?.pages[0].budgeting);
+  if (!data?.pages[0].data.length && !isLoading) return <FIlterNotFound />;
 
   return (
     <div>

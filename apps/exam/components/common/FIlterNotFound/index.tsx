@@ -10,12 +10,14 @@ function FIlterNotFound({ massage }: Props) {
     <SharedFIlterNotFound
       primaryMassage={
         <>
-          گفتند یافت می‌نشود جسته‌ایم ما
+          بار دیگر طرح کن با من سوال عشق را
           <br />
-          گفتند آنچه یافت می‌نشود آنم آرزوست!
+          تا منِ ماهی بگویم پاسخ قلاب چیست!
         </>
       }
-      secondaryMassage={massage}
+      secondaryMassage={
+        massage || "فیلترهای کمتری اعمال کن تا سوالات بیشتری نشان داده بشه!"
+      }
     />
   );
 }
