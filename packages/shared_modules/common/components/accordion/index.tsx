@@ -93,11 +93,6 @@ const Accordion: React.FC<Props & FilterModalType> = ({
     return title;
   };
 
-  useEffect(() => {
-    console.log(title, getSelectedTitles(selected));
-    console.log(title, selected);
-  }, [selected]);
-
   return (
     <div
       className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}

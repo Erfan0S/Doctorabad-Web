@@ -50,11 +50,6 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     staleTime: Infinity,
   });
 
-  useEffect(() => {
-    console.log(payInfo);
-    console.log(price_paid);
-  }, [payInfo]);
-
   const PaymentMethidsConfig: PaymentMethodType[] = [
     {
       id: PaymentProviders.CASH,

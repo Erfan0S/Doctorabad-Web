@@ -22,7 +22,6 @@ const SidePanelFavoritesExam: React.FC = () => {
       return undefined;
     },
   });
-  console.log(data);
 
   if (isLoading) return <Loading />;
 
@@ -33,7 +32,6 @@ const SidePanelFavoritesExam: React.FC = () => {
         <InfiniteScroll
           pageStart={1}
           loadMore={() => {
-            console.log("load more");
             fetchNextPage();
           }}
           useWindow={false}

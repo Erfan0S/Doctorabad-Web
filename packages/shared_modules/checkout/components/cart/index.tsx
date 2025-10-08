@@ -22,7 +22,7 @@ const Cart = ({ app }: Props) => {
 
   const { data: cartSuggested, isLoading: isLoadingSuggested } = useQuery({
     queryFn: api.getCartSuggested,
-    queryKey: ["cartSuggested"],
+    queryKey: ["cartSuggested", cartItems],
   });
   const { data: cartLastSeen, isLoading: isLoadingLastSeen } = useQuery({
     queryFn: api.getCartLastSeen,
@@ -31,7 +31,7 @@ const Cart = ({ app }: Props) => {
   const { data: cartOthersBought, isLoading: isLoadingOthersBought } = useQuery(
     {
       queryFn: api.getCartOthersBought,
-      queryKey: ["cartOthersBought"],
+      queryKey: ["cartOthersBought", cartItems],
     }
   );
 

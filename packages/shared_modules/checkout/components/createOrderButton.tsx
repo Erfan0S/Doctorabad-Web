@@ -81,8 +81,6 @@ function CreateOrderButton({
   });
 
   const onCreateOrder = () => {
-    console.log(orderApi);
-    // return;
     if (!count)
       return toast("سبدخرید خالی است", { type: "error", position: "top-left" });
     if (!shippingMethod && hasPhysicalProduct)

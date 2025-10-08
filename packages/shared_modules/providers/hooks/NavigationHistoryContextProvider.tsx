@@ -24,15 +24,10 @@ export function NavigationHistoryProvider({
   const goBack = (searchParams?: string) => {
     const refferer = document.referrer;
 
-    console.log(refferer);
-    console.log(historyRef.current);
-
     if (historyRef.current.length > 1 && refferer) {
       // Remove current path
       historyRef.current.pop();
-      console.log(historyRef.current);
       const previous = historyRef.current.pop(); // get previous path
-      console.log(previous);
 
       if (previous) {
         router.push(`${previous}${searchParams ? `?${searchParams}` : ""}`);
