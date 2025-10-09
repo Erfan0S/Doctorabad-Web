@@ -5,7 +5,7 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { isServerSide } from "@repo/core/constants/constants";
 
-function AppQueryClientProvider({ children }: React.PropsWithChildren) {
+function PersistQueryProvider({ children }: React.PropsWithChildren) {
   const [client] = useState(
     new QueryClient({
       queryCache: new QueryCache({
@@ -50,4 +50,4 @@ function AppQueryClientProvider({ children }: React.PropsWithChildren) {
   );
 }
 
-export default AppQueryClientProvider;
+export default PersistQueryProvider;

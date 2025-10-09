@@ -11,9 +11,9 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import BudgetingRecord from "@/components/exam/BudgetingRecord";
-import AppQueryClientProvider from "@/providers/queryClientProvider";
 import { PreventContext } from "@repo/shared_modules/components";
 import FIlterNotFound from "@/components/common/FIlterNotFound";
+import { PersistQueryProvider } from "@repo/shared_modules";
 
 function QuestionBankListPageComponent() {
   const {
@@ -102,9 +102,9 @@ function QuestionBankListPageComponent() {
 
 function QuestionBankListPage() {
   return (
-    <AppQueryClientProvider>
+    <PersistQueryProvider>
       <QuestionBankListPageComponent />
-    </AppQueryClientProvider>
+    </PersistQueryProvider>
   );
 }
 

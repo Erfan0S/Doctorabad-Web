@@ -1,14 +1,14 @@
 import MakeInputs from "@/components/questionBank/makeExam/inputs";
-import AppQueryClientProvider from "@/providers/queryClientProvider";
+import { PersistQueryProvider } from "@repo/shared_modules";
 import React from "react";
 
 function MakeExamPage() {
   return (
-    <AppQueryClientProvider>
+    <PersistQueryProvider>
       <div className="container">
         <MakeInputs />
       </div>
-    </AppQueryClientProvider>
+    </PersistQueryProvider>
   );
 }
 
