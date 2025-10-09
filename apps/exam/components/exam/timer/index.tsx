@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./timer.module.scss";
 import Button from "@/components/common/Button/Button";
 import { modalActions } from "@repo/core/modal/modals";
@@ -12,18 +12,20 @@ import {
   ExamStatus,
 } from "@repo/apps_shared_components/exam/types/filters.ts";
 import { api } from "@/api/Api";
+import Loading from "@/components/common/Loading/Loading";
 
 type Props = {
   totalQuestions: number;
 };
 
 function ExamTimer({ totalQuestions }: Props) {
-  const [time, setTime] = React.useState(totalQuestions * 60);
+  const [time, setTime] = useState(totalQuestions * 60);
 
   const searchParams = useSearchParams();
   const manual = searchParams?.get(SharedFilters.MANUAL_TIME);
   const status = searchParams?.get(SharedFilters.STATUS);
   const setSearchParams = useChangeSearchParamsFilter();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!manual) return;
@@ -33,6 +35,7 @@ function ExamTimer({ totalQuestions }: Props) {
   let timerInterval: NodeJS.Timeout | undefined;
 
   useEffect(() => {
+    setLoading(false);
     if (status === ExamStatus.STARTED && time > 0) {
       if (timerInterval) clearInterval(timerInterval);
       timerInterval = setInterval(() => {
@@ -54,9 +57,13 @@ function ExamTimer({ totalQuestions }: Props) {
   }, [time]);
 
   const handleEnd = () => {
+    if (loading) return;
     if (status === ExamStatus.STARTED) {
-      modalActions.addModal(ModalTypes.EXAM_END_CONFIRM);
+      modalActions.addModal(ModalTypes.EXAM_END_CONFIRM, {
+        setLoading,
+      });
     } else {
+      setLoading(true);
       setSearchParams({ [SharedFilters.STATUS]: ExamStatus.STARTED });
     }
   };
@@ -68,7 +75,13 @@ function ExamTimer({ totalQuestions }: Props) {
       </span>
       {status !== ExamStatus.FINISHED && (
         <Button onClick={handleEnd} variant="secondary">
-          {status === ExamStatus.STARTED ? "پایان آزمون" : "شروع آزمون"}
+          {loading ? (
+            <Loading />
+          ) : status === ExamStatus.STARTED ? (
+            "پایان آزمون"
+          ) : (
+            "شروع آزمون"
+          )}
         </Button>
       )}
     </div>
