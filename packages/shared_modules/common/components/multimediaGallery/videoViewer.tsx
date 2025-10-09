@@ -11,6 +11,8 @@ type Props = {
 };
 
 export const VideoViewer = ({ src, thumbnailProps }: Props) => {
+  console.log(thumbnailProps);
+  console.log(src);
   return (
     <div
       className={styles.video}
@@ -18,11 +20,8 @@ export const VideoViewer = ({ src, thumbnailProps }: Props) => {
     >
       <Play fill="#eee" />
 
-      {thumbnailProps.src ? (
-        <>
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
-          <Image {...thumbnailProps} />
-        </>
+      {!!thumbnailProps.src && thumbnailProps.src !== src ? (
+        <Image {...thumbnailProps} />
       ) : (
         <video controls={false} preload="metadata">
           <source src={src} type="video/mp4" />

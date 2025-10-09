@@ -15,6 +15,7 @@ import {
   DiscountPlansBuyModal,
   ExamStartModal,
 } from "@repo/apps_shared_components/exam";
+import { VideoModal } from "./modals/VideoModal";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -31,4 +32,5 @@ export const ModalsList: any = {
   [ModalTypes.QUESTION_INFO]: QuestionInfoModal,
   [ModalTypes.EXAM_DISCOUNT_PLANS]: DiscountPlansBuyModal,
   [ModalTypes.EXAM_START]: ExamStartModal,
+  [ModalTypes.VIDEO]: VideoModal,
 };
