@@ -108,6 +108,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     if (isLessonChanged) {
+      playerRef.current?.play();
       playerRef.current?.autoplay("play");
     } else {
       setIsLessonChanged(true);

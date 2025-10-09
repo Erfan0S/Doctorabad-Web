@@ -12,10 +12,15 @@ import { div } from "framer-motion/client";
 
 interface Props {
   orderCode: string;
+  type?: OrderType;
   closeModal?: () => void;
 }
 
-const OrderDetail: React.FC<Props> = ({ orderCode, closeModal }: Props) => {
+const OrderDetail: React.FC<Props> = ({
+  orderCode,
+  closeModal,
+  type,
+}: Props) => {
   const { data, isLoading } = useQuery({
     queryKey: ["orderDetail", orderCode],
     queryFn: () => {
@@ -25,7 +30,11 @@ const OrderDetail: React.FC<Props> = ({ orderCode, closeModal }: Props) => {
 
   let orderItems: OrderDetailItemType[] | undefined = [];
 
-  if (!!data?.data.data.shop_products.length) {
+  if (
+    !!data?.data.data.shop_products.length && !!type
+      ? type === OrderType.ShopProduct
+      : true
+  ) {
     const shop =
       data?.data.data.shop_products.map((product) => {
         return {
@@ -41,7 +50,11 @@ const OrderDetail: React.FC<Props> = ({ orderCode, closeModal }: Props) => {
     orderItems = [...orderItems, ...shop];
   }
 
-  if (!!data?.data.data.courses.length) {
+  if (
+    !!data?.data.data.courses.length && !!type
+      ? type === OrderType.Course
+      : true
+  ) {
     const course =
       data?.data.data.courses.map((product) => {
         return {
@@ -56,7 +69,7 @@ const OrderDetail: React.FC<Props> = ({ orderCode, closeModal }: Props) => {
     orderItems = [...orderItems, ...course];
   }
 
-  if (!!data?.data.data.exams) {
+  if (!!data?.data.data.exams && !!type ? type === OrderType.Exam : true) {
     const exam =
       data?.data.data.exams.map((exam) => {
         return {

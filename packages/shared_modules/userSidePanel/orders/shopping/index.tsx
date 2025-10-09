@@ -58,6 +58,7 @@ const SidePanelOrdersLearning: React.FC = () => {
                 onClick={() =>
                   modalActions.addModal(ModalTypes.ORDER_DETAIL, {
                     orderCode: order_code,
+                    type: OrderType.ShopProduct,
                   })
                 }
               >

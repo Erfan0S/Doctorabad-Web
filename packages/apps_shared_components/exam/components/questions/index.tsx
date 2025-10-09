@@ -26,6 +26,8 @@ type Props = {
   fetchNextPage?: () => void;
 };
 
+// TODO: test and add multy select questions
+
 function Questions({
   questions,
   exam,

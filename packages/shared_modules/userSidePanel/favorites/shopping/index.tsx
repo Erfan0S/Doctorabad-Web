@@ -14,6 +14,8 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import Link from "next/link";
 
+// TODO: add addtocart action
+
 const SidePanelFavoritesShopping: React.FC = () => {
   const { push } = useRouter();
 
