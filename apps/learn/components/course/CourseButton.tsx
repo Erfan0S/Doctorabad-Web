@@ -66,7 +66,7 @@ export default function CourseButton({ course, mainPrice, offPrice }: Props) {
           <span>&nbsp;&nbsp;|&nbsp;&nbsp;افزودن به سبد خرید</span>
         </AddToCartButton>
       )}
-      {!!true && (
+      {!!course.only_watchable_on_app && (
         <div
           className={`${style.appOnly} ${style.purchaseButton}`}
           onClick={() => modalActions.addModal(ModalTypes.AppOnly)}
