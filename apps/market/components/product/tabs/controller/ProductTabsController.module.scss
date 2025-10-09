@@ -9,6 +9,7 @@
   transition: 0.2s;
   z-index: 200;
   border-radius: 0 0 radius(3) radius(3);
+  user-select: none;
 
   ul {
     display: flex;

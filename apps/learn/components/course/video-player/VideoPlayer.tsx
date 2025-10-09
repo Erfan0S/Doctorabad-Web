@@ -121,6 +121,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     if (isPlayerReady) {
+      playerRef.current?.poster(config?.thumbnail || undefined);
       let noteButton: CustomButton | null = null;
       const nextTrackButton = new CustomButton(playerRef.current!, {
         initialContent: "",

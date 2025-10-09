@@ -141,6 +141,7 @@ const Course = ({ course }: Props) => {
         !!currentLeasson &&
         !course.only_watchable_on_app
     );
+    console.log(course);
   }, [currentLeasson, course]);
 
   return (
@@ -180,9 +181,25 @@ const Course = ({ course }: Props) => {
                 <VideoPlayer
                   // key={currentLeasson?.id || "preview"}
                   config={
-                    userHasAccess
-                      ? leassonData?.data?.data?.urls
-                      : { source: course?.course_preview! }
+                    {
+                      dash: userHasAccess
+                        ? leassonData?.data?.data?.urls?.dash
+                        : undefined,
+                      hls: userHasAccess
+                        ? leassonData?.data?.data?.urls?.hls
+                        : undefined,
+                      player: userHasAccess
+                        ? leassonData?.data?.data?.urls?.player
+                        : undefined,
+                      source: userHasAccess
+                        ? leassonData?.data?.data?.urls?.source
+                        : course?.course_preview!,
+                      thumbnail: course?.course_pic,
+                    }
+
+                    // userHasAccess
+                    //   ? leassonData?.data?.data?.urls
+                    //   : { source: course?.course_preview! }
                   }
                   title={currentLeasson?.title || "پیش نمایش"}
                   isUserHasAccess={userHasAccess}

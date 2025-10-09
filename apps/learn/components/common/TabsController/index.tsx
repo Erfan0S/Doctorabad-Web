@@ -9,6 +9,9 @@ interface Props {
   className?: string;
   defaultTab?: string;
 }
+
+// TODO: need refactor to use one TabsController in all apps
+
 const TabsController: React.FC<Props> = ({
   tabData,
   className,
