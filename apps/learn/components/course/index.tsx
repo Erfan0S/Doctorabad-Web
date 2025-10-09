@@ -26,6 +26,8 @@ import { Apps } from "@repo/core/types/general";
 import CourseButton from "./CourseButton";
 import Loading from "../common/Loading";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { toast } from "react-toastify";
+import { PreventContext } from "@repo/shared_modules/components";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -114,6 +116,8 @@ const Course = ({ course }: Props) => {
     if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
+    } else if (!course.user_has_access) {
+      toast.error("این دوره را هنوز نخریدی!");
     } else if (course.only_watchable_on_app) {
       modalActions.addModal(ModalTypes.AppOnly);
     }
@@ -137,14 +141,12 @@ const Course = ({ course }: Props) => {
         !!currentLeasson &&
         !course.only_watchable_on_app
     );
+    console.log(course);
   }, [currentLeasson, course]);
 
   return (
     <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>
-      <div
-        className={style.preventContext}
-        onContextMenu={(e) => e.preventDefault()}
-      />
+      <PreventContext />
       <PageHeader
         title=""
         app={Apps.LEARN}
@@ -177,12 +179,21 @@ const Course = ({ course }: Props) => {
                 </div>
               ) : (
                 <VideoPlayer
-                  // key={currentLeasson?.id || "preview"}
-                  config={
-                    userHasAccess
-                      ? leassonData?.data?.data?.urls
-                      : { source: course?.course_preview! }
-                  }
+                  config={{
+                    dash: userHasAccess
+                      ? leassonData?.data?.data?.urls?.dash
+                      : undefined,
+                    hls: userHasAccess
+                      ? leassonData?.data?.data?.urls?.hls
+                      : undefined,
+                    player: userHasAccess
+                      ? leassonData?.data?.data?.urls?.player
+                      : undefined,
+                    source: userHasAccess
+                      ? leassonData?.data?.data?.urls?.source
+                      : course?.course_preview!,
+                    thumbnail: course?.course_pic,
+                  }}
                   title={currentLeasson?.title || "پیش نمایش"}
                   isUserHasAccess={userHasAccess}
                   lessonId={currentLeasson?.id!}
@@ -190,6 +201,7 @@ const Course = ({ course }: Props) => {
                   goToNextTrack={goToNextTrack}
                   goToPreviousTrack={goToPreviousTrack}
                   suggestedCurrentTime={suggestedCurrentTime}
+                  setSuggestedCurrentTime={setSuggestedCurrentTime}
                 />
               )}
               <div className={style["course-title"]}>

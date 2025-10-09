@@ -20,8 +20,6 @@ const SidePanelOrdersExam: React.FC = () => {
 
   if (isLoading) return <Loading size={22} />;
 
-  console.log(data);
-
   return (
     <InfiniteScroll
       pageStart={1}

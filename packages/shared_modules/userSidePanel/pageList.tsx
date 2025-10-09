@@ -17,7 +17,7 @@ export const sidePanelPageList: SidePanelList = {
   [SidePanelPage.FAVORITES]: SidePanelFavorites,
   [SidePanelPage.ORDERS]: SidePanelOrders,
   [SidePanelPage.PREV_CARTS]: PrevCarts,
-  [SidePanelPage.MESSAGES]: PrevCarts,
+  [SidePanelPage.MESSAGES]: SidePanelMessages,
   [SidePanelPage.FRIENDS]: SidePanelFriends,
   [SidePanelPage.PROFILE]: SidePanelProfile,
   [SidePanelPage.DISCOUNTS]: SidePanelDiscounts,

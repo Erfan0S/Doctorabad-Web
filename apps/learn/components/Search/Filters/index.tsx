@@ -7,8 +7,9 @@ import { useSearchParams } from "next/navigation";
 import { SelectFilterQroup } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { SelectQroupItemType } from "@repo/core/types/filter";
+import { PersistQueryProvider } from "@repo/shared_modules";
 
-const Filters = () => {
+const FiltersContainer = () => {
   const params = useSearchParams();
 
   const { data: field, isLoading: fieldLoading } = useQuery({
@@ -120,6 +121,14 @@ const Filters = () => {
   ];
 
   return <SelectFilterQroup items={FiltersData} app={Apps.LEARN} />;
+};
+
+const Filters = () => {
+  return (
+    <PersistQueryProvider>
+      <FiltersContainer />
+    </PersistQueryProvider>
+  );
 };
 
 export default Filters;

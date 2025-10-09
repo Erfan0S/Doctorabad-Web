@@ -20,6 +20,7 @@ export const routePath = {
 
 export const learnPaths = {
   provider: "/providers",
+  single: "/course",
 };
 
 // export const baseUrls = {

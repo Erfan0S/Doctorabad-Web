@@ -8,14 +8,15 @@ import { Button, Loading } from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
-import Link from "next/link";
 import style from "./Callback.module.scss";
 import { baseUrls } from "@repo/core/constants/routePath";
+import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 
 function Callback({ app }: { app: Apps }) {
   const { push } = useRouter();
 
-  const redirectApp = (useSearchParams()?.get("app") || Apps.BASE) as Apps;
+  const redirectApp = (useSearchParams()?.get(REDIRECTED_APP_KEY) ||
+    Apps.BASE) as Apps;
   const paymentToken = useSearchParams()?.get("identifier");
 
   const { data, isLoading, isError } = useQuery({

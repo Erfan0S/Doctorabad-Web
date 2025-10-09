@@ -1,0 +1,31 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.discountCountdown {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row-reverse;
+  font-size: 24px;
+
+  span {
+    background: #fff;
+    color: var(--app-base, #{$green});
+    min-width: 30px;
+    font-weight: 700;
+    border-radius: radius(2);
+    font-size: 16px;
+    line-height: 30px;
+    margin: 0 space(0.2);
+  }
+}
+
+.secondary {
+  color: var(--app-base, #{$green});
+  span {
+    color: #fff;
+    background: var(--app-base, #{$green});
+  }
+}

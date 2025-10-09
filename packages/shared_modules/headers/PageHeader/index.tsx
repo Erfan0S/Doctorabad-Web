@@ -3,6 +3,7 @@ import { Apps } from "@repo/core/types/general";
 import BackIcon from "../../assets/svg/back";
 import style from "./PageHeader.module.scss";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+import { PreventContext } from "../../common/components";
 
 interface Props {
   title: string | React.ReactNode;
@@ -37,6 +38,7 @@ const PageHeader: React.FC<Props> = ({
     <div
       style={{ marginBottom: haveMargin ? 10 : 0 }}
       className={`${style.sidePanelHeaderContainer} ${className} ${style[app]}`}
+      onContextMenu={(e) => e.preventDefault()}
     >
       <div className={`${style.sidePanelHeader}`}>
         <span>{title}</span>

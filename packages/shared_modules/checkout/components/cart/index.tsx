@@ -2,13 +2,13 @@
 import { useCart } from "@repo/core/states/cart";
 import CartItem from "./item";
 import style from "./Cart.module.scss";
-import { routePath } from "@repo/core/constants/routePath";
-import Link from "next/link";
+import { baseUrls } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import { useEffect } from "react";
 import ProductSlider from "./ProductSlider";
+import { useSearchParams } from "next/navigation";
+import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 
 type Props = {
   app: Apps;
@@ -16,10 +16,13 @@ type Props = {
 
 const Cart = ({ app }: Props) => {
   const { data: cartItems, count } = useCart();
+  const redirectedApp = useSearchParams().get(REDIRECTED_APP_KEY) as
+    | Apps
+    | undefined;
 
   const { data: cartSuggested, isLoading: isLoadingSuggested } = useQuery({
     queryFn: api.getCartSuggested,
-    queryKey: ["cartSuggested"],
+    queryKey: ["cartSuggested", cartItems],
   });
   const { data: cartLastSeen, isLoading: isLoadingLastSeen } = useQuery({
     queryFn: api.getCartLastSeen,
@@ -28,9 +31,13 @@ const Cart = ({ app }: Props) => {
   const { data: cartOthersBought, isLoading: isLoadingOthersBought } = useQuery(
     {
       queryFn: api.getCartOthersBought,
-      queryKey: ["cartOthersBought"],
+      queryKey: ["cartOthersBought", cartItems],
     }
   );
+
+  const appLink = redirectedApp
+    ? baseUrls[redirectedApp]
+    : baseUrls[Apps.MARKET];
 
   return (
     <div className={`${style.cart} ${style[app]}`}>
@@ -49,9 +56,9 @@ const Cart = ({ app }: Props) => {
             })
           ) : (
             // TODO: Might need change
-            <Link href={"/"} className={style.cartEmpty}>
+            <a href={appLink} className={style.cartEmpty}>
               مشاهده محصولات
-            </Link>
+            </a>
           )}
         </div>
       </div>

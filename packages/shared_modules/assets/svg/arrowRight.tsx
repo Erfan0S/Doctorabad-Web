@@ -13,10 +13,10 @@ const ArrowRight: React.FC<SVGProps<SVGSVGElement>> = (props) => {
       <path
         d="M8.91003 19.9201L15.43 13.4001C16.2 12.6301 16.2 11.3701 15.43 10.6001L8.91003 4.08008"
         stroke={props.stroke || "currentColor" || "#292D32"}
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

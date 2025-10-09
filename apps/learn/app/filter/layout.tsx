@@ -1,11 +1,18 @@
 "use client";
+import { checkoutMetadata } from "@repo/core/metadata/checkout";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { useState } from "react";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { isServerSide } from "@repo/core/constants/constants";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
-function AppQueryClientProvider({ children }: React.PropsWithChildren) {
+export const viewport = checkoutMetadata;
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [client] = useState(
     new QueryClient({
       queryCache: new QueryCache({
@@ -34,14 +41,6 @@ function AppQueryClientProvider({ children }: React.PropsWithChildren) {
     <PersistQueryClientProvider
       persistOptions={{
         persister: localStoragePersister,
-        dehydrateOptions: {
-          shouldDehydrateQuery: (query) => {
-            if (query.queryKey[0] === "auth") {
-              return false;
-            }
-            return true;
-          },
-        },
       }}
       client={client}
     >
@@ -49,5 +48,3 @@ function AppQueryClientProvider({ children }: React.PropsWithChildren) {
     </PersistQueryClientProvider>
   );
 }
-
-export default AppQueryClientProvider;

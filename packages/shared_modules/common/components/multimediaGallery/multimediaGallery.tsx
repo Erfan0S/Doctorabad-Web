@@ -39,6 +39,10 @@ export const MultimediaGallery = ({
   );
 
   useEffect(() => {
+    console.log("config", config);
+  }, [config]);
+
+  useEffect(() => {
     let lightbox = new PhotoSwipeLightbox({
       gallery: containerSelector,
       children: "a",

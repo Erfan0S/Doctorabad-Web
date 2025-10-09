@@ -33,57 +33,69 @@ const MessageList: React.FC<Props> = ({ openMessage }) => {
     },
   });
 
+  if (data?.pages[0].length === 0) {
+    return (
+      <div className={style.sidePanelMessages}>
+        <span className={style.sidePanelMessagesEmpty}>هیچ پیامی نیست!</span>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={style.sidePanelMessages}>
-        <InfiniteScroll
-          pageStart={1}
-          loadMore={() => fetchNextPage()}
-          hasMore={hasNextPage}
-          loader={<Loading size={36} />}
-        >
-          <div className={style.productCommentsHeader}>
-            {data?.pages.map((data, i) => (
-              <React.Fragment key={i}>
-                {data.map(
-                  (
-                    { created_at, id, pic_url, seen, summary, title },
-                    index
-                  ) => (
-                    <div
-                      key={id}
-                      className={classNames(
-                        style.sidePanelMessagesItem,
-                        seen ? "" : style.unseen
-                      )}
-                    >
-                      <div className={style.sidePanelMessagesItemImage}>
-                        <Image
-                          width={75}
-                          height={75}
-                          src={pic_url || placeHolderDataUrl}
-                          alt="OrdersImage"
-                        />
-                      </div>
-                      <div className={style.sidePanelMessagesItemContent}>
-                        <div className={style.sidePanelMessagesItemTitle}>
-                          <span>{title}</span>
-                          {seen ? <EmailOpen /> : <EmailClose />}
+        {isLoading ? (
+          <Loading size={20} />
+        ) : (
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={() => fetchNextPage()}
+            hasMore={hasNextPage}
+            loader={<Loading size={36} />}
+          >
+            <div className={style.productCommentsHeader}>
+              {data?.pages.map((data, i) => (
+                <React.Fragment key={i}>
+                  {data.map(
+                    (
+                      { created_at, id, pic_url, seen, summary, title },
+                      index
+                    ) => (
+                      <div
+                        key={id}
+                        className={classNames(
+                          style.sidePanelMessagesItem,
+                          seen ? "" : style.unseen
+                        )}
+                      >
+                        <div className={style.sidePanelMessagesItemImage}>
+                          <Image
+                            width={75}
+                            height={75}
+                            src={pic_url || placeHolderDataUrl}
+                            alt="OrdersImage"
+                          />
                         </div>
-                        <div className={style.sidePanelMessagesItemFooter}>
-                          <span>{toFullPersianDateString(created_at)}</span>
-                          <button onClick={() => openMessage(id)}>
-                            نشونم بده!
-                          </button>
+                        <div className={style.sidePanelMessagesItemContent}>
+                          <div className={style.sidePanelMessagesItemTitle}>
+                            <span>{title}</span>
+                            {seen ? <EmailOpen /> : <EmailClose />}
+                          </div>
+                          <div className={style.sidePanelMessagesItemFooter}>
+                            <span>{toFullPersianDateString(created_at)}</span>
+                            <button onClick={() => openMessage(id)}>
+                              نشونم بده!
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </InfiniteScroll>
+                    )
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </InfiniteScroll>
+        )}
       </div>
     </>
   );

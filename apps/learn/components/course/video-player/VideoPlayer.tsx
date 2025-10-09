@@ -22,6 +22,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   goToPreviousTrack,
   suggestedCurrentTime,
   courseId,
+  setSuggestedCurrentTime,
 }) => {
   const videoRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<VideoPlayerType>();
@@ -107,6 +108,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     if (isLessonChanged) {
+      playerRef.current?.play();
       playerRef.current?.autoplay("play");
     } else {
       setIsLessonChanged(true);
@@ -121,6 +123,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     if (isPlayerReady) {
+      playerRef.current?.poster(config?.thumbnail || undefined);
+      playerRef.current?.on("timeupdate", () => {
+        setSuggestedCurrentTime && setSuggestedCurrentTime(null);
+      });
       let noteButton: CustomButton | null = null;
       const nextTrackButton = new CustomButton(playerRef.current!, {
         initialContent: "",

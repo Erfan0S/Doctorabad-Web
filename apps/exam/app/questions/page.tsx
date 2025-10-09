@@ -17,7 +17,6 @@ function QuestionsPage() {
         onBack={() =>
           modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM, {
             perventParams: true,
-            backUrl: "/",
           })
         }
       />

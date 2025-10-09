@@ -1,17 +1,16 @@
-import SelectFilters from "@/components/common/SelectFilters/SelectFilters";
 import SingleList from "@/components/singlesList";
 import SingleFilters from "@/components/singlesList/filters";
-import AppQueryClientProvider from "@/providers/queryClientProvider";
+import { PersistQueryProvider } from "@repo/shared_modules";
 import React from "react";
 
 function SingleListPage() {
   return (
-    <AppQueryClientProvider>
+    <PersistQueryProvider>
       <div className="container">
         <SingleFilters />
         <SingleList />
       </div>
-    </AppQueryClientProvider>
+    </PersistQueryProvider>
   );
 }
 

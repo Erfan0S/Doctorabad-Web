@@ -10,36 +10,42 @@ type Props = {
 };
 
 const Configs = {
+  [HomePageCourseSliders.Amazing]: {
+    loader: async () => (await api.getAmazingCourses()).data,
+    title: "شگفت‌انگیزان",
+    archiveLink: "/course_list/" + CourseListType.Amazing,
+    queryKey: "amazing-courses",
+  },
   [HomePageCourseSliders.MyCourses]: {
     loader: async () =>
-      (await api.getPrviosCourseOrders()).data.data ||
-      (await api.getPreviosPlanOrders()).data.data,
+      (await api.getPrviosCourseOrders()).data ||
+      (await api.getPreviosPlanOrders()).data,
     title: "دوره‌ها و طرح‌های من",
     archiveLink: "/my_course",
     queryKey: "my-courses",
   },
   [HomePageCourseSliders.Suggested]: {
-    loader: async () => (await api.getSuggestedCourses()).data.data,
+    loader: async () => (await api.getSuggestedCourses()).data,
     title: "پیشنهاد کدخدای دکترآباد",
     archiveLink: "/course_list/" + CourseListType.Suggested,
     queryKey: "suggested-courses",
   },
 
   [HomePageCourseSliders.Newest]: {
-    loader: async () => (await api.getNewestCourses()).data.data,
+    loader: async () => (await api.getNewestCourses()).data,
     title: "جدید‌ترین ها",
     archiveLink: "/course_list/" + CourseListType.Newest,
     queryKey: "newest-courses",
   },
   [HomePageCourseSliders.BestSeller]: {
-    loader: async () => (await api.getBestSellerCourses()).data.data,
+    loader: async () => (await api.getBestSellerCourses()).data,
     title: "پرفروش‌ترین ها",
     archiveLink: "/course_list/" + CourseListType.BestSeller,
     queryKey: "bestseller-courses",
   },
 
   [HomePageCourseSliders.LastViewed]: {
-    loader: async () => (await api.getUserLastViewedCourses()).data.data,
+    loader: async () => (await api.getUserLastViewedCourses()).data,
     title: "آخرین بازدید‌های من",
     archiveLink: null,
     queryKey: "lastviewed-courses",
@@ -53,13 +59,18 @@ export default function LazyCourseSlider({ type }: Props) {
       loader={Configs[type].loader}
       queryKey={Configs[type].queryKey}
       returnOnError
-      component={(d) => (
-        <CourseSlider
-          title={Configs[type].title}
-          archiveLink={Configs[type].archiveLink}
-          data={d.data}
-        />
-      )}
+      component={(d) => {
+        console.log(d);
+
+        return (
+          <CourseSlider
+            title={Configs[type].title}
+            archiveLink={Configs[type].archiveLink}
+            data={d.data.data}
+            amazingTime={(d.data as any).amazing_time as string | undefined}
+          />
+        );
+      }}
     />
   );
 }

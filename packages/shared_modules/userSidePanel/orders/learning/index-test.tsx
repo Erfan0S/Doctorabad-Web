@@ -2,27 +2,27 @@ import Image from "next/image";
 import style from "./SidePanelOrdersLearning.module.scss";
 import Link from "next/link";
 import React from "react";
-import {Loading} from "@repo/shared_modules/components";
-import {CourseOrderItem, CourseOrderItemOld} from "@repo/core/types/course";
-import {useInfiniteQuery} from "@tanstack/react-query";
-import {api} from "../../../api/Api";
+import { Loading } from "@repo/shared_modules/components";
+import { CourseOrderItem, CourseOrderItemOld } from "@repo/core/types/course";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { api } from "../../../api/Api";
 import InfiniteScroll from "react-infinite-scroller";
-import {generateCourseUrlFromId} from "@repo/core/utils/UrlUtils";
-import {placeHolderDataUrl} from "@repo/core/constants/placeHolderDataUrl";
-import {modalActions} from "@repo/core/modal/modals";
+import { generateCourseUrlFromId } from "@repo/core/utils/UrlUtils";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { modalActions } from "@repo/core/modal/modals";
 import Basket from "../../../assets/svg/basket";
 import Clock from "../../../assets/svg/clock";
-import {toFullPersianDateString} from "@repo/core/utils/toFullPersianDateString";
+import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
 import Dollar from "../../../assets/svg/dollar";
-import {priceFormatter} from "@repo/core/utils/priceFormatter";
-import {ModalTypes} from "../../../common/modal/modalsTypes";
-import {OrderType} from "@repo/core/types/cart";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import { ModalTypes } from "../../../common/modal/modalsTypes";
+import { OrderType } from "@repo/core/types/cart";
 
 const SidePanelFavoritesLearning: React.FC = () => {
-  const {data, isLoading, fetchNextPage, hasNextPage} = useInfiniteQuery<
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     CourseOrderItemOld[]
   >({
-    queryFn: ({pageParam}) =>
+    queryFn: ({ pageParam }) =>
       api.getLearnOrdersListOld(Number(pageParam)).then((res) => res.data.data),
     queryKey: ["previousOrdersList"],
     initialPageParam: 1,
@@ -47,7 +47,7 @@ const SidePanelFavoritesLearning: React.FC = () => {
         document.getElementById("favoriteListContainer") as HTMLElement
       }
       loader={
-        <div style={{height: "30px", overflow: "hidden"}}>
+        <div style={{ height: "30px", overflow: "hidden" }}>
           <Loading size={20} />
         </div>
       }
@@ -55,14 +55,13 @@ const SidePanelFavoritesLearning: React.FC = () => {
       <div className={style.sidePanelFavoritesLearning}>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
-            {data.map(({created_at, id, oder_code, price_paid}) => (
+            {data.map(({ created_at, id, oder_code, price_paid }) => (
               <div
                 key={id}
                 className={style.sidePanelOrdersLearningItem}
                 onClick={() =>
                   modalActions.addModal(ModalTypes.ORDER_DETAIL, {
                     orderCode: oder_code,
-                    productType: OrderType.Course,
                   })
                 }
               >

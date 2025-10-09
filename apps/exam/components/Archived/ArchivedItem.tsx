@@ -114,10 +114,10 @@ function ArchivedItem({ data }: Props) {
       params.append("q", data.title);
     }
     if (data.budgeting) {
-      params.append(SharedFilters.BUDGETING, data.budgeting.toString());
+      params.append(SharedFilters.BUDGETING, "1");
     }
     if (data.tip) {
-      params.append(SharedFilters.TIP, data.tip.toString());
+      params.append(SharedFilters.TIP, "1");
     }
 
     router.push(`${RoutePath.questions}?${params.toString()}`);

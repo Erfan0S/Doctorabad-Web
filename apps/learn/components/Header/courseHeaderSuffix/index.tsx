@@ -13,6 +13,8 @@ import { api } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/Loading";
 import { Apps } from "@repo/core/types/general";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface Button {
   icon: React.ReactNode;
@@ -35,6 +37,7 @@ const CourseHeaderSiffix = ({
     toggleFavorite,
     isLoading: favoriteLoading,
   } = useToggleFavoriteProduct(!!course.user_favorite);
+  const router = useRouter();
 
   const { shareProduct, isLoading: shareLoading } = useShareProduct(
     async () => {
@@ -55,8 +58,11 @@ const CourseHeaderSiffix = ({
 
   const favoriteOnClick = () => {
     toggleFavorite(course.id);
-    // api.removeFavorite(course.id);
   };
+
+  useEffect(() => {
+    router.refresh();
+  }, [isFavorite]);
 
   const buttons: Button[] = [
     {

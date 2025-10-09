@@ -1,6 +1,7 @@
 "use client";
 import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
+import FIlterNotFound from "@/components/common/FIlterNotFound";
 import Loading from "@/components/common/Loading";
 import { CourseListItemType } from "@/types/courses";
 import { PaginatedResponse } from "@repo/core/types/general";
@@ -24,7 +25,12 @@ const Search = () => {
         }
         return undefined;
       },
+      retry: 2,
     });
+
+  if (data?.pages[0].data.length === 0 || isError) {
+    return <FIlterNotFound />;
+  }
 
   return (
     <div className="container">

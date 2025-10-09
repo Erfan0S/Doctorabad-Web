@@ -10,7 +10,7 @@ import ArchivedItem from "./ArchivedItem";
 function Archived() {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["archivedList"],
-    queryFn: () => api.getArcgived(),
+    queryFn: ({ pageParam }) => api.getArcgived(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.data.links.next) {

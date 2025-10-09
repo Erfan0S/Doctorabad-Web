@@ -4,6 +4,7 @@ import { ResponseType } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { Button } from "..";
 
 type Props<D = any> = {
   loader: () => Promise<D>;
@@ -70,7 +71,9 @@ export const LazyDataLoader = <S extends Object>({
           >
             مشکل در دریافت اطلاعات.مجددا تلاش کنید
           </p>
-          <button onClick={() => refetch()}>تلاش دوباره</button>
+          <Button onClick={() => refetch()} style={{ flex: "none" }}>
+            تلاش دوباره
+          </Button>
         </div>
         <div style={{ filter: "blur(5px)" }}>
           <PlaceHolder />

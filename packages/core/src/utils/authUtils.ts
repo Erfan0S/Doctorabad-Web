@@ -41,6 +41,7 @@ export const logOut = async (reloadPage: boolean = false) => {
   Cookies.remove(AUTH_COOKIE_KEY);
   try {
     await api.logout();
+    modalActions.clearModals();
   } catch (error) {}
   if (reloadPage) window.location.reload();
 };

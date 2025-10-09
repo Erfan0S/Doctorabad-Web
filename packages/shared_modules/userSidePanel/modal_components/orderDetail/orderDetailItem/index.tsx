@@ -31,34 +31,30 @@ const OrderDetailItem = ({
   };
   return (
     <div className={style.OrderDetailItem}>
-      <div className={style.OrderDetailItemImage}>
-        <a href={url} target="_blank" onClick={navigate}>
+      <a href={url} target="_blank" onClick={navigate}>
+        <div className={style.OrderDetailItemImage}>
           <Image
             src={pic_url || placeHolderDataUrl}
             alt={title}
             width={75}
             height={75}
           />
-        </a>
-      </div>
-      <div className={style.OrderDetailItemContent}>
-        <div className={style.OrderDetailItemTitle}>
-          <a onClick={navigate} href={url}>
-            {title}
-          </a>
         </div>
-        <div className={style.OrderDetailItemFooter}>
-          <span className={style.OrderDetailItemFooterInfo}>
-            <CoinIcon />
-            {priceFormatter(price)}
-            <small>تومن</small>
-          </span>
-          <span className={style.OrderDetailItemFooterInfo}>
-            <PaperIcon />
-            {quantity} <small>عدد</small>
-          </span>
+        <div className={style.OrderDetailItemContent}>
+          <div className={style.OrderDetailItemTitle}>{title}</div>
+          <div className={style.OrderDetailItemFooter}>
+            <span className={style.OrderDetailItemFooterInfo}>
+              <CoinIcon />
+              {priceFormatter(price)}
+              <small>تومن</small>
+            </span>
+            <span className={style.OrderDetailItemFooterInfo}>
+              <PaperIcon />
+              {quantity} <small>عدد</small>
+            </span>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };

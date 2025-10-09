@@ -75,6 +75,7 @@
     > ul {
       max-height: 400px;
       overflow: auto;
+      user-select: none;
 
       > li:first-of-type {
         border: none;

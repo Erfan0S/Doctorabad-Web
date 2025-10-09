@@ -10,7 +10,7 @@ import {
   ExamStatus,
 } from "@repo/apps_shared_components/exam/types/filters.ts";
 
-type Props = ModalProps<{}>;
+type Props = ModalProps<{ setLoading?: (loading: boolean) => void }>;
 
 function EndExamModal({ closeModal, data }: Props) {
   const setSearchParams = useChangeSearchParamsFilter();
@@ -18,6 +18,7 @@ function EndExamModal({ closeModal, data }: Props) {
   const Buttons = () => {
     const onFinish = () => {
       setTimeout(() => {
+        data.setLoading && data.setLoading(true);
         setSearchParams({
           [SharedFilters.STATUS]: ExamStatus.FINISHED,
         });

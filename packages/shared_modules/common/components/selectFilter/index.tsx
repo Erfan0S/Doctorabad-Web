@@ -7,7 +7,7 @@ import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchPar
 import ArrowRight from "../../../assets/svg/arrowRight";
 import ArrowBottom from "../../../assets/svg/arrowBottom";
 import { Button } from "..";
-import FilterItmeList from "./FilterItemList";
+import FilterItmeList, { createUniqueId } from "./FilterItemList";
 
 type Props = {
   closeModal?: (clearModals?: boolean) => void;
@@ -50,6 +50,43 @@ export const SelectFilter = ({
       setChecks((prev) => ({ ...prev, [item]: true }));
     });
   }, [params]);
+
+  const haveCheckedChildren = (
+    children: SelectFilterItems[],
+    checks: Record<string, boolean>
+  ): boolean => {
+    return (
+      children.filter((item) => {
+        if (checks[item.id]) {
+          return checks[item.id];
+        } else if (!!item.childern?.length) {
+          return haveCheckedChildren(item.childern, checks);
+        }
+
+        return false;
+      }).length > 0
+    );
+  };
+
+  const setItemsDefaultOpen = (items: SelectFilterItems[]) => {
+    if (!!items.length && !!Object.keys(checks).length) {
+      items.forEach((item) => {
+        if (checks[item.id]) return;
+        if (item.childern && haveCheckedChildren(item.childern, checks)) {
+          const uniqueId = createUniqueId(item.id.toString(), queryKey || "");
+          setIsOpen((prev) => ({
+            ...prev,
+            [uniqueId]: true,
+          }));
+          setItemsDefaultOpen(item.childern);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    setItemsDefaultOpen(items);
+  }, [checks]);
 
   const checkChildren = (children: SelectFilterItems[], check: boolean) => {
     children.forEach((child) => {

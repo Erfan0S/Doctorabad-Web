@@ -7,7 +7,7 @@ import {
   PaymentProviders,
 } from "../types/cart";
 import { api } from "../../api/Api";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { baseUrls, routePath } from "@repo/core/constants/routePath";
 import { toast } from "react-toastify";
 import {
@@ -18,6 +18,7 @@ import {
 import { ResponseType } from "@repo/core/http-request/types/Request";
 import style from "./chekcout.module.scss";
 import { Apps } from "@repo/core/types/general";
+import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 
 type Props = {
   payInfo: CartPayInfo;
@@ -32,9 +33,10 @@ function CreateOrderButton({
   hasPhysicalProduct,
   shippingMethod,
 }: Props) {
-  const { count, price_paid } = useCart();
-  const { replace } = useRouter();
-  const searchParams = useSearchParams();
+  const { count } = useCart();
+  const redirectedApp = useSearchParams().get(REDIRECTED_APP_KEY) as
+    | Apps
+    | undefined;
 
   let orderApi: (
     data: CreateOrderRequest
@@ -61,7 +63,7 @@ function CreateOrderButton({
       if (data.data.data.identifier) {
         cartActions.getCartData();
         window.open(
-          `${baseUrls.base}${routePath.callback}?identifier=${data.data.data.identifier}${(searchParams?.get("app") as Apps) ? "&app=" + searchParams?.get("app") : ""}`,
+          `${baseUrls.base}${routePath.callback}?identifier=${data.data.data.identifier}${redirectedApp ? "&app=" + redirectedApp : ""}`,
           "_self"
         );
       }
@@ -79,8 +81,6 @@ function CreateOrderButton({
   });
 
   const onCreateOrder = () => {
-    console.log(orderApi);
-    // return;
     if (!count)
       return toast("سبدخرید خالی است", { type: "error", position: "top-left" });
     if (!shippingMethod && hasPhysicalProduct)

@@ -6,7 +6,6 @@ export default function getCurrentAppName() {
   const app = Object.entries(Apps).find(([key, value]) => {
     return path.startsWith(`/${value}`);
   });
-  console.log(app);
   if (app) return app[1];
   return null;
 }

@@ -1,6 +1,7 @@
-import {SidePanelPage} from "@repo/core/types/sidePanel";
+import { SidePanelPage } from "@repo/core/types/sidePanel";
+// @ts-ignore
 import coinIcon from "../../assets/img/coin.png";
-import {logOut} from "@repo/core/utils/authUtils";
+import { logOut } from "@repo/core/utils/authUtils";
 import ChatIcon from "../../assets/svg/chat";
 import ExitIcon from "../../assets/svg/exit";
 import OrdersIcon from "../../assets/svg/orders";
@@ -9,7 +10,7 @@ import PlansIcon from "../../assets/svg/plans";
 import FriendsIcon from "../../assets/svg/friends";
 import HeartIcon from "../../assets/svg/heart";
 import ProfileIcon from "../../assets/svg/profile";
-import {FC} from "react";
+import { FC } from "react";
 import Image from "next/image";
 
 interface SidePanelMenuItem {

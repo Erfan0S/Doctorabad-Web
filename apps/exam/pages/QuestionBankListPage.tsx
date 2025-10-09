@@ -11,7 +11,9 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import BudgetingRecord from "@/components/exam/BudgetingRecord";
-import AppQueryClientProvider from "@/providers/queryClientProvider";
+import { PreventContext } from "@repo/shared_modules/components";
+import FIlterNotFound from "@/components/common/FIlterNotFound";
+import { PersistQueryProvider } from "@repo/shared_modules";
 
 function QuestionBankListPageComponent() {
   const {
@@ -64,13 +66,14 @@ function QuestionBankListPageComponent() {
     },
   });
 
-  if (!data?.pages[0].data && !isLoading) return <div>موردی یافت نشد</div>;
+  if (!data?.pages[0].data.length && !isLoading) return <FIlterNotFound />;
 
   return (
     <div>
+      <PreventContext />
       {!!isLoading && <Loading />}
 
-      {!!budgeting && data?.pages[0].budgeting && (
+      {!!budgeting && !!data?.pages[0].budgeting.length && (
         <BudgetingRecord
           budgets={data?.pages[0].budgeting}
           title={data?.pages[0].data[0].lesson}
@@ -99,9 +102,9 @@ function QuestionBankListPageComponent() {
 
 function QuestionBankListPage() {
   return (
-    <AppQueryClientProvider>
+    <PersistQueryProvider>
       <QuestionBankListPageComponent />
-    </AppQueryClientProvider>
+    </PersistQueryProvider>
   );
 }
 

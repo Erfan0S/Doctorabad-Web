@@ -22,7 +22,10 @@ import { api } from "@/api/Api";
 import Link from "next/link";
 import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
-import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
 import { UserPlansQueryKeys } from "@repo/apps_shared_components/exam/constants/constants.ts";
 import { UserPlans } from "@repo/core/types/user";
 
@@ -42,7 +45,11 @@ function QuestionBankFilter() {
     enabled: !!isUserLoggedIn(),
     retry: false,
   });
-  const { data: archivedData, isLoading: archivedLoading } = useQuery({
+  const {
+    data: archivedData,
+    isLoading: archivedLoading,
+    refetch: refetchArchived,
+  } = useQuery({
     queryKey: ["userHasArchived"],
     queryFn: () => api.getArcgived(),
     enabled: !!isUserLoggedIn(),
@@ -60,6 +67,11 @@ function QuestionBankFilter() {
   useEffect(() => {
     if (!isUserLoggedIn()) {
       queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
+      queryClient
+        .invalidateQueries({ queryKey: ["userHasArchived"] })
+        .then(() => {
+          refetchArchived();
+        });
     }
   }, [isUserLoggedIn()]);
 
@@ -87,12 +99,6 @@ function QuestionBankFilter() {
     }
   };
 
-  useEffect(() => {
-    console.log(planUpdatedAt);
-    console.log(Date.now());
-    console.log();
-  }, [planUpdatedAt]);
-
   const onSubmitHandler = () => {
     if (!searchParams?.get(SharedFilters.FIELD)) {
       toast.error("حداقل رشته را انتخاب کن!");
@@ -112,7 +118,7 @@ function QuestionBankFilter() {
     <div className={`${style.filterContainer} container`}>
       <div className={`card ${style.topButtons}`}>
         <Button
-          onClick={() =>
+          onClick={authorizeClientAction(() =>
             modalActions.addModal(ModalTypes.SIDE_PANEL, {
               initialPage: SidePanelPage.FAVORITES,
               data: {
@@ -120,16 +126,19 @@ function QuestionBankFilter() {
                 fromHome: true,
               },
             })
-          }
+          )}
         >
           سوالات مورد علاقه‌من
         </Button>
-        <Button disabled={!hasArchived}>
-          {hasArchived ? (
-            <Link href={RoutePath.archived}>آزمون‌های ساخته شده من</Link>
-          ) : (
-            "آزمون‌های ساخته شده من"
-          )}
+        <Button
+          disabled={!hasArchived}
+          onClick={
+            hasArchived
+              ? authorizeClientAction(() => router.push(RoutePath.archived))
+              : undefined
+          }
+        >
+          آزمون‌های ساخته شده من
         </Button>
       </div>
       <div className={`card ${style.filtersWrapper}`}>

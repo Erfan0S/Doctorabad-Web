@@ -10,6 +10,8 @@ import {
 } from "@repo/apps_shared_components/exam/types/filters.ts";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
+import { PreventContext } from "@repo/shared_modules/components";
+import FIlterNotFound from "@/components/common/FIlterNotFound";
 
 type Props = {
   searchParams: Record<string, string | undefined>;
@@ -56,18 +58,23 @@ async function SinglePage({ searchParams }: Props) {
 
     return (
       <div>
+        <PreventContext />
         <ExamHeader title="آزمون ساز" perventParams backUrl={RoutePath.make}>
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />
           )}
         </ExamHeader>
-        {!!record && status === ExamStatus.FINISHED && (
+        {!!record && status === ExamStatus.FINISHED && !!data?.data.length && (
           <ExamRecord
             lessons={data.lessons}
             totalQuestions={data.data.length}
           />
         )}{" "}
-        <Questions questions={data.data} />
+        {!!data?.data.length ? (
+          <Questions questions={data.data} />
+        ) : (
+          <FIlterNotFound />
+        )}
       </div>
     );
   } catch (error) {

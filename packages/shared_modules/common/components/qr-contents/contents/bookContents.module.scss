@@ -1,5 +1,5 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 @mixin cardOutline {
   box-shadow: 0 0 5px #b9b9b9;
@@ -10,6 +10,7 @@
   width: calc(100% - 80px);
   height: calc(100% - 20px);
   overflow: visible !important;
+  user-select: none;
 
   :global .swiper-slide-shadow-cards {
     display: none;

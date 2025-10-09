@@ -13,8 +13,8 @@
 .courseHeader {
   background-color: #f5f5f5;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  top: 55px;
   z-index: 100;
+  position: relative;
   padding-top: 10px;
 }
 
@@ -75,11 +75,12 @@
   position: fixed;
   display: flex;
   flex-direction: row;
+  align-items: center;
   z-index: 100;
   bottom: 0;
   left: auto;
   right: auto;
-  padding: 16px;
+  padding: 10px 15px;
   background: #fff;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   width: 100vw;
@@ -120,8 +121,7 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 9px;
-  background: $button-bg-red;
-
+  background: $red;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -130,10 +130,6 @@
   cursor: pointer;
   text-align: center;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15);
-
-  .priceOff {
-    text-decoration: line-through;
-  }
 
   > span {
     display: flex;
@@ -167,15 +163,6 @@
   z-index: 2;
 }
 
-.preventContext {
-  position: fixed;
-  z-index: 0;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-}
-
 .appOnly {
   flex: none;
   width: 75px;
@@ -195,9 +182,58 @@
   }
 }
 
+.priceOffWrapper {
+  line-height: 17px;
+  > button {
+    padding: 7px;
+  }
+}
+
+.addToCartButton {
+  position: relative;
+
+  > button {
+    background: $red;
+  }
+  .priceOff {
+    text-decoration: line-through;
+  }
+}
+.purcheseBarDiscountPercent {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  transform: translate(0, -50%);
+  padding: 8px;
+  border-radius: 50px;
+  color: black;
+  > div {
+    position: relative;
+    width: 40px;
+
+    span {
+      font-size: 12px;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+    }
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: orange;
+      z-index: -1;
+      width: 40px;
+      height: 40px;
+      transform: translate(0, -20%);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .courseHeader {
     position: sticky;
+    top: 55px;
   }
 }
 
@@ -205,6 +241,19 @@
   .purchaseBar {
     button {
       font-size: 12px;
+    }
+  }
+
+  .purcheseBarDiscountPercent {
+    > div {
+      width: 30px;
+      span {
+        font-size: 10px;
+      }
+      svg {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 }

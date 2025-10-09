@@ -46,7 +46,6 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
     } else {
       modalActions.addModal(ModalTypes.ORDER_DETAIL, {
         orderCode: order.data.order_code,
-        productType: OrderType.Course,
       });
     }
   };
