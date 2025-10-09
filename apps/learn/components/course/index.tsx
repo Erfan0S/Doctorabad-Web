@@ -179,28 +179,21 @@ const Course = ({ course }: Props) => {
                 </div>
               ) : (
                 <VideoPlayer
-                  // key={currentLeasson?.id || "preview"}
-                  config={
-                    {
-                      dash: userHasAccess
-                        ? leassonData?.data?.data?.urls?.dash
-                        : undefined,
-                      hls: userHasAccess
-                        ? leassonData?.data?.data?.urls?.hls
-                        : undefined,
-                      player: userHasAccess
-                        ? leassonData?.data?.data?.urls?.player
-                        : undefined,
-                      source: userHasAccess
-                        ? leassonData?.data?.data?.urls?.source
-                        : course?.course_preview!,
-                      thumbnail: course?.course_pic,
-                    }
-
-                    // userHasAccess
-                    //   ? leassonData?.data?.data?.urls
-                    //   : { source: course?.course_preview! }
-                  }
+                  config={{
+                    dash: userHasAccess
+                      ? leassonData?.data?.data?.urls?.dash
+                      : undefined,
+                    hls: userHasAccess
+                      ? leassonData?.data?.data?.urls?.hls
+                      : undefined,
+                    player: userHasAccess
+                      ? leassonData?.data?.data?.urls?.player
+                      : undefined,
+                    source: userHasAccess
+                      ? leassonData?.data?.data?.urls?.source
+                      : course?.course_preview!,
+                    thumbnail: course?.course_pic,
+                  }}
                   title={currentLeasson?.title || "پیش نمایش"}
                   isUserHasAccess={userHasAccess}
                   lessonId={currentLeasson?.id!}
@@ -208,6 +201,7 @@ const Course = ({ course }: Props) => {
                   goToNextTrack={goToNextTrack}
                   goToPreviousTrack={goToPreviousTrack}
                   suggestedCurrentTime={suggestedCurrentTime}
+                  setSuggestedCurrentTime={setSuggestedCurrentTime}
                 />
               )}
               <div className={style["course-title"]}>
