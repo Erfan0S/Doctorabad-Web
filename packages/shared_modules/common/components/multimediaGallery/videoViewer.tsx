@@ -11,8 +11,6 @@ type Props = {
 };
 
 export const VideoViewer = ({ src, thumbnailProps }: Props) => {
-  console.log(thumbnailProps);
-  console.log(src);
   return (
     <div
       className={styles.video}

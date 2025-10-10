@@ -54,8 +54,6 @@ const CourseSlider: React.FC<Props> = ({
 
   if (!isLoading && !(data.length > 0)) return null;
 
-  console.log(amazingTime);
-
   return (
     <section className={style.productSlider}>
       <div className="container">

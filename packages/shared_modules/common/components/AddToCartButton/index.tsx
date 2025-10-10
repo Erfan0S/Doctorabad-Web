@@ -39,7 +39,6 @@ function AddToCartButton({
   const orderId = data?.find(
     (d) => d.product_id === id && d.product_type === type
   )?.id;
-  console.log(data);
 
   return (
     <div

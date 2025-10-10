@@ -141,7 +141,6 @@ const Course = ({ course }: Props) => {
         !!currentLeasson &&
         !course.only_watchable_on_app
     );
-    console.log(course);
   }, [currentLeasson, course]);
 
   return (
