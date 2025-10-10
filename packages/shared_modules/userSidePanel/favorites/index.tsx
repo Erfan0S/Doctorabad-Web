@@ -12,7 +12,6 @@ import SidePanelFavoritesContent from "./content";
 import SidePanelFavoritesExam from "./exam";
 import classNames from "classnames";
 import { appsTabsData } from "../constants/apps-tabs-data";
-import { modalActions } from "@repo/core/modal/modals";
 
 const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
   setPage,

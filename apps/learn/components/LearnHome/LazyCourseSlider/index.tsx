@@ -60,8 +60,6 @@ export default function LazyCourseSlider({ type }: Props) {
       queryKey={Configs[type].queryKey}
       returnOnError
       component={(d) => {
-        console.log(d);
-
         return (
           <CourseSlider
             title={Configs[type].title}

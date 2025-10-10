@@ -7,9 +7,9 @@ import { CourseListItemType } from "@/types/courses";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
-const Search = () => {
+const SearchPageComponent = () => {
   const params = useSearchParams();
   const query = params?.get("q") || "";
 
@@ -47,4 +47,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchPageComponent;

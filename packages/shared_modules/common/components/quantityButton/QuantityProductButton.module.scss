@@ -1,8 +1,8 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
-.quantityProductButton {
-  background: $button-bg-orange;
+.quantityButton {
+  background: var(--button-bg, #{$button-bg-green});
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -12,11 +12,12 @@
   width: 60%;
   flex: 0 0 60%;
   font-size: 14px;
-  padding: 0 space(1);
+  padding: space(2) space(1);
 
   span {
     width: 25px;
     text-align: center;
+    color: #fff;
   }
 
   button {
@@ -26,6 +27,7 @@
     padding: 0;
     margin: 0;
     width: 25px;
+    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -37,11 +37,6 @@ export const MultimediaGallery = ({
   const [imagesDimensions, setImagesDimensions] = useState<ImagesDimensions>(
     {}
   );
-
-  useEffect(() => {
-    console.log("config", config);
-  }, [config]);
-
   useEffect(() => {
     let lightbox = new PhotoSwipeLightbox({
       gallery: containerSelector,
