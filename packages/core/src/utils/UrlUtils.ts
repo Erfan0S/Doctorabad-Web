@@ -77,16 +77,18 @@ export const generateSingleProductUrlFromId = (
   slug: string = "",
   type: OrderType = OrderType.ShopProduct
 ) => {
+  const getSlug = () => (!!slug ? slug : "");
+
   switch (type) {
     case OrderType.ShopProduct:
-      return `${baseUrls.market}${marketPaths.single}/${id}/${slug}`;
+      return `${baseUrls.market}${marketPaths.single}/${id}/${getSlug()}`;
     case OrderType.Course:
-      return `${baseUrls.learn}${learnPaths.single}/${id}/${slug}`;
+      return `${baseUrls.learn}${learnPaths.single}/${id}/${getSlug()}`;
     case OrderType.Exam:
-      return `${baseUrls.exam}${examPaths.single}/${id}/${slug}`;
+      return `${baseUrls.exam}${examPaths.single}/${id}/${getSlug()}`;
 
     default:
-      return `${baseUrls.market}${marketPaths.single}/${id}/${slug}`;
+      return `${baseUrls.market}${marketPaths.single}/${id}/${getSlug()}`;
   }
 };
 

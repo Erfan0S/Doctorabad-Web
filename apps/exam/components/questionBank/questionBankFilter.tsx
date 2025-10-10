@@ -62,7 +62,8 @@ function QuestionBankFilter() {
   const hasArchived =
     !!archivedData?.data.data &&
     archivedData?.data.data.length > 0 &&
-    !archivedLoading;
+    !archivedLoading &&
+    !!isUserLoggedIn();
 
   useEffect(() => {
     if (!isUserLoggedIn()) {

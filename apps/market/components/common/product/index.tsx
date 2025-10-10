@@ -13,13 +13,13 @@ import FavoriteIcon from "../favoriteIcon";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import Loading from "../loading";
-import QuantityProductButton from "@/components/product/sidebar/price/quantityButton";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { OrderType } from "@repo/core/types/cart";
+import { QuantityProductButton } from "@repo/shared_modules/components";
 
 const Product: React.FC<ProductCard> = ({
   title,
@@ -103,6 +103,7 @@ const Product: React.FC<ProductCard> = ({
                   id={productOrder.id}
                   quantity={productOrder.quantity}
                   cardActionsLoadingHandler={cartActionsLoadingHandler}
+                  isLoadibg={updateCartLoading}
                 />
               </div>
             ) : isProductHasStock ? (

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import style from "./SidePanelFavoritesShopping.module.scss";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -7,18 +6,9 @@ import { Product } from "@repo/core/types/product";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import React from "react";
-import { modalActions } from "@repo/core/modal/modals";
-import { useRouter } from "next/navigation";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
-import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import Link from "next/link";
-
-// TODO: add addtocart action
+import ShoppingFavoriteItem from "./ShoppingFavoriteItem";
 
 const SidePanelFavoritesShopping: React.FC = () => {
-  const { push } = useRouter();
-
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     Product[]
   >({
@@ -55,46 +45,9 @@ const SidePanelFavoritesShopping: React.FC = () => {
       <div className={style.sidePanelFavoritesLearning}>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
-            {data.map(
-              ({ title, id, product_pic, price_main, price_off, slug }) => (
-                <Link
-                  key={id}
-                  href={generateSingleProductUrlFromId(id, slug)}
-                  onClick={() => modalActions.removeLastModal()}
-                >
-                  <div className={style.sidePanelFavoritesLearningItem}>
-                    <Image
-                      width={100}
-                      height={65}
-                      src={product_pic || placeHolderDataUrl}
-                      alt="favoritesImage"
-                      className={style.sidePanelFavoritesLearningItemImage}
-                    />
-                    <div
-                      className={style.sidePanelFavoritesLearningItemContent}
-                    >
-                      <div
-                        className={style.sidePanelFavoritesLearningItemTitle}
-                      >
-                        <span>{title}</span>
-                      </div>
-                      <div
-                        className={style.sidePanelFavoritesLearningItemFooter}
-                      >
-                        {price_off ? (
-                          <>
-                            <small>{priceFormatter(price_main)} تومن</small>
-                            <span>{priceFormatter(price_off)} تومن</span>
-                          </>
-                        ) : (
-                          <span>{priceFormatter(price_main)} تومن</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              )
-            )}
+            {data.map((item) => (
+              <ShoppingFavoriteItem data={item} key={item.id} />
+            ))}
           </React.Fragment>
         ))}
       </div>

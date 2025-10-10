@@ -1,7 +1,7 @@
 @import "../../../../assets/styles/variables";
 @import "../../../../assets/styles/functions";
 
-.cartItem {
+html .cartItem {
   display: flex;
   align-items: center;
   border-bottom: 1px solid $gray;
@@ -103,6 +103,9 @@
     margin-right: auto;
     font-size: 14px;
     padding: 0 space(1);
+    flex: none;
+    width: auto;
+    height: 25px;
 
     span {
       width: 25px;

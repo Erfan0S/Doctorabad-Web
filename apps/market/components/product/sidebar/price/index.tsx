@@ -3,7 +3,6 @@ import style from "./ProductSidebarPrice.module.scss";
 import { SingleProduct } from "@repo/core/types/product";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 import { CartItem as Props } from "@repo/shared_modules";
-import QuantityProductButton from "./quantityButton";
 import { useCart, cartActions } from "@repo/core/states/cart";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
@@ -12,6 +11,7 @@ import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import { OrderType } from "@repo/core/types/cart";
 import { useEffect } from "react";
+import { QuantityProductButton } from "@repo/shared_modules/components";
 
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';
@@ -70,6 +70,7 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
           cardActionsLoadingHandler={cartActionsLoadingHandler}
           id={productOrder.id}
           quantity={productOrder.quantity}
+          isLoadibg={updateCartLoading}
         />
       ) : (
         <div className={style.productSidebarPriceButton}>
