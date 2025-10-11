@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import style from "./CartItem.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";

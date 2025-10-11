@@ -17,10 +17,13 @@ import CardCheck from "../../../../assets/svg/cardCheck";
 import CalenderCheck from "../../../../assets/svg/calenderCheck";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { OrderType } from "@repo/core/types/cart";
+import { FavoriteButton } from "../../../../common/components";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   course: CourseListItemType | CourseOrderItem;
   type?: "course" | "order";
+  haveFavoriteToggle?: boolean;
 };
 
 // TODO: Make two seprate components for course and order
@@ -97,7 +100,11 @@ const OrderMetaData = ({ orderCourse }: { orderCourse: CourseOrderItem }) => {
     </div>
   );
 };
-const CourseListItem = ({ course, type = "course" }: Props) => {
+const CourseListItem = ({
+  course,
+  type = "course",
+  haveFavoriteToggle,
+}: Props) => {
   let MetaDataComponent;
 
   switch (type) {
@@ -113,11 +120,11 @@ const CourseListItem = ({ course, type = "course" }: Props) => {
   }
 
   return (
-    <a
-      href={generateSingleProductUrlFromId(course.id, "", OrderType.Course)}
-      target="_blank"
-    >
-      <div className={styles.courseCard}>
+    <div className={styles.courseCard}>
+      <a
+        href={generateSingleProductUrlFromId(course.id, "", OrderType.Course)}
+        target="_blank"
+      >
         {course.pic_url ? (
           <Image
             src={course.pic_url}
@@ -129,18 +136,36 @@ const CourseListItem = ({ course, type = "course" }: Props) => {
         ) : (
           <div className={styles.courseImage} />
         )}
-        <div className={styles.courseInfo}>
-          <h3 className={styles.title}>{course.title}</h3>
-          <MetaDataComponent
-            course={course as CourseListItemType}
-            orderCourse={course as CourseOrderItem}
-          />
+      </a>
+      <div className={styles.courseInfo}>
+        <div className={styles.title}>
+          <a
+            href={generateSingleProductUrlFromId(
+              course.id,
+              "",
+              OrderType.Course
+            )}
+            target="_blank"
+          >
+            <h3>{course.title}</h3>
+          </a>
+          {haveFavoriteToggle && (
+            <FavoriteButton
+              id={course.id}
+              initialFavoriteState
+              app={Apps.LEARN}
+            />
+          )}
         </div>
-        <div className={styles.courseLanguageTag}>
-          {course.language == 1 ? "Fa" : "En"}
-        </div>
+        <MetaDataComponent
+          course={course as CourseListItemType}
+          orderCourse={course as CourseOrderItem}
+        />
       </div>
-    </a>
+      <div className={styles.courseLanguageTag}>
+        {course.language == 1 ? "Fa" : "En"}
+      </div>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ type Props = {
 
 const Cart = ({ app }: Props) => {
   const { data: cartItems, count } = useCart();
-  const redirectedApp = useSearchParams().get(REDIRECTED_APP_KEY) as
+  const redirectedApp = useSearchParams()?.get(REDIRECTED_APP_KEY) as
     | Apps
     | undefined;
 
@@ -48,11 +48,13 @@ const Cart = ({ app }: Props) => {
         </div>
         <div>
           {cartItems.length ? (
-            cartItems.map((cartItem) => {
+            cartItems.map((cartItem, i) => {
               const cartItemProps = {
                 ...cartItem,
               };
-              return <CartItem key={cartItem.id} {...cartItemProps} />;
+              return (
+                <CartItem key={`${cartItem.id}-${i}`} {...cartItemProps} />
+              );
             })
           ) : (
             // TODO: Might need change
@@ -69,6 +71,7 @@ const Cart = ({ app }: Props) => {
             data={cartLastSeen?.data.data || []}
             isLoading={isLoadingLastSeen}
             title="بازدیدهای اخیر من"
+            key={"lastSeen"}
           />
         )}
         {!!cartSuggested?.data.data.length && (
@@ -76,6 +79,7 @@ const Cart = ({ app }: Props) => {
             data={cartSuggested?.data.data || []}
             isLoading={isLoadingSuggested}
             title="پیشنهاد کد‌خدای دکترآباد در کنار محصولات‌من!"
+            key={"suggested"}
           />
         )}
         {!!cartOthersBought?.data.data.length && (
@@ -83,6 +87,7 @@ const Cart = ({ app }: Props) => {
             data={cartOthersBought?.data.data || []}
             isLoading={isLoadingOthersBought}
             title="دکترآبادی‌ها در کنار محصولات‌من، محصولات زیر را هم خریدن!"
+            key={"othersBought"}
           />
         )}
       </div>

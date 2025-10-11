@@ -211,10 +211,12 @@ class Api extends Request {
     );
   };
 
-  checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
-    return this.request.get<DiscountInfo>(
-      `/user/shop/discountCode/check?code=${code}`
-    );
+  checkDiscountCode(
+    code: string
+  ): Promise<ResponseType<{ data: DiscountInfo }>> {
+    return this.request.post(`/user/v1/discountCode/check`, {
+      code,
+    });
   }
 
   // address
@@ -506,6 +508,24 @@ class Api extends Request {
       message: text,
       question_id: questionId,
     });
+  };
+
+  // favorite
+
+  addLearnFavorite(id: number): Promise<{}> {
+    return this.request.post(`/user/v1/education/favorite`, { id });
+  }
+
+  removeLearnFavorite = (id: number): Promise<any> => {
+    return this.request.delete(`/user/v1/education/favorite/${id}`);
+  };
+
+  addMarketFavorite = (id: number): Promise<any> => {
+    return this.request.post(`/user/shop/favorite`, { id });
+  };
+
+  removeMarketFavorite = (id: number): Promise<any> => {
+    return this.request.delete(`/user/shop/favorite/${id}`);
   };
 }
 

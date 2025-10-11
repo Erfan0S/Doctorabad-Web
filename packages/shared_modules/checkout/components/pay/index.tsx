@@ -53,7 +53,7 @@ const Pay = ({
   };
 
   useEffect(() => {
-    setPayInfo((prev) => ({ ...prev, discountInfo: discountInfo?.data }));
+    setPayInfo((prev) => ({ ...prev, discountInfo: discountInfo?.data.data }));
   }, [discountInfo]);
 
   const discountInput = (
@@ -97,7 +97,7 @@ const Pay = ({
 
   const finalPrice =
     (shippingMethod?.price || 0) +
-    (discountInfo?.data.price_paid || price_paid);
+    (discountInfo?.data.data.price_paid || price_paid);
 
   return (
     <div className={style.pay}>
