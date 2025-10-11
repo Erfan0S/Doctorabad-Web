@@ -1,3 +1,4 @@
+"use client";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { modalActions } from "@repo/core/modal/modals";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
@@ -8,6 +9,7 @@ import React from "react";
 import {
   AddToCartButton,
   Button,
+  FavoriteButton,
   QuantityProductButton,
 } from "../../../common/components";
 import style from "./SidePanelFavoritesShopping.module.scss";
@@ -59,6 +61,7 @@ function ShoppingFavoriteItem({
           >
             {title}
           </Link>
+          <FavoriteButton id={id} app={Apps.MARKET} initialFavoriteState />
         </div>
         <div className={style.sidePanelFavoritesLearningItemFooter}>
           <div className={style.sidePanelFavoritesLearningItemPrice}>

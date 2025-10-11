@@ -30,6 +30,7 @@ const SidePanelFavoritesLearning: React.FC = () => {
       courses={data}
       fetchNextPage={fetchNextPage}
       hasNextPage={hasNextPage}
+      haveFavoriteToggle
     />
   );
 };

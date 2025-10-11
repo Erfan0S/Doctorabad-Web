@@ -45,3 +45,5 @@ export { default as DiscountCountdown } from "./DiscountCountdown";
 export { default as FIlterNotFound } from "./FIlterNotFound";
 
 export { default as QuantityProductButton } from "./quantityButton";
+
+export { default as FavoriteButton } from "./FavoriteButton";

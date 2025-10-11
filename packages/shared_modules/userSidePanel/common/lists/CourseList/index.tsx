@@ -14,9 +14,15 @@ interface Props {
     | undefined;
   fetchNextPage: () => void;
   hasNextPage: boolean;
+  haveFavoriteToggle?: boolean;
 }
 
-const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
+const CourseList = ({
+  courses,
+  fetchNextPage,
+  hasNextPage,
+  haveFavoriteToggle,
+}: Props) => {
   const router = useRouter();
 
   return (
@@ -28,8 +34,12 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
       >
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>
-            {page.data.map((course) => (
-              <CourseListItem course={course} />
+            {page.data.map((course, index) => (
+              <CourseListItem
+                course={course}
+                haveFavoriteToggle={haveFavoriteToggle}
+                key={index}
+              />
             ))}
           </React.Fragment>
         ))}

@@ -34,7 +34,7 @@ function CreateOrderButton({
   shippingMethod,
 }: Props) {
   const { count } = useCart();
-  const redirectedApp = useSearchParams().get(REDIRECTED_APP_KEY) as
+  const redirectedApp = useSearchParams()?.get(REDIRECTED_APP_KEY) as
     | Apps
     | undefined;
 
