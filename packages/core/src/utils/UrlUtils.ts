@@ -85,7 +85,7 @@ export const generateSingleProductUrlFromId = (
     case OrderType.Course:
       return `${baseUrls.learn}${learnPaths.single}/${id}/${getSlug()}`;
     case OrderType.Exam:
-      return `${baseUrls.exam}${examPaths.single}/${id}/${getSlug()}`;
+      return `${baseUrls.exam}${examPaths.single}`;
 
     default:
       return `${baseUrls.market}${marketPaths.single}/${id}/${getSlug()}`;
