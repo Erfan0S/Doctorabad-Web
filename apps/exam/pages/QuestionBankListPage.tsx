@@ -77,7 +77,6 @@ function QuestionBankListPageComponent() {
         <BudgetingRecord
           budgets={data?.pages[0].budgeting}
           title={data?.pages[0].data[0].lesson}
-          total={data?.pages[0].meta.total}
         />
       )}
 
