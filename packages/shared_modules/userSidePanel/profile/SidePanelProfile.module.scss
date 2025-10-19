@@ -11,7 +11,11 @@
 .sidePanelProfile {
   padding: space(4) space(4) 0;
   position: relative;
-  height: calc(100% - 61px);
+  min-height: calc(100% - 61px);
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 100px;
+
   &Edit {
     position: absolute;
     left: space(4);
@@ -164,7 +168,8 @@
 
   &Button {
     margin: auto space(-4) 0;
-    position: sticky;
+    width: 400px;
+    position: fixed;
     bottom: 0;
 
     button {
@@ -178,11 +183,20 @@
       color: #fff;
       font-weight: 500;
       font-size: 14px;
+      z-index: 10;
       cursor: pointer;
       &:active,
       &:focus {
         outline: unset;
       }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .form {
+    &Button {
+      width: 100%;
     }
   }
 }

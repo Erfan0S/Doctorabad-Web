@@ -23,6 +23,14 @@ export const learnPaths = {
   single: "/course",
 };
 
+export const marketPaths = {
+  single: "/product",
+};
+
+export const examPaths = {
+  single: "/single",
+};
+
 // export const baseUrls = {
 //   [Apps.BASE]: "http://localhost:3001",
 //   [Apps.LEARN]: "http://localhost:3003" + routePath.learnBasePath,

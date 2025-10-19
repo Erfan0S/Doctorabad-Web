@@ -2,10 +2,11 @@
 @import "@/assets/styles/variables";
 
 .filtersWrapper {
-  padding-top: 25px;
+  padding-top: 15px;
   position: sticky;
-  top: 90px;
+  top: 105px;
   background-color: #fff;
+  width: 100%;
 
   > div {
     padding: 10px 15px;
@@ -103,5 +104,11 @@
     button {
       font-size: 10px;
     }
+  }
+}
+
+@media (max-width: 400px) {
+  .filtersWrapper {
+    top: 95px;
   }
 }
