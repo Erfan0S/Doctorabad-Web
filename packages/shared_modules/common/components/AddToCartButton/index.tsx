@@ -35,7 +35,7 @@ function AddToCartButton({
 }: Props) {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
-  const { data } = useCart();
+  const { data, initLoading } = useCart();
   const orderId = data?.find(
     (d) => d.product_id === id && d.product_type === type
   )?.id;
@@ -82,7 +82,7 @@ function AddToCartButton({
                 )
           }
         >
-          {updateCartLoading || isLoading ? (
+          {updateCartLoading || isLoading || initLoading ? (
             <Loading app={app} />
           ) : (
             children || "افزودن به سبد خرید"

@@ -1,4 +1,5 @@
 export { default as Loading } from "./loading";
+export type { LoadingProps } from "./loading";
 
 export { default as Footer } from "./footer";
 

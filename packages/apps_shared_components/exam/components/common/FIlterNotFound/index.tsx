@@ -5,7 +5,7 @@ type Props = {
   massage?: string;
 };
 
-function FIlterNotFound({ massage }: Props) {
+function ExamFIlterNotFound({ massage }: Props) {
   return (
     <SharedFIlterNotFound
       primaryMassage={
@@ -22,4 +22,4 @@ function FIlterNotFound({ massage }: Props) {
   );
 }
 
-export default FIlterNotFound;
+export default ExamFIlterNotFound;

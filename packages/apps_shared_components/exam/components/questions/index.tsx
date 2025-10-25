@@ -15,6 +15,7 @@ import {
   QuestionListFiltersKey,
 } from "../../types/questionListFilters";
 import { QuestionsLessonsFilterContext } from "../..";
+import ExamFIlterNotFound from "../common/FIlterNotFound";
 
 type Props = {
   questions: QuestionType[];
@@ -24,6 +25,8 @@ type Props = {
   total?: number;
   startIndex?: number;
   fetchNextPage?: () => void;
+  setIsEmpty?: (value: boolean) => void;
+  showEmptyNotFound?: boolean;
 };
 
 // TODO: test and add multy select questions
@@ -36,6 +39,8 @@ function Questions({
   total,
   startIndex = 0,
   fetchNextPage,
+  setIsEmpty,
+  showEmptyNotFound = false,
 }: Props) {
   const searchParams = useSearchParams();
   const status = (searchParams?.get(ExamStartSearchParams.STATUS) ||
@@ -62,22 +67,28 @@ function Questions({
     fetchNextPage();
   }
 
-  if (
-    questionFilter &&
-    (questionFilter === QuestionListFilters.ANSWERED ||
-      questionFilter === QuestionListFilters.NOT_ANSWERED)
-  ) {
-    filtredQuestions = filtredQuestions.filter((question) => {
-      switch (questionFilter) {
-        case QuestionListFilters.ANSWERED:
-          return answers[question.id]?.userAnswer;
-        case QuestionListFilters.NOT_ANSWERED:
-          return !answers[question.id]?.userAnswer;
-        default:
-          return true;
-      }
-    });
+  if (!filtredQuestions.length) {
+    setIsEmpty && setIsEmpty(true);
+    return showEmptyNotFound && <ExamFIlterNotFound />;
   }
+  setIsEmpty && setIsEmpty(false);
+
+  // if (
+  //   questionFilter &&
+  //   (questionFilter === QuestionListFilters.ANSWERED ||
+  //     questionFilter === QuestionListFilters.NOT_ANSWERED)
+  // ) {
+  //   filtredQuestions = filtredQuestions.filter((question) => {
+  //     switch (questionFilter) {
+  //       case QuestionListFilters.ANSWERED:
+  //         return answers[question.id]?.userAnswer;
+  //       case QuestionListFilters.NOT_ANSWERED:
+  //         return !answers[question.id]?.userAnswer;
+  //       default:
+  //         return true;
+  //     }
+  //   });
+  // }
 
   return (
     <div

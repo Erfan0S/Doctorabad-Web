@@ -6,12 +6,14 @@ import VipIcon from "../../assets/svg/vipIcon";
 import { AddToCartButton } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
+import { cartActions } from "@repo/core/states/cart";
 
 type Props = {
   item: DiscountPlanType;
 };
 
 function DiscountPlanItem({ item }: Props) {
+  cartActions.getCartData();
   return (
     <div className={`card ${style.planItem}`}>
       <div className={style.planItemTop}>

@@ -2,8 +2,8 @@
 @import "@/assets/styles/variables";
 
 html body div .mobileMode {
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-wrap: nowrap;
+  gap: 5px;
   button {
     font-size: 11px !important;
   }
@@ -246,8 +246,8 @@ html .dontKnowQuestion {
 
 @media (max-width: 425px) {
   html .questionItem .buttonsWrapper {
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: nowrap;
+    gap: 5px;
     button {
       font-size: 11px;
     }
