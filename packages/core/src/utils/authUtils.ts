@@ -17,11 +17,17 @@ export const setAuthCookie = () => {
 };
 
 export const authorizeClientAction =
-  (action: (...params: any) => any, showError?: boolean) =>
+  (
+    action: (...params: any) => any,
+    showError?: boolean,
+    continueAction: boolean = true
+  ) =>
   (...params: any) => {
     if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
       if (showError) toast.error("برای انجام این عملیات ابتدا باید وارد شوید");
-      modalActions.addModal(ModalTypes.REGISTER);
+      modalActions.addModal(ModalTypes.REGISTER, {
+        onVerifySuccess: continueAction ? () => action(...params) : false,
+      });
       authorizedActionStorage.setState(() => () => action(...params));
     } else {
       action(...params);

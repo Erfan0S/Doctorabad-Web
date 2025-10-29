@@ -19,7 +19,10 @@ const isLogin = (haveMassage?: boolean) => {
   return false;
 };
 
-const initialState = { data: [] as Order[], initLoading: true } as CartState;
+const initialState = {
+  data: [] as Order[],
+  initLoading: !!isUserLoggedIn(),
+} as CartState;
 
 export const useCart = create<CartState>(() => initialState);
 

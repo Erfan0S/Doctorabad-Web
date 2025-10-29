@@ -6,7 +6,10 @@ import { Apps } from "@repo/core/types/general";
 import { OrderType } from "@repo/core/types/cart";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { Button, Loading } from "@repo/shared_modules/components";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import {
+  authorizeClientAction,
+  isUserLoggedIn,
+} from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 
@@ -46,7 +49,7 @@ function AddToCartButton({
         isFullWidth && styles.fullWidth
       } ${className} ${styles.buttonWrapper}`}
     >
-      {orderId ? (
+      {isUserLoggedIn() && orderId ? (
         <div
           className={`${styles.addedButtonsWrapper} ${isColumn && styles.column}`}
         >

@@ -8,7 +8,10 @@ import loginImage from "../../../assets/img/login.jpg";
 import Image from "next/image";
 import style from "./Register.module.scss";
 
-export const Register = () => {
+type Props = {
+  onVerifySuccess?: () => void;
+};
+export const Register = ({ onVerifySuccess }: Props) => {
   const [currentStep, setCurrentStep] = useState(
     RegisterStep.ENTER_PHONE_NUMBER
   );
@@ -29,6 +32,7 @@ export const Register = () => {
         setStep={setCurrentStep}
         phone={phone}
         changePhone={setPhone}
+        onVerifySuccess={onVerifySuccess}
       />
     </div>
   );

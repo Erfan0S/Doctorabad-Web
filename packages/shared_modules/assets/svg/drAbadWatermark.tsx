@@ -10,7 +10,7 @@ const DrAbadWatermark: React.FC<SVGProps<SVGSVGElement>> = (props) => {
       x="0px"
       y="0px"
       viewBox="0 0 829.28 806.44"
-      style={{ enableBackground: "new 0 0 829.28 806.44" }}
+      // style={{ enableBackground: "new 0 0 829.28 806.44" }}
       xmlSpace="preserve"
       {...props}
     >
