@@ -24,6 +24,10 @@ html .cartItem {
     }
   }
 
+  &DefaultImage {
+    padding: space(3);
+  }
+
   &Content {
     flex: 1;
     padding-right: space(3);

@@ -9,6 +9,11 @@ export enum OrderType {
   Package = "package",
 }
 
+export enum DiscountPlanType {
+  LERN = 1,
+  EXAM = 2,
+}
+
 export type Order = {
   id: number;
   product_type: OrderType;
@@ -20,7 +25,7 @@ export type Order = {
   price_off: number;
   price_amazing: number | null;
   price_paid: number;
-  discount_plan_type: null;
+  discount_plan_type: DiscountPlanType | null;
   variants: CartVariants[];
   installment_payment?: boolean;
 };
