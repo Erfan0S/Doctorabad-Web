@@ -33,6 +33,9 @@ html .cartItem {
     padding-right: space(3);
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    min-height: 70px;
+    justify-content: space-between;
   }
 
   &Title {
@@ -46,12 +49,12 @@ html .cartItem {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      padding-left: 30px;
     }
   }
 
   &Footer {
     display: flex;
-    margin-top: auto;
     align-items: flex-end;
   }
 

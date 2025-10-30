@@ -56,7 +56,7 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
             ? `${priceFormatter(item.main_price)} تومن`
             : "رایگان"}
         </span>
-        {hasAccess ? (
+        {false ? (
           <div className={style.singleItemAccessButtons}>
             <Button>
               <Link href={`/single/${item.id}`}>ورود</Link>

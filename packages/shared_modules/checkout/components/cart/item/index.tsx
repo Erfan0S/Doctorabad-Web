@@ -132,7 +132,7 @@ const CartItem = ({
             </div>
           )}
         </div>
-        {variants ? (
+        {!!variants && variants.length > 0 ? (
           <div className={style.cartItemVariants}>
             {variants.map((variant) => (
               <span key={variant.product_variant_id}>

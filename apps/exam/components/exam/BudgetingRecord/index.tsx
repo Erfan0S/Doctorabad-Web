@@ -6,11 +6,11 @@ import style from "./budgeting.module.scss";
 
 type Props = {
   budgets: BudgetingType[];
-  total: number;
   title: string;
 };
 
-function BudgetingRecord({ budgets, total, title }: Props) {
+function BudgetingRecord({ budgets, title }: Props) {
+  const total = budgets.reduce((a, b) => a + b.questions_count, 0);
   return (
     <div className={`${style.budgetingRecordWrapper} card`}>
       <h3>
