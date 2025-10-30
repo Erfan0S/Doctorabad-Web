@@ -41,3 +41,5 @@ export { default as RecycleBin } from "./svg/recycleBin";
 export { default as Squircle } from "./svg/squircle";
 export { default as AngleDown } from "./svg/angleDown";
 export { default as Close_X } from "./svg/close_x";
+export { default as DrAbadWatermark } from "./svg/drAbadWatermark";
+export { default as SnapPayIcon } from "./svg/snapPayIcon";

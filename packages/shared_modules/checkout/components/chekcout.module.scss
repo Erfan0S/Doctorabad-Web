@@ -38,8 +38,19 @@
   gap: space(4);
 }
 
+.payChildrenWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: space(4);
+  margin-top: space(10);
+  height: 100%;
+  justify-content: space-between;
+}
+
 @media (min-width: 1200px) {
   .checkoutWrapper {
+    flex-wrap: nowrap;
+
     > div {
       flex: 0 0 32%;
       max-width: 32%;
@@ -52,6 +63,8 @@
 
   .mobileView {
     margin-top: 20px;
+    flex-wrap: wrap;
+
     > div {
       flex: auto;
       max-width: 100%;

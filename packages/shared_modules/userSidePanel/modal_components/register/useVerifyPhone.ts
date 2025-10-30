@@ -17,7 +17,7 @@ const periodMinute = 2;
 export const getResendPeriod = () => Date.now() + 1000 * 60 * periodMinute;
 
 export const useVerifyPhone = (
-  { phone, setStep, changePhone }: RegisterStepProps,
+  { phone, setStep, changePhone, onVerifySuccess }: RegisterStepProps,
   wrapperRef: RefObject<HTMLInputElement>
 ) => {
   const queryClient = useQueryClient();
@@ -102,6 +102,7 @@ export const useVerifyPhone = (
           authorizedActionStorage.getState()!();
           authorizedActionStorage.setState(null);
         }
+        onVerifySuccess && onVerifySuccess();
         if (pathname === routePath.register) {
           replace("/");
         } else {
@@ -112,7 +113,6 @@ export const useVerifyPhone = (
           exact: true,
         });
         cartActions.getCartData();
-
       })
       .catch((er) => {
         setCode(new Array(codeLength).fill(""));

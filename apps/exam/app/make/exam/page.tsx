@@ -11,7 +11,7 @@ import {
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
 import { PreventContext } from "@repo/shared_modules/components";
-import FIlterNotFound from "@/components/common/FIlterNotFound";
+import ExamFIlterNotFound from "@repo/apps_shared_components/exam/components/common/FIlterNotFound/index.tsx";
 
 type Props = {
   searchParams: Record<string, string | undefined>;
@@ -73,7 +73,7 @@ async function SinglePage({ searchParams }: Props) {
         {!!data?.data.length ? (
           <Questions questions={data.data} />
         ) : (
-          <FIlterNotFound />
+          <ExamFIlterNotFound />
         )}
       </div>
     );

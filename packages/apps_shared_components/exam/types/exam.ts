@@ -11,6 +11,7 @@ export type ExamType = {
   main_price: number;
   off_price: number | null;
   user_has_access: boolean;
+  installment_payment: boolean;
 };
 
 export type QuestionOptionType = {

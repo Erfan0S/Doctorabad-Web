@@ -7,6 +7,7 @@
     ".": "./index.ts",
     "./icons": "./assets/index.ts",
     "./icons/*": "./assets/svg/*.tsx",
+    "./icons/raw/*": "./assets/svg/raw/*",
     "./images/*": "./assets/img/*",
     "./checkout": "./checkout/components/page.tsx",
     "./checkout/callback": "./checkout/callback/index.tsx",

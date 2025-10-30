@@ -13,7 +13,6 @@ import sepImage from "@repo/shared_modules/images/sep.png";
 import snappayImage from "@repo/shared_modules/images/snapppay.png";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useCart } from "@repo/core/states/cart";
-import { toast } from "react-toastify";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
@@ -53,13 +52,13 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
   const PaymentMethidsConfig: PaymentMethodType[] = [
     {
       id: PaymentProviders.CASH,
-      title: "پرداخت اینترنتی",
+      title: "پرداخت نقدی",
       description: "پرداخت با کلیه کارت‌های متصل به شبکه شتاب",
       pic_url: sepImage,
     },
     {
       id: PaymentProviders.SNAPP_PAY,
-      title: "پرداخت اعتباری",
+      title: "پرداخت اقساطی",
       description:
         "پرداخت با اسنپ‌پی در 4 قسط بدون کارمزد" +
         (totalPrice >= 4000
@@ -90,7 +89,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
   }, [activeSnappay]);
 
   return (
-    <div className={`card ${style.paymentMethodsWrapper}`}>
+    <div className={`${style.paymentMethodsWrapper}`}>
       <div className={checkoutStyle.title}>
         <span>روش پرداخت من</span>
       </div>

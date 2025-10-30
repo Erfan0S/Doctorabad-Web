@@ -2,10 +2,23 @@
 @import "@/assets/styles/variables";
 
 .filtersWrapper {
-  padding-top: 25px;
+  padding-top: 15px;
   position: sticky;
-  top: 90px;
+  top: 105px;
   background-color: #fff;
+  width: 100%;
+  z-index: 100;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 10px;
+    background-color: #fff;
+  }
 
   > div {
     padding: 10px 15px;
@@ -35,6 +48,7 @@
   padding: 10px;
   gap: 10px;
   box-shadow: none;
+  position: relative;
 
   > div {
     display: flex;
@@ -82,6 +96,10 @@
       font-size: 15px;
     }
   }
+  .installmentPayment {
+    left: 10px;
+    top: 10px;
+  }
 }
 
 .singleItemAccessButtons {
@@ -103,5 +121,11 @@
     button {
       font-size: 10px;
     }
+  }
+}
+
+@media (max-width: 400px) {
+  .filtersWrapper {
+    top: 95px;
   }
 }

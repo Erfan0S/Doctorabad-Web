@@ -16,6 +16,7 @@ export interface Product {
   provider: null;
   has_variant: boolean;
   user_favorite: number;
+  installment_payment: boolean;
 }
 
 export type ProductCard = Product & {
@@ -123,6 +124,8 @@ export interface SingleProduct {
   grades: (SingleProductGeneralField & { field_id: number })[];
   options: SingleProductOption[];
   sample_file: ProductSampleFile[];
+  installment_payment: boolean;
+  installment_text: string | null;
 }
 
 export interface ProductSampleFile {

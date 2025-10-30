@@ -6,13 +6,19 @@ import RecycleBin from "../../../../assets/svg/recycleBin";
 import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import { Order, OrderType } from "@repo/core/types/cart";
+import { DiscountPlanType, Order, OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 // @ts-ignore
 import snappayImage from "@repo/shared_modules/images/snapppay_2.png";
 import { Loading, QuantityProductButton } from "../../../../common/components";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { Apps } from "@repo/core/types/general";
+// @ts-ignore
+import examLogo from "@repo/shared_modules/images/doctor-exam.png";
+// @ts-ignore
+import learnLogo from "@repo/shared_modules/images/doctor-learn.png";
+// @ts-ignore
+import marketLogo from "@repo/shared_modules/images/doctor-market.png";
 
 const CartItem = ({
   id,
@@ -26,12 +32,33 @@ const CartItem = ({
   variants,
   product_type,
   installment_payment,
+  discount_plan_type,
 }: Order) => {
   const url = generateSingleProductUrlFromId(product_id, "", product_type);
 
   const canIncrease = product_type === OrderType.ShopProduct;
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
+
+  const isExam =
+    product_type === OrderType.Exam ||
+    (product_type === OrderType.DiscountPlan &&
+      discount_plan_type === DiscountPlanType.EXAM);
+  const isLearn =
+    product_type === OrderType.Course ||
+    (product_type === OrderType.DiscountPlan &&
+      discount_plan_type === DiscountPlanType.LERN);
+
+  const defaultImage = () => {
+    if (isExam) {
+      return examLogo;
+    } else if (isLearn) {
+      return learnLogo;
+    } else if (product_type === OrderType.ShopProduct) {
+      return marketLogo;
+    }
+    return placeHolderDataUrl;
+  };
 
   return (
     <div className={style.cartItem}>
@@ -40,10 +67,12 @@ const CartItem = ({
           <Image src={snappayImage} alt="اسنپ پی" width={33} height={20} />
         </div>
       )}
-      <div className={style.cartItemImage}>
+      <div
+        className={`${style.cartItemImage} ${!product_pic ? style.cartItemDefaultImage : ""}`}
+      >
         <a href={url} target="_blank">
           <Image
-            src={product_pic || placeHolderDataUrl}
+            src={product_pic || defaultImage()}
             alt={product_title}
             width={75}
             height={75}

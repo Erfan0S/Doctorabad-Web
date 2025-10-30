@@ -19,7 +19,10 @@ import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoa
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { OrderType } from "@repo/core/types/cart";
-import { QuantityProductButton } from "@repo/shared_modules/components";
+import {
+  ListProductSnappayNotif,
+  QuantityProductButton,
+} from "@repo/shared_modules/components";
 
 const Product: React.FC<ProductCard> = ({
   title,
@@ -34,6 +37,7 @@ const Product: React.FC<ProductCard> = ({
   gridView = undefined,
   lazyLoadImage = true,
   has_variant = false,
+  installment_payment = false,
 }) => {
   const { isFavorite, isLoading, toggleFavorite } =
     useToggleFavoriteProduct(!!user_favorite);
@@ -58,6 +62,9 @@ const Product: React.FC<ProductCard> = ({
   return (
     <div className={`${style.product} ${gridView ? style.gridView : ""}`}>
       <div className={style.productImage}>
+        {installment_payment && (
+          <ListProductSnappayNotif className={style.installmentPayment} />
+        )}
         <Link href={url}>
           <Image
             loading={lazyLoadImage ? "lazy" : "eager"}
@@ -98,14 +105,13 @@ const Product: React.FC<ProductCard> = ({
         <div className={style.productButtons}>
           <>
             {productOrder && !has_variant ? (
-              <div className={style.productQuantityWrapper}>
-                <QuantityProductButton
-                  id={productOrder.id}
-                  quantity={productOrder.quantity}
-                  cardActionsLoadingHandler={cartActionsLoadingHandler}
-                  isLoadibg={updateCartLoading}
-                />
-              </div>
+              <QuantityProductButton
+                id={productOrder.id}
+                quantity={productOrder.quantity}
+                cardActionsLoadingHandler={cartActionsLoadingHandler}
+                isLoadibg={updateCartLoading}
+                className={`${style.productAddToCart} ${style.productQuantityButton}`}
+              />
             ) : isProductHasStock ? (
               has_variant ? (
                 <Link

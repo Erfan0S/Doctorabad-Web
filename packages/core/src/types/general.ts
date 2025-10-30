@@ -57,7 +57,7 @@ export enum MultimediaType {
 
 // duplicated
 export interface UserClubInfo {
-  user_coin: number;
+  user_coin: number | null;
   club_state_id: number;
   club_state_title: string;
   club_state_pic_url: string;

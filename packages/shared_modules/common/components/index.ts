@@ -1,4 +1,5 @@
 export { default as Loading } from "./loading";
+export type { LoadingProps } from "./loading";
 
 export { default as Footer } from "./footer";
 
@@ -47,3 +48,7 @@ export { default as FIlterNotFound } from "./FIlterNotFound";
 export { default as QuantityProductButton } from "./quantityButton";
 
 export { default as FavoriteButton } from "./FavoriteButton";
+
+export { default as ProductSnappayNotif } from "./productSnappayNotif";
+
+export { ListProductSnappayNotif } from "./productSnappayNotif";

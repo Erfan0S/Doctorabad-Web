@@ -10,6 +10,7 @@ import styles from "./CourseList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import formatDuration from "@/utils/formatDuration";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import { ListProductSnappayNotif } from "@repo/shared_modules/components";
 
 type Props = {
   course: CourseListItemType;
@@ -18,6 +19,9 @@ type Props = {
 const CourseListItem = ({ course }: Props) => {
   return (
     <div className={styles.courseCard}>
+      {course.installment_payment && (
+        <ListProductSnappayNotif className={styles.installmentPayment} />
+      )}
       {course.pic_url ? (
         <Image
           src={course.pic_url || placeHolderDataUrl}

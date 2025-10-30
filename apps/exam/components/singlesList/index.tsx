@@ -8,6 +8,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import style from "./sinlgesList.module.scss";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
 import SingleListItem from "./SingleListItem";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 function SingleList() {
   const param = useSearchParams();
@@ -26,7 +27,7 @@ function SingleList() {
         places: place?.split(",").map(Number),
         page: pageParam,
       }),
-    queryKey: ["examList", field, grade, date, place],
+    queryKey: ["examList", field, grade, date, place, isUserLoggedIn()],
     refetchOnWindowFocus: false,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.data.links.next) {

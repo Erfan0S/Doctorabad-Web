@@ -8,26 +8,26 @@ import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useCart } from "@repo/core/states/cart";
-import { ShippingMethod } from "@repo/core/types/cart";
+import { ShippingAddress, ShippingMethod } from "@repo/core/types/cart";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
 import { toast } from "react-toastify";
 import OptionSwitch from "../../../common/components/optionSwitch";
 import { CartPayInfo } from "../../types/cart";
+import PaymentMethods from "../payment_methods";
+import CreateOrderButton from "../createOrderButton";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;
   payInfo: CartPayInfo;
   setPayInfo: Dispatch<SetStateAction<CartPayInfo>>;
+  children?: React.ReactNode;
 };
 
-const Pay = ({
-  shippingMethod,
-  payInfo: { description, discountCode, payWithCredit },
-  setPayInfo,
-}: Props) => {
+const Pay = ({ shippingMethod, payInfo, setPayInfo, children }: Props) => {
   const { coins, my_profit, count, user_credit, price_paid } = useCart();
+  const { description, discountCode, payWithCredit } = payInfo;
 
   const {
     refetch,
@@ -199,6 +199,8 @@ const Pay = ({
           تومن
         </span>
       </div>
+
+      {children}
     </div>
   );
 };

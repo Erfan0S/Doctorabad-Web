@@ -74,22 +74,32 @@
 .purchaseBar {
   position: fixed;
   display: flex;
-  flex-direction: row;
   align-items: center;
+  flex-direction: column;
   z-index: 100;
   bottom: 0;
   left: auto;
   right: auto;
-  padding: 10px 15px;
   background: #fff;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   width: 100vw;
   max-width: 800px;
   margin: 0 auto;
+  > .purchaseButtonWrapper {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
 
   :focus {
     color: #fff;
   }
+}
+
+.snappayNotif {
+  margin-bottom: 0 !important;
 }
 
 .addedPurchaseButtonWrapper {

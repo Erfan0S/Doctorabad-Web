@@ -1,11 +1,12 @@
-import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import Image from "next/image";
 import style from "./questionItem.module.scss";
+import { DrAbadWatermark } from "@repo/shared_modules/icons";
 
 function QuestionItemWaterMark() {
   return (
     <div className={style.questionItemWaterMark}>
-      <Image src={placeHolderDataUrl} alt="doctorAbad" width={0} height={0} />
+      <DrAbadWatermark />
+      <DrAbadWatermark />
+      <DrAbadWatermark />
     </div>
   );
 }

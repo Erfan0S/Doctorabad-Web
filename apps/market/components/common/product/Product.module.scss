@@ -1,4 +1,4 @@
-@import '@/assets/styles/functions';
+@import "@/assets/styles/functions";
 
 @mixin cart-button {
   flex: 0 0 calc(100% - 55px);
@@ -20,9 +20,10 @@
 
 .product {
   background-color: #fff;
-  border-radius: radius(6);
+  border-radius: radius(4);
   padding: space(3);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  position: relative;
 
   &.gridView {
     margin-bottom: space(10);
@@ -88,6 +89,7 @@
 
   &Price {
     margin-bottom: space(3);
+    position: relative;
 
     &Regular {
       text-align: center;
@@ -121,29 +123,20 @@
       line-height: 17px;
     }
   }
-  &QuantityWrapper {
-    flex: 0 0 calc(100% - 55px);
-    max-width: calc(100% - 55px);
-    margin-left: space(2.5);
-
-    & > div {
-      flex: 0 0 100% !important;
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-  }
   &Buttons {
     display: flex;
     align-items: center;
-    > div {
-      flex: 0 0 100%;
-      width: 100%;
-    }
   }
   &NoStock {
     background: #a6a6a6;
     color: #fff;
     @include cart-button;
+  }
+  &QuantityButton {
+    margin-left: space(2.5);
+    flex: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   &AddToCart {
     @include cart-button;
@@ -175,8 +168,26 @@
   }
 }
 
+.installmentPayment {
+  top: 0;
+  right: 0;
+}
+
 @media (max-width: 576px) {
+  .installmentPayment {
+    font-size: 10px;
+  }
+
   .product {
+    &AddToCart {
+      width: 100px;
+      margin-left: space(1);
+      flex-basis: auto;
+    }
+    &QuantityButton {
+      width: 100px !important;
+      flex: none !important;
+    }
     &.gridView {
       display: flex;
       padding: 6px;
@@ -194,29 +205,11 @@
       .productTitle {
         flex: 0 0 100%;
       }
+
       .productButtons {
         flex: 1;
         padding-right: 15px;
-        .productQuantityWrapper {
-          max-width: 100%;
-          & > div {
-            flex-wrap: wrap;
-            button {
-              flex: 0 0 25px;
-              padding: 0;
-            }
-          }
-        }
-        button:first-child,
-        a:first-child {
-          flex: 0 0 100%;
-          font-size: 11px;
-          height: 35px;
-          line-height: 35px;
-          margin: 0;
-          padding: 0 22px;
-          min-width: 140px;
-        }
+        justify-content: flex-end;
       }
       .productPriceRegular small {
         display: none;

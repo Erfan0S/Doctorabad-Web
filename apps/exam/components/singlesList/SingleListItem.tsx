@@ -1,9 +1,13 @@
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import style from "./sinlgesList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { AddToCartButton, Button } from "@repo/shared_modules/components";
+import {
+  AddToCartButton,
+  Button,
+  ListProductSnappayNotif,
+} from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
@@ -11,6 +15,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import examIcon from "@repo/shared_modules/images/doctor-exam.png";
 import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props = {
   item: ExamType;
@@ -18,7 +23,16 @@ type Props = {
 };
 
 function SingleListItem({ item, haveGeneralAccess }: Props) {
-  const hasAccess = item.user_has_access || haveGeneralAccess;
+  const [hasAccess, setHasAccess] = useState(
+    isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
+  );
+
+  React.useEffect(() => {
+    setHasAccess(
+      isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
+    );
+  }, [item.user_has_access, haveGeneralAccess]);
+
   return (
     <div className={`${style.singleItem} card`}>
       <div>
@@ -38,9 +52,11 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
       </div>
       <div>
         <span className={style.singleItemPrice}>
-          {priceFormatter(item.main_price)} تومن
+          {item.main_price
+            ? `${priceFormatter(item.main_price)} تومن`
+            : "رایگان"}
         </span>
-        {false ? (
+        {hasAccess ? (
           <div className={style.singleItemAccessButtons}>
             <Button>
               <Link href={`/single/${item.id}`}>ورود</Link>
@@ -58,6 +74,9 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
         )}
       </div>
+      {item.installment_payment && (
+        <ListProductSnappayNotif className={style.installmentPayment} />
+      )}
     </div>
   );
 }
