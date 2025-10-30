@@ -15,6 +15,9 @@ import React from "react";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
 import { PreventContext } from "@repo/shared_modules/components";
+import { generateSingleExamMetaData } from "@/metadata/singleExam";
+
+export const generateMetadata = generateSingleExamMetaData;
 
 type Props = {
   params: {
