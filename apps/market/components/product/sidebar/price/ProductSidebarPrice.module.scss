@@ -1,9 +1,9 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .productSidebarPrice {
   display: flex;
-  align-items: center;
+  align-items: end;
   margin-top: space(1);
   $productSidebarPrice: &;
 

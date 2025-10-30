@@ -48,3 +48,7 @@ export { default as FIlterNotFound } from "./FIlterNotFound";
 export { default as QuantityProductButton } from "./quantityButton";
 
 export { default as FavoriteButton } from "./FavoriteButton";
+
+export { default as ProductSnappayNotif } from "./productSnappayNotif";
+
+export { ListProductSnappayNotif } from "./productSnappayNotif";

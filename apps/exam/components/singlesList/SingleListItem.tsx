@@ -3,7 +3,11 @@ import Image from "next/image";
 import React, { useState } from "react";
 import style from "./sinlgesList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { AddToCartButton, Button } from "@repo/shared_modules/components";
+import {
+  AddToCartButton,
+  Button,
+  ListProductSnappayNotif,
+} from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
@@ -48,7 +52,9 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
       </div>
       <div>
         <span className={style.singleItemPrice}>
-          {priceFormatter(item.main_price)} تومن
+          {item.main_price
+            ? `${priceFormatter(item.main_price)} تومن`
+            : "رایگان"}
         </span>
         {hasAccess ? (
           <div className={style.singleItemAccessButtons}>
@@ -68,6 +74,9 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
         )}
       </div>
+      {item.installment_payment && (
+        <ListProductSnappayNotif className={style.installmentPayment} />
+      )}
     </div>
   );
 }

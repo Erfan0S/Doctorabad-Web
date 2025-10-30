@@ -11,7 +11,10 @@ import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import { OrderType } from "@repo/core/types/cart";
 import { useEffect } from "react";
-import { QuantityProductButton } from "@repo/shared_modules/components";
+import {
+  ProductSnappayNotif,
+  QuantityProductButton,
+} from "@repo/shared_modules/components";
 
 interface Props {
   // color?: 'orange' | 'blue' | 'gray';
@@ -41,6 +44,7 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
     product.price_off,
     product.price_amazing || undefined
   );
+  console.log(product);
 
   const isProductHasStock = product.quantity !== 0;
   const color = isProductHasStock ? "orange" : "grey";
@@ -74,6 +78,9 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
         />
       ) : (
         <div className={style.productSidebarPriceButton}>
+          {product.installment_payment && product.installment_text && (
+            <ProductSnappayNotif text={product.installment_text} />
+          )}
           {isProductHasStock ? (
             <button
               onClick={authorizeClientAction(

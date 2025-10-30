@@ -60,6 +60,8 @@ const Course = ({ course }: Props) => {
     placeholderData: (data) => data,
   });
 
+  console.log(course);
+
   useEffect(() => {
     // if (course?.user_has_access) {
     //   setCurrentLeasson(course.sections[0]?.chapters[0]?.lessons[0]);

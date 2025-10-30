@@ -49,6 +49,8 @@ export interface CourseDataType {
   course_preview: string;
   course_pic: string;
   sections: Section[];
+  installment_payment: boolean;
+  installment_text: string | null;
 }
 export enum CourseTab {
   LESSONS = "lessons",
