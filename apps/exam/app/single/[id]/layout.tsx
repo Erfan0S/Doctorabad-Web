@@ -5,6 +5,9 @@ import { routePath } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
 import { AuthorizeClientPage, Loading } from "@repo/shared_modules/components";
 import React, { Suspense } from "react";
+import { generateSingleExamMetaData } from "@/metadata/singleExam";
+
+export const generateMetadata = generateSingleExamMetaData;
 
 function singleLayout({ children }: { children: React.ReactNode }) {
   return (
