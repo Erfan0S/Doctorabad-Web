@@ -3,7 +3,10 @@ import React from "react";
 import style from "./discountPlans.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import VipIcon from "../../assets/svg/vipIcon";
-import { AddToCartButton } from "@repo/shared_modules/components";
+import {
+  AddToCartButton,
+  ListProductSnappayNotif,
+} from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
 import { cartActions } from "@repo/core/states/cart";
@@ -16,6 +19,9 @@ function DiscountPlanItem({ item }: Props) {
   cartActions.getCartData();
   return (
     <div className={`card ${style.planItem}`}>
+      {item.installment_payment && item.installment_text && (
+        <ListProductSnappayNotif className={style.listSnappayNotif} />
+      )}
       <div className={style.planItemTop}>
         <h3>{item.title}</h3>
         <p>{item.description}</p>

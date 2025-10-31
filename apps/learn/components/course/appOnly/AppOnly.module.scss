@@ -5,7 +5,10 @@
   background-color: white;
   border-radius: 7px;
   padding: 30px;
+  padding-top: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+
   p {
     text-align: center;
     font-size: 1rem;
@@ -20,4 +23,14 @@
       margin-top: 20px;
     }
   }
+}
+
+.closeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #000;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
 }

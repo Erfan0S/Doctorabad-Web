@@ -51,15 +51,22 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-image: url("../../../assets/svg/svg-images/play.svg");
-        background-repeat: no-repeat;
-        background-size: 100px;
-        background-position: 50% calc(50% + 35px);
         border: none !important; // @stylint ignore
         box-shadow: none !important; // @stylint ignore
         &:before {
           content: "";
-          display: none;
+          position: absolute;
+          top: calc(50% + 35px);
+          left: 50%;
+          background-image: url("../../../assets/svg/svg-images/play.svg");
+          background-repeat: no-repeat;
+          background-size: 90%;
+          background-position: 50% 50%;
+          transform: translate(-50%, -50%);
+          border-radius: 50%;
+          background-color: #df34538a;
+          width: 90px;
+          height: 90px;
         }
         &:hover {
           background-color: transparent;

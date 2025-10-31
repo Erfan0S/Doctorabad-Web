@@ -13,6 +13,7 @@
 .planItem {
   width: 100%;
   overflow: hidden;
+  position: relative;
   > div {
     min-height: 65px;
   }
@@ -83,6 +84,11 @@
     color: #fff;
     text-decoration: none;
   }
+}
+
+.listSnappayNotif {
+  left: 5px;
+  top: 5px;
 }
 
 @media (max-width: 768px) {

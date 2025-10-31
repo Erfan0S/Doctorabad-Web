@@ -43,7 +43,7 @@ export default function CourseButton({ course, mainPrice, offPrice }: Props) {
           <span
             className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
           >
-            دانشجو این دوره ام!
+            دانشجوی این دوره‌ام!
           </span>
         ) : (
           <AddToCartButton
