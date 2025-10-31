@@ -2,78 +2,93 @@ import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import "@videojs/http-streaming";
 import "videojs-contrib-quality-levels";
+import "videojs-landscape-fullscreen";
 
-import { VideoConfig, VideoPlayerProps } from "@/components/course/video-player";
+import {
+  VideoConfig,
+  VideoPlayerProps,
+} from "@/components/course/video-player";
 import TitleBar from "@/components/course/video-player/videoPlayerCustomElements/TitleBar";
 
 // @ts-ignore
-videojs.registerComponent('TitleBar', TitleBar);
+videojs.registerComponent("TitleBar", TitleBar);
 
 export class PlayerInitiator {
+  public player: ReturnType<typeof videojs> | null = null;
+  public qualityLevels: any = [];
+  constructor(
+    private container: HTMLDivElement,
+    private config: VideoConfig
+  ) {}
 
-    public player: ReturnType<typeof videojs> | null = null;
-    public qualityLevels: any = [];
-    constructor(private container: HTMLDivElement,private config:VideoConfig) {}
-
-
-    static getSources(config:VideoConfig) {
-        const sourceTypes = {hls: "application/x-mpegURL", dash: "application/dash+xml", source: "video/mp4"};
-        const sources = [];
-        for (const [key, value] of Object.entries(sourceTypes)) {
-            if (config[key as keyof typeof config]) {
-                sources.push({ src: config[key as keyof typeof config], type: value });
-            }
-        }
-        return sources;
+  static getSources(config: VideoConfig) {
+    const sourceTypes = {
+      hls: "application/x-mpegURL",
+      dash: "application/dash+xml",
+      source: "video/mp4",
+    };
+    const sources = [];
+    for (const [key, value] of Object.entries(sourceTypes)) {
+      if (config[key as keyof typeof config]) {
+        sources.push({ src: config[key as keyof typeof config], type: value });
+      }
     }
+    return sources;
+  }
 
-    init() {
+  init() {
+    return new Promise((resolve, reject) => {
+      const videoElement = document.createElement("video-js");
+      videoElement.classList.add("vjs-big-play-centered");
+      this.container.appendChild(videoElement);
 
-      
-
-        return new Promise((resolve, reject) => {
-        const videoElement = document.createElement("video-js");
-        videoElement.classList.add("vjs-big-play-centered");
-        this.container.appendChild(videoElement);
-    
-        this.player = videojs(videoElement, {
-          controls: true,
-          titleBar: {
-            title: "sss",
+      this.player = videojs(videoElement, {
+        controls: true,
+        titleBar: {
+          title: "sss",
+        },
+        fluid: true,
+        html5: {
+          vhs: {
+            // HLS Support
+            overrideNative: !videojs.browser.IS_SAFARI,
+            enableLowInitialPlaylist: true,
+            smoothQualityChange: true,
           },
-          fluid: true,
-          html5: {
-            vhs: {
-              // HLS Support
-              overrideNative: !videojs.browser.IS_SAFARI,
-              enableLowInitialPlaylist: true,
-              smoothQualityChange: true,
-            },
-            dash: {
-              // DASH Support
-              overrideNative: true,
-            },
+          dash: {
+            // DASH Support
+            overrideNative: true,
           },
-          playbackRates: [0.5, 1, 1.5, 2],
-          controlBar: {
-            playToggle:true,
-            // disable picture in picture
-            pictureInPictureToggle: false,
-            skipButtons: {
-              forward: 10,
-              backward: 10,
+        },
 
-            },
-            responsive: true,
-            volumePanel: false,
+        playbackRates: [0.5, 1, 1.5, 2],
+        controlBar: {
+          playToggle: true,
+          // disable picture in picture
+          pictureInPictureToggle: false,
+          skipButtons: {
+            forward: 10,
+            backward: 10,
           },
-          sources:PlayerInitiator.getSources(this.config),
-        }  );
-        this.player.ready(() => {
-            // @ts-ignore
-            this.qualityLevels = this.player.qualityLevels();
-            resolve(this.player);
-        });
-        });
-    }
+          responsive: true,
+          volumePanel: false,
+        },
+        sources: PlayerInitiator.getSources(this.config),
+      });
+      // @ts-ignore
+      this.player.landscapeFullscreen({
+        fullscreen: {
+          enterOnRotate: false, // Don't auto-enter fullscreen on rotation
+          exitOnRotate: false, // Don't auto-exit fullscreen on rotation
+          alwaysInLandscapeMode: true, // ✅ FORCE landscape when entering fullscreen
+          iOS: true, // Use fake fullscreen on iOS for custom controls
+        },
+      });
+      this.player.ready(() => {
+        // @ts-ignore
+        this.qualityLevels = this.player.qualityLevels();
+        resolve(this.player);
+      });
+    });
+  }
 }

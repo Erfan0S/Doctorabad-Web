@@ -29,7 +29,7 @@ export default function Watermark({ active, shown }: Props) {
     }
     interval = setInterval(() => {
       setPosition([createRandomPosition(), createRandomPosition()]);
-    }, 3000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [active]);
 

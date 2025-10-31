@@ -114,10 +114,19 @@ const Course = ({ course }: Props) => {
     }
   };
 
+  const isMobileView =
+    typeof window !== "undefined" && window.innerWidth <= 768;
+
   const onLessonClick = (lesson: Lesson) => {
     if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
+      if (!isMobileView) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
     } else if (!course.user_has_access) {
       toast.error("این دوره را هنوز نخریدی!");
     } else if (course.only_watchable_on_app) {
@@ -210,8 +219,8 @@ const Course = ({ course }: Props) => {
                   <Image
                     src={course?.provider.pic_url || ""}
                     alt={course?.provider.name || "ارائه دهنده"}
-                    width={175}
-                    height={95}
+                    width={100}
+                    height={44}
                     placeholder={placeHolderDataUrl}
                   />
                 </Link>

@@ -68,6 +68,8 @@ export interface DiscountPlan {
   off_price: number;
   vip: boolean;
   free: boolean;
+  installment_payment: boolean;
+  installment_text: string | null;
 }
 
 export type UserPlanItem = {
