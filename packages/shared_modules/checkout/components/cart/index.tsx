@@ -41,7 +41,7 @@ const Cart = ({ app }: Props) => {
 
   return (
     <div className={`${style.cart} ${style[app]}`}>
-      <div>
+      <div className={style.cartContent}>
         <div className={style.cartTitle}>
           <span>محصولات‌من</span>
           <small>{count} عدد کالا</small>

@@ -74,8 +74,8 @@ const CartItem = ({
           <Image
             src={product_pic || defaultImage()}
             alt={product_title}
-            width={75}
-            height={75}
+            width={60}
+            height={60}
           />
         </a>
       </div>
@@ -96,10 +96,7 @@ const CartItem = ({
                     price_amazing || price_off
                   )}
                 </small>
-                <span>
-                  {priceFormatter(price_main)}
-                  <small>تومن</small>
-                </span>
+                <span>{priceFormatter(price_main)}</span>
               </div>
             )}
             <div>
