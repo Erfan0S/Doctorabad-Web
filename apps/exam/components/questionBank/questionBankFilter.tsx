@@ -147,7 +147,7 @@ function QuestionBankFilter() {
         <QuestionSearchInpt />
         <OptionSwitch
           name={SharedFilters.EXPLANATION}
-          title="نمایش تشریحی سوالات!"
+          title="نمایش پاسخ تشریحی سوالات!"
           app={Apps.EXAM}
           addToQuery
           onClick={onExplanationSelect}

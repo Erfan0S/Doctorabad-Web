@@ -12,7 +12,7 @@ import { Button } from "@repo/shared_modules/components";
 import { ExamStatus, QuestionStatus, QuestionType } from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import QuestionInput from "./questionItemInput";
+import QuestionInput from "./questionInputs/questionItemInput";
 import Image from "next/image";
 import QuestionExplanation from "./questionExplanation";
 import Loading from "../../common/Loading";

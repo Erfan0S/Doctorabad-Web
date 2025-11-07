@@ -18,7 +18,7 @@ html body div .mobileMode {
 }
 
 html .notSureQuestion {
-  --not-sure-color: rgba(255, 255, 0, 0.15);
+  --not-sure-color: #ffffca;
   background-color: var(--not-sure-color);
   h4 {
     background-color: var(--not-sure-color);
@@ -29,7 +29,7 @@ html .notSureQuestion {
 }
 
 html .dontKnowQuestion {
-  --dont-know-color: rgba(128, 128, 128, 0.15);
+  --dont-know-color: #e9e9e9;
   background-color: var(--dont-know-color);
   h4 {
     background-color: var(--dont-know-color);
@@ -120,94 +120,6 @@ html .dontKnowQuestion {
       margin-top: 10px;
     }
   }
-
-  .answerWrapper {
-    padding: 10px 15px;
-    margin: 0 10px;
-    border-top: 1px solid $purple;
-    z-index: 5;
-    p {
-      margin: 0;
-    }
-  }
-}
-
-.radioWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  z-index: 5;
-
-  .radio {
-    border-radius: 100%;
-    width: 15px;
-    height: 15px;
-    border: 1px solid $lightGray;
-    display: flex;
-    align-items: center;
-    background-color: white;
-    justify-content: center;
-    cursor: pointer;
-    div {
-      width: 11px;
-      height: 11px;
-      border-radius: 100%;
-    }
-  }
-
-  label {
-    margin: 0;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .radioLabel {
-    flex: 1;
-    padding: 0 3px;
-    border-radius: 100px;
-  }
-
-  input {
-    display: none;
-  }
-
-  input:checked + .radio {
-    div {
-      background-color: $purple;
-    }
-    border-color: $purple;
-  }
-}
-
-.radioCorrect {
-  .radioLabel {
-    color: white;
-    background-color: $base-green;
-  }
-
-  .radio {
-    border-color: $base-green;
-    div {
-      background-color: $base-green;
-    }
-  }
-
-  input:checked + .radio {
-    div {
-      background-color: $base-green;
-    }
-    border-color: $base-green;
-  }
-}
-
-.radioWrong {
-  input:checked + .radio {
-    div {
-      background-color: $red;
-    }
-    border-color: $red;
-  }
 }
 
 .questionImages {
@@ -221,9 +133,15 @@ html .dontKnowQuestion {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 10px 15px;
+  margin: 0 10px;
+  border-top: 1px solid $purple;
+  z-index: 5;
+
   p {
     width: 100%;
     text-align: start;
+    margin: 0;
   }
   .explanationReferences {
     border: 1px solid $purple;
@@ -239,7 +157,7 @@ html .dontKnowQuestion {
   height: 100%;
   bottom: 0;
   right: 0;
-  opacity: 0.25;
+  opacity: 0.15;
   transform: translateY(-50%);
   display: flex;
   flex-direction: row;
