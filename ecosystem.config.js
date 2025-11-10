@@ -40,5 +40,15 @@ module.exports = {
                 PORT: 3004
             }
         },
+                {
+            name: "mono-pharmacy",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/pharmacy",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3005
+            }
+        },
     ]
 };
