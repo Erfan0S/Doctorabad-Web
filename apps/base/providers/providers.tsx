@@ -7,6 +7,7 @@ import { SidebarProvider } from "@repo/shared_modules";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ModalsList } from "@repo/shared_modules/modalsList";
+import { Providers as SharedProviders } from "@repo/shared_modules";
 
 const Providers = ({ children }: React.PropsWithChildren) => {
   const [client] = useState(
@@ -16,19 +17,10 @@ const Providers = ({ children }: React.PropsWithChildren) => {
   );
 
   return (
-    <>
-      <QueryClientProvider client={client}>
-        <ModalCreator ModalsList={ModalsList} />
-        <ToastContainer theme="colored" rtl position="top-left" />
-        <SidebarProvider />
-        {children}
-        <ReactQueryDevtools
-          initialIsOpen={false}
-          position="left"
-          buttonPosition="bottom-left"
-        />
-      </QueryClientProvider>
-    </>
+    <SharedProviders modalList={ModalsList}>
+      <SidebarProvider />
+      {children}
+    </SharedProviders>
   );
 };
 

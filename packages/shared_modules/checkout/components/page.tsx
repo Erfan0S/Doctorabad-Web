@@ -19,9 +19,11 @@ import {
   CreateOrderRequest,
   PaymentProviders,
 } from "../types/cart";
-import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants/routePath";
+import { useRouter, useSearchParams } from "next/navigation";
+import { baseUrls, routePath } from "@repo/core/constants/routePath";
 import CreateOrderButton from "./createOrderButton";
+import { PageHeader } from "../../headers";
+import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 
 type Props = {
   app?: Apps;
@@ -36,6 +38,9 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
     payWithCredit: false,
     paymentMethod: PaymentProviders.CASH,
   });
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
@@ -100,47 +105,62 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   const isCartNotEmpty = !!cartItems.length;
 
   return (
-    <div
-      className={`${styles.checkoutWrapper} ${mobileView && styles.mobileView} ${styles[app]}`}
-    >
-      <div>
-        <Cart app={app} />
-      </div>
-      {isCartNotEmpty && hasPhysicalProduct && (
-        <div>
-          <Shipping
-            isLoading={loadingAddress}
-            address={addressData}
-            onChangeShippingMethod={onChangeShippingMethod}
-            currentShippingMethod={currentShippingMethod}
-            selectedShipingMethod={selectedShippingMethod}
-          />
-        </div>
-      )}
-      <div>
-        <Pay
-          shippingMethod={currentShippingMethod}
-          payInfo={payInfo}
-          setPayInfo={setPayInfo}
-        >
-          {isCartNotEmpty && (
-            <div className={styles.payChildrenWrapper}>
-              <PaymentMethods
-                payInfo={payInfo}
-                setPayInfo={setPayInfo}
-                shippingMethod={currentShippingMethod}
-              />
+    <>
+      <PageHeader
+        onBack={() => {
+          const redirectApp = searchParams.get(REDIRECTED_APP_KEY) as Apps;
+          const backUrl =
+            searchParams.get("prev") || !!redirectApp
+              ? baseUrls[redirectApp]
+              : baseUrls.base;
+          router.push(backUrl);
+        }}
+        title="سبد خرید"
+        className={`${styles.checkoutHeader} ${mobileView && styles.headerMobileView} container`}
+      />
 
-              <CreateOrderButton
-                shippingMethod={currentShippingMethod}
-                currentAddress={addressData}
-                hasPhysicalProduct={hasPhysicalProduct}
-                payInfo={payInfo}
-              />
-            </div>
-          )}
-        </Pay>
+      <div
+        className={`${styles.checkoutWrapper} ${mobileView && styles.mobileView} ${styles[app]} container`}
+      >
+        <div>
+          <Cart app={app} />
+        </div>
+        {isCartNotEmpty && hasPhysicalProduct && (
+          <div>
+            <Shipping
+              isLoading={loadingAddress}
+              address={addressData}
+              onChangeShippingMethod={onChangeShippingMethod}
+              currentShippingMethod={currentShippingMethod}
+              selectedShipingMethod={selectedShippingMethod}
+            />
+          </div>
+        )}
+        <div>
+          <Pay
+            shippingMethod={currentShippingMethod}
+            payInfo={payInfo}
+            setPayInfo={setPayInfo}
+          >
+            {isCartNotEmpty && (
+              <div className={styles.payChildrenWrapper}>
+                <PaymentMethods
+                  payInfo={payInfo}
+                  setPayInfo={setPayInfo}
+                  shippingMethod={currentShippingMethod}
+                />
+
+                <CreateOrderButton
+                  shippingMethod={currentShippingMethod}
+                  currentAddress={addressData}
+                  hasPhysicalProduct={hasPhysicalProduct}
+                  payInfo={payInfo}
+                />
+              </div>
+            )}
+          </Pay>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -107,6 +107,16 @@
   display: none;
 }
 
+@supports (max-width: 450px) {
+  body .sidebar {
+    &Nav {
+      ul {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .sidebarNavBarMobile {
     display: block;
@@ -115,6 +125,7 @@
   .sidebar {
     &Nav {
       ul {
+        padding: 0 10px;
         li {
           height: 65px;
           display: flex;

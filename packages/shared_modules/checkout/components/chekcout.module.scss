@@ -47,6 +47,12 @@
   justify-content: space-between;
 }
 
+@media (max-width: 575px) {
+  .checkoutHeader {
+    padding: 0;
+  }
+}
+
 @media (min-width: 1200px) {
   .checkoutWrapper {
     flex-wrap: nowrap;

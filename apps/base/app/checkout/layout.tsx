@@ -5,7 +5,7 @@ import { baseUrls } from "@repo/core/constants/routePath";
 
 export const viewport = checkoutMetadata;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -13,8 +13,7 @@ export default function RootLayout({
   return (
     <>
       <AuthorizeClientPage baseUrl={baseUrls.base}>
-        {/* <PageHeader title="سبد خرید" /> */}
-        <div className="container">{children}</div>
+        <div className="">{children}</div>
       </AuthorizeClientPage>
     </>
   );
