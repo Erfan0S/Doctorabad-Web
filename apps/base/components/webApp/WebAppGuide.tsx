@@ -53,7 +53,6 @@ const WebAppGuide = () => {
       <Link href={"/"} className={style["webApp-guide-button"]}>
         متوجه شدم
       </Link>
-      <Image src={arrow} alt="arrow adown" className={style["arrow-down"]} />
     </div>
   );
 };

@@ -39,6 +39,7 @@ export const navBarData = [
     subTitle: "مرکزمحتوای‌دکترآباد",
     href: "https://doctorabad.com/app",
     image: doctorDownload,
+    disabled: true,
     color: "blue",
     mobileTitle: "مرکز‌محتوا",
   },

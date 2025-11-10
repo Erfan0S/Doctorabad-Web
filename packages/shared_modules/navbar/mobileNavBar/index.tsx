@@ -37,11 +37,22 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
     >
       <ul>
         {navBarData.map(
-          ({ id, title, subTitle, image, color, href, mobileTitle }) => {
+          ({
+            id,
+            title,
+            subTitle,
+            image,
+            color,
+            href,
+            mobileTitle,
+            disabled,
+          }) => {
             return (
               <li
                 key={id}
-                className={activeCondition(href) ? style.active : ""}
+                className={
+                  !disabled && activeCondition(href) ? style.active : ""
+                }
                 id={String(id)}
               >
                 <a href={href} className={style[color]}>
