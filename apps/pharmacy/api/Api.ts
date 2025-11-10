@@ -24,6 +24,14 @@ class Api extends Request {
   ): Promise<ResponseType<{ data: MedicineCategory[] }>> => {
     return this.request.get(`user/v1/medicine/category/children/${parentId}`);
   };
-
+  getMedicineTreatments = (
+    categoryId: number
+  ): Promise<
+    ResponseType<{ data: { id: number; title_fa: string; title_en: string }[] }>
+  > => {
+    return this.request.get(
+      `user/v1/medicine/category/treatment/${categoryId}`
+    );
+  };
 }
 export const api = new Api();

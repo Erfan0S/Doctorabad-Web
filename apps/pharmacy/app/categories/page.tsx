@@ -11,7 +11,8 @@ export default function Categories() {
     queryFn: async () => (await api.getMedicineCategories()).data.data,
   });
 
-  if (isLoading) return <div className={styles.loading}>در حال بارگذاری دسته‌ها...</div>;
+  if (isLoading)
+    return <div className={styles.loading}>در حال بارگذاری دسته‌ها...</div>;
   if (error) return <div className={styles.error}>خطا در دریافت داده‌ها</div>;
 
   return (
@@ -32,6 +33,13 @@ function CategoryItem({ category }: { category: MedicineCategory }) {
     enabled: open && category.has_children,
   });
 
+  const { data: treatments, isLoading: loadingTreatments } = useQuery({
+    queryKey: ["medicine-treatments", category.id],
+    queryFn: async () =>
+      (await api.getMedicineTreatments(category.id)).data.data,
+    enabled: open && !category.has_children,
+  });
+
   return (
     <div className={styles.item}>
       <div
@@ -39,19 +47,32 @@ function CategoryItem({ category }: { category: MedicineCategory }) {
         onClick={() => setOpen(!open)}
       >
         <span>{category.title}</span>
-        {category.has_children && (
-          <span className={styles.arrow}>{open ? "▲" : "▼"}</span>
-        )}
+        <span className={styles.arrow}>{open ? "▲" : "▼"}</span>
       </div>
 
-      {open && category.has_children && (
+      {open && (
         <div className={styles.children}>
-          {isLoading ? (
-            <div className={styles.loading}>در حال بارگذاری...</div>
+          {category.has_children ? (
+            isLoading ? (
+              <div className={styles.loading}>
+                در حال بارگذاری زیر‌دسته‌ها...
+              </div>
+            ) : (
+              children?.map((child) => (
+                <CategoryItem key={child.id} category={child} />
+              ))
+            )
+          ) : loadingTreatments ? (
+            <div className={styles.loading}>در حال بارگذاری داروها...</div>
           ) : (
-            children?.map((child) => (
-              <CategoryItem key={child.id} category={child} />
-            ))
+            <div className={styles.treatments}>
+              {treatments?.map((drug) => (
+                <div key={drug.id} className={styles.treatment}>
+                  <span className={styles.drugFa}>{drug.title_fa}</span>
+                  <span className={styles.drugEn}>{drug.title_en}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       )}
