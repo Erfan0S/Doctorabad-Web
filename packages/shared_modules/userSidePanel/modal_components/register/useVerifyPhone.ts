@@ -1,6 +1,5 @@
 import { api } from "../../../api/Api";
 import { routePath } from "@repo/core/constants/routePath";
-import { authorizedActionStorage } from "../../states/athorizedActionStorage";
 import { cartActions } from "@repo/core/states/cart";
 import { modalActions } from "@repo/core/modal/modals";
 import { RegisterStep, RegisterStepProps } from "../../types/register";
@@ -98,10 +97,7 @@ export const useVerifyPhone = (
       .then(() => {
         modalActions.removeLastModal();
         setAuthCookie();
-        if (authorizedActionStorage.getState()) {
-          authorizedActionStorage.getState()!();
-          authorizedActionStorage.setState(null);
-        }
+
         onVerifySuccess && onVerifySuccess();
         if (pathname === routePath.register) {
           replace("/");

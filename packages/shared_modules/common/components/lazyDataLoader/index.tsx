@@ -1,10 +1,10 @@
 "use client";
 
-import { ResponseType } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { ReactNode, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Button } from "..";
+import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
 
 type Props<D = any> = {
   loader: () => Promise<D>;
@@ -12,6 +12,7 @@ type Props<D = any> = {
   component: (p: { data: D }) => ReactNode;
   placeHolder: () => ReactNode;
   returnOnError?: boolean;
+  isRefetchOnAuth?: boolean;
 };
 
 export const LazyDataLoader = <S extends Object>({
@@ -20,6 +21,7 @@ export const LazyDataLoader = <S extends Object>({
   queryKey,
   placeHolder: PlaceHolder,
   returnOnError,
+  isRefetchOnAuth = false,
 }: Props<S>) => {
   const { data, isLoading, isPending, isSuccess, isError, refetch } = useQuery({
     queryFn: loader,
@@ -36,6 +38,13 @@ export const LazyDataLoader = <S extends Object>({
       refetch();
     }
   }, [inView, isSuccess, refetch]);
+
+  useEffect(() => {
+    console.log(queryKey, generalAuthorizeState.getState().isAuthorized);
+    if (isRefetchOnAuth && generalAuthorizeState.getState().isAuthorized) {
+      refetch();
+    }
+  }, [isRefetchOnAuth, generalAuthorizeState.getState().isAuthorized]);
 
   if (isLoading || isPending)
     return (
