@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/api/Api";
-import { MedicineCategory } from "@/types/category";
+import { pharmacyApi } from "@/api/Api";
+import { MedicineCategory } from "@/types/pharmacy";
 import styles from "./Categories.module.scss";
 
 export default function Categories() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["medicine-categories"],
-    queryFn: async () => (await api.getMedicineCategories()).data.data,
+    queryFn: async () => (await pharmacyApi.getMedicineCategories()).data.data,
   });
 
   if (isLoading)
@@ -29,14 +29,14 @@ function CategoryItem({ category }: { category: MedicineCategory }) {
 
   const { data: children, isLoading } = useQuery({
     queryKey: ["medicine-children", category.id],
-    queryFn: async () => (await api.getMedicineChildren(category.id)).data.data,
+    queryFn: async () => (await pharmacyApi.getMedicineChildren(category.id)).data.data,
     enabled: open && category.has_children,
   });
 
   const { data: treatments, isLoading: loadingTreatments } = useQuery({
     queryKey: ["medicine-treatments", category.id],
     queryFn: async () =>
-      (await api.getMedicineTreatments(category.id)).data.data,
+      (await pharmacyApi.getMedicineTreatments(category.id)).data.data,
     enabled: open && !category.has_children,
   });
 

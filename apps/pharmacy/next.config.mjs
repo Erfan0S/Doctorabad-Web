@@ -1,8 +1,17 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    domains: ['picsum.photos'], // دامنه‌های مجاز برای next/image
-  },
-}
+import withPWA from "next-pwa";
 
-export default nextConfig
+const withPWAFunc = withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+});
+
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ["picsum.photos"],
+  },
+};
+
+export default withPWAFunc(nextConfig);

@@ -1,0 +1,39 @@
+// components/MedicineCard/MedicineCard.module.scss
+.medicineCard {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.medicineImage {
+  flex-shrink: 0;
+}
+
+.medicineInfo {
+  flex: 1;
+  text-align: right;
+}
+
+.medicineNameEn {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+}
+
+.medicineNameFa {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}

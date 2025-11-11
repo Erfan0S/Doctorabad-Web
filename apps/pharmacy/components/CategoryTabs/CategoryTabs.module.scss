@@ -1,0 +1,45 @@
+// components/CategoryTabs/CategoryTabs.module.scss
+.categoriesNav {
+  background: white;
+  padding: 12px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 132px;
+  z-index: 50;
+}
+
+.categoriesScroll {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.categoryTab {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &.active {
+    background: #4caf50;
+    color: white;
+    border-color: #4caf50;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
