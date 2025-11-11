@@ -36,7 +36,7 @@ export default function PharmacyHeader({
         <div className={styles.searchWrapper}>
           <input
             type="text"
-            placeholder="هرچیزی، خواهدل، نشکیب‌جو، رل!"
+            placeholder="هرچه می‌خواهد دل تنگت بجوی!"
             className={styles.searchInput}
             disabled
           />
