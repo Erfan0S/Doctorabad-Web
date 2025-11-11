@@ -1,93 +1,97 @@
+@import "@/assets/styles/variables";
+
 .container {
+  direction: rtl;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  font-family: inherit;
+  gap: 0.6rem;
+  padding: 1rem;
+  background: #fff;
 }
 
 .item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 6px 10px;
-  background-color: #fff;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #f9f9f9;
-  }
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.95rem;
+  background-color: #fff;
   color: #333;
-  transition: color 0.2s ease;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: 2px solid lighten($green, 5%);
+  border-radius: 1rem;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  .arrow {
+    font-size: 0.9rem;
+    color: $green;
+  }
 
   &:hover {
-    color: #0070f3;
+    background-color: lighten($green, 45%);
   }
-
-  &.open {
-    font-weight: 600;
-  }
-}
-
-.arrow {
-  font-size: 0.8rem;
-  color: #888;
 }
 
 .children {
-  margin-top: 0.4rem;
-  margin-left: 1rem;
-  padding-left: 0.6rem;
-  border-left: 2px solid #e0e0e0;
-}
-
-.treatments {
+  padding-right: 1.2rem;
+  margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  margin-top: 0.5rem;
-}
-
-.treatment {
-  background-color: #f7faff;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 6px 8px;
-  font-size: 0.9rem;
-  display: flex;
-  justify-content: space-between;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #edf6ff;
-  }
-}
-
-.drugFa {
-  font-weight: 500;
-  color: #222;
-}
-
-.drugEn {
-  font-size: 0.85rem;
-  color: #666;
+  gap: 0.5rem;
+  animation: slideDown 0.3s ease;
 }
 
 .loading {
   color: #666;
   font-size: 0.9rem;
-  padding: 4px;
+  padding: 0.5rem 1rem;
 }
 
 .error {
-  color: #d9534f;
-  font-weight: 500;
+  color: red;
+  text-align: center;
+  padding: 1rem;
 }
 
+.treatments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-right: 1rem;
+  margin-top: 0.4rem;
+
+  .treatment {
+    display: flex;
+    justify-content: space-between;
+    background-color: $green;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: lighten($green, 45%);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

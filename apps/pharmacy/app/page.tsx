@@ -7,6 +7,7 @@ import { pharmacyApi } from "@/api/Api";
 import { Medicine, MedicineCategory, Slider } from "@/types/pharmacy";
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import PharmacySlider from "@/components/PharmacySlider/PharmacySlider";
+import PharmacySearchSection from "@/components/PharmacySearchSection/PharmacySearchSection";
 import CategoryTabs from "@/components/CategoryTabs/CategoryTabs";
 import MedicineList from "@/components/MedicineList/MedicineList";
 import styles from "./page.module.scss";
@@ -106,7 +107,8 @@ export default function PharmacyHomePage() {
 
   return (
     <div className={styles.container}>
-      <PharmacyHeader onCategoriesClick={handleCategoriesClick} />
+      <PharmacyHeader title="داروخانه من"  />
+      <PharmacySearchSection onCategoriesClick={handleCategoriesClick} />
       <PharmacySlider sliders={sliders} />
       <CategoryTabs
         categories={categories}

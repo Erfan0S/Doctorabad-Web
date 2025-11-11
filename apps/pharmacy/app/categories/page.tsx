@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { pharmacyApi } from "@/api/Api";
 import { MedicineCategory } from "@/types/pharmacy";
-import styles from "./Categories.module.scss";
+import styles from "./categories.module.scss";
 
 export default function Categories() {
   const { data, isLoading, error } = useQuery({
@@ -68,8 +68,7 @@ function CategoryItem({ category }: { category: MedicineCategory }) {
             <div className={styles.treatments}>
               {treatments?.map((drug) => (
                 <div key={drug.id} className={styles.treatment}>
-                  <span className={styles.drugFa}>{drug.title_fa}</span>
-                  <span className={styles.drugEn}>{drug.title_en}</span>
+                  <span>{drug.title_fa}</span>
                 </div>
               ))}
             </div>

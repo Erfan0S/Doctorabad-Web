@@ -1,12 +1,5 @@
+import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import type { Metadata } from "next";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import localFont from "next/font/local";
-import "../assets/styles/globals.scss";
-
-const font = localFont({
-  src: "../assets/fonts/IRANSansXV.woff2",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "دکترآباد | داروخانه من",
@@ -22,8 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa">
-      <body className={font.className} dir="rtl">
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+      <body  dir="rtl">
+        <PharmacyHeader title="دسته‌بندی"></PharmacyHeader>
+        {children}
       </body>
     </html>
   );
