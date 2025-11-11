@@ -1,3 +1,5 @@
+
+
 // components/CategoryTabs/CategoryTabs.module.scss
 .categoriesNav {
   background: white;
@@ -29,6 +31,7 @@
   color: #666;
   font-size: 14px;
   font-weight: 500;
+  font-family: var(--font-iran-sans);
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s;

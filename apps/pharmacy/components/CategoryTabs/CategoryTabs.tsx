@@ -26,7 +26,7 @@ export default function CategoryTabs({
             }`}
             onClick={() => onCategoryChange(category.id)}
           >
-            {category.title_fa || category.title}
+            { category.title}
           </button>
         ))}
       </div>
