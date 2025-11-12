@@ -4,12 +4,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { pharmacyApi } from "@/api/Api";
-import { Medicine, MedicineCategory, Slider } from "@/types/pharmacy";
+import { Medicine, MedicineCategory, Slider, MedicineListParams } from "@/types/pharmacy";
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import PharmacySlider from "@/components/PharmacySlider/PharmacySlider";
 import PharmacySearchSection from "@/components/PharmacySearchSection/PharmacySearchSection";
 import CategoryTabs from "@/components/CategoryTabs/CategoryTabs";
 import MedicineList from "@/components/MedicineList/MedicineList";
+import PharmacySliderSkeleton from "@/components/Skeletons/PharmacySliderSkeleton/PharmacySliderSkeleton";
+import MedicineListSkeleton from "@/components/Skeletons/MedicineListSkeleton/MedicineListSkeleton";
 import styles from "./page.module.scss";
 
 export default function PharmacyHomePage() {
@@ -20,6 +22,7 @@ export default function PharmacyHomePage() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -34,10 +37,8 @@ export default function PharmacyHomePage() {
     }
   }, [selectedCategory]);
 
-  // دیبانس برای سرچ
   useEffect(() => {
     if (searchQuery) {
-      // وقتی شروع به تایپ میکنه، لیست رو خالی کن
       setMedicines([]);
       setLoading(true);
       
@@ -47,12 +48,12 @@ export default function PharmacyHomePage() {
 
       return () => clearTimeout(timer);
     } else {
-      // اگر سرچ خالی شد، به حالت عادی برگرد
       loadMedicinesByCategory(selectedCategory);
     }
   }, [searchQuery]);
 
   const loadInitialData = async () => {
+    setInitialLoading(true);
     try {
       const [categoriesRes, slidersRes] = await Promise.all([
         pharmacyApi.getMedicineCategories(),
@@ -67,8 +68,13 @@ export default function PharmacyHomePage() {
       if (slidersRes.data) {
         setSliders(slidersRes.data.data);
       }
+
+      // بارگذاری اولیه داروها
+      await loadMedicinesByCategory(null);
     } catch (error) {
       console.error("Error loading initial data:", error);
+    } finally {
+      setInitialLoading(false);
     }
   };
 
@@ -128,13 +134,11 @@ export default function PharmacyHomePage() {
     setLoading(true);
     try {
       const nextPage = page + 1;
-      const params: any = { page: nextPage };
+      const params: MedicineListParams = { page: nextPage };
 
       if (searchQuery.trim()) {
-        // اگر در حالت سرچ هستیم
         params.title = searchQuery.trim();
       } else if (selectedCategory) {
-        // اگر در حالت دسته‌بندی هستیم
         params.category_id = selectedCategory;
       }
 
@@ -165,7 +169,6 @@ export default function PharmacyHomePage() {
     setSearchQuery(query);
   };
 
-  // آیا در حالت سرچ هستیم؟
   const isSearchMode = searchQuery.trim().length > 0;
 
   return (
@@ -176,10 +179,14 @@ export default function PharmacyHomePage() {
         onSearch={handleSearch}
       />
       
-      {/* اسلایدر و تب‌ها فقط وقتی نشون داده بشن که سرچ نداریم */}
       {!isSearchMode && (
         <>
-          <PharmacySlider sliders={sliders} />
+          {initialLoading ? (
+            <PharmacySliderSkeleton />
+          ) : (
+            <PharmacySlider sliders={sliders} />
+          )}
+          
           <CategoryTabs
             categories={categories}
             selectedCategory={selectedCategory}
@@ -188,12 +195,16 @@ export default function PharmacyHomePage() {
         </>
       )}
 
-      <MedicineList
-        medicines={medicines}
-        loading={loading}
-        hasMore={hasMore}
-        onLoadMore={loadMore}
-      />
+      {initialLoading || (medicines.length === 0 && loading) ? (
+        <MedicineListSkeleton count={8} />
+      ) : (
+        <MedicineList
+          medicines={medicines}
+          loading={loading}
+          hasMore={hasMore}
+          onLoadMore={loadMore}
+        />
+      )}
     </div>
   );
 }
