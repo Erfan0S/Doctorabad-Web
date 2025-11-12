@@ -103,6 +103,7 @@ export type PaymentResult = {
   post_tracking_code: string;
   coin_received: number;
   discount_code: string;
+  installment_transaction_id: string | null;
 };
 
 export enum ChangeQuantityType {

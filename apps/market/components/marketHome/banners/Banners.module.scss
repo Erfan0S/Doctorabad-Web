@@ -1,4 +1,5 @@
-@import '@/assets/styles/functions';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .banners {
   padding: space(10) 0;
@@ -19,8 +20,14 @@
       height: auto;
     }
 
-    a {
+    > a {
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      position: relative;
+      color: $main_text;
     }
     span {
       margin-top: space(3);
@@ -44,7 +51,7 @@
 
 @media (max-width: 992px) {
   .banners {
-    [class*='col-'] {
+    [class*="col-"] {
       margin-bottom: 15px;
     }
   }

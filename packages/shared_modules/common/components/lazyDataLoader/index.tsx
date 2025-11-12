@@ -40,7 +40,6 @@ export const LazyDataLoader = <S extends Object>({
   }, [inView, isSuccess, refetch]);
 
   useEffect(() => {
-    console.log(queryKey, generalAuthorizeState.getState().isAuthorized);
     if (isRefetchOnAuth && generalAuthorizeState.getState().isAuthorized) {
       refetch();
     }

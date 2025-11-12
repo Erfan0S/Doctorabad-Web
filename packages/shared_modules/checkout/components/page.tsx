@@ -108,9 +108,9 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
     <>
       <PageHeader
         onBack={() => {
-          const redirectApp = searchParams.get(REDIRECTED_APP_KEY) as Apps;
+          const redirectApp = searchParams?.get(REDIRECTED_APP_KEY) as Apps;
           const backUrl =
-            searchParams.get("prev") || !!redirectApp
+            searchParams?.get("prev") || !!redirectApp
               ? baseUrls[redirectApp]
               : baseUrls.base;
           router.push(backUrl);

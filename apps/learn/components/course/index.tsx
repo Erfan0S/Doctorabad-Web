@@ -94,8 +94,6 @@ const Course = ({ course }: Props) => {
   }, [currentLeasson, course]);
 
   useEffect(() => {
-    console.log(lessonParam);
-
     if (lessonParam) {
       setCurrentLeasson(
         flatLeasons.find((leasson) => leasson.id === +lessonParam) || null
