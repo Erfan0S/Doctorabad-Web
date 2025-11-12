@@ -32,7 +32,11 @@ function DiscountPlanItem({ item }: Props) {
           {!!item.off_price && (
             <span>{priceFormatter(item.main_price)} تومن</span>
           )}
-          <span>{priceFormatter(item.off_price || item.main_price)} تومن</span>
+          <span>
+            {(!item.main_price && !item.off_price) || item.free
+              ? "رایگان"
+              : `${priceFormatter(item.off_price || item.main_price)} تومن`}
+          </span>
         </div>
         <AddToCartButton
           id={item.id}

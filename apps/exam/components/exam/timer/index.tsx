@@ -11,7 +11,6 @@ import {
   SharedFilters,
   ExamStatus,
 } from "@repo/apps_shared_components/exam/types/filters.ts";
-import { api } from "@/api/Api";
 import Loading from "@/components/common/Loading/Loading";
 
 type Props = {
@@ -20,7 +19,6 @@ type Props = {
 
 function ExamTimer({ totalQuestions }: Props) {
   const [time, setTime] = useState(totalQuestions * 60);
-  console.log(time);
 
   const searchParams = useSearchParams();
   const manual = searchParams?.get(SharedFilters.MANUAL_TIME);
@@ -29,10 +27,8 @@ function ExamTimer({ totalQuestions }: Props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(manual);
-
     if (!manual) return;
-    // setTime(Number(manual) * 60);
+    setTime(Number(manual) * 60);
   }, [manual]);
 
   let timerInterval: NodeJS.Timeout | undefined;
