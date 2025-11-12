@@ -11,14 +11,15 @@ import { api } from "@repo/shared_modules/api";
 import { InstallBannerShow } from "@repo/shared_modules/components";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import Script from "next/script";
+import { Metadata, Viewport } from "next";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
   display: "swap",
 });
 
-export const metadata = homeMetadata();
-export const viewPort = homeViewPort;
+export const metadata: Metadata = homeMetadata();
+export const viewPort: Viewport = homeViewPort;
 
 export default async function RootLayout({
   children,

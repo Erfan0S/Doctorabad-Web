@@ -11,7 +11,7 @@ import { InstallBannerShow } from "@repo/shared_modules/components";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import Script from "next/script";
 import MarketHeader from "@/components/common/header/market";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
 
 const font = localFont({
@@ -20,7 +20,7 @@ const font = localFont({
 });
 
 export const metadata: Metadata = homeMetadata;
-export const viewPort = homeViewPort;
+export const viewPort: Viewport = homeViewPort;
 
 export default async function RootLayout({
   children,

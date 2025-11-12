@@ -12,7 +12,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { homeViewPort } from "@repo/core/metadata/home";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
 
 const font = localFont({
@@ -22,7 +22,7 @@ const font = localFont({
 });
 
 export const metadata: Metadata = homeMetadata;
-export const viewPort = homeViewPort;
+export const viewPort: Viewport = homeViewPort;
 
 export default async function RootLayout({
   children,
