@@ -28,6 +28,7 @@ import Loading from "../common/Loading";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { toast } from "react-toastify";
 import { PreventContext } from "@repo/shared_modules/components";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -43,8 +44,11 @@ type Props = {
 const Course = ({ course }: Props) => {
   const [activeTab, setActiveTab] = useState<CourseTab>(CourseTab.LESSONS);
   const params = useSearchParams();
+  const lessonParam = params?.get("lesson");
 
   const { data, initLoading } = useCart();
+
+  const changeSearchParamsFilter = useChangeSearchParamsFilter();
 
   const [currentLeasson, setCurrentLeasson] = useState<Lesson | null>(null);
   const [suggestedCurrentTime, setSuggestedCurrentTime] = useState<
@@ -59,8 +63,6 @@ const Course = ({ course }: Props) => {
     retry: false,
     placeholderData: (data) => data,
   });
-
-  console.log(course);
 
   useEffect(() => {
     // if (course?.user_has_access) {
@@ -83,6 +85,22 @@ const Course = ({ course }: Props) => {
     );
   }, [course]);
 
+  useEffect(() => {
+    setUserHasAccess(
+      course?.user_has_access &&
+        !!currentLeasson &&
+        !course.only_watchable_on_app
+    );
+  }, [currentLeasson, course]);
+
+  useEffect(() => {
+    if (lessonParam) {
+      setCurrentLeasson(
+        flatLeasons.find((leasson) => leasson.id === +lessonParam) || null
+      );
+    }
+  }, []);
+
   const goToNextTrack = () => {
     if (!userHasAccess) {
       return;
@@ -95,6 +113,7 @@ const Course = ({ course }: Props) => {
     if (nextLeasson) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(nextLeasson);
+      changeSearchParamsFilter({ lesson: nextLeasson.id.toString() });
     }
   };
 
@@ -111,6 +130,7 @@ const Course = ({ course }: Props) => {
     if (previousLeasson) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(previousLeasson);
+      changeSearchParamsFilter({ lesson: previousLeasson.id.toString() });
     }
   };
 
@@ -121,6 +141,7 @@ const Course = ({ course }: Props) => {
     if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);
+      changeSearchParamsFilter({ lesson: lesson.id.toString() });
       if (!isMobileView) {
         window.scrollTo({
           top: 0,
@@ -136,6 +157,7 @@ const Course = ({ course }: Props) => {
 
   const goToBookmark = (lessonId: number, jumpTime: number) => {
     setCurrentLeasson(flatLeasons.find((leasson) => leasson.id === lessonId)!);
+    changeSearchParamsFilter({ lesson: lessonId.toString() });
     setSuggestedCurrentTime(jumpTime);
     modalActions.removeLastModal();
   };
@@ -145,14 +167,6 @@ const Course = ({ course }: Props) => {
     course?.price_off || undefined,
     course?.price_amazing || undefined
   );
-
-  useEffect(() => {
-    setUserHasAccess(
-      course?.user_has_access &&
-        !!currentLeasson &&
-        !course.only_watchable_on_app
-    );
-  }, [currentLeasson, course]);
 
   return (
     <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>

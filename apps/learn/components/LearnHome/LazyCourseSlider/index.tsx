@@ -9,7 +9,15 @@ type Props = {
   type: HomePageCourseSliders;
 };
 
-const Configs = {
+type ConfigsType = {
+  loader: () => Promise<any>;
+  title: string;
+  archiveLink: string | null;
+  queryKey: string;
+  isRefetchOnAuth?: boolean;
+};
+
+const Configs: Record<HomePageCourseSliders, ConfigsType> = {
   [HomePageCourseSliders.Amazing]: {
     loader: async () => (await api.getAmazingCourses()).data,
     title: "شگفت‌انگیزان",
@@ -23,6 +31,7 @@ const Configs = {
     title: "دوره‌ها و طرح‌های من",
     archiveLink: "/my_course",
     queryKey: "my-courses",
+    isRefetchOnAuth: true,
   },
   [HomePageCourseSliders.Suggested]: {
     loader: async () => (await api.getSuggestedCourses()).data,
@@ -49,16 +58,19 @@ const Configs = {
     title: "آخرین بازدید‌های من",
     archiveLink: null,
     queryKey: "lastviewed-courses",
+    isRefetchOnAuth: true,
   },
 };
 
 export default function LazyCourseSlider({ type }: Props) {
+  if (!Configs[type]) return null;
   return (
     <LazyDataLoader
       placeHolder={() => <CourseSliderPlaceholder />}
       loader={Configs[type].loader}
       queryKey={Configs[type].queryKey}
       returnOnError
+      isRefetchOnAuth={Configs[type].isRefetchOnAuth}
       component={(d) => {
         return (
           <CourseSlider

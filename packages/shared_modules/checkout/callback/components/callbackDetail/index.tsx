@@ -12,6 +12,7 @@ type Props = {
   orderId?: string;
   isOrderSuccess: boolean;
   trackingId?: string;
+  installmentTransactionId?: string;
 };
 
 const CallbackDetail = ({
@@ -19,6 +20,7 @@ const CallbackDetail = ({
   orderDate,
   orderId,
   trackingId,
+  installmentTransactionId,
 }: Props) => {
   const orderDateString = orderDate ? toFullPersianDateString(orderDate) : "";
 
@@ -62,6 +64,19 @@ const CallbackDetail = ({
                   {trackingId}
                   <Copy
                     onClick={() => copyText(trackingId!, "کد رهگیری کپی شد")}
+                  />
+                </span>
+              </li>
+            )}
+            {installmentTransactionId && (
+              <li>
+                <span>کد هگیری سفارش قسطی :</span>
+                <span>
+                  {installmentTransactionId}
+                  <Copy
+                    onClick={() =>
+                      copyText(installmentTransactionId!, "کد رهگیری کپی شد")
+                    }
                   />
                 </span>
               </li>

@@ -64,12 +64,14 @@ async function SinglePage({ searchParams }: Props) {
             <ExamTimer totalQuestions={data.data.length} />
           )}
         </ExamHeader>
-        {!!record && status === ExamStatus.FINISHED && !!data?.data.length && (
-          <ExamRecord
-            lessons={data.lessons}
-            totalQuestions={data.data.length}
-          />
-        )}{" "}
+        {!!Number(record) &&
+          status === ExamStatus.FINISHED &&
+          !!data?.data.length && (
+            <ExamRecord
+              lessons={data.lessons}
+              totalQuestions={data.data.length}
+            />
+          )}{" "}
         {!!data?.data.length ? (
           <Questions questions={data.data} />
         ) : (

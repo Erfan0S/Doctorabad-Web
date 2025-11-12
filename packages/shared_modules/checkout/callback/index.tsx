@@ -51,6 +51,9 @@ function Callback({ app }: { app: Apps }) {
             orderDate={data?.data.data.created_at}
             orderId={data?.data.data.order_code}
             trackingId={data?.data.post_tracking_code}
+            installmentTransactionId={
+              data?.data.installment_transaction_id || undefined
+            }
           />
         </div>
       </div>

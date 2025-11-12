@@ -84,11 +84,13 @@ function MakeInputs() {
       start ? ExamStatus.STARTED : ExamStatus.DRAFT
     );
     if (manual) {
-      params.set(SharedFilters.MANUAL_TIME, time ? time.toString() : "300");
-      params.set(
-        SharedFilters.MANUAL_QUESTIONS,
-        questions ? questions.toString() : "200"
-      );
+      !!time &&
+        params.set(SharedFilters.MANUAL_TIME, time ? time.toString() : "300");
+      !!questions &&
+        params.set(
+          SharedFilters.MANUAL_QUESTIONS,
+          questions ? questions.toString() : "200"
+        );
     }
 
     route.push(`${RoutePath.make_exam}?${params.toString()}`);
@@ -99,7 +101,7 @@ function MakeInputs() {
       <SelectFilters page="maker" />
       <OptionSwitch
         name={SharedFilters.EXPLANATION}
-        title="نمایش تشریحی سوالات!"
+        title="نمایش پاسخ تشریحی سوالات!"
         app={Apps.EXAM}
         addToQuery
         onClick={onExplanationSelect}

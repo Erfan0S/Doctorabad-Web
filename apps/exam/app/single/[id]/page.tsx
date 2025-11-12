@@ -32,7 +32,7 @@ async function SinglePage({ params, searchParams }: Props) {
     const status = (searchParams[SharedFilters.STATUS] ||
       ExamStatus.OBSERVING) as ExamStatus;
 
-    const haveRecord = searchParams[SharedFilters.SHOW_RECORD];
+    const haveRecord = !!Number(searchParams[SharedFilters.SHOW_RECORD]);
 
     return (
       <div contextMenu="none">

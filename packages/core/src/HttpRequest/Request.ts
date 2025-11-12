@@ -1,14 +1,14 @@
-import {
-  appendNextRequestCookies,
-  getClientSideCookie,
-  getServerSideCookie,
-} from "./utilts/cookieUtils";
 import { RequestMethods } from "./RequestMethods";
 import { handleErrorPayload } from "./utilts/handleErrorPayload";
 import { RequestConfig } from "./types/Request";
 import { toast } from "react-toastify";
 import { AUTH_COOKIE_KEY } from "../constants/constants";
 import Cookies from "js-cookie";
+import {
+  appendNextRequestCookies,
+  getClientSideCookie,
+  getServerSideCookie,
+} from "../utils/cookieUtils";
 
 export class Request {
   request: RequestMethods;

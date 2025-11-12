@@ -1,30 +1,22 @@
-import { Metadata, Viewport } from "next";
+import { Metadata } from "next";
+import { homeMetadata as SharedHomeMetadata } from "@repo/core/metadata/home";
+
+const title = "دکترلرن | مرکز آموزش دکترآباد";
+const description =
+  "دوره‌های آموزشی تخصصی علوم پزشکی، ویدیوهای آموزشی، مقالات و منابع علمی";
+
+const sharedHomeMetadata = SharedHomeMetadata("/learn", title, description);
 
 export const homeMetadata: Metadata = {
-  title: "دکترآباد",
-  description: "دکترآباد | سرزمین علوم پزشکی کشور",
-  generator: "Next.js",
-  manifest: "/manifest.json",
+  ...sharedHomeMetadata,
   keywords: [
-    "دکترآباد",
-    "علوم‌پزشکی",
-    "دارو",
-    "داروخانه",
-    "دکتر",
-    "پزشک",
-    "پزشکی",
+    ...(sharedHomeMetadata.keywords as string[]),
+    "آموزش پزشکی",
+    "دوره‌های پزشکی",
+    "ویدیوهای آموزشی",
+    "مقالات پزشکی",
+    "آموزش تخصصی",
+    "علوم پزشکی",
+    "یادگیری آنلاین",
   ],
-  icons: [
-    { rel: "apple-touch-icon", url: "/icon_144.png" },
-    { rel: "icon", url: "icon_144.png" },
-  ],
-};
-
-export const homeViewPort: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: "cover",
-  themeColor: { media: "(prefers-color-scheme: dark)", color: "#fff" },
 };

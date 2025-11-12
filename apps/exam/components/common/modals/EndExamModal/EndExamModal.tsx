@@ -22,6 +22,7 @@ function EndExamModal({ closeModal, data }: Props) {
         setSearchParams({
           [SharedFilters.STATUS]: ExamStatus.FINISHED,
         });
+        window.scrollTo(0, 0);
       }, 100);
       closeModal();
     };

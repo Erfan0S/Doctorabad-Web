@@ -11,7 +11,6 @@ import {
   SharedFilters,
   ExamStatus,
 } from "@repo/apps_shared_components/exam/types/filters.ts";
-import { api } from "@/api/Api";
 import Loading from "@/components/common/Loading/Loading";
 
 type Props = {

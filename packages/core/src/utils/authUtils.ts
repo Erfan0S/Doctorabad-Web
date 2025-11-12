@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { AUTH_COOKIE_KEY, isServerSide } from "../constants/constants";
 import { api } from "@repo/shared_modules/api";
 import { getClientSideCookie, getServerSideCookie } from "./cookieUtils";
-import { authorizedActionStorage } from "../states/athorizedActionStorage";
+import { generalAuthorizeState } from "../states/generalAuthorizedState";
 import { toast } from "react-toastify";
 
 export const setAuthCookie = () => {
@@ -26,9 +26,13 @@ export const authorizeClientAction =
     if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
       if (showError) toast.error("برای انجام این عملیات ابتدا باید وارد شوید");
       modalActions.addModal(ModalTypes.REGISTER, {
-        onVerifySuccess: continueAction ? () => action(...params) : false,
+        onVerifySuccess: () => {
+          generalAuthorizeState.setState({
+            isAuthorized: true,
+          });
+          continueAction ? action(...params) : null;
+        },
       });
-      authorizedActionStorage.setState(() => () => action(...params));
     } else {
       action(...params);
     }
@@ -39,12 +43,25 @@ export const authorizeServerPage = async () => {
     redirect(routePath.register);
 };
 
-export const isUserLoggedIn = () => getClientSideCookie(AUTH_COOKIE_KEY);
+export const isUserLoggedIn = (haveMassage?: boolean) => {
+  if (isServerSide) {
+    return !!getServerSideCookie(AUTH_COOKIE_KEY);
+  }
+  if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
+    if (haveMassage)
+      toast("ابتدا وارد شوید", { type: "error", position: "top-left" });
+    return false;
+  }
+  return true;
+};
 
 export const logOut = async (reloadPage: boolean = false) => {
   if (!isServerSide && !getClientSideCookie(AUTH_COOKIE_KEY)) return;
 
   Cookies.remove(AUTH_COOKIE_KEY);
+  generalAuthorizeState.setState({
+    isAuthorized: false,
+  });
   try {
     await api.logout();
     modalActions.clearModals();

@@ -1,14 +1,12 @@
+import { SearchParamsUtils } from "../../utils/UrlUtils";
+import { RequestOptions } from "../types/Request";
 
-
-import { SearchParamsUtils } from '../../Url/UrlUtils';
-import { RequestOptions } from '../types/Request';
-
-type InterceptorsType = 'request' | 'responseSuccess' | 'responseFailed';
+type InterceptorsType = "request" | "responseSuccess" | "responseFailed";
 type RequestCallback = (config: RequestOptions) => Promise<RequestOptions>;
 type ResponseCallback = (data: any) => any;
 type InterceptorsConfig = {
   request: RequestCallback[];
-  response: Record<'success' | 'failed', ResponseCallback[]>;
+  response: Record<"success" | "failed", ResponseCallback[]>;
 };
 
 export class Interceptors {
@@ -20,7 +18,10 @@ export class Interceptors {
     },
   };
 
-  private sequentialAsyncLoader = async (loaders: ((d: any) => Promise<any>)[], data: any) => {
+  private sequentialAsyncLoader = async (
+    loaders: ((d: any) => Promise<any>)[],
+    data: any
+  ) => {
     for (let loader of loaders) {
       data = await loader(data);
     }
@@ -29,22 +30,33 @@ export class Interceptors {
 
   public async interceptorResolver(type: InterceptorsType, data: any) {
     switch (type) {
-      case 'request':
+      case "request":
         return this.sequentialAsyncLoader(this.interceptors.request, data);
 
-      case 'responseFailed':
-        return this.sequentialAsyncLoader(this.interceptors.response.failed, data);
+      case "responseFailed":
+        return this.sequentialAsyncLoader(
+          this.interceptors.response.failed,
+          data
+        );
 
-      case 'responseSuccess':
-        return this.sequentialAsyncLoader(this.interceptors.response.success, data);
+      case "responseSuccess":
+        return this.sequentialAsyncLoader(
+          this.interceptors.response.success,
+          data
+        );
     }
   }
 
   public use = {
     request: (cb: RequestCallback) => this.interceptors.request.push(cb),
-    response: (successCallback?: ResponseCallback, failedCallback?: ResponseCallback) => {
-      if (successCallback) this.interceptors.response.success.push(successCallback);
-      if (failedCallback) this.interceptors.response.failed.push(failedCallback);
+    response: (
+      successCallback?: ResponseCallback,
+      failedCallback?: ResponseCallback
+    ) => {
+      if (successCallback)
+        this.interceptors.response.success.push(successCallback);
+      if (failedCallback)
+        this.interceptors.response.failed.push(failedCallback);
     },
   };
 }
@@ -52,10 +64,13 @@ export class Interceptors {
 export class RequestUtils {
   constructor(private defaultBaseUrl: string) {}
 
-  getRequestUrl(url: string, params: RequestOptions['params']) {
-    let finalUrl = !url.startsWith('http') ? this.defaultBaseUrl + url : url;
+  getRequestUrl(url: string, params: RequestOptions["params"]) {
+    let finalUrl = !url.startsWith("http") ? this.defaultBaseUrl + url : url;
 
-    if (params) finalUrl += SearchParamsUtils.paramsStringify(params, { questionMarkPrefix: true });
+    if (params)
+      finalUrl += SearchParamsUtils.paramsStringify(params, {
+        questionMarkPrefix: true,
+      });
 
     return finalUrl;
   }
@@ -63,9 +78,9 @@ export class RequestUtils {
   getRequestDefaultOptions() {
     const defaultOption: RequestOptions = {
       headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-        Accept: 'application/json',
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+        Accept: "application/json",
       },
     };
 
@@ -79,18 +94,21 @@ export class RequestUtils {
     const isBodyFormData = rawBody instanceof FormData;
     const isInstanceOfSearchParam = rawBody instanceof URLSearchParams;
 
-    const body = isBodyFormData || isInstanceOfSearchParam ? rawBody : JSON.stringify(rawBody);
+    const body =
+      isBodyFormData || isInstanceOfSearchParam
+        ? rawBody
+        : JSON.stringify(rawBody);
 
     return {
       ...options,
       headers: {
         ...options.headers,
-        Accept: 'application/json',
-        'Content-Type': isInstanceOfSearchParam
-          ? 'application/x-www-form-urlencoded'
+        Accept: "application/json",
+        "Content-Type": isInstanceOfSearchParam
+          ? "application/x-www-form-urlencoded"
           : isBodyFormData
-          ? 'multipart/form-data'
-          : 'application/json',
+            ? "multipart/form-data"
+            : "application/json",
       },
       body,
     };
