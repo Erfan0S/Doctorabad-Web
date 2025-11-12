@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import Footer from "@/components/common/footer";
-import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
+import { homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
@@ -12,13 +12,14 @@ import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import Script from "next/script";
 import MarketHeader from "@/components/common/header/market";
 import { Metadata } from "next";
+import { homeMetadata } from "@/metadata/home";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
   display: "swap",
 });
 
-export const metadata: Metadata = homeMetadata("/market");
+export const metadata: Metadata = homeMetadata;
 export const viewPort = homeViewPort;
 
 export default async function RootLayout({

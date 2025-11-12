@@ -30,7 +30,7 @@ export const authorizeClientAction =
           generalAuthorizeState.setState({
             isAuthorized: true,
           });
-          continueAction ? () => action(...params) : null;
+          continueAction ? action(...params) : null;
         },
       });
     } else {
