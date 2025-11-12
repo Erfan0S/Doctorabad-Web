@@ -5,6 +5,7 @@ import "../assets/styles/globals.scss";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
+  variable: "--font-iran-sans",
   display: "swap",
 });
 
@@ -21,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa">
-      <body className={font.className} dir="rtl">
+    <html className={font.variable} dir="rtl" lang="fa">
+      <body className={font.className} >
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

@@ -1,9 +1,17 @@
 // globals.scss
 * {
   font-family: var(--font-iran-sans), sans-serif;
+  direction: rtl;
 }
 
 body {
   margin: 0;
   padding: 0;
+  direction: rtl;
+  font-family: var(--font-iran-sans), sans-serif;
+}
+
+html {
+  direction: rtl;
+  font-family: var(--font-iran-sans), sans-serif;
 }

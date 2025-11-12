@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { pharmacyApi } from "@/api/Api";
 import { MedicineCategory } from "@/types/pharmacy";
 import styles from "./categories.module.scss";
+import LeftArrow from "@/assets/svg/leftArrow";
+import DownArrow from "@/assets/svg/downArrow";
 
 export default function Categories() {
   const { data, isLoading, error } = useQuery({
@@ -47,7 +49,7 @@ function CategoryItem({ category }: { category: MedicineCategory }) {
         onClick={() => setOpen(!open)}
       >
         <span>{category.title}</span>
-        <span className={styles.arrow}>{open ? "▲" : "▼"}</span>
+      {open ? <DownArrow className={styles.arrow} /> : <LeftArrow className={styles.arrow} />}
       </div>
 
       {open && (

@@ -6,6 +6,7 @@ import styles from "./PharmacyHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
 import Heart from "@/assets/svg/heart";
 
+
 interface PharmacyHeaderProps {
   title: string;
 }

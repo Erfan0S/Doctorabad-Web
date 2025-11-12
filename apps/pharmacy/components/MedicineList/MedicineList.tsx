@@ -38,13 +38,6 @@ export default function MedicineList({
           <p>در حال بارگذاری...</p>
         </div>
       }
-      endMessage={
-        medicines.length > 0 && (
-          <div className={styles.endMessage}>
-            همه داروها نمایش داده شدند
-          </div>
-        )
-      }
       className={styles.medicinesList}
     >
       {medicines.map((medicine) => (
