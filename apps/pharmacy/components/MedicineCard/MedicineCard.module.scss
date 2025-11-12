@@ -1,15 +1,13 @@
-// components/MedicineCard/MedicineCard.module.scss
 .medicineCard {
   background: white;
   border-radius: 16px;
-  padding: 16px;
+  border: solid 2px #ccc;
+  padding: 10px;
   display: flex;
   align-items: center;
   gap: 16px;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-
   &:active {
     transform: scale(0.98);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -17,7 +15,23 @@
 }
 
 .medicineImage {
+  border: solid 1px #ccc;
+  display: flex; // ✅ اضافه شد
+  align-items: center; // ✅ عمودی در مرکز
+  justify-content: center;
   flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden; // ✅ ضروری برای اینکه تصویر گوشه‌های گرد بگیرد
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // ✅ تصویر بریده می‌شود تا فضای کادر را پر کند
+    border-radius: 12px; // ✅ اگر overflow: hidden نباشد، این هم عمل می‌کند
+    display: block;
+  }
 }
 
 .medicineInfo {
@@ -33,7 +47,8 @@
 }
 
 .medicineNameFa {
-  font-size: 14px;
-  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
   margin: 0;
 }

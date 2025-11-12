@@ -1,4 +1,3 @@
-// components/CategoryTabs/CategoryTabs.tsx
 "use client";
 
 import { MedicineCategory } from "@/types/pharmacy";
@@ -7,7 +6,7 @@ import styles from "./CategoryTabs.module.scss";
 interface CategoryTabsProps {
   categories: MedicineCategory[];
   selectedCategory: number | null;
-  onCategoryChange: (categoryId: number) => void;
+  onCategoryChange: (categoryId: number | null) => void; 
 }
 
 export default function CategoryTabs({
@@ -18,6 +17,17 @@ export default function CategoryTabs({
   return (
     <div className={styles.categoriesNav}>
       <div className={styles.categoriesScroll}>
+        {categories.length !== 0 && (
+          <button
+            className={`${styles.categoryTab} ${
+              selectedCategory === null ? styles.active : ""
+            }`}
+            onClick={() => onCategoryChange(null)}
+          >
+            همه
+          </button>
+        )}
+
         {categories.map((category) => (
           <button
             key={category.id}
@@ -26,7 +36,7 @@ export default function CategoryTabs({
             }`}
             onClick={() => onCategoryChange(category.id)}
           >
-            { category.title}
+            {category.title}
           </button>
         ))}
       </div>

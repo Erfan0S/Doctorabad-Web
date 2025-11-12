@@ -1,12 +1,33 @@
 
 export interface Medicine {
   id: number;
-  title: string;
   title_fa?: string;
   title_en?: string;
-  category_id?: number;
-  // سایر فیلدهای مورد نیاز
+  picture: string;
 }
+export interface PaginationLinks {
+  first: string | null;
+  last: string | null;
+  prev: string | null;
+  next: string | null;
+}
+
+export interface PaginationMeta {
+  current_page: number;
+  from: number | null;
+  last_page: number;
+  path: string;
+  per_page: number;
+  to: number | null;
+  total: number;
+}
+
+export interface MedicineListResponse {
+  data: Medicine[];
+  links: PaginationLinks;
+  meta: PaginationMeta;
+}
+
 
 export interface MedicineCategory {
   id: number;
@@ -40,7 +61,9 @@ export interface ErrorReport {
 export interface MedicineListParams {
   title?: string;
   category_id?: number;
+  page?: number;
 }
+
 
 export interface FavoriteStoreParams {
   medicine_id: number;

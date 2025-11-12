@@ -12,7 +12,6 @@ import CategoryTabs from "@/components/CategoryTabs/CategoryTabs";
 import MedicineList from "@/components/MedicineList/MedicineList";
 import styles from "./page.module.scss";
 
-const PAGE_SIZE = 10;
 
 export default function PharmacyHomePage() {
   const router = useRouter();
@@ -29,11 +28,13 @@ export default function PharmacyHomePage() {
     loadInitialData();
   }, []);
 
-  useEffect(() => {
-    if (selectedCategory) {
-      loadMedicinesByCategory(selectedCategory);
-    }
-  }, [selectedCategory]);
+useEffect(() => {
+  if (selectedCategory !== undefined) {
+    loadMedicinesByCategory(selectedCategory);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}, [selectedCategory]);
+
 
   const loadInitialData = async () => {
     try {
@@ -44,9 +45,7 @@ export default function PharmacyHomePage() {
 
       if (categoriesRes.data) {
         setCategories(categoriesRes.data.data);
-        if (categoriesRes.data.data.length > 0) {
-          setSelectedCategory(categoriesRes.data.data[0].id);
-        }
+        setSelectedCategory((prev) => (prev === null ? null : prev));
       }
 
       if (slidersRes.data) {
@@ -57,21 +56,24 @@ export default function PharmacyHomePage() {
     }
   };
 
-  const loadMedicinesByCategory = async (categoryId: number) => {
+  const loadMedicinesByCategory = async (categoryId: number | null) => {
     setLoading(true);
-    setPage(1);
     setMedicines([]);
-    
+    setPage(1);
+    setHasMore(true);
+
     try {
-      const response = await pharmacyApi.getMedicineTreatments(categoryId);
-      if (response.data) {
-        const allData = response.data.data as any[];
-        setAllMedicines(allData);
-        
-        const firstPage = allData.slice(0, PAGE_SIZE);
-        setMedicines(firstPage);
-        setHasMore(allData.length > PAGE_SIZE);
-      }
+      const params = categoryId
+        ? { category_id: categoryId, page: 1 }
+        : { page: 1 };
+      const response = await pharmacyApi.getMedicineList(params);
+
+      const allData = response.data.data;
+      setMedicines(allData);
+
+      const { current_page, last_page } = response.data.meta;
+      setPage(current_page);
+      setHasMore(current_page < last_page);
     } catch (error) {
       console.error("Error loading medicines:", error);
     } finally {
@@ -79,35 +81,42 @@ export default function PharmacyHomePage() {
     }
   };
 
-  const loadMore = useCallback(() => {
+  const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
 
-    const nextPage = page + 1;
-    const startIndex = page * PAGE_SIZE;
-    const endIndex = startIndex + PAGE_SIZE;
-    
-    const nextMedicines = allMedicines.slice(startIndex, endIndex);
-    
-    if (nextMedicines.length > 0) {
-      setMedicines(prev => [...prev, ...nextMedicines]);
-      setPage(nextPage);
-      setHasMore(endIndex < allMedicines.length);
-    } else {
-      setHasMore(false);
+    setLoading(true);
+    try {
+      const nextPage = page + 1;
+      const params = selectedCategory
+        ? { category_id: selectedCategory, page: nextPage }
+        : { page: nextPage };
+
+      const response = await pharmacyApi.getMedicineList(params);
+
+      const newData = response.data.data;
+      setMedicines((prev) => [...prev, ...newData]);
+
+      const { current_page, last_page } = response.data.meta;
+      setPage(current_page);
+      setHasMore(current_page < last_page);
+    } catch (error) {
+      console.error("Error loading more medicines:", error);
+    } finally {
+      setLoading(false);
     }
-  }, [loading, hasMore, page, allMedicines]);
+  }, [loading, hasMore, page, selectedCategory]);
 
   const handleCategoriesClick = () => {
     router.push("/categories");
   };
 
-  const handleCategoryChange = (categoryId: number) => {
+  const handleCategoryChange = (categoryId: number | null) => {
     setSelectedCategory(categoryId);
   };
 
   return (
     <div className={styles.container}>
-      <PharmacyHeader title="داروخانه من"  />
+      <PharmacyHeader title="داروخانه من" />
       <PharmacySearchSection onCategoriesClick={handleCategoriesClick} />
       <PharmacySlider sliders={sliders} />
       <CategoryTabs
@@ -115,9 +124,9 @@ export default function PharmacyHomePage() {
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-      <MedicineList 
-        medicines={medicines} 
-        loading={loading} 
+      <MedicineList
+        medicines={medicines}
+        loading={loading}
         hasMore={hasMore}
         onLoadMore={loadMore}
       />

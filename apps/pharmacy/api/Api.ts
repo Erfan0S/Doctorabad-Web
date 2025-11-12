@@ -1,5 +1,3 @@
-
-
 // api.ts
 import {
   Medicine,
@@ -10,6 +8,7 @@ import {
   MedicineListParams,
   FavoriteStoreParams,
   ErrorReport,
+  MedicineListResponse,
 } from "@/types/pharmacy";
 import { Request } from "@repo/core/http-request/Request";
 import { ResponseType } from "@repo/core/types/general";
@@ -26,17 +25,19 @@ class PharmacyApi extends Request {
   }
 
   // Medicine APIs
-  getMedicineList = (
-    params?: MedicineListParams
-  ): Promise<ResponseType<{ data: Medicine[] }>> => {
-    const queryParams = new URLSearchParams();
-    if (params?.title) queryParams.append("title", params.title);
-    if (params?.category_id)
-      queryParams.append("category_id", params.category_id.toString());
+getMedicineList = (
+  params?: MedicineListParams
+): Promise<ResponseType<MedicineListResponse>> => {
+  const queryParams = new URLSearchParams();
+  if (params?.title) queryParams.append("title", params.title);
+  if (params?.category_id)
+    queryParams.append("category_id", params.category_id.toString());
+  if (params?.page)
+    queryParams.append("page", params.page.toString());
 
-    const query = queryParams.toString() ? `?${queryParams.toString()}` : "";
-    return this.request.get(`user/v1/medicine${query}`);
-  };
+  const query = queryParams.toString() ? `?${queryParams.toString()}` : "";
+  return this.request.get(`user/v1/medicine${query}`);
+};
 
   getMedicineById = (id: number): Promise<ResponseType<{ data: Medicine }>> => {
     return this.request.get(`user/v1/medicine/${id}`);

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "دکترآباد | داروخانه من",
   description: "داروخانه آنلاین Doctorabad",
   manifest: "/manifest.json",
-  themeColor: "#0070f3",
+  themeColor: "#33cc33",
 };
 
 export default function RootLayout({
