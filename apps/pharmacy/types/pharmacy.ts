@@ -1,4 +1,3 @@
-
 export interface Medicine {
   id: number;
   title_fa?: string;
@@ -27,7 +26,6 @@ export interface MedicineListResponse {
   links: PaginationLinks;
   meta: PaginationMeta;
 }
-
 
 export interface MedicineCategory {
   id: number;
@@ -64,8 +62,45 @@ export interface MedicineListParams {
   page?: number;
 }
 
-
 export interface FavoriteStoreParams {
   medicine_id: number;
   favorite: 0 | 1;
+}
+
+export interface MedicineDetails {
+  id: number;
+  title_fa: string;
+  title_en: string;
+  picture: string;
+  effect_mechanism: string;
+  brands: string[];
+  shapes: string[];
+  use_case: string;
+  direction: {
+    adult: string[];
+    child: string[];
+    elder?: string[];
+  };
+  prevention: string;
+  pregnant: string;
+  side_effects: string[];
+  interaction_description: string[];
+  interaction_medicines: {
+    id: number;
+    title_fa: string;
+    title_en: string;
+  }[];
+  poisoning: string[];
+  points: string;
+  is_favorite: boolean;
+  categories: {
+    id: number;
+    title: string;
+    parent: number | null;
+  }[];
+  files: {
+    id: number;
+    file: string;
+    use_type: number;
+  }[];
 }

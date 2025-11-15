@@ -9,6 +9,7 @@ import {
   FavoriteStoreParams,
   ErrorReport,
   MedicineListResponse,
+  MedicineDetails
 } from "@/types/pharmacy";
 import { Request } from "@repo/core/http-request/Request";
 import { ResponseType } from "@repo/core/types/general";
@@ -93,6 +94,12 @@ getMedicineList = (
   // Slider APIs
   getSliderList = (): Promise<ResponseType<{ data: Slider[] }>> => {
     return this.request.get(`user/v1/medicine/slider`);
+  };
+
+  getMedicineDetails = (
+    medicineId: number
+  ): Promise<ResponseType<{ data: MedicineDetails }>> => {
+    return this.request.get(`user/v1/medicine/${medicineId}`);
   };
 }
 
