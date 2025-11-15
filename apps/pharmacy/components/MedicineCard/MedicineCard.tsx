@@ -6,6 +6,7 @@ import { Medicine } from "@/types/pharmacy";
 import styles from "./MedicineCard.module.scss";
 import PillsIcon from "@/assets/svg/pillsIcon";
 
+
 interface MedicineCardProps {
   medicine: Medicine;
 }

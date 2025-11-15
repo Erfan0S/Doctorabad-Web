@@ -1,17 +1,21 @@
+@import "@/assets/styles/variables";
 .container {
   background: #fff;
-  padding: 1rem;
   font-family: sans-serif;
   color: #222;
 }
 
 .header {
-  background: #3ac74a;
+  background: linear-gradient(to bottom, $green 50%, transparent 50%);
   color: white;
   border-radius: 0 0 1.5rem 1.5rem;
   padding: 1rem;
   text-align: center;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .iconRow {
@@ -39,7 +43,17 @@
   img {
     border-radius: 12px;
     background: white;
+    border: solid 2px white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
+}
+.pillsIcon {
+  background: white;
+  z-index: 100;
+  border: solid 2px white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .titles {
@@ -48,14 +62,16 @@
     font-weight: bold;
     margin-top: 0.5rem;
   }
-  h3 {
-    font-size: 0.95rem;
-    font-weight: 400;
-  }
+}
+.title_fa {
+  color: $green;
+}
+.title_en {
+  font-size: 1.2rem;
 }
 
 .sections {
-  margin-top: 1rem;
+  margin: 1rem 5rem;
 }
 
 .section {
@@ -63,7 +79,7 @@
 }
 
 .sectionButton {
-  background: #38c348;
+  background: $green;
   color: white;
   border: none;
   border-radius: 10px;
@@ -93,4 +109,53 @@
   text-align: center;
   margin-top: 3rem;
   color: #555;
+}
+
+// در فایل MedicineDetails.module.scss
+
+.directionContainer {
+  margin-top: 10px;
+}
+
+.directionTabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.directionTab {
+  flex: 1;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+
+  &:hover {
+    color: $green;
+  }
+
+  &.active {
+    color: $green;
+    border-bottom-color: $green;
+    background: rgba(76, 175, 80, 0.05);
+  }
+}
+
+.directionContent {
+  text-align: justify;
+  line-height: 1.8;
+
+  p {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

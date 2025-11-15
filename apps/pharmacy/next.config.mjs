@@ -10,8 +10,10 @@ const withPWAFunc = withPWA({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["picsum.photos"],
+    domains: ["s3.ir-thr-at1.arvanstorage.ir", "doctoabad.com", "drabadapp.ir", "arvanstorage.ir"],
   },
+  
+
 };
 
 export default withPWAFunc(nextConfig);
