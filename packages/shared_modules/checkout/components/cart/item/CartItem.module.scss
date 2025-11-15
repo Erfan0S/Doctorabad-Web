@@ -159,6 +159,18 @@ html .cartItem {
   }
 }
 
+.cartItemInstallmentPayment {
+  .cartItemTitle > a {
+    padding-left: 64px;
+  }
+}
+
+body .listSnappayNotif {
+  left: 0px;
+  top: 5px;
+  font-size: 10px;
+}
+
 .cartItemInstallmentProvider {
   position: absolute;
   top: 8px;

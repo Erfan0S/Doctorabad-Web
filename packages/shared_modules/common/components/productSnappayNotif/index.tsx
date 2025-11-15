@@ -1,3 +1,4 @@
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import style from "./style.module.scss";
 
 type Props = {
@@ -11,7 +12,7 @@ function ProductSnappayNotif({ text, className }: Props) {
       <span>
         {typeof text === "string"
           ? text
-          : `4 قسط ${text / 4} تومانی بدون کارمزد با اسنپ‌پی!`}
+          : `4 قسط${priceFormatter(text / 4)} تومانی بدون کارمزد با اسنپ‌پی!`}
       </span>
     </div>
   );

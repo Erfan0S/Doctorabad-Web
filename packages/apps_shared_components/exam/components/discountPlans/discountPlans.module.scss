@@ -46,20 +46,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 4px;
 
     .planItemPrice {
       display: flex;
       flex-direction: column;
       gap: 5px;
-      span:first-child {
+      > span:first-of-type {
         text-decoration: line-through;
         font-size: 12px;
       }
-      span:last-child {
+      > span:last-of-type {
         font-size: 15px;
         text-decoration: none;
       }
-      span {
+      > span {
         color: $purple;
         font-size: 15px;
       }
@@ -86,9 +87,26 @@
   }
 }
 
-.listSnappayNotif {
+body .listSnappayNotif {
   left: 5px;
   top: 5px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 450px) {
+  .listSnappayNotif {
+    padding: 5px;
+    font-size: 10px;
+  }
+
+  .planItem .planItemBottem {
+    button {
+      font-size: 12px;
+      width: 110px;
+      padding: 0 5px;
+      height: 32px;
+    }
+  }
 }
 
 @media (max-width: 768px) {
