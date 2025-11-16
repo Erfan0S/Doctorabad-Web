@@ -89,7 +89,9 @@ class PharmacyApi extends Request {
   };
 
   // Favorite APIs
-  getFavoriteList = (): Promise<ResponseType<{ data: MedicineListResponse }>> => {
+  getFavoriteList = (): Promise<
+    ResponseType<{ data: MedicineListResponse }>
+  > => {
     return this.request.get(`/user/v1/medicine/favorite/list`);
   };
 
