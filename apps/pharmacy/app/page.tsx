@@ -13,6 +13,7 @@ import MedicineList from "@/components/MedicineList/MedicineList";
 import PharmacySliderSkeleton from "@/components/Skeletons/PharmacySliderSkeleton/PharmacySliderSkeleton";
 import MedicineListSkeleton from "@/components/Skeletons/MedicineListSkeleton/MedicineListSkeleton";
 import styles from "./page.module.scss";
+import {HeaderType} from "@/types/pharmacy";
 
 export default function PharmacyHomePage() {
   const router = useRouter();
@@ -173,7 +174,7 @@ export default function PharmacyHomePage() {
 
   return (
     <div className={styles.container}>
-      <PharmacyHeader title="داروخانه من" />
+      <PharmacyHeader headerPageType={HeaderType.OTHERS} title="داروخانه من" />
       <PharmacySearchSection 
         onCategoriesClick={handleCategoriesClick}
         onSearch={handleSearch}

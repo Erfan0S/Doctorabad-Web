@@ -9,14 +9,13 @@ import {
   FavoriteStoreParams,
   ErrorReport,
   MedicineListResponse,
-  MedicineDetails
+  MedicineDetails,
 } from "@/types/pharmacy";
 import { Request } from "@repo/core/http-request/Request";
 import { ResponseType } from "@repo/core/types/general";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import { User, VerifyPhoneInput } from "@repo/core/types/user";
-
 
 class PharmacyApi extends Request {
   constructor() {
@@ -39,19 +38,18 @@ class PharmacyApi extends Request {
     return this.request.post<User>("/user", data);
   }
   // Medicine APIs
-getMedicineList = (
-  params?: MedicineListParams
-): Promise<ResponseType<MedicineListResponse>> => {
-  const queryParams = new URLSearchParams();
-  if (params?.title) queryParams.append("title", params.title);
-  if (params?.category_id)
-    queryParams.append("category_id", params.category_id.toString());
-  if (params?.page)
-    queryParams.append("page", params.page.toString());
+  getMedicineList = (
+    params?: MedicineListParams
+  ): Promise<ResponseType<MedicineListResponse>> => {
+    const queryParams = new URLSearchParams();
+    if (params?.title) queryParams.append("title", params.title);
+    if (params?.category_id)
+      queryParams.append("category_id", params.category_id.toString());
+    if (params?.page) queryParams.append("page", params.page.toString());
 
-  const query = queryParams.toString() ? `?${queryParams.toString()}` : "";
-  return this.request.get(`/user/v1/medicine${query}`);
-};
+    const query = queryParams.toString() ? `?${queryParams.toString()}` : "";
+    return this.request.get(`/user/v1/medicine${query}`);
+  };
 
   getMedicineById = (id: number): Promise<ResponseType<{ data: Medicine }>> => {
     return this.request.get(`/user/v1/medicine/${id}`);
@@ -80,17 +78,18 @@ getMedicineList = (
 
   // Error Report APIs
   reportMedicineError = (
-    data: ErrorReport
+    text: string,
+    productId: number
   ): Promise<ResponseType<{ message: string }>> => {
     const formData = new FormData();
-    formData.append("id", data.id.toString());
-    formData.append("report", data.report);
+    formData.append("id", productId.toString());
+    formData.append("report", text);
 
     return this.request.post(`/user/v1/medicine/error/report`, formData);
   };
 
   // Favorite APIs
-  getFavoriteList = (): Promise<ResponseType<{ data: FavoriteMedicine[] }>> => {
+  getFavoriteList = (): Promise<ResponseType<{ data: MedicineListResponse }>> => {
     return this.request.get(`/user/v1/medicine/favorite/list`);
   };
 

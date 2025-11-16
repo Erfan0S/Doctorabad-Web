@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <>
-        <PharmacyHeader headerPageType={HeaderType.MEDICINE_DETAILS} title=""></PharmacyHeader>
+        <PharmacyHeader headerPageType={HeaderType.FAVORITES} title="علاقه‌مندی‌های داروخانه من"></PharmacyHeader>
         <div>{children}</div>
 
     </>

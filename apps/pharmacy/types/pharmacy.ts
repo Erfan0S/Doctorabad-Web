@@ -27,6 +27,7 @@ export interface MedicineListResponse {
   meta: PaginationMeta;
 }
 
+
 export interface MedicineCategory {
   id: number;
   title: string;
@@ -103,4 +104,11 @@ export interface MedicineDetails {
     file: string;
     use_type: number;
   }[];
+}
+
+
+export enum HeaderType {
+  FAVORITES = "favorites",
+  MEDICINE_DETAILS = "medicine_details",
+  OTHERS = "others"
 }
