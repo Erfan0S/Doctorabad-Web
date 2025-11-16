@@ -51,7 +51,7 @@ export const bigBannerData = [
   {
     icon: icon04,
     title: 'دکتردانـــلود',
-    subTitle: 'مرکز محتوی دکترآباد',
+    subTitle: 'مرکز محتوای دکترآباد',
     image: person04,
     description: 'بازارچه فایل‌های الکترونیک علوم‌پزشکی؛کتاب‌های رفرنس، مجلات علمی و ارائه دروس',
     primaryButtonLink: 'https://doctorabad.com/app',
