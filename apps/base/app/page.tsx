@@ -21,7 +21,7 @@ export default async function Home() {
       <BlogSlider
         data={blogPosts}
         title="دکترمگ"
-        archiveLink="https://mag.doctorabad.com/"
+        archiveLink="https://doctorabad.com/mag"
       />
       <Companies list={ProvidersList} />
       {/* <Testimonials />
