@@ -8,10 +8,11 @@ import { useParams } from "next/navigation";
 import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
 import PillsIcon from "@/assets/svg/pillsIcon";
+import InteractionSection from "./InteractionSection/InteractionSection";
 
 export default function MedicineDetailsPage() {
   const { id } = useParams();
-  const [openSection, setOpenSection] = useState<string | null>(null);
+  const [openSections, setOpenSections] = useState<string[]>([]); // تغییر به آرایه
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<
     "adult" | "child" | "elder"
   >("adult");
@@ -26,8 +27,50 @@ export default function MedicineDetailsPage() {
     enabled: !!id,
   });
 
-  const toggleSection = (key: string) =>
-    setOpenSection((prev) => (prev === key ? null : key));
+  const toggleSection = (key: string) => {
+    setOpenSections(
+      (prev) =>
+        prev.includes(key)
+          ? prev.filter((section) => section !== key) // اگر باز بود، ببند
+          : [...prev, key] // اگر بسته بود، باز کن
+    );
+  };
+
+  function buildCategoryTree(categories: any[]) {
+    const map = new Map();
+    categories.forEach((c) => map.set(c.id, { ...c, children: [] }));
+
+    let root = null;
+
+    categories.forEach((c) => {
+      if (c.parent === null) {
+        root = map.get(c.id);
+      } else {
+        map.get(c.parent)?.children.push(map.get(c.id));
+      }
+    });
+
+    return root;
+  }
+
+function renderCategoryTree(node: any, depth = 0) {
+  if (!node) return "";
+
+  const indent = "&ensp;".repeat(depth);     // فاصله برای عمق
+  const bullet = "> ";                       // علامت شاخه
+
+  // اگر parent نداشت یعنی root است → نباید علامت بگذاریم
+  const line = `${indent}${node.parent ? bullet : ""}${node.title}<br/>`;
+
+  let html = line;
+
+  node.children?.forEach((child: any) => {
+    html += renderCategoryTree(child, depth + 1);
+  });
+
+  return html;
+}
+
 
   if (isLoading)
     return <div className={styles.loading}>در حال بارگذاری...</div>;
@@ -41,19 +84,28 @@ export default function MedicineDetailsPage() {
     {
       key: "category",
       label: "دسته‌بندی",
-      content: medicine.categories?.length
-        ? medicine.categories.map((c) => c.title).join("، ")
-        : null,
+      content: (() => {
+        if (!medicine.categories?.length) return null;
+
+        const tree = buildCategoryTree(medicine.categories);
+        return renderCategoryTree(tree);
+      })(),
     },
+
     {
       key: "mechanism",
       label: "مکانیسم اثر",
       content: medicine.effect_mechanism || null,
     },
     {
+      key: "brands",
+      label: "اسامی‌تجاری",
+      content: medicine.brands?.map((b) => `✓ ${b}`).join("<br/>") || null,
+    },
+    {
       key: "shape",
       label: "اشکال دارویی",
-      content: medicine.shapes?.length ? medicine.shapes.join(", ") : null,
+      content: medicine.shapes?.map((s) => `✓ ${s}`).join("<br/>") || null,
     },
     {
       key: "use_case",
@@ -67,7 +119,7 @@ export default function MedicineDetailsPage() {
         medicine.direction?.adult?.length ||
         medicine.direction?.child?.length ||
         medicine.direction?.elder?.length
-          ? "DIRECTION_COMPONENT" // فلگ مخصوص برای رندر کامپوننت سفارشی
+          ? "DIRECTION_COMPONENT"
           : null,
     },
     {
@@ -83,21 +135,25 @@ export default function MedicineDetailsPage() {
     {
       key: "side",
       label: "عوارض جانبی",
-      content: medicine.side_effects?.length
-        ? medicine.side_effects.join(", ")
-        : null,
+      content:
+        medicine.side_effects?.map((s) => `✓ ${s}`).join("<br/>") || null,
     },
     {
       key: "interaction",
       label: "تداخلات دارویی",
       content:
-        medicine.interaction_description?.length ||
-        medicine.interaction_medicines?.length
-          ? `
-              ${medicine.interaction_description?.length ? medicine.interaction_description.join("<br/>") : ""}
-              ${medicine.interaction_medicines?.length ? `<br/><br/><b>داروهای مرتبط:</b> ${medicine.interaction_medicines.map((m) => m.title_fa).join(", ")}` : ""}
-            `
-          : null,
+        medicine.interaction_description || medicine.interaction_medicines ? (
+          <InteractionSection
+            description={medicine.interaction_description}
+            medicines={medicine.interaction_medicines}
+          />
+        ) : null,
+    },
+
+    {
+      key: "poisoning",
+      label: "مسمومیت",
+      content: medicine.poisoning?.map((p) => `✓ ${p}`).join("<br/>") || null,
     },
     {
       key: "points",
@@ -107,9 +163,13 @@ export default function MedicineDetailsPage() {
   ];
 
   // فیلتر کردن فقط سکشن‌هایی که محتوا دارن
-  const availableSections = allSections.filter(
-    (section) => section.content !== null && section.content.trim() !== ""
-  );
+  const availableSections = allSections.filter((section) => {
+    if (section.content === null) return false;
+    if (typeof section.content === "string") {
+      return section.content.trim() !== "";
+    }
+    return true;
+  });
 
   return (
     <div className={styles.container}>
@@ -125,7 +185,7 @@ export default function MedicineDetailsPage() {
               className={styles.img}
             />
           ) : (
-            <PillsIcon  className={styles.pillsIcon} width={75} height={75} />
+            <PillsIcon className={styles.pillsIcon} width={75} height={75} />
           )}
         </div>
 
@@ -145,20 +205,20 @@ export default function MedicineDetailsPage() {
             >
               {label}
               <span>
-                {openSection === key ? (
+                {openSections.includes(key) ? (
                   <DownArrow className={styles.arrow} />
                 ) : (
                   <LeftArrow className={styles.arrow} />
                 )}
               </span>
             </button>
-            {openSection === key && (
+
+            {openSections.includes(key) && (
               <div className={styles.sectionContent}>
                 {content === "DIRECTION_COMPONENT" ? (
-                  // رندر کامپوننت سفارشی برای دستور مصرف
                   <div className={styles.directionContainer}>
                     <div className={styles.directionTabs}>
-                      {medicine.direction?.adult?.length && (
+                      {medicine.direction?.adult?.length ? (
                         <button
                           className={`${styles.directionTab} ${
                             selectedAgeGroup === "adult" ? styles.active : ""
@@ -172,8 +232,9 @@ export default function MedicineDetailsPage() {
                               : "و سالمندان "}
                           </>
                         </button>
-                      )}
-                      {medicine.direction?.child?.length && (
+                      ) : null}
+
+                      {medicine.direction?.child?.length ? (
                         <button
                           className={`${styles.directionTab} ${
                             selectedAgeGroup === "child" ? styles.active : ""
@@ -182,8 +243,9 @@ export default function MedicineDetailsPage() {
                         >
                           کودکان
                         </button>
-                      )}
-                      {medicine.direction?.elder?.length && (
+                      ) : null}
+
+                      {medicine.direction?.elder?.length ? (
                         <button
                           className={`${styles.directionTab} ${
                             selectedAgeGroup === "elder" ? styles.active : ""
@@ -192,25 +254,30 @@ export default function MedicineDetailsPage() {
                         >
                           سالمندان
                         </button>
-                      )}
+                      ) : null}
                     </div>
+
                     <div className={styles.directionContent}>
                       {selectedAgeGroup === "adult" &&
                         medicine.direction?.adult?.map((item, index) => (
                           <p key={index}>{item}</p>
                         ))}
+
                       {selectedAgeGroup === "child" &&
                         medicine.direction?.child?.map((item, index) => (
                           <p key={index}>{item}</p>
                         ))}
+
                       {selectedAgeGroup === "elder" &&
                         medicine.direction?.elder?.map((item, index) => (
                           <p key={index}>{item}</p>
                         ))}
                     </div>
                   </div>
+                ) : typeof content === "string" ? (
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
                 ) : (
-                  <div dangerouslySetInnerHTML={{ __html: content! }} />
+                  content
                 )}
               </div>
             )}

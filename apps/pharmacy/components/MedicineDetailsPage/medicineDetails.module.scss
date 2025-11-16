@@ -49,7 +49,6 @@
 }
 .pillsIcon {
   background: white;
-  z-index: 100;
   border: solid 2px white;
   border-radius: 12px;
   padding: 15px;
@@ -119,14 +118,19 @@
 
 .directionTabs {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   border-bottom: 2px solid #e0e0e0;
+  width: 100% !important;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
 }
 
 .directionTab {
   flex: 1;
-  padding: 12px 20px;
+  padding: 8px;
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
@@ -135,6 +139,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   color: #666;
+  height: 70px;
+  max-height: 70px;
 
   &:hover {
     color: $green;

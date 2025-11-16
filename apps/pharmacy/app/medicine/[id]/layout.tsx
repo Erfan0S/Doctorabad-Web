@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <>
-        <PharmacyHeader title="دارو"></PharmacyHeader>
+        <PharmacyHeader title=""></PharmacyHeader>
         <div>{children}</div>
 
     </>
