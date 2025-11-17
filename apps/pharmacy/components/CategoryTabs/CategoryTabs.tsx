@@ -18,18 +18,18 @@ export default function CategoryTabs({
     <div className={styles.categoriesNav}>
       <div className={styles.categoriesScroll}>
         {categories.length !== 0 && (
-          <button
+          <div
             className={`${styles.categoryTab} ${
               selectedCategory === null ? styles.active : ""
             }`}
             onClick={() => onCategoryChange(null)}
           >
             همه
-          </button>
+          </div>
         )}
 
         {categories.map((category) => (
-          <button
+          <div
             key={category.id}
             className={`${styles.categoryTab} ${
               selectedCategory === category.id ? styles.active : ""
@@ -37,7 +37,7 @@ export default function CategoryTabs({
             onClick={() => onCategoryChange(category.id)}
           >
             {category.title}
-          </button>
+          </div>
         ))}
       </div>
     </div>

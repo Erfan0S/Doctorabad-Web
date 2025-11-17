@@ -1,24 +1,45 @@
-// components/PharmacySearchSection/PharmacySearchSection.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./PharmacySearchSection.module.scss";
+import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 interface PharmacySearchSectionProps {
-  onCategoriesClick: () => void;
-  onSearch: (query: string) => void;
+  onSearchChange: (query: string) => void;
+  onSearchDebounced: (query: string) => void;
 }
 
 export default function PharmacySearchSection({
-  onCategoriesClick,
-  onSearch
+  onSearchChange,
+  onSearchDebounced,
 }: PharmacySearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const trimmedQuery = useMemo(() => searchQuery.trim(), [searchQuery]);
+  const debouncedSearch = useDebounceAction(onSearchDebounced, 5000);
+
+  // 🔹 debounce: هر بار searchQuery تغییر کند،
+  // بعد از 2 ثانیه onSearch اجرا می‌شود
+  useEffect(() => {
+    onSearchChange(trimmedQuery);
+  }, [trimmedQuery, onSearchChange]);
+
+  useEffect(() => {
+    if (!trimmedQuery) {
+      onSearchDebounced("");
+      return;
+    }
+
+    debouncedSearch(trimmedQuery);
+  }, [trimmedQuery, debouncedSearch, onSearchDebounced]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchQuery(value);
-    onSearch(value);
+    setSearchQuery(e.target.value);
+  };
+
+  const handleCategoriesClick = () => {
+    router.push("/categories");
   };
 
   return (
@@ -31,6 +52,7 @@ export default function PharmacySearchSection({
           value={searchQuery}
           onChange={handleSearchChange}
         />
+
         <svg
           className={styles.searchIcon}
           width="20"
@@ -38,13 +60,7 @@ export default function PharmacySearchSection({
           viewBox="0 0 24 24"
           fill="none"
         >
-          <circle
-            cx="11"
-            cy="11"
-            r="8"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
+          <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
           <path
             d="M21 21L16.65 16.65"
             stroke="currentColor"
@@ -53,7 +69,8 @@ export default function PharmacySearchSection({
           />
         </svg>
       </div>
-      <button className={styles.categoriesBtn} onClick={onCategoriesClick}>
+
+      <button className={styles.categoriesBtn} onClick={handleCategoriesClick}>
         دسته‌بندی
       </button>
     </div>

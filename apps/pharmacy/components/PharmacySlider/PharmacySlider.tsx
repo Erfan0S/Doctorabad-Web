@@ -3,16 +3,18 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
 import { Slider } from "@/types/pharmacy";
 import styles from "./PharmacySlider.module.scss";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useRouter } from "next/navigation";
 
 interface PharmacySliderProps {
   sliders: Slider[];
 }
 
 export default function PharmacySlider({ sliders }: PharmacySliderProps) {
+  const router = useRouter();
+
   if (sliders.length === 0) return null;
 
   return (
@@ -27,7 +29,12 @@ export default function PharmacySlider({ sliders }: PharmacySliderProps) {
       >
         {sliders.map((slider) => (
           <SwiperSlide key={slider.id}>
-            <div className={styles.slide}>
+            <div
+              onClick={authorizeClientAction(() =>
+                router.push(`/medicine/${slider.medicine_id}`)
+              )}
+              className={styles.slide}
+            >
               <img src={slider.picture} alt={slider.title || ""} />
             </div>
           </SwiperSlide>

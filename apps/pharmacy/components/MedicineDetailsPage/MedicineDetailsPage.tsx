@@ -9,6 +9,7 @@ import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
 import PillsIcon from "@/assets/svg/pillsIcon";
 import InteractionSection from "./InteractionSection/InteractionSection";
+import MedicineDetailsSkeleton from "@/components/Skeletons/MedicineDetailsSkeleton/MedicineDetailsSkeleton";
 
 export default function MedicineDetailsPage() {
   const { id } = useParams();
@@ -72,8 +73,7 @@ function renderCategoryTree(node: any, depth = 0) {
 }
 
 
-  if (isLoading)
-    return <div className={styles.loading}>در حال بارگذاری...</div>;
+  if (isLoading) return <MedicineDetailsSkeleton />;
   if (error || !data)
     return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
 
@@ -199,7 +199,7 @@ function renderCategoryTree(node: any, depth = 0) {
       <div className={styles.sections}>
         {availableSections.map(({ key, label, content }) => (
           <div key={key} className={styles.section}>
-            <button
+            <div
               className={styles.sectionButton}
               onClick={() => toggleSection(key)}
             >
@@ -211,7 +211,7 @@ function renderCategoryTree(node: any, depth = 0) {
                   <LeftArrow className={styles.arrow} />
                 )}
               </span>
-            </button>
+            </div>
 
             {openSections.includes(key) && (
               <div className={styles.sectionContent}>
@@ -219,41 +219,41 @@ function renderCategoryTree(node: any, depth = 0) {
                   <div className={styles.directionContainer}>
                     <div className={styles.directionTabs}>
                       {medicine.direction?.adult?.length ? (
-                        <button
+                        <div
                           className={`${styles.directionTab} ${
                             selectedAgeGroup === "adult" ? styles.active : ""
                           }`}
                           onClick={() => setSelectedAgeGroup("adult")}
                         >
                           <>
-                            <span>بزرگسالان</span>{" "}
+                            بزرگسالان{" "}
                             {medicine.direction?.elder?.length
                               ? ""
                               : "و سالمندان "}
                           </>
-                        </button>
+                        </div>
                       ) : null}
 
                       {medicine.direction?.child?.length ? (
-                        <button
+                        <div
                           className={`${styles.directionTab} ${
                             selectedAgeGroup === "child" ? styles.active : ""
                           }`}
                           onClick={() => setSelectedAgeGroup("child")}
                         >
                           کودکان
-                        </button>
+                        </div>
                       ) : null}
 
                       {medicine.direction?.elder?.length ? (
-                        <button
+                        <div
                           className={`${styles.directionTab} ${
                             selectedAgeGroup === "elder" ? styles.active : ""
                           }`}
                           onClick={() => setSelectedAgeGroup("elder")}
                         >
                           سالمندان
-                        </button>
+                        </div>
                       ) : null}
                     </div>
 

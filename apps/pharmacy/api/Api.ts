@@ -81,11 +81,10 @@ class PharmacyApi extends Request {
     text: string,
     productId: number
   ): Promise<ResponseType<{ message: string }>> => {
-    const formData = new FormData();
-    formData.append("id", productId.toString());
-    formData.append("report", text);
-
-    return this.request.post(`/user/v1/medicine/error/report`, formData);
+    return this.request.post(`/user/v1/medicine/error/report`, {
+      report: text,
+      id: productId,
+    });
   };
 
   // Favorite APIs
@@ -96,13 +95,12 @@ class PharmacyApi extends Request {
   };
 
   storeFavorite = (
-    data: FavoriteStoreParams
+    medicine_id: number,
+    favorite: number,
   ): Promise<ResponseType<{ message: string }>> => {
-    const formData = new FormData();
-    formData.append("medicine_id", data.medicine_id.toString());
-    formData.append("favorite", data.favorite.toString());
-
-    return this.request.post(`/user/v1/medicine/favorite/`, formData);
+    return this.request.post(`/user/v1/medicine/favorite/`, 
+      {medicine_id, favorite},
+    );
   };
 
   // Slider APIs

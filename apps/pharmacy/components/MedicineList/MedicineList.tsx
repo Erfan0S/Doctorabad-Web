@@ -5,6 +5,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Medicine } from "@/types/pharmacy";
 import MedicineCard from "../MedicineCard/MedicineCard";
 import styles from "./MedicineList.module.scss";
+import Loading from "@/components/common/loading";
+import MedicineListSkeleton from "@/components/Skeletons/MedicineListSkeleton/MedicineListSkeleton";
 
 interface MedicineListProps {
   medicines: Medicine[];
@@ -20,11 +22,7 @@ export default function MedicineList({
   onLoadMore 
 }: MedicineListProps) {
   if (medicines.length === 0 && loading) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.spinner}></div>
-      </div>
-    );
+    return <MedicineListSkeleton count={6} />;
   }
 
   return (
@@ -34,8 +32,7 @@ export default function MedicineList({
       hasMore={hasMore}
       loader={
         <div className={styles.loadingMore}>
-          <div className={styles.spinner}></div>
-          <p>در حال بارگذاری...</p>
+          <Loading />
         </div>
       }
       className={styles.medicinesList}

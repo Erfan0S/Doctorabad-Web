@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { Medicine } from "@/types/pharmacy";
 import styles from "./MedicineCard.module.scss";
 import PillsIcon from "@/assets/svg/pillsIcon";
+import {
+  authorizeClientAction
+} from "@repo/core/utils/authUtils";
 
 
 interface MedicineCardProps {
@@ -17,7 +20,7 @@ export default function MedicineCard({ medicine }: MedicineCardProps) {
   return (
     <div
       className={styles.medicineCard}
-      onClick={() => router.push(`/medicine/${medicine.id}`)}
+      onClick={authorizeClientAction(() => router.push(`/medicine/${medicine.id}`))}
     >
       <div className={styles.medicineImage}>
         {medicine.picture ? (

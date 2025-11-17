@@ -1,13 +1,14 @@
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { HeaderType } from "@/types/pharmacy";
 
-export const metadata: Metadata = {
-  title: "دکترآباد | داروخانه من",
-  description: "داروخانه آنلاین Doctorabad",
-  manifest: "/manifest.json",
-  themeColor: "#33cc33",
-};
+// export const viewport: Metadata = {
+//   title: "دکترآباد | داروخانه من",
+//   description: "داروخانه آنلاین Doctorabad",
+//   manifest: "/manifest.webmanifest",
+//   themeColor: "#33cc33",
+// };
 
 export default function RootLayout({
   children,
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <PharmacyHeader title="دسته‌بندی"></PharmacyHeader>
+      <PharmacyHeader headerPageType={HeaderType.OTHERS} title="دسته‌بندی"></PharmacyHeader>
       {children}
     </>
   );

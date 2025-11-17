@@ -56,23 +56,6 @@ export default function FavoritesPage() {
     return (
       <div style={{ textAlign: "center", marginTop: 36 }}>
         خطا در بارگذاری علاقه‌مندی‌ها
-        <br />
-        <button
-          onClick={() => {
-            refetch();
-          }}
-          style={{
-            marginTop: 16,
-            padding: "8px 16px",
-            borderRadius: 8,
-            background: "#33cc33",
-            color: "#fff",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          تلاش دوباره
-        </button>
       </div>
     );
   }

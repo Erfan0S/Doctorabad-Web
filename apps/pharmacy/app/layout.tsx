@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import Providers from "@/providers/providers";
 import localFont from "next/font/local";
-import "../assets/styles/globals.scss";
+import "react-toastify/dist/ReactToastify.css";
+import "../assets/styles/grid.scss";
+import "../assets/styles/general.scss";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -9,12 +11,12 @@ const font = localFont({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "دکترآباد | داروخانه من",
-  description: "داروخانه آنلاین Doctorabad",
-  manifest: "/manifest.json",
-  themeColor: "#33cc33",
-};
+// export const viewport: Metadata = {
+//   title: "دکترآباد | داروخانه من",
+//   description: "داروخانه آنلاین Doctorabad",
+//   manifest: "/manifest.webmanifest",
+//   themeColor: "#33cc33",
+// };
 
 export default function RootLayout({
   children,
@@ -24,7 +26,7 @@ export default function RootLayout({
   return (
     <html className={font.variable} dir="rtl" lang="fa">
       <body className={font.className} >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
