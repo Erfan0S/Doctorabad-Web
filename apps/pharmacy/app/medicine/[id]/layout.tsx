@@ -1,14 +1,15 @@
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import {HeaderType} from "@/types/pharmacy";
-
 import type { Metadata } from "next";
+import { generateMedicineMetaData } from "@/metadata/singleMedicine";
 
-// export const viewport: Metadata = {
-//   title: "دکترآباد | داروخانه من",
-//   description: "داروخانه آنلاین Doctorabad",
-//   manifest: "/manifest.webmanifest",
-//   themeColor: "#33cc33",
-// };
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  return generateMedicineMetaData({ params });
+}
 
 export default async function RootLayout({
   children,

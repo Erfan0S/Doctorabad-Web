@@ -13,7 +13,7 @@ import MedicineDetailsSkeleton from "@/components/Skeletons/MedicineDetailsSkele
 
 export default function MedicineDetailsPage() {
   const { id } = useParams();
-  const [openSections, setOpenSections] = useState<string[]>([]); // تغییر به آرایه
+  const [openSections, setOpenSections] = useState<string[]>([]);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<
     "adult" | "child" | "elder"
   >("adult");
@@ -32,8 +32,8 @@ export default function MedicineDetailsPage() {
     setOpenSections(
       (prev) =>
         prev.includes(key)
-          ? prev.filter((section) => section !== key) // اگر باز بود، ببند
-          : [...prev, key] // اگر بسته بود، باز کن
+          ? prev.filter((section) => section !== key)
+          : [...prev, key]
     );
   };
 
@@ -57,10 +57,9 @@ export default function MedicineDetailsPage() {
 function renderCategoryTree(node: any, depth = 0) {
   if (!node) return "";
 
-  const indent = "&ensp;".repeat(depth);     // فاصله برای عمق
-  const bullet = "> ";                       // علامت شاخه
+  const indent = "&ensp;".repeat(depth);
+  const bullet = "> ";
 
-  // اگر parent نداشت یعنی root است → نباید علامت بگذاریم
   const line = `${indent}${node.parent ? bullet : ""}${node.title}<br/>`;
 
   let html = line;
@@ -79,7 +78,6 @@ function renderCategoryTree(node: any, depth = 0) {
 
   const medicine = data;
 
-  // تعریف همه سکشن‌ها
   const allSections = [
     {
       key: "category",
@@ -162,7 +160,6 @@ function renderCategoryTree(node: any, depth = 0) {
     },
   ];
 
-  // فیلتر کردن فقط سکشن‌هایی که محتوا دارن
   const availableSections = allSections.filter((section) => {
     if (section.content === null) return false;
     if (typeof section.content === "string") {
@@ -180,12 +177,12 @@ function renderCategoryTree(node: any, depth = 0) {
             <Image
               src={medicine.picture ? medicine.picture : ""}
               alt={medicine.title_fa}
-              width={100}
-              height={100}
+              width={140}
+              height={140}
               className={styles.img}
             />
           ) : (
-            <PillsIcon className={styles.pillsIcon} width={75} height={75} />
+            <PillsIcon className={styles.pillsIcon} width={120} height={120} />
           )}
         </div>
 
@@ -206,7 +203,7 @@ function renderCategoryTree(node: any, depth = 0) {
               {label}
               <span>
                 {openSections.includes(key) ? (
-                  <DownArrow className={styles.arrow} />
+                  <DownArrow  className={styles.arrow} />
                 ) : (
                   <LeftArrow className={styles.arrow} />
                 )}

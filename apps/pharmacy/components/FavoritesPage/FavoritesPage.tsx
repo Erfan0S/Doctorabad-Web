@@ -36,12 +36,10 @@ export default function FavoritesPage() {
     retry: 1,
   });
 
-  // Flatten favorites from all pages
   const favorites = useMemo(() => {
     return favoritesData?.pages.flatMap((page) => page.data) ?? [];
   }, [favoritesData]);
 
-  // Load more favorites
   const loadMore = useCallback(() => {
     if (!isFetchingNextPage && hasNextPage) {
       fetchNextPage();

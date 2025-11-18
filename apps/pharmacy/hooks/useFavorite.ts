@@ -1,4 +1,3 @@
-// hooks/useFavorite.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { pharmacyApi } from "@/api/Api";
 import { FavoriteStoreParams } from "@/types/pharmacy";
@@ -20,7 +19,6 @@ export function useFavorite(options?: UseFavoriteOptions) {
       return response.data;
     },
     onSuccess: (data, variables) => {
-      // Invalidate related queries
       queryClient.invalidateQueries({ queryKey: ["favorites"] });
       queryClient.invalidateQueries({ queryKey: ["medicines"] });
       queryClient.invalidateQueries({ queryKey: ["medicine-details"] });
@@ -31,7 +29,6 @@ export function useFavorite(options?: UseFavoriteOptions) {
         });
       }
       
-      // Show toast
       if (variables.favorite === 1) {
         toast.success("به علاقه‌مندی‌ها اضافه شد");
       } else {

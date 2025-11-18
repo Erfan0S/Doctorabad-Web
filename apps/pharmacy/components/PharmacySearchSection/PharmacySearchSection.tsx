@@ -18,9 +18,6 @@ export default function PharmacySearchSection({
   const router = useRouter();
   const trimmedQuery = useMemo(() => searchQuery.trim(), [searchQuery]);
   const debouncedSearch = useDebounceAction(onSearchDebounced, 5000);
-
-  // 🔹 debounce: هر بار searchQuery تغییر کند،
-  // بعد از 2 ثانیه onSearch اجرا می‌شود
   useEffect(() => {
     onSearchChange(trimmedQuery);
   }, [trimmedQuery, onSearchChange]);

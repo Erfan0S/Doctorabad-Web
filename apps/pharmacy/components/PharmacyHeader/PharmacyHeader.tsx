@@ -44,7 +44,6 @@ export default function PharmacyHeader({
   });
 
   const isFavorite = medicineData?.is_favorite ?? false;
-  const displayTitle = medicineData?.title_fa || title;
 
   const { toggleFavorite, isLoading } = useFavorite({
     medicineId,
@@ -80,7 +79,7 @@ export default function PharmacyHeader({
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
-        <h1 className={styles.title}>{displayTitle}</h1>
+        <h1 className={styles.title}>{title}</h1>
         <div className={styles.lefSideHeader}>
           {headerPageType === HeaderType.MEDICINE_DETAILS && (
             <>
