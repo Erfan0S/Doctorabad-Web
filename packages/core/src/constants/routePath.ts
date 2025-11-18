@@ -1,7 +1,7 @@
 import { Apps } from "../types/general";
 
 export const routePath = {
-  drAbadBaseUrl: "https://develop.doctorabad.com",
+  drAbadBaseUrl: "https://doctorabad.com",
   home: "/",
   marketBasePath: "/market",
   register: "/register",
@@ -31,7 +31,7 @@ export const examPaths = {
   single: "/single",
 };
 
-export const productionBaseUrl = "https://develop.doctorabad.com";
+export const productionBaseUrl = "https://doctorabad.com";
 
 // export const baseUrls = {
 //   [Apps.BASE]:
@@ -53,8 +53,8 @@ export const productionBaseUrl = "https://develop.doctorabad.com";
 // };
 
 export const baseUrls = {
-  [Apps.BASE]: "https://develop.doctorabad.com",
-  [Apps.LEARN]: "https://develop.doctorabad.com" + routePath.learnBasePath,
-  [Apps.MARKET]: "https://develop.doctorabad.com" + routePath.marketBasePath,
-  [Apps.EXAM]: "https://develop.doctorabad.com" + routePath.examBasePath,
+  [Apps.BASE]: "https://doctorabad.com",
+  [Apps.LEARN]: "https://doctorabad.com" + routePath.learnBasePath,
+  [Apps.MARKET]: "https://doctorabad.com" + routePath.marketBasePath,
+  [Apps.EXAM]: "https://doctorabad.com" + routePath.examBasePath,
 };
