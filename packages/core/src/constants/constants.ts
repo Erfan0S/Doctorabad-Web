@@ -10,5 +10,4 @@ export const AUTH_COOKIE_KEY = "DALoginStatus";
 export const IS_INSTALL_BANNER_SHOW_LOCAL = "WebAppGuideShowed";
 
 export const API_DESTINATION = "https://drabadapp.ir/:path*";
-
 // export const API_DESTINATION = "http://185.231.180.170/:path*";
