@@ -15,13 +15,13 @@ export default function PharmacyHomePage() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
-
+  
   const isSearchMode = searchQuery.length > 0;
 
   return (
     <div className={styles.container}>
       <PharmacyHeader headerPageType={HeaderType.OTHERS} title="داروخانه من" />
-      <PharmacySearchSection
+      <PharmacySearchSection 
         onSearchChange={setSearchQuery}
         onSearchDebounced={setDebouncedSearchQuery}
       />
@@ -40,7 +40,7 @@ export default function PharmacyHomePage() {
         selectedCategory={selectedCategory}
         searchQuery={searchQuery}
         debouncedSearchQuery={debouncedSearchQuery}
-      />
+        />
     </div>
   );
 }

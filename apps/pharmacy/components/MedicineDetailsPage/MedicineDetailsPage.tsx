@@ -29,11 +29,10 @@ export default function MedicineDetailsPage() {
   });
 
   const toggleSection = (key: string) => {
-    setOpenSections(
-      (prev) =>
-        prev.includes(key)
-          ? prev.filter((section) => section !== key)
-          : [...prev, key]
+    setOpenSections((prev) =>
+      prev.includes(key)
+        ? prev.filter((section) => section !== key)
+        : [...prev, key]
     );
   };
 
@@ -54,23 +53,22 @@ export default function MedicineDetailsPage() {
     return root;
   }
 
-function renderCategoryTree(node: any, depth = 0) {
-  if (!node) return "";
+  function renderCategoryTree(node: any, depth = 0) {
+    if (!node) return "";
 
-  const indent = "&ensp;".repeat(depth);
-  const bullet = "> ";
+    const indent = "&ensp;".repeat(depth);
+    const bullet = "> ";
 
-  const line = `${indent}${node.parent ? bullet : ""}${node.title}<br/>`;
+    const line = `${indent}${node.parent ? bullet : ""}${node.title}<br/>`;
 
-  let html = line;
+    let html = line;
 
-  node.children?.forEach((child: any) => {
-    html += renderCategoryTree(child, depth + 1);
-  });
+    node.children?.forEach((child: any) => {
+      html += renderCategoryTree(child, depth + 1);
+    });
 
-  return html;
-}
-
+    return html;
+  }
 
   if (isLoading) return <MedicineDetailsSkeleton />;
   if (error || !data)
@@ -171,25 +169,24 @@ function renderCategoryTree(node: any, depth = 0) {
   return (
     <div className={styles.container}>
       {/* --- Header --- */}
+
       <div className={styles.header}>
-        <div className={styles.imageWrapper}>
-          {medicine.picture ? (
+        <div className={styles.top}>
+          {medicine.title_en}
+          <div > {medicine.picture ? (
             <Image
               src={medicine.picture ? medicine.picture : ""}
               alt={medicine.title_fa}
               width={140}
               height={140}
-              className={styles.img}
+              className={styles.image}
             />
           ) : (
-            <PillsIcon className={styles.pillsIcon} width={120} height={120} />
-          )}
+            <PillsIcon className={styles.pillsIcon} width={100} height={100} />
+          )}</div>
         </div>
 
-        <div className={styles.titles}>
-          <h2 className={styles.title_en}>{medicine.title_en}</h2>
-          <h2 className={styles.title_fa}>{medicine.title_fa}</h2>
-        </div>
+        <div className={styles.bottom}>{medicine.title_fa}</div>
       </div>
 
       {/* --- Accordion sections --- */}
@@ -203,7 +200,7 @@ function renderCategoryTree(node: any, depth = 0) {
               {label}
               <span>
                 {openSections.includes(key) ? (
-                  <DownArrow  className={styles.arrow} />
+                  <DownArrow className={styles.arrow} />
                 ) : (
                   <LeftArrow className={styles.arrow} />
                 )}

@@ -3,65 +3,79 @@
   background: #fff;
   color: #222;
 }
-
 .header {
-  background: linear-gradient(to bottom, $green 50%, transparent 50%);
-  color: white;
-  border-radius: 0 0 1.5rem 1.5rem;
-  padding: 1rem;
-  text-align: center;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-}
+    padding-top: 1rem;
+    background: $green;
+  --img-size: 6.7rem;
+  --img-offset-right: 10px;
 
-.iconRow {
-  display: flex;
-  justify-content: flex-start;
-  gap: 0.7rem;
-  margin-bottom: 0.5rem;
-
-  button {
-    background: white;
-    border: none;
-    border-radius: 12px;
-    padding: 0.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.imageWrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 0.5rem;
-
-  img {
-    border-radius: 23px;
-    background: white;
-    border: solid 4px white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-}
-.pillsIcon {
-  background: white;
-  border: solid 2px white;
-  border-radius: 23px;
-  padding: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.titles {
-  h2 {
-    font-size: 1.2rem;
+  .top {
+    background-color: $green;
+    position: relative;
+    min-height: 3rem;
+    color: white;
+    font-size: 1rem;
     font-weight: 700;
-    margin-top: 0.5rem;
-    text-align: start;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    text-align: left;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
+
+    .image {
+      width: var(--img-size);
+      height: var(--img-size);
+      position: absolute;
+      right: var(--img-offset-right);
+      bottom: calc(var(--img-size) / -2);
+      border-radius: 23px;
+      background: white;
+      border: solid 4px white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: flex-start;
+    color: $green;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    text-align: right;
+
+    background-color: white;
+
+    min-height: 3rem;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
   }
 }
+
+
+
+
+.pillsIcon {
+
+      width: var(--img-size);
+      height: var(--img-size);
+      position: absolute;
+      right: var(--img-offset-right);
+      bottom: calc(var(--img-size) / -2);
+      border-radius: 23px;
+      background: white;
+      border: solid 4px white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 15px;
+}
+
+
 .title_fa {
   color: $green;
 }
@@ -85,7 +99,7 @@
   padding: 0.7rem 1rem;
   width: 100%;
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -112,15 +126,6 @@
   line-height: 1.6;
 }
 
-.loading,
-.error {
-  text-align: center;
-  margin-top: 3rem;
-  color: #555;
-}
-
-// در فایل MedicineDetails.module.scss
-
 .directionContainer {
   margin-top: 10px;
 }
@@ -134,7 +139,6 @@
   width: 100% !important;
   overflow-x: scroll;
   overflow-y: hidden;
-
 }
 
 .directionTab {

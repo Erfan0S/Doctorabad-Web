@@ -23,8 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html className={font.variable} dir="rtl" lang="fa">
-      <body className={font.className} >
-        <Providers>{children}</Providers>
+      <body className={font.className}>
+        <div className="pharmacy-container" >
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );

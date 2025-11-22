@@ -1,6 +1,7 @@
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import {HeaderType} from "@/types/pharmacy";
 import type { Metadata } from "next";
+
 import { generateMedicineMetaData } from "@/metadata/singleMedicine";
 
 export async function generateMetadata({
