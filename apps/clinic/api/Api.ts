@@ -1,15 +1,15 @@
 // api.ts
 import {
-  Medicine,
-  MedicineCategory,
-  MedicineTreatment,
-  FavoriteMedicine,
+  Disease,
+  DiseaseCategory,
+  DiseaseTreatment,
+  FavoriteDisease,
   Slider,
-  MedicineListParams,
+  DiseaseListParams,
   FavoriteStoreParams,
   ErrorReport,
-  MedicineListResponse,
-  MedicineDetails,
+  DiseaseListResponse,
+  DiseaseDetails,
 } from "@/types/clinic";
 import { Request } from "@repo/core/http-request/Request";
 import { ResponseType } from "@repo/core/types/general";
@@ -17,7 +17,7 @@ import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import { User, VerifyPhoneInput } from "@repo/core/types/user";
 
-class PharmacyApi extends Request {
+class ClinicApi extends Request {
   constructor() {
     super({
       baseUrl: defaultBaseUrl,
@@ -37,10 +37,10 @@ class PharmacyApi extends Request {
   verifyPhone(data: VerifyPhoneInput): Promise<ResponseType<User>> {
     return this.request.post<User>("/user", data);
   }
-  // Medicine APIs
-  getMedicineList = (
-    params?: MedicineListParams
-  ): Promise<ResponseType<MedicineListResponse>> => {
+  // Disease APIs
+  getDiseaseList = (
+    params?: DiseaseListParams
+  ): Promise<ResponseType<DiseaseListResponse>> => {
     const queryParams = new URLSearchParams();
     if (params?.title) queryParams.append("title", params.title);
     if (params?.category_id)
@@ -48,71 +48,71 @@ class PharmacyApi extends Request {
     if (params?.page) queryParams.append("page", params.page.toString());
 
     const query = queryParams.toString() ? `?${queryParams.toString()}` : "";
-    return this.request.get(`/user/v1/medicine${query}`);
+    return this.request.get(`/user/v1/clinic/${query}`);
   };
 
-  getMedicineById = (id: number): Promise<ResponseType<{ data: Medicine }>> => {
-    return this.request.get(`/user/v1/medicine/${id}`);
+  getDiseaseById = (id: number): Promise<ResponseType<{ data: Disease }>> => {
+    return this.request.get(`/user/v1/clinic/${id}`);
   };
 
   // Category APIs
-  getMedicineCategories = (): Promise<
-    ResponseType<{ data: MedicineCategory[] }>
+  getDiseaseCategories = (): Promise<
+    ResponseType<{ data: DiseaseCategory[] }>
   > => {
-    return this.request.get(`/user/v1/medicine/category/parent`);
+    return this.request.get(`/user/v1/clinic/category/parent`);
   };
 
-  getMedicineChildren = (
+  getDiseaseChildren = (
     parentId: number
-  ): Promise<ResponseType<{ data: MedicineCategory[] }>> => {
-    return this.request.get(`/user/v1/medicine/category/children/${parentId}`);
+  ): Promise<ResponseType<{ data: DiseaseCategory[] }>> => {
+    return this.request.get(`/user/v1/clinic/category/children/${parentId}`);
   };
 
-  getMedicineTreatments = (
+  getDiseaseTreatments = (
     categoryId: number
-  ): Promise<ResponseType<{ data: MedicineTreatment[] }>> => {
+  ): Promise<ResponseType<{ data: DiseaseTreatment[] }>> => {
     return this.request.get(
-      `/user/v1/medicine/category/treatment/${categoryId}`
+      `/user/v1/clinic/category/treatment/${categoryId}`
     );
   };
 
   // Error Report APIs
-  reportMedicineError = (
+  reportDiseaseError = (
     text: string,
     productId: number
   ): Promise<ResponseType<{ message: string }>> => {
-    return this.request.post(`/user/v1/medicine/error/report`, {
+    return this.request.post(`/user/v1/clinic/error/report`, {
       report: text,
       id: productId,
     });
   };
 
   // Favorite APIs
-  getFavoriteList = (): Promise<
-    ResponseType<{ data: MedicineListResponse }>
+  getFavoriteList = (page: number): Promise<
+    ResponseType<{ data: DiseaseListResponse }>
   > => {
-    return this.request.get(`/user/v1/medicine/favorite/list`);
+    return this.request.get(`/user/v1/clinic/favorite/list?page=${page}`);
   };
 
   storeFavorite = (
-    medicine_id: number,
+    clinic_id: number,
     favorite: number,
   ): Promise<ResponseType<{ message: string }>> => {
-    return this.request.post(`/user/v1/medicine/favorite/`, 
-      {medicine_id, favorite},
+    return this.request.post(`/user/v1/clinic/favorite/`, 
+      {clinic_id, favorite},
     );
   };
 
   // Slider APIs
   getSliderList = (): Promise<ResponseType<{ data: Slider[] }>> => {
-    return this.request.get(`/user/v1/medicine/slider`);
+    return this.request.get(`/user/v1/clinic/slider`);
   };
 
-  getMedicineDetails = (
-    medicineId: number
-  ): Promise<ResponseType<{ data: MedicineDetails }>> => {
-    return this.request.get(`/user/v1/medicine/${medicineId}`);
+  getDiseaseDetails = (
+    diseaseId: number
+  ): Promise<ResponseType<{ data: DiseaseDetails }>> => {
+    return this.request.get(`/user/v1/clinic/${diseaseId}`);
   };
 }
 
-export const pharmacyApi = new PharmacyApi();
+export const clinicApi = new ClinicApi();

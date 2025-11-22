@@ -17,6 +17,7 @@ export const routePath = {
   appDownload: "/app",
   examBasePath: "/exam",
   pharmacyBasePath: "/pharmacy",
+  clinicBasePath: "/clinic",
 };
 
 export const learnPaths = {
@@ -58,6 +59,10 @@ export const baseUrls = {
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3005"
       : productionBaseUrl) + routePath.pharmacyBasePath,
+  [Apps.CLINIC]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3006"
+      : productionBaseUrl) + routePath.clinicBasePath,
 };
 
 // export const baseUrls = {

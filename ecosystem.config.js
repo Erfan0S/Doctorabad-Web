@@ -50,5 +50,15 @@ module.exports = {
                 PORT: 3005
             }
         },
+                {
+            name: "mono-clinic",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/clinic",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3006
+            }
+        },
     ]
 };
