@@ -25,8 +25,16 @@ export const generateDiseaseMetaData = async ({
       "جزئیات بیماری | کلینیک دکترآباد";
 
     const description =
-      disease.use_case ||
-      disease.effect_mechanism ||
+      disease.introduction.preface.join(" ") ||
+      disease.introduction.definition.join(" ") ||
+      disease.introduction.type.join(" ") ||
+      disease.epidemiology ||
+      disease.physiopathology ||
+      disease.risk_factor.join(" ") ||
+      disease.differential_diagnosis_description.join(" ") ||
+      disease.treatment_description.plan.join(" ") ||
+      disease.treatment_description.order.join(" ") ||
+      disease.treatment_description.prescription.join(" ") ||
       "اطلاعات کامل بیماری انتخابی شما در کلینیک دکترآباد.";
 
     const image = disease.picture;

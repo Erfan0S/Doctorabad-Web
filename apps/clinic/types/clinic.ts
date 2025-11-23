@@ -75,43 +75,57 @@ export interface FavoriteStoreParams {
   favorite: 0 | 1;
 }
 
+
 export interface DiseaseDetails {
   id: number;
   title_fa: string;
   title_en: string;
-  picture: string;
-  effect_mechanism: string;
-  brands: string[];
-  shapes: string[];
-  use_case: string;
-  direction: {
-    adult: string[];
-    child: string[];
-    elder?: string[];
+  picture: string | null;
+  introduction: {
+    type: string[];
+    preface: string[];
+    definition: string[];
   };
-  prevention: string;
-  pregnant: string;
-  side_effects: string[];
-  interaction_description: string[];
-  interaction_diseases: {
+  epidemiology: string | null;
+  physiopathology: string | null;
+  risk_factor: string[];
+  differential_diagnosis_description: string[];
+  differential_diagnosis: {
     id: number;
     title_fa: string;
     title_en: string;
   }[];
-  poisoning: string[];
-  points: string;
-  is_favorite: boolean;
-  categories: {
+  treatment_description: {
+    plan: string[];
+    order: string[];
+    prescription: string[];
+  };
+  treatment: {
     id: number;
-    title: string;
-    parent: number | null;
+    title_fa: string;
+    title_en: string;
   }[];
+  prognosis: string | null;
+  side_effect: string | null;
+  clinical_demonstration: {
+    sign: string[];
+    symptom: string[];
+  };
+  physical_exam: string | null;
+  paraclinic_info: string[];
+  diagnosis: string | null;
+  prevention: string | null;
+  complementary_medicine: string | null;
+  point: string[];
+  is_favorite: boolean;
   files: {
     id: number;
     file: string;
     use_type: number;
   }[];
 }
+
+
 
 
 export enum HeaderType {

@@ -35,6 +35,9 @@ export const examPaths = {
 export const pharmacyPaths = {
   single: "/medicine",
 };
+export const clinicPaths = {
+  single: "/disease",
+};
 
 export const productionBaseUrl = "https://develop.doctorabad.com";
 
