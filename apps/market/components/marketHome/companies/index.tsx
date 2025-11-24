@@ -15,6 +15,7 @@ interface Props {
 }
 
 const Companies = ({ list }: Props) => {
+  if (!list.length) return null;
   return (
     <section className={style.companies}>
       <div className="container">
