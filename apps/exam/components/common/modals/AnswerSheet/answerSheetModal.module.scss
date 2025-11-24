@@ -2,7 +2,7 @@
 @import "@/assets/styles/variables";
 
 html .answerSheetModalWrapper {
-  justify-content: start;
+  justify-content: flex-start;
   gap: 20px;
   max-height: 80vh;
 
@@ -65,7 +65,7 @@ html .answerSheetModalWrapper {
 .answerSheetQuestion {
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: flex-start;
   cursor: pointer;
 
   span {
