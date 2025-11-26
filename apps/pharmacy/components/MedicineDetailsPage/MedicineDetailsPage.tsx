@@ -75,6 +75,32 @@ export default function MedicineDetailsPage() {
     return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
 
   const medicine = data;
+  type MedicineFile = {
+    id: number;
+    file: string;
+    use_type: number;
+  };
+
+  const getImagesByUseType = (
+    sectionKey: string
+  ): MedicineFile[] => {
+    if (!medicine.files?.length) return [];
+
+    const useTypeMap: Record<string, number[]> = {
+      mechanism: [3],
+      use_case: [4],
+      gallery: [5],
+    };
+
+    const useTypes = useTypeMap[sectionKey] ?? [];
+    if (!useTypes.length) return [];
+
+    return medicine.files.filter((file: MedicineFile) =>
+      useTypes.includes(file.use_type)
+    );
+  };
+
+  const galleryImages = getImagesByUseType("gallery");
 
   const allSections = [
     {
@@ -96,12 +122,14 @@ export default function MedicineDetailsPage() {
     {
       key: "brands",
       label: "اسامی‌تجاری",
-      content: medicine.brands?.map((b) => `✓ ${b}`).join("<br/>") || null,
+      content:
+        medicine.brands?.map((b: string) => `✓ ${b}`).join("<br/>") || null,
     },
     {
       key: "shape",
       label: "اشکال دارویی",
-      content: medicine.shapes?.map((s) => `✓ ${s}`).join("<br/>") || null,
+      content:
+        medicine.shapes?.map((s: string) => `✓ ${s}`).join("<br/>") || null,
     },
     {
       key: "use_case",
@@ -132,7 +160,8 @@ export default function MedicineDetailsPage() {
       key: "side",
       label: "عوارض جانبی",
       content:
-        medicine.side_effects?.map((s) => `✓ ${s}`).join("<br/>") || null,
+        medicine.side_effects?.map((s: string) => `✓ ${s}`).join("<br/>") ||
+        null,
     },
     {
       key: "interaction",
@@ -149,12 +178,18 @@ export default function MedicineDetailsPage() {
     {
       key: "poisoning",
       label: "مسمومیت",
-      content: medicine.poisoning?.map((p) => `✓ ${p}`).join("<br/>") || null,
+      content:
+        medicine.poisoning?.map((p: string) => `✓ ${p}`).join("<br/>") || null,
     },
     {
       key: "points",
       label: "نکات",
       content: medicine.points || null,
+    },
+    {
+      key: "gallery",
+      label: "گالری",
+      content: galleryImages.length ? "GALLERY_COMPONENT" : null,
     },
   ];
 
@@ -253,25 +288,83 @@ export default function MedicineDetailsPage() {
 
                     <div className={styles.directionContent}>
                       {selectedAgeGroup === "adult" &&
-                        medicine.direction?.adult?.map((item, index) => (
-                          <p key={index}>{item}</p>
-                        ))}
+                        medicine.direction?.adult?.map(
+                          (item: string, index: number) => (
+                            <p key={index}>{item}</p>
+                          )
+                        )}
 
                       {selectedAgeGroup === "child" &&
-                        medicine.direction?.child?.map((item, index) => (
-                          <p key={index}>{item}</p>
-                        ))}
+                        medicine.direction?.child?.map(
+                          (item: string, index: number) => (
+                            <p key={index}>{item}</p>
+                          )
+                        )}
 
                       {selectedAgeGroup === "elder" &&
-                        medicine.direction?.elder?.map((item, index) => (
-                          <p key={index}>{item}</p>
-                        ))}
+                        medicine.direction?.elder?.map(
+                          (item: string, index: number) => (
+                            <p key={index}>{item}</p>
+                          )
+                        )}
                     </div>
                   </div>
+                ) : content === "GALLERY_COMPONENT" ? (
+                  <div className={styles.galleryGrid}>
+                    {galleryImages.map((file: MedicineFile) => (
+                      <div key={file.id} className={styles.galleryItem}>
+                        <img
+                          src={file.file}
+                          alt="gallery image"
+                          className={styles.galleryImage}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 ) : typeof content === "string" ? (
-                  <div dangerouslySetInnerHTML={{ __html: content }} />
+                  <>
+                    <div dangerouslySetInnerHTML={{ __html: content }} />
+                        {getImagesByUseType(key).length > 0 && (
+                      <div className={styles.files}>
+                            {getImagesByUseType(key).map(
+                              (file: MedicineFile) => (
+                          <div
+                            key={file.id}
+                            className={styles.fileImageWrapper}
+                          >
+                            <img
+                              src={file.file}
+                              alt="file"
+                              className={styles.fileImage}
+                            />
+                          </div>
+                              )
+                            )}
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  content
+                  <>
+                    {getImagesByUseType(key).length > 0 && (
+                      <div className={styles.files}>
+                        {getImagesByUseType(key).map(
+                          (file: MedicineFile) => (
+                          <div
+                            key={file.id}
+                            className={styles.fileImageWrapper}
+                          >
+                            <img
+                              src={file.file}
+                              alt="file"
+                              className={styles.fileImage}
+                            />
+                          </div>
+                          )
+                        )}
+                      </div>
+                    )}
+                    {content}
+                  </>
                 )}
               </div>
             )}

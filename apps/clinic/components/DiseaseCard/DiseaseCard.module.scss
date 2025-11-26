@@ -55,7 +55,7 @@
   margin: 0;
 }
 
-.actions {
+.actions,.lockIcon {
   display: flex;
   gap: 8px;
   margin-top: 8px;
@@ -70,4 +70,8 @@
   border: none;
   font-size: 11px;
   cursor: pointer;
+}
+
+.lockIcon{
+
 }

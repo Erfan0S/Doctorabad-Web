@@ -10,6 +10,8 @@ import {
   ErrorReport,
   DiseaseListResponse,
   DiseaseDetails,
+  DiscountPlan,
+  UserDiscountPlans
 } from "@/types/clinic";
 import { Request } from "@repo/core/http-request/Request";
 import { ResponseType } from "@repo/core/types/general";
@@ -112,6 +114,15 @@ class ClinicApi extends Request {
     diseaseId: number
   ): Promise<ResponseType<{ data: DiseaseDetails }>> => {
     return this.request.get(`/user/v1/clinic/${diseaseId}`);
+  };
+  getUserPlans = (
+  ): Promise<ResponseType<{ data: UserDiscountPlans }>> => {
+    return this.request.get(`/user/v1/discount/plans/check?type=3`);
+  };
+
+  getDiscountPlans = (
+  ): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
+    return this.request.get(`/user/v1/discount/plans?type=3`);
   };
 }
 

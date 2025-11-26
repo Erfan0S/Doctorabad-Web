@@ -3,10 +3,12 @@ export interface Disease {
   title_fa?: string;
   title_en?: string;
   picture: string;
-  categories:[{
-    id: number;
-    title: string;
-  }];
+  categories: [
+    {
+      id: number;
+      title: string;
+    },
+  ];
   has_order: boolean;
   has_prescription: boolean;
   is_free: boolean;
@@ -33,7 +35,6 @@ export interface DiseaseListResponse {
   links: PaginationLinks;
   meta: PaginationMeta;
 }
-
 
 export interface DiseaseCategory {
   id: number;
@@ -74,7 +75,6 @@ export interface FavoriteStoreParams {
   disease_id: number;
   favorite: 0 | 1;
 }
-
 
 export interface DiseaseDetails {
   id: number;
@@ -125,11 +125,26 @@ export interface DiseaseDetails {
   }[];
 }
 
-
-
-
 export enum HeaderType {
   FAVORITES = "favorites",
   DISEASE_DETAILS = "disease_details",
-  OTHERS = "others"
+  OTHERS = "others",
+}
+
+export interface DiscountPlan {
+  id: number;
+  title: string;
+  description: string;
+  duration: number;
+  main_price: number | null;
+  off_price: number | null;
+  vip: boolean;
+  free: boolean;
+  installment_payment: boolean;
+  installment_text: string | null;
+}
+
+export interface UserDiscountPlans {
+  data: DiscountPlan[];
+  used_free: boolean;
 }

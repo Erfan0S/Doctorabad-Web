@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./DiseaseDetails.module.scss";
 import { clinicApi } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
@@ -14,7 +15,7 @@ import { div } from "framer-motion/client";
 
 export default function DiseaseDetailsPage() {
   const { id } = useParams();
-  const [openSections, setOpenSections] = useState<string[]>([]);
+  const [openSections, setOpenSections] = useState<string[]>(["introduction"]);
   const [introductionType, setIntroductionType] = useState<string>("preface");
   const [treatmentType, setTreatmentType] = useState<string>("plan");
   const [clinicalType, setClinicalType] = useState<"sign" | "symptom">("sign");
@@ -37,10 +38,8 @@ export default function DiseaseDetailsPage() {
     );
   };
 
-  // Set types automatically when data is loaded
   useEffect(() => {
     if (data) {
-      // Set introductionType
       if (data.introduction) {
         if (data.introduction.preface?.length) {
           setIntroductionType("preface");
@@ -78,6 +77,10 @@ export default function DiseaseDetailsPage() {
     return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
 
   const disease = data;
+  const hasPrescriptionSection =
+    disease.treatment_description?.prescription?.length > 0;
+  const hasOrderSection = disease.treatment_description?.order?.length > 0;
+  const hasTreatmentMedications = disease.treatment?.length > 0;
 
   // Helper function to get images based on use_type
   const getImagesByUseType = (
@@ -112,6 +115,7 @@ export default function DiseaseDetailsPage() {
       diagnosis: [25],
       prevention: [26],
       complementary: [27],
+      gallery: [28],
     };
 
     const sectionMap = useTypeMap[sectionKey];
@@ -132,6 +136,8 @@ export default function DiseaseDetailsPage() {
     return disease.files.filter((file) => useTypes.includes(file.use_type));
   };
 
+  const galleryImages = getImagesByUseType("gallery");
+
   const allSections = [
     {
       key: "introduction",
@@ -142,23 +148,7 @@ export default function DiseaseDetailsPage() {
         disease.introduction?.definition?.length
           ? "INTRODUCTION_COMPONENT"
           : null,
-      // content: (() => {
-      //   const intro = disease.introduction;
-      //   if (!intro) return null;
 
-      //   const parts = [];
-
-      //   if (intro.type?.length)
-      //     parts.push(`<strong>انواع:</strong><br/>${intro.type.join("<br/>")}`);
-
-      //   if (intro.preface?.length)
-      //     parts.push(`<strong>مقدمه:</strong><br/>${intro.preface.join("<br/>")}`);
-
-      //   if (intro.definition?.length)
-      //     parts.push(`<strong>تعریف:</strong><br/>${intro.definition.join("<br/>")}`);
-
-      //   return parts.length ? parts.join("<br/><br/>") : null;
-      // })(),
     },
     {
       key: "treatment",
@@ -170,29 +160,7 @@ export default function DiseaseDetailsPage() {
         disease.treatment?.length
           ? "TREATMENT_COMPONENT"
           : null,
-      // content: (() => {
-      //   const desc = disease.treatment_description;
 
-      //   const parts = [];
-
-      //   if (desc?.plan?.length)
-      //     parts.push(`<strong>برنامه درمان:</strong><br/>${desc.plan.join("<br/>")}`);
-
-      //   if (desc?.order?.length)
-      //     parts.push(`<strong>اوردر:</strong><br/>${desc.order.join("<br/>")}`);
-
-      //   if (desc?.prescription?.length)
-      //     parts.push(`<strong>نسخه:</strong><br/>${desc.prescription.join("<br/>")}`);
-
-      //   if (disease.treatment?.length)
-      //     parts.push(
-      //       `<strong>داروها:</strong><br/>${disease.treatment
-      //         .map((t) => `• ${t.title_fa}`)
-      //         .join("<br/>")}`
-      //     );
-
-      //   return parts.length ? parts.join("<br/><br/>") : null;
-      // })(),
     },
 
     {
@@ -220,22 +188,7 @@ export default function DiseaseDetailsPage() {
         disease.clinical_demonstration?.symptom?.length
           ? "CLINICAL_COMPONENT"
           : null,
-      // content: (() => {
-      //   const c = disease.clinical_demonstration;
-      //   if (!c) return null;
 
-      //   const parts = [];
-
-      //   if (c.sign?.length)
-      //     parts.push(`<strong>علائم:</strong><br/>${c.sign.join("<br/>")}`);
-
-      //   if (c.symptom?.length)
-      //     parts.push(
-      //       `<strong>نشانه‌ها:</strong><br/>${c.symptom.join("<br/>")}`
-      //     );
-
-      //   return parts.length ? parts.join("<br/><br/>") : null;
-      // })(),
     },
     {
       key: "physical_exam",
@@ -253,10 +206,39 @@ export default function DiseaseDetailsPage() {
       key: "differential",
       label: "تشخیص افتراقی",
       content: (() => {
-        if (!disease.differential_diagnosis?.length) return null;
-        return disease.differential_diagnosis
-          .map((d) => `• ${d.title_fa}`)
-          .join("<br/>");
+        const hasDescriptions =
+          disease.differential_diagnosis_description?.length;
+        const hasRelatedDiseases = disease.differential_diagnosis?.length;
+
+        if (!hasDescriptions && !hasRelatedDiseases) return null;
+
+        return (
+          <div className={styles.differentialContent}>
+            {hasDescriptions ? (
+              <div className={styles.differentialDescription}>
+                {disease.differential_diagnosis_description?.map(
+                  (description, index) => (
+                    <p key={index}>✓ {description}</p>
+                  )
+                )}
+              </div>
+            ) : null}
+
+            {hasRelatedDiseases ? (
+              <div className={styles.differentialTags}>
+                {disease.differential_diagnosis?.map((diffDisease) => (
+                  <Link
+                    key={diffDisease.id}
+                    href={`/disease/${diffDisease.id}`}
+                    className={styles.differentialTag}
+                  >
+                    {diffDisease.title_fa}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        );
       })(),
     },
 
@@ -292,6 +274,11 @@ export default function DiseaseDetailsPage() {
       content: disease.point?.length
         ? disease.point.map((p) => `✓ ${p}`).join("<br/>")
         : null,
+    },
+    {
+      key: "gallery",
+      label: "گالری",
+      content: galleryImages.length ? "GALLERY_COMPONENT" : null,
     },
   ];
 
@@ -491,11 +478,6 @@ export default function DiseaseDetailsPage() {
                             (item, index) => <p key={index}>✓ {item}</p>
                           )}
 
-                        {treatmentType === "order" &&
-                          disease.treatment_description?.order?.map(
-                            (item, index) => <p key={index}>✓ {item}</p>
-                          )}
-
                         {treatmentType === "prescription" &&
                           disease.treatment_description?.prescription?.map(
                             (item, index) => (
@@ -506,6 +488,42 @@ export default function DiseaseDetailsPage() {
                                 ✓ {item}
                               </p>
                             )
+                          )}
+                        {treatmentType === "prescription" &&
+                          hasPrescriptionSection &&
+                          hasTreatmentMedications && (
+                            <div className={styles.treatmentTags}>
+                              {disease.treatment?.map((med) => (
+                                <Link
+                                  key={med.id}
+                                  href={`/medicine/${med.id}`}
+                                  className={styles.treatmentTag}
+                                >
+                                  {med.title_fa}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+
+                        {treatmentType === "order" &&
+                          disease.treatment_description?.order?.map(
+                            (item, index) => <p key={index}>✓ {item}</p>
+                          )}
+                        {treatmentType === "order" &&
+                          !hasPrescriptionSection &&
+                          hasOrderSection &&
+                          hasTreatmentMedications && (
+                            <div className={styles.treatmentTags}>
+                              {disease.treatment?.map((med) => (
+                                <Link
+                                  key={med.id}
+                                  href={`/medicine/${med.id}`}
+                                  className={styles.treatmentTag}
+                                >
+                                  {med.title_fa}
+                                </Link>
+                              ))}
+                            </div>
                           )}
                         {getImagesByUseType("treatment", treatmentType).length >
                           0 && (
@@ -587,6 +605,18 @@ export default function DiseaseDetailsPage() {
                       </div>
                     </div>
                   </>
+                ) : content === "GALLERY_COMPONENT" ? (
+                  <div className={styles.galleryGrid}>
+                    {galleryImages.map((file) => (
+                      <div key={file.id} className={styles.galleryItem}>
+                        <img
+                          src={file.file}
+                          alt="gallery image"
+                          className={styles.galleryImage}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 ) : typeof content === "string" ? (
                   <>
                     {/* Render images for other sections */}
