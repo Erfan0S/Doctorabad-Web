@@ -6,6 +6,7 @@ import VipIcon from "../../assets/svg/vipIcon";
 import {
   AddToCartButton,
   ListProductSnappayNotif,
+  ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
@@ -19,9 +20,6 @@ function DiscountPlanItem({ item }: Props) {
   cartActions.getCartData();
   return (
     <div className={`card ${style.planItem}`}>
-      {item.installment_payment && item.installment_text && (
-        <ListProductSnappayNotif className={style.listSnappayNotif} />
-      )}
       <div className={style.planItemTop}>
         <h3>{item.title}</h3>
         <p>{item.description}</p>
@@ -37,11 +35,18 @@ function DiscountPlanItem({ item }: Props) {
               ? "رایگان"
               : `${priceFormatter(item.off_price || item.main_price)} تومن`}
           </span>
+          {item.installment_payment && item.installment_text && (
+            <ProductSnappayNotif
+              text={item.off_price || item.main_price}
+              className={style.listSnappayNotif}
+            />
+          )}
         </div>
         <AddToCartButton
           id={item.id}
           type={OrderType.DiscountPlan}
           app={Apps.EXAM}
+          className={style.addToCartButton}
         />
       </div>
     </div>

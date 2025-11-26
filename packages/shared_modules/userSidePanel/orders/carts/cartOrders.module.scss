@@ -5,7 +5,7 @@
   > div {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: stretch;
     padding: 1rem;
     gap: 1rem;
@@ -20,7 +20,7 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 15px;
   cursor: pointer;
@@ -47,7 +47,7 @@
   color: $gray;
   font-size: 11px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: stretch;
   flex-wrap: wrap;
   gap: 1rem;
@@ -58,7 +58,7 @@
   > div {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 0.5rem;
   }
 

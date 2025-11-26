@@ -9,13 +9,37 @@ import style from "@/components/marketHome/banners/Banners.module.scss";
 import classNames from "classnames";
 import CategoryBanner from "@/components/marketHome/categoryBanner";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
+import { ProvidersList } from "@/types/providers";
+import { AmazingProduct } from "@repo/core/types/product";
+import { Banner } from "@/types/banner";
 
 export default async function HomeMarket() {
-  const ProvidersList = (await api.getProviders()).data.data;
-  const amazingProducts = (
-    await api.getAmazingProductList({ page: "1", limit: "10" })
-  ).data;
-  const sliders = (await api.getMainSliders()).data.data;
+  let ProvidersList: ProvidersList = [];
+  let amazingProducts: {
+    data: AmazingProduct[];
+    amazing_time: string;
+  } = { data: [], amazing_time: "0" };
+  let sliders: Banner[] = [];
+
+  try {
+    ProvidersList = (await api.getProviders()).data.data;
+  } catch (error) {
+    console.error("Failed to fetch providers:", error);
+  }
+
+  try {
+    amazingProducts = (
+      await api.getAmazingProductList({ page: "1", limit: "10" })
+    ).data;
+  } catch (error) {
+    console.error("Failed to fetch amazing products:", error);
+  }
+
+  try {
+    sliders = (await api.getMainSliders()).data.data;
+  } catch (error) {
+    console.error("Failed to fetch sliders:", error);
+  }
 
   return (
     <>

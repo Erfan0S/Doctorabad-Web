@@ -10,7 +10,11 @@ import { DiscountPlanType, Order, OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 // @ts-ignore
 import snappayImage from "@repo/shared_modules/images/snapppay_2.png";
-import { Loading, QuantityProductButton } from "../../../../common/components";
+import {
+  ListProductSnappayNotif,
+  Loading,
+  QuantityProductButton,
+} from "../../../../common/components";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { Apps } from "@repo/core/types/general";
 // @ts-ignore
@@ -61,11 +65,11 @@ const CartItem = ({
   };
 
   return (
-    <div className={style.cartItem}>
+    <div
+      className={`${style.cartItem} ${installment_payment ? style.cartItemInstallmentPayment : ""}`}
+    >
       {installment_payment && (
-        <div className={style.cartItemInstallmentProvider}>
-          <Image src={snappayImage} alt="اسنپ پی" width={33} height={20} />
-        </div>
+        <ListProductSnappayNotif className={style.listSnappayNotif} />
       )}
       <div
         className={`${style.cartItemImage} ${!product_pic ? style.cartItemDefaultImage : ""}`}

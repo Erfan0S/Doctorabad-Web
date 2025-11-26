@@ -64,7 +64,7 @@
 .singleItemAccessButtons {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 10px;
 
   button {
