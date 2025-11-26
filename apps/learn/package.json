@@ -12,7 +12,6 @@
     "proxy_server": "lcp --proxyUrl https://drabadapp.ir --credentials --origin http://localhost:3000"
   },
   "dependencies": {
-    "@neshan-maps-platform/mapbox-gl-react": "^1.0.0",
     "@repo/core": "*",
     "@repo/shared_modules": "*",
     "@types/video.js": "^7.3.58",
