@@ -17,6 +17,8 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { ShippingMethod } from "@repo/core/types/cart";
+import { toast } from "react-toastify";
+import { calcPriceToPay } from "../../utils/calcPriceToPay";
 
 type Props = {
   payInfo: CartPayInfo;
@@ -25,25 +27,30 @@ type Props = {
 };
 
 function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
-  const { data: cartData, price_paid } = useCart();
+  const { data: cartData, price_paid, user_credit } = useCart();
   const installmentCartItems = cartData.filter(
     (item) => item.installment_payment
   );
   const [providerLoading, setProviderLoading] = useState(false);
 
-  const totalPrice =
-    (payInfo.discountInfo?.price_paid || price_paid) +
-    (shippingMethod?.price || 0);
-  const activeSnappay = !!installmentCartItems.length && totalPrice >= 4000;
+  const priceToPay = calcPriceToPay(
+    price_paid,
+    payInfo,
+    shippingMethod?.price,
+    user_credit
+  );
+  const activeSnappay = !!installmentCartItems.length && priceToPay >= 4000;
+
+  console.log(priceToPay);
 
   const {
     data: installmentEligible,
     isLoading: installmentLoading,
     refetch: installmentRefetch,
   } = useQuery({
-    queryKey: ["installment_eligible", totalPrice],
+    queryKey: ["installment_eligible", priceToPay],
     queryFn: () =>
-      api.isEligibleForProvider(totalPrice, PaymentProviders.SNAPP_PAY),
+      api.isEligibleForProvider(priceToPay, PaymentProviders.SNAPP_PAY),
     enabled: false,
     retry: 0,
     staleTime: Infinity,
@@ -61,8 +68,8 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
       title: "پرداخت اقساطی",
       description:
         "پرداخت با اسنپ‌پی در 4 قسط بدون کارمزد" +
-        (totalPrice >= 4000
-          ? `، ماهانه ${priceFormatter(totalPrice / 4)}تومان`
+        (priceToPay >= 4000
+          ? `، ماهانه ${priceFormatter(priceToPay / 4)}تومان`
           : ""),
       pic_url: snappayImage,
       more_info_url: "https://doctorabad.com/mag/snapppay",
@@ -76,6 +83,8 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
             ...prev,
             paymentMethod: PaymentProviders.SNAPP_PAY,
           }));
+        } else if (isEligible?.data?.data.data.response.description) {
+          toast.error(isEligible?.data?.data.data.response.description);
         }
       },
       isLoading: installmentLoading || providerLoading,

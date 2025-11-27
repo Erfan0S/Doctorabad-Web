@@ -104,8 +104,14 @@ const CartItem = ({
               </div>
             )}
             <div>
-              {priceFormatter(price_amazing || price_off || price_main)}
-              <small>تومن</small>
+              {price_main ? (
+                <>
+                  {priceFormatter(price_amazing || price_off || price_main)}
+                  <small>تومن</small>
+                </>
+              ) : (
+                "رایگان"
+              )}
             </div>
           </div>
           {canIncrease ? (
