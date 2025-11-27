@@ -45,3 +45,4 @@ apps/base/public/workbox-*.js
 apps/learn/public/workbox-*.js
 apps/market/public/workbox-*.js
 apps/exam/public/workbox-*.js
+package-lock.json
