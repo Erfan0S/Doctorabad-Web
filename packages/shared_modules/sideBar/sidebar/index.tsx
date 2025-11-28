@@ -6,19 +6,18 @@ import SidebarFooter from "./footer";
 import SidebarLogo from "./logo";
 import SidebarNav from "./nav";
 import { useSidebar } from "../states/sidebar";
-import { usePathname } from "next/navigation";
 // import MobileNavBar from '../mobileNavBar';
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { useEffect, useState } from "react";
+import { routePath } from "@repo/core/constants/routePath";
 
 const Sidebar = () => {
   const isMobile = useMediaQuery("max-width:768px");
   const [pathname, setPathname] = useState("");
 
   useEffect(() => {
-    setPathname(window.location.pathname);
+    setPathname(window.location.href);
   }, []);
-
   const isMainLogoActive = pathname === "/";
   const { toggleShow, show } = useSidebar();
 
