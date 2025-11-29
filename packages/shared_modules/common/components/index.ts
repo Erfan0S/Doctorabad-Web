@@ -54,3 +54,5 @@ export { default as ProductSnappayNotif } from "./productSnappayNotif";
 export { ListProductSnappayNotif } from "./productSnappayNotif";
 
 export { default as GlobalError } from "./globalError";
+
+export { default as FavoriteHeartIcon } from "./favoriteHeartIcon";

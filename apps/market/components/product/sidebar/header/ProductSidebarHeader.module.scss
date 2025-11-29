@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .productSidebarHeader {
   display: flex;
@@ -23,7 +23,6 @@
     svg,
     a {
       transition: 0.15s;
-      color: #000;
     }
 
     svg {

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import style from "./Product.module.scss";
-import { ProductCard, ProductListType } from "@repo/core/types/product";
+import { ProductCard } from "@repo/core/types/product";
 import Link from "next/link";
 
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
@@ -9,7 +9,6 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
-import FavoriteIcon from "../favoriteIcon";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import Loading from "../loading";
@@ -17,12 +16,13 @@ import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 
 import { useRestockNotification } from "@/hooks/useRestockNotification";
-import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { OrderType } from "@repo/core/types/cart";
 import {
+  FavoriteHeartIcon,
   ListProductSnappayNotif,
   QuantityProductButton,
 } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
 const Product: React.FC<ProductCard> = ({
   title,
@@ -146,13 +146,13 @@ const Product: React.FC<ProductCard> = ({
             <button
               aria-label="AddToFavorite"
               className={style.productAddToFavorite}
+              onClick={() => toggleFavorite(id)}
             >
-              <FavoriteIcon
+              <FavoriteHeartIcon
                 isFavorite={isFavorite}
                 loading={isLoading}
-                onClick={() => toggleFavorite(id)}
                 size={24}
-                color={FavoriteColors.ORANGE}
+                app={Apps.MARKET}
               />
             </button>
           </>

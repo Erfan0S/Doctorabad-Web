@@ -9,7 +9,6 @@ import { useSidebar } from "../states/sidebar";
 // import MobileNavBar from '../mobileNavBar';
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { useEffect, useState } from "react";
-import { routePath } from "@repo/core/constants/routePath";
 
 const Sidebar = () => {
   const isMobile = useMediaQuery("max-width:768px");

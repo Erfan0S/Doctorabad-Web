@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { Loading } from "..";
-import { HeartFillIcon, HeartIcon } from "../../../assets";
+import { FavoriteHeartIcon } from "..";
 import { Apps } from "@repo/core/types/general";
 import { useToggleFavoriteProduct } from "@repo/core/hooks/useToggleFavoriteProduct";
 import { useRouter } from "next/navigation";
@@ -36,13 +35,11 @@ function FavoriteButton({ id, initialFavoriteState, app, className }: Props) {
       onClick={favoriteOnClick}
       className={`${className} ${style.favoriteButton} ${style[app as string]}`}
     >
-      {favoriteLoading ? (
-        <Loading app={app as Apps} />
-      ) : isFavorite ? (
-        <HeartFillIcon className={style.filledHeart} />
-      ) : (
-        <HeartIcon />
-      )}
+      <FavoriteHeartIcon
+        loading={favoriteLoading}
+        isFavorite={isFavorite}
+        app={app as Apps}
+      />
     </button>
   );
 }
