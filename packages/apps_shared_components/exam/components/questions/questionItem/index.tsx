@@ -1,13 +1,8 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./questionItem.module.scss";
-import {
-  BugIcon,
-  HeartFillIcon,
-  HeartIcon,
-  InfoIcon,
-} from "@repo/shared_modules/icons";
-import { Button } from "@repo/shared_modules/components";
+import { BugIcon, InfoIcon } from "@repo/shared_modules/icons";
+import { Button, FavoriteHeartIcon } from "@repo/shared_modules/components";
 
 import { ExamStatus, QuestionStatus, QuestionType } from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
@@ -15,18 +10,12 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import QuestionInput from "./questionInputs/questionItemInput";
 import Image from "next/image";
 import QuestionExplanation from "./questionExplanation";
-import Loading from "../../common/Loading";
-import {
-  authorizeClientAction,
-  isUserLoggedIn,
-} from "@repo/core/utils/authUtils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
 import { QuestionsAnswersContext } from "../../../contexts/questionsAnswersContext";
 import { generateQuestionId } from "../../../utils/generateQuestionId";
 import { usePathname } from "next/navigation";
-import { toast } from "react-toastify";
-import { explanationError } from "../../../constants/massages";
 import QuestionItemWaterMark from "./questionItemWaterMark";
 
 const buttons = (
@@ -49,12 +38,12 @@ const buttons = (
   return [
     {
       onClick: () => toggleFavorite(question.id),
-      component: isLoading ? (
-        <Loading />
-      ) : isFavorite ? (
-        <HeartFillIcon className={styles.favoriteFillIcon} />
-      ) : (
-        <HeartIcon />
+      component: (
+        <FavoriteHeartIcon
+          loading={isLoading}
+          isFavorite={isFavorite}
+          app={Apps.EXAM}
+        />
       ),
     },
     {

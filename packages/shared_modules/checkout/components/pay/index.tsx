@@ -8,15 +8,14 @@ import coinIcon from "../../../assets/img/coin.png";
 import style from "./Pay.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useCart } from "@repo/core/states/cart";
-import { ShippingAddress, ShippingMethod } from "@repo/core/types/cart";
+import { ShippingMethod } from "@repo/core/types/cart";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
 import { toast } from "react-toastify";
 import OptionSwitch from "../../../common/components/optionSwitch";
 import { CartPayInfo } from "../../types/cart";
-import PaymentMethods from "../payment_methods";
-import CreateOrderButton from "../createOrderButton";
+import { calcPriceToPay } from "../../utils/calcPriceToPay";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;
@@ -94,10 +93,6 @@ const Pay = ({ shippingMethod, payInfo, setPayInfo, children }: Props) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [discountCode]);
-
-  const finalPrice =
-    (shippingMethod?.price || 0) +
-    (discountInfo?.data.data.price_paid || price_paid);
 
   return (
     <div className={style.pay}>
@@ -194,7 +189,12 @@ const Pay = ({ shippingMethod, payInfo, setPayInfo, children }: Props) => {
         <span>
           قابل پرداخت:{" "}
           {priceFormatter(
-            Math.max(finalPrice - (payWithCredit ? user_credit : 0), 0)
+            calcPriceToPay(
+              price_paid,
+              payInfo,
+              shippingMethod?.price,
+              user_credit
+            )
           )}{" "}
           تومن
         </span>

@@ -23,6 +23,9 @@ import examLogo from "@repo/shared_modules/images/doctor-exam.png";
 import learnLogo from "@repo/shared_modules/images/doctor-learn.png";
 // @ts-ignore
 import marketLogo from "@repo/shared_modules/images/doctor-market.png";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { SidePanelPage } from "@repo/core/types/sidePanel";
 
 const CartItem = ({
   id,
@@ -64,6 +67,15 @@ const CartItem = ({
     return placeHolderDataUrl;
   };
 
+  const onClickHandler = (e: any) => {
+    if (discount_plan_type === DiscountPlanType.LERN) {
+      e.preventDefault();
+      modalActions.addModal(ModalTypes.SIDE_PANEL, {
+        initialPage: SidePanelPage.DISCOUNTS,
+      });
+    }
+  };
+
   return (
     <div
       className={`${style.cartItem} ${installment_payment ? style.cartItemInstallmentPayment : ""}`}
@@ -74,7 +86,7 @@ const CartItem = ({
       <div
         className={`${style.cartItemImage} ${!product_pic ? style.cartItemDefaultImage : ""}`}
       >
-        <a href={url} target="_blank">
+        <a href={url} onClick={onClickHandler} target="_blank">
           <Image
             src={product_pic || defaultImage()}
             alt={product_title}
@@ -85,7 +97,7 @@ const CartItem = ({
       </div>
       <div className={style.cartItemContent}>
         <div className={style.cartItemTitle}>
-          <a href={url} target="_blank">
+          <a href={url} onClick={onClickHandler} target="_blank">
             {product_title}
           </a>
         </div>
@@ -104,8 +116,14 @@ const CartItem = ({
               </div>
             )}
             <div>
-              {priceFormatter(price_amazing || price_off || price_main)}
-              <small>تومن</small>
+              {price_main ? (
+                <>
+                  {priceFormatter(price_amazing || price_off || price_main)}
+                  <small>تومن</small>
+                </>
+              ) : (
+                "رایگان"
+              )}
             </div>
           </div>
           {canIncrease ? (

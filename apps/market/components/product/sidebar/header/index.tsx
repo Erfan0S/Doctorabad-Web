@@ -2,16 +2,15 @@
 import style from "./ProductSidebarHeader.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import FavoriteIcon from "@/components/common/favoriteIcon";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
 import BugIcon from "@/assets/svg/newIcons/bug";
 import ShareIcon from "@/assets/svg/newIcons/share";
-import { FavoriteColors } from "@/components/marketHome/intro/orderInformation/enum";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/loading";
 import { Apps } from "@repo/core/types/general";
+import { FavoriteHeartIcon } from "@repo/shared_modules/components";
 
 interface Props {
   id: number;
@@ -67,10 +66,10 @@ const ProductSidebarHeader = ({
         {shareLoading ? <Loading /> : <ShareIcon />}
       </span>
       <span onClick={() => toggleFavorite(id)}>
-        <FavoriteIcon
+        <FavoriteHeartIcon
           loading={isLoading}
           isFavorite={isFavorite}
-          color={FavoriteColors.ORANGE}
+          app={Apps.MARKET}
         />
       </span>
     </div>

@@ -18,6 +18,7 @@ const squircleColor: { [key: string]: string } = {
 
 const SidebarNav = ({ isMainLogoActive }: Props) => {
   const href = window.location.href;
+  const pathNmae = window.location.pathname;
 
   const isMobile = useMediaQuery("max-width:768px");
   const shouldRender = useClientComponentInitiated();
@@ -36,7 +37,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
       );
 
     const activeMenuIndex = sidebarMenuData.findIndex((item) =>
-      href.startsWith(item.href)
+      pathNmae.startsWith(item.basePath)
     );
 
     return sidebarMenuData.map((item, i) =>

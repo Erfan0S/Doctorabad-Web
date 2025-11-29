@@ -1,10 +1,8 @@
 "use client";
 import style from "./courseHeader.module.scss";
-import HeartIcon from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
 import ProfileIcon from "@/assets/svg/profile";
-import HeartFillIcon from "@/assets/svg/heartFill";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { CourseDataType } from "@/types/courses";
@@ -15,6 +13,7 @@ import Loading from "@/components/common/Loading";
 import { Apps } from "@repo/core/types/general";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { FavoriteHeartIcon } from "@repo/shared_modules/components";
 
 interface Button {
   icon: React.ReactNode;
@@ -66,12 +65,12 @@ const CourseHeaderSiffix = ({
 
   const buttons: Button[] = [
     {
-      icon: favoriteLoading ? (
-        <Loading />
-      ) : isFavorite ? (
-        <HeartFillIcon color="red" />
-      ) : (
-        <HeartIcon />
+      icon: (
+        <FavoriteHeartIcon
+          isFavorite={isFavorite}
+          loading={favoriteLoading}
+          app={Apps.LEARN}
+        />
       ),
       onClick: favoriteOnClick,
     },

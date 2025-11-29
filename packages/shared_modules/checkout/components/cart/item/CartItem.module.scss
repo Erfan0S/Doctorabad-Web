@@ -19,6 +19,7 @@ html .cartItem {
     img {
       border-radius: radius(2);
       width: auto;
+      max-width: 110px;
       height: 100%;
       object-fit: contain;
     }
