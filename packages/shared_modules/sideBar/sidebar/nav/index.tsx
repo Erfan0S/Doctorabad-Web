@@ -4,7 +4,6 @@ import { mobileMenuLogoSchema, sidebarMenuData } from "./menu-data";
 import { Squircle } from "@repo/shared_modules/icons";
 import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
-import { baseUrls, routePath } from "@repo/core/constants/routePath";
 
 interface Props {
   isMainLogoActive: boolean;
@@ -37,16 +36,8 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
         i === 2 ? mobileMenuLogoSchema : e
       );
 
-    console.log("href", href);
-
-    const appsBasePaths = [
-      routePath.marketBasePath,
-      routePath.examBasePath,
-      routePath.learnBasePath,
-    ];
-
-    const activeMenuIndex = sidebarMenuData.findIndex(
-      (item) => href !== baseUrls.base && href.startsWith(item.href)
+    const activeMenuIndex = sidebarMenuData.findIndex((item) =>
+      pathNmae.startsWith(item.basePath)
     );
 
     return sidebarMenuData.map((item, i) =>
