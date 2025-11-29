@@ -25,13 +25,8 @@ const SidePanelFavoritesExam: React.FC = () => {
       staleTime: 0,
       gcTime: 0,
     });
-  console.log(data);
 
   const hasQuestions = !!data?.pages[0].lessons.length;
-
-  // useEffect(() => {
-  //   refetch();
-  // }, []);
 
   if (isLoading) return <Loading />;
 

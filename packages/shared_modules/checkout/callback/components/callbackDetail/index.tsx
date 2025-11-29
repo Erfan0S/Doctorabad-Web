@@ -70,7 +70,7 @@ const CallbackDetail = ({
             )}
             {installmentTransactionId && (
               <li>
-                <span>کد هگیری سفارش قسطی :</span>
+                <span>کد رهگیری سفارش قسطی :</span>
                 <span>
                   {installmentTransactionId}
                   <Copy

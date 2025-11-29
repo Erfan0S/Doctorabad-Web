@@ -7,7 +7,7 @@ html body div .mobileMode {
   button {
     font-size: 11px !important;
   }
-  svg {
+  .buttonsWrapper svg {
     width: 17px;
     height: auto;
   }
@@ -92,10 +92,6 @@ html .dontKnowQuestion {
         padding: 8px;
         cursor: pointer;
       }
-    }
-
-    .favoriteFillIcon {
-      color: $purple;
     }
 
     div {

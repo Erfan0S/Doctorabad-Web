@@ -446,6 +446,8 @@ img[data-nimg="fill"] {
 
 .sidebar-tab-contents {
   overflow: auto;
-  flex: 0 0 calc(100% - 70px);
-  max-height: calc(100% - 70px);
+  flex: 0 0 calc(100% - 61px);
+  max-height: calc(100% - 61px);
+  background-color: #f2f2f2;
+  padding-bottom: 10px;
 }
