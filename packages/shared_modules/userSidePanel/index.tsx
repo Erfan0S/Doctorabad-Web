@@ -6,7 +6,6 @@ import { sidePanelPageList } from "./pageList";
 import { motion } from "framer-motion";
 import styles from "./sidePanel.module.scss";
 import { slideLeftAnimation } from "@repo/core/constants/animationConfigs";
-import { api } from "../api/Api";
 
 type Props = ModalProps<{
   initialPage?: SidePanelPage;
