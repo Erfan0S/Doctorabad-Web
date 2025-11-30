@@ -41,8 +41,6 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
   );
   const activeSnappay = !!installmentCartItems.length && priceToPay >= 4000;
 
-  console.log(priceToPay);
-
   const {
     data: installmentEligible,
     isLoading: installmentLoading,

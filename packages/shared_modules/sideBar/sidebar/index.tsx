@@ -15,7 +15,7 @@ const Sidebar = () => {
   const [pathname, setPathname] = useState("");
 
   useEffect(() => {
-    setPathname(window.location.href);
+    setPathname(window.location.pathname);
   }, []);
   const isMainLogoActive = pathname === "/";
   const { toggleShow, show } = useSidebar();

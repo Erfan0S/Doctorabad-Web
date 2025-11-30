@@ -21,11 +21,10 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
     setIsExcludePath(!!excludePaths?.some((path) => href.includes(path)));
   }, [pathname]);
 
-  const activeCondition = (href: string): boolean => {
-    const tabPathname = new URL(href).pathname;
+  const activeCondition = (basePath: string): boolean => {
     return (
-      (fullPathname.startsWith(tabPathname) && tabPathname != "/") ||
-      (fullPathname == "/" && tabPathname == "/")
+      (fullPathname.startsWith(basePath) && basePath != "/") ||
+      (fullPathname == "/" && basePath == "/")
     );
   };
 
@@ -46,12 +45,13 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
             href,
             mobileTitle,
             disabled,
+            basePath,
           }) => {
             return (
               <li
                 key={id}
                 className={
-                  !disabled && activeCondition(href) ? style.active : ""
+                  !disabled && activeCondition(basePath) ? style.active : ""
                 }
                 id={String(id)}
               >

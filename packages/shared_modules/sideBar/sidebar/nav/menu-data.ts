@@ -13,7 +13,7 @@ export const mobileMenuLogoSchema = {
   href: baseUrls.base,
   image: menuLogo,
   color: "green",
-  disabled: false,
+  active: true,
   mobileTitle: "دکترآباد",
 };
 
@@ -27,7 +27,7 @@ export const sidebarMenuData = [
     href: "https://doctorabad.com/app",
     image: doctorLearn,
     color: "red",
-    disabled: true,
+    active: false,
     mobileTitle: "مرکز‌آموزش",
   },
   {
@@ -38,7 +38,7 @@ export const sidebarMenuData = [
     basePath: routePath.marketBasePath,
     image: doctorMarket,
     color: "orange",
-    disabled: true,
+    active: false,
     mobileTitle: "مرکزخرید",
   },
   {
@@ -46,10 +46,10 @@ export const sidebarMenuData = [
     title: "دکتـــــــــرتولز",
     subTitle: "مرکزابزاردکترآباد",
     href: "https://doctorabad.com/app",
-    basePath: routePath.appDownload,
+    basePath: null,
     image: doctorTools,
     color: "green",
-    disabled: false,
+    active: false,
     mobileTitle: "",
   },
   {
@@ -57,10 +57,10 @@ export const sidebarMenuData = [
     title: "دکتـــــــــــردانلود",
     subTitle: "مرکزمحتوای‌دکترآباد",
     href: "https://doctorabad.com/app",
-    basePath: routePath.appDownload,
+    basePath: null,
     image: doctorDownload,
     color: "blue",
-    disabled: true,
+    active: false,
     mobileTitle: "",
   },
   {
@@ -71,7 +71,7 @@ export const sidebarMenuData = [
     basePath: routePath.examBasePath,
     image: doctorExam,
     color: "purple",
-    disabled: true,
+    active: false,
     mobileTitle: "",
   },
 ];
