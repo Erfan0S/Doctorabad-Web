@@ -2,7 +2,6 @@ import style from "../Sidebar.module.scss";
 import logoType from "../../../assets/img/logo-type.png";
 import { Squircle } from "@repo/shared_modules/icons";
 import Image from "next/image";
-import Link from "next/link";
 import { baseUrls } from "@repo/core/constants/routePath";
 
 interface Props {

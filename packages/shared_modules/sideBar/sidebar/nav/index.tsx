@@ -1,8 +1,7 @@
 import Image from "next/image";
 import style from "../Sidebar.module.scss";
-import { mobileMenuLogoSchema, sidebarMenuData } from "./menu-data";
+import { sidebarMenuData } from "./menu-data";
 import { Squircle } from "@repo/shared_modules/icons";
-import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
 interface Props {
@@ -17,34 +16,18 @@ const squircleColor: { [key: string]: string } = {
 };
 
 const SidebarNav = ({ isMainLogoActive }: Props) => {
-  const href = window.location.href;
   const pathNmae = window.location.pathname;
 
-  const isMobile = useMediaQuery("max-width:768px");
   const shouldRender = useClientComponentInitiated();
 
   // refactor and implement two component for mobile and desktop
   const getSideMenuData = () => {
-    if (!isMobile) {
-      return sidebarMenuData.map((item) => ({
-        ...item,
-        disabled: !href.startsWith(item.href),
-      }));
-    }
-    if (isMainLogoActive)
-      return sidebarMenuData.map((e, i) =>
-        i === 2 ? mobileMenuLogoSchema : e
-      );
+    if (isMainLogoActive) return sidebarMenuData;
 
-    const activeMenuIndex = sidebarMenuData.findIndex((item) =>
-      pathNmae.startsWith(item.basePath)
-    );
-
-    return sidebarMenuData.map((item, i) =>
-      i === 4
-        ? { ...mobileMenuLogoSchema, disabled: true }
-        : { ...item, disabled: activeMenuIndex !== i }
-    );
+    return sidebarMenuData.map((item, i) => ({
+      ...item,
+      active: item.basePath ? pathNmae.startsWith(item.basePath) : false,
+    }));
   };
 
   if (!shouldRender) return null;
@@ -60,14 +43,10 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
             image,
             color,
             href,
-            disabled,
+            active,
             mobileTitle,
           }) => (
-            <li
-              key={id}
-              className={!disabled ? style.active : ""}
-              id={String(id)}
-            >
+            <li key={id} className={active ? style.active : ""} id={String(id)}>
               <div className={style.sidebarNavShape} />
               <a type="button" href={href} className={style[color]}>
                 <Squircle fill="#fff" />
@@ -75,7 +54,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
 
                 <Image src={image} alt={title} width={46} height={46} />
 
-                {!disabled && mobileTitle && <span>{mobileTitle}</span>}
+                {!active && mobileTitle && <span>{mobileTitle}</span>}
                 <div>
                   <span>{title}</span>
                   <small>{subTitle}</small>
