@@ -88,10 +88,11 @@ const ClinicPlans: React.FC<Props> = ({ closeModal }) => {
 
       {/* ADD TO CART */}
       {selected && (
-        <div className={styles.submitButtonWrapper}>
+        <div >
           <AddToCartButton
             id={selected}
             type={OrderType.DiscountPlan}
+            className={styles.submitButtonWrapper}
           />
         </div>
       )}

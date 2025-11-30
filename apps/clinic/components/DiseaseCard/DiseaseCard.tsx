@@ -7,8 +7,7 @@ import styles from "./DiseaseCard.module.scss";
 import PillsIcon from "@/assets/svg/pillsIcon";
 import Lock from "@/assets/svg/lock";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api";
 
@@ -30,9 +29,21 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user-plans"],
+    queryKey: ["user-plans-clinic"],
     queryFn: async () => (await clinicApi.getUserPlans()).data.data,
+    staleTime: 2 * 60 * 60 * 1000, 
   });
+  
+
+  const handleActionClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    treatmentType: "prescription" | "order" | "both"
+  ) => {
+    e.stopPropagation();
+    const params = new URLSearchParams();
+    params.set("treatment", treatmentType);
+    router.push(`/disease/${disease.id}?${params.toString()}`);
+  };
 
   return (
     <div
@@ -48,32 +59,63 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
           <PillsIcon className={styles.pillsIcon} width={75} height={75} />
         )}
       </div>
-
+  
       <div className={styles.diseaseInfo}>
-        {isAccessible() ? null : <Lock className={styles.lockIcon} />}
+        {/* بخش بالا - قفل */}
+        <div className={styles.topSection}>
+          {!isAccessible() && <Lock className={styles.lockIcon} />}
+        </div>
+  
+        {/* بخش وسط - نام دارو */}
+        <div className={styles.nameSection}>
+          <h3 className={styles.diseaseNameEn}>{disease.title_en}</h3>
+          <p className={styles.diseaseNameFa}>{disease.title_fa}</p>
+        </div>
+  
+        {/* بخش پایین - اکشن‌ها */}
+        <div className={styles.bottomSection}>
+          {(disease.has_prescription || disease.has_order) && (
+            <div className={styles.actions}>
+              {disease.has_prescription && !disease.has_order && (
+                <button
+                  className={styles.actionBtn}
+                  onClick={(e) => handleActionClick(e, "prescription")}
+                >
+                  نسخه و اوردر
+                </button>
+              )}
 
-        <h3 className={styles.diseaseNameEn}>{disease.title_en}</h3>
-        <p className={styles.diseaseNameFa}>{disease.title_fa}</p>
+              {disease.has_prescription && disease.has_order && (
+                <>
+                  <button
+                    className={styles.actionBtn}
+                    onClick={(e) => handleActionClick(e, "prescription")}
+                  >
+                    نسخه
+                  </button>
+                  <button
+                    className={styles.actionBtn}
+                    onClick={(e) => handleActionClick(e, "order")}
+                  >
+                    اوردر
+                  </button>
+                </>
+              )}
 
-        {(disease.has_prescription || disease.has_order) && (
-          <div className={styles.actions}>
-            {disease.has_prescription && !disease.has_order && (
-              <button className={styles.actionBtn}>نسخه و اوردر</button>
-            )}
-
-            {disease.has_prescription && disease.has_order && (
-              <>
-                <button className={styles.actionBtn}>نسخه</button>
-                <button className={styles.actionBtn}>اوردر</button>
-              </>
-            )}
-
-            {!disease.has_prescription && disease.has_order && (
-              <button className={styles.actionBtn}>اوردر</button>
-            )}
-          </div>
-        )}
+              {!disease.has_prescription && disease.has_order && (
+                <button
+                  className={styles.actionBtn}
+                  onClick={(e) => handleActionClick(e, "order")}
+                >
+                  اوردر
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
+  
+  
 }

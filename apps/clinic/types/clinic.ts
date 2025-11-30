@@ -88,35 +88,43 @@ export interface DiseaseDetails {
   };
   epidemiology: string | null;
   physiopathology: string | null;
-  risk_factor: string[];
-  differential_diagnosis_description: string[];
-  differential_diagnosis: {
-    id: number;
-    title_fa: string;
-    title_en: string;
-  }[];
-  treatment_description: {
-    plan: string[];
-    order: string[];
-    prescription: string[];
-  };
-  treatment: {
-    id: number;
-    title_fa: string;
-    title_en: string;
-  }[];
+  risk_factor: string[] | string;
+  differential_diagnosis_description: string[] | string;
+  differential_diagnosis:
+    | {
+        id: number;
+        title_fa: string;
+        title_en: string;
+      }[]
+    | string;
+  treatment_description:
+    | {
+        plan: string[];
+        order: string[];
+        prescription: string[];
+      }
+    | string;
+  treatment:
+    | {
+        id: number;
+        title_fa: string;
+        title_en: string;
+      }[]
+    | string;
   prognosis: string | null;
   side_effect: string | null;
-  clinical_demonstration: {
-    sign: string[];
-    symptom: string[];
-  };
+  clinical_demonstration:
+    | {
+        sign: string[];
+        symptom: string[];
+      }
+    | string;
   physical_exam: string | null;
-  paraclinic_info: string[];
+  paraclinic_info: string[] | string;
   diagnosis: string | null;
   prevention: string | null;
   complementary_medicine: string | null;
-  point: string[];
+  point: string[] | string;
   is_favorite: boolean;
   files: {
     id: number;

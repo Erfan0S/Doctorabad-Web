@@ -1,4 +1,5 @@
 @import "@/assets/styles/variables";
+
 .diseaseCard {
   background: white;
   border-radius: 16px;
@@ -9,6 +10,7 @@
   gap: 16px;
   cursor: pointer;
   transition: all 0.2s;
+  
   &:active {
     transform: scale(0.98);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -37,15 +39,43 @@
 
 .diseaseInfo {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
   text-align: right;
+}
+
+.topSection {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 24px;
+  align-items: flex-start;
+}
+
+.nameSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  margin-bottom: 10px;
+  margin-top: 6px;
+}
+
+.bottomSection {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 24px;
+  align-items: flex-end;
 }
 
 .diseaseNameEn {
   font-size: 16px;
   font-weight: 700;
   color: #333;
-  margin: 0 0 4px 0;
+  margin: 0;
   direction: ltr;
+  text-align: right;
 }
 
 .diseaseNameFa {
@@ -55,11 +85,15 @@
   margin: 0;
 }
 
-.actions,.lockIcon {
+.actions {
   display: flex;
   gap: 8px;
-  margin-top: 8px;
-  justify-self: flex-end;
+  align-items: center;
+  width: 7rem;
+}
+
+.lockIcon {
+  display: flex;
 }
 
 .actionBtn {
@@ -70,8 +104,6 @@
   border: none;
   font-size: 11px;
   cursor: pointer;
-}
-
-.lockIcon{
-
+  flex: 1;
+  white-space: nowrap;
 }

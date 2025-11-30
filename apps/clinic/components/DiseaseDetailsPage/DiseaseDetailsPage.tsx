@@ -5,16 +5,63 @@ import Link from "next/link";
 import styles from "./DiseaseDetails.module.scss";
 import { clinicApi } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
 import PillsIcon from "@/assets/svg/pillsIcon";
 import InteractionSection from "./InteractionSection/InteractionSection";
 import DiseaseDetailsSkeleton from "@/components/Skeletons/DiseaseDetailsSkeleton/DiseaseDetailsSkeleton";
-import { div } from "framer-motion/client";
+import type { DiseaseDetails } from "@/types/clinic";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+
+// Helper function to check if value is __NO_ACCESS__
+const isNoAccess = (value: any): boolean => {
+  if (typeof value === "string") {
+    return value === "__NO_ACCESS__";
+  }
+  return false;
+};
+
+// Helper function to check if array/object contains __NO_ACCESS__
+const hasNoAccess = (value: any): boolean => {
+  if (isNoAccess(value)) return true;
+  if (Array.isArray(value) && value.length > 0 && isNoAccess(value[0])) return true;
+  return false;
+};
+
+// Type guards
+const isTreatmentObject = (
+  value: any
+): value is { plan: string[]; order: string[]; prescription: string[] } => {
+  return value && typeof value === "object" && !Array.isArray(value) && !isNoAccess(value);
+};
+
+const isClinicalObject = (
+  value: any
+): value is { sign: string[]; symptom: string[] } => {
+  return value && typeof value === "object" && !Array.isArray(value) && !isNoAccess(value);
+};
+
+const isIntroductionObject = (
+  value: any
+): value is { type: string[]; preface: string[]; definition: string[] } => {
+  return value && typeof value === "object" && !Array.isArray(value) && !isNoAccess(value);
+};
+
+const isDiseaseArray = (
+  value: any
+): value is { id: number; title_fa: string; title_en: string }[] => {
+  return Array.isArray(value) && !hasNoAccess(value);
+};
+
+const isStringArray = (value: any): value is string[] => {
+  return Array.isArray(value) && !hasNoAccess(value);
+};
 
 export default function DiseaseDetailsPage() {
   const { id } = useParams();
+  const searchParams = useSearchParams();
   const [openSections, setOpenSections] = useState<string[]>(["introduction"]);
   const [introductionType, setIntroductionType] = useState<string>("preface");
   const [treatmentType, setTreatmentType] = useState<string>("plan");
@@ -31,6 +78,17 @@ export default function DiseaseDetailsPage() {
   });
 
   const toggleSection = (key: string) => {
+    // Check if this section has __NO_ACCESS__
+    if (data) {
+      const section = allSections.find(s => s.key === key);
+      if (section && section.hasNoAccess) {
+        modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
+
+        // TODO: Open modal for premium/access required
+        return;
+      }
+    }
+
     setOpenSections((prev) =>
       prev.includes(key)
         ? prev.filter((section) => section !== key)
@@ -40,49 +98,76 @@ export default function DiseaseDetailsPage() {
 
   useEffect(() => {
     if (data) {
-      if (data.introduction) {
-        if (data.introduction.preface?.length) {
+      if (isIntroductionObject(data.introduction)) {
+        const intro = data.introduction;
+        if (isStringArray(intro.preface) && intro.preface.length) {
           setIntroductionType("preface");
-        } else if (data.introduction.definition?.length) {
+        } else if (isStringArray(intro.definition) && intro.definition.length) {
           setIntroductionType("definition");
-        } else if (data.introduction.type?.length) {
+        } else if (isStringArray(intro.type) && intro.type.length) {
           setIntroductionType("type");
         }
       }
 
-      // Set treatmentType
-      if (data.treatment_description) {
-        if (data.treatment_description.plan?.length) {
-          setTreatmentType("plan");
-        } else if (data.treatment_description.prescription?.length) {
+      const treatmentParam = searchParams.get("treatment");
+      if (treatmentParam && isTreatmentObject(data.treatment_description)) {
+        setOpenSections(["treatment"]);
+        
+        const treatDesc = data.treatment_description;
+        if (treatmentParam === "prescription" && isStringArray(treatDesc.prescription) && treatDesc.prescription.length) {
           setTreatmentType("prescription");
-        } else if (data.treatment_description.order?.length) {
+        } else if (treatmentParam === "order" && isStringArray(treatDesc.order) && treatDesc.order.length) {
           setTreatmentType("order");
+        } else if (treatmentParam === "both") {
+          if (isStringArray(treatDesc.prescription) && treatDesc.prescription.length) {
+            setTreatmentType("prescription");
+          } else if (isStringArray(treatDesc.order) && treatDesc.order.length) {
+            setTreatmentType("order");
+          }
+        }
+      } else {
+        if (isTreatmentObject(data.treatment_description)) {
+          const treatDesc = data.treatment_description;
+          if (isStringArray(treatDesc.plan) && treatDesc.plan.length) {
+            setTreatmentType("plan");
+          } else if (isStringArray(treatDesc.prescription) && treatDesc.prescription.length) {
+            setTreatmentType("prescription");
+          } else if (isStringArray(treatDesc.order) && treatDesc.order.length) {
+            setTreatmentType("order");
+          }
         }
       }
 
-      // Set clinicalType
-      if (data.clinical_demonstration) {
-        if (data.clinical_demonstration.sign?.length) {
+      if (isClinicalObject(data.clinical_demonstration)) {
+        const clinical = data.clinical_demonstration;
+        if (isStringArray(clinical.sign) && clinical.sign.length) {
           setClinicalType("sign");
-        } else if (data.clinical_demonstration.symptom?.length) {
+        } else if (isStringArray(clinical.symptom) && clinical.symptom.length) {
           setClinicalType("symptom");
         }
       }
     }
-  }, [data]);
+  }, [data, searchParams]);
 
   if (isLoading) return <DiseaseDetailsSkeleton />;
   if (error || !data)
     return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
 
   const disease = data;
+  
+  // Safe checks for arrays
   const hasPrescriptionSection =
-    disease.treatment_description?.prescription?.length > 0;
-  const hasOrderSection = disease.treatment_description?.order?.length > 0;
-  const hasTreatmentMedications = disease.treatment?.length > 0;
+    isTreatmentObject(disease.treatment_description) &&
+    isStringArray(disease.treatment_description.prescription) &&
+    disease.treatment_description.prescription.length > 0;
+    
+  const hasOrderSection = 
+    isTreatmentObject(disease.treatment_description) &&
+    isStringArray(disease.treatment_description.order) &&
+    disease.treatment_description.order.length > 0;
+    
+  const hasTreatmentMedications = isDiseaseArray(disease.treatment) && disease.treatment.length > 0;
 
-  // Helper function to get images based on use_type
   const getImagesByUseType = (
     sectionKey: string,
     subType?: string
@@ -142,81 +227,95 @@ export default function DiseaseDetailsPage() {
     {
       key: "introduction",
       label: "معرفی",
+      hasNoAccess: isNoAccess(disease.introduction),
       content:
-        disease.introduction?.type?.length ||
-        disease.introduction?.preface?.length ||
-        disease.introduction?.definition?.length
-          ? "INTRODUCTION_COMPONENT"
-          : null,
-
+        isNoAccess(disease.introduction) ? "NO_ACCESS" :
+        (isIntroductionObject(disease.introduction) && (
+          (isStringArray(disease.introduction.type) && disease.introduction.type.length) ||
+          (isStringArray(disease.introduction.preface) && disease.introduction.preface.length) ||
+          (isStringArray(disease.introduction.definition) && disease.introduction.definition.length)
+        )) ? "INTRODUCTION_COMPONENT" : null,
     },
     {
       key: "treatment",
       label: "درمان",
+      hasNoAccess: isNoAccess(disease.treatment_description) || isNoAccess(disease.treatment),
       content:
-        disease.treatment_description?.plan?.length ||
-        disease.treatment_description?.order?.length ||
-        disease.treatment_description?.prescription?.length ||
-        disease.treatment?.length
+        isNoAccess(disease.treatment_description) || isNoAccess(disease.treatment) ? "NO_ACCESS" :
+        ((isTreatmentObject(disease.treatment_description) && (
+          (isStringArray(disease.treatment_description.plan) && disease.treatment_description.plan.length) ||
+          (isStringArray(disease.treatment_description.order) && disease.treatment_description.order.length) ||
+          (isStringArray(disease.treatment_description.prescription) && disease.treatment_description.prescription.length)
+        )) || (isDiseaseArray(disease.treatment) && disease.treatment.length))
           ? "TREATMENT_COMPONENT"
           : null,
-
     },
-
     {
       key: "epidemiology",
       label: "اپیدمیولوژی",
-      content: disease.epidemiology,
+      hasNoAccess: isNoAccess(disease.epidemiology),
+      content: isNoAccess(disease.epidemiology) ? "NO_ACCESS" : disease.epidemiology,
     },
     {
       key: "physiopathology",
       label: "فیزیوپاتولوژی و اتیولوژی",
-      content: disease.physiopathology,
+      hasNoAccess: isNoAccess(disease.physiopathology),
+      content: isNoAccess(disease.physiopathology) ? "NO_ACCESS" : disease.physiopathology,
     },
     {
       key: "risk_factor",
       label: "(Risk Factors)عوامل خطر",
-      content: disease.risk_factor?.length
-        ? disease.risk_factor.map((r) => `✓ ${r}`).join("<br/>")
-        : null,
+      hasNoAccess: hasNoAccess(disease.risk_factor),
+      content: hasNoAccess(disease.risk_factor) ? "NO_ACCESS" :
+        (isStringArray(disease.risk_factor) && disease.risk_factor.length
+          ? disease.risk_factor.map((r) => `✓ ${r}`).join("<br/>")
+          : null),
     },
     {
       key: "clinical",
       label: "تظاهرات بالینی",
+      hasNoAccess: isNoAccess(disease.clinical_demonstration),
       content:
-        disease.clinical_demonstration?.sign?.length ||
-        disease.clinical_demonstration?.symptom?.length
-          ? "CLINICAL_COMPONENT"
-          : null,
-
+        isNoAccess(disease.clinical_demonstration) ? "NO_ACCESS" :
+        (isClinicalObject(disease.clinical_demonstration) && (
+          (isStringArray(disease.clinical_demonstration.sign) && disease.clinical_demonstration.sign.length) ||
+          (isStringArray(disease.clinical_demonstration.symptom) && disease.clinical_demonstration.symptom.length)
+        )) ? "CLINICAL_COMPONENT" : null,
     },
     {
       key: "physical_exam",
       label: "معاینات فیزیکی",
-      content: disease.physical_exam,
+      hasNoAccess: isNoAccess(disease.physical_exam),
+      content: isNoAccess(disease.physical_exam) ? "NO_ACCESS" : disease.physical_exam,
     },
     {
       key: "paraclinic",
       label: "یافته‌های پاراکلینیکی",
-      content: disease.paraclinic_info?.length
-        ? disease.paraclinic_info.map((p) => `✓ ${p}`).join("<br/>")
-        : null,
+      hasNoAccess: hasNoAccess(disease.paraclinic_info),
+      content: hasNoAccess(disease.paraclinic_info) ? "NO_ACCESS" :
+        (isStringArray(disease.paraclinic_info) && disease.paraclinic_info.length
+          ? disease.paraclinic_info.map((p) => `✓ ${p}`).join("<br/>")
+          : null),
     },
     {
       key: "differential",
       label: "تشخیص افتراقی",
+      hasNoAccess: hasNoAccess(disease.differential_diagnosis_description) || hasNoAccess(disease.differential_diagnosis),
       content: (() => {
-        const hasDescriptions =
-          disease.differential_diagnosis_description?.length;
-        const hasRelatedDiseases = disease.differential_diagnosis?.length;
+        if (hasNoAccess(disease.differential_diagnosis_description) || hasNoAccess(disease.differential_diagnosis)) {
+          return "NO_ACCESS";
+        }
+
+        const hasDescriptions = isStringArray(disease.differential_diagnosis_description) && disease.differential_diagnosis_description.length;
+        const hasRelatedDiseases = isDiseaseArray(disease.differential_diagnosis) && disease.differential_diagnosis.length;
 
         if (!hasDescriptions && !hasRelatedDiseases) return null;
 
         return (
           <div className={styles.differentialContent}>
-            {hasDescriptions ? (
+            {hasDescriptions && isStringArray(disease.differential_diagnosis_description) ? (
               <div className={styles.differentialDescription}>
-                {disease.differential_diagnosis_description?.map(
+                {disease.differential_diagnosis_description.map(
                   (description, index) => (
                     <p key={index}>✓ {description}</p>
                   )
@@ -224,9 +323,9 @@ export default function DiseaseDetailsPage() {
               </div>
             ) : null}
 
-            {hasRelatedDiseases ? (
+            {hasRelatedDiseases && isDiseaseArray(disease.differential_diagnosis) ? (
               <div className={styles.differentialTags}>
-                {disease.differential_diagnosis?.map((diffDisease) => (
+                {disease.differential_diagnosis.map((diffDisease) => (
                   <Link
                     key={diffDisease.id}
                     href={`/disease/${diffDisease.id}`}
@@ -241,48 +340,63 @@ export default function DiseaseDetailsPage() {
         );
       })(),
     },
-
     {
       key: "prognosis",
       label: "پیش‌آگهی",
-      content: disease.prognosis,
+      hasNoAccess: isNoAccess(disease.prognosis),
+      content: isNoAccess(disease.prognosis) ? "NO_ACCESS" : disease.prognosis,
     },
     {
       key: "side_effect",
       label: "عوارض",
-      content: disease.side_effect,
+      hasNoAccess: isNoAccess(disease.side_effect),
+      content: isNoAccess(disease.side_effect) ? "NO_ACCESS" : disease.side_effect,
     },
-
     {
       key: "diagnosis",
       label: "تشخیص",
-      content: disease.diagnosis,
+      hasNoAccess: isNoAccess(disease.diagnosis),
+      content: isNoAccess(disease.diagnosis) ? "NO_ACCESS" : disease.diagnosis,
     },
     {
       key: "prevention",
       label: "پیشگیری",
-      content: disease.prevention,
+      hasNoAccess: isNoAccess(disease.prevention),
+      content: isNoAccess(disease.prevention) ? "NO_ACCESS" : disease.prevention,
     },
     {
       key: "complementary",
       label: "طب مکمل",
-      content: disease.complementary_medicine,
+      hasNoAccess: isNoAccess(disease.complementary_medicine),
+      content: isNoAccess(disease.complementary_medicine) ? "NO_ACCESS" : disease.complementary_medicine,
     },
     {
       key: "point",
       label: "نکات",
-      content: disease.point?.length
-        ? disease.point.map((p) => `✓ ${p}`).join("<br/>")
-        : null,
+      hasNoAccess: hasNoAccess(disease.point),
+      content: hasNoAccess(disease.point) ? "NO_ACCESS" :
+        (isStringArray(disease.point) && disease.point.length
+          ? disease.point.map((p) => `✓ ${p}`).join("<br/>")
+          : null),
     },
     {
       key: "gallery",
       label: "گالری",
+      hasNoAccess: false,
       content: galleryImages.length ? "GALLERY_COMPONENT" : null,
     },
   ];
 
+  const treatmentParam = searchParams.get("treatment");
+  const showOnlyTreatment = !!treatmentParam;
+
   const availableSections = allSections.filter((section) => {
+    if (showOnlyTreatment) {
+      return section.key === "treatment";
+    }
+    
+    // Show section if it has NO_ACCESS or has content
+    if (section.content === "NO_ACCESS") return true;
     if (section.content === null) return false;
     if (typeof section.content === "string") {
       return section.content.trim() !== "";
@@ -292,7 +406,6 @@ export default function DiseaseDetailsPage() {
 
   return (
     <div className={styles.container}>
-      {/* --- Header --- */}
       <div className={styles.header}>
         <div className={styles.top}>
           {disease.title_en}
@@ -318,9 +431,8 @@ export default function DiseaseDetailsPage() {
         <div className={styles.bottom}>{disease.title_fa}</div>
       </div>
 
-      {/* --- Accordion sections --- */}
       <div className={styles.sections}>
-        {availableSections.map(({ key, label, content }) => (
+        {availableSections.map(({ key, label, content, hasNoAccess: sectionHasNoAccess }) => (
           <div key={key}>
             <div className={styles.section}>
               <div
@@ -340,12 +452,12 @@ export default function DiseaseDetailsPage() {
               </div>
             </div>
 
-            {openSections.includes(key) && (
+            {openSections.includes(key) && content !== "NO_ACCESS" && (
               <div className={styles.sectionContent}>
-                {content === "INTRODUCTION_COMPONENT" ? (
+                {content === "INTRODUCTION_COMPONENT" && isIntroductionObject(disease.introduction) ? (
                   <div className={styles.directionContainer}>
                     <div className={styles.directionTabs}>
-                      {disease.introduction?.preface?.length ? (
+                      {isStringArray(disease.introduction.preface) && disease.introduction.preface.length ? (
                         <div
                           className={`${styles.directionTab} ${
                             introductionType === "preface" ? styles.active : ""
@@ -356,7 +468,7 @@ export default function DiseaseDetailsPage() {
                         </div>
                       ) : null}
 
-                      {disease.introduction?.definition?.length ? (
+                      {isStringArray(disease.introduction.definition) && disease.introduction.definition.length ? (
                         <div
                           className={`${styles.directionTab} ${
                             introductionType === "definition"
@@ -369,7 +481,7 @@ export default function DiseaseDetailsPage() {
                         </div>
                       ) : null}
 
-                      {disease.introduction?.type?.length ? (
+                      {isStringArray(disease.introduction.type) && disease.introduction.type.length ? (
                         <div
                           className={`${styles.directionTab} ${
                             introductionType === "type" ? styles.active : ""
@@ -383,17 +495,20 @@ export default function DiseaseDetailsPage() {
 
                     <div className={styles.switchContent}>
                       {introductionType === "type" &&
-                        disease.introduction?.type?.map((item, index) => (
+                        isStringArray(disease.introduction.type) &&
+                        disease.introduction.type.map((item, index) => (
                           <p key={index}>✓ {item}</p>
                         ))}
 
                       {introductionType === "preface" &&
-                        disease.introduction?.preface?.map((item, index) => (
+                        isStringArray(disease.introduction.preface) &&
+                        disease.introduction.preface.map((item, index) => (
                           <p key={index}>✓ {item}</p>
                         ))}
 
                       {introductionType === "definition" &&
-                        disease.introduction?.definition?.map((item, index) => (
+                        isStringArray(disease.introduction.definition) &&
+                        disease.introduction.definition.map((item, index) => (
                           <p key={index}>✓ {item}</p>
                         ))}
 
@@ -405,9 +520,8 @@ export default function DiseaseDetailsPage() {
                               "introduction",
                               introductionType
                             ).map((f) => (
-                              <div className={styles.fileImageWrapper}>
+                              <div key={f.id} className={styles.fileImageWrapper}>
                                 <img
-                                  key={f.id}
                                   src={f.file}
                                   alt="file"
                                   className={styles.fileImage}
@@ -419,13 +533,11 @@ export default function DiseaseDetailsPage() {
                       </>
                     </div>
                   </div>
-                ) : content === "TREATMENT_COMPONENT" ? (
+                ) : content === "TREATMENT_COMPONENT" && isTreatmentObject(disease.treatment_description) ? (
                   <>
-                    {/* Render images for treatment section */}
-
                     <div className={styles.directionContainer}>
                       <div className={styles.directionTabs}>
-                        {disease.treatment_description?.plan?.length ? (
+                        {isStringArray(disease.treatment_description.plan) && disease.treatment_description.plan.length ? (
                           <div
                             className={`${styles.directionTab} ${
                               treatmentType === "plan" ? styles.active : ""
@@ -436,7 +548,7 @@ export default function DiseaseDetailsPage() {
                           </div>
                         ) : null}
 
-                        {disease.treatment_description?.prescription?.length ? (
+                        {isStringArray(disease.treatment_description.prescription) && disease.treatment_description.prescription.length ? (
                           <div
                             className={`${styles.directionTab} ${
                               treatmentType === "prescription"
@@ -447,14 +559,14 @@ export default function DiseaseDetailsPage() {
                           >
                             <>
                               نسخه{" "}
-                              {disease.treatment_description?.order?.length
+                              {isStringArray(disease.treatment_description.order) && disease.treatment_description.order.length
                                 ? ""
                                 : "و اوردر "}
                             </>
                           </div>
                         ) : null}
 
-                        {disease.treatment_description?.order?.length ? (
+                        {isStringArray(disease.treatment_description.order) && disease.treatment_description.order.length ? (
                           <div
                             className={`${styles.directionTab} ${
                               treatmentType === "order" ? styles.active : ""
@@ -462,8 +574,7 @@ export default function DiseaseDetailsPage() {
                             onClick={() => setTreatmentType("order")}
                           >
                             <>
-                              {disease.treatment_description?.prescription
-                                ?.length
+                              {isStringArray(disease.treatment_description.prescription) && disease.treatment_description.prescription.length
                                 ? ""
                                 : "نسخه و "}
                             </>
@@ -474,12 +585,14 @@ export default function DiseaseDetailsPage() {
 
                       <div className={styles.switchContent}>
                         {treatmentType === "plan" &&
-                          disease.treatment_description?.plan?.map(
+                          isStringArray(disease.treatment_description.plan) &&
+                          disease.treatment_description.plan.map(
                             (item, index) => <p key={index}>✓ {item}</p>
                           )}
 
                         {treatmentType === "prescription" &&
-                          disease.treatment_description?.prescription?.map(
+                          isStringArray(disease.treatment_description.prescription) &&
+                          disease.treatment_description.prescription.map(
                             (item, index) => (
                               <p
                                 className={styles.prescriptionItem}
@@ -491,9 +604,10 @@ export default function DiseaseDetailsPage() {
                           )}
                         {treatmentType === "prescription" &&
                           hasPrescriptionSection &&
-                          hasTreatmentMedications && (
+                          hasTreatmentMedications &&
+                          isDiseaseArray(disease.treatment) && (
                             <div className={styles.treatmentTags}>
-                              {disease.treatment?.map((med) => (
+                              {disease.treatment.map((med) => (
                                 <Link
                                   key={med.id}
                                   href={`/medicine/${med.id}`}
@@ -506,15 +620,17 @@ export default function DiseaseDetailsPage() {
                           )}
 
                         {treatmentType === "order" &&
-                          disease.treatment_description?.order?.map(
+                          isStringArray(disease.treatment_description.order) &&
+                          disease.treatment_description.order.map(
                             (item, index) => <p key={index}>✓ {item}</p>
                           )}
                         {treatmentType === "order" &&
                           !hasPrescriptionSection &&
                           hasOrderSection &&
-                          hasTreatmentMedications && (
+                          hasTreatmentMedications &&
+                          isDiseaseArray(disease.treatment) && (
                             <div className={styles.treatmentTags}>
-                              {disease.treatment?.map((med) => (
+                              {disease.treatment.map((med) => (
                                 <Link
                                   key={med.id}
                                   href={`/medicine/${med.id}`}
@@ -530,9 +646,8 @@ export default function DiseaseDetailsPage() {
                           <div className={styles.files}>
                             {getImagesByUseType("treatment", treatmentType).map(
                               (f) => (
-                                <div className={styles.fileImageWrapper}>
+                                <div key={f.id} className={styles.fileImageWrapper}>
                                   <img
-                                    key={f.id}
                                     src={f.file}
                                     alt="file"
                                     className={styles.fileImage}
@@ -545,13 +660,11 @@ export default function DiseaseDetailsPage() {
                       </div>
                     </div>
                   </>
-                ) : content === "CLINICAL_COMPONENT" ? (
+                ) : content === "CLINICAL_COMPONENT" && isClinicalObject(disease.clinical_demonstration) ? (
                   <>
-                    {/* Render images for clinical section */}
-
                     <div className={styles.directionContainer}>
                       <div className={styles.directionTabs}>
-                        {disease.clinical_demonstration?.sign?.length ? (
+                        {isStringArray(disease.clinical_demonstration.sign) && disease.clinical_demonstration.sign.length ? (
                           <div
                             className={`${styles.directionTab} ${
                               clinicalType === "sign" ? styles.active : ""
@@ -562,7 +675,7 @@ export default function DiseaseDetailsPage() {
                           </div>
                         ) : null}
 
-                        {disease.clinical_demonstration?.symptom?.length ? (
+                        {isStringArray(disease.clinical_demonstration.symptom) && disease.clinical_demonstration.symptom.length ? (
                           <div
                             className={`${styles.directionTab} ${
                               clinicalType === "symptom" ? styles.active : ""
@@ -576,12 +689,14 @@ export default function DiseaseDetailsPage() {
 
                       <div className={styles.switchContent}>
                         {clinicalType === "sign" &&
-                          disease.clinical_demonstration?.sign?.map(
+                          isStringArray(disease.clinical_demonstration.sign) &&
+                          disease.clinical_demonstration.sign.map(
                             (item, index) => <p key={index}>{item}</p>
                           )}
 
                         {clinicalType === "symptom" &&
-                          disease.clinical_demonstration?.symptom?.map(
+                          isStringArray(disease.clinical_demonstration.symptom) &&
+                          disease.clinical_demonstration.symptom.map(
                             (item, index) => <p key={index}>{item}</p>
                           )}
 
@@ -590,9 +705,8 @@ export default function DiseaseDetailsPage() {
                           <div className={styles.files}>
                             {getImagesByUseType("clinical", clinicalType).map(
                               (f) => (
-                                <div className={styles.fileImageWrapper}>
+                                <div key={f.id} className={styles.fileImageWrapper}>
                                   <img
-                                    key={f.id}
                                     src={f.file}
                                     alt="file"
                                     className={styles.fileImage}
@@ -619,15 +733,12 @@ export default function DiseaseDetailsPage() {
                   </div>
                 ) : typeof content === "string" ? (
                   <>
-                    {/* Render images for other sections */}
-
                     <div dangerouslySetInnerHTML={{ __html: content }} />
                     {getImagesByUseType(key).length > 0 && (
                       <div className={styles.files}>
                         {getImagesByUseType(key).map((f) => (
-                          <div className={styles.fileImageWrapper}>
+                          <div key={f.id} className={styles.fileImageWrapper}>
                             <img
-                              key={f.id}
                               src={f.file}
                               alt="file"
                               className={styles.fileImage}
@@ -639,7 +750,6 @@ export default function DiseaseDetailsPage() {
                   </>
                 ) : (
                   <>
-                    {/* Render images for other sections */}
                     {getImagesByUseType(key).length > 0 && (
                       <div className={styles.files}>
                         {getImagesByUseType(key).map((f) => (

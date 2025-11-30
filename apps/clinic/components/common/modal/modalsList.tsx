@@ -6,3 +6,4 @@ export const ModalsList: any = {
   ...SharedModulesModalList,
   [ModalTypes.EXAM_DISCOUNT_PLANS]: ClinicPlansModal,
 };
+
