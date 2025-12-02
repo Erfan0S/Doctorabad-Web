@@ -19,6 +19,8 @@ const font = localFont({
   display: "swap",
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = homeMetadata;
 export const viewPort: Viewport = homeViewPort;
 

@@ -21,6 +21,8 @@ const font = localFont({
   variable: "--font-iran-sans",
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = homeMetadata;
 export const viewPort: Viewport = homeViewPort;
 
