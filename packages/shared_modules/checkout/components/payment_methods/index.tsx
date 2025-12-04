@@ -19,6 +19,7 @@ import { api } from "../../../api/Api";
 import { ShippingMethod } from "@repo/core/types/cart";
 import { toast } from "react-toastify";
 import { calcPriceToPay } from "../../utils/calcPriceToPay";
+import { SnapPayIcon } from "../../../assets";
 
 type Props = {
   payInfo: CartPayInfo;
@@ -63,13 +64,13 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     },
     {
       id: PaymentProviders.SNAPP_PAY,
-      title: "پرداخت اقساطی",
+      title: "پرداخت اقساطی اسنپ‌پی",
       description:
-        "پرداخت با اسنپ‌پی در 4 قسط بدون کارمزد" +
+        "پرداخت اقساطی اسنپ‌پی" +
         (priceToPay >= 4000
-          ? `، ماهانه ${priceFormatter(priceToPay / 4)}تومان`
+          ? `\n4 قسط ماهیانه ${priceFormatter(priceToPay / 4)}تومان\n(بدون کارمزد)`
           : ""),
-      pic_url: snappayImage,
+      icon: <SnapPayIcon />,
       more_info_url: "https://doctorabad.com/mag/snapppay",
       disabled: !activeSnappay,
       async onClick() {

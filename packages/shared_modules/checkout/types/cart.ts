@@ -31,7 +31,8 @@ export type PaymentMethodType = {
   id: PaymentProviders;
   title: string;
   description: string;
-  pic_url: string | StaticImageData;
+  pic_url?: string | StaticImageData;
+  icon?: React.ReactNode;
   more_info_url?: string;
   disabled?: boolean;
   onClick?: () => void;
