@@ -33,11 +33,13 @@ const CourseListPage = ({ type }: Props) => {
       {isLoading ? (
         <Loading />
       ) : (
-        <CourseList
-          courses={data}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-        />
+        <div className="container">
+          <CourseList
+            courses={data}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
+        </div>
       )}
     </div>
   );
