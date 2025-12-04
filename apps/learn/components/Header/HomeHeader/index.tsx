@@ -14,7 +14,7 @@ function HomeHeader({ haveSearch = true }: Props) {
     <MobileHomeHeader tabData={MainTabsData} type={Apps.LEARN}>
       {haveSearch && (
         <div className={styles.childContainer}>
-          <SearchBar />
+          <SearchBar haveFilterButton={true} />
         </div>
       )}
     </MobileHomeHeader>
