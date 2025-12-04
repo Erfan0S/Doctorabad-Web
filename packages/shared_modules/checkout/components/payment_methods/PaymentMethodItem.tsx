@@ -34,12 +34,16 @@ function PaymentMethodItem({
         <Loading />
       ) : (
         <>
-          <Image
-            src={payemtMethod.pic_url}
-            alt={payemtMethod.title}
-            width={50}
-            height={50}
-          />
+          {payemtMethod.icon ? (
+            payemtMethod.icon
+          ) : (
+            <Image
+              src={payemtMethod.pic_url || ""}
+              alt={payemtMethod.title}
+              width={50}
+              height={50}
+            />
+          )}
           <div className={style.infoWrapper}>
             <span>{payemtMethod.title}</span>
             <span>{payemtMethod.description}</span>
