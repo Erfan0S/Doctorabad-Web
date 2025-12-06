@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
 import styles from "./questionItemInput.module.scss";
-import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 import { QuestionTypes } from "@/types/exam";
 import CheckIcon from "@/assets/svg/check";
 import XIcon from "@/assets/svg/x";
+import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   name: string;
