@@ -6,9 +6,9 @@ import { QuestionOptionType, QuestionStatus } from "../types/exam";
 
 export type QuestionsAnswerContextType = {
   options: QuestionOptionType[];
-  userAnswer?: string;
+  userAnswer?: string[];
   status: QuestionStatus;
-  answer?: string;
+  answer?: string[];
   lesson_id: number;
 };
 
@@ -41,7 +41,6 @@ const QuestionsAnswersProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [lessonIds, setLessonIds] = useState<string[]>();
   const [answers, setAnswers] = useState<
     Record<string, QuestionsAnswerContextType>
   >({});
@@ -62,19 +61,29 @@ const QuestionsAnswersProvider = ({
 
   const getCorrectAnswers = useCallback(() => {
     return Object.values(answers).filter(({ userAnswer, answer }) =>
-      !!userAnswer && !!answer ? userAnswer === answer : false
+      !!userAnswer && !!answer
+        ? answer.filter((a) => userAnswer.includes(a))
+        : false
     );
   }, [answers]);
 
   const getWrongAnswers = useCallback(() => {
     return Object.values(answers).filter(({ userAnswer, answer }) =>
-      !!userAnswer && !!answer ? userAnswer !== answer : false
+      !!userAnswer && !!answer
+        ? answer.filter((a) => !userAnswer.includes(a))
+        : false
     );
   }, [answers]);
 
   const getUnAnsweredQuestions = useCallback(() => {
-    return Object.values(answers).filter(({ userAnswer }) => !userAnswer);
+    return Object.values(answers).filter(
+      ({ userAnswer }) => !userAnswer || userAnswer.length === 0
+    );
   }, [answers]);
+
+  // useEffect(() => {
+  //   console.log("answers", answers);
+  // }, [answers]);
 
   return (
     <QuestionsAnswersContext.Provider

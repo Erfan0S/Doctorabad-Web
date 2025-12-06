@@ -81,7 +81,9 @@ const AnswerSheetQuestion = ({
           <div
             key={index}
             className={
-              option.id.toString() === question.userAnswer ? style.selected : ""
+              question.userAnswer?.includes(option.id.toString())
+                ? style.selected
+                : ""
             }
           />
         ))}
