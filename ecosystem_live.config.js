@@ -20,16 +20,16 @@ module.exports = {
                 PORT: 3020 // Choose different port for each app
             }
         },
-        // {
-        //     name: "live-learn",
-        //     script: "npm",
-        //     args: "start",
-        //     cwd: "/var/www/web-site/web-doctorabad/apps/learn",
-        //     env: {
-        //         NODE_ENV: "production",
-        //         PORT: 3030
-        //     }
-        // },
+        {
+            name: "live-learn",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/web-site/web-doctorabad/apps/learn",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3030
+            }
+        },
         {
             name: "live-exam",
             script: "npm",
