@@ -4,7 +4,12 @@ import styles from "./questionItem.module.scss";
 import { BugIcon, InfoIcon } from "@repo/shared_modules/icons";
 import { Button, FavoriteHeartIcon } from "@repo/shared_modules/components";
 
-import { ExamStatus, QuestionStatus, QuestionType } from "../../../types/exam";
+import {
+  ExamStatus,
+  QuestionStatus,
+  QuestionType,
+  QuestionTypes,
+} from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import QuestionInput from "./questionInputs/questionItemInput";
@@ -70,7 +75,7 @@ type Props = {
   mobileMode?: boolean;
   isFavorite?: boolean;
   status?: ExamStatus;
-  initUserAnswer?: string;
+  initUserAnswer?: string[];
 };
 
 function QuestionItem({
@@ -89,7 +94,7 @@ function QuestionItem({
   const [questionStatus, setQuestionStatus] = useState<QuestionStatus>(
     QuestionStatus.DEFAULT
   );
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(
+  const [selectedAnswer, setSelectedAnswer] = useState<string[] | null>(
     initUserAnswer || null
   );
   const { addAnswer } = useContext(QuestionsAnswersContext);
@@ -103,8 +108,8 @@ function QuestionItem({
         userAnswer: selectedAnswer || undefined,
         status: questionStatus,
         answer: question.options
-          .find((option) => option.is_correct)
-          ?.id.toString(),
+          .filter((option) => option.is_correct)
+          .map((option) => option.id.toString()),
         lesson_id: question.lesson_id,
       },
       question.id
@@ -214,9 +219,19 @@ function QuestionItem({
             key={option.id}
             status={status}
             onChange={(e) => {
-              setSelectedAnswer(e.target.id);
+              setSelectedAnswer((prev) => {
+                if (question.type === QuestionTypes.SingleSelect || !prev)
+                  return [e.target.id];
+
+                if (prev?.includes(e.target.id)) {
+                  return prev.filter((id) => id !== e.target.id);
+                } else {
+                  return [...prev, e.target.id];
+                }
+              });
             }}
-            checked={selectedAnswer === option.id.toString()}
+            checked={selectedAnswer?.includes(option.id.toString())}
+            type={question.type}
           />
         ))}
         {question.files.map((file, i) => (
