@@ -1,12 +1,14 @@
 import { toast } from "react-toastify";
 import styles from "./questionItemInput.module.scss";
-import { ExamStatus } from "../../../../types/exam";
+import { ExamStatus, QuestionTypes } from "../../../../types/exam";
+import CheckIcon from "../../../../assets/svg/check";
+import XIcon from "../../../../assets/svg/x";
 
 type Props = {
   name: string;
   id: string;
   title: string;
-  type?: "radio" | "checkbox" | "text";
+  type?: QuestionTypes;
   isCorrect?: boolean;
   showAnswer?: boolean;
   status?: ExamStatus;
@@ -20,7 +22,7 @@ const QuestionInput = ({
   title,
   showAnswer,
   isCorrect,
-  type = "radio",
+  type = QuestionTypes.SingleSelect,
   status,
   onChange,
   checked,
@@ -31,7 +33,7 @@ const QuestionInput = ({
       : styles.radioWrong
     : "";
 
-  if (type === "text") {
+  if (type === QuestionTypes.Text) {
     return <input type="text" name={name} id={id} />;
   }
 
@@ -48,17 +50,21 @@ const QuestionInput = ({
     onChange && onChange(e);
   };
 
+  const inputType = type === QuestionTypes.SingleSelect ? "radio" : "checkbox";
+
   return (
-    <div className={`${styles.radioWrapper} ${showAnswerClass}`}>
+    <div
+      className={`${styles.radioWrapper} ${showAnswerClass} ${type === QuestionTypes.MultipleSelect ? styles.radioMultipleWrapper : null}`}
+    >
       <input
-        type={type}
+        type={inputType}
         name={name}
         id={id}
         onChange={onClickHandler}
         checked={checked}
       />
       <label htmlFor={id} className={styles.radio}>
-        <div />
+        {showAnswer ? isCorrect ? <CheckIcon /> : <XIcon /> : null}
       </label>
       <label htmlFor={id} className={styles.radioLabel}>
         {title}

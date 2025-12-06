@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import QuestionItem from "./questionItem";
 import {
   ExamDetailType,
@@ -89,6 +89,15 @@ function Questions({
   //     }
   //   });
   // }
+
+  // useEffect(() => {
+  //   // console.log("questions", questions);
+  //   questions.forEach((question, i) => {
+  //     if (question.type != 1) {
+  //       console.log("question_" + i, question);
+  //     }
+  //   });
+  // }, [questions]);
 
   return (
     <div
