@@ -178,6 +178,31 @@
   height: 100%;
 }
 
+/* iOS Fullscreen Fix */
+.videoContainer {
+  :global {
+    .video-js.vjs-fullscreen {
+      video {
+        object-fit: contain !important;
+      }
+    }
+
+    /* iOS Safari fullscreen specific */
+    @supports (-webkit-touch-callout: none) {
+      .video-js.vjs-fullscreen {
+        width: 100% !important;
+        height: 100% !important;
+
+        video {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: contain !important;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 425px) {
   .videoContainer {
     :global {
