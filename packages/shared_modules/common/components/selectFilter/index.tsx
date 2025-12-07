@@ -28,6 +28,7 @@ export const SelectFilter = ({
   singleSelection,
   app,
   closeModal,
+  showTitle = true,
 }: FilterModalType & Props) => {
   const [searchInList, setSearchInList] = useState("");
   const [checks, setChecks] = useState<Record<string, boolean>>({});
@@ -181,28 +182,34 @@ export const SelectFilter = ({
 
   return (
     <div className={`${style.archiveFiltersCheckboxList} ${style[app]}`}>
-      {items.length > 10 && (
-        <input
-          value={searchInList}
-          onChange={(e) => setSearchInList(e.target.value)}
-          placeholder={`جستجو در ${title}`}
-        />
+      {showTitle && (
+        <div className={style.archiveFiltersCheckboxListTitle}>{title}</div>
       )}
-      <FilterItmeList
-        items={filteredItems}
-        level={0}
-        checks={checks}
-        onCheck={onCheck}
-        queryKey={queryKey || ""}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
-      {!singleSelection && (
-        <div className={style.submitFilters}>
-          <Button type="button" app={app} onClick={onSubmit}>
-            تایید
-          </Button>
-          {/* <Button
+      <div
+        className={`${style.archiveFiltersCheckboxListContent} ${singleSelection ? style.archiveFiltersCheckboxListContentSingleSelection : ""}`}
+      >
+        {items.length > 10 && (
+          <input
+            value={searchInList}
+            onChange={(e) => setSearchInList(e.target.value)}
+            placeholder={`جستجو در ${title}`}
+          />
+        )}
+        <FilterItmeList
+          items={filteredItems}
+          level={0}
+          checks={checks}
+          onCheck={onCheck}
+          queryKey={queryKey || ""}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+        {!singleSelection && (
+          <div className={style.submitFilters}>
+            <Button type="button" app={app} onClick={onSubmit}>
+              تایید
+            </Button>
+            {/* <Button
             type="button"
             app={app}
             onClick={() => {
@@ -214,8 +221,9 @@ export const SelectFilter = ({
           >
             حذف فیلترها
           </Button> */}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

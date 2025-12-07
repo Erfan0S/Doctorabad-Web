@@ -9,6 +9,7 @@ export type SelectFilterItems = {
 export type FilterModalType = {
   title: string;
   items: SelectFilterItems[];
+  showTitle?: boolean;
   queryKey?: string;
   app: Apps;
   singleSelection?: boolean;
