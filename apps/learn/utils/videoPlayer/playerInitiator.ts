@@ -2,12 +2,9 @@ import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import "@videojs/http-streaming";
 import "videojs-contrib-quality-levels";
-import "videojs-landscape-fullscreen";
+import "videojs-mobile-ui";
 
-import {
-  VideoConfig,
-  VideoPlayerProps,
-} from "@/components/course/video-player";
+import { VideoConfig } from "@/components/course/video-player";
 import TitleBar from "@/components/course/video-player/videoPlayerCustomElements/TitleBar";
 
 // @ts-ignore
@@ -40,6 +37,9 @@ export class PlayerInitiator {
     return new Promise((resolve, reject) => {
       const videoElement = document.createElement("video-js");
       videoElement.classList.add("vjs-big-play-centered");
+      // ✅ Add playsinline attribute for iOS
+      videoElement.setAttribute("playsinline", "");
+      videoElement.setAttribute("webkit-playsinline", "");
       this.container.appendChild(videoElement);
 
       this.player = videojs(videoElement, {
@@ -59,6 +59,8 @@ export class PlayerInitiator {
             // DASH Support
             overrideNative: true,
           },
+          // ✅ Enable native controls on iOS for proper fullscreen
+          nativeControlsForTouch: false,
         },
 
         playbackRates: [0.5, 1, 1.5, 2],
@@ -75,15 +77,36 @@ export class PlayerInitiator {
         },
         sources: PlayerInitiator.getSources(this.config),
       });
+
+      // ✅ Mobile UI Plugin (handles iOS fullscreen properly)
       // @ts-ignore
-      this.player.landscapeFullscreen({
+      this.player.mobileUi({
         fullscreen: {
-          enterOnRotate: false, // Don't auto-enter fullscreen on rotation
-          exitOnRotate: false, // Don't auto-exit fullscreen on rotation
-          alwaysInLandscapeMode: true, // ✅ FORCE landscape when entering fullscreen
-          iOS: true, // Use fake fullscreen on iOS for custom controls
+          enterOnRotate: true, // Enter fullscreen when device rotates to landscape
+          exitOnRotate: true, // Exit fullscreen when device rotates to portrait
+          lockOnRotate: true, // Lock orientation in fullscreen
+          iOS: true, // Enable iOS-specific handling
+        },
+        touchControls: {
+          seekSeconds: 10, // Double-tap left/right to skip 10 seconds
+          tapTimeout: 300, // Tap sensitivity
+          disableOnEnd: false, // Keep controls active when video ends
         },
       });
+
+      // ✅ Add iOS-specific fullscreen handling
+      if (videojs.browser.IS_IOS || videojs.browser.IS_SAFARI) {
+        this.player.tech_.on("fullscreenchange", () => {
+          if (this.player!.isFullscreen()) {
+            // Force landscape orientation on iOS fullscreen
+            const videoEl = this.player!.el().querySelector("video");
+            if (videoEl) {
+              videoEl.style.objectFit = "contain";
+            }
+          }
+        });
+      }
+
       this.player.ready(() => {
         // @ts-ignore
         this.qualityLevels = this.player.qualityLevels();
