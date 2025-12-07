@@ -1,17 +1,23 @@
 @import "@/assets/styles/variables";
 @import "@/assets/styles/functions";
 
+html .searchFormInputWithFilterButton {
+  flex: 0 0 calc(100% - 92px);
+  width: calc(100% - 92px);
+}
+
 .search {
   position: relative;
   width: 100%;
   margin-top: 10px;
+  padding: 0 10px;
   &Form {
     display: flex;
     align-items: center;
     &Input {
       position: relative;
-      flex: 0 0 calc(100% - 92px);
-      width: calc(100% - 92px);
+      flex: 1;
+      width: 100%;
       input {
         position: relative;
         line-height: 36px;
@@ -198,6 +204,10 @@
 }
 
 @media (max-width: 768px) {
+  html .searchFormInputWithFilterButton {
+    flex: 0 0 calc(100% - 92px);
+    width: calc(100% - 92px);
+  }
   .search {
     &Form {
       justify-content: space-between;
@@ -206,8 +216,8 @@
         width: 100%;
       }
       &Input {
-        flex: 0 0 calc(100% - 92px);
-        width: calc(100% - 92px);
+        flex: 1;
+        width: 100%;
         input {
           padding: 0 space(2);
         }
@@ -241,14 +251,18 @@
 }
 
 @media (max-width: 576px) {
+  html .searchFormInputWithFilterButton {
+    flex: 0 0 calc(100% - 92px);
+    width: calc(100% - 92px);
+  }
   .search {
     &Form {
       input {
         width: 100%;
       }
       &Input {
-        flex: 0 0 calc(100% - 92px);
-        width: calc(100% - 92px);
+        flex: 1;
+        width: 100%;
         input {
           padding: 0 space(2);
         }

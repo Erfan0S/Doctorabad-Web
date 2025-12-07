@@ -1,3 +1,6 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
 .container {
   max-width: 90vw;
   width: 500px;
@@ -7,7 +10,7 @@
 }
 
 .header {
-  background-color: #ff0000;
+  background-color: $red;
   color: white;
   padding: 16px;
   text-align: right;

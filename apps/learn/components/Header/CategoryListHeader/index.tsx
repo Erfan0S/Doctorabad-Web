@@ -23,14 +23,15 @@ const CategoryListHeader = ({ title }: Props) => {
       title={title}
       app={Apps.LEARN}
       children={
-        <Accordion
-          title="نمایش براساس..."
-          className={styles.filter}
-          items={filterData}
-          queryKey="sort"
-          singleSelection={true}
-          app={Apps.LEARN}
-        />
+        <div className={styles.filterWrapper}>
+          <Accordion
+            title="نمایش براساس..."
+            items={filterData}
+            queryKey="sort"
+            singleSelection={true}
+            app={Apps.LEARN}
+          />
+        </div>
       }
     />
   );

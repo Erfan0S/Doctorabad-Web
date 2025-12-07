@@ -32,12 +32,12 @@ const ProviderPageContent = ({
   switch (tab) {
     case ProviderTabs.COURSES:
       return (
-        <div>
+        <div className="container">
           <InfiniteScroll
             pageStart={1}
             loadMore={fetchNextPage}
             hasMore={hasNextPage}
-            loader={<Loading size={36} key={0} app={Apps.LEARN} />}
+            loader={<Loading key={0} app={Apps.LEARN} />}
           >
             <StaticCourseList courses={courses} />
           </InfiniteScroll>

@@ -29,6 +29,7 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { toast } from "react-toastify";
 import { PreventContext } from "@repo/shared_modules/components";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const CourseTabsComponents = {
   [CourseTab.LESSONS]: CourseContent,
@@ -138,6 +139,10 @@ const Course = ({ course }: Props) => {
     typeof window !== "undefined" && window.innerWidth <= 768;
 
   const onLessonClick = (lesson: Lesson) => {
+    if (!isUserLoggedIn(true)) {
+      modalActions.addModal(ModalTypes.REGISTER);
+      return;
+    }
     if (course.user_has_access && !course.only_watchable_on_app) {
       setSuggestedCurrentTime(null);
       setCurrentLeasson(lesson);

@@ -8,7 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
-const SearchBar = () => {
+type Props = {
+  haveFilterButton?: boolean;
+};
+
+const SearchBar = ({ haveFilterButton }: Props) => {
   const [searchText, setSearchText] = useState("");
   const params = useSearchParams();
   const router = useRouter();
@@ -40,7 +44,9 @@ const SearchBar = () => {
   return (
     <div className={`${style.search} search-bar`}>
       <div className={style.searchForm}>
-        <div className={style.searchFormInput}>
+        <div
+          className={`${style.searchFormInput} ${haveFilterButton ? style.searchFormInputWithFilterButton : ""}`}
+        >
           <input
             type="search"
             onChange={onChange}
@@ -51,7 +57,7 @@ const SearchBar = () => {
             <SearchIcon />
           </Link>
         </div>
-        <Link href={"/filter"}>فیلترکردن</Link>
+        {haveFilterButton && <Link href={"/filter"}>فیلترکردن</Link>}
       </div>
     </div>
   );
