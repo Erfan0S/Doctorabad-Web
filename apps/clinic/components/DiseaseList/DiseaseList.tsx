@@ -7,6 +7,7 @@ import styles from "./DiseaseList.module.scss";
 import Loading from "@/components/common/loading";
 import DiseaseListSkeleton from "@/components/Skeletons/DiseaseListSkeleton/DiseaseListSkeleton";
 import DiseaseCard from "../DiseaseCard/DiseaseCard";
+import { PersistQueryProvider } from "@repo/shared_modules";
 
 interface DiseaseListProps {
   diseases: Disease[];
@@ -26,6 +27,7 @@ export default function DiseaseList({
   }
 
   return (
+    <PersistQueryProvider>
     <InfiniteScroll
       dataLength={diseases.length}
       next={onLoadMore}
@@ -36,10 +38,11 @@ export default function DiseaseList({
         </div>
       }
       className={styles.diseasesList}
-    >
+      >
       {diseases.map((disease) => (
         <DiseaseCard key={disease.id} disease={disease} />
       ))}
     </InfiniteScroll>
+    </PersistQueryProvider>
   );
 }

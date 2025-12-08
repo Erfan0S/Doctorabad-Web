@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./MedicineDetails.module.scss";
 import { pharmacyApi } from "@/api/Api";
@@ -10,6 +10,9 @@ import DownArrow from "@/assets/svg/downArrow";
 import PillsIcon from "@/assets/svg/pillsIcon";
 import InteractionSection from "./InteractionSection/InteractionSection";
 import MedicineDetailsSkeleton from "@/components/Skeletons/MedicineDetailsSkeleton/MedicineDetailsSkeleton";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { canTrackMedicineView } from "@/utils/medicineViewTracking";
+import { useMedicineView } from "@/hooks/useMedicineView";
 
 export default function MedicineDetailsPage() {
   const { id } = useParams();
@@ -17,6 +20,9 @@ export default function MedicineDetailsPage() {
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<
     "adult" | "child" | "elder"
   >("adult");
+  const hasRecordedViewRef = useRef(false);
+
+  const { recordMedicineView } = useMedicineView();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["medicine-details", id],
@@ -35,6 +41,28 @@ export default function MedicineDetailsPage() {
         : [...prev, key]
     );
   };
+
+  // Reset ref when medicine ID changes
+  useEffect(() => {
+    hasRecordedViewRef.current = false;
+  }, [id]);
+
+  // Track medicine view when sections are opened (once per day per medicine)
+  useEffect(() => {
+    if (!id || !data || openSections.length === 0) return;
+
+    const medicineId = Number(id);
+    if (!medicineId || isNaN(medicineId)) return;
+
+    // Check if we've already tried to record this view in this session
+    if (hasRecordedViewRef.current) return;
+
+    // Check if user is logged in and hasn't viewed this medicine today
+    if (canTrackMedicineView(medicineId, isUserLoggedIn)) {
+      hasRecordedViewRef.current = true;
+      recordMedicineView(medicineId);
+    }
+  }, [id, data, openSections, recordMedicineView]);
 
   function buildCategoryTree(categories: any[]) {
     const map = new Map();

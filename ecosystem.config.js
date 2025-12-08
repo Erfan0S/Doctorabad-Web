@@ -60,5 +60,15 @@ module.exports = {
                 PORT: 3006
             }
         },
+                {
+            name: "mono-tools",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/tools",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3007
+            }
+        },
     ]
 };

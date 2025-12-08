@@ -124,6 +124,14 @@ class ClinicApi extends Request {
   ): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
     return this.request.get(`/user/v1/discount/plans?type=3`);
   };
+
+  recordDiseaseView = (
+    diseaseId: number
+  ): Promise<ResponseType<{ message: string }>> => {
+    return this.request.post(`/user/club/mission/disease/view`, {
+      id: diseaseId,
+    });
+  };
 }
 
 export const clinicApi = new ClinicApi();

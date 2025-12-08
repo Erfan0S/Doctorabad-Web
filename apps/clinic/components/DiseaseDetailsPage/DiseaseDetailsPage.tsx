@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./DiseaseDetails.module.scss";
@@ -14,6 +14,11 @@ import DiseaseDetailsSkeleton from "@/components/Skeletons/DiseaseDetailsSkeleto
 import type { DiseaseDetails } from "@/types/clinic";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { baseUrls, pharmacyPaths } from "@repo/core/constants/routePath";
+import { Apps } from "@repo/core/types/general";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { canTrackDiseaseView } from "@/utils/diseaseViewTracking";
+import { useDiseaseView } from "@/hooks/useDiseaseView";
 
 // Helper function to check if value is __NO_ACCESS__
 const isNoAccess = (value: any): boolean => {
@@ -66,6 +71,9 @@ export default function DiseaseDetailsPage() {
   const [introductionType, setIntroductionType] = useState<string>("preface");
   const [treatmentType, setTreatmentType] = useState<string>("plan");
   const [clinicalType, setClinicalType] = useState<"sign" | "symptom">("sign");
+  const hasRecordedViewRef = useRef(false);
+
+  const { recordDiseaseView } = useDiseaseView();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["disease-details", id],
@@ -82,9 +90,9 @@ export default function DiseaseDetailsPage() {
     if (data) {
       const section = allSections.find(s => s.key === key);
       if (section && section.hasNoAccess) {
-        modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
-
-        // TODO: Open modal for premium/access required
+        
+          modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
+       
         return;
       }
     }
@@ -148,6 +156,36 @@ export default function DiseaseDetailsPage() {
       }
     }
   }, [data, searchParams]);
+
+  // Reset ref when disease ID changes
+  useEffect(() => {
+    hasRecordedViewRef.current = false;
+  }, [id]);
+
+  // Track disease view when sections are opened (once per day per disease)
+  // Only track when user opens sections other than "introduction" (which is always open)
+  useEffect(() => {
+    if (!id || !data || openSections.length === 0) return;
+
+    const diseaseId = Number(id);
+    if (!diseaseId || isNaN(diseaseId)) return;
+
+    // Check if user has opened any section other than "introduction"
+    const hasOpenedOtherSection = openSections.some(
+      (section) => section !== "introduction"
+    );
+    
+    if (!hasOpenedOtherSection) return;
+
+    // Check if we've already tried to record this view in this session
+    if (hasRecordedViewRef.current) return;
+
+    // Check if user is logged in and hasn't viewed this disease today
+    if (canTrackDiseaseView(diseaseId, isUserLoggedIn)) {
+      hasRecordedViewRef.current = true;
+      recordDiseaseView(diseaseId);
+    }
+  }, [id, data, openSections, recordDiseaseView]);
 
   if (isLoading) return <DiseaseDetailsSkeleton />;
   if (error || !data)
@@ -610,7 +648,7 @@ export default function DiseaseDetailsPage() {
                               {disease.treatment.map((med) => (
                                 <Link
                                   key={med.id}
-                                  href={`/medicine/${med.id}`}
+                                  href={`${baseUrls[Apps.PHARMACY]}${pharmacyPaths.single}/${med.id}`}
                                   className={styles.treatmentTag}
                                 >
                                   {med.title_fa}
@@ -633,7 +671,7 @@ export default function DiseaseDetailsPage() {
                               {disease.treatment.map((med) => (
                                 <Link
                                   key={med.id}
-                                  href={`/medicine/${med.id}`}
+                                  href={`${baseUrls[Apps.PHARMACY]}${pharmacyPaths.single}/${med.id}`}
                                   className={styles.treatmentTag}
                                 >
                                   {med.title_fa}

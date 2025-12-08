@@ -14,11 +14,13 @@ import {
   CreateOrderResponse,
   ShippingAddress,
   ShippingMethod,
+  OrderType,
 } from "@repo/core/types/cart";
 import { ResponseType } from "@repo/core/http-request/types/Request";
 import style from "./chekcout.module.scss";
 import { Apps } from "@repo/core/types/general";
 import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   payInfo: CartPayInfo;
@@ -33,11 +35,11 @@ function CreateOrderButton({
   hasPhysicalProduct,
   shippingMethod,
 }: Props) {
-  const { count } = useCart();
+  const { count, data: cartItems } = useCart();
   const redirectedApp = useSearchParams()?.get(REDIRECTED_APP_KEY) as
     | Apps
     | undefined;
-
+  const queryClient = useQueryClient();
   let orderApi: (
     data: CreateOrderRequest
   ) => Promise<ResponseType<CreateOrderResponse>> = async (
@@ -71,6 +73,9 @@ function CreateOrderButton({
       const { message, url } = data.data.data!;
 
       toast(message, { type: "success", position: "top-left" });
+
+      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"] });
+
       window.open(url, "_self");
     },
     onError: (error: any) => {

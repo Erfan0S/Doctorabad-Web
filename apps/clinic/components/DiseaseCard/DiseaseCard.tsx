@@ -7,6 +7,7 @@ import styles from "./DiseaseCard.module.scss";
 import PillsIcon from "@/assets/svg/pillsIcon";
 import Lock from "@/assets/svg/lock";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { getMillisecondsUntilMidnight } from "@/utils/timeUtils";
 
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api";
@@ -24,6 +25,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     return false;
   };
 
+
   const {
     data: userPlans,
     isLoading,
@@ -31,9 +33,9 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   } = useQuery({
     queryKey: ["user-plans-clinic"],
     queryFn: async () => (await clinicApi.getUserPlans()).data.data,
-    staleTime: 2 * 60 * 60 * 1000, 
+    staleTime: getMillisecondsUntilMidnight(),
+    gcTime: getMillisecondsUntilMidnight(), // Keep in cache until midnight
   });
-  
 
   const handleActionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -48,9 +50,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   return (
     <div
       className={styles.diseaseCard}
-      onClick={authorizeClientAction(() =>
-        router.push(`/disease/${disease.id}`)
-      )}
+      onClick={() => router.push(`/disease/${disease.id}`)}
     >
       <div className={styles.diseaseImage}>
         {disease.picture ? (
@@ -59,19 +59,19 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
           <PillsIcon className={styles.pillsIcon} width={75} height={75} />
         )}
       </div>
-  
+
       <div className={styles.diseaseInfo}>
         {/* بخش بالا - قفل */}
         <div className={styles.topSection}>
           {!isAccessible() && <Lock className={styles.lockIcon} />}
         </div>
-  
+
         {/* بخش وسط - نام دارو */}
         <div className={styles.nameSection}>
           <h3 className={styles.diseaseNameEn}>{disease.title_en}</h3>
           <p className={styles.diseaseNameFa}>{disease.title_fa}</p>
         </div>
-  
+
         {/* بخش پایین - اکشن‌ها */}
         <div className={styles.bottomSection}>
           {(disease.has_prescription || disease.has_order) && (
@@ -116,6 +116,4 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
       </div>
     </div>
   );
-  
-  
 }
