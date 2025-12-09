@@ -80,6 +80,11 @@ export default function AlvardoPage() {
         >
           تفسیر
         </button>
+        <div
+          className={`${styles.tabIndicator} ${
+            activeTab === "calc" ? styles.indicatorRight : styles.indicatorLeft
+          }`}
+        />
       </div>
 
       {activeTab === "calc" ? (
@@ -174,9 +179,11 @@ export default function AlvardoPage() {
             </div>
           </div>
 
-          <button onClick={calculateApgar} className={styles.calculateButton}>
-            <span>محاسبه کن!</span>
-          </button>
+          <div className={styles.calculateBar}>
+            <button onClick={calculateApgar} className={styles.calculateButton}>
+              <span>محاسبه کن!</span>
+            </button>
+          </div>
         </>
       ) : (
         <div className={styles.interpretation}>
@@ -184,8 +191,8 @@ export default function AlvardoPage() {
             <p>
               آپگار یک سیستم امتیازدهی سریع بر اساس پاسخ‌های فیزیولوژیک برای
               بررسی این است که آیا نوزاد به بررسی احتیاج دارد یا خیر؛ در لحظات
-              ابتدایی پس از ولادت، این پنج پارامتر فیزیولوژیک توسط آزمونگر سنجیده
-              شده و بر اساس جدول زیر نمره دهی می‌شود.
+              ابتدایی پس از ولادت، این پنج پارامتر فیزیولوژیک توسط آزمونگر
+              سنجیده شده و بر اساس جدول زیر نمره دهی می‌شود.
             </p>
             <div className={styles.tableWrapper}>
               <table className={styles.table}>
