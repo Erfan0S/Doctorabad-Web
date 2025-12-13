@@ -1,0 +1,113 @@
+"use client";
+
+import { useState } from "react";
+import { useCalciumCorrection } from "@/hooks/useCalciumCorrection";
+import styles from "./CalciumCorrectionPage.module.scss";
+
+export default function CalciumCorrectionPage() {
+  const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
+
+  const { calcium, setCalcium, albumin, setAlbumin, toast, calculate, reset } =
+    useCalciumCorrection();
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.tabBar}>
+        <button
+          type="button"
+          className={`${styles.tab} ${activeTab === "calc" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("calc")}
+        >
+          محاسبه
+        </button>
+        <button
+          type="button"
+          className={`${styles.tab} ${activeTab === "interpret" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("interpret")}
+        >
+          تفسیر
+        </button>
+        <div
+          className={`${styles.tabIndicator} ${
+            activeTab === "calc" ? styles.indicatorRight : styles.indicatorLeft
+          }`}
+        />
+      </div>
+
+      {activeTab === "calc" ? (
+        <>
+          <div className={styles.inputGroup}>
+            <div className={styles.inputLabel}>کلسیم سرم</div>
+            <input
+              type="number"
+              step="0.1"
+              className={styles.input}
+              value={calcium}
+              onChange={(e) => setCalcium(e.target.value)}
+              placeholder="mg/dL"
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <div className={styles.inputLabel}>آلبومین بیمار</div>
+            <input
+              type="number"
+              step="0.1"
+              className={styles.input}
+              value={albumin}
+              onChange={(e) => setAlbumin(e.target.value)}
+              placeholder="g/dL"
+            />
+          </div>
+
+          <div className={styles.calculateBar}>
+            <button className={styles.calculateButton} onClick={calculate}>
+              محاسبه کن!
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className={styles.interpretation}>
+          <div className={styles.sectionContent}>
+            <p>
+              کلسیم در خون به سه فرم وجود دارد:
+              <br />
+              ۱- فرم باند شده به پروتئین (۴۰٪)
+              <br />
+              ۲- فرم یونیزه (۴۸٪) <br />
+              ۳- فرم باند شده به سایر آنیون‌ها (۱۲٪)
+              <br /> در فرم اول، آلبومین مسئول باند شدن به ۹۰٪ کلسیم‌ها و
+              گلوبولین مسئول اتصال به ۱۰ کلسیم هاست.
+              <br /> هر ۱ gr/dl کاهش آلبومین میزان کلسیم توتال را، ۰۲ mmol/dl
+              کاهش می‌دهد؛ این تغییر بدون تاثیر بر روی اشکال یونیزه (که فرم فعال
+              فیزیولوژیک هستند) می‌باشد، لذا هیچ گونه علامتی از هیپوکلسمی وجود
+              ندارد.
+              <br /> از این رو هنگام اندازه گیری کلسیم توتال باید عدد بدست آمده
+              را برحسب میزان آلبومین تصحیح نمود:
+            </p>
+
+            <div className={styles.formula}>
+              Corrected Ca = 0.8 × (Normal Albumin − Patient&apos;s Albumin) +
+              Serum Ca
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toast && (
+        <div className={`${styles.toast} ${styles[toast.tone]}`}>
+          {toast.value !== undefined ? (
+            <>
+              <div className={styles.toastTitle}>
+                <span>Result = {toast.value} mmol/L</span>
+              </div>
+              <p className={styles.toastText}>{toast.message}</p>
+            </>
+          ) : (
+            <div className={styles.toastTitle}>{toast.message}</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
