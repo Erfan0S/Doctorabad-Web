@@ -37,7 +37,7 @@ export default function CalciumCorrectionPage() {
       {activeTab === "calc" ? (
         <>
           <div className={styles.inputGroup}>
-            <div className={styles.inputLabel}>کلسیم سرم</div>
+            <div className={styles.inputLabel}>کلسیم</div>
             <input
               type="number"
               step="0.1"
@@ -49,7 +49,7 @@ export default function CalciumCorrectionPage() {
           </div>
 
           <div className={styles.inputGroup}>
-            <div className={styles.inputLabel}>آلبومین بیمار</div>
+            <div className={styles.inputLabel}>آلبومین</div>
             <input
               type="number"
               step="0.1"

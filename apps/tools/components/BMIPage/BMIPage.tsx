@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useBMI } from "@/hooks/useBMI";
 import styles from "./BMIPage.module.scss";
 
-export default function MAPPage() {
+export default function BMIPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
 
   const { height, setHeight, weight, setWeight, calculate, toast } = useBMI();
@@ -16,6 +16,8 @@ export default function MAPPage() {
     { stage: "Obesity class II", range: "35.0–39.9", color: "red" },
     { stage: "Obesity class III", range: "≥ 40.0", color: "red" },
   ];
+
+  
 
   return (
     <div className={styles.container}>
@@ -88,8 +90,8 @@ export default function MAPPage() {
               <table className={styles.table}>
                 <thead>
                   <tr>
-                    <th>BMI</th>
                     <th>Weight</th>
+                    <th>BMI</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "./ApgarPage.module.scss";
 import useApgar from "@/hooks/useApgar";
 
-export default function AlvardoPage() {
+export default function ApgarPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
 
   const {
