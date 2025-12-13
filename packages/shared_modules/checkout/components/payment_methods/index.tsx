@@ -50,7 +50,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     queryKey: ["installment_eligible", priceToPay],
     queryFn: () =>
       api.isEligibleForProvider(priceToPay, PaymentProviders.SNAPP_PAY),
-    enabled: false,
+    enabled: activeSnappay,
     retry: 0,
     staleTime: Infinity,
   });
@@ -64,8 +64,9 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     },
     {
       id: PaymentProviders.SNAPP_PAY,
-      title: "پرداخت اقساطی اسنپ‌پی",
+      title: installmentEligible?.data.data.response.title_massage || "پرداخت اقساطی اسنپ‌پی",
       description:
+      installmentEligible?.data.data.response.description ||
         "پرداخت اقساطی اسنپ‌پی" +
         (priceToPay >= 4000
           ? `\n4 قسط ماهیانه ${priceFormatter(priceToPay / 4)}تومان\n(بدون کارمزد)`
@@ -74,9 +75,16 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
       more_info_url: "https://doctorabad.com/mag/snapppay",
       disabled: !activeSnappay,
       async onClick() {
+        if (payInfo.paymentMethod === PaymentProviders.SNAPP_PAY) {
+          return;
+        }
         setProviderLoading(true);
         const isEligible = await installmentRefetch();
         setProviderLoading(false);
+        if (!isEligible?.data?.data.data.successful) {
+          toast.error(isEligible?.data?.data.data.response.description);
+          return;
+        }
         if (isEligible?.data?.data.data.response.eligible) {
           setPayInfo((prev) => ({
             ...prev,
@@ -87,6 +95,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
         }
       },
       isLoading: installmentLoading || providerLoading,
+      isHide: !installmentEligible?.data.data.response.eligible,
     },
   ];
 
@@ -96,6 +105,12 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     }
   }, [activeSnappay]);
 
+  useEffect(() => {
+    console.log(installmentEligible);
+    console.log(installmentLoading);
+    
+  }, [installmentEligible, installmentLoading]);
+
   return (
     <div className={`${style.paymentMethodsWrapper}`}>
       <div className={checkoutStyle.title}>
@@ -103,6 +118,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
       </div>
       <div className={style.paymentMethodsList}>
         {PaymentMethidsConfig.map((item) => (
+          item.isHide ? null : (
           <PaymentMethodItem
             key={item.id}
             payemtMethod={item}
@@ -115,6 +131,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
             disabled={item.disabled}
             isLoading={item.isLoading}
           />
+          )
         ))}
       </div>
     </div>

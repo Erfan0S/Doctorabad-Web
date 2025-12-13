@@ -35,6 +35,7 @@ export type PaymentMethodType = {
   icon?: React.ReactNode;
   more_info_url?: string;
   disabled?: boolean;
+  isHide?: boolean;
   onClick?: () => void;
   isLoading?: boolean;
 };
