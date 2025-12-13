@@ -27,3 +27,11 @@ export const appendNextRequestCookies = async () => {
 export const getClientSideCookie = (key: string) => {
   return Cookies.get(key);
 };
+
+export const setClientCookie = (
+  key: string,
+  value: string,
+  options?: Cookies.CookieAttributes
+) => {
+  Cookies?.set(key, value, options);
+};
