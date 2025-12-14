@@ -9,8 +9,6 @@ import {
 } from "@repo/core/utils/cookieUtils";
 import { ModalTypes } from "../../modal/modalsTypes";
 
-// TODO: create modal for this
-
 function CheckUserCountry() {
   const country = getClientSideCookie(IP_COUNTRY_COOKIE);
   const checked = getClientSideCookie(IP_CHECKED_COOKIE);
@@ -18,7 +16,7 @@ function CheckUserCountry() {
     return null;
   }
 
-  if (true) {
+  if (country !== "IR") {
     modalActions.addModal(ModalTypes.VPN_WARNING);
   }
   setClientCookie(IP_CHECKED_COOKIE, "1");
