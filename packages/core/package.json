@@ -15,7 +15,8 @@
     "./http-request/*": "./src/HttpRequest/*.ts",
     "./metadata/*": "./src/metadata/*.ts",
     "./metadata/homeLinks": "./src/metadata/homeLinks.tsx",
-    "./contexts/*": "./src/contexts/*.ts"
+    "./contexts/*": "./src/contexts/*.ts",
+    "./middlewares/*": "./src/middlewares/*.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

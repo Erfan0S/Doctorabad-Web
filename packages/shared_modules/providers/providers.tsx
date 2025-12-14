@@ -6,6 +6,7 @@ import { SidebarProvider } from "@repo/shared_modules";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NavigationHistoryProvider } from "./hooks/NavigationHistoryContextProvider";
+import CheckUserCountry from "../common/components/CheckUserCountry";
 
 type Props = {
   children: React.ReactNode;
@@ -30,6 +31,7 @@ const Providers: React.FC<Props> = ({
         <ModalCreator ModalsList={modalList} />
         <ToastContainer theme="colored" rtl position="top-left" />
         {haveSideBar && <SidebarProvider />}
+        <CheckUserCountry />
         {children}
         <ReactQueryDevtools
           initialIsOpen={false}
