@@ -1,0 +1,130 @@
+"use client";
+
+import { Fragment, useState } from "react";
+import styles from "./Chads2Page.module.scss"; // مشابه استایل صفحات قبلی
+import useChads2 from "@/hooks/useChads2";
+
+// لیست پارامترها با امتیازدهی خاص
+const parameters = [
+  { id: 0, title: "نارسایی قلبی داره؟", points: 1 },
+  { id: 1, title: "فشار خون بالا داره؟", points: 1 },
+  { id: 2, title: "سن‌اش بالای ۷۵ ساله؟", points: 1 },
+  { id: 3, title: "دیابت داره؟", points: 1 },
+  { id: 4, title: "سابقه سکته مغزی داره؟", points: 2 }, // سکته ۲ امتیاز دارد
+];
+
+export default function Chads2Page() {
+  const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
+
+  const { selectedIds, toggleParameter, calculateChads2, toast } =
+    useChads2(parameters);
+
+  // داده‌های جدول تفسیر طبق تصویر دوم
+  const interpretationRows = [
+    { points: "0 point", risk: "1.9 %", color: "green" },
+    { points: "1 point", risk: "2.8 %", color: "yellow" },
+    { points: "2 points", risk: "4 %", color: "yellow" },
+    { points: "3 points", risk: "5.9 %", color: "red" },
+    { points: "4 points", risk: "8.5 %", color: "red" },
+    { points: "5 points", risk: "12.5 %", color: "red" },
+    { points: "6 points", risk: "18.2 %", color: "red" },
+  ];
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.tabBar}>
+        <button
+          type="button"
+          className={`${styles.tab} ${
+            activeTab === "calc" ? styles.activeTab : ""
+          }`}
+          onClick={() => setActiveTab("calc")}
+        >
+          محاسبه
+        </button>
+        <button
+          type="button"
+          className={`${styles.tab} ${
+            activeTab === "interpret" ? styles.activeTab : ""
+          }`}
+          onClick={() => setActiveTab("interpret")}
+        >
+          تفسیر
+        </button>
+        <div
+          className={`${styles.tabIndicator} ${
+            activeTab === "calc" ? styles.indicatorRight : styles.indicatorLeft
+          }`}
+        />
+      </div>
+
+      {activeTab === "calc" ? (
+        <>
+          <div className={styles.parameters}>
+            {parameters.map((item, index) => (
+              <Fragment key={item.id}>
+                <div className={styles.parameterRow}>
+                      <span className={styles.parameterText}>{item.title}</span>
+                  <label className={styles.switch}>
+                    <input
+                      type="checkbox"
+                      checked={selectedIds.includes(item.id)}
+                      onChange={() => toggleParameter(item.id)}
+                    />
+                    <span className={styles.slider} />
+                  </label>
+                </div>
+              </Fragment>
+            ))}
+          </div>
+
+          <div className={styles.calculateBar}>
+            <button
+              onClick={calculateChads2}
+              className={styles.calculateButton}
+            >
+              <span>محاسبه کن!</span>
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className={styles.interpretation}>
+          <div className={styles.sectionContent}>
+            <p>
+              برای تخمین ریسک سکته مغزی در بیماران مبتلا به فیبریلاسیون دهلیزی
+              از کرایتریای CHADS2 استفاده می‌شود.
+            </p>
+            <div className={styles.tableWrapper}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Risk of event per year</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {interpretationRows.map((row, index) => (
+                    <tr
+                      key={index}
+                      className={`${styles.tableRow} ${styles[row.color]}`}
+                    >
+                      <td>{row.risk}</td>
+                      <td className={styles.scoreTableText}>{row.points}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toast ? (
+        <div className={`${styles.toast} ${styles[toast.tone]}`}>
+          <div className={styles.toastTitle}>امتیاز: {toast.score}</div>
+          <div className={styles.toastText}>{toast.message}</div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
