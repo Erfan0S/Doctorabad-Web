@@ -33,7 +33,7 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
     );
   }, [item.user_has_access, haveGeneralAccess]);
 
-  const isInstallment =
+  const isShowInstallmentText =
     item.installment_payment &&
     item.installment_text &&
     !hasAccess &&
@@ -62,7 +62,7 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
             {item.main_price
               ? `${priceFormatter(item.main_price)} تومن`
               : "رایگان"}
-            {item.installment_text && (
+            {item.installment_text && isShowInstallmentText && (
               <ProductSnappayNotif
                 text={item.installment_text}
                 className={style.installmentPayment}
