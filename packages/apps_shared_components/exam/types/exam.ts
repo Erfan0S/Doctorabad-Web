@@ -12,6 +12,7 @@ export type ExamType = {
   off_price: number | null;
   user_has_access: boolean;
   installment_payment: boolean;
+  installment_text?: string;
 };
 
 export type QuestionOptionType = {

@@ -81,6 +81,10 @@
     font-size: 14px;
     color: $purple;
   }
+  &PriceWrapper {
+    display: flex;
+    flex-direction: column;
+  }
 
   &Description {
     display: flex;
@@ -96,10 +100,6 @@
       font-size: 15px;
       padding-left: 70px;
     }
-  }
-  .installmentPayment {
-    left: 10px;
-    top: 10px;
   }
 }
 
@@ -121,6 +121,11 @@
   .singleItem {
     button {
       font-size: 10px;
+    }
+    &PriceWrapper {
+      .installmentPayment {
+        font-size: 10px;
+      }
     }
   }
 }
