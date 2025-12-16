@@ -6,6 +6,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import {
   AddToCartButton,
   Button,
+  FavoriteButton,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
@@ -55,6 +56,12 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
+        <FavoriteButton
+          id={item.id}
+          initialFavoriteState={item.favorite}
+          app={Apps.EXAM}
+          className={style.favoriteButton}
+        />
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>

@@ -50,6 +50,12 @@
   box-shadow: none;
   position: relative;
 
+  .favoriteButton {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
   > div {
     display: flex;
     flex-direction: row;
@@ -98,7 +104,7 @@
     h3 {
       font-weight: 700;
       font-size: 15px;
-      padding-left: 70px;
+      padding-left: 50px;
     }
   }
 }

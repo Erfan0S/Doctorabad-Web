@@ -8,7 +8,7 @@ import { Apps } from "../types/general";
 
 export const useToggleFavoriteProduct = (
   initialState: boolean,
-  app: Omit<Apps, "EXAM" | "BASE">
+  app: Omit<Apps, "BASE">
 ) => {
   const [isFavorite, setIsFavorite] = useState(initialState);
 
@@ -24,6 +24,9 @@ export const useToggleFavoriteProduct = (
           return api[
             !isFavorite ? "addMarketFavorite" : "removeMarketFavorite"
           ](id);
+          break;
+        case Apps.EXAM:
+          return api["examSingleExamFavorite"](id, !isFavorite);
           break;
         default:
           return api[!isFavorite ? "addLearnFavorite" : "removeLearnFavorite"](

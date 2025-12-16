@@ -11,6 +11,7 @@ export type ExamType = {
   main_price: number;
   off_price: number | null;
   user_has_access: boolean;
+  favorite: boolean;
   installment_payment: boolean;
   installment_text?: string;
 };
