@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./HasBledPage.module.scss"; // فایل استایل مشابه صفحات قبل
 import useHasBled from "@/hooks/useHasBled";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 // لیست پارامترها طبق تصویر (همه ۱ امتیاز دارند)
 const parameters = [
@@ -22,6 +23,14 @@ export default function HasBledPage() {
 
   const { selectedIds, toggleParameter, calculateHasBled, toast } =
     useHasBled(parameters);
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   // داده‌های جدول تفسیر طبق تصویر دوم
   const interpretationRows = [
@@ -128,12 +137,13 @@ export default function HasBledPage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>Has-Bled Score: {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `Has-Bled Score: ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

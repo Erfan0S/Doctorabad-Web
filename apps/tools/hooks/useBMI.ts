@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
-type Tone = 'green' | 'yellow' | 'red' | 'gray';
+type Tone = 'green' | 'yellow' | 'red';
 
 type BMIStage = {
   tone: Tone;
@@ -25,7 +25,7 @@ export const useBMI = () => {
 
     if (!hNum || !wNum || hNum <= 0 || wNum <= 0) {
       setToast({
-        tone: 'gray',
+        tone: 'red',
         message: 'لطفاً قد و وزن را به‌صورت معتبر وارد کنید!',
       });
       return;
@@ -65,12 +65,6 @@ export const useBMI = () => {
     setWeight('');
     setToast(null);
   }, []);
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return useMemo(
     () => ({

@@ -9,9 +9,9 @@ export default function RootLayout({
   return (
     <>
       <ToolsHeader
-        headerPageType={HeaderType.TOOL_DETAILS}
-        title="CHA2DS2-VASC"
-        toolData={{ id: "cha2ds2-vasc", title: "CHA2DS2-VASC" }}
+        headerPageType={HeaderType.FAVORITES}
+        title="علاقه‌مندی‌های ابزارهای‌من"
+        toolData={{ id: "favorites", title: "علاقه‌مندی‌ها" }}
       ></ToolsHeader>
       {children}
     </>

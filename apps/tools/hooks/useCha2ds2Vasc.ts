@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type Tone = "green" | "yellow" | "red";
 
@@ -10,16 +10,16 @@ type ToastState = {
 
 // نگاشت امتیاز به درصد ریسک طبق جدول
 const riskByScore: Record<number, string> = {
-  0: "0%",
-  1: "1.3%",
+  0: "0.2%",
+  1: "0.6%",
   2: "2.2%",
   3: "3.2%",
-  4: "4.0%",
-  5: "6.7%",
-  6: "9.8%",
-  7: "9.6%",
-  8: "6.7%",
-  9: "15.2%",
+  4: "4.8%",
+  5: "7.2%",
+  6: "9.7%",
+  7: "11.2%",
+  8: "10.8%",
+  9: "12.2%",
 };
 
 // تابع تعیین رنگ و پیام
@@ -30,10 +30,10 @@ const getToneAndMessage = (score: number): { tone: Tone; message: string } => {
   const message = `ریسک سکته مغزی در هر سال: ${risk}`;
 
   // منطق رنگ‌بندی (0=سبز، 1=زرد، >=2=قرمز)
-  if (score >= 2) {
+  if (score >= 7) {
     return { tone: "red", message };
   }
-  if (score === 1) {
+  if (score >= 3) {
     return { tone: "yellow", message };
   }
   // score === 0
@@ -47,7 +47,11 @@ export default function useCha2ds2Vasc(parameters: { id: number; points: number 
   const [genderOption, setGenderOption] = useState<number>(0);
   const [toast, setToast] = useState<ToastState | null>(null);
 
-  const toggleParameter = (id: number) => { /* ... */ }; // (همان کد قبلی)
+  const toggleParameter = (id: number) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
 
   const totalScore = useMemo(() => {
     // ... (همان کد قبلی محاسبه امتیاز) ...
@@ -66,12 +70,6 @@ export default function useCha2ds2Vasc(parameters: { id: number; points: number 
       message,
     });
   };
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return {
     // ... (خروجی‌های قبلی)

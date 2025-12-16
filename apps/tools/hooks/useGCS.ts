@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-type Tone = "red" | "yellow" | "green" | "gray";
+type Tone = "red" | "yellow" | "green";
 
 type ToastState = {
   score: number | null;
@@ -55,7 +55,7 @@ export default function useGCS() {
     ) {
       setToast({
         score: null,
-        tone: "gray",
+        tone: "red",
         message: "لطفاً برای هر سه بخش یک گزینه انتخاب کنید.",
       });
       return;
@@ -65,7 +65,7 @@ export default function useGCS() {
     if (hasNotAssessable) {
       setToast({
         score: null,
-        tone: "gray",
+        tone: "red",
         message: "اصلا قابل سنجش نیست!",
       });
       return;
@@ -79,12 +79,6 @@ export default function useGCS() {
       message,
     });
   };
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return {
     selectedEye,

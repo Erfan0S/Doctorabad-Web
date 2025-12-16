@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMAP } from "@/hooks/useMAP";
 import styles from "./MAPPage.module.scss";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function MAPPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
 
   const { systolic, setSystolic, diastolic, setDiastolic, calculate, toast } =
     useMAP();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   return (
     <div className={styles.container}>
@@ -73,19 +82,18 @@ export default function MAPPage() {
           </div>
         </div>
       )}
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.value !== undefined ? (
-            <>
-              <div className={styles.toastTitle}>
-                <span>MAP: {toast.value} mmHg</span>
-              </div>
-            </>
-          ) : (
-            <div className={styles.toastTitle}>{toast.message}</div>
-          )}
-        </div>
-      )}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={
+          toast
+            ? toast.value !== undefined
+              ? `MAP: ${toast.value} mmHg`
+              : toast.message
+            : undefined
+        }
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

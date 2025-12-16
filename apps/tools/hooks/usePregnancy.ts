@@ -1,10 +1,10 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import moment from "moment-jalaali";
 
 moment.loadPersian({ dialect: "persian-modern" });
 
 type CalculationMode = "lmp" | "usg";
-type ToastState = { message: string; tone: "green" | "gray" };
+type ToastState = { title: string; message?: string; tone: "green" | "red" };
 
 const daysArray = Array.from({ length: 31 }, (_, i) => i + 1);
 const monthsArray = [
@@ -35,7 +35,7 @@ export default function usePregnancy() {
 
   const calculate = useCallback(() => {
     if (!day || !monthIndex || !year) {
-      setToast({ tone: "gray", message: "لطفاً تاریخ را کامل وارد کنید!" });
+      setToast({ tone: "red", title: "لطفاً تاریخ را کامل وارد کنید!" });
       return;
     }
 
@@ -43,16 +43,16 @@ export default function usePregnancy() {
     const inputDate = moment(`${year}/${monthNum}/${day}`, "jYYYY/jM/jD");
 
     if (!inputDate.isValid()) {
-      setToast({ tone: "gray", message: "تاریخ نامعتبر است!" });
+      setToast({ tone: "red", title: "تاریخ نامعتبر است!" });
       return;
     }
 
     // بررسی اینکه تاریخ وارد شده مربوط به آینده یا خود امروز نباشد
-    const today = moment().startOf('day');
+    const today = moment().startOf("day");
     if (inputDate.isSameOrAfter(today)) {
       setToast({ 
-        tone: "gray", 
-        message: "لطفاً تاریخی قبل از امروز وارد کنید!" 
+        tone: "red", 
+        title: "لطفاً تاریخی قبل از امروز وارد کنید!" 
       });
       return;
     }
@@ -65,7 +65,7 @@ export default function usePregnancy() {
       gestationalAgeDays = moment().diff(inputDate, "days");
     } else {
       if (usgWeeks === "" && usgDays === "") {
-        setToast({ tone: "gray", message: "سن جنین را انتخاب کنید!" });
+        setToast({ tone: "red", title: "سن جنین را انتخاب کنید!" });
         return;
       }
 
@@ -84,13 +84,13 @@ export default function usePregnancy() {
     // اگر تاریخ زایمان گذشته باشد (سن بارداری خیلی زیاد شود)
     // مثلا بیشتر از 44 هفته (308 روز)
     if (gestationalAgeDays > 308) {
-       setToast({ tone: "gray", message: "تاریخ زایمان گذشته است!" });
-       return;
+      setToast({ tone: "red", title: "تاریخ زایمان گذشته است!" });
+      return;
     }
     
     // اگر محاسبات منجر به سن منفی شود (محض احتیاط)
     if (gestationalAgeDays < 0) {
-      setToast({ tone: "gray", message: "محاسبات نامعتبر (تاریخ آینده)!" });
+      setToast({ tone: "red", title: "محاسبات نامعتبر (تاریخ آینده)!" });
       return;
     }
 
@@ -100,7 +100,8 @@ export default function usePregnancy() {
 
     setToast({
       tone: "green",
-      message: `سن بارداری: ${currentWeeks} هفته و ${currentDays} روز\nتاریخ زایمان: ${eddString}`,
+      title: `سن بارداری: ${currentWeeks} هفته و ${currentDays} روز`,
+      message: `تاریخ زایمان: ${eddString}`,
     });
   }, [mode, day, monthIndex, year, usgWeeks, usgDays]);
 
@@ -112,13 +113,6 @@ export default function usePregnancy() {
     setUsgDays("");
     setToast(null);
   }, []);
-
-  useEffect(() => {
-    if (toast) {
-      const t = setTimeout(() => setToast(null), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [toast]);
 
   return {
     mode, setMode,

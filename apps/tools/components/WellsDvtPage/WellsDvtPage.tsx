@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./WellsDvtPage.module.scss"; // مشابه استایل صفحات قبلی
 import useWellsDvt from "@/hooks/useWellsDvt";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 // لیست پارامترها با امتیازدهی خاص
 // همه 1 امتیاز به جز آخری که -2 امتیاز دارد
@@ -24,6 +25,14 @@ export default function WellsDvtPage() {
 
   const { selectedIds, toggleParameter, calculateWells, toast } =
     useWellsDvt(parameters);
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   // داده‌های جدول تفسیر طبق تصویر دوم
   const interpretationRows = [
@@ -129,12 +138,13 @@ export default function WellsDvtPage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>Wells Score: {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `Wells Score: ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

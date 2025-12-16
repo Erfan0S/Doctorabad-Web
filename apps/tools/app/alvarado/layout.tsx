@@ -1,7 +1,5 @@
-import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
-import { HeaderType } from "@/types/pharmacy";
-
-
+import ToolsHeader from "@/components/ToolsHeader/ToolsHeader";
+import { HeaderType } from "@/types/tools";
 
 export default function RootLayout({
   children,
@@ -10,7 +8,11 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <PharmacyHeader headerPageType={HeaderType.OTHERS} title="Alvarado"></PharmacyHeader>
+      <ToolsHeader
+        headerPageType={HeaderType.TOOL_DETAILS}
+        title="Alvarado"
+        toolData={{ id: "alvarado", title: "Alvarado" }}
+      ></ToolsHeader>
       {children}
     </>
   );

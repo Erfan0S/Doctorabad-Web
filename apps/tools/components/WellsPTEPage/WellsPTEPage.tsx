@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./WellsPtePage.module.scss"; // مشابه استایل صفحات قبلی
 import useWellsPte from "@/hooks/useWellsPte";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 // لیست پارامترها با امتیازدهی خاص
 // دو تای اول: 1 امتیاز
@@ -23,6 +24,14 @@ export default function WellsPtePage() {
 
   const { selectedIds, toggleParameter, calculateWells, toast } =
     useWellsPte(parameters);
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   // داده‌های جدول تفسیر طبق تصویر دوم
   const interpretationRows = [
@@ -124,12 +133,13 @@ export default function WellsPtePage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>Result: {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `Result: ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

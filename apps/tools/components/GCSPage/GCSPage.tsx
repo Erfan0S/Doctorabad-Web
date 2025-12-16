@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./GCSPage.module.scss";
 import useGCS from "@/hooks/useGCS";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function GCSPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -17,6 +18,14 @@ export default function GCSPage() {
     calculateGCS,
     toast,
   } = useGCS();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   const eyeItems = [
     { id: 4, title: "خود به خود چشم باز می‌شه." },           // 4 امتیاز
@@ -178,14 +187,19 @@ export default function GCSPage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>
-            {toast.score !== null ? `GCS = ${toast.score}` : ""}
-          </div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={
+          toast
+            ? toast.score !== null
+              ? `GCS = ${toast.score}`
+              : ""
+            : undefined
+        }
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

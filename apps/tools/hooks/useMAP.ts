@@ -1,7 +1,7 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
-// فقط حالت سبز برای موفقیت و خاکستری برای خطا
-type Tone = 'green' | 'gray';
+// فقط حالت سبز برای موفقیت و قرمز برای خطا
+type Tone = 'green' | 'red';
 
 type MAPStage = {
   tone: Tone;
@@ -29,7 +29,7 @@ export const useMAP = () => {
     // بررسی خالی بودن یا معتبر نبودن ورودی‌ها
     if (!systolic || !diastolic || sysNum <= 0 || diaNum <= 0) {
       setToast({
-        tone: 'gray',
+        tone: 'red',
         message: 'لطفاً تمام فیلدها را با مقادیر معتبر پر کنید!',
       });
       return;
@@ -59,13 +59,6 @@ export const useMAP = () => {
     setDiastolic('');
     setToast(null);
   }, []);
-
-  // پاک کردن خودکار توست بعد از ۴ ثانیه
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return useMemo(() => ({
     systolic, setSystolic,

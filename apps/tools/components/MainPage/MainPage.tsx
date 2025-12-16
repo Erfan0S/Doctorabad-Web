@@ -1,27 +1,24 @@
-// app/pharmacy/page.tsx
 "use client";
 
-import { useState } from "react";
-import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
-import styles from "./page.module.scss";
-import { HeaderType } from "@/types/pharmacy";
-import AlvardoPage from "../ApgarPage/ApgarPage";
+import ToolCard from "@/components/ToolCard/ToolCard";
+import { ALL_TOOLS } from "@/data/toolsData";
+import ToolsHeader from "@/components/ToolsHeader/ToolsHeader"; // هدر شما
+import { HeaderType } from "@/types/tools";
 
-
-
-export default function PharmacyHomePage() {
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
-  
-  const isSearchMode = searchQuery.length > 0;
-
+export default function ToolsListPage() {
   return (
-    <div className={styles.container}>
-      <PharmacyHeader headerPageType={HeaderType.OTHERS} title="الورادو" />
-
-    <AlvardoPage />
-
+    <div>
+      <ToolsHeader 
+        headerPageType={HeaderType.OTHERS}
+        title="ابزارهای من"
+        toolData={{ id: "all-tools", title: "ابزارهای من" }}
+      />
+      
+      <div style={{ padding: "16px", paddingBottom: "80px" }}>
+        {ALL_TOOLS.map((tool) => (
+          <ToolCard key={tool.id} tool={tool} />
+        ))}
+      </div>
     </div>
   );
 }

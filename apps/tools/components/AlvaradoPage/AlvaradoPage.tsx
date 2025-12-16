@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./AlvaradoPage.module.scss";
 import useAlvarado from "@/hooks/useAlvarado";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 const parameters = [
   { id: 0, title: "شیفت درد به RLQ دارد؟", points: 1 },
@@ -20,6 +21,14 @@ export default function AlvardoPage() {
 
   const { selectedIds, toggleParameter, calculateAlvarado, toast, totalScore } =
     useAlvarado(parameters);
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   const interpretationRows = [
     { tone: "green", score: "۱ - ۴", status: "کم" },
@@ -128,12 +137,13 @@ export default function AlvardoPage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>Alvarado = {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `Alvarado = ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

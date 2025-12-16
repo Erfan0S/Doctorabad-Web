@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useMaintenanceFluids } from "@/hooks/useMaintenanceFluids";
 import styles from "./MaintenanceFluidsPage.module.scss"; // استایل مشابه صفحات قبل
+import ResultToast from "@/components/common/ResultToast/ResultToast";
+import { useMaintenanceFluids } from "@/hooks/useMaintenanceFluids";
 
 export default function MaintenanceFluidsPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
 
-  const { weight, setWeight, toast, calculate } = useMaintenanceFluids();
+  const { weight, setWeight, toast, calculate, closeToast } =
+    useMaintenanceFluids();
 
   // داده‌های جدول راهنما طبق عکس
   const interpretationData = [
@@ -68,8 +70,8 @@ export default function MaintenanceFluidsPage() {
         <div className={styles.interpretation}>
           <div className={styles.sectionContent}>
             <p>
-              برای محاسبه مقدار و سرعت سرم‌تراپی در فرد دهیدراته، بر اساس وزن
-              وی از فرمول‌های زیر استفاده می‌شود:
+              برای محاسبه مقدار و سرعت سرم‌تراپی در فرد دهیدراته، بر اساس وزن وی
+              از فرمول‌های زیر استفاده می‌شود:
             </p>
 
             <div className={styles.tableWrapper}>
@@ -82,7 +84,11 @@ export default function MaintenanceFluidsPage() {
                 </thead>
                 <tbody>
                   {interpretationData.map((item, index) => (
-                    <tr key={index} className={styles.tableRow} style={{color: '#333'}}>
+                    <tr
+                      key={index}
+                      className={styles.tableRow}
+                      style={{ color: "#333" }}
+                    >
                       <td style={{ direction: "ltr" }}>{item.fluidRate}</td>
                       <td style={{ direction: "ltr" }}>{item.weightRange}</td>
                     </tr>
@@ -94,22 +100,13 @@ export default function MaintenanceFluidsPage() {
         </div>
       )}
 
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.value ? (
-            <>
-              <div className={styles.toastTitle}>
-                <span>Result: {toast.value}</span>
-              </div>
-              <div className={styles.toastText} style={{ marginTop: "4px" }}>
-                {toast.message}
-              </div>
-            </>
-          ) : (
-            <div className={styles.toastTitle}>{toast.message}</div>
-          )}
-        </div>
-      )}
+      <ResultToast
+        open={toast.open}
+        tone={toast.tone}
+        title={toast.title}
+        message={toast.message}
+        onClose={closeToast}
+      />
     </div>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./PregnancyPage.module.scss";
 import usePregnancy from "@/hooks/usePregnancy";
 import DownArrow from "@/assets/svg/downArrow"; // ایمپورت آیکون
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function PregnancyPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -26,6 +27,14 @@ export default function PregnancyPage() {
     todayDate,
     options,
   } = usePregnancy();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   const interpretationData = [
     { age: "8 weeks", crl: "1.6 cm" },
@@ -278,11 +287,13 @@ export default function PregnancyPage() {
 </div>
       )}
 
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.message}
-        </div>
-      )}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast?.title}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type Tone = "green" | "yellow" | "red";
 
@@ -77,12 +77,6 @@ export default function useAbcd2() {
       message,
     });
   };
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return {
     ageOption, setAgeOption,

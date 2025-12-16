@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type Tone = "red" | "yellow" | "green";
 
@@ -69,12 +69,6 @@ export default function useApgar() {
       message,
     });
   };
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return {
     selectedHeartRate,

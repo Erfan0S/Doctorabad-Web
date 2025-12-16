@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGFR } from "@/hooks/useGFR";
 import styles from "./GFRPage.module.scss";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function GFRPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -20,6 +21,14 @@ export default function GFRPage() {
     calculate,
     reset,
   } = useGFR();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   const interpretationData = [
     { stage: "I", range: "≥ 90", color: "green" },
@@ -153,23 +162,21 @@ export default function GFRPage() {
           </div>
         </div>
       )}
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.value !== undefined ? (
-            // حالت محاسبه موفق
-            <>
-              <div className={styles.toastTitle}>
-                <span>GFR: {toast.value}</span>
-                {toast.stage && <span> - Stage: {toast.stage.stage}</span>}
-              </div>
-              <p className={styles.toastText}>{toast.stage?.message}</p>
-            </>
-          ) : (
-            // حالت خطا
-            <div className={styles.toastTitle}>{toast.message}</div>
-          )}
-        </div>
-      )}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={
+          toast
+            ? toast.value !== undefined
+              ? `GFR: ${toast.value}`
+              : toast.message
+            : undefined
+        }
+        message={
+          toast && toast.value !== undefined ? `Stage: ${toast.stage?.stage}` : undefined
+        }
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

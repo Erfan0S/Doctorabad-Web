@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 
-type Tone = "green" | "gray";
+type Tone = "green" | "red";
 
 type CalciumStage = {
   tone: Tone;
@@ -28,7 +28,7 @@ export const useCalciumCorrection = () => {
 
     if (!calcium || !albumin || caNum <= 0 || albNum <= 0) {
       setToast({
-        tone: "gray",
+        tone: "red",
         message: "لطفاً کلسیم و آلبومین را به‌صورت معتبر وارد کنید!",
       });
       return;
@@ -55,12 +55,6 @@ export const useCalciumCorrection = () => {
     setAlbumin("");
     setToast(null);
   }, []);
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return useMemo(
     () => ({

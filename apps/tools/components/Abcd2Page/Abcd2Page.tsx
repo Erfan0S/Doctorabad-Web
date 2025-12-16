@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Abcd2Page.module.scss"; // استایل مشابه صفحات قبلی
 import useAbcd2 from "@/hooks/useAbcd2";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function Abcd2Page() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -22,6 +23,14 @@ export default function Abcd2Page() {
     toast,
   } = useAbcd2();
 
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
+
   // داده‌های گزینه‌ها
   // سن: 0, 1
   const ageItems = [
@@ -30,13 +39,13 @@ export default function Abcd2Page() {
   ];
   // فشار خون: 1, 0 (طبق لاجیک هوک: اولی 1 امتیاز)
   const bpItems = [
-    { id: 0, title: "بیشتر از ۱۴۰/۹۰" },
-    { id: 1, title: "کمتر از ۱۴۰/۹۰" },
+    { id: 0, title: "کمتر از ۱۴۰/۹۰" },
+    { id: 1, title: "بیشتر از ۱۴۰/۹۰" },
   ];
   // تابلوی بالینی: 2, 1, 0 (طبق لاجیک هوک)
   const clinicalItems = [
-    { id: 0, title: "اختلال تکلم" }, // معمولاً این 1 امتیاز دارد
-    { id: 1, title: "همی‌پارزی" }, // معمولاً این 2 امتیاز دارد
+    { id: 0, title: "همی‌پارزی" }, // معمولاً این 2 امتیاز دارد
+    { id: 1, title: "اختلال تکلم" }, // معمولاً این 1 امتیاز دارد
     { id: 2, title: "سایر علائم" },
   ];
   // مدت: 0, 1, 2
@@ -273,12 +282,13 @@ export default function Abcd2Page() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>ABCD2 Score: {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `ABCD2 Score: ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

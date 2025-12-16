@@ -1,8 +1,8 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 type Gender = 'male' | 'female';
-// اضافه کردن 'gray' برای حالت خطا یا خنثی
-type Tone = 'green' | 'yellow' | 'orange' | 'red' | 'gray';
+// رنگ سبز/زرد/قرمز + قرمز برای خطا
+type Tone = 'green' | 'yellow' | 'red';
 
 type CKDStage = {
   stage: string;
@@ -29,7 +29,7 @@ export const useGFR = () => {
     if (gfr >= 90) return { stage: 'I', range: '≥ 90', tone: 'green', message: 'عملکرد طبیعی کلیه' };
     if (gfr >= 60) return { stage: 'II', range: '60-89', tone: 'green', message: 'کاهش خفیف عملکرد کلیه' };
     if (gfr >= 45) return { stage: 'III a', range: '45-59', tone: 'yellow', message: 'کاهش خفیف تا متوسط عملکرد کلیه' };
-    if (gfr >= 30) return { stage: 'III b', range: '30-44', tone: 'orange', message: 'کاهش متوسط تا شدید عملکرد کلیه' };
+    if (gfr >= 30) return { stage: 'III b', range: '30-44', tone: 'yellow', message: 'کاهش متوسط تا شدید عملکرد کلیه' };
     if (gfr >= 15) return { stage: 'IV', range: '15-29', tone: 'red', message: 'کاهش شدید عملکرد کلیه' };
     return { stage: 'V', range: '< 15', tone: 'red', message: 'نارسایی کلیه' };
   }, []);
@@ -43,7 +43,7 @@ export const useGFR = () => {
     // بررسی خالی بودن یا معتبر نبودن ورودی‌ها
     if (!age || !weight || !creatinine || ageNum <= 0 || weightNum <= 0 || creatinineNum <= 0) {
       setToast({
-        tone: 'gray', // رنگ خنثی یا قرمز برای خطا
+        tone: 'red',
         message: 'لطفاً تمام فیلدها را با مقادیر معتبر پر کنید!',
       });
       return;
@@ -70,12 +70,6 @@ export const useGFR = () => {
     setGender('male');
     setToast(null);
   }, []);
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return useMemo(() => ({
     gender, setGender,

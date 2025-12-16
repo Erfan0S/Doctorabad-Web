@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFENa } from "@/hooks/useFENa";
 import styles from "./FENaPage.module.scss";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function FENaPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -19,6 +20,14 @@ export default function FENaPage() {
     toast,
     calculate,
   } = useFENa();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   // داده‌های جدول تفسیر
   const interpretationData = [
@@ -72,7 +81,7 @@ export default function FENaPage() {
               className={styles.input}
               value={serumCr}
               onChange={(e) => setSerumCr(e.target.value)}
-              placeholder="mg/dL"
+              placeholder="mg/dl"
             />
           </div>
           <div className={styles.inputGroup}>
@@ -95,7 +104,7 @@ export default function FENaPage() {
               className={styles.input}
               value={urineCr}
               onChange={(e) => setUrineCr(e.target.value)}
-              placeholder="mg/dL"
+              placeholder="mg/dl"
             />
           </div>
 
@@ -149,23 +158,19 @@ export default function FENaPage() {
         </div>
       )}
 
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.value ? (
-            <>
-              <div className={styles.toastTitle}>
-                <span>FENa: {toast.value}</span>
-              </div>
-              {/* نمایش نوع در خط دوم */}
-              <div className={styles.toastText} style={{ marginTop: "4px" }}>
-                {toast.message}
-              </div>
-            </>
-          ) : (
-            <div className={styles.toastTitle}>{toast.message}</div>
-          )}
-        </div>
-      )}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={
+          toast
+            ? toast.value
+              ? `FENa: ${toast.value}`
+              : toast.message
+            : undefined
+        }
+        message={toast && toast.value ? toast.message : undefined}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

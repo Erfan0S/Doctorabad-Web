@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./Chads2Page.module.scss"; // مشابه استایل صفحات قبلی
 import useChads2 from "@/hooks/useChads2";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 // لیست پارامترها با امتیازدهی خاص
 const parameters = [
@@ -18,6 +19,14 @@ export default function Chads2Page() {
 
   const { selectedIds, toggleParameter, calculateChads2, toast } =
     useChads2(parameters);
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   // داده‌های جدول تفسیر طبق تصویر دوم
   const interpretationRows = [
@@ -119,12 +128,13 @@ export default function Chads2Page() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>امتیاز: {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `امتیاز: ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

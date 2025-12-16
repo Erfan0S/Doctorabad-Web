@@ -109,6 +109,11 @@ export interface MedicineDetails {
 
 export enum HeaderType {
   FAVORITES = "favorites",
-  MEDICINE_DETAILS = "medicine_details",
+  TOOL_DETAILS = "tool_details",
   OTHERS = "others"
+}
+
+export interface ToolDataType {
+  id: string;
+  title: string;
 }

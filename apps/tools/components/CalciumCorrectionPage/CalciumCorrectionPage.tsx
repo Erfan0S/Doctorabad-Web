@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCalciumCorrection } from "@/hooks/useCalciumCorrection";
 import styles from "./CalciumCorrectionPage.module.scss";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function CalciumCorrectionPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
 
   const { calcium, setCalcium, albumin, setAlbumin, toast, calculate, reset } =
     useCalciumCorrection();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   return (
     <div className={styles.container}>
@@ -44,7 +53,7 @@ export default function CalciumCorrectionPage() {
               className={styles.input}
               value={calcium}
               onChange={(e) => setCalcium(e.target.value)}
-              placeholder="mg/dL"
+              placeholder="mmol/L"
             />
           </div>
 
@@ -56,7 +65,7 @@ export default function CalciumCorrectionPage() {
               className={styles.input}
               value={albumin}
               onChange={(e) => setAlbumin(e.target.value)}
-              placeholder="g/dL"
+              placeholder="g/L"
             />
           </div>
 
@@ -94,20 +103,19 @@ export default function CalciumCorrectionPage() {
         </div>
       )}
 
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.value !== undefined ? (
-            <>
-              <div className={styles.toastTitle}>
-                <span>Result = {toast.value} mmol/L</span>
-              </div>
-              <p className={styles.toastText}>{toast.message}</p>
-            </>
-          ) : (
-            <div className={styles.toastTitle}>{toast.message}</div>
-          )}
-        </div>
-      )}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={
+          toast
+            ? toast.value !== undefined
+              ? `Result = ${toast.value} mmol/L`
+              : toast.message
+            : undefined
+        }
+        message={toast && toast.value !== undefined ? toast.message : undefined}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

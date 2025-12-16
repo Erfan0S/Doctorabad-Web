@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./Cha2ds2VascPage.module.scss"; // مشابه استایل صفحات قبلی
 import useCha2ds2Vasc from "@/hooks/useCha2ds2Vasc";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 // لیست پارامترهای سوئیچی (چک‌باکس‌ها)
 // همه 1 امتیاز به جز سکته مغزی که 2 امتیاز دارد
@@ -28,6 +29,14 @@ export default function Cha2ds2VascPage() {
     toast,
   } = useCha2ds2Vasc(parameters);
 
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
+
   // گزینه‌های سن
   const ageItems = [
     { id: 0, title: "کمتر از ۶۵ سال", points: 0 },
@@ -44,16 +53,16 @@ export default function Cha2ds2VascPage() {
   // داده‌های جدول تفسیر (مثال - مقادیر دقیق را طبق رفرنس خودتان تنظیم کنید)
   // تعریف داده‌ها به همراه کلاس رنگ
   const interpretationRows = [
-    { score: "0 points", risk: "0%", color: "green" },
-    { score: "1 points", risk: "1.3%", color: "yellow" },
-    { score: "2 points", risk: "2.2%", color: "red" },
-    { score: "3 points", risk: "3.2%", color: "red" },
-    { score: "4 points", risk: "4.0%", color: "red" },
-    { score: "5 points", risk: "6.7%", color: "red" },
-    { score: "6 points", risk: "9.8%", color: "red" },
-    { score: "7 points", risk: "9.6%", color: "red" },
-    { score: "8 points", risk: "6.7%", color: "red" },
-    { score: "9 points", risk: "15.2%", color: "red" },
+    { score: "0 points", risk: "%0.2", color: "green" },
+    { score: "1 points", risk: "%0.6", color: "green" },
+    { score: "2 points", risk: "%2.2", color: "green" },
+    { score: "3 points", risk: "%3.2", color: "yellow" },
+    { score: "4 points", risk: "%4.8", color: "yellow" },
+    { score: "5 points", risk: "%7.2", color: "yellow" },
+    { score: "6 points", risk: "%9.7", color: "yellow" },
+    { score: "7 points", risk: "%11.2", color: "red" },
+    { score: "8 points", risk: "%10.8", color: "red" },
+    { score: "9 points", risk: "%12.2", color: "red" },
   ];
 
   // ... در قسمت JSX جدول ...
@@ -205,14 +214,13 @@ export default function Cha2ds2VascPage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>
-            Result: {toast.score}
-          </div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `Result: ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

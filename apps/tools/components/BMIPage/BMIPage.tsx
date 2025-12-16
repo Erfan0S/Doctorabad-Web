@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBMI } from "@/hooks/useBMI";
 import styles from "./BMIPage.module.scss";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function BMIPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -18,6 +19,14 @@ export default function BMIPage() {
   ];
 
   
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   return (
     <div className={styles.container}>
@@ -52,7 +61,7 @@ export default function BMIPage() {
               className={styles.input}
               value={height}
               onChange={(e) => setHeight(e.target.value)}
-              placeholder="mmHg"
+              placeholder="سانتی‌متر"
             />
           </div>
 
@@ -63,7 +72,7 @@ export default function BMIPage() {
               className={styles.input}
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              placeholder="mmHg"
+              placeholder="کیلوگرم"
             />
           </div>
 
@@ -110,18 +119,19 @@ export default function BMIPage() {
           </div>
         </div>
       )}
-      {toast && (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          {toast.value !== undefined ? (
-            <div className={styles.toastTitle}>
-              <span>BMI: {toast.value}</span>
-              <div className={styles.toastText}>{toast.message}</div>
-            </div>
-          ) : (
-            <div className={styles.toastTitle}>{toast.message}</div>
-          )}
-        </div>
-      )}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={
+          toast
+            ? toast.value !== undefined
+              ? `BMI: ${toast.value} kg/m²`
+              : toast.message
+            : undefined
+        }
+        message={toast && toast.value !== undefined ? toast.message : undefined}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

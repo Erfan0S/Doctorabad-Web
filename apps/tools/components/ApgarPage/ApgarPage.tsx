@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ApgarPage.module.scss";
 import useApgar from "@/hooks/useApgar";
+import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function ApgarPage() {
   const [activeTab, setActiveTab] = useState<"calc" | "interpret">("calc");
@@ -21,6 +22,14 @@ export default function ApgarPage() {
     calculateApgar,
     toast,
   } = useApgar();
+
+  const [toastOpen, setToastOpen] = useState(false);
+
+  useEffect(() => {
+    if (toast) {
+      setToastOpen(true);
+    }
+  }, [toast]);
 
   const heartRateItems = [
     { id: 1, title: "نبض نداره!", points: "0" },
@@ -219,12 +228,13 @@ export default function ApgarPage() {
         </div>
       )}
 
-      {toast ? (
-        <div className={`${styles.toast} ${styles[toast.tone]}`}>
-          <div className={styles.toastTitle}>APGAR = {toast.score}</div>
-          <div className={styles.toastText}>{toast.message}</div>
-        </div>
-      ) : null}
+      <ResultToast
+        open={toastOpen && !!toast}
+        tone={toast?.tone}
+        title={toast ? `APGAR = ${toast.score}` : undefined}
+        message={toast?.message}
+        onClose={() => setToastOpen(false)}
+      />
     </div>
   );
 }

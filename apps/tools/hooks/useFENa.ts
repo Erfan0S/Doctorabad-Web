@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 
-type Tone = "green" | "gray";
+type Tone = "green" | "red";
 
 type ToastState = {
   value?: string;
@@ -22,11 +22,17 @@ export const useFENa = () => {
     const uCr = Number(urineCr);
 
     if (
-      !serumNa || !serumCr || !urineNa || !urineCr ||
-      sNa <= 0 || sCr <= 0 || uNa <= 0 || uCr <= 0
+      !serumNa ||
+      !serumCr ||
+      !urineNa ||
+      !urineCr ||
+      sNa <= 0 ||
+      sCr <= 0 ||
+      uNa <= 0 ||
+      uCr <= 0
     ) {
       setToast({
-        tone: "gray",
+        tone: "red",
         message: "لطفاً تمام مقادیر را به‌صورت معتبر وارد کنید!",
       });
       return;
@@ -36,8 +42,8 @@ export const useFENa = () => {
     const denominator = sNa * uCr;
     const fenaValue = 100 * (numerator / denominator);
     
-    // حذف اعشار با Math.round
-    const rounded = Math.round(fenaValue);
+    // گرد کردن به یک رقم اعشار
+    const rounded = fenaValue.toFixed(1);
 
     // تعیین نوع بر اساس جدول
     let typeMessage = "";
@@ -75,12 +81,6 @@ export const useFENa = () => {
     setUrineCr("");
     setToast(null);
   }, []);
-
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
-  }, [toast]);
 
   return useMemo(
     () => ({
