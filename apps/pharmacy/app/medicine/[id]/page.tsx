@@ -3,6 +3,5 @@ import MedicineDetailsPage from "@/components/MedicineDetailsPage/MedicineDetail
 
 
 export default async function MedicinePage() {
-  await authorizeServerPage();
   return <MedicineDetailsPage />;
 }

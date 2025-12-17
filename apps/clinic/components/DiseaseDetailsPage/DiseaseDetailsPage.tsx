@@ -16,7 +16,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { baseUrls, pharmacyPaths } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
-import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { isUserLoggedIn, authorizeClientAction } from "@repo/core/utils/authUtils";
 import { canTrackDiseaseView } from "@/utils/diseaseViewTracking";
 import { useDiseaseView } from "@/hooks/useDiseaseView";
 
@@ -90,9 +90,10 @@ export default function DiseaseDetailsPage() {
     if (data) {
       const section = allSections.find(s => s.key === key);
       if (section && section.hasNoAccess) {
-        
+
+        authorizeClientAction(() => {
           modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
-       
+        })();
         return;
       }
     }

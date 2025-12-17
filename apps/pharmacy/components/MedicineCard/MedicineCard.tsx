@@ -20,7 +20,7 @@ export default function MedicineCard({ medicine }: MedicineCardProps) {
   return (
     <div
       className={styles.medicineCard}
-      onClick={authorizeClientAction(() => router.push(`/medicine/${medicine.id}`))}
+      onClick={() => router.push(`/medicine/${medicine.id}`)}
     >
       <div className={styles.medicineImage}>
         {medicine.picture ? (

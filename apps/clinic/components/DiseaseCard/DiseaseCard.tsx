@@ -17,8 +17,19 @@ interface DiseaseCardProps {
 }
 
 export default function DiseaseCard({ disease }: DiseaseCardProps) {
+  const {
+    data: userPlans,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["user-plans-clinic"],
+    queryFn: async () => (await clinicApi.getUserPlans()).data,
+    staleTime: getMillisecondsUntilMidnight(),
+    gcTime: getMillisecondsUntilMidnight(), // Keep in cache until midnight
+  });
   const router = useRouter();
-  const isAccessible = () => {
+  const  isAccessible = () => {
+    console.log(userPlans);
     if (userPlans?.data || userPlans?.used_free || disease.is_free) {
       return true;
     }
@@ -26,16 +37,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   };
 
 
-  const {
-    data: userPlans,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["user-plans-clinic"],
-    queryFn: async () => (await clinicApi.getUserPlans()).data.data,
-    staleTime: getMillisecondsUntilMidnight(),
-    gcTime: getMillisecondsUntilMidnight(), // Keep in cache until midnight
-  });
+
 
   const handleActionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
