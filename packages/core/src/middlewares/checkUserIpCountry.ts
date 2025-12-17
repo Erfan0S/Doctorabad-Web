@@ -30,18 +30,30 @@ async function checkUserIpCountry(
   const ip = req.ip || (!!forwarded ? forwarded.split(",")[0].trim() : null);
 
   if (!!ip) {
-    const response = await fetch(
-      `https://api.ipinfo.io/lite/${ip}?token=${IPINFO_API_TOKEN}`
-    );
-    const data = (await response.json()) as IpInfoResponse;
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-    // console.log(data);
+      const response = await fetch(
+        `https://api.ipinfo.io/lite/${ip}?token=${IPINFO_API_TOKEN}`,
+        {
+          signal: controller.signal,
+        }
+      );
+      clearTimeout(timeoutId);
 
-    if (!!data.continent_code) {
-      res.cookies.set(IP_COUNTRY_COOKIE, data.country_code, {
-        sameSite: "lax",
-      });
-      return res;
+      const data = (await response.json()) as IpInfoResponse;
+
+      // console.log(data);
+
+      if (!!data.continent_code) {
+        res.cookies.set(IP_COUNTRY_COOKIE, data.country_code, {
+          sameSite: "lax",
+        });
+        return res;
+      }
+    } catch (error) {
+      console.error("Failed to check IP country:", error);
     }
   }
 
