@@ -9,7 +9,7 @@ import style from "./style.module.scss";
 type Props = {
   id: number;
   initialFavoriteState: boolean;
-  app: Omit<Apps, "EXAM" | "BASE">;
+  app: Omit<Apps, "BASE">;
   className?: string;
 };
 

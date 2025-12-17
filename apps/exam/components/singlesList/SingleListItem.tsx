@@ -6,7 +6,8 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import {
   AddToCartButton,
   Button,
-  ListProductSnappayNotif,
+  FavoriteButton,
+  ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
@@ -33,6 +34,12 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
     );
   }, [item.user_has_access, haveGeneralAccess]);
 
+  const isShowInstallmentText =
+    item.installment_payment &&
+    item.installment_text &&
+    !hasAccess &&
+    item.main_price > 4000;
+
   return (
     <div className={`${style.singleItem} card`}>
       <div>
@@ -49,13 +56,27 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
+        {/* <FavoriteButton
+          id={item.id}
+          initialFavoriteState={item.favorite}
+          app={Apps.EXAM}
+          className={style.favoriteButton}
+        /> */}
       </div>
       <div>
-        <span className={style.singleItemPrice}>
-          {item.main_price
-            ? `${priceFormatter(item.main_price)} تومن`
-            : "رایگان"}
-        </span>
+        <div className={style.singleItemPriceWrapper}>
+          <span className={style.singleItemPrice}>
+            {item.main_price
+              ? `${priceFormatter(item.main_price)} تومن`
+              : "رایگان"}
+            {item.installment_text && isShowInstallmentText && (
+              <ProductSnappayNotif
+                text={item.installment_text}
+                className={style.installmentPayment}
+              />
+            )}
+          </span>
+        </div>
         {hasAccess ? (
           <div className={style.singleItemAccessButtons}>
             <Button>
@@ -74,9 +95,6 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
         )}
       </div>
-      {item.installment_payment && (
-        <ListProductSnappayNotif className={style.installmentPayment} />
-      )}
     </div>
   );
 }

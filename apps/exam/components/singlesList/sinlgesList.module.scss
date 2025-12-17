@@ -50,6 +50,12 @@
   box-shadow: none;
   position: relative;
 
+  .favoriteButton {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
   > div {
     display: flex;
     flex-direction: row;
@@ -81,6 +87,10 @@
     font-size: 14px;
     color: $purple;
   }
+  &PriceWrapper {
+    display: flex;
+    flex-direction: column;
+  }
 
   &Description {
     display: flex;
@@ -94,12 +104,8 @@
     h3 {
       font-weight: 700;
       font-size: 15px;
-      padding-left: 70px;
+      padding-left: 50px;
     }
-  }
-  .installmentPayment {
-    left: 10px;
-    top: 10px;
   }
 }
 
@@ -121,6 +127,11 @@
   .singleItem {
     button {
       font-size: 10px;
+    }
+    &PriceWrapper {
+      .installmentPayment {
+        font-size: 10px;
+      }
     }
   }
 }

@@ -527,6 +527,13 @@ class Api extends Request {
   removeMarketFavorite = (id: number): Promise<any> => {
     return this.request.delete(`/user/shop/favorite/${id}`);
   };
+
+  examSingleExamFavorite = (id: number, isFavorite?: boolean): Promise<any> => {
+    return this.request.post(`/user/v1/lab/exam/favorite`, {
+      exam: id,
+      favorite: isFavorite ? 1 : 0,
+    });
+  };
 }
 
 export const api = new Api();
