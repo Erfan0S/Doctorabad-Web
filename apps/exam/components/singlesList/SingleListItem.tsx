@@ -56,12 +56,12 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
-        <FavoriteButton
+        {/* <FavoriteButton
           id={item.id}
           initialFavoriteState={item.favorite}
           app={Apps.EXAM}
           className={style.favoriteButton}
-        />
+        /> */}
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>
