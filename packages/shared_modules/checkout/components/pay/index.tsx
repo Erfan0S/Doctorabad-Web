@@ -174,7 +174,10 @@ const Pay = ({ shippingMethod, payInfo, setPayInfo, children }: Props) => {
         <>
           <div className={style.paySumPrice}>
             <span style={{ textDecoration: "line-through", color: "#000" }}>
-              {priceFormatter(price_paid)} تومن
+              {priceFormatter(
+                calcPriceToPay(price_paid, payInfo, shippingMethod?.price, 0)
+              )}{" "}
+              تومن
             </span>
           </div>
           {/* <div className={style.paySumPrice}>
