@@ -1,16 +1,15 @@
-import { DiscountPlanType } from "../../types/discountPlan";
+import { DiscountPlanType } from "@/types/discountPlan";
 import React from "react";
 import style from "./discountPlans.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import VipIcon from "../../assets/svg/vipIcon";
 import {
   AddToCartButton,
-  ListProductSnappayNotif,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
 import { cartActions } from "@repo/core/states/cart";
+import VipIcon from "@/assets/svg/vipIcon";
 
 type Props = {
   item: DiscountPlanType;

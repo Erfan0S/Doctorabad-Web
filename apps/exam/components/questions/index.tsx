@@ -10,12 +10,12 @@ import {
 import styles from "./questions.module.scss";
 import { useSearchParams } from "next/navigation";
 import { QuestionsAnswersContext } from "../../contexts/questionsAnswersContext";
+import ExamFIlterNotFound from "@/components/common/FIlterNotFound";
+import { QuestionsLessonsFilterContext } from "@/contexts/questionsLessonFilterContext";
 import {
   QuestionListFilters,
   QuestionListFiltersKey,
-} from "../../types/questionListFilters";
-import { QuestionsLessonsFilterContext } from "../..";
-import ExamFIlterNotFound from "../common/FIlterNotFound";
+} from "@/types/questionListFilters";
 
 type Props = {
   questions: QuestionType[];

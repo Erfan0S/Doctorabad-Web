@@ -1,4 +1,4 @@
-import { QuestionsAnswersProvider } from "@repo/apps_shared_components";
+import { QuestionsAnswersProvider } from "@/contexts/questionsAnswersContext";
 import React from "react";
 
 const QuestionsLayout: React.FC<{ children: React.ReactNode }> = ({

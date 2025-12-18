@@ -1,19 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import {
-  Questions,
-  QuestionsLessonsFilter,
-  examApi,
-} from "@repo/apps_shared_components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../common/components";
-import { QuestionsLessonsFilterProvider } from "@repo/apps_shared_components/exam";
+import { api } from "@repo/apps_shared_components/exam/api/Api.ts";
 
 const SidePanelFavoritesExam: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
     useInfiniteQuery({
       queryFn: ({ pageParam }) =>
-        examApi.getExamFavoriteList(Number(pageParam)).then((res) => res.data),
+        api.getExamFavoriteExamList(Number(pageParam)).then((res) => res.data),
       queryKey: ["favorite", "exam"],
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -30,34 +25,27 @@ const SidePanelFavoritesExam: React.FC = () => {
 
   if (isLoading) return <Loading />;
 
+  console.log(data);
+
   return (
     <>
       {hasQuestions ? (
-        <QuestionsLessonsFilterProvider>
-          <QuestionsLessonsFilter lessons={data?.pages[0].lessons || []} />
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={() => {
-              fetchNextPage();
-            }}
-            useWindow={false}
-            hasMore={hasNextPage}
-            loader={<Loading />}
-            getScrollParent={() =>
-              document.getElementById("favoriteListContainer") as HTMLElement
-            }
-          >
-            {data?.pages.map((questions, i) => (
-              <Questions
-                questions={questions.data}
-                mobileMode
-                key={i}
-                isFavorite
-                fetchNextPage={fetchNextPage}
-              />
-            ))}
-          </InfiniteScroll>
-        </QuestionsLessonsFilterProvider>
+        <InfiniteScroll
+          pageStart={1}
+          loadMore={() => {
+            fetchNextPage();
+          }}
+          useWindow={false}
+          hasMore={hasNextPage}
+          loader={<Loading />}
+          getScrollParent={() =>
+            document.getElementById("favoriteListContainer") as HTMLElement
+          }
+        >
+          {data?.pages.map((questions, i) => (
+            <div key={i}>{questions.data.length}</div>
+          ))}
+        </InfiniteScroll>
       ) : (
         <span style={{ width: "100%", textAlign: "center", display: "block" }}>
           هیچ سوالی نیست!

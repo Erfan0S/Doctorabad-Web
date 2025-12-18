@@ -1,21 +1,21 @@
 import { api } from "@/api/Api";
 import Loading from "@/components/common/Loading/Loading";
 import useGetFilterParams from "@/hooks/useGetQuestionParams";
-import {
-  QuestionListFilters,
-  QuestionListFiltersKey,
-} from "@repo/apps_shared_components/exam/types/questionListFilters.ts";
-import { Questions } from "@repo/apps_shared_components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import BudgetingRecord from "@/components/exam/BudgetingRecord";
 import { PreventContext } from "@repo/shared_modules/components";
-import ExamFIlterNotFound from "@repo/apps_shared_components/exam/components/common/FIlterNotFound/index.tsx";
+import ExamFIlterNotFound from "@/components/common/FIlterNotFound";
 import { PersistQueryProvider } from "@repo/shared_modules";
-import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
-import { QuestionType } from "@repo/apps_shared_components/exam/types/exam.ts";
+import { QuestionsAnswersContext } from "@/contexts/questionsAnswersContext";
+import { QuestionType } from "@/types/exam";
+import Questions from "@/components/questions";
+import {
+  QuestionListFilters,
+  QuestionListFiltersKey,
+} from "@/types/questionListFilters";
 
 function QuestionBankListPageComponent() {
   const {

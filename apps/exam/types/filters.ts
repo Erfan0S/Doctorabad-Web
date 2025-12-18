@@ -20,10 +20,3 @@ export enum SharedFilters {
 }
 
 export type filterPages = "maker" | "questionBank" | "exams";
-
-export enum ExamStatus {
-  OBSERVING = "observing",
-  DRAFT = "draft",
-  STARTED = "started",
-  FINISHED = "finished",
-}

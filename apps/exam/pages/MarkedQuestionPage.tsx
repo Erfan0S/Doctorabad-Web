@@ -1,20 +1,24 @@
 "use client";
+import { api } from "@/api/Api";
+import Loading from "@/components/common/Loading/Loading";
+import Questions from "@/components/questions";
+import QuestionsLessonsFilter from "@/components/questions/questionsLessonsFilter";
+import { QuestionsLessonsFilterProvider } from "@/contexts/questionsLessonFilterContext";
 import {
-  Questions,
-  QuestionsLessonsFilter,
-  examApi,
-} from "@repo/apps_shared_components";
-import Loading from "@repo/apps_shared_components/exam/components/common/Loading/index.tsx";
-import { QuestionsLessonsFilterProvider } from "@repo/apps_shared_components/exam/index.ts";
-import { useInfiniteQuery } from "@tanstack/react-query";
+  QueryClient,
+  QueryClientProvider,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-function MarkedQuestionPage() {
+function MarkedQuestionPageComponent() {
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
     useInfiniteQuery({
       queryFn: ({ pageParam }) =>
-        examApi.getExamFavoriteList(Number(pageParam)).then((res) => res.data),
+        api
+          .getExamFavoriteQuestionList(Number(pageParam))
+          .then((res) => res.data),
       queryKey: ["favorite", "exam"],
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -51,7 +55,6 @@ function MarkedQuestionPage() {
             {data?.pages.map((questions, i) => (
               <Questions
                 questions={questions.data}
-                mobileMode
                 key={i}
                 isFavorite
                 fetchNextPage={fetchNextPage}
@@ -65,6 +68,16 @@ function MarkedQuestionPage() {
         </span>
       )}
     </>
+  );
+}
+
+function MarkedQuestionPage() {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <MarkedQuestionPageComponent />
+    </QueryClientProvider>
   );
 }
 

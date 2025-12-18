@@ -3,12 +3,12 @@ import { api } from "@repo/shared_modules/api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import DiscountPlanItem from "./DiscountPlanItem";
-import Loading from "../../../../../apps/exam/components/common/Loading/Loading";
 import style from "./discountPlans.module.scss";
 import { UserPlanItem } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
-import { UserPlansQueryKeys } from "../../constants/constants";
+import Loading from "../common/Loading/Loading";
+import { UserPlansQueryKeys } from "@/constants/constants";
 
 type Props = {
   haveUserPlan?: boolean;

@@ -15,7 +15,7 @@ import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import examIcon from "@repo/shared_modules/images/doctor-exam.png";
-import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
+import { ExamType } from "@/types/exam";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props = {
@@ -56,12 +56,12 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
-        {/* <FavoriteButton
+        <FavoriteButton
           id={item.id}
           initialFavoriteState={item.favorite}
           app={Apps.EXAM}
           className={style.favoriteButton}
-        /> */}
+        />
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>

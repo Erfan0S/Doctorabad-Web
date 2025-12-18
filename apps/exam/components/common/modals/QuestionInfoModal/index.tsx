@@ -3,7 +3,7 @@ import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper } from "@repo/shared_modules/components";
 import React from "react";
 import style from "./questionInfoModal.module.scss";
-import { QuestionType } from "../../../../types/exam";
+import { QuestionType } from "@/types/exam";
 
 type Props = ModalProps<{
   question: QuestionType;

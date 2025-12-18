@@ -7,11 +7,11 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { Apps } from "@repo/core/types/general";
 import { SelectFilterItems } from "@repo/core/types/filter";
+import { useSearchParams } from "next/navigation";
 import {
   QuestionListFilters,
   QuestionListFiltersKey,
-} from "@repo/apps_shared_components/exam/types/questionListFilters.ts";
-import { useSearchParams } from "next/navigation";
+} from "@/types/questionListFilters";
 
 const FiltersItems: SelectFilterItems[] = [
   {

@@ -20,7 +20,12 @@
     "**/*.ts",
     "**/*.tsx",
     "index.d.ts",
-    "../core/src/types/sidePanel.ts"
+    "../core/src/types/sidePanel.ts",
+    "../../apps/exam/hooks/useToggleFavoriteQuestion.ts",
+    "../../apps/exam/utils/generateQuestionId.ts",
+    "../../apps/exam/types/discountPlan.ts",
+    "../../apps/exam/types/filters.ts",
+    "../../apps/exam/types/questionListFilters.ts"
   ],
   "exclude": ["node_modules"]
 }

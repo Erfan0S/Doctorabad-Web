@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import styles from "./questionItem.module.scss";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import Loading from "../../common/Loading";
 import { api } from "../../../api/Api";
-import { toast } from "react-toastify";
-import { explanationError } from "../../../constants/massages";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import Loading from "@/components/common/Loading/Loading";
 
 type Props = {
   questionId: number;

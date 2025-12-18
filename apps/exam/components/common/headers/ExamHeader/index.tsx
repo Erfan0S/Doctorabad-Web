@@ -1,10 +1,5 @@
 "use client";
 import AnswerSheetIcon from "@/assets/svg/answerSheet";
-import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { modalActions } from "@repo/core/modal/modals";
 import { Apps } from "@repo/core/types/general";
 import { PageHeader } from "@repo/shared_modules/headers";
@@ -12,8 +7,10 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
-import style from "./examHeader.module.scss";
 import Button from "../../Button/Button";
+import { SharedFilters } from "@/types/filters";
+import { QuestionsAnswersContext } from "@/contexts/questionsAnswersContext";
+import { ExamStatus } from "@/types/exam";
 
 type Props = {
   children: React.ReactNode;

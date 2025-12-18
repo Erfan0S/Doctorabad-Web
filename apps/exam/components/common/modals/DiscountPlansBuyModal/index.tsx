@@ -1,8 +1,8 @@
-import DiscountPlans from "../../../discountPlans";
 import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper } from "@repo/shared_modules/components";
 import style from "./discountPlansBuy.module.scss";
+import DiscountPlans from "@/components/discountPlans";
 
 type Props = ModalProps<{}>;
 

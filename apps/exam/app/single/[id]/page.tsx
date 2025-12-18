@@ -2,20 +2,16 @@ import { api } from "@/api/Api";
 import ExamHeader from "@/components/common/headers/ExamHeader";
 import ExamTimer from "@/components/exam/timer";
 import PageTitle from "@/components/singleDetail/PageTitle";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
-import {
-  Questions,
-  QuestionsLessonsFilter,
-} from "@repo/apps_shared_components";
+import { SharedFilters } from "@/types/filters";
+import Questions from "@/components/questions";
+import QuestionsLessonsFilter from "@/components/questions/questionsLessonsFilter";
 import { notFound } from "next/navigation";
 import React from "react";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
 import { PreventContext } from "@repo/shared_modules/components";
 import { generateSingleExamMetaData } from "@/metadata/singleExam";
+import { ExamStatus } from "@/types/exam";
 
 export const generateMetadata = generateSingleExamMetaData;
 

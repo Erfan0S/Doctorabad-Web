@@ -5,10 +5,8 @@ import { ModalWrapper } from "@repo/shared_modules/components";
 import React from "react";
 import Button from "../../Button/Button";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
+import { SharedFilters } from "@/types/filters";
+import { ExamStatus } from "@/types/exam";
 
 type Props = ModalProps<{ setLoading?: (loading: boolean) => void }>;
 

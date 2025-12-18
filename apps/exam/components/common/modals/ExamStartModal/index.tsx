@@ -1,8 +1,3 @@
-import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper, OptionSwitch } from "@repo/shared_modules/components";
@@ -11,8 +6,10 @@ import style from "./ExamStartodal.module.scss";
 import { useRouter } from "next/navigation";
 import { Input } from "@repo/shared_modules/ui";
 import { inBoundValue } from "@repo/core/utils/inBoundValue";
-import { ExamRoutePath } from "../../../../constants/examRoutPaths";
 import { modalActions } from "@repo/core/modal/modals";
+import { ExamStatus, ExamType } from "@/types/exam";
+import { SharedFilters } from "@/types/filters";
+import { ExamRoutePath } from "@/constants/examRoutPaths";
 
 type Props = ModalProps<{
   exam: ExamType;

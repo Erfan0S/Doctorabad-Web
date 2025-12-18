@@ -1,8 +1,8 @@
 "use client";
 import { useContext } from "react";
 import style from "./questions.module.scss";
-import { LessonType } from "../../types/exam";
-import { QuestionsLessonsFilterContext } from "../../contexts/questionsLessonFilterContext";
+import { LessonType } from "@/types/exam";
+import { QuestionsLessonsFilterContext } from "@/contexts/questionsLessonFilterContext";
 
 type Props = {
   lessons: LessonType[];

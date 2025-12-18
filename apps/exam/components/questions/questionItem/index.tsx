@@ -12,11 +12,11 @@ import Image from "next/image";
 import QuestionExplanation from "./questionExplanation";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
-import { useToggleFavoriteQuestion } from "../../../hooks/useToggleFavoriteQuestion";
 import { QuestionsAnswersContext } from "../../../contexts/questionsAnswersContext";
-import { generateQuestionId } from "../../../utils/generateQuestionId";
 import { usePathname } from "next/navigation";
 import QuestionItemWaterMark from "./questionItemWaterMark";
+import { useToggleFavoriteQuestion } from "@/hooks/useToggleFavoriteQuestion";
+import { generateQuestionId } from "@/utils/generateQuestionId";
 
 const buttons = (
   question: QuestionType,

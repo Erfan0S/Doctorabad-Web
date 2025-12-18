@@ -1,10 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { OptionSwitch } from "@repo/shared_modules/components";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { Apps } from "@repo/core/types/general";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api as coreApi } from "@repo/shared_modules/api";
@@ -22,8 +18,10 @@ import {
 } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { UserPlansQueryKeys } from "@repo/apps_shared_components/exam/constants/constants.ts";
 import { UserPlans } from "@repo/core/types/user";
+import { UserPlansQueryKeys } from "@/constants/constants";
+import { SharedFilters } from "@/types/filters";
+import { ExamStatus } from "@/types/exam";
 
 function MakeInputs() {
   const searchParams = useSearchParams();
