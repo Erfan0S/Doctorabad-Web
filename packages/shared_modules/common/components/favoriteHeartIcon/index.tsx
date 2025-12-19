@@ -8,6 +8,8 @@ type Props = {
   app?: Apps;
   loading?: boolean;
   size?: number;
+  icon?: React.ReactNode;
+  filledIcon?: React.ReactNode;
 } & React.SVGProps<SVGSVGElement>;
 
 function FavoriteHeartIcon({
@@ -15,15 +17,23 @@ function FavoriteHeartIcon({
   app = Apps.BASE,
   loading,
   size,
+  icon,
+  filledIcon,
   ...svgAttribute
 }: Props) {
   return loading ? (
     <Loading size={size} app={app} />
   ) : isFavorite ? (
-    <HeartFillIcon
-      className={`${styles.favoriteFillIcon} ${app}`}
-      {...svgAttribute}
-    />
+    filledIcon ? (
+      <div className={`${styles.favoriteFillIcon} ${app}`}>{filledIcon}</div>
+    ) : (
+      <HeartFillIcon
+        className={`${styles.favoriteFillIcon} ${app}`}
+        {...svgAttribute}
+      />
+    )
+  ) : icon ? (
+    <div className={`${app}`}>{icon}</div>
   ) : (
     <HeartIcon className={`${app}`} {...svgAttribute} />
   );

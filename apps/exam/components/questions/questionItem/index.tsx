@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
 import QuestionItemWaterMark from "./questionItemWaterMark";
 import { useToggleFavoriteQuestion } from "@/hooks/useToggleFavoriteQuestion";
 import { generateQuestionId } from "@/utils/generateQuestionId";
+import BookMarkIcon from "@/assets/svg/bookMark";
 
 const buttons = (
   question: QuestionType,
@@ -43,6 +44,8 @@ const buttons = (
           loading={isLoading}
           isFavorite={isFavorite}
           app={Apps.EXAM}
+          icon={<BookMarkIcon />}
+          filledIcon={<BookMarkIcon />}
         />
       ),
     },
