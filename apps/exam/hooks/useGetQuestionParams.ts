@@ -1,4 +1,4 @@
-import { SharedFilters } from "@/types/filters";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 import { useSearchParams } from "next/navigation";
 
 export default function useGetFilterParams() {

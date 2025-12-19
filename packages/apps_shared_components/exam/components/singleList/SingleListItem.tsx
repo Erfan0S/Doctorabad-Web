@@ -14,9 +14,12 @@ import { Apps } from "@repo/core/types/general";
 import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+// @ts-ignore
 import examIcon from "@repo/shared_modules/images/doctor-exam.png";
-import { ExamType } from "@/types/exam";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { ExamType } from "@repo/apps_shared_components/exam/types";
+import { useRouter } from "next/navigation";
+import { baseUrls, examPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   item: ExamType;
@@ -24,6 +27,7 @@ type Props = {
 };
 
 function SingleListItem({ item, haveGeneralAccess }: Props) {
+  const router = useRouter();
   const [hasAccess, setHasAccess] = useState(
     isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
   );
@@ -79,8 +83,15 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
         </div>
         {hasAccess ? (
           <div className={style.singleItemAccessButtons}>
-            <Button>
-              <Link href={`/single/${item.id}`}>ورود</Link>
+            <Button
+              onClick={() => {
+                router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`);
+                setTimeout(() => {
+                  modalActions.clearModals();
+                }, 100);
+              }}
+            >
+              ورود
             </Button>
             <Button
               app={Apps.EXAM}

@@ -4,7 +4,7 @@ import styles from "./questionItem.module.scss";
 import { BugIcon, InfoIcon } from "@repo/shared_modules/icons";
 import { Button, FavoriteHeartIcon } from "@repo/shared_modules/components";
 
-import { ExamStatus, QuestionStatus, QuestionType } from "../../../types/exam";
+import { QuestionStatus, QuestionType } from "../../../types/exam";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import QuestionInput from "./questionInputs/questionItemInput";
@@ -18,6 +18,7 @@ import QuestionItemWaterMark from "./questionItemWaterMark";
 import { useToggleFavoriteQuestion } from "@/hooks/useToggleFavoriteQuestion";
 import { generateQuestionId } from "@/utils/generateQuestionId";
 import BookMarkIcon from "@/assets/svg/bookMark";
+import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 
 const buttons = (
   question: QuestionType,

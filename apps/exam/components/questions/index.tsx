@@ -4,7 +4,6 @@ import QuestionItem from "./questionItem";
 import {
   ExamDetailType,
   ExamStartSearchParams,
-  ExamStatus,
   QuestionType,
 } from "../../types/exam";
 import styles from "./questions.module.scss";
@@ -16,6 +15,7 @@ import {
   QuestionListFilters,
   QuestionListFiltersKey,
 } from "@/types/questionListFilters";
+import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   questions: QuestionType[];

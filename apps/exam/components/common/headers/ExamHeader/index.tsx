@@ -8,9 +8,11 @@ import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import Button from "../../Button/Button";
-import { SharedFilters } from "@/types/filters";
 import { QuestionsAnswersContext } from "@/contexts/questionsAnswersContext";
-import { ExamStatus } from "@/types/exam";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   children: React.ReactNode;
@@ -45,22 +47,27 @@ function ExamHeader({
 
   const haveMarking = searchParams?.get(SharedFilters.MARKING);
 
+  const pageHeaderSuffix = (
+    <>
+      {suffix}
+      {haveMarking && (
+        <Button
+          onClick={() =>
+            modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET, {
+              questionsAnswersContext: questionsAnswersContext,
+            })
+          }
+        >
+          پاسخ برگ من
+          <AnswerSheetIcon />
+        </Button>
+      )}
+    </>
+  );
+
   return (
     <PageHeader
-      suffix={
-        haveMarking && (
-          <Button
-            onClick={() =>
-              modalActions.addModal(ModalTypes.EXAM_ANSWER_SHEET, {
-                questionsAnswersContext: questionsAnswersContext,
-              })
-            }
-          >
-            پاسخ برگ من
-            <AnswerSheetIcon />
-          </Button>
-        )
-      }
+      suffix={pageHeaderSuffix}
       title={title}
       app={Apps.EXAM}
       onBack={onBack}

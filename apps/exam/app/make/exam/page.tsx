@@ -8,8 +8,10 @@ import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
 import { PreventContext } from "@repo/shared_modules/components";
 import ExamFIlterNotFound from "@/components/common/FIlterNotFound";
-import { SharedFilters } from "@/types/filters";
-import { ExamStatus } from "@/types/exam";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   searchParams: Record<string, string | undefined>;

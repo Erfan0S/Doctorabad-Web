@@ -84,22 +84,6 @@ export type LessonType = {
   reputation_count: number;
 };
 
-export type ExamType = {
-  id: number;
-  title: string;
-  date: string;
-  field: string;
-  grade: string;
-  place: string;
-  picture: string | null;
-  main_price: number;
-  off_price: number | null;
-  user_has_access: boolean;
-  favorite: boolean;
-  installment_payment: boolean;
-  installment_text?: string;
-};
-
 export type QuestionType = {
   id: number;
   title: string;
@@ -132,6 +116,7 @@ export type ExamDetailType = {
   order_items_count: number | null;
   main_price: number;
   off_price: number | null;
+  favorite: boolean;
   date: {
     id: number;
     when: string;
@@ -152,13 +137,6 @@ export enum ExamStartSearchParams {
   STATUS = "status",
   MANUAL_TIME = "time",
   SHOW_RECORD = "show_record",
-}
-
-export enum ExamStatus {
-  OBSERVING = "observing",
-  DRAFT = "draft",
-  STARTED = "started",
-  FINISHED = "finished",
 }
 
 export enum QuestionStatus {

@@ -20,8 +20,10 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { UserPlans } from "@repo/core/types/user";
 import { UserPlansQueryKeys } from "@/constants/constants";
-import { SharedFilters } from "@/types/filters";
-import { ExamStatus } from "@/types/exam";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 function MakeInputs() {
   const searchParams = useSearchParams();

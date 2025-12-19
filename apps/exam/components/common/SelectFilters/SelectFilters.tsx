@@ -1,7 +1,8 @@
 "use client";
 import { api } from "@/api/Api";
 import { ExamTopicType } from "@/types/exam";
-import { filterPages, SharedFilters } from "@/types/filters";
+import { filterPages } from "@/types/filters";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 import {
   SelectFilterItems,
   SelectQroupItemType,

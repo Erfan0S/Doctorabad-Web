@@ -33,28 +33,28 @@ export const examPaths = {
 
 export const productionBaseUrl = "https://doctorabad.com";
 
-// export const baseUrls = {
-//   [Apps.BASE]:
-//     process.env.NODE_ENV === "development"
-//       ? "http://localhost:3001"
-//       : productionBaseUrl,
-//   [Apps.LEARN]:
-//     (process.env.NODE_ENV === "development"
-//       ? "http://localhost:3003"
-//       : productionBaseUrl) + routePath.learnBasePath,
-//   [Apps.MARKET]:
-//     (process.env.NODE_ENV === "development"
-//       ? "http://localhost:3002"
-//       : productionBaseUrl) + routePath.marketBasePath,
-//   [Apps.EXAM]:
-//     (process.env.NODE_ENV === "development"
-//       ? "http://localhost:3004"
-//       : productionBaseUrl) + routePath.examBasePath,
-// };
-
 export const baseUrls = {
-  [Apps.BASE]: "https://doctorabad.com",
-  [Apps.LEARN]: "https://doctorabad.com" + routePath.learnBasePath,
-  [Apps.MARKET]: "https://doctorabad.com" + routePath.marketBasePath,
-  [Apps.EXAM]: "https://doctorabad.com" + routePath.examBasePath,
+  [Apps.BASE]:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3001"
+      : productionBaseUrl,
+  [Apps.LEARN]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3003"
+      : productionBaseUrl) + routePath.learnBasePath,
+  [Apps.MARKET]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3002"
+      : productionBaseUrl) + routePath.marketBasePath,
+  [Apps.EXAM]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3004"
+      : productionBaseUrl) + routePath.examBasePath,
 };
+
+// export const baseUrls = {
+//   [Apps.BASE]: "https://doctorabad.com",
+//   [Apps.LEARN]: "https://doctorabad.com" + routePath.learnBasePath,
+//   [Apps.MARKET]: "https://doctorabad.com" + routePath.marketBasePath,
+//   [Apps.EXAM]: "https://doctorabad.com" + routePath.examBasePath,
+// };

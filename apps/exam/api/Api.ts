@@ -4,7 +4,6 @@ import {
   ExamPaginatedResponse,
   ExamSliderType,
   ExamTopicType,
-  ExamType,
   FavoritePaginatedResponse,
   MakerResponseType,
   QuestionExplanationType,
@@ -15,6 +14,7 @@ import {
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { Request } from "@repo/core/http-request/Request";
 import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
+import { ExamType } from "@repo/apps_shared_components/exam/types";
 import { toast } from "react-toastify";
 
 class Api extends Request {

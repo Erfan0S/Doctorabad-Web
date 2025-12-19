@@ -8,8 +8,10 @@ import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import formatDuration from "@repo/core/utils/formatDuration";
 import Loading from "@/components/common/Loading/Loading";
-import { SharedFilters } from "@/types/filters";
-import { ExamStatus } from "@/types/exam";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   totalQuestions: number;

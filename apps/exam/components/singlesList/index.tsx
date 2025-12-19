@@ -6,9 +6,9 @@ import React, { Fragment } from "react";
 import Loading from "../common/Loading/Loading";
 import InfiniteScroll from "react-infinite-scroller";
 import style from "./sinlgesList.module.scss";
-import SingleListItem from "./SingleListItem";
+import { SingleListItem } from "@repo/apps_shared_components/exam/components";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
-import { SharedFilters } from "@/types/filters";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 
 function SingleList() {
   const param = useSearchParams();

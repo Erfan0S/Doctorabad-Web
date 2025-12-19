@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import styles from "./questionItemInput.module.scss";
-import { ExamStatus } from "../../../../types/exam";
+import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   name: string;

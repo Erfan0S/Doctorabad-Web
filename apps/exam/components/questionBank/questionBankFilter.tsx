@@ -20,7 +20,7 @@ import {
 import { UserPlans } from "@repo/core/types/user";
 import { UserPlansQueryKeys } from "@/constants/constants";
 import { explanationError } from "@/constants/massages";
-import { SharedFilters } from "@/types/filters";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
