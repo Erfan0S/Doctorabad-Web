@@ -85,6 +85,12 @@
       padding: space(4);
 
       &SingleSelection {
+        .itemChecked {
+          > span {
+            color: #000000 !important;
+            font-weight: 700 !important;
+          }
+        }
         ul {
           li {
             div {

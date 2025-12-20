@@ -59,6 +59,7 @@ function SingleList() {
                       item={item}
                       haveGeneralAccess={page.data.has_general_access}
                       key={`singleItem-${item.id}-${i}`}
+                      haveFavoriteButton
                     />
                   );
                 })}

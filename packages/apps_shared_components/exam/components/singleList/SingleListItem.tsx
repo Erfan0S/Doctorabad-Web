@@ -24,9 +24,14 @@ import { baseUrls, examPaths } from "@repo/core/constants/routePath";
 type Props = {
   item: ExamType;
   haveGeneralAccess?: boolean;
+  haveFavoriteButton?: boolean;
 };
 
-function SingleListItem({ item, haveGeneralAccess }: Props) {
+function SingleListItem({
+  item,
+  haveGeneralAccess,
+  haveFavoriteButton,
+}: Props) {
   const router = useRouter();
   const [hasAccess, setHasAccess] = useState(
     isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
@@ -60,12 +65,14 @@ function SingleListItem({ item, haveGeneralAccess }: Props) {
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
-        <FavoriteButton
-          id={item.id}
-          initialFavoriteState={item.favorite}
-          app={Apps.EXAM}
-          className={style.favoriteButton}
-        />
+        {haveFavoriteButton && (
+          <FavoriteButton
+            id={item.id}
+            initialFavoriteState={item.favorite}
+            app={Apps.EXAM}
+            className={style.favoriteButton}
+          />
+        )}
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>

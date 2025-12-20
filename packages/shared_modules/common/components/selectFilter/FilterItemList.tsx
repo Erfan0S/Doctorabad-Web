@@ -3,6 +3,7 @@ import ArrowBottom from "../../../assets/svg/arrowBottom";
 import ArrowRight from "../../../assets/svg/arrowRight";
 import { Dispatch, SetStateAction } from "react";
 import { onCheckType } from ".";
+import styles from "./Filters.module.scss";
 
 export const createUniqueId = (id: string, queryKey: string) =>
   `checkbox_${queryKey}_${id}_id`;
@@ -49,7 +50,10 @@ const FilterItmeList = ({
                   )
                 }
               />
-              <label htmlFor={uniqueId}>
+              <label
+                className={checks[id] ? styles.itemChecked : ""}
+                htmlFor={uniqueId}
+              >
                 <span>{title}</span>
               </label>
               {!!childern?.length && (
