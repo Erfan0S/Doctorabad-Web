@@ -120,6 +120,8 @@ function QuestionItem({
     else setShowTestAnswer(false);
   }, [status]);
 
+  const isTextQuestion = question.type === QuestionTypes.Text;
+
   const AnewrButtons = () => {
     const pathName = usePathname();
 
@@ -172,7 +174,7 @@ function QuestionItem({
             پاسخ تشریحی
           </Button>
         )}
-        {status !== ExamStatus.FINISHED && (
+        {status !== ExamStatus.FINISHED && !isTextQuestion && (
           <Button
             app={Apps.EXAM}
             onClick={() => setShowTestAnswer((prev) => !prev)}
@@ -208,31 +210,40 @@ function QuestionItem({
       <div className={styles.optionsWrapper}>
         <QuestionItemWaterMark />
 
-        {question.options.map((option) => (
-          <QuestionInput
-            id={option.id.toString()}
+        {isTextQuestion ? (
+          <textarea
+            className={styles.questionTextInput}
             name={question.id.toString()}
-            title={option.title}
-            showAnswer={showTestAnswer}
-            isCorrect={option.is_correct}
-            key={option.id}
-            status={status}
-            onChange={(e) => {
-              setSelectedAnswer((prev) => {
-                if (question.type === QuestionTypes.SingleSelect || !prev)
-                  return [e.target.id];
-
-                if (prev?.includes(e.target.id)) {
-                  return prev.filter((id) => id !== e.target.id);
-                } else {
-                  return [...prev, e.target.id];
-                }
-              });
-            }}
-            checked={selectedAnswer?.includes(option.id.toString())}
-            type={question.type}
+            id={question.id.toString()}
+            cols={10}
           />
-        ))}
+        ) : (
+          question.options.map((option) => (
+            <QuestionInput
+              id={option.id.toString()}
+              name={question.id.toString()}
+              title={option.title}
+              showAnswer={showTestAnswer}
+              isCorrect={option.is_correct}
+              key={option.id}
+              status={status}
+              onChange={(e) => {
+                setSelectedAnswer((prev) => {
+                  if (question.type === QuestionTypes.SingleSelect || !prev)
+                    return [e.target.id];
+
+                  if (prev?.includes(e.target.id)) {
+                    return prev.filter((id) => id !== e.target.id);
+                  } else {
+                    return [...prev, e.target.id];
+                  }
+                });
+              }}
+              checked={selectedAnswer?.includes(option.id.toString())}
+              type={question.type}
+            />
+          ))
+        )}
         {question.files.map((file, i) => (
           <Image
             src={file}

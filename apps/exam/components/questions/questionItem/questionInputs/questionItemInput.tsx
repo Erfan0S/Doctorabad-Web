@@ -34,10 +34,6 @@ const QuestionInput = ({
       : styles.radioWrong
     : "";
 
-  if (type === QuestionTypes.Text) {
-    return <input type="text" name={name} id={id} />;
-  }
-
   const onClickHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (status === ExamStatus.FINISHED) {
       e.preventDefault();

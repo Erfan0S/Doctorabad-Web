@@ -170,6 +170,18 @@ html .dontKnowQuestion {
   }
 }
 
+.questionTextInput {
+  width: 100%;
+  z-index: 1;
+  min-height: 30px;
+  max-height: 200px;
+  border-radius: 3px;
+}
+.questionTextInput:focus-visible {
+  outline: none;
+  border-color: $purple;
+}
+
 @media (max-width: 425px) {
   html .questionItem .buttonsWrapper {
     flex-wrap: nowrap;
