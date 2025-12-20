@@ -7,12 +7,11 @@ import { SingleListItem } from "@repo/apps_shared_components/exam/components";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import style from "./style.module.scss";
 
+// ! haveGeneralAccess dont exist in api, exam_id is not return and set currectly so add and remove from cart not working
+
 const SidePanelFavoritesExam: React.FC = () => {
   const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryFn: ({ pageParam }) =>
-      api.getExamList({
-        page: pageParam,
-      }),
+    queryFn: ({ pageParam }) => api.getExamFavoriteExamList(pageParam),
     queryKey: ["examList_favorites", isUserLoggedIn()],
     refetchOnWindowFocus: false,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
@@ -47,6 +46,7 @@ const SidePanelFavoritesExam: React.FC = () => {
                       item={item}
                       haveGeneralAccess={page.data.has_general_access}
                       key={`singleItem-${item.id}-${i}`}
+                      isSidePanel
                     />
                   );
                 })}

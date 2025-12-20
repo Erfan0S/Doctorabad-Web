@@ -2,6 +2,7 @@ import { Request } from "@repo/core/http-request/Request";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import { ResponseType } from "@repo/core/types/general";
+import { ExamPaginatedResponse, ExamType } from "../types";
 
 class Api extends Request {
   constructor() {
@@ -12,18 +13,10 @@ class Api extends Request {
     });
   }
 
-  getExamFavoriteExamList = (page: number = 1): Promise<ResponseType<any>> => {
+  getExamFavoriteExamList = (
+    page: number = 1
+  ): Promise<ResponseType<ExamPaginatedResponse<ExamType[]>>> => {
     return this.request.get(`/user/v1/lab/exam/favorite?page=${page}`);
-  };
-
-  getExamList = (params?: {
-    field_id?: number;
-    grade_id?: number;
-    places?: number[];
-    dates?: number[];
-    page?: number;
-  }): Promise<ResponseType<any>> => {
-    return this.request.post("/user/v1/lab/exam", { ...params });
   };
 }
 

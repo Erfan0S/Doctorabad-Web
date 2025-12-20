@@ -1,3 +1,5 @@
+import { PaginatedResponse } from "@repo/core/types/general";
+
 export type ExamType = {
   id: number;
   title: string;
@@ -13,6 +15,10 @@ export type ExamType = {
   installment_payment: boolean;
   installment_text?: string;
 };
+
+export interface ExamPaginatedResponse<T> extends PaginatedResponse<T> {
+  has_general_access: boolean;
+}
 
 export enum ExamStatus {
   OBSERVING = "observing",

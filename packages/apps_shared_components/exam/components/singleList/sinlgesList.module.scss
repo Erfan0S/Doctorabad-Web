@@ -1,6 +1,17 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+.singleItemSidePanel {
+  button {
+    font-size: 11px;
+  }
+  .singleItemPriceWrapper {
+    .installmentPayment {
+      font-size: 10px;
+    }
+  }
+}
+
 .singleItem {
   display: flex;
   flex-direction: column;
@@ -85,11 +96,12 @@
 }
 
 @media (max-width: 768px) {
-  .singleItem {
+  .singleItem,
+  .singleItemSidePanel {
     button {
       font-size: 10px;
     }
-    &PriceWrapper {
+    .singleItemPriceWrapper {
       .installmentPayment {
         font-size: 10px;
       }

@@ -1,9 +1,5 @@
 import { PaginatedResponse } from "@repo/core/types/general";
 
-export interface ExamPaginatedResponse<T> extends PaginatedResponse<T> {
-  has_general_access: boolean;
-}
-
 export type ExamFieldGradeType = {
   id: number;
   title: string;

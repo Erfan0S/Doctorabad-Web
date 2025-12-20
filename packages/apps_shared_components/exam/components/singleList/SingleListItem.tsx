@@ -11,7 +11,6 @@ import {
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
-import Link from "next/link";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 // @ts-ignore
@@ -25,12 +24,14 @@ type Props = {
   item: ExamType;
   haveGeneralAccess?: boolean;
   haveFavoriteButton?: boolean;
+  isSidePanel?: boolean;
 };
 
 function SingleListItem({
   item,
   haveGeneralAccess,
   haveFavoriteButton,
+  isSidePanel,
 }: Props) {
   const router = useRouter();
   const [hasAccess, setHasAccess] = useState(
@@ -50,7 +51,9 @@ function SingleListItem({
     item.main_price > 4000;
 
   return (
-    <div className={`${style.singleItem} card`}>
+    <div
+      className={`${style.singleItem} card ${isSidePanel ? style.singleItemSidePanel : ""}`}
+    >
       <div>
         <Image
           src={item.picture || examIcon}
