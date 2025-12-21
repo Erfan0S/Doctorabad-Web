@@ -70,5 +70,15 @@ module.exports = {
                 PORT: 3007
             }
         },
+        {
+            name: "mono-insurance",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/insurance",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3008
+            }
+        },
     ]
 };

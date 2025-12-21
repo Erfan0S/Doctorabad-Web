@@ -12,7 +12,7 @@ import {
   DiseaseDetails,
   DiscountPlan,
   UserDiscountPlans
-} from "@/types/clinic";
+} from "@/types/insurance";
 import { Request } from "@repo/core/http-request/Request";
 import { ResponseType } from "@repo/core/types/general";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
