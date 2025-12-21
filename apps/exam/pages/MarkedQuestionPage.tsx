@@ -63,7 +63,15 @@ function MarkedQuestionPageComponent() {
           </InfiniteScroll>
         </QuestionsLessonsFilterProvider>
       ) : (
-        <span style={{ width: "100%", textAlign: "center", display: "block" }}>
+        <span
+          style={{
+            width: "100%",
+            textAlign: "center",
+            display: "block",
+            fontSize: "1.1rem",
+            fontWeight: "bold",
+          }}
+        >
           هیچ سوالی نیست!
         </span>
       )}
