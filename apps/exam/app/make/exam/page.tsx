@@ -59,7 +59,7 @@ async function SinglePage({ searchParams }: Props) {
     return (
       <div>
         <PreventContext />
-        <ExamHeader title="آزمون ساز" perventParams backUrl={RoutePath.make}>
+        <ExamHeader title="آزمون ساز" backUrl={RoutePath.make}>
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />
           )}

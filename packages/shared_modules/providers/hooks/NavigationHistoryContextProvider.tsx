@@ -30,7 +30,7 @@ export function NavigationHistoryProvider({
   }, [pathname, searchParams]);
 
   const goBack = (
-    p_searchParams?: string,
+    p_defaultBackUrl?: string,
     p_ignorePrevSearchParams?: boolean
   ) => {
     // const refferer = document.referrer;
@@ -40,7 +40,10 @@ export function NavigationHistoryProvider({
       const previous = historyRef.current.pop(); // get previous path
       const prevSearchParams = previous?.split("?")[1];
 
-      const searchParams = `${p_searchParams || ""}${prevSearchParams && !p_ignorePrevSearchParams ? `&${prevSearchParams}` : ""}`;
+      const searchParams =
+        prevSearchParams && !p_ignorePrevSearchParams
+          ? `${prevSearchParams}`
+          : null;
 
       if (previous) {
         router.push(
@@ -49,7 +52,12 @@ export function NavigationHistoryProvider({
       }
     } else {
       // fallback: go to home
-      router.push("/");
+
+      if (p_defaultBackUrl) {
+        router.push(p_defaultBackUrl);
+      } else {
+        router.push("/");
+      }
     }
   };
 

@@ -18,17 +18,10 @@ type Props = {
   children: React.ReactNode;
   title: string | React.ReactNode;
   suffix?: React.ReactNode;
-  perventParams?: boolean;
   backUrl?: string;
 };
 
-function ExamHeader({
-  children,
-  title,
-  suffix,
-  perventParams,
-  backUrl,
-}: Props) {
+function ExamHeader({ children, title, suffix, backUrl }: Props) {
   const searchParams = useSearchParams();
   const status = searchParams?.get(SharedFilters.STATUS);
 
@@ -40,8 +33,7 @@ function ExamHeader({
       return;
     }
     modalActions.addModal(ModalTypes.EXAM_EXIT_CONFIRM, {
-      perventParams,
-      backUrl: backUrl,
+      backUrl,
     });
   };
 
