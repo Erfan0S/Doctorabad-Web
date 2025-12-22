@@ -17,11 +17,10 @@
   }
 }
 
-
 .logoSection {
   display: flex;
   flex-direction: column;
-  align-items: center !important;   // فقط این ستون وسط‌چین عمودی / افقی نسبت به خودش
+  align-items: center !important; // فقط این ستون وسط‌چین عمودی / افقی نسبت به خودش
   justify-content: center;
   flex-shrink: 0;
   width: 100px;
@@ -43,7 +42,7 @@
 
 .infoSection {
   flex: 1;
-  min-width: 0;         // اجازه بده متن داخل خودش بپیچه، نه اینکه از ستون کناری عبور کند
+  min-width: 0; // اجازه بده متن داخل خودش بپیچه، نه اینکه از ستون کناری عبور کند
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -57,8 +56,8 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 8px;
-  width: 100px;         // عرض ثابت برای ستون تگ + دکمه
-  flex-shrink: 0;      // اجازه نده این ستون کوچک‌تر شود
+  width: 100px; // عرض ثابت برای ستون تگ + دکمه
+  flex-shrink: 0; // اجازه نده این ستون کوچک‌تر شود
 }
 
 .title {
@@ -66,7 +65,7 @@
   font-weight: 700;
   color: #333;
   margin: 0 0 4px 0;
-  white-space: normal;    // اجازه رفتن به خط بعد
+  white-space: normal; // اجازه رفتن به خط بعد
   word-wrap: break-word;
 }
 
@@ -74,7 +73,7 @@
   font-size: 13px;
   color: #777;
   margin-bottom: 6px;
-  white-space: normal;    // اجازه رفتن به خط بعد
+  white-space: normal; // اجازه رفتن به خط بعد
   word-wrap: break-word;
 }
 .prices {
@@ -89,6 +88,11 @@
   white-space: nowrap;
 }
 
+.mainPrice {
+  text-decoration: line-through;
+  color: #777;
+
+}
 .finalPrice {
   font-size: 15px;
   font-weight: 700;

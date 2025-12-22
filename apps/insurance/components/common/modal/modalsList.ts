@@ -1,0 +1,8 @@
+import { SelectOptionsWrapper } from "@/components/Modals/SelectOptionsModal";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { ModalsList as SharedModulesModalList } from "@repo/shared_modules/modalsList";
+
+export const ModalsList: any = {
+  ...SharedModulesModalList,
+  [ModalTypes.INSURANCE_FIELD_SELECT]: SelectOptionsWrapper,
+};
