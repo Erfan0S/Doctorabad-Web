@@ -113,7 +113,12 @@ function SingleListItem({
             </Button>
           </div>
         ) : (
-          <AddToCartButton app={Apps.EXAM} id={item.id} type={OrderType.Exam} />
+          <AddToCartButton
+            app={Apps.EXAM}
+            id={item.id}
+            type={OrderType.Exam}
+            isColumn={isSidePanel}
+          />
         )}
       </div>
     </div>

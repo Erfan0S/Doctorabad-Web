@@ -110,10 +110,6 @@ function QuestionBankListPageComponent() {
     }
   };
 
-  useEffect(() => {
-    console.log("haveFullPage", emptyPageCount);
-  }, [emptyPageCount]);
-
   if (
     (!data?.pages[0].data.length || emptyPageCount === data.pages.length) &&
     !!status &&

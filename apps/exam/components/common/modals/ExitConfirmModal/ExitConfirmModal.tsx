@@ -16,7 +16,7 @@ function ExitConfirmModal({ closeModal, data }: Props) {
   const Buttons = () => {
     const onExit = () => {
       setTimeout(() => {
-        navHistory.goBack(data.backUrl);
+        navHistory.goBack(data?.backUrl);
       }, 100);
       closeModal();
     };
