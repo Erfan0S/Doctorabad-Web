@@ -9,11 +9,23 @@ import InsurerListSkeleton from "@/components/Skeletons/DiseaseListSkeleton/Dise
 import InsurerCard from "../InsurerCard/InsurerCard";
 import { PersistQueryProvider } from "@repo/shared_modules";
 
+// تعریف اینترفیس برای پارامترهای فیلتر (برای تمیزی کد)
+export interface FilterParams {
+  fields: number[];
+  grades: number[];
+  residency: number | null;
+  damageHistory: number | null;
+  lastInsurance: number | null;
+  endDate: string | null;
+}
+
 interface InsurerListProps {
   insurers: Insurer[];
   loading: boolean;
   hasMore: boolean;
   onLoadMore: () => void;
+  // *** اضافه کردن پراپ جدید ***
+  filterParams: FilterParams;
 }
 
 export default function InsurerList({
@@ -21,7 +33,9 @@ export default function InsurerList({
   loading,
   hasMore,
   onLoadMore,
+  filterParams, // دریافت پراپ
 }: InsurerListProps) {
+  
   if (insurers.length === 0 && loading) {
     return <InsurerListSkeleton count={6} />;
   }
@@ -40,7 +54,11 @@ export default function InsurerList({
         className={styles.insurerList}
       >
         {insurers.map((insurer) => (
-          <InsurerCard key={insurer.id} insurer={insurer} />
+          <InsurerCard 
+            key={insurer.id} 
+            insurer={insurer}  
+            searchParams={filterParams} // پاس دادن آبجکت فیلترها به کارت
+          />
         ))}
       </InfiniteScroll>
     </PersistQueryProvider>

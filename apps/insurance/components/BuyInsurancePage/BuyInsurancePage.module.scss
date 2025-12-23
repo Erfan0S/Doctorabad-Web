@@ -1,0 +1,224 @@
+@import "@/assets/styles/variables";
+
+.pageContainer {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 80px; // جا برای فوتر
+  direction: rtl;
+}
+
+.insurerHeader {
+  background: linear-gradient(to left, #2ecc71, #27ae60);
+  padding: 20px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-bottom: 40px;
+  
+  .insurerLogo {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: #333;
+    font-weight: bold;
+    transform: translateY(30px); // برای اینکه کمی بیاد روی کارت پایین
+  }
+}
+
+.infoCard {
+  background: white;
+  margin: 0 16px;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .cardTitle {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .editBtn {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.infoRow {
+  font-size: 13px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  .bullet {
+    color: #2ecc71;
+    font-size: 18px;
+    line-height: 0;
+  }
+}
+
+.uploadSection {
+  margin-bottom: 20px;
+}
+
+.bigUploadBox {
+  background: #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  // برای ایجاد فاصله بین دو آپلود باکس داخلی
+}
+
+.clinicSection {
+  margin-top: 16px;
+}
+
+.switchRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+// ----- استایل‌های سوییچ (Toggle Switch) -----
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+
+  input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px; // وضعیت خاموش (RTL دقت کنید)
+      bottom: 3px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #2ecc71;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2ecc71;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+}
+// ---------------------------------------------
+
+.geoRow {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  .selectBox {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.addressInput {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #2ecc71;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  z-index: 10;
+
+  .price {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .submitBtn {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    
+    &:hover {
+      background: rgba(255,255,255,0.3);
+    }
+  }
+}

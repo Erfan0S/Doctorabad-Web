@@ -87,6 +87,14 @@ export default function InsurerListSection({
       loading={isFetchingNextPage}
       hasMore={hasNextPage ?? false}
       onLoadMore={loadMore}
+      filterParams={{
+        fields: selectedFieldIds,
+        grades: selectedGradeIds,
+        residency: residencyStatusId,
+        damageHistory: damageHistoryId,
+        lastInsurance: lastInsuranceId,
+        endDate: currentInsuranceEndDate,
+      }}
     />
   );
 }
