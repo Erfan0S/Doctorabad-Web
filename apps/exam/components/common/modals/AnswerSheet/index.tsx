@@ -4,13 +4,13 @@ import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper } from "@repo/shared_modules/components";
 import React, { useContext, useEffect } from "react";
 import style from "./answerSheetModal.module.scss";
+import { generateQuestionId } from "@/utils/generateQuestionId";
 import {
   QuestionsAnswerContextType,
   QuestionsAnswersContextProviderType,
-} from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
+} from "@/contexts/questionsAnswersContext";
+import { QuestionStatus } from "@/types/exam";
 import { InfoIcon } from "@repo/shared_modules/icons";
-import { QuestionStatus } from "@repo/apps_shared_components/exam/types/exam.ts";
-import { generateQuestionId } from "@repo/apps_shared_components/exam/utils/generateQuestionId.ts";
 
 type Props = ModalProps<{
   questionsAnswersContext: QuestionsAnswersContextProviderType;
@@ -81,7 +81,9 @@ const AnswerSheetQuestion = ({
           <div
             key={index}
             className={
-              option.id.toString() === question.userAnswer ? style.selected : ""
+              question.userAnswer?.includes(option.id.toString())
+                ? style.selected
+                : ""
             }
           />
         ))}

@@ -8,4 +8,5 @@ export const RoutePath = {
   make_exam: "/make/exam",
   single: "/single",
   archived: "/archived",
+  marked_questions: "/marked_questions",
 };

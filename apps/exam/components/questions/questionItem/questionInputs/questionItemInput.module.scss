@@ -1,0 +1,73 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.radioWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+
+  .radio {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    border: 1px solid $lightGray;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    justify-content: center;
+    cursor: pointer;
+    svg {
+      color: white;
+      width: 8px;
+      height: 100%;
+    }
+  }
+
+  label {
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .radioLabel {
+    flex: 1;
+    padding: 0 3px;
+    border-radius: 100px;
+  }
+
+  input {
+    display: none;
+  }
+
+  input:checked + .radio {
+    background-color: $purple;
+    border-color: $purple;
+  }
+}
+
+.radioCorrect {
+  .radio {
+    border-color: $base-green;
+    background-color: $base-green;
+  }
+
+  input:checked + .radio {
+    border-color: $darkGreen;
+    background-color: $base-green;
+  }
+}
+
+.radioWrong {
+  input:checked + .radio {
+    background-color: $red;
+    border-color: $red;
+  }
+}
+
+.radioMultipleWrapper {
+  .radio {
+    border-radius: 3px;
+  }
+}

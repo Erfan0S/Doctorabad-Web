@@ -1,8 +1,3 @@
-import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
 import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper, OptionSwitch } from "@repo/shared_modules/components";
@@ -11,8 +6,11 @@ import style from "./ExamStartodal.module.scss";
 import { useRouter } from "next/navigation";
 import { Input } from "@repo/shared_modules/ui";
 import { inBoundValue } from "@repo/core/utils/inBoundValue";
-import { ExamRoutePath } from "../../../../constants/examRoutPaths";
 import { modalActions } from "@repo/core/modal/modals";
+import { ExamStatus } from "@repo/apps_shared_components/exam/types";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
+import { ExamType } from "@repo/apps_shared_components/exam/types";
+import { baseUrls, examPaths } from "@repo/core/constants/routePath";
 
 type Props = ModalProps<{
   exam: ExamType;
@@ -29,7 +27,7 @@ function ExamStartModal({ closeModal, data }: Props) {
     setTimeout(
       () =>
         router.push(
-          `${ExamRoutePath.single}/${exam.id}?${SharedFilters.STATUS}=${ExamStatus.STARTED}&${SharedFilters.SHOW_RECORD}=${showRecord ? 1 : 0}${
+          `${baseUrls.exam}${examPaths.single}/${exam.id}?${SharedFilters.STATUS}=${ExamStatus.STARTED}&${SharedFilters.SHOW_RECORD}=${showRecord ? 1 : 0}${
             haveManualTime && !!manualTime
               ? `&${SharedFilters.MANUAL_TIME}=${manualTime}`
               : ""

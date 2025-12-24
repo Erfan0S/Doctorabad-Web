@@ -2,10 +2,7 @@ import { Request } from "@repo/core/http-request/Request";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import { ResponseType } from "@repo/core/types/general";
-import {
-  FavoritePaginatedResponse,
-  QuestionExplanationType,
-} from "../types/exam";
+import { ExamPaginatedResponse, ExamType } from "../types";
 
 class Api extends Request {
   constructor() {
@@ -16,24 +13,10 @@ class Api extends Request {
     });
   }
 
-  getQuestionExplanation = (params: {
-    question_id: number;
-    exam_id?: number;
-  }): Promise<ResponseType<{ data: QuestionExplanationType }>> => {
-    return this.request.post(`/user/v1/lab/question/explanation`, params);
-  };
-
-  getExamFavoriteList = (
+  getExamFavoriteExamList = (
     page: number = 1
-  ): Promise<ResponseType<FavoritePaginatedResponse>> => {
-    return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
-  };
-
-  addQuestionFavorite = (question: number, favorite?: number): Promise<{}> => {
-    return this.request.post(`/user/v1/lab/question/favorite`, {
-      question,
-      favorite,
-    });
+  ): Promise<ResponseType<ExamPaginatedResponse<ExamType[]>>> => {
+    return this.request.get(`/user/v1/lab/exam/favorite?page=${page}`);
   };
 }
 

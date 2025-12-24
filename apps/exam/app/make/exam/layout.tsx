@@ -1,5 +1,5 @@
 "use client";
-import { QuestionsAnswersProvider } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
+import { QuestionsAnswersProvider } from "@/contexts/questionsAnswersContext";
 import { Apps } from "@repo/core/types/general";
 import { Loading } from "@repo/shared_modules/components";
 import React, { Suspense } from "react";

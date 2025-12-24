@@ -1,0 +1,201 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+html body div .mobileMode {
+  flex-wrap: nowrap;
+  gap: 5px;
+  button {
+    font-size: 11px !important;
+  }
+  .buttonsWrapper svg {
+    width: 17px;
+    height: auto;
+  }
+
+  div {
+    gap: 5px;
+  }
+}
+
+html .notSureQuestion {
+  --not-sure-color: #ffffca;
+  background-color: var(--not-sure-color);
+  h4 {
+    background-color: var(--not-sure-color);
+  }
+  .buttonsWrapper {
+    background-color: var(--not-sure-color);
+  }
+}
+
+html .dontKnowQuestion {
+  --dont-know-color: #e9e9e9;
+  background-color: var(--dont-know-color);
+  h4 {
+    background-color: var(--dont-know-color);
+  }
+  .buttonsWrapper {
+    background-color: var(--dont-know-color);
+  }
+}
+
+.questionItem {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  position: relative;
+
+  h4 {
+    padding: 12px;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 13%);
+    background-color: #eeeeee;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 10;
+    span {
+      font-weight: 800;
+    }
+
+    .category {
+      position: absolute;
+      left: 12px;
+      bottom: 0;
+      transform: translateY(50%);
+      background-color: $blue;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 4px 7px;
+      color: white;
+    }
+  }
+
+  .buttonsWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px;
+    background-color: #eeeeee;
+    z-index: 10;
+
+    .actionButtons {
+      button {
+        color: black;
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid $lightGray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        cursor: pointer;
+      }
+    }
+
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      button {
+        flex: none;
+        font-size: larger;
+      }
+    }
+  }
+
+  .optionsWrapper {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+    img {
+      margin-top: 10px;
+    }
+  }
+}
+
+.questionImages {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  margin: auto;
+}
+
+.answerWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 15px;
+  margin: 0 10px;
+  border-top: 1px solid $purple;
+  z-index: 5;
+
+  p {
+    width: 100%;
+    text-align: start;
+    margin: 0;
+  }
+  .explanationReferences {
+    border: 1px solid $purple;
+    width: auto;
+    width: fit-content;
+    padding: 4px 9px;
+  }
+}
+
+.questionItemWaterMark {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  opacity: 0.15;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > svg {
+    transform: translateY(-31px);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.questionTextInput {
+  width: 100%;
+  z-index: 1;
+  min-height: 30px;
+  max-height: 200px;
+  border-radius: 3px;
+}
+.questionTextInput:focus-visible {
+  outline: none;
+  border-color: $purple;
+}
+
+@media (max-width: 425px) {
+  html .questionItem .buttonsWrapper {
+    flex-wrap: nowrap;
+    gap: 5px;
+    button {
+      font-size: 11px;
+    }
+    svg {
+      width: 17px;
+      height: auto;
+    }
+
+    div {
+      gap: 5px;
+    }
+  }
+}

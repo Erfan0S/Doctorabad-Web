@@ -1,5 +1,3 @@
-// TODO: duplicated code, need to be refactored in exam
-
 export enum SharedFilters {
   FIELD = "field",
   GRADE = "grade",
@@ -17,13 +15,4 @@ export enum SharedFilters {
   MANUAL_TIME = "time",
   MANUAL_QUESTIONS = "questions",
   SHOW_RECORD = "show_record",
-}
-
-export type filterPages = "maker" | "questionBank" | "exams";
-
-export enum ExamStatus {
-  OBSERVING = "observing",
-  DRAFT = "draft",
-  STARTED = "started",
-  FINISHED = "finished",
 }

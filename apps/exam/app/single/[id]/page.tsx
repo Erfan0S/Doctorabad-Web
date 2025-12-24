@@ -2,20 +2,22 @@ import { api } from "@/api/Api";
 import ExamHeader from "@/components/common/headers/ExamHeader";
 import ExamTimer from "@/components/exam/timer";
 import PageTitle from "@/components/singleDetail/PageTitle";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
-import {
-  Questions,
-  QuestionsLessonsFilter,
-} from "@repo/apps_shared_components";
+import Questions from "@/components/questions";
+import QuestionsLessonsFilter from "@/components/questions/questionsLessonsFilter";
 import { notFound } from "next/navigation";
 import React from "react";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
-import { PreventContext } from "@repo/shared_modules/components";
+import {
+  FavoriteButton,
+  PreventContext,
+} from "@repo/shared_modules/components";
 import { generateSingleExamMetaData } from "@/metadata/singleExam";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
+import { Apps } from "@repo/core/types/general";
 
 export const generateMetadata = generateSingleExamMetaData;
 
@@ -39,6 +41,13 @@ async function SinglePage({ params, searchParams }: Props) {
         <ExamHeader
           title={<PageTitle exam={data.exam} />}
           backUrl={RoutePath.single}
+          suffix={
+            <FavoriteButton
+              id={data.exam.id}
+              initialFavoriteState={data.exam.favorite || false}
+              app={Apps.EXAM}
+            />
+          }
         >
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />

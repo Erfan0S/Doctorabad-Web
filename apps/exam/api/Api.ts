@@ -1,18 +1,22 @@
 import {
   ExamDateType,
   ExamFieldGradeType,
-  ExamPaginatedResponse,
   ExamSliderType,
   ExamTopicType,
+  FavoritePaginatedResponse,
   MakerResponseType,
+  QuestionExplanationType,
   QuestionListParamsType,
   QuestionPageType,
   QuestionPaginatedResponse,
 } from "@/types/exam";
-import { ExamType } from "@repo/apps_shared_components/exam/types/exam.ts";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { Request } from "@repo/core/http-request/Request";
 import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
+import {
+  ExamPaginatedResponse,
+  ExamType,
+} from "@repo/apps_shared_components/exam/types";
 import { toast } from "react-toastify";
 
 class Api extends Request {
@@ -88,6 +92,13 @@ class Api extends Request {
     return this.request.post("/user/v1/lab/question/maker", params);
   };
 
+  getQuestionExplanation = (params: {
+    question_id: number;
+    exam_id?: number;
+  }): Promise<ResponseType<{ data: QuestionExplanationType }>> => {
+    return this.request.post(`/user/v1/lab/question/explanation`, params);
+  };
+
   //----------Question Find----------
 
   getQuestionFields = (): Promise<
@@ -151,6 +162,12 @@ class Api extends Request {
       question,
       favorite,
     });
+  };
+
+  getExamFavoriteQuestionList = (
+    page: number = 1
+  ): Promise<ResponseType<FavoritePaginatedResponse>> => {
+    return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
   };
 
   //----------Archived Filter----------

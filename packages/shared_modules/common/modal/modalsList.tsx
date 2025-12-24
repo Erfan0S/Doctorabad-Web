@@ -10,13 +10,9 @@ import { AddAddressModal } from "./modals/AddAddressModal";
 import { BugReportModal } from "./modals/BugReportModal";
 import { QRContents } from "@repo/shared_modules/components";
 import SelectModal from "./modals/SelectModal";
-import { QuestionInfoModal } from "@repo/apps_shared_components";
-import {
-  DiscountPlansBuyModal,
-  ExamStartModal,
-} from "@repo/apps_shared_components/exam";
 import { VideoModal } from "./modals/VideoModal";
 import VpnWarningModal from "./modals/VpnWarningModal";
+import { ExamStartModal } from "@repo/apps_shared_components/exam/components";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -30,9 +26,7 @@ export const ModalsList: any = {
   [ModalTypes.ADD_ADDRESS]: AddAddressModal,
   [ModalTypes.QR_CONTENTS]: QRContents,
   [ModalTypes.SELECT_FILTER]: SelectModal,
-  [ModalTypes.QUESTION_INFO]: QuestionInfoModal,
-  [ModalTypes.EXAM_DISCOUNT_PLANS]: DiscountPlansBuyModal,
-  [ModalTypes.EXAM_START]: ExamStartModal,
   [ModalTypes.VIDEO]: VideoModal,
   [ModalTypes.VPN_WARNING]: VpnWarningModal,
+  [ModalTypes.EXAM_START]: ExamStartModal,
 };

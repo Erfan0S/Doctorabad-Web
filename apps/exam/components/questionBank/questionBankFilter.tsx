@@ -8,26 +8,19 @@ import { OptionSwitch } from "@repo/shared_modules/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import QuestionSearchInpt from "./QuestionSearchInpt";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import {
-  SidePanelFavoriteTab,
-  SidePanelPage,
-} from "@repo/core/types/sidePanel";
 import { api as sharedApi } from "@repo/shared_modules/api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { RoutePath } from "@/constants/routPaths";
 import { SearchParamsUtils } from "@repo/core/utils/UrlUtils";
 import { api } from "@/api/Api";
-import Link from "next/link";
-import { explanationError } from "@repo/apps_shared_components/exam/constants/massages.ts";
-import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
 import {
   authorizeClientAction,
   isUserLoggedIn,
 } from "@repo/core/utils/authUtils";
-import { UserPlansQueryKeys } from "@repo/apps_shared_components/exam/constants/constants.ts";
 import { UserPlans } from "@repo/core/types/user";
+import { UserPlansQueryKeys } from "@/constants/constants";
+import { explanationError } from "@/constants/massages";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 
 function QuestionBankFilter() {
   const searchParams = useSearchParams();
@@ -120,16 +113,10 @@ function QuestionBankFilter() {
       <div className={`card ${style.topButtons}`}>
         <Button
           onClick={authorizeClientAction(() =>
-            modalActions.addModal(ModalTypes.SIDE_PANEL, {
-              initialPage: SidePanelPage.FAVORITES,
-              data: {
-                initialTab: SidePanelFavoriteTab.EXAM_CENTER,
-                fromHome: true,
-              },
-            })
+            router.push(RoutePath.marked_questions)
           )}
         >
-          سوالات مورد علاقه‌من
+          سوالات نشان‌دار من
         </Button>
         <Button
           disabled={!hasArchived}

@@ -14,8 +14,6 @@ export default async function Home() {
   const blogPosts = (await api.getMagazinePosts()).data.data;
   const country = cookies().get(IP_COUNTRY_COOKIE)?.value;
 
-  console.log(country);
-
   return (
     <>
       <Intro statistic={statistic} />

@@ -32,3 +32,46 @@
     color: white;
   }
 }
+
+html .filterBtn {
+  color: black;
+  margin-left: 10px;
+  svg {
+    margin-right: 10px;
+  }
+}
+
+.questionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+  user-select: none;
+}
+
+.lessonFilterWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+  background-color: #eeeeee;
+  padding: 10px 12px;
+  gap: 10px;
+
+  button {
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    padding: 10px;
+    text-wrap-mode: nowrap;
+    &:focus {
+      outline: none;
+    }
+  }
+  .active {
+    background-color: $purple;
+    color: white;
+  }
+}

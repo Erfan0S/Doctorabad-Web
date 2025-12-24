@@ -64,13 +64,15 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     },
     {
       id: PaymentProviders.SNAPP_PAY,
-      title: installmentEligible?.data.data.response.title_massage || "پرداخت اقساطی اسنپ‌پی",
+      title:
+        installmentEligible?.data.data.response.title_massage ||
+        "پرداخت اقساطی اسنپ‌پی",
       description:
-      installmentEligible?.data.data.response.description ||
+        installmentEligible?.data.data.response.description ||
         "پرداخت اقساطی اسنپ‌پی" +
-        (priceToPay >= 4000
-          ? `\n4 قسط ماهیانه ${priceFormatter(priceToPay / 4)}تومان\n(بدون کارمزد)`
-          : ""),
+          (priceToPay >= 4000
+            ? `\n4 قسط ماهیانه ${priceFormatter(priceToPay / 4)}تومان\n(بدون کارمزد)`
+            : ""),
       icon: <SnapPayIcon />,
       more_info_url: "https://doctorabad.com/mag/snapppay",
       disabled: !activeSnappay,
@@ -105,34 +107,28 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     }
   }, [activeSnappay]);
 
-  useEffect(() => {
-    console.log(installmentEligible);
-    console.log(installmentLoading);
-    
-  }, [installmentEligible, installmentLoading]);
-
   return (
     <div className={`${style.paymentMethodsWrapper}`}>
       <div className={checkoutStyle.title}>
         <span>روش پرداخت من</span>
       </div>
       <div className={style.paymentMethodsList}>
-        {PaymentMethidsConfig.map((item) => (
+        {PaymentMethidsConfig.map((item) =>
           item.isHide ? null : (
-          <PaymentMethodItem
-            key={item.id}
-            payemtMethod={item}
-            active={payInfo.paymentMethod === item.id}
-            onClick={() =>
-              item.onClick
-                ? item.onClick()
-                : setPayInfo((prev) => ({ ...prev, paymentMethod: item.id }))
-            }
-            disabled={item.disabled}
-            isLoading={item.isLoading}
-          />
+            <PaymentMethodItem
+              key={item.id}
+              payemtMethod={item}
+              active={payInfo.paymentMethod === item.id}
+              onClick={() =>
+                item.onClick
+                  ? item.onClick()
+                  : setPayInfo((prev) => ({ ...prev, paymentMethod: item.id }))
+              }
+              disabled={item.disabled}
+              isLoading={item.isLoading}
+            />
           )
-        ))}
+        )}
       </div>
     </div>
   );

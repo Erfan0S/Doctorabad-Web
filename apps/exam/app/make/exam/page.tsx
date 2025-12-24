@@ -1,17 +1,17 @@
 import { api } from "@/api/Api";
 import ExamHeader from "@/components/common/headers/ExamHeader";
 import ExamTimer from "@/components/exam/timer";
-import { Questions } from "@repo/apps_shared_components";
+import Questions from "@/components/questions";
 import { notFound } from "next/navigation";
 import React from "react";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
 import ExamRecord from "@/components/exam/ExamRecord";
 import { RoutePath } from "@/constants/routPaths";
 import { PreventContext } from "@repo/shared_modules/components";
-import ExamFIlterNotFound from "@repo/apps_shared_components/exam/components/common/FIlterNotFound/index.tsx";
+import ExamFIlterNotFound from "@/components/common/FIlterNotFound";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   searchParams: Record<string, string | undefined>;
@@ -59,7 +59,7 @@ async function SinglePage({ searchParams }: Props) {
     return (
       <div>
         <PreventContext />
-        <ExamHeader title="آزمون ساز" perventParams backUrl={RoutePath.make}>
+        <ExamHeader title="آزمون ساز" backUrl={RoutePath.make}>
           {status !== ExamStatus.OBSERVING && (
             <ExamTimer totalQuestions={data.data.length} />
           )}

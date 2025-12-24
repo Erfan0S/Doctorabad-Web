@@ -2,7 +2,7 @@
 import React from "react";
 import QuestionBankFilter from "@/components/questionBank/questionBankFilter";
 import { PersistQueryProvider } from "@repo/shared_modules";
-import { DiscountPlans } from "@repo/apps_shared_components/exam";
+import DiscountPlans from "@/components/discountPlans";
 
 function QuestionBankPage() {
   return (

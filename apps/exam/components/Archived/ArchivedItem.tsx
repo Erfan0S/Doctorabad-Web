@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import Loading from "../common/Loading/Loading";
 import { useRouter } from "next/navigation";
 import { RoutePath } from "@/constants/routPaths";
-import { SharedFilters } from "@repo/apps_shared_components/exam/types/filters.ts";
+import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   data: ArchivedType;

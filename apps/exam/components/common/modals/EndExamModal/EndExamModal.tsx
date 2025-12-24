@@ -6,9 +6,9 @@ import React from "react";
 import Button from "../../Button/Button";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import {
-  SharedFilters,
   ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 type Props = ModalProps<{ setLoading?: (loading: boolean) => void }>;
 

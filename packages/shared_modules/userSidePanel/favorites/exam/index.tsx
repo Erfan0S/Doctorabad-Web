@@ -1,69 +1,61 @@
-import React, { useEffect } from "react";
+import React, { Fragment } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import {
-  Questions,
-  QuestionsLessonsFilter,
-  examApi,
-} from "@repo/apps_shared_components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../common/components";
-import { QuestionsLessonsFilterProvider } from "@repo/apps_shared_components/exam";
+import { api } from "@repo/apps_shared_components/exam";
+import { SingleListItem } from "@repo/apps_shared_components/exam/components";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import style from "./style.module.scss";
+
+// ! haveGeneralAccess dont exist in api, exam_id is not return and set currectly so add and remove from cart not working
 
 const SidePanelFavoritesExam: React.FC = () => {
-  const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
-    useInfiniteQuery({
-      queryFn: ({ pageParam }) =>
-        examApi.getExamFavoriteList(Number(pageParam)).then((res) => res.data),
-      queryKey: ["favorite", "exam"],
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, allPages, lastPageParam) => {
-        if (!!lastPage.links.next) {
-          return (lastPageParam as number) + 1;
-        }
-        return undefined;
-      },
-      staleTime: 0,
-      gcTime: 0,
-    });
-
-  const hasQuestions = !!data?.pages[0].lessons.length;
-
-  if (isLoading) return <Loading />;
+  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryFn: ({ pageParam }) => api.getExamFavoriteExamList(pageParam),
+    queryKey: ["examList_favorites", isUserLoggedIn()],
+    refetchOnWindowFocus: false,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (lastPage.data.links.next) {
+        return (lastPageParam as number) + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
+  });
 
   return (
-    <>
-      {hasQuestions ? (
-        <QuestionsLessonsFilterProvider>
-          <QuestionsLessonsFilter lessons={data?.pages[0].lessons || []} />
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={() => {
-              fetchNextPage();
-            }}
-            useWindow={false}
-            hasMore={hasNextPage}
-            loader={<Loading />}
-            getScrollParent={() =>
-              document.getElementById("favoriteListContainer") as HTMLElement
-            }
-          >
-            {data?.pages.map((questions, i) => (
-              <Questions
-                questions={questions.data}
-                mobileMode
-                key={i}
-                isFavorite
-                fetchNextPage={fetchNextPage}
-              />
-            ))}
-          </InfiniteScroll>
-        </QuestionsLessonsFilterProvider>
+    <div className={style.listWrapper}>
+      {isLoading ? (
+        <Loading />
+      ) : !!data && data?.pages[0].data.data.length <= 0 ? (
+        <span>هیچ تک آزمونی پیدا نشد!</span>
       ) : (
-        <span style={{ width: "100%", textAlign: "center", display: "block" }}>
-          هیچ سوالی نیست!
-        </span>
+        <InfiniteScroll
+          loadMore={() => fetchNextPage()}
+          hasMore={hasNextPage}
+          loader={<Loading key="infinite-scroll-loader" />}
+          className={style.list}
+        >
+          {data?.pages.map((page, i) => {
+            return (
+              <Fragment key={`frag-${i}`}>
+                {/* @ts-ignore */}
+                {page.data.data.map((item, i) => {
+                  return (
+                    <SingleListItem
+                      item={item}
+                      haveGeneralAccess={page.data.has_general_access}
+                      key={`singleItem-${item.id}-${i}`}
+                      isSidePanel
+                    />
+                  );
+                })}
+              </Fragment>
+            );
+          })}
+        </InfiniteScroll>
       )}
-    </>
+    </div>
   );
 };
 

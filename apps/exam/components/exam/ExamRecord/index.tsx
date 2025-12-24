@@ -1,12 +1,12 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import style from "./examRecord.module.scss";
-import { QuestionsAnswersContext } from "@repo/apps_shared_components/exam/contexts/questionsAnswersContext.tsx";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import PercentageBar from "./PercentageBar";
 import { calculatePercentage } from "@/utils/calculatePercentage";
-import { LessonType } from "@repo/apps_shared_components/exam/types/exam.ts";
+import { QuestionsAnswersContext } from "@/contexts/questionsAnswersContext";
+import { LessonType } from "@/types/exam";
 
 type Props = {
   lessons: LessonType[];

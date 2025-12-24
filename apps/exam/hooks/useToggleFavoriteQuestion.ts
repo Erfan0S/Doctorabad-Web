@@ -18,8 +18,8 @@ export const useToggleFavoriteQuestion = (initialState: boolean) => {
 
       toast(
         newFavoriteState
-          ? "سوال به علاقه‌مندی‌ها اضافه شد"
-          : "سوال از علاقه‌مندی‌ها حذف شد",
+          ? "سوال به نشانه شده‌ها اضافه شد"
+          : "سوال از نشانه شده‌ها حذف شد",
         { type: "success", position: "top-left" }
       );
     },

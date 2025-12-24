@@ -1,0 +1,128 @@
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import Image from "next/image";
+import React, { useState } from "react";
+import style from "./sinlgesList.module.scss";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import {
+  AddToCartButton,
+  Button,
+  FavoriteButton,
+  ProductSnappayNotif,
+} from "@repo/shared_modules/components";
+import { OrderType } from "@repo/core/types/cart";
+import { Apps } from "@repo/core/types/general";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+// @ts-ignore
+import examIcon from "@repo/shared_modules/images/doctor-exam.png";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { ExamType } from "@repo/apps_shared_components/exam/types";
+import { useRouter } from "next/navigation";
+import { baseUrls, examPaths } from "@repo/core/constants/routePath";
+
+type Props = {
+  item: ExamType;
+  haveGeneralAccess?: boolean;
+  haveFavoriteButton?: boolean;
+  isSidePanel?: boolean;
+};
+
+function SingleListItem({
+  item,
+  haveGeneralAccess,
+  haveFavoriteButton,
+  isSidePanel,
+}: Props) {
+  const router = useRouter();
+  const [hasAccess, setHasAccess] = useState(
+    isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
+  );
+
+  React.useEffect(() => {
+    setHasAccess(
+      isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
+    );
+  }, [item.user_has_access, haveGeneralAccess]);
+
+  const isShowInstallmentText =
+    item.installment_payment &&
+    item.installment_text &&
+    !hasAccess &&
+    item.main_price > 4000;
+
+  return (
+    <div
+      className={`${style.singleItem} card ${isSidePanel ? style.singleItemSidePanel : ""}`}
+    >
+      <div>
+        <Image
+          src={item.picture || examIcon}
+          alt={item.title}
+          placeholder={placeHolderDataUrl}
+          width={100}
+          height={100}
+          className={!item.picture ? style.noImage : ""}
+        />
+        <div className={style.singleItemDescription}>
+          <h3>{item.title}</h3>
+          <span>{item.date}</span>
+          <span>{item.place}</span>
+        </div>
+        {haveFavoriteButton && (
+          <FavoriteButton
+            id={item.id}
+            initialFavoriteState={item.favorite}
+            app={Apps.EXAM}
+            className={style.favoriteButton}
+          />
+        )}
+      </div>
+      <div>
+        <div className={style.singleItemPriceWrapper}>
+          <span className={style.singleItemPrice}>
+            {item.main_price
+              ? `${priceFormatter(item.main_price)} تومن`
+              : "رایگان"}
+            {item.installment_text && isShowInstallmentText && (
+              <ProductSnappayNotif
+                text={item.installment_text}
+                className={style.installmentPayment}
+              />
+            )}
+          </span>
+        </div>
+        {hasAccess ? (
+          <div className={style.singleItemAccessButtons}>
+            <Button
+              onClick={() => {
+                router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`);
+                setTimeout(() => {
+                  modalActions.clearModals();
+                }, 100);
+              }}
+            >
+              ورود
+            </Button>
+            <Button
+              app={Apps.EXAM}
+              onClick={() => {
+                modalActions.addModal(ModalTypes.EXAM_START, { exam: item });
+              }}
+            >
+              شروع آزمون
+            </Button>
+          </div>
+        ) : (
+          <AddToCartButton
+            app={Apps.EXAM}
+            id={item.id}
+            type={OrderType.Exam}
+            isColumn={isSidePanel}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default SingleListItem;

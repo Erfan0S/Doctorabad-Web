@@ -2,6 +2,10 @@
 @import "src/assets/styles/variables";
 
 .favoriteFillIcon {
-  fill: var(--app-base, $base-green);
-  color: var(--app-base, $base-green);
+  fill: var(--app-base, $base-green) !important;
+  color: var(--app-base, $base-green) !important;
+  svg {
+    fill: var(--app-base, $base-green) !important;
+    color: var(--app-base, $base-green) !important;
+  }
 }

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 type NavigationHistoryContextType = {
-  goBack: (searchParams?: string) => void;
+  goBack: (defaultBackUrl?: string, ignorePrevSearchParams?: boolean) => void;
   history: string[];
 };
 

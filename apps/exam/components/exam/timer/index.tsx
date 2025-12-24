@@ -7,11 +7,11 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import formatDuration from "@repo/core/utils/formatDuration";
-import {
-  SharedFilters,
-  ExamStatus,
-} from "@repo/apps_shared_components/exam/types/filters.ts";
 import Loading from "@/components/common/Loading/Loading";
+import {
+  ExamStatus,
+  SharedFilters,
+} from "@repo/apps_shared_components/exam/types";
 
 type Props = {
   totalQuestions: number;

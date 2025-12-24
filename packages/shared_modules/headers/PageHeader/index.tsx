@@ -14,6 +14,7 @@ interface Props {
   haveMargin?: boolean;
   onBack?: (callBack: () => void) => void;
   useBaseColor?: boolean;
+  defaultBackUrl?: string;
 }
 const PageHeader: React.FC<Props> = ({
   title,
@@ -23,6 +24,7 @@ const PageHeader: React.FC<Props> = ({
   haveMargin = true,
   className,
   app = Apps.BASE,
+  defaultBackUrl,
 }) => {
   const navHistory = useNavigationHistory();
 
@@ -30,7 +32,7 @@ const PageHeader: React.FC<Props> = ({
     if (onBack) {
       onBack(() => navHistory.goBack());
     } else {
-      navHistory.goBack();
+      navHistory.goBack(defaultBackUrl);
     }
   };
 
