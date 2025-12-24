@@ -17,7 +17,7 @@ export function NavigationHistoryProvider({
   // Track unique pathnames
   useEffect(() => {
     const last = historyRef.current[historyRef.current.length - 1];
-    const current = `${pathname}?${searchParams.toString()}`;
+    const current = `${pathname}?${searchParams?.toString()}`;
     if (last !== current) {
       if (last && last.split("?")[0] === pathname) {
         historyRef.current.pop();
