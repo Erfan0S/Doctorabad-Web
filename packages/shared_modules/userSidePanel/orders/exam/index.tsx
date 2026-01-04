@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "@repo/shared_modules/components";
 import generalGetNextPageParam from "@repo/core/constants/functions/generalGetNextPageParam";
 import ExamOrderItem from "./ExamOrderItem";
+import style from "./sinlgesList.module.scss";
 
 const SidePanelOrdersExam: React.FC = () => {
   // api.getExamOrdersList();
@@ -34,6 +35,7 @@ const SidePanelOrdersExam: React.FC = () => {
           <Loading size={20} />
         </div>
       }
+      className={style.examOrderListContainer}
     >
       {data?.pages.map((page, i) =>
         page?.data?.data?.map((item) => (

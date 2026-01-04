@@ -19,6 +19,7 @@ import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { ExamType } from "@repo/apps_shared_components/exam/types";
 import { useRouter } from "next/navigation";
 import { baseUrls, examPaths } from "@repo/core/constants/routePath";
+import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 
 type Props = {
   item: ExamType;
@@ -49,6 +50,8 @@ function SingleListItem({
     item.installment_text &&
     !hasAccess &&
     item.main_price > 4000;
+
+  const isMobile = useMediaQuery("(max-width: 500px)");
 
   return (
     <div
@@ -117,7 +120,7 @@ function SingleListItem({
             app={Apps.EXAM}
             id={item.id}
             type={OrderType.Exam}
-            isColumn={isSidePanel}
+            isColumn={isSidePanel || isMobile}
           />
         )}
       </div>
