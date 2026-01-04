@@ -11,6 +11,7 @@ import examIcon from "@repo/shared_modules/images/doctor-exam.png";
 import { ExamOrderItem as ExamOrderItemType } from "../../types/orders";
 import OrderMetaData from "../common/OrderMetaData";
 import { useRouter } from "next/navigation";
+import { baseUrls, examPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   item: ExamOrderItemType;
@@ -41,7 +42,11 @@ function ExamOrderItem({ item }: Props) {
         <div className={style.singleItemAccessButtons}>
           <Button
             onClick={() => {
-              setTimeout(() => router.push(`single/${item.id}`), 100);
+              setTimeout(
+                () =>
+                  router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`),
+                100
+              );
               modalActions.clearModals();
             }}
           >

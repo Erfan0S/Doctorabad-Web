@@ -20,7 +20,7 @@ const FiltersItems: SelectFilterItems[] = [
   },
   {
     id: QuestionListFilters.FAVORITE,
-    title: "سوالات مورد علاقه‌",
+    title: "سوالات نشان‌دار",
   },
   {
     id: QuestionListFilters.HAVE_EXPLANATION,
