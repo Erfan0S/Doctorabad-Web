@@ -57,6 +57,11 @@ import {
   IsEligibleForProviderResponse,
   PaymentProviders,
 } from "../checkout/types/cart";
+import {
+  MissionType,
+  RankingUserType,
+  UserRankingDetailType,
+} from "../userSidePanel/types/club";
 
 class Api extends Request {
   constructor() {
@@ -459,6 +464,19 @@ class Api extends Request {
     );
   };
 
+  getRankingList = (): Promise<
+    ResponseType<{ data: RankingUserType[]; user_rank: UserRankingDetailType }>
+  > => {
+    return this.request.get(`/user/club/ranking`);
+  };
+
+  // drClub missions
+
+  getClubMissionsList = (): Promise<ResponseType<{ data: MissionType[] }>> => {
+    return this.request.get(`/user/club/missions`);
+  };
+
+  // qr code
   getMultiMediaContentsFromId(
     id: string
   ): Promise<ResponseType<{ data: BookContents }>> {

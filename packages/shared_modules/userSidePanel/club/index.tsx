@@ -1,24 +1,29 @@
-import React, {useState} from "react";
-import {SidePanelClubTab, SidePanelPageProps} from "@repo/core/types/sidePanel";
+import React, { useState } from "react";
+import {
+  SidePanelClubTab,
+  SidePanelPageProps,
+} from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
 import Image from "next/image";
-import {clubTabsData} from "./tabs-data";
+import { clubTabsData } from "./tabs-data";
 import SidePanelClubHistory from "./history";
 import SidePanelClubDiscounts from "./discounts";
 import style from "./SidePanelClub.module.scss";
 import sidePanelStyle from "../sidePanel.module.scss";
-import {modalActions} from "@repo/core/modal/modals";
-import {ModalTypes} from "@repo/shared_modules/modalsTypes";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import SidePanelClubSingle from "./singleShow";
-import {useQuery} from "@tanstack/react-query";
-import {api} from "../../api/Api";
-import {Loading} from "@repo/shared_modules/components";
-import {ClubOffer} from "../types/doctorClub";
-import {placeHolderDataUrl} from "@repo/core/constants/placeHolderDataUrl";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../api/Api";
+import { Loading } from "@repo/shared_modules/components";
+import { ClubOffer } from "../types/doctorClub";
+import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfoIcon from "../../assets/svg/info";
+import Missions from "./missions";
+import SidePanelClubRanking from "./ranking";
 
-const SidePanelClub: React.FC<SidePanelPageProps> = ({setPage}) => {
-  const {data, isLoading} = useQuery({
+const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
+  const { data, isLoading } = useQuery({
     queryFn: api.getUserClubInfo,
     queryKey: ["user_club_info"],
     retry: 1,
@@ -31,16 +36,16 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({setPage}) => {
 
   const onChangeTab = (content: SidePanelClubTab) => {
     setTabData((prev) =>
-      prev.map((item) => ({...item, active: item.content === content}))
+      prev.map((item) => ({ ...item, active: item.content === content }))
     );
     setCurrentTab(content);
   };
 
   const clubTabsComponents = {
-    [SidePanelClubTab.MISSIONS]: SidePanelClubDiscounts,
+    [SidePanelClubTab.MISSIONS]: Missions,
     [SidePanelClubTab.HISTORY]: SidePanelClubHistory,
-    [SidePanelClubTab.RANK]: () => <div>Rank</div>,
-    [SidePanelClubTab.SUGGESTIONS]: () => <div>Suggestions</div>,
+    [SidePanelClubTab.RANK]: SidePanelClubRanking,
+    [SidePanelClubTab.SUGGESTIONS]: SidePanelClubDiscounts,
   };
 
   const CurrentTabComponent = clubTabsComponents[currentTab];
@@ -73,7 +78,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({setPage}) => {
           <div className={style.sidePanelClubHeader}>
             <div className={style.sidePanelClubHeaderImage}>
               <Image
-                src={data!.data.data.club_state_pic_url || placeHolderDataUrl}
+                src={data?.data.data.club_state_pic_url || placeHolderDataUrl}
                 alt="clubImage"
                 width={90}
                 height={90}
@@ -86,7 +91,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({setPage}) => {
           </div>
           <div className={sidePanelStyle.sidePanelTabs}>
             <ul>
-              {tabData.map(({id, title, active, content}) => (
+              {tabData.map(({ id, title, active, content }) => (
                 <li
                   key={id}
                   className={active ? sidePanelStyle.active : ""}
@@ -102,7 +107,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({setPage}) => {
           </div>
         </div>
       ) : (
-        <Loading size={25} />
+        <Loading size={25} pageLoader />
       )}
     </>
   );
