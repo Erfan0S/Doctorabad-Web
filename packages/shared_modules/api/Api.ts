@@ -60,6 +60,7 @@ import {
 import {
   MissionType,
   RankingUserType,
+  UserCoinPointsType,
   UserRankingDetailType,
 } from "../userSidePanel/types/club";
 
@@ -435,6 +436,12 @@ class Api extends Request {
 
   getUserClubInfo = (): Promise<ResponseType<{ data: UserClubInfo }>> => {
     return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
+  };
+
+  getUserCoinPoints = (): Promise<
+    ResponseType<{ data: UserCoinPointsType }>
+  > => {
+    return this.request.get("/user/club/combine/point/coin/sum");
   };
 
   getOffersList = (

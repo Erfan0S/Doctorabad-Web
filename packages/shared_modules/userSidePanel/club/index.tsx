@@ -21,11 +21,19 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfoIcon from "../../assets/svg/info";
 import Missions from "./missions";
 import SidePanelClubRanking from "./ranking";
+// @ts-ignore
+import CoinIcon from "../../assets/img/coin.png";
 
 const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { data, isLoading } = useQuery({
     queryFn: api.getUserClubInfo,
     queryKey: ["user_club_info"],
+    retry: 1,
+  });
+
+  const { data: userCoinPoints, isLoading: userCoinPointsLoading } = useQuery({
+    queryFn: api.getUserCoinPoints,
+    queryKey: ["user_coin_points"],
     retry: 1,
   });
 
@@ -62,6 +70,8 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
     );
   }
 
+  console.log(userCoinPoints);
+
   return (
     <>
       <SidePanelHeader
@@ -73,7 +83,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
           </button>
         }
       />
-      {!isLoading ? (
+      {!isLoading && !userCoinPointsLoading ? (
         <div className={style.sidePanelClub} id="clubListContainer">
           <div className={style.sidePanelClubHeader}>
             <div className={style.sidePanelClubHeaderImage}>
@@ -85,8 +95,11 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
               />
             </div>
             <div className={style.sidePanelClubHeaderContent}>
-              <span>{data?.data.data.user_coin} سکه</span>
-              <span>{data?.data.data.club_state_title}</span>
+              <span>{userCoinPoints?.data.data.point_sum} امتیاز</span>
+              <span>
+                {userCoinPoints?.data.data.coin_sum}{" "}
+                <Image src={CoinIcon} alt="coin" width={20} height={20} />
+              </span>
             </div>
           </div>
           <div className={sidePanelStyle.sidePanelTabs}>

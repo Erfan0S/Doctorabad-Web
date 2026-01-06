@@ -19,3 +19,8 @@ export type RankingUserType = {
   name: string;
   point_sum: number;
 };
+
+export type UserCoinPointsType = {
+  coin_sum: number;
+  point_sum: number;
+};
