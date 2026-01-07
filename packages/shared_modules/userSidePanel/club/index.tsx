@@ -5,11 +5,7 @@ import {
 } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
 import Image from "next/image";
-import { clubTabsData } from "./tabs-data";
-import SidePanelClubHistory from "./history";
-import SidePanelClubDiscounts from "./discounts";
 import style from "./SidePanelClub.module.scss";
-import sidePanelStyle from "../sidePanel.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import SidePanelClubSingle from "./singleShow";
@@ -19,10 +15,14 @@ import { Loading } from "@repo/shared_modules/components";
 import { ClubOffer } from "../types/doctorClub";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfoIcon from "../../assets/svg/info";
-import Missions from "./missions";
-import SidePanelClubRanking from "./ranking";
 // @ts-ignore
 import CoinIcon from "../../assets/img/coin.png";
+import UserSidePanelTabsController from "../common/tabsController";
+import { TabDataType } from "../types/general";
+import Missions from "./missions";
+import SidePanelClubDiscounts from "./discounts";
+import SidePanelClubRanking from "./ranking";
+import SidePanelClubHistory from "./history";
 
 const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { data, isLoading } = useQuery({
@@ -37,26 +37,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
     retry: 1,
   });
 
-  const [currentTab, setCurrentTab] = useState(SidePanelClubTab.MISSIONS);
-  const [tabData, setTabData] = useState(clubTabsData);
-
   const [singleOffer, setSingleOfferInfo] = useState<ClubOffer | null>(null);
-
-  const onChangeTab = (content: SidePanelClubTab) => {
-    setTabData((prev) =>
-      prev.map((item) => ({ ...item, active: item.content === content }))
-    );
-    setCurrentTab(content);
-  };
-
-  const clubTabsComponents = {
-    [SidePanelClubTab.MISSIONS]: Missions,
-    [SidePanelClubTab.HISTORY]: SidePanelClubHistory,
-    [SidePanelClubTab.RANK]: SidePanelClubRanking,
-    [SidePanelClubTab.SUGGESTIONS]: SidePanelClubDiscounts,
-  };
-
-  const CurrentTabComponent = clubTabsComponents[currentTab];
   const handleClubInfo = () => {
     modalActions.addModal(ModalTypes.CLUB_INFO);
   };
@@ -70,7 +51,26 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
     );
   }
 
-  console.log(userCoinPoints);
+  const clubTabsData: TabDataType = {
+    [SidePanelClubTab.MISSIONS]: {
+      title: "ماموریت‌های من",
+      content: <Missions />,
+    },
+    [SidePanelClubTab.SUGGESTIONS]: {
+      title: "پیشنهاد‌های من",
+      content: (
+        <SidePanelClubDiscounts setSingleOfferInfo={setSingleOfferInfo} />
+      ),
+    },
+    [SidePanelClubTab.RANK]: {
+      title: "رتبه‌من",
+      content: <SidePanelClubRanking />,
+    },
+    [SidePanelClubTab.HISTORY]: {
+      title: "تاریخچه‌من",
+      content: <SidePanelClubHistory />,
+    },
+  };
 
   return (
     <>
@@ -97,27 +97,15 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
             <div className={style.sidePanelClubHeaderContent}>
               <span>{userCoinPoints?.data.data.point_sum} امتیاز</span>
               <span>
-                {userCoinPoints?.data.data.coin_sum}{" "}
+                {userCoinPoints?.data.data.coin_sum}
                 <Image src={CoinIcon} alt="coin" width={20} height={20} />
               </span>
             </div>
           </div>
-          <div className={sidePanelStyle.sidePanelTabs}>
-            <ul>
-              {tabData.map(({ id, title, active, content }) => (
-                <li
-                  key={id}
-                  className={active ? sidePanelStyle.active : ""}
-                  onClick={() => onChangeTab(content)}
-                >
-                  {title}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={sidePanelStyle.sidePanelTabContents}>
-            <CurrentTabComponent setSingleOfferInfo={setSingleOfferInfo} />
-          </div>
+          <UserSidePanelTabsController
+            tabData={clubTabsData}
+            className={style.sidePanelClubContent}
+          />
         </div>
       ) : (
         <Loading size={25} pageLoader />

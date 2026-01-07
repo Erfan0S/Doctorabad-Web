@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { RankingUserType } from "../../types/club";
+import { RankingUserType } from "../../types/doctorClub";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import style from "./ranking.module.scss";
 

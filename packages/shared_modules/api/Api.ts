@@ -39,8 +39,13 @@ import { Product } from "@repo/core/types/product";
 import {
   BuyOfferResponse,
   ClubOffer,
-  ClubTransaction,
+  ClubTransactionCoins,
+  ClubTransactionPoint,
   HelpText,
+  MissionType,
+  RankingUserType,
+  UserCoinPointsType,
+  UserRankingDetailType,
 } from "../userSidePanel/types/doctorClub";
 import { UserClubInfo } from "@repo/core/types/general";
 import { BookContents } from "../userSidePanel/types/bookContents";
@@ -57,12 +62,6 @@ import {
   IsEligibleForProviderResponse,
   PaymentProviders,
 } from "../checkout/types/cart";
-import {
-  MissionType,
-  RankingUserType,
-  UserCoinPointsType,
-  UserRankingDetailType,
-} from "../userSidePanel/types/club";
 
 class Api extends Request {
   constructor() {
@@ -460,15 +459,20 @@ class Api extends Request {
     );
   };
 
-  getClubTransactionsList = (
+  getClubCoinTransactionsList = (
     page: number
-  ): Promise<ResponseType<{ data: ClubTransaction[] }>> => {
-    return this.request.get<{ data: ClubTransaction[] }>(
-      `/user/club/coin/list`,
-      {
-        params: { page },
-      }
-    );
+  ): Promise<ResponseType<PaginatedResponse<ClubTransactionCoins[]>>> => {
+    return this.request.get(`/user/club/coin/list`, {
+      params: { page },
+    });
+  };
+
+  getClubPointTransactionsList = (
+    page: number
+  ): Promise<ResponseType<PaginatedResponse<ClubTransactionPoint[]>>> => {
+    return this.request.get(`/user/club/points/detail`, {
+      params: { page },
+    });
   };
 
   getRankingList = (): Promise<

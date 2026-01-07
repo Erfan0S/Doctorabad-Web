@@ -42,7 +42,7 @@ export interface BuyOfferResponse {
   };
 }
 
-export interface ClubTransaction {
+export interface ClubTransactionCoins {
   id: number;
   amount: number;
   created_at: string;
@@ -53,3 +53,37 @@ export interface ClubTransaction {
     "id" | "title" | "description" | "expired_at" | "discount_codes"
   >;
 }
+
+export type MissionType = {
+  id: number;
+  title: string;
+  point_label: string;
+  description: string | null;
+  picture: string | null;
+  active: boolean;
+};
+
+export type UserRankingDetailType = {
+  user_ranking: number;
+  users_count: number;
+  state_detail: string;
+};
+
+export type RankingUserType = {
+  id: number;
+  profile_picture: string | null;
+  name: string;
+  point_sum: number;
+};
+
+export type UserCoinPointsType = {
+  coin_sum: number;
+  point_sum: number;
+};
+
+export type ClubTransactionPoint = {
+  id: number;
+  mission: string;
+  point: number;
+  created_at: string;
+};

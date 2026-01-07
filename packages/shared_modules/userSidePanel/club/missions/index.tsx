@@ -4,6 +4,7 @@ import MissionsItem from "./MissionsItem";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { Loading } from "../../../common/components";
+import clubStyle from "../SidePanelClub.module.scss";
 
 export default function Missions() {
   const { data, isLoading } = useQuery({
@@ -18,7 +19,7 @@ export default function Missions() {
   if (!data) return <span>هیج ماموریتی پیدا نشد!</span>;
 
   return (
-    <div>
+    <div className={clubStyle.clubContainer}>
       {data.map((m, i) => (
         <MissionsItem mission={m} key={i} />
       ))}

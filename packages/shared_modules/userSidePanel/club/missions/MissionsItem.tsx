@@ -1,4 +1,4 @@
-import { MissionType } from "../../types/club";
+import { MissionType } from "../../types/doctorClub";
 import style from "./MissionsItem.module.scss";
 import Image from "next/image";
 //@ts-ignore
