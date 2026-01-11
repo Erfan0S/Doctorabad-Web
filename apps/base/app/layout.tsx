@@ -31,37 +31,7 @@ export default async function RootLayout({
   const statistic = (await api.getHomeStatistics()).data.data;
   return (
     <html lang="fa">
-      <head>
-        <Script
-          id="clarity-load"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "p86us2vume");`,
-          }}
-        />
-        <Script
-          strategy="beforeInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-XCPDF4Z963"
-          async
-        />
-        <Script
-          strategy="beforeInteractive"
-          id="gtm"
-          dangerouslySetInnerHTML={{
-            __html: `
-          window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XCPDF4Z963');
-        `,
-          }}
-        />
-      </head>
+      <head></head>
       <body className={`${font.className} desktop_body`}>
         <NextTopLoader color="#8fcc18" />
         <div className="root">
@@ -75,6 +45,12 @@ export default async function RootLayout({
           </Providers>
         </div>
       </body>
+      <Script
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+              __html: `!function(){var i="cskpcR",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();`,
+          }}
+      />
     </html>
   );
 }
