@@ -1,6 +1,6 @@
-import { User } from "../types/user";
 import { CircularProgressbar } from "react-circular-progressbar";
 import style from "./SidePanelProfile.module.scss";
+import { User } from "@repo/core/types/user";
 
 type Props = {
   userData: User;
@@ -25,7 +25,7 @@ export const ProfileProgress = ({ userData }: Props) => {
   const percentage = (
     (100 / allProfileDataKeys.length) *
     Object.entries(userData).filter(
-      ([key, val]) => allProfileDataKeys.includes(key) && val
+      ([key, val]) => allProfileDataKeys.includes(key) && val,
     ).length
   ).toFixed(0);
 

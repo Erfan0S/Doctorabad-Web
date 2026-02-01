@@ -2,7 +2,7 @@ import Image from "next/image";
 import style from "./SidePanelProfile.module.scss";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
-import { UserAvatar } from "../types/user";
+import { UserAvatar } from "@repo/core/types/user";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 interface Props {

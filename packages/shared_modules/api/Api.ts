@@ -116,7 +116,7 @@ class Api extends Request {
   // Discount Plans
 
   getDiscountPlans = (
-    type: 1 | 2 = 1
+    type: 1 | 2 = 1,
   ): Promise<ResponseType<{ data: DiscountPlan[] }>> => {
     return this.request.get(`/user/v1/discount/plans?type=${type}`);
   };
@@ -135,7 +135,7 @@ class Api extends Request {
   addToCart(
     productId: number,
     type: OrderType,
-    variants?: ProductVariantsValue[]
+    variants?: ProductVariantsValue[],
   ): Promise<ResponseType<CartResponse>> {
     return this.request.post<CartResponse>("/user/v1/cart", {
       id: productId,
@@ -168,7 +168,7 @@ class Api extends Request {
     ResponseType<LastProcessingShopOrder>
   > => {
     return this.request.get<LastProcessingShopOrder>(
-      "/user/shop/order/last/doing"
+      "/user/shop/order/last/doing",
     );
   };
 
@@ -192,7 +192,7 @@ class Api extends Request {
 
   isEligibleForProvider = (
     price: number,
-    provider: PaymentProviders = PaymentProviders.SNAPP_PAY
+    provider: PaymentProviders = PaymentProviders.SNAPP_PAY,
   ): Promise<ResponseType<{ data: IsEligibleForProviderResponse }>> => {
     return this.request.post("/user/v1/cart/eligibility", {
       price,
@@ -212,12 +212,12 @@ class Api extends Request {
   }): Promise<ResponseType<{ data: { price: number } }>> => {
     return this.request.post<{ data: { price: number } }>(
       "/user/shop/shipping/select",
-      data
+      data,
     );
   };
 
   checkDiscountCode(
-    code: string
+    code: string,
   ): Promise<ResponseType<{ data: DiscountInfo }>> {
     return this.request.post(`/user/v1/discountCode/check`, {
       code,
@@ -234,7 +234,7 @@ class Api extends Request {
   };
 
   getCitiesList = (
-    provinceId: number
+    provinceId: number,
   ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
     return this.request.post<{ data: SelectionItem[] }>("/user/find/cities", {
       province_id: provinceId,
@@ -242,63 +242,63 @@ class Api extends Request {
   };
 
   getTopinCitiesList = (
-    provinceId: number
+    provinceId: number,
   ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
     return this.request.post<{ data: SelectionItem[] }>(
       "/user/find/tapin/cities",
       {
         province_id: provinceId,
-      }
+      },
     );
   };
 
   addAddress = (
-    data: Partial<ShippingAddress>
+    data: Partial<ShippingAddress>,
   ): Promise<ResponseType<{ data: ShippingAddress }>> => {
     return this.request.post<{ data: ShippingAddress }>(
       "/user/shop/address",
-      data
+      data,
     );
   };
 
   updateAddress = (
     addressId: number,
-    data: Partial<ShippingAddress>
+    data: Partial<ShippingAddress>,
   ): Promise<ResponseType<{ data: ShippingAddress }>> => {
     return this.request.put<{ data: ShippingAddress }>(
       `/user/shop/address/${addressId}`,
-      data
+      data,
     );
   };
 
   // order
 
   createOrder(
-    data: CreateOrderRequest
+    data: CreateOrderRequest,
   ): Promise<ResponseType<CreateOrderResponse>> {
     return this.request.post<CreateOrderResponse>("/user/v1/order", data);
   }
 
   createProviderOrder(
-    data: CreateProviderOrderRequest
+    data: CreateProviderOrderRequest,
   ): Promise<ResponseType<CreateOrderResponse>> {
     return this.request.post<CreateOrderResponse>(
       "/user/v1/order/installment",
-      data
+      data,
     );
   }
 
   getOrderResult = (
-    paymentToken: string
+    paymentToken: string,
   ): Promise<ResponseType<PaymentResult>> => {
     return this.request.get<PaymentResult>(
-      `/user/shop/order/result/${paymentToken}`
+      `/user/shop/order/result/${paymentToken}`,
     );
   };
 
   // fields and grades
   getFields = (
-    type: number
+    type: number,
   ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
     return this.request.get<{ data: SelectionItem[] }>("/user/find/fields", {
       params: { type },
@@ -307,7 +307,7 @@ class Api extends Request {
 
   getGrades = (
     field_id: number,
-    type: number
+    type: number,
   ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
     return this.request.get<{ data: SelectionItem[] }>("/user/find/grades", {
       params: {
@@ -319,18 +319,18 @@ class Api extends Request {
 
   // account
   getMessageList = (
-    page: number
+    page: number,
   ): Promise<ResponseType<{ data: MessageItem[] }>> => {
     return this.request.get<{ data: MessageItem[] }>(
-      `/user/message?page=${page}`
+      `/user/message?page=${page}`,
     );
   };
 
   getSingleMessage = (
-    id: number
+    id: number,
   ): Promise<ResponseType<{ data: SingleMessage }>> => {
     return this.request.get<{ data: SingleMessage }>(
-      `/user/message/show/${id}`
+      `/user/message/show/${id}`,
     );
   };
 
@@ -338,7 +338,7 @@ class Api extends Request {
     ResponseType<{ data: { counter: number } }>
   > => {
     return this.request.get<{ data: { counter: number } }>(
-      `/user/message/new/count`
+      `/user/message/new/count`,
     );
   };
 
@@ -357,21 +357,21 @@ class Api extends Request {
   };
 
   getCartOrderDetail = (
-    orderCode: string
+    orderCode: string,
   ): Promise<ResponseType<{ data: CartOrderDetails }>> => {
     return this.request.get(`/user/v1/order/detail/${orderCode}`);
   };
 
   getShopOrdersList = (
-    page: number
+    page: number,
   ): Promise<ResponseType<{ data: PreviousOrder[] }>> => {
     return this.request.get<{ data: PreviousOrder[] }>(
-      `/user/shop/order/list?page=${page}`
+      `/user/shop/order/list?page=${page}`,
     );
   };
 
   getLearnOrdersListOld = (
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseOrderItemOld[]>>> => {
     return this.request.get(`/user/v1/education/previous/orders`, {
       params: { page },
@@ -379,7 +379,7 @@ class Api extends Request {
   };
 
   getLearnOrdersList = (
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<{ data: CourseListItemType[] }>> => {
     return this.request.get(`/user/v1/education/previous/orders/courses/buy`, {
       params: { page },
@@ -387,13 +387,13 @@ class Api extends Request {
   };
 
   getLearnOrderDetail = (
-    orderCode: string
+    orderCode: string,
   ): Promise<ResponseType<LastProcessingShopOrder>> => {
     return this.request.get(`/user/v1/education/previous/orders/${orderCode}`);
   };
 
   getExamOrdersList = (
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<ExamOrderItem[]>>> => {
     return this.request.get(`/user/v1/lab/order/exam`, { params: { page } });
   };
@@ -401,7 +401,7 @@ class Api extends Request {
   // favorites
 
   getLearnFavoriteList = (
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> => {
     return this.request.get("/user/v1/education/favorite", {
       params: { page },
@@ -409,7 +409,7 @@ class Api extends Request {
   };
 
   getShopFavoriteList = (
-    page: number
+    page: number,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get(`/user/shop/favorite/list?page=${page}`);
   };
@@ -421,10 +421,10 @@ class Api extends Request {
   };
 
   getPreviousOrderDetail = (
-    orderCode: string
+    orderCode: string,
   ): Promise<ResponseType<LastProcessingShopOrder>> => {
     return this.request.get<LastProcessingShopOrder>(
-      `/user/shop/order/details/${orderCode}`
+      `/user/shop/order/details/${orderCode}`,
     );
   };
 
@@ -444,7 +444,7 @@ class Api extends Request {
   };
 
   getOffersList = (
-    page: number
+    page: number,
   ): Promise<ResponseType<{ data: ClubOffer[] }>> => {
     return this.request.get<{ data: ClubOffer[] }>(`/user/club/plan/list`, {
       params: { page },
@@ -452,15 +452,15 @@ class Api extends Request {
   };
 
   buyOffer = (
-    id: number
+    id: number,
   ): Promise<ResponseType<{ data: BuyOfferResponse }>> => {
     return this.request.get<{ data: BuyOfferResponse }>(
-      `/user/club/plan/buy/${id}`
+      `/user/club/plan/buy/${id}`,
     );
   };
 
   getClubCoinTransactionsList = (
-    page: number
+    page: number,
   ): Promise<ResponseType<PaginatedResponse<ClubTransactionCoins[]>>> => {
     return this.request.get(`/user/club/coin/list`, {
       params: { page },
@@ -468,7 +468,7 @@ class Api extends Request {
   };
 
   getClubPointTransactionsList = (
-    page: number
+    page: number,
   ): Promise<ResponseType<PaginatedResponse<ClubTransactionPoint[]>>> => {
     return this.request.get(`/user/club/points/detail`, {
       params: { page },
@@ -489,10 +489,10 @@ class Api extends Request {
 
   // qr code
   getMultiMediaContentsFromId(
-    id: string
+    id: string,
   ): Promise<ResponseType<{ data: BookContents }>> {
     return this.request.get<{ data: BookContents }>(
-      `/api/user/book/qrcode/files/${id}`
+      `/api/user/book/qrcode/files/${id}`,
     );
   }
 
@@ -509,7 +509,7 @@ class Api extends Request {
       "/user/home/counter",
       {
         next: { revalidate: 36000 },
-      }
+      },
     );
   }
 
@@ -524,7 +524,7 @@ class Api extends Request {
 
   prodoctReportIssue = (
     text: string,
-    productId: number
+    productId: number,
   ): Promise<ResponseType<PaginatedResponse<ExamFavoriteList>>> => {
     return this.request.post(`/user/shop/error/report`, {
       error_report_text: text,

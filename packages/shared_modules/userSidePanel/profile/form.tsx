@@ -29,7 +29,15 @@ const ProfileForm = () => {
         <Field type="text" id="email" name="email" />
       </div>
       <div className={style.formText}>
-        <label htmlFor="email">تاریخ تولد</label>
+        <label htmlFor="student_id">
+          شماره دانشجویی/
+          <br />
+          شماره نظام
+        </label>
+        <Field type="text" id="student_id" name="student_id" />
+      </div>
+      <div className={style.formText}>
+        <label htmlFor="birthday">تاریخ تولد</label>
         <DatePickerInput
           name="birthday"
           placeholder="تاریخ تولد"
