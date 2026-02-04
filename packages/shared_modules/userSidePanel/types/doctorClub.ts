@@ -61,6 +61,8 @@ export type MissionType = {
   description: string | null;
   picture: string | null;
   active: boolean;
+  button_text?: string;
+  onClick?: () => void;
 };
 
 export type UserRankingDetailType = {

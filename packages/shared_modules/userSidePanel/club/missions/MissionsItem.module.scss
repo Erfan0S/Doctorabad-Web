@@ -3,6 +3,7 @@
 
 .wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   border: 1px solid #e2e8f0;
@@ -17,6 +18,20 @@
 
   &.active {
     border: 2px solid $base-green; // Lime green matches image
+  }
+
+  > div:first-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+  }
+
+  > button {
+    padding: 4px 6px;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 10px;
   }
 }
 
@@ -36,7 +51,7 @@
 }
 
 .title {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #4b5563;
   margin-bottom: 4px;

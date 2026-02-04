@@ -487,6 +487,10 @@ class Api extends Request {
     return this.request.get(`/user/club/missions`);
   };
 
+  clubMissionExplore = (): Promise<ResponseType<any>> => {
+    return this.request.get(`/user/club/mission/explore/drabad`);
+  };
+
   // qr code
   getMultiMediaContentsFromId(
     id: string,
