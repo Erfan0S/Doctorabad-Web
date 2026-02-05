@@ -6,11 +6,15 @@ import { PlayerInitiator } from "@/utils/videoPlayer/playerInitiator";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import CustomButton from "./videoPlayerCustomElements/CustomButton";
-import { VideoPlayer as VideoPlayerType } from "@/types/VideoPlayer";
+import {
+  VideoMissionTransactionType,
+  VideoPlayer as VideoPlayerType,
+} from "@/types/VideoPlayer";
 import { VideoQualitySelector } from "../videoQualitySelectorModal/VideoQualitySelector";
 import AddLeasonNoteModal from "./addNoteModal/AddLeasonNoteModal";
 import Watermark from "../watermark";
 import Loading from "@/components/common/Loading";
+import { api } from "@/api/Api";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -27,18 +31,94 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const videoRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<VideoPlayerType>();
   const [isWatermarkActive, setIsWatermarkActive] = useState(false);
+  const [isVideoPlayed, setIsVideoPlayed] = useState(false);
+  let previousTime = -1;
+
+  let missionInterval: NodeJS.Timeout;
+
+  const canCallMissionApi = lessonId && !!playerRef.current;
+
+  const handleMissionInterval = useCallback(() => {
+    missionInterval = setInterval(() => {
+      if (lessonId) {
+        api.videoMission({
+          lesson_id: lessonId,
+          current_time: playerRef.current?.currentTime() || 0,
+          video_speed: playerRef.current?.playbackRate() || 1,
+          transaction_type: VideoMissionTransactionType.CONTINUE,
+        });
+      }
+    }, 60000);
+  }, []);
+
   const handlePlayer = useCallback(
     (player: VideoPlayerType) => {
       playerRef.current = player;
       player.aspectRatio("16:9");
       player.on("play", () => {
+        console.log(player.currentTime());
+
+        if (lessonId) {
+          api.videoMission({
+            lesson_id: lessonId,
+            current_time: Math.floor(player?.currentTime() || 0),
+            video_speed: playerRef.current?.playbackRate() || 1,
+            transaction_type: isVideoPlayed
+              ? VideoMissionTransactionType.CONTINUE
+              : VideoMissionTransactionType.NEW,
+            jumped_from_time:
+              previousTime >= 0 ? Math.floor(previousTime) : undefined,
+          });
+          if (!isVideoPlayed) setIsVideoPlayed(true);
+        }
+        previousTime = -1;
         setIsWatermarkActive(true);
+        handleMissionInterval();
+        console.log("play");
       });
-      // player.on("pause", () => {
-      //   setIsWatermarkActive(false);
-      // });
+      player.on("pause", () => {
+        clearInterval(missionInterval);
+      });
+      player.on("ended", () => {
+        clearInterval(missionInterval);
+        setIsWatermarkActive(false);
+      });
+      player.on("seeking", () => {
+        clearInterval(missionInterval);
+        previousTime = playerRef.current?.currentTime() || 0;
+        console.log("seeking");
+      });
+      player.on("seeked", () => {
+        console.log("seeked");
+      });
+      player.on("ratechange", () => {
+        clearInterval(missionInterval);
+        if (player && lessonId) {
+          api.videoMission({
+            lesson_id: lessonId,
+            current_time: playerRef.current?.currentTime() || 0,
+            video_speed: playerRef.current?.playbackRate() || 1,
+            transaction_type: VideoMissionTransactionType.SPEED_CHANGE,
+          });
+        }
+        console.log("speed change");
+        handleMissionInterval();
+      });
+      player.on("firstplay", () => {
+        api.videoMission({
+          lesson_id: lessonId,
+          current_time: playerRef.current?.currentTime() || 0,
+          video_speed: playerRef.current?.playbackRate() || 1,
+          transaction_type: VideoMissionTransactionType.NEW,
+        });
+        console.log("first play");
+      });
+
+      return () => {
+        clearInterval(missionInterval);
+      };
     },
-    [playerRef]
+    [playerRef],
   );
   const titleRef = useRef<{ updateTextContent: (title: string) => void }>();
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -112,6 +192,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       playerRef.current?.autoplay("play");
     } else {
       setIsLessonChanged(true);
+      setIsVideoPlayed(false);
     }
   }, [lessonId]);
 
@@ -215,7 +296,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               }}
             />
           ) : null,
-          playerRef.current!.el()
+          playerRef.current!.el(),
         ),
         createPortal(
           isNoteModalOpen ? (
@@ -229,14 +310,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               }}
             />
           ) : null,
-          playerRef.current!.el()
+          playerRef.current!.el(),
         ),
         createPortal(
           <Watermark
             active={isWatermarkActive}
             shown={isUserHasAccess && isPlayerReady}
           />,
-          playerRef.current!.el()
+          playerRef.current!.el(),
         ),
       ]}
     </div>
