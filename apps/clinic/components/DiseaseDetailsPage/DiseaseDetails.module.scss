@@ -1,0 +1,303 @@
+@import "@/assets/styles/variables";
+.container {
+  background: #fff;
+  color: #222;
+}
+.header {
+  position: relative;
+    padding-top: 1rem;
+    background: $green;
+  --img-size: 6.7rem;
+  --img-offset-right: 10px;
+
+  .top {
+    background-color: $green;
+    position: relative;
+    min-height: 3rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    direction: ltr;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    text-align: left;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
+
+    .image {
+      width: var(--img-size);
+      height: var(--img-size);
+      position: absolute;
+      right: var(--img-offset-right);
+      bottom: calc(var(--img-size) / -2);
+      border-radius: 23px;
+      background: white;
+      border: solid 4px white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: flex-start;
+    color: $green;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    text-align: right;
+
+    background-color: white;
+
+    min-height: 3rem;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
+  }
+}
+
+
+
+
+.pillsIcon {
+
+      width: var(--img-size);
+      height: var(--img-size);
+      position: absolute;
+      right: var(--img-offset-right);
+      bottom: calc(var(--img-size) / -2);
+      border-radius: 23px;
+      background: white;
+      border: solid 4px white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 15px;
+}
+
+
+.title_fa {
+  color: $green;
+}
+.title_en {
+  font-size: 1.3rem;
+}
+
+.sections {
+  margin: 1rem 5rem;
+}
+
+.section {
+  margin-bottom: 0.6rem;
+}
+
+.sectionButton {
+  background: $green;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  span {
+    position: absolute;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.treatmentButton {
+  background: #c51d47 !important; 
+}
+
+.sectionContent {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  direction: rtl;
+  line-height: 1.6;
+  margin:-0.7rem -4rem 1rem -4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+}
+
+.directionContainer {
+  margin-top: 10px;
+}
+
+.directionTabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  width: 100% !important;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.directionTab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #4b4b4b;
+  height: 50px;
+  max-height: 50px;
+
+  &.active {
+    color: $green;
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom-color: $green;
+    // background: rgba(76, 175, 80, 0.05);
+  }
+}
+
+.switchContent {
+  text-align: justify;
+  line-height: 1.8;
+
+  p {
+    margin-bottom: 0.1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// .prescriptionItem{
+//   line-height: 1.6;
+//   margin-bottom: 0.1rem !important;
+
+//   &:last-child {
+//     margin-bottom: 0 !important;
+//   }
+// }
+
+.fileImageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 17px;
+
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.fileImage {
+  max-width: 100%;
+  border-radius: 17px;
+  max-height: 15rem;
+}
+
+.differentialContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.differentialDescription {
+  p {
+    margin-bottom: 0.2rem;
+    line-height: 1.7;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.differentialTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.differentialTag {
+  background: $green;
+  color: white !important;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: $green;
+    transform: translateY(-2px);
+  }
+}
+
+.treatmentTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.treatmentTag {
+  background: $green;
+  color: white !important;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: $green;
+    transform: translateY(-2px);
+  }
+}
+
+.galleryGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.galleryItem {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f8f8f8;
+  width: 100%;
+  max-width: 520px;
+}
+
+.galleryImage {
+  width: 100%;
+  max-height: 360px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}

@@ -1,6 +1,8 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
-@import '@/assets/styles/keyframes';
+@import '../../../assets/styles/variables.scss';
+@import '../../../assets/styles/functions.scss';
+@import '../../../assets/styles/keyframes.scss';
+// @import '@/sharedModules/assets/styles/functions';
+// @import '@/sharedModules/assets/styles/keyframes';
 
 .authWrapper {
   width: 400px;
