@@ -130,13 +130,21 @@ class Api extends Request {
   addToCart(
     productId: number,
     type: OrderType,
-    variants?: ProductVariantsValue[]
+    variants?: ProductVariantsValue[],
+    draft_id?: number,
+    damage_history?: number,
+    last_insurance?: number,
+    current_insurance_end_date?: string,
   ): Promise<ResponseType<CartResponse>> {
     return this.request.post<CartResponse>("/user/v1/cart", {
       id: productId,
       type: type,
       quantity: 1,
       variants: variants,
+      draft_id: draft_id,
+      damage_history: damage_history,
+      last_insurance: last_insurance,
+      current_insurance_end_date: current_insurance_end_date,
     });
   }
 

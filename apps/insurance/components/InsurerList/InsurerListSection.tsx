@@ -9,20 +9,22 @@ import InsurerList from "./InsurerList";
 import InsurerListSkeleton from "@/components/Skeletons/DiseaseListSkeleton/DiseaseListSkeleton";
 
 interface InsurerListSectionProps {
-  selectedFieldIds: number[];          // از SelectInfo
-  selectedGradeIds: number[];          // اختیاری
+  selectedFieldId: number | null;          // از SelectInfo
+  selectedGradeId: number | null;          // اختیاری
   residencyStatusId: number | null;    // 1 یا 2
   damageHistoryId: number | null;
   lastInsuranceId: number | null;      // اگر لازم شد
+  lastInsuranceTitle?: string;
   currentInsuranceEndDate: string | null; // تاریخ ISO یا null
 }
 
 export default function InsurerListSection({
-  selectedFieldIds,
-  selectedGradeIds,
+  selectedFieldId,
+  selectedGradeId,
   residencyStatusId,
   damageHistoryId,
   lastInsuranceId,
+  lastInsuranceTitle,
   currentInsuranceEndDate,
 }: InsurerListSectionProps) {
   const {
@@ -34,8 +36,8 @@ export default function InsurerListSection({
   } = useInfiniteQuery({
     queryKey: [
       "insurances",
-      selectedFieldIds,
-      selectedGradeIds,
+      selectedFieldId,
+      selectedGradeId,
       residencyStatusId,
       damageHistoryId,
       lastInsuranceId,
@@ -44,8 +46,8 @@ export default function InsurerListSection({
     queryFn: async ({ pageParam = 1 }) => {
       const params: InsuranceListParams = {
         page: pageParam,
-        fields: selectedFieldIds,
-        grades: selectedGradeIds.length ? selectedGradeIds : undefined,
+        field: selectedFieldId,
+        grade: selectedGradeId,
         residency_status: residencyStatusId ?? undefined,
         damage_history: damageHistoryId ?? undefined,
         last_insurance: lastInsuranceId ?? undefined,
@@ -88,11 +90,12 @@ export default function InsurerListSection({
       hasMore={hasNextPage ?? false}
       onLoadMore={loadMore}
       filterParams={{
-        fields: selectedFieldIds,
-        grades: selectedGradeIds,
+        field: selectedFieldId,
+        grade: selectedGradeId,
         residency: residencyStatusId,
         damageHistory: damageHistoryId,
         lastInsurance: lastInsuranceId,
+        lastInsuranceTitle: lastInsuranceTitle || null,
         endDate: currentInsuranceEndDate,
       }}
     />

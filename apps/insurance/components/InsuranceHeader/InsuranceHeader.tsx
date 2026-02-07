@@ -1,9 +1,9 @@
-// components/ClinicHeader/ClinicHeader.tsx
+// components/InsuranceHeader/InsuranceHeader.tsx
 "use client";
 
 import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./ClinicHeader.module.scss";
+import styles from "./InsuranceHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
@@ -13,61 +13,63 @@ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { modalActions } from "@repo/core/modal/modals";
 import { Apps } from "@repo/core/types/general";
 import { useFavorite } from "@/hooks/useFavorite";
-import { clinicApi } from "@/api/Api";
+import { insuranceApi } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import {
   authorizeClientAction
 } from "@repo/core/utils/authUtils";
 
-interface ClinicHeaderProps {
+interface InsuranceHeaderProps {
   title?: string;
   headerPageType: HeaderType;
 }
 
-export default function ClinicHeader({
+export default function InsuranceHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
-}: ClinicHeaderProps) {
+}: InsuranceHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
-  const clinicId = id ? Number(id) : undefined;
+  const insuranceId = id ? Number(id) : undefined;
 
-  // فقط برای صفحه جزئیات بیماری، داده را fetch می‌کنیم
-  const { data: diseaseData } = useQuery({
-    queryKey: ["disease-details", clinicId],
-    queryFn: async () => {
-      if (!clinicId) throw new Error("No disease ID");
-      const res = await clinicApi.getDiseaseDetails(clinicId);
-      return res.data.data;
-    },
-    enabled: headerPageType === HeaderType.DISEASE_DETAILS && !!clinicId,
-  });
+  // برای صفحه جزئیات بیمه، داده را fetch می‌کنیم (در صورت نیاز)
+  // فعلاً این بخش غیرفعال است چون API بیمه جزئیات ندارد
+  // const { data: insuranceData } = useQuery({
+  //   queryKey: ["insurance-details", insuranceId],
+  //   queryFn: async () => {
+  //     if (!insuranceId) throw new Error("No insurance ID");
+  //     const res = await insuranceApi.getInsuranceDetails(insuranceId);
+  //     return res.data.data;
+  //   },
+  //   enabled: headerPageType === HeaderType.INSURANCE_DETAILS && !!insuranceId,
+  // });
 
-  const isFavorite = diseaseData?.is_favorite ?? false;
+  // const isFavorite = insuranceData?.is_favorite ?? false;
+  const isFavorite = false;
 
   const { toggleFavorite, isLoading } = useFavorite({
-    clinicId: clinicId,
+    clinicId: insuranceId,
   });
 
   const toggleReportModal = () => {
     modalActions.addModal(ModalTypes.BUG_REPORT, {
       productId: id,
-      app: Apps.CLINIC,
+      app: Apps.INSURANCE,
     });
   };
 
   const handleFavoriteButton = () => {
-    if (clinicId) {
-      toggleFavorite(clinicId, isFavorite);
+    if (insuranceId) {
+      toggleFavorite(insuranceId, isFavorite);
     }
   };
 
   const { isLoading: shareLoading, shareProduct } = useShareProduct(
     async () => {
       return {
-        title: diseaseData?.title_fa,
-        description: `${diseaseData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/clinic/${id}`,
+        title: title || "بیمه",
+        description: `${title || "بیمه"} را در دکترآباد ببینید: `,
+        url: `https://doctorabad.com/insurance/${id}`,
       };
     }
   );
@@ -81,7 +83,7 @@ export default function ClinicHeader({
       <div className={styles.headerTop}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.lefSideHeader}>
-          {headerPageType === HeaderType.DISEASE_DETAILS && (
+          {/* {headerPageType === HeaderType.INSURANCE_DETAILS && (
             <>
               <div className={styles.favoriteBtn} onClick={toggleReportModal}>
                 <BugIcon />
@@ -90,13 +92,13 @@ export default function ClinicHeader({
                 <ShareIcon />
               </div>
             </>
-          )}
+          )} */}
 
-          {headerPageType !== HeaderType.FAVORITES && (
+          {/* {headerPageType !== HeaderType.FAVORITES && (
             <div
               className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
               onClick={
-                headerPageType === HeaderType.DISEASE_DETAILS
+                headerPageType === HeaderType.INSURANCE_DETAILS
                   ? handleFavoriteButton
                   : authorizeClientAction(() => router.push("/favorites"))
               }
@@ -107,7 +109,7 @@ export default function ClinicHeader({
                 fill={isFavorite ? "#57d43b" : "none"}
               />
             </div>
-          )}
+          )} */}
 
           <div className={styles.backBtn} onClick={() => router.back()}>
             <BackArrow strokeWidth={2}></BackArrow>
@@ -117,3 +119,4 @@ export default function ClinicHeader({
     </header>
   );
 }
+

@@ -1,6 +1,6 @@
 @import "@/assets/styles/variables";
 
-// components/ClinicHeader/ClinicHeader.module.scss
+// components/InsuranceHeader/InsuranceHeader.module.scss
 .header {
   position: sticky;
   top: 0;
@@ -49,3 +49,7 @@
   margin: 0;
 }
 
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}

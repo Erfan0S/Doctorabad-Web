@@ -1,39 +1,75 @@
 @import "@/assets/styles/variables";
 
 .pageContainer {
-  background: #f5f5f5;
+  background: white;
   min-height: 100vh;
-  padding-bottom: 80px; // جا برای فوتر
   direction: rtl;
 }
 
-.insurerHeader {
-  background: linear-gradient(to left, #2ecc71, #27ae60);
-  padding: 20px;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  margin-bottom: 40px;
-  
-  .insurerLogo {
-    background: white;
-    padding: 10px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    color: #333;
-    font-weight: bold;
-    transform: translateY(30px); // برای اینکه کمی بیاد روی کارت پایین
+.header {
+  position: relative;
+  padding-top: 1rem;
+  background: $green;
+  --img-size: 6.7rem;
+  --img-offset-right: 10px;
+
+  .top {
+    background-color: $green;
+    position: relative;
+    min-height: 3rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    direction: ltr;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    text-align: left;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
+
+    .image {
+      width: var(--img-size);
+      height: var(--img-size);
+      position: absolute;
+      right: var(--img-offset-right);
+      bottom: calc(var(--img-size) / -2);
+      border-radius: 23px;
+      background: white;
+      border: solid 4px white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      object-fit: contain;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: flex-start;
+    color: $green;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    text-align: right;
+
+    background-color: white;
+
+    min-height: 3rem;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
   }
 }
 
 .infoCard {
   background: white;
   margin: 0 16px;
+  margin-top: calc(6.7rem / 2 + 20px); // فاصله برای تصویر header
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .cardHeader {
@@ -48,7 +84,7 @@
   }
 
   .editBtn {
-    background: #2ecc71;
+    background: $green;
     color: white;
     border: none;
     padding: 6px 16px;
@@ -66,17 +102,26 @@
 }
 
 .infoRow {
+  display: flex;
+  align-items: center;
   font-size: 13px;
   color: #444;
   display: flex;
   align-items: center;
   gap: 6px;
+  font-weight: 600;
 
   .bullet {
     color: #2ecc71;
     font-size: 18px;
     line-height: 0;
   }
+}
+.divider {
+  border: none;
+  border-top: 1px solid #e0e0e0; /* رنگ طوسی ملایم */
+  margin: 16px 0; /* فاصله از بالا و پایین */
+  width: 100%;
 }
 
 .uploadSection {
@@ -162,8 +207,13 @@
   display: flex;
   gap: 12px;
   margin-bottom: 12px;
+  align-items: center;
 
+
+}
   .selectBox {
+    display: flex;
+    align-items: center;
     flex: 1;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -175,8 +225,6 @@
     align-items: center;
     cursor: pointer;
   }
-}
-
 .addressInput {
   width: 100%;
   border: 1px solid #ddd;
@@ -193,32 +241,100 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #2ecc71;
-  padding: 16px;
+  background: white;
+  padding: 16px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  color: white;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  z-index: 10;
+  z-index: 100;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 
-  .price {
-    font-weight: 700;
+  .discountBadge {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+    background: #FFC107;
+    color: #000;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
     font-size: 16px;
+    z-index: 110;
+    // Simple 12-point star polygon
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    transform: rotate(-15deg);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+    
+    span {
+      transform: rotate(15deg); // Counter-rotate text
+    }
   }
 
   .submitBtn {
-    background: rgba(255,255,255,0.2);
-    border: 1px solid white;
+    width: 100%;
+    background: $green;
     color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
+    border: none;
+    border-radius: 12px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    
-    &:hover {
-      background: rgba(255,255,255,0.3);
+    transition: all 0.2s;
+
+    &:active {
+      transform: scale(0.98);
     }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  .btnContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 16px;
+    direction: rtl; // Ensure RTL layout
+  }
+
+  .btnText {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .verticalLine {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.4);
+    margin: 0 10px;
+  }
+
+  .priceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .oldPrice {
+    font-size: 11px;
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2px;
+  }
+
+  .newPrice {
+    font-size: 15px;
+    font-weight: 700;
   }
 }

@@ -11,11 +11,12 @@ import { PersistQueryProvider } from "@repo/shared_modules";
 
 // تعریف اینترفیس برای پارامترهای فیلتر (برای تمیزی کد)
 export interface FilterParams {
-  fields: number[];
-  grades: number[];
+  field: number | null;
+  grade: number | null;
   residency: number | null;
   damageHistory: number | null;
   lastInsurance: number | null;
+  lastInsuranceTitle: string | null;
   endDate: string | null;
 }
 

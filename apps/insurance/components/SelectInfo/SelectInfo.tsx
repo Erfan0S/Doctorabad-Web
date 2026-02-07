@@ -11,27 +11,45 @@ import {
   useLastInsurer,
   useGrades,
 } from "@/hooks/useInsuranceFind";
+import {
+  InsuranceField,
+  InsuranceGrade,
+  ResidencyStatus,
+  DamageHistory,
+  Insurer,
+} from "@/types/insurance";
 
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import InsuranceDatePicker from "../common/InsuranceDatePicker/InsuranceDatePicker";
 
 moment.loadPersian({ usePersianDigits: true });
 
 interface SelectInfoProps {
-  onChangeFields?: (ids: number[]) => void;
-  onChangeGrades?: (ids: number[]) => void;
+  onChangeField?: (id: number | null) => void;
+  onChangeFieldsData?: (field: InsuranceField | null) => void;
+  onChangeGrade?: (id: number | null) => void;
+  onChangeGradesData?: (grade: InsuranceGrade | null) => void;
   onChangeResidency?: (id: number | null) => void;
+  onChangeResidencyData?: (residency: ResidencyStatus | null) => void;
   onChangeDamageHistory?: (id: number | null) => void;
+  onChangeDamageHistoryData?: (history: DamageHistory | null) => void;
   onChangeLastInsurance?: (id: number | null) => void;
+  onChangeLastInsuranceData?: (insurer: Insurer | null) => void;
   onChangeEndDate?: (iso: string | null) => void;
 }
 
 export default function SelectInfo({
-  onChangeFields,
-  onChangeGrades,
+  onChangeField,
+  onChangeFieldsData,
+  onChangeGrade,
+  onChangeGradesData,
   onChangeResidency,
+  onChangeResidencyData,
   onChangeDamageHistory,
+  onChangeDamageHistoryData,
   onChangeLastInsurance,
+  onChangeLastInsuranceData,
   onChangeEndDate,
 }: SelectInfoProps) {
   // ----- Data Fetching -----
@@ -86,8 +104,13 @@ export default function SelectInfo({
         const val = String(id);
         setSelectedFieldId(val);
         setSelectedGradeId(""); // Reset grade
-        onChangeFields?.([id]);
-        onChangeGrades?.([]);
+        onChangeField?.(id);
+        onChangeGrade?.(null);
+        const selectedField = fields.find((f) => f.id === id);
+        if (selectedField) {
+          onChangeFieldsData?.(selectedField);
+        }
+        onChangeGradesData?.(null);
       },
     });
   };
@@ -102,7 +125,11 @@ export default function SelectInfo({
       onSelect: (id: number) => {
         const val = String(id);
         setSelectedGradeId(val);
-        onChangeGrades?.([id]);
+        onChangeGrade?.(id);
+        const selectedGrade = grades.find((g) => g.id === id);
+        if (selectedGrade) {
+          onChangeGradesData?.(selectedGrade);
+        }
       },
     });
   };
@@ -117,6 +144,8 @@ export default function SelectInfo({
         const val = String(id);
         setSelectedResidencyId(val);
         onChangeResidency?.(id);
+        const selectedResidency = residency.find((r) => r.id === id);
+        onChangeResidencyData?.(selectedResidency || null);
       },
     });
   };
@@ -131,6 +160,8 @@ export default function SelectInfo({
         const val = String(id);
         setSelectedHistoryId(val);
         onChangeDamageHistory?.(id);
+        const selectedHistory = history.find((h) => h.id === id);
+        onChangeDamageHistoryData?.(selectedHistory || null);
       },
     });
   };
@@ -145,6 +176,8 @@ export default function SelectInfo({
         const val = String(id);
         setSelectedInsurerId(val);
         onChangeLastInsurance?.(id);
+        const selectedInsurer = insurers.find((i) => i.id === id);
+        onChangeLastInsuranceData?.(selectedInsurer || null);
       },
     });
   };
@@ -171,9 +204,8 @@ export default function SelectInfo({
 
         {/* 2. تخصص */}
         <div
-          className={`${styles.pickerGroup} ${
-            !isGradeEnabled ? styles.disabled : ""
-          }`}
+          className={`${styles.pickerGroup} ${!isGradeEnabled ? styles.disabled : ""
+            }`}
         >
           <div className={styles.selectInput} onClick={openGradeModal}>
             {getLabel(selectedGradeId, grades, "تخصص")}
@@ -218,51 +250,18 @@ export default function SelectInfo({
 
             {/* 6. اتمام بیمه‌نامه (تقویم) */}
             <div className={styles.pickerGroup}>
-              <div
-                className={styles.selectInput}
-                onClick={() => setShowCalendar((prev) => !prev)}
-              >
-                {expiryDateJalali || "اتمام بیمه‌نامه"}
+              <div className={styles.selectInput}>
+                <InsuranceDatePicker
+                  label=""
+                  onChange={(date) => {
+                    onChangeEndDate?.(date); // date به فرمت 2025-01-01 است
+                    // اینجا می‌توانید لاجیک آپدیت URL یا درخواست قیمت را فراخوانی کنید
+                  }}
+                />
               </div>
-              
-              {/* <div className={styles.selectIcon}>
-                <CalendarIcon />
-              </div> */}
-
-              {showCalendar && (
-                <div className={styles.calendarPopup}>
-                  <div className={styles.calendarHeader}>
-                    انتخاب تاریخ اتمام
-                  </div>
-                  <div className={styles.calendarBody}>
-                    {[0, 1, 2, 3, 4, 5, 6].map((offset) => {
-                      const iso = moment()
-                        .add(offset, "day")
-                        .format("YYYY-MM-DD");
-                      const label = moment(iso, "YYYY-MM-DD").format(
-                        "jMM/jDD"
-                      );
-                      return (
-                        <button
-                          key={iso}
-                          type="button"
-                          className={styles.calendarDay}
-                          onClick={() => handleSelectExpiry(iso)}
-                        >
-                          {label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.calendarClose}
-                    onClick={() => setShowCalendar(false)}
-                  >
-                    بستن
-                  </button>
-                </div>
-              )}
+              <div className={styles.selectIcon}>
+                <DownArrow />
+              </div>
             </div>
           </>
         )}

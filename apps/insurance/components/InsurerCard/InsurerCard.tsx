@@ -9,11 +9,12 @@ interface InsurerCardProps {
   insurer: Insurer;
   // مقادیر فیلتر که از پرنت پاس داده می‌شوند
   searchParams: {
-    fields: number[];
-    grades: number[];
+    field: number | null;
+    grade: number | null;
     residency: number | null;
     damageHistory: number | null;
     lastInsurance: number | null;
+    lastInsuranceTitle: string | null;
     endDate: string | null;
   };
 }
@@ -35,9 +36,13 @@ export default function InsurerCard({ insurer, searchParams }: InsurerCardProps)
     query.set("price", finalPrice.toString());
 
     // 2. اطلاعات فیلترهای کاربر (برای استفاده احتمالی در فرم ویرایش)
-    if (searchParams.fields.length) query.set("fields", searchParams.fields.join(","));
-    if (searchParams.grades.length) query.set("grades", searchParams.grades.join(","));
+    if (searchParams.field) query.set("field", searchParams.field.toString());
+    if (searchParams.grade) query.set("grade", searchParams.grade.toString());
     if (searchParams.residency) query.set("residency", searchParams.residency.toString());
+    if (searchParams.damageHistory) query.set("damageHistory", searchParams.damageHistory.toString());
+    if (searchParams.lastInsurance) query.set("lastInsurance", searchParams.lastInsurance.toString());
+    if (searchParams.lastInsuranceTitle) query.set("lastInsurance_title", searchParams.lastInsuranceTitle);
+    if (searchParams.endDate) query.set("endDate", searchParams.endDate);
     // ... سایر فیلدها در صورت نیاز
 
     // هدایت به صفحه خرید (فرض میکنیم مسیر /buy-insurance است)

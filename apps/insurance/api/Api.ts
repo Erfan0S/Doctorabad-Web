@@ -12,9 +12,10 @@ import {
   UpdateUserInfoInput,
   UploadFileResponse,
   InsuranceInfo,
+  StoreInsuranceInfoResponse,
 } from "@/types/insurance";
 import { Request } from "@repo/core/http-request/Request";
-import { ResponseType } from "@repo/core/types/general";
+import { ResponseType, PaginatedResponse } from "@repo/core/types/general";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import { User, VerifyPhoneInput } from "@repo/core/types/user";
@@ -76,9 +77,11 @@ class InsuranceApi extends Request {
   }
 
   destroyFile(fileId: number, type: number): Promise<ResponseType<any>> {
-    return this.request.post("/user/v1/insurance/info/file/destroy", {
-      file_id: fileId,
-      type,
+    return this.request.delete("/user/v1/insurance/info/file/destroy", {
+      params: {
+        file_id: fileId,
+        type,
+      },
     });
   }
 
@@ -113,15 +116,11 @@ class InsuranceApi extends Request {
 
   getInsurances(
     params: InsuranceListParams
-  ): Promise<ResponseType<{ data: Insurer[] }>> {
+  ): Promise<ResponseType<PaginatedResponse<Insurer[]>>> {
     const qp: Record<string, any> = { page: params.page ?? 1 };
 
-    params.fields.forEach((id, index) => {
-      qp[`fields[${index}]`] = id;
-    });
-    params.grades?.forEach((id, index) => {
-      qp[`grades[${index}]`] = id;
-    });
+    if (params.field) qp.field = params.field;
+    if (params.grade) qp.grade = params.grade;
     if (params.residency_status) qp.residency_status = params.residency_status;
     if (params.damage_history) qp.damage_history = params.damage_history;
     if (params.last_insurance != null)
@@ -155,7 +154,7 @@ class InsuranceApi extends Request {
   }
 
   // ذخیره اطلاعات جدید
-  storeInsuranceInfo(data: UpdateUserInfoInput): Promise<ResponseType<any>> {
+  storeInsuranceInfo(data: UpdateUserInfoInput): Promise<ResponseType<StoreInsuranceInfoResponse>> {
     return this.request.post("/user/v1/insurance/info", data);
   }
 }

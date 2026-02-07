@@ -54,8 +54,8 @@ export interface Insurer {
 
 export interface InsuranceListParams {
   page?: number;
-  fields: number[];
-  grades?: number[];
+  field: number | null;
+  grade: number | null;
   residency_status?: number;
   damage_history?: number;
   last_insurance?: number;
@@ -75,8 +75,7 @@ export interface City {
 }
 
 export interface UploadFileResponse {
-  id: number; // یا file_id بسته به ریسپانس بکند
-  file_id?: number; 
+  file: number; // ID فایل آپلود شده
 }
 
 
@@ -109,11 +108,16 @@ export interface InsuranceInfo {
 }
 
 // 2. تایپ برای ارسال اطلاعات (POST/PUT Payload)
+export interface StoreInsuranceInfoResponse {
+  id: number;
+}
+
 export interface UpdateUserInfoInput {
   title?: string;
   field_id: number;
   grade_id: number;
-  residency_status: boolean; // طبق بکند
+  residency_status: 1 | 2; // 1 = رزیدنت نیست، 2 = رزیدنت هست
+  damage_history_id?: number;
   
   // فایل‌ها در ارسال فقط آرایه‌ای از ID هستند
   national_id_card_files: number[]; 
@@ -125,5 +129,11 @@ export interface UpdateUserInfoInput {
   clinic_address?: string;
   insured_name?: string;
   insured_phone?: string;
-  postal_code?: string;
+  postal_code?: number;
+}
+
+export enum HeaderType {
+  FAVORITES = "favorites",
+  INSURANCE_DETAILS = "insurance_details",
+  OTHERS = "others",
 }

@@ -2,7 +2,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { insuranceApi  } from "@/api/Api"; // مسیر api را تنظیم کنید
 import { User } from "@repo/core/types/user";
-import { UpdateUserInfoInput, InsuranceInfo  } from "@/types/insurance";
+import { UpdateUserInfoInput, InsuranceInfo, StoreInsuranceInfoResponse  } from "@/types/insurance";
 
 // 1. Get User Profile
 export const useUserProfile = () => {
@@ -10,7 +10,7 @@ export const useUserProfile = () => {
     queryKey: ["userProfile"],
     queryFn: async () => {
       const res = await insuranceApi.getUserProfile();
-      return res.data;
+      return res.data.data;
     },
     staleTime: 1000 * 60 * 5,
   });
@@ -22,7 +22,7 @@ export const useProvinces = () => {
     queryKey: ["provinces"],
     queryFn: async () => {
       const res = await insuranceApi.getProvinces();
-      return res.data;
+      return res.data.data;
     },
     staleTime: Infinity,
   });
@@ -35,7 +35,7 @@ export const useCities = (provinceId: number | undefined) => {
     queryFn: async () => {
       if (!provinceId) return [];
       const res = await insuranceApi.getCities(provinceId);
-      return res.data;
+      return res.data.data;
     },
     enabled: !!provinceId,
   });
@@ -46,7 +46,7 @@ export const useUploadFile = () => {
   return useMutation({
     mutationFn: async ({ file, type }: { file: File; type: number }) => {
       const res = await insuranceApi.uploadFile(file, type);
-      return res.data;
+      return res.data.data;
     },
   });
 };
@@ -62,7 +62,7 @@ export const useDestroyFile = () => {
       type: number;
     }) => {
       const res = await insuranceApi.destroyFile(file_id, type);
-      return res.data;
+      return res.data.data;
     },
   });
 };
@@ -80,7 +80,7 @@ export const useUpdateInsuranceInfo = () => {
       payload: UpdateUserInfoInput;
     }) => {
       const res = await insuranceApi.updateInsuranceInfo(id, payload);
-      return res.data;
+      return res.data.data;
     },
     onSuccess: () => {
       // اگر نیاز بود لیست بیمه‌ها رفرش شود
@@ -97,7 +97,7 @@ export const useInsuranceInfos = () => {
       queryKey: ["insuranceInfos"],
       queryFn: async () => {
         const res = await insuranceApi.getInsuranceInfos();
-        return res.data;
+        return res.data.data;
       },
     });
   };
@@ -109,7 +109,7 @@ export const useInsuranceInfos = () => {
       queryFn: async () => {
         if (!id) throw new Error("ID required");
         const res = await insuranceApi.getInsuranceInfoSingle(id);
-        return res.data;
+        return res.data.data;
       },
       enabled: !!id,
     });
@@ -118,10 +118,11 @@ export const useInsuranceInfos = () => {
   // ایجاد اطلاعات جدید
   export const useStoreInsuranceInfo = () => {
     const queryClient = useQueryClient();
-    return useMutation({
+    return useMutation<StoreInsuranceInfoResponse, Error, UpdateUserInfoInput>({
       mutationFn: async (payload: UpdateUserInfoInput) => {
         const res = await insuranceApi.storeInsuranceInfo(payload);
-        return res.data;
+        console.log("API Store Response:", res);
+        return res.data?.data || res.data;
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["insuranceInfos"] });

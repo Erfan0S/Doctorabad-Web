@@ -1,3 +1,5 @@
+import { HeaderType } from "@/types/insurance";
+import InsuranceHeader from "@/components/InsuranceHeader/InsuranceHeader";
 
 
 export default async function RootLayout({
@@ -8,7 +10,9 @@ export default async function RootLayout({
 
   return (
     <>
-        <div>{children}</div>
+        <div>
+        <InsuranceHeader headerPageType={HeaderType.OTHERS} title="" />
+          {children}</div>
 
     </>
   );

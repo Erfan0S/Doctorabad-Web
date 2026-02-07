@@ -2,10 +2,8 @@
 
 .modalContainer {
   background: #fff;
-  width: 100%;
-  max-width: 480px;
-  // برای اینکه روی موبایل تمام صفحه و روی دسکتاپ مدال باشد:
-  height: 90vh; 
+  width: min(92vw, 360px);
+  height: 90vh;
   max-height: 800px;
   border-radius: 16px;
   display: flex;
@@ -13,28 +11,39 @@
   overflow: hidden;
   direction: rtl;
   position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
 .header {
-  padding: 16px;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eee;
+  background: $green;
+  color: white;
+  flex-shrink: 0;
+
 
   .headerTitle {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
+    margin: 0;
   }
 
-  .editBtn {
-    background: $green;
-    color: #fff;
-    border: none;
+  .backBtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
-    padding: 4px 12px;
-    font-size: 12px;
+    padding: 6px 16px;
+    font-size: 13px;
     cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
 }
 
@@ -42,36 +51,199 @@
   flex: 1;
   overflow-y: auto;
   padding: 16px;
-  // اسکرول نرم
   -webkit-overflow-scrolling: touch;
 }
 
-.infoList {
+// ========== List View ==========
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+
+  p {
+    margin: 0 0 20px;
+    font-size: 14px;
+  }
+}
+
+.infoItem {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 12px;
+
+  &:hover {
+    background: #e9ecef;
+    border-color: $green;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
+  }
+
+  &.selected {
+    background: rgba(46, 204, 113, 0.1);
+    border-color: $green;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+  }
+}
+
+.infoContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.infoTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.infoSubtitle {
+  font-size: 13px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editBtn {
+  background: $green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover {
+    background: $green;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.addNewBtn {
+  background: $green;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(46, 204, 113, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ========== Form View ==========
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formSection {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
+}
 
-  .infoRow {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #333;
-    line-height: 1.5;
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
 
-    .bullet {
-      color: $green;
-      font-size: 18px;
-      line-height: 10px;
-    }
+.input {
+  width: 100%;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s;
+  background: white;
+
+  &:focus {
+    outline: none;
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.selectBox {
+  width: 100%;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s;
+  min-height: 44px;
+
+  &:hover {
+    border-color: #2ecc71;
+    background: #f8f9fa;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f5f5f5;
   }
 }
 
 .divider {
   height: 1px;
-  background: #eee;
-  margin: 16px 0;
+  background: #e9ecef;
+  margin: 8px 0;
   width: 100%;
 }
 
@@ -82,42 +254,163 @@
 }
 
 .uploadBox {
-  border: 2px dashed #ccc;
+  border: 2px dashed #d1d5db; // طوسی ملایم
   border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  background: #f9f9f9;
+  height: 60px; // ارتفاع ثابت و کم
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
   cursor: pointer;
-  color: #777;
-  font-size: 13px;
-  transition: all 0.2s;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative; // برای پوزیشن دکمه حذف
+  user-select: none;
 
   &:hover {
-    background: #f0f0f0;
-    border-color: #bbb;
-  }
-  
-  &.uploaded {
-    border-style: solid;
     border-color: $green;
+    background: #fff;
     color: $green;
-    background: rgba($green, 0.05);
-    font-weight: 600;
+  }
+
+  // حالت آپلود شده (مینیمال)
+  &.uploaded {
+    border-style: solid; // خط ممتد
+    border-color: $green; // سبز ملایم
+    background: rgba(46, 204, 113, 0.05); // پس‌زمینه خیلی محو
+    color: #374151; // متن تیره برای خوانایی
+    cursor: default; // خود باکس دیگر کلیک نمی‌شود
+    padding-left: 40px; // جا برای دکمه حذف
+    color: #03a145;
+    &:hover {
+      border-color: $green;
+    }
+  }
+
+  // دکمه حذف (گوشه)
+  .deleteBtn {
+    position: absolute;
+    top: 50%;
+    left: 12px; // سمت چپ باکس (چون RTL است)
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #ef4444; // قرمز
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.7;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      opacity: 1;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &.loading {
+    opacity: 0.6;
+    pointer-events: none;
   }
 }
+
+
+// انیمیشن‌ها
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 .clinicSection {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .switchRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 14px;
+  color: #333;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: $green;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(22px);
+  }
 }
 
 .clinicInputs {
@@ -132,68 +425,67 @@
 
   .selectBox {
     flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    cursor: pointer;
-    background: #fff;
-    min-height: 42px;
   }
 }
 
 .addressInput {
   width: 100%;
-  border: 1px solid #ccc;
+  border: 2px solid #e9ecef;
   border-radius: 10px;
-  padding: 10px;
+  padding: 12px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
+  transition: all 0.2s;
 
   &:focus {
     outline: none;
     border-color: $green;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+  }
+
+  &::placeholder {
+    color: #999;
   }
 }
 
 .footer {
-  padding: 16px;
-  background: $green;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
+  padding: 16px 20px;
 
-  .priceInfo {
-      display: flex;
-      flex-direction: column;
-      font-size: 14px;
-      font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.saveBtn {
+  background: $green;
+  border: 2px solid white;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  max-width: 300px;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
-  .submitBtn {
-    background: rgba(255,255,255,0.2);
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s;
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
 
-    &:hover {
-      background: rgba(255,255,255,0.3);
-    }
-
-    &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-    }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
