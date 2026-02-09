@@ -6,6 +6,7 @@ import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
 import { homeViewPort } from "@repo/core/metadata/home";
 import { homeMetadata } from "@/metadata/home";
+import { Suspense } from "react";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -24,8 +25,10 @@ export default function RootLayout({
   return (
     <html className={font.variable} dir="rtl" lang="fa">
       <body className={font.className}>
-        <div className="clinic-container" >
-          <Providers>{children}</Providers>
+        <div className="clinic-container">
+          <Providers>
+            <Suspense>{children}</Suspense>
+          </Providers>
         </div>
       </body>
     </html>

@@ -1,6 +1,10 @@
-import CategoriesPage from '@/components/CategoriesPage/categoriesPage';
+import CategoriesPage from "@/components/CategoriesPage/categoriesPage";
+import { Suspense } from "react";
 
 export default async function CategoriesPageRoute() {
-
-  return <CategoriesPage />;
+  return (
+    <Suspense>
+      <CategoriesPage />
+    </Suspense>
+  );
 }

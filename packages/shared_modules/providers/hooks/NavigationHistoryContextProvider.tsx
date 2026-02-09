@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { NavigationHistoryContext } from "@repo/core/contexts/navigationHistoryContext";
 
@@ -10,25 +10,11 @@ export function NavigationHistoryProvider({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const historyRef = useRef<string[]>([]);
-
-  // Track unique pathnames
-  useEffect(() => {
-    const last = historyRef.current[historyRef.current.length - 1];
-    const current = `${pathname}?${searchParams?.toString()}`;
-    if (last !== current) {
-      if (last && last.split("?")[0] === pathname) {
-        historyRef.current.pop();
-      }
-      historyRef.current.push(current);
-    }
-  }, [pathname, searchParams]);
 
   const goBack = (
     p_defaultBackUrl?: string,
-    p_ignorePrevSearchParams?: boolean
+    p_ignorePrevSearchParams?: boolean,
   ) => {
     // const refferer = document.referrer;
     if (historyRef.current.length > 1) {
@@ -44,7 +30,7 @@ export function NavigationHistoryProvider({
 
       if (previous) {
         router.push(
-          `${previous.split("?")[0]}${searchParams ? `?${searchParams}` : ""}`
+          `${previous.split("?")[0]}${searchParams ? `?${searchParams}` : ""}`,
         );
       }
     } else {
@@ -62,7 +48,60 @@ export function NavigationHistoryProvider({
     <NavigationHistoryContext.Provider
       value={{ goBack, history: historyRef.current }}
     >
+      <Suspense fallback={null}>
+        <HistoryTracker historyRef={historyRef} />
+      </Suspense>
       {children}
     </NavigationHistoryContext.Provider>
   );
+}
+
+function HistoryTracker({
+  historyRef,
+}: {
+  historyRef: React.MutableRefObject<string[]>;
+}) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Track unique pathnames
+  useEffect(() => {
+    const last = historyRef.current[historyRef.current.length - 1];
+    const current = `${pathname}?${searchParams?.toString()}`;
+    if (last !== current) {
+      if (last && last.split("?")[0] === pathname) {
+        historyRef.current.pop(); // Remove duplicate path if only query changed? No, logic seems to be replacing if path is same?
+        // Wait, original logic:
+        /*
+        if (last && last.split("?")[0] === pathname) {
+            historyRef.current.pop();
+        }
+        historyRef.current.push(current);
+        */
+        // Logic seems to be: if path is same but params changed, replace the last entry with new one.
+        // Actually, pop() removes the last one, then push() adds the new one. So it replaces.
+      } else {
+        // Logic for different path.
+        // Original code:
+        /*
+            if (last !== current) {
+              if (last && last.split("?")[0] === pathname) {
+                historyRef.current.pop();
+              }
+              historyRef.current.push(current);
+            }
+         */
+        // If path is different, split condition is false (unless last is undefined). `last` exists.
+        // If path is same, pop.
+        // Push current.
+      }
+      // Re-implementing exact logic:
+      if (last && last.split("?")[0] === pathname) {
+        historyRef.current.pop();
+      }
+      historyRef.current.push(current);
+    }
+  }, [pathname, searchParams, historyRef]);
+
+  return null;
 }

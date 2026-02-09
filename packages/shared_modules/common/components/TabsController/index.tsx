@@ -1,4 +1,5 @@
 "use client";
+import React, { Suspense } from "react";
 import style from "./ProductTabsController.module.scss";
 import Item from "./Item";
 import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
@@ -11,7 +12,7 @@ interface Props {
   className?: string;
   defaultTab?: string;
 }
-const TabsController: React.FC<Props> = ({
+const TabsControllerContent: React.FC<Props> = ({
   tabData,
   className,
   defaultTab,
@@ -41,6 +42,14 @@ const TabsController: React.FC<Props> = ({
         ))}
       </ul>
     </div>
+  );
+};
+
+const TabsController: React.FC<Props> = (props) => {
+  return (
+    <Suspense fallback={null}>
+      <TabsControllerContent {...props} />
+    </Suspense>
   );
 };
 
