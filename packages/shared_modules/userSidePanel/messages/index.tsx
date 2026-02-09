@@ -1,16 +1,16 @@
-import {SidePanelPageProps} from "@repo/core/types/sidePanel";
+import { SidePanelPageProps } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
 import MessageList from "./list";
-import {modalActions} from "@repo/core/modal/modals";
-import {ModalTypes} from "@repo/shared_modules/modalsTypes";
-import {InfiniteData, useQueryClient} from "@tanstack/react-query";
-import {MessageItem} from "../types/user";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { InfiniteData, useQueryClient } from "@tanstack/react-query";
+import { MessageItem } from "@repo/core/types/user";
 
-const SidePanelMessages = ({setPage}: SidePanelPageProps) => {
+const SidePanelMessages = ({ setPage }: SidePanelPageProps) => {
   const queryClient = useQueryClient();
 
   const showMessageDetail = (id: number) => {
-    modalActions.addModal(ModalTypes.MY_MESSAGES_DETAIL, {id});
+    modalActions.addModal(ModalTypes.MY_MESSAGES_DETAIL, { id });
     queryClient.setQueryData(
       ["messages"],
       (data: InfiniteData<MessageItem[]>): InfiniteData<MessageItem[]> => {
@@ -18,11 +18,11 @@ const SidePanelMessages = ({setPage}: SidePanelPageProps) => {
           ...data,
           pages: data.pages.map((messages) =>
             messages.map((message) =>
-              id === message.id ? {...message, seen: 1} : message
-            )
+              id === message.id ? { ...message, seen: 1 } : message,
+            ),
           ),
         };
-      }
+      },
     );
   };
 

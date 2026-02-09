@@ -1,8 +1,8 @@
 import { api } from "../../api/Api";
-import { User } from "../types/user";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, useFormikContext } from "formik";
 import style from "./SidePanelProfile.module.scss";
+import { User } from "@repo/core/types/user";
 
 export const FieldGradeSelection = () => {
   const { values } = useFormikContext<User>();

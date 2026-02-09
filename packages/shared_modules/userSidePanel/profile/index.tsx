@@ -19,7 +19,7 @@ import { profileValidation } from "@repo/core/constants/validators/userValidator
 
 import { toast } from "react-toastify";
 import { ProfileProgress } from "./ProfileProgress";
-import { UserAvatar } from "../types/user";
+import { UserAvatar } from "@repo/core/types/user";
 
 export enum PROFILE_COMPONENT {
   FORM = "form",
@@ -39,7 +39,7 @@ const SidePanelProfile: React.FC<SidePanelPageProps> = ({ setPage }) => {
   });
 
   const [profileStatus, setProfileStatus] = useState<PROFILE_COMPONENT>(
-    PROFILE_COMPONENT.FORM
+    PROFILE_COMPONENT.FORM,
   );
 
   const queryClient = useQueryClient();
@@ -92,7 +92,11 @@ const SidePanelProfile: React.FC<SidePanelPageProps> = ({ setPage }) => {
           {profileStatus === PROFILE_COMPONENT.FORM && (
             <div className={style.formButton}>
               <button disabled={mutation.isPending} type="submit">
-                {mutation.isPending ? <Loading size={10} /> : "ویرایش"}
+                {mutation.isPending ? (
+                  <Loading size={20} haveMargin />
+                ) : (
+                  "ویرایش"
+                )}
               </button>
             </div>
           )}

@@ -18,6 +18,7 @@ import {
   ExamType,
 } from "@repo/apps_shared_components/exam/types";
 import { toast } from "react-toastify";
+import { QuestionAnswer } from "@/types/questions";
 
 class Api extends Request {
   constructor() {
@@ -53,14 +54,14 @@ class Api extends Request {
   };
 
   getExamGrades = (
-    field_id: number
+    field_id: number,
   ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
     return this.request.post(`/user/v1/lab/exam/grades`, { field_id });
   };
 
   getExamPlaces = (
     field_id?: number,
-    grade_id?: number
+    grade_id?: number,
   ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
     return this.request.post(`/user/v1/lab/exam/places`, {
       field_id,
@@ -70,7 +71,7 @@ class Api extends Request {
 
   getExamDates = (
     field_id?: number,
-    grade_id?: number
+    grade_id?: number,
   ): Promise<ResponseType<{ data: ExamDateType[] }>> => {
     return this.request.post(`/user/v1/lab/exam/dates`, { field_id, grade_id });
   };
@@ -82,12 +83,12 @@ class Api extends Request {
       page?: number;
       explanation?: 1;
       favorite?: 1;
-    }
+    },
   ): Promise<ResponseType<QuestionPaginatedResponse>> => {
     return this.request.post("/user/v1/lab/question", params);
   };
   getQuestionMaker = (
-    params: QuestionListParamsType
+    params: QuestionListParamsType,
   ): Promise<ResponseType<MakerResponseType>> => {
     return this.request.post("/user/v1/lab/question/maker", params);
   };
@@ -95,8 +96,16 @@ class Api extends Request {
   getQuestionExplanation = (params: {
     question_id: number;
     exam_id?: number;
+    answer?: QuestionAnswer | null;
   }): Promise<ResponseType<{ data: QuestionExplanationType }>> => {
     return this.request.post(`/user/v1/lab/question/explanation`, params);
+  };
+
+  submitQuestionMission = (params: {
+    question_id: number;
+    answer: QuestionAnswer | null;
+  }): Promise<{}> => {
+    return this.request.post(`/user/club/mission/question/response`, params);
   };
 
   //----------Question Find----------
@@ -108,7 +117,7 @@ class Api extends Request {
   };
 
   getQuestionGrades = (
-    field_id: number
+    field_id: number,
   ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
     return this.request.post(`/user/v1/lab/question/grades`, { field_id });
   };
@@ -130,7 +139,7 @@ class Api extends Request {
   };
 
   getQuestionTopics = (
-    lesson_id: number
+    lesson_id: number,
   ): Promise<ResponseType<{ data: ExamTopicType[] }>> => {
     return this.request.post(`/user/v1/lab/question/topics`, {
       lesson_id,
@@ -138,13 +147,13 @@ class Api extends Request {
   };
 
   getQuestionLessons = (
-    grade_id: number
+    grade_id: number,
   ): Promise<ResponseType<{ data: ExamFieldGradeType[] }>> => {
     return this.request.post(`/user/v1/lab/question/lessons`, { grade_id });
   };
 
   getQestionCount = (
-    params: Partial<QuestionListParamsType>
+    params: Partial<QuestionListParamsType>,
   ): Promise<
     ResponseType<{
       data: {
@@ -165,7 +174,7 @@ class Api extends Request {
   };
 
   getExamFavoriteQuestionList = (
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<FavoritePaginatedResponse>> => {
     return this.request.get(`/user/v1/lab/question/favorite?page=${page}`);
   };
@@ -173,7 +182,7 @@ class Api extends Request {
   //----------Archived Filter----------
   getArcgived = (
     page: number = 1,
-    params?: Partial<QuestionListParamsType>
+    params?: Partial<QuestionListParamsType>,
   ): Promise<ResponseType<PaginatedResponse<ArchivedType[]>>> => {
     return this.request.get("/user/v1/lab/question/archived/filter", {
       params: { page, ...params },
@@ -182,17 +191,17 @@ class Api extends Request {
 
   deleteArchived = (question: number): Promise<{}> => {
     return this.request.delete(
-      `/user/v1/lab/question/archived/filter/${question}`
+      `/user/v1/lab/question/archived/filter/${question}`,
     );
   };
 
   addArchived = (
     question: number,
-    params: { exp?: number; favorite?: number }
+    params: { exp?: number; favorite?: number },
   ): Promise<{}> => {
     return this.request.post(
       `/user/v1/lab/question/archived/filter/${question}`,
-      params
+      params,
     );
   };
 

@@ -4,7 +4,7 @@ import EmailOpen from "../../assets/svg/emailOpen";
 import EmailClose from "../../assets/svg/emailClose";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
-import { MessageItem } from "../types/user";
+import { MessageItem } from "@repo/core/types/user";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "@repo/shared_modules/components";
 import React from "react";
@@ -59,13 +59,13 @@ const MessageList: React.FC<Props> = ({ openMessage }) => {
                   {data.map(
                     (
                       { created_at, id, pic_url, seen, summary, title },
-                      index
+                      index,
                     ) => (
                       <div
                         key={id}
                         className={classNames(
                           style.sidePanelMessagesItem,
-                          seen ? "" : style.unseen
+                          seen ? "" : style.unseen,
                         )}
                       >
                         <div className={style.sidePanelMessagesItemImage}>
@@ -89,7 +89,7 @@ const MessageList: React.FC<Props> = ({ openMessage }) => {
                           </div>
                         </div>
                       </div>
-                    )
+                    ),
                   )}
                 </React.Fragment>
               ))}

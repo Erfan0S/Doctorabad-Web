@@ -10,6 +10,7 @@ import { copyText } from "@repo/core/utils/copyText";
 import { Loading } from "@repo/shared_modules/components";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import InfiniteScroll from "react-infinite-scroller";
+import clubStyle from "../SidePanelClub.module.scss";
 
 type Props = {
   setSingleOfferInfo: React.Dispatch<React.SetStateAction<ClubOffer | null>>;
@@ -38,6 +39,7 @@ const SidePanelClubDiscounts: React.FC<Props> = ({ setSingleOfferInfo }) => {
 
   return (
     <InfiniteScroll
+      className={clubStyle.clubContainer}
       pageStart={1}
       loadMore={() => {
         fetchNextPage();

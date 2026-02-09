@@ -52,7 +52,7 @@ const Product: React.FC<ProductCard> = ({
 
   const productOrder = data.find(
     (order) =>
-      order.product_id === id && order.product_type === OrderType.ShopProduct
+      order.product_id === id && order.product_type === OrderType.ShopProduct,
   );
 
   const url = generateSingleProductUrlFromId(id, slug);
@@ -91,7 +91,7 @@ const Product: React.FC<ProductCard> = ({
                     %
                     {calcDiscountPercentage(
                       price_main,
-                      price_amazing || price_off
+                      price_amazing || price_off,
                     )}
                   </small>{" "}
                 </>
@@ -114,17 +114,14 @@ const Product: React.FC<ProductCard> = ({
               />
             ) : isProductHasStock ? (
               has_variant ? (
-                <Link
-                  className={style.productAddToCart}
-                  href={"/market/product/" + id}
-                >
-                  انتخاب گزینه‌های خرید
+                <Link className={style.productAddToCart} href={url}>
+                  انتخاب گزینه‌ها خرید
                 </Link>
               ) : (
                 <button
                   className={style.productAddToCart}
                   onClick={authorizeClientAction(
-                    cartActionsLoadingHandler(() => cartActions.addToCart(id))
+                    cartActionsLoadingHandler(() => cartActions.addToCart(id)),
                   )}
                 >
                   {updateCartLoading ? <Loading size={22} /> : "افزودن‌به‌سبد"}
