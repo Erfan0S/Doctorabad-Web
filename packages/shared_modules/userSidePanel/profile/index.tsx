@@ -92,7 +92,11 @@ const SidePanelProfile: React.FC<SidePanelPageProps> = ({ setPage }) => {
           {profileStatus === PROFILE_COMPONENT.FORM && (
             <div className={style.formButton}>
               <button disabled={mutation.isPending} type="submit">
-                {mutation.isPending ? <Loading size={10} /> : "ویرایش"}
+                {mutation.isPending ? (
+                  <Loading size={20} haveMargin />
+                ) : (
+                  "ویرایش"
+                )}
               </button>
             </div>
           )}
