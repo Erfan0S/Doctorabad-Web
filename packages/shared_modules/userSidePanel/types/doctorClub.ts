@@ -62,7 +62,10 @@ export type MissionType = {
   picture: string | null;
   active: boolean;
   button_text?: string;
-  onClick?: () => void;
+  onClick?: (
+    setActive: (active: boolean) => void,
+    setLoading: (loading: boolean) => void,
+  ) => void;
 };
 
 export type UserRankingDetailType = {

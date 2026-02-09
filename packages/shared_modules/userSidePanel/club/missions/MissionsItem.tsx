@@ -3,7 +3,7 @@ import style from "./MissionsItem.module.scss";
 import Image from "next/image";
 //@ts-ignore
 import defaultImage from "../../../assets/img/logo-type.png";
-import { Button } from "../../../common/components";
+import { Button, Loading } from "../../../common/components";
 import { useState } from "react";
 
 export default function MissionsItem({
@@ -14,6 +14,7 @@ export default function MissionsItem({
   diactiveWhenClick?: boolean;
 }) {
   const [active, setActive] = useState(mission.active);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div
@@ -22,7 +23,7 @@ export default function MissionsItem({
         if (diactiveWhenClick) {
           setActive(false);
         }
-        mission.onClick?.();
+        mission.onClick?.(setActive, setLoading);
       }}
     >
       <div>
@@ -51,8 +52,18 @@ export default function MissionsItem({
       </div>
 
       {active && mission.onClick && (
-        <Button onClick={mission.onClick} className={style.button}>
-          {mission.button_text || "دریافت جایزه"}
+        <Button
+          onClick={() => {
+            if (loading) return;
+            mission.onClick?.(setActive, setLoading);
+          }}
+          className={style.button}
+        >
+          {loading ? (
+            <Loading size={20} />
+          ) : (
+            mission.button_text || "دریافت جایزه"
+          )}
         </Button>
       )}
     </div>

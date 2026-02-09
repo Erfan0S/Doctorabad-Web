@@ -23,8 +23,6 @@ export default function Missions() {
 
   if (isLoading) return <Loading size={25} />;
 
-  console.log(data);
-
   if (!data) return <span>هیج ماموریتی پیدا نشد!</span>;
 
   const missions = data.map((m) => {
@@ -32,8 +30,19 @@ export default function Missions() {
 
     return {
       ...m,
-      onClick: () => {
-        exploreMission();
+      onClick: (
+        setActive: (active: boolean) => void,
+        setLoading: (loading: boolean) => void,
+      ) => {
+        setLoading(true);
+        exploreMission()
+          .then(() => {
+            setActive(false);
+            refetch();
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       },
       button_text: "دریافت هدیه روزانه",
     };
