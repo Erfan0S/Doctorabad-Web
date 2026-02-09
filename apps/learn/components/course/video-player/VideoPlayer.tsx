@@ -30,25 +30,59 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 }) => {
   const videoRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<VideoPlayerType>();
+  const lessonIdRef = useRef(lessonId);
+  const courseIdRef = useRef(courseId);
+  const isVideoPlayedRef = useRef(false);
+  const previousTimeRef = useRef(-1);
+  const missionIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  lessonIdRef.current = lessonId;
+  courseIdRef.current = courseId;
+
   const [isWatermarkActive, setIsWatermarkActive] = useState(false);
-  const [isVideoPlayed, setIsVideoPlayed] = useState(false);
-  let previousTime = -1;
 
-  let missionInterval: NodeJS.Timeout;
-
-  const canCallMissionApi = lessonId && !!playerRef.current;
+  const handleMission = useCallback(
+    (transactionType: VideoMissionTransactionType) => {
+      if (lessonIdRef.current) {
+        api.videoMission({
+          lesson_id: lessonIdRef.current,
+          current_time: Math.floor(playerRef.current?.currentTime() || 0),
+          video_speed: Math.floor(playerRef.current?.playbackRate() || 1),
+          transaction_type: transactionType,
+          jumped_from_time:
+            previousTimeRef.current >= 0
+              ? Math.floor(previousTimeRef.current)
+              : undefined,
+        });
+        previousTimeRef.current = -1;
+      }
+    },
+    [],
+  );
 
   const handleMissionInterval = useCallback(() => {
-    missionInterval = setInterval(() => {
-      if (lessonId) {
-        api.videoMission({
-          lesson_id: lessonId,
-          current_time: playerRef.current?.currentTime() || 0,
-          video_speed: playerRef.current?.playbackRate() || 1,
-          transaction_type: VideoMissionTransactionType.CONTINUE,
-        });
+    if (missionIntervalRef.current) {
+      clearInterval(missionIntervalRef.current);
+    }
+    missionIntervalRef.current = setInterval(() => {
+      if (lessonIdRef.current) {
+        handleMission(VideoMissionTransactionType.CONTINUE);
       }
     }, 60000);
+  }, []);
+
+  const onMoveBackward = useCallback(() => {
+    previousTimeRef.current = Math.floor(
+      (playerRef.current?.currentTime() || 0) + 10,
+    );
+    handleMission(VideoMissionTransactionType.CONTINUE);
+  }, []);
+
+  const onMoveForward = useCallback(() => {
+    previousTimeRef.current = Math.floor(
+      (playerRef.current?.currentTime() || 0) - 10,
+    );
+    handleMission(VideoMissionTransactionType.CONTINUE);
   }, []);
 
   const handlePlayer = useCallback(
@@ -56,69 +90,53 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       playerRef.current = player;
       player.aspectRatio("16:9");
       player.on("play", () => {
-        console.log(player.currentTime());
-
-        if (lessonId) {
-          api.videoMission({
-            lesson_id: lessonId,
-            current_time: Math.floor(player?.currentTime() || 0),
-            video_speed: playerRef.current?.playbackRate() || 1,
-            transaction_type: isVideoPlayed
+        if (lessonIdRef.current && !!player) {
+          handleMission(
+            isVideoPlayedRef.current
               ? VideoMissionTransactionType.CONTINUE
               : VideoMissionTransactionType.NEW,
-            jumped_from_time:
-              previousTime >= 0 ? Math.floor(previousTime) : undefined,
-          });
-          if (!isVideoPlayed) setIsVideoPlayed(true);
+          );
+          if (!isVideoPlayedRef.current) isVideoPlayedRef.current = true;
         }
-        previousTime = -1;
         setIsWatermarkActive(true);
         handleMissionInterval();
         console.log("play");
       });
       player.on("pause", () => {
-        clearInterval(missionInterval);
+        if (missionIntervalRef.current) {
+          clearInterval(missionIntervalRef.current);
+        }
       });
       player.on("ended", () => {
-        clearInterval(missionInterval);
+        if (missionIntervalRef.current) {
+          clearInterval(missionIntervalRef.current);
+        }
         setIsWatermarkActive(false);
       });
       player.on("seeking", () => {
-        clearInterval(missionInterval);
-        previousTime = playerRef.current?.currentTime() || 0;
-        console.log("seeking");
-      });
-      player.on("seeked", () => {
-        console.log("seeked");
-      });
-      player.on("ratechange", () => {
-        clearInterval(missionInterval);
-        if (player && lessonId) {
-          api.videoMission({
-            lesson_id: lessonId,
-            current_time: playerRef.current?.currentTime() || 0,
-            video_speed: playerRef.current?.playbackRate() || 1,
-            transaction_type: VideoMissionTransactionType.SPEED_CHANGE,
-          });
+        if (missionIntervalRef.current) {
+          clearInterval(missionIntervalRef.current);
         }
-        console.log("speed change");
-        handleMissionInterval();
+        previousTimeRef.current = playerRef.current?.currentTime() || 0;
       });
-      player.on("firstplay", () => {
-        api.videoMission({
-          lesson_id: lessonId,
-          current_time: playerRef.current?.currentTime() || 0,
-          video_speed: playerRef.current?.playbackRate() || 1,
-          transaction_type: VideoMissionTransactionType.NEW,
-        });
-        console.log("first play");
+
+      player.on("ratechange", () => {
+        if (missionIntervalRef.current) {
+          clearInterval(missionIntervalRef.current);
+        }
+        if (player && lessonIdRef.current) {
+          handleMission(VideoMissionTransactionType.SPEED_CHANGE);
+        }
+        handleMissionInterval();
       });
 
       return () => {
-        clearInterval(missionInterval);
+        if (missionIntervalRef.current) {
+          clearInterval(missionIntervalRef.current);
+        }
       };
     },
-    [playerRef],
+    [handleMissionInterval, playerRef],
   );
   const titleRef = useRef<{ updateTextContent: (title: string) => void }>();
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -188,11 +206,27 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     if (isLessonChanged) {
+      playerRef.current
+        ?.getChild("ControlBar")
+        ?.el()
+        ?.getElementsByClassName("vjs-skip-backward-10")[0]
+        ?.removeEventListener("click", onMoveBackward);
+
+      playerRef.current
+        ?.getChild("ControlBar")
+        ?.el()
+        ?.getElementsByClassName("vjs-skip-forward-10")[0]
+        ?.removeEventListener("click", onMoveForward);
+
+      isVideoPlayedRef.current = false;
+      previousTimeRef.current = -1;
+      if (missionIntervalRef.current) {
+        clearInterval(missionIntervalRef.current);
+      }
       playerRef.current?.play();
       playerRef.current?.autoplay("play");
     } else {
       setIsLessonChanged(true);
-      setIsVideoPlayed(false);
     }
   }, [lessonId]);
 
@@ -204,6 +238,18 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     if (isPlayerReady) {
+      playerRef.current
+        ?.getChild("ControlBar")
+        ?.el()
+        ?.getElementsByClassName("vjs-skip-backward-10")[0]
+        ?.addEventListener("click", onMoveBackward);
+
+      playerRef.current
+        ?.getChild("ControlBar")
+        ?.el()
+        ?.getElementsByClassName("vjs-skip-forward-10")[0]
+        ?.addEventListener("click", onMoveForward);
+
       playerRef.current?.poster(config?.thumbnail || undefined);
       playerRef.current?.on("timeupdate", () => {
         setSuggestedCurrentTime && setSuggestedCurrentTime(null);
@@ -238,8 +284,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             } else {
               modalActions.addModal(ModalTypes.ADD_NOTE, {
                 currentTime: player.currentTime(),
-                lessonId,
-                courseId,
+                lessonId: lessonIdRef.current,
+                courseId: courseIdRef.current,
               });
             }
           },
