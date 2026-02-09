@@ -9,6 +9,8 @@ import Loading from "../../components/loading";
 import BugIcon from "../../../assets/svg/bug";
 import { Apps } from "@repo/core/types/general";
 import { Button } from "..";
+import { pharmacyApi } from "../../../../../apps/pharmacy/api/Api";
+import { clinicApi } from "../../../../../apps/clinic/api/Api";
 
 // TODO: need test
 
@@ -26,6 +28,10 @@ const BugReport = ({
         return api.prodoctReportIssue(text, data.productId);
       case Apps.EXAM:
         return api.examReportIssue(text, data.productId);
+      case Apps.PHARMACY:
+        return pharmacyApi.reportMedicineError(text, data.productId);
+      case Apps.CLINIC:
+        return clinicApi.reportDiseaseError(text, data.productId);
       default:
         return new Promise((resolve) => resolve(null));
     }

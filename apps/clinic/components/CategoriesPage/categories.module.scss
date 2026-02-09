@@ -1,0 +1,91 @@
+@import "@/assets/styles/variables";
+
+.container {
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.item {
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: 2px solid lighten($green, 5%);
+  border-radius: 1rem;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  .arrow {
+    font-size: 1.4rem;
+    color: $green;
+  }
+
+  &:hover {
+    background-color: lighten($green, 45%);
+  }
+}
+
+.children {
+  padding-right: 1.2rem;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: slideDown 0.3s ease;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 1rem;
+}
+
+.treatments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-right: 1rem;
+  margin-top: 0.4rem;
+
+  .treatment {
+    display: flex;
+    justify-content: space-between;
+    background-color: $green;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: lighten($green, 45%);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

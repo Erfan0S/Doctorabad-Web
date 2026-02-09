@@ -1,0 +1,309 @@
+@import "@/assets/styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.tabBar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  direction: rtl;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.tab {
+  border: none;
+  background: #e8e8e8;
+  padding: 0.65rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.activeTab {
+  border: none;
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.tabIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 5px;
+  background: $green;
+  border-radius: 999px;
+  transition: transform 0.25s ease;
+}
+
+.indicatorLeft {
+  transform: translateX(0%);
+}
+
+.indicatorRight {
+  transform: translateX(100%);
+}
+
+.sectionTitle {
+  background: $green;
+  color: white;
+  border: none;
+  border-radius: 13px;
+  padding: 5px 10px;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  span {
+    position: absolute;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.sectionContent {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 0.6rem 2rem;
+  padding-top: 24px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  margin-top: -16px;
+  width: 90%;
+}
+
+.formula{
+  direction: ltr !important;
+  text-align: left;
+}
+
+.listItems {
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  gap: 8px;
+  .item {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    gap: 10px;
+    font-weight: 700;
+
+    span {
+      font-size: 15px;
+      color: #333;
+    }
+
+    input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      accent-color: $green;
+      cursor: pointer;
+    }
+  }
+}
+
+.calculateBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0; // از پایین صفحه
+  z-index: 8; // یک عدد کمتر از دکمه
+  background: #f0f0f0; // خاکستری
+  padding: 0.5rem 1rem; // از پایین تا کمی بالاتر از دکمه
+}
+
+.calculateButton {
+  background: $green;
+  color: white;
+  border: none;
+  border-radius: 13px;
+  padding: 10px 10px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.toast {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 12px 16px;
+  border-radius: 50px;
+  border-color: white;
+  border: solid 2px;
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  z-index: 10;
+}
+
+.toastTitle {
+  font-size: 1rem;
+}
+
+.toastText {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.red {
+  background: $red;
+}
+
+.yellow {
+  background: $yellow;
+  color: #000;
+}
+
+.green {
+  background: $green;
+}
+
+.gray {
+  background: #555; // یا هر رنگی که برای خطا دوست داری مثل نارنجی تیره
+  color: #fff;
+}
+
+.interpretation {
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+
+  .tableWrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .table {
+    border: none;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+    direction: rtl;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px 12px;
+    border-right: 1.5px solid #e0e0e0;
+    border-bottom: 1.5px solid #e0e0e0;
+  }
+  
+  .table th:first-child,
+  .table td:first-child {
+    border-right: none;
+    white-space: nowrap;
+  }
+  
+  .table thead th {
+    background: #f2f2f2;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #333;
+    border-top: none;
+  }
+  
+  .table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .tableRow {
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .tableRow td {
+    text-align: center;
+  }
+  
+  .tableRow.yellow td {
+    color: #000;
+  }
+  
+}
+
+
+.inputGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $green;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 60%;
+  margin: 0.35rem auto;
+  background: #fff;
+}
+
+.inputLabel {
+  background: $green;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0;
+  height: 30px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.input {
+  border: none;
+  outline: none; 
+  padding-right: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  direction: rtl;
+  width: 100%;
+  background: #ffffff;
+  &::placeholder {
+    color: #c0c0c0;
+    font-weight: 500;
+  }
+}

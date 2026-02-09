@@ -1,0 +1,46 @@
+@import "@/assets/styles/variables";
+
+// components/CategoryTabs/CategoryTabs.module.scss
+.categoriesNav {
+  background: #f3f3f3;
+  padding: 12px 0 0 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 120px;
+  z-index: 50;
+}
+
+.categoriesScroll {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.categoryTab {
+  padding: 8px 20px;
+  border: none;
+  background: #f3f3f3;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-iran-sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &.active {
+    border-bottom: $green 5px solid;
+    font-weight: 800;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

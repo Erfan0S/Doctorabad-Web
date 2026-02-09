@@ -5,7 +5,7 @@ import CallbackDetail from "./components/callbackDetail";
 import CallbackDiscountInfo from "./components/callbackDiscountInfo";
 import { Apps } from "@repo/core/types/general";
 import { Button, Loading } from "@repo/shared_modules/components";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import style from "./Callback.module.scss";
@@ -14,6 +14,7 @@ import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 
 function Callback({ app }: { app: Apps }) {
   const { push } = useRouter();
+  const queryClient = useQueryClient();
 
   const redirectApp = (useSearchParams()?.get(REDIRECTED_APP_KEY) ||
     Apps.BASE) as Apps;
@@ -29,6 +30,14 @@ function Callback({ app }: { app: Apps }) {
   useEffect(() => {
     if (!paymentToken) push("/");
   }, [paymentToken, push, isError]);
+
+  // Invalidate clinic plans query when order is successfully completed
+  useEffect(() => {
+    const isOrderSuccess = !isError && data?.data.type === "success";
+    if (isOrderSuccess && redirectApp === Apps.CLINIC) {
+      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"] });
+    }
+  }, [isError, data, redirectApp, queryClient]);
 
   if (isLoading) return <Loading size={25} app={app} pageLoader />;
 

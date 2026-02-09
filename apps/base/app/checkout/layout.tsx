@@ -3,6 +3,7 @@ import { checkoutMetadata } from "@repo/core/metadata/checkout";
 import { baseUrls } from "@repo/core/constants/routePath";
 import { Metadata } from "next";
 import { homeMetadata } from "@repo/core/metadata/home";
+import { PersistQueryProvider } from "@repo/shared_modules";
 
 export const viewport = checkoutMetadata;
 export const metadata: Metadata = homeMetadata("/", "سبد‌خرید دکترآباد");
@@ -14,9 +15,11 @@ export default async function RootLayout({
 }) {
   return (
     <>
-      <AuthorizeClientPage baseUrl={baseUrls.base}>
-        <div className="">{children}</div>
-      </AuthorizeClientPage>
+      <PersistQueryProvider>
+        <AuthorizeClientPage baseUrl={baseUrls.base}>
+          <div className="">{children}</div>
+        </AuthorizeClientPage>
+      </PersistQueryProvider>
     </>
   );
 }
