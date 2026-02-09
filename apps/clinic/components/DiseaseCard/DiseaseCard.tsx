@@ -30,7 +30,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   const router = useRouter();
   const  isAccessible = () => {
     console.log(userPlans);
-    if (userPlans?.data || userPlans?.used_free || disease.is_free) {
+    if (userPlans?.data || userPlans?.data.used_free || disease.is_free) {
       return true;
     }
     return false;

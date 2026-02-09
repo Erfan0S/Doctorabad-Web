@@ -28,7 +28,7 @@ export default function FavoritesPage() {
       return response.data;
     },
     getNextPageParam: (lastPage) => {
-      const { current_page, last_page } = lastPage.meta;
+      const { current_page, last_page } = lastPage.data.meta;
       return current_page < last_page ? current_page + 1 : undefined;
     },
     initialPageParam: 1,
@@ -37,7 +37,7 @@ export default function FavoritesPage() {
   });
 
   const favorites = useMemo(() => {
-    return favoritesData?.pages.flatMap((page) => page.data) ?? [];
+    return favoritesData?.pages.flatMap((page) => page.data.data) ?? [];
   }, [favoritesData]);
 
   const loadMore = useCallback(() => {
@@ -76,7 +76,7 @@ export default function FavoritesPage() {
   return (
     <div style={{ padding: "16px" }}>
       <MedicineList
-        medicines={favorites}
+        medicines={ favorites}
         loading={isFetchingNextPage}
         hasMore={hasNextPage ?? false}
         onLoadMore={loadMore}

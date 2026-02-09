@@ -15,17 +15,17 @@ export default function ClinicHomePage() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
-  
+
   const isSearchMode = searchQuery.length > 0;
 
   return (
     <div className={styles.container}>
       <ClinicHeader headerPageType={HeaderType.OTHERS} title="کلینیک من" />
-      <ClinicSearchSection 
+      <ClinicSearchSection
         onSearchChange={setSearchQuery}
         onSearchDebounced={setDebouncedSearchQuery}
       />
-      
+
       {!isSearchMode && (
         <>
           <ClinicSliderSection />
@@ -40,7 +40,7 @@ export default function ClinicHomePage() {
         selectedCategory={selectedCategory}
         searchQuery={searchQuery}
         debouncedSearchQuery={debouncedSearchQuery}
-        />
+      />
     </div>
   );
 }

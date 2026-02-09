@@ -1,7 +1,8 @@
 import { authorizeServerPage } from "@repo/core/utils/authUtils";
 import FavoritesPage from '@/components/FavoritesPage/FavoritesPage';
+import { Suspense } from "react";
 
 export default async function MedicinePage() {
   await authorizeServerPage();
-  return <FavoritesPage />;
+  return <Suspense><FavoritesPage /></Suspense>;
 }

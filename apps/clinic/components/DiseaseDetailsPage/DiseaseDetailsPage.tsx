@@ -649,7 +649,7 @@ export default function DiseaseDetailsPage() {
                               {disease.treatment.map((med) => (
                                 <Link
                                   key={med.id}
-                                  href={`${baseUrls[Apps.PHARMACY]}${pharmacyPaths.single}/${med.id}`}
+                                  href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
                                   className={styles.treatmentTag}
                                 >
                                   {med.title_fa}
@@ -672,7 +672,7 @@ export default function DiseaseDetailsPage() {
                               {disease.treatment.map((med) => (
                                 <Link
                                   key={med.id}
-                                  href={`${baseUrls[Apps.PHARMACY]}${pharmacyPaths.single}/${med.id}`}
+                                  href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
                                   className={styles.treatmentTag}
                                 >
                                   {med.title_fa}

@@ -24,17 +24,29 @@ export const generateDiseaseMetaData = async ({
       disease.title_en ||
       "جزئیات بیماری | کلینیک دکترآباد";
 
+    const extractText = (item: string | string[] | null | undefined) => {
+      if (!item) return "";
+      if (Array.isArray(item)) return item.join(" ");
+      return item;
+    };
+
+    const treatment = disease.treatment_description;
+    const treatmentText =
+      typeof treatment === "string"
+        ? treatment
+        : extractText(treatment?.plan) ||
+          extractText(treatment?.order) ||
+          extractText(treatment?.prescription);
+
     const description =
-      disease.introduction.preface.join(" ") ||
-      disease.introduction.definition.join(" ") ||
-      disease.introduction.type.join(" ") ||
+      extractText(disease.introduction.preface) ||
+      extractText(disease.introduction.definition) ||
+      extractText(disease.introduction.type) ||
       disease.epidemiology ||
       disease.physiopathology ||
-      disease.risk_factor.join(" ") ||
-      disease.differential_diagnosis_description.join(" ") ||
-      disease.treatment_description.plan.join(" ") ||
-      disease.treatment_description.order.join(" ") ||
-      disease.treatment_description.prescription.join(" ") ||
+      extractText(disease.risk_factor) ||
+      extractText(disease.differential_diagnosis_description) ||
+      treatmentText ||
       "اطلاعات کامل بیماری انتخابی شما در کلینیک دکترآباد.";
 
     const image = disease.picture;

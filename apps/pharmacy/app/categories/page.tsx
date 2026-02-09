@@ -1,4 +1,4 @@
-import CategoriesPage from '@/components/categoriesPage/categoriesPage';
+import CategoriesPage from '@/components/CategoriesPage/categoriesPage';
 
 export default async function MedicinePage() {
 
