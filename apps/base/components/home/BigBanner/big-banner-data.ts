@@ -45,7 +45,7 @@ export const bigBannerData = [
     image: person03,
     description:
       "بانک اطلاعات بیماری‌ها و داروها، دیتابیس ها و ماشین‌حساب‌های علوم‌پزشکی",
-    primaryButtonLink: routePath.appDownload,
+    primaryButtonLink: baseUrls.tools,
     secondaryButtonLink: "https://doctorabad.com/mag/doctortools/",
     primaryColor: "#00c001",
     secondaryColor: "#1f5c00",
