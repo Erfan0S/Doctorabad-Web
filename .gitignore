@@ -41,7 +41,15 @@ apps/base/public/sw.js
 apps/learn/public/sw.js
 apps/market/public/sw.js
 apps/exam/public/sw.js
+apps/clinic/public/sw.js
+apps/pharmacy/public/sw.js
+apps/tools/public/sw.js
+
 apps/base/public/workbox-*.js
 apps/learn/public/workbox-*.js
 apps/market/public/workbox-*.js
 apps/exam/public/workbox-*.js
+apps/clinic/public/workbox-*.js
+apps/pharmacy/public/workbox-*.js
+apps/tools/public/workbox-*.js
+
