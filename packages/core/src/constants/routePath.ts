@@ -1,7 +1,7 @@
 import { Apps } from "../types/general";
 
 export const routePath = {
-  drAbadBaseUrl: "https://develop.doctorabad.com",
+  drAbadBaseUrl: "https://doctorabad.com",
   home: "/",
   marketBasePath: "/market",
   register: "/register",
