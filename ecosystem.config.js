@@ -40,7 +40,7 @@ module.exports = {
                 PORT: 3004
             }
         },
-                {
+        {
             name: "mono-pharmacy",
             script: "npm",
             args: "start",
@@ -50,7 +50,7 @@ module.exports = {
                 PORT: 3005
             }
         },
-                {
+        {
             name: "mono-clinic",
             script: "npm",
             args: "start",
@@ -60,7 +60,7 @@ module.exports = {
                 PORT: 3006
             }
         },
-                {
+        {
             name: "mono-tools",
             script: "npm",
             args: "start",
