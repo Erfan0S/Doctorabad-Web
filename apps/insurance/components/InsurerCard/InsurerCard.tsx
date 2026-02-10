@@ -2,6 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import styles from "./InsurerCard.module.scss";
 import { Insurer } from "@/types/insurance";
 
@@ -26,6 +27,22 @@ export default function InsurerCard({ insurer, searchParams }: InsurerCardProps)
     insurer.amazing_price ?? insurer.off_price ?? insurer.main_price;
 
   const handleBuyClick = () => {
+    // Validation
+    const { field, grade, residency, damageHistory, lastInsurance, endDate } = searchParams;
+
+    if (!field || !grade || !residency || !damageHistory) {
+      toast.error("لطفا تمام فیلدهای اطلاعاتی را تکمیل نمایید");
+      return;
+    }
+
+    // اگر سابقه خسارت "صدور اولیه" (شناسه 1) نباشد، باید بیمه‌گر قبلی و تاریخ اتمام وارد شده باشد
+    if (damageHistory !== 1) {
+      if (!lastInsurance || !endDate) {
+        toast.error("لطفا اطلاعات بیمه‌نامه قبلی را تکمیل نمایید");
+        return;
+      }
+    }
+
     // ساخت کوئری استرینگ
     const query = new URLSearchParams();
 

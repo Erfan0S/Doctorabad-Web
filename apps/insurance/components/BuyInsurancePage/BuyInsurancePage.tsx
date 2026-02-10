@@ -29,7 +29,8 @@ import {
   useDamageHistory,
   useLastInsurer,
 } from "@/hooks/useInsuranceFind";
-import { UpdateUserInfoInput, Province, City } from "@/types/insurance";
+import { UpdateUserInfoInput, Province, City, Insurer } from "@/types/insurance";
+import { insuranceApi } from "@/api/Api";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { cartActions } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
@@ -48,13 +49,13 @@ const BuyInsurancePage = () => {
   const mainPriceRaw = searchParams.get("main_price");
   const urlMainPrice = mainPriceRaw ? Number(mainPriceRaw) : 0;
 
-  const discountPercent = (urlMainPrice > urlPrice && urlMainPrice > 0)
-    ? Math.round(((urlMainPrice - urlPrice) / urlMainPrice) * 100)
-    : 0;
-
   const insurerId = searchParams.get("insurer_id")
     ? Number(searchParams.get("insurer_id"))
     : null;
+
+  // قیمت پویا بر اساس فیلدهای فعلی و نتیجه getInsurances
+  const [dynamicMainPrice, setDynamicMainPrice] = useState<number | null>(null);
+  const [dynamicFinalPrice, setDynamicFinalPrice] = useState<number | null>(null);
 
   // ----- فیلترهای کاربر (ID ها) -----
   const fieldId = searchParams.get("field")
@@ -100,6 +101,15 @@ const BuyInsurancePage = () => {
     ? { id: lastInsuranceId, title: lastInsuranceTitle || "" }
     : null;
 
+  // قیمت‌هایی که باید نمایش داده شوند (اولویت با مقدار محاسبه شده از API)
+  const mainPriceToShow = dynamicMainPrice ?? urlMainPrice;
+  const priceToShow = dynamicFinalPrice ?? urlPrice;
+
+  const discountPercent =
+    mainPriceToShow > priceToShow && mainPriceToShow > 0
+      ? Math.round(((mainPriceToShow - priceToShow) / mainPriceToShow) * 100)
+      : 0;
+
   // ----- States -----
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
     null
@@ -143,6 +153,22 @@ const BuyInsurancePage = () => {
   const { data: residencyStatuses = [] } = useResidencyStatus();
   const { data: damageHistories = [] } = useDamageHistory();
   const { data: lastInsurers = [] } = useLastInsurer();
+
+  // مقادیر موثر برای سابقه خسارت، بیمه‌گر قبلی و تاریخ اتمام (ترکیب URL و state)
+  const effectiveDamageHistoryId = useMemo(
+    () => selectedDamageHistoryId ?? damageHistoryId ?? null,
+    [selectedDamageHistoryId, damageHistoryId]
+  );
+
+  const effectiveLastInsuranceId = useMemo(
+    () => selectedLastInsuranceId ?? lastInsuranceId ?? null,
+    [selectedLastInsuranceId, lastInsuranceId]
+  );
+
+  const effectiveEndDate = useMemo(
+    () => insuranceEndDate || endDate || null,
+    [insuranceEndDate, endDate]
+  );
 
   // برای گرفتن title رشته و تخصص از API
   const { data: allFields = [] } = useInsuranceFields();
@@ -613,6 +639,65 @@ const BuyInsurancePage = () => {
     return "سابقه خسارت";
   };
 
+  // --- فراخوانی مجدد getInsurances وقتی فیلدها تغییر می‌کنند ---
+  useEffect(() => {
+    // اگر شناسه بیمه‌گر در URL موجود نیست، نیازی به فراخوانی نیست
+    if (!insurerId) return;
+
+    // اعتبارسنجی مشابه صفحه لیست:
+    // باید رشته، تخصص، وضعیت و سابقه خسارت مشخص باشند
+    if (!fieldIdToUse || !gradeIdToUse || !residencyStatusId || !effectiveDamageHistoryId) {
+      return;
+    }
+
+    // اگر سابقه خسارت "صدور اولیه" نیست، بیمه‌گر قبلی و تاریخ اتمام الزامی‌اند
+    if (
+      effectiveDamageHistoryId !== 1 &&
+      (!effectiveLastInsuranceId || !effectiveEndDate)
+    ) {
+      return;
+    }
+
+    const params = {
+      page: 1,
+      field: fieldIdToUse,
+      grade: gradeIdToUse,
+      residency_status: residencyStatusId ?? undefined,
+      damage_history: effectiveDamageHistoryId ?? undefined,
+      last_insurance:
+        effectiveDamageHistoryId === 1 ? undefined : effectiveLastInsuranceId ?? undefined,
+      current_insurance_end_date:
+        effectiveDamageHistoryId === 1 ? null : effectiveEndDate,
+    };
+
+    insuranceApi
+      .getInsurances(params)
+      .then((response) => {
+        const list: Insurer[] = response.data.data;
+        const matched = list.find((ins) => ins.id === insurerId);
+        if (matched) {
+          const finalPrice =
+            matched.amazing_price ?? matched.off_price ?? matched.main_price;
+          setDynamicMainPrice(matched.main_price);
+          setDynamicFinalPrice(finalPrice);
+        }
+      })
+      .catch(() => {
+        // در صورت خطا، قیمت URL را نگه می‌داریم
+        setDynamicMainPrice(null);
+        setDynamicFinalPrice(null);
+      });
+  }, [
+    insurerId,
+    fieldIdToUse,
+    gradeIdToUse,
+    residencyStatusId,
+    effectiveDamageHistoryId,
+    effectiveLastInsuranceId,
+    effectiveEndDate,
+    selectedProfileId,
+  ]);
+
   return (
     <div className={styles.pageContainer}>
       {/* Header */}
@@ -780,13 +865,13 @@ const BuyInsurancePage = () => {
           ) : (
             <div className={styles.btnContent}>
               <div className={styles.priceContainer}>
-                {urlMainPrice > urlPrice && (
+                {mainPriceToShow > priceToShow && (
                   <span className={styles.oldPrice}>
-                    {urlMainPrice.toLocaleString("fa-IR")} تومان
+                    {mainPriceToShow.toLocaleString("fa-IR")} تومان
                   </span>
                 )}
                 <span className={styles.newPrice}>
-                  {urlPrice.toLocaleString("fa-IR")} تومان
+                  {priceToShow.toLocaleString("fa-IR")} تومان
                 </span>
               </div>
               <div className={styles.verticalLine}></div>
