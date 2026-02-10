@@ -4,7 +4,7 @@ import { homeMetadata } from "@repo/core/metadata/home";
 import { Metadata } from "next";
 import React from "react";
 
-export const metadata: Metadata = homeMetadata("/", "ایلیکیشن دکترآباد");
+export const metadata: Metadata = homeMetadata("/", "اپلیکیشن دکترآباد");
 
 const AppDownloadPage = async () => {
   const statistic = (await api.getHomeStatistics()).data.data;
