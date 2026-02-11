@@ -63,6 +63,7 @@ export type MissionType = {
   active: boolean;
   button_text?: string;
   onClick?: (
+    isActive: boolean,
     setActive: (active: boolean) => void,
     setLoading: (loading: boolean) => void,
   ) => void;

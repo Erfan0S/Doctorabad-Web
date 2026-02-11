@@ -20,10 +20,11 @@ export default function MissionsItem({
     <div
       className={`${style.wrapper} ${active ? style.active : ""} card_hover`}
       onClick={() => {
+        if (loading) return;
         if (diactiveWhenClick) {
           setActive(false);
         }
-        mission.onClick?.(setActive, setLoading);
+        mission.onClick?.(active, setActive, setLoading);
       }}
     >
       <div>
@@ -53,9 +54,10 @@ export default function MissionsItem({
 
       {active && mission.onClick && (
         <Button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             if (loading) return;
-            mission.onClick?.(setActive, setLoading);
+            mission.onClick?.(active, setActive, setLoading);
           }}
           className={style.button}
         >

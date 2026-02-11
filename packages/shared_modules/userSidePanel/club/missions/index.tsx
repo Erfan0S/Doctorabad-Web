@@ -13,11 +13,10 @@ export default function Missions() {
     queryFn: () => api.getClubMissionsList().then((res) => res.data.data),
   });
 
-  const { mutateAsync: exploreMission } = useMutation({
+  const { mutateAsync: exploreMission, isPending } = useMutation({
     mutationFn: () => api.clubMissionExplore(),
     onSuccess: () => {
       toast.success("ماموریت با موفقیت انجام شد");
-      refetch();
     },
   });
 
@@ -31,16 +30,18 @@ export default function Missions() {
     return {
       ...m,
       onClick: (
+        isActive: boolean,
         setActive: (active: boolean) => void,
         setLoading: (loading: boolean) => void,
       ) => {
+        if (!isActive || isPending) return;
         setLoading(true);
         exploreMission()
           .then(() => {
             setActive(false);
-            refetch();
           })
           .finally(() => {
+            refetch();
             setLoading(false);
           });
       },
