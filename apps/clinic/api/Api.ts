@@ -91,7 +91,7 @@ class ClinicApi extends Request {
 
   // Favorite APIs
   getFavoriteList = (page: number): Promise<
-    ResponseType<{ data: DiseaseListResponse }>
+    ResponseType< DiseaseListResponse >
   > => {
     return this.request.get(`/user/v1/clinic/favorite/list?page=${page}`);
   };

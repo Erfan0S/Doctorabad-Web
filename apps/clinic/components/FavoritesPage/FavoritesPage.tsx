@@ -23,7 +23,7 @@ export default function FavoritesPage() {
       return response.data;
     },
     getNextPageParam: (lastPage) => {
-      const { current_page, last_page } = lastPage.data.meta;
+      const { current_page, last_page } = lastPage.meta;
       return current_page < last_page ? current_page + 1 : undefined;
     },
     initialPageParam: 1,
@@ -33,7 +33,7 @@ export default function FavoritesPage() {
 
 
   const favorites = useMemo(() => {
-    return favoritesData?.pages.flatMap((page) => page.data.data) ?? [];
+    return favoritesData?.pages.flatMap((page) => page.data) ?? [];
   }, [favoritesData]);
 
   const loadMore = useCallback(() => {
