@@ -21,7 +21,7 @@ html .searchFormInputWithFilterButton {
       input {
         position: relative;
         line-height: 36px;
-        border: 2px solid $red;
+        border: 2px solid var(--app-base, #{$green});
         border-radius: radius(2);
         padding: 0 space(4) 0 space(9);
         font-size: 13px;
@@ -35,7 +35,7 @@ html .searchFormInputWithFilterButton {
         position: absolute;
         top: calc(50% - 10px);
         left: space(4);
-        color: $red;
+        color: var(--app-base, #{$green});
       }
       > div {
         position: absolute;
@@ -46,7 +46,7 @@ html .searchFormInputWithFilterButton {
     }
 
     > a {
-      background: $button-bg-red;
+      background: var(--button-bg, #{$button-bg-green});
       border: unset;
       color: #fff;
       border-radius: radius(2);
@@ -70,7 +70,7 @@ html .searchFormInputWithFilterButton {
     width: 600px;
     background-color: #fff;
     border-radius: radius(2);
-    border: 2px solid $orange;
+    border: 2px solid var(--app-base, #{$green});
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
     z-index: 500;
     @media screen and (max-width: 768px) {
@@ -86,7 +86,7 @@ html .searchFormInputWithFilterButton {
       }
       &::-webkit-scrollbar-thumb {
         width: 25px;
-        background-color: #fc7a34;
+        background-color: var(--app-base, #{$green});
         border-radius: space(2.5);
         border-left: 9px solid #fff;
         border-right: 9px solid #fff;
@@ -165,7 +165,7 @@ html .searchFormInputWithFilterButton {
             text-align: center;
             line-height: 30px;
             display: block;
-            color: $orange;
+            color: var(--app-base, #{$green});
             font-size: 17px;
             font-weight: 600;
           }
@@ -185,7 +185,7 @@ html .searchFormInputWithFilterButton {
       cursor: pointer;
       transition: ease-in-out 0.2s;
       &:hover {
-        background-color: $orange;
+        background-color: var(--app-base, #{$green});
         color: #fff;
       }
     }

@@ -3,7 +3,6 @@ import { Apps } from "@repo/core/types/general";
 import BackIcon from "../../assets/svg/back";
 import style from "./PageHeader.module.scss";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
-import { PreventContext } from "../../common/components";
 
 interface Props {
   title: string | React.ReactNode;
