@@ -1,12 +1,11 @@
 @import "@repo/shared_modules/assets/styles/general";
 
 @media (min-width: 1024px) {
-  .pharmacy-container {
-    max-width: 600px;
-    min-width: 500px;
+  .tools-container {
+    max-width: 800px;
+    width: 800px;
     padding-bottom: 15px;
+    margin: 0 auto 80px;
     position: relative;
-    left: -40%;
-    margin-bottom: 80px;
   }
 }
