@@ -23,14 +23,14 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     isError,
   } = useQuery({
     queryKey: ["user-plans-clinic"],
-    queryFn: async () => (await clinicApi.getUserPlans()).data,
+    queryFn: async () => (await clinicApi.getUserPlans()),
     staleTime: getMillisecondsUntilMidnight(),
     gcTime: getMillisecondsUntilMidnight(), // Keep in cache until midnight
   });
   const router = useRouter();
   const  isAccessible = () => {
     console.log(userPlans);
-    if (userPlans?.data || userPlans?.data.used_free || disease.is_free) {
+    if (userPlans?.data?.data?.length || userPlans?.data?.used_free || disease.is_free) {
       return true;
     }
     return false;

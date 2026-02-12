@@ -116,7 +116,7 @@ class ClinicApi extends Request {
     return this.request.get(`/user/v1/clinic/${diseaseId}`);
   };
   getUserPlans = (
-  ): Promise<ResponseType<{ data: UserDiscountPlans }>> => {
+  ): Promise<ResponseType< UserDiscountPlans >> => {
     return this.request.get(`/user/v1/discount/plans/check?type=3`);
   };
 
