@@ -10,24 +10,24 @@ import {
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
-import Logo from "../logo";
-import HomeIcon from "../../../assets/svg/home";
-import ChatIcon from "../../../assets/svg/chat";
-import QrScannerIcon from "../../../assets/svg/qrScanner";
-import CartIcon from "../../../assets/svg/cart";
+import Logo from "../../common/components/logo";
+import HomeIcon from "../../assets/svg/home";
+import ChatIcon from "../../assets/svg/chat";
+import QrScannerIcon from "../../assets/svg/qrScanner";
+import CartIcon from "../../assets/svg/cart";
 import { useRouter } from "next/navigation";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { useEffect } from "react";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
-import getCurrentAppName from "@repo/core/utils/getCurrentAppName";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import { isServerSide } from "@repo/core/constants/constants";
 
 type Props = {
   type: Apps;
+  className?: string;
 };
 
-const MobileHeader = ({ type }: Props) => {
+const MobileHeaderBase = ({ type, className }: Props) => {
   const router = useRouter();
   const cart = useCart();
 
@@ -47,7 +47,7 @@ const MobileHeader = ({ type }: Props) => {
 
   const openSideMenu = (menu: SidePanelPage) =>
     authorizeClientAction(() =>
-      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
+      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu }),
     );
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const MobileHeader = ({ type }: Props) => {
   }, []);
 
   return (
-    <div className={`${style.mobileHeader} ${style[type]}`}>
+    <div className={`${style.mobileHeader} ${style[type]} ${className}`}>
       <Logo />
       <div className={style.buttons}>
         <button onClick={openSideMenu(SidePanelPage.MAIN)}>
@@ -66,7 +66,7 @@ const MobileHeader = ({ type }: Props) => {
         </button>
         <button
           onClick={authorizeClientAction(() =>
-            modalActions.addModal(ModalTypes.QR_CONTENTS)
+            modalActions.addModal(ModalTypes.QR_CONTENTS),
           )}
         >
           <QrScannerIcon />
@@ -103,4 +103,4 @@ const MobileHeader = ({ type }: Props) => {
   );
 };
 
-export default MobileHeader;
+export default MobileHeaderBase;

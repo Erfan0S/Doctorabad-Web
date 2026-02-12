@@ -1,3 +1,4 @@
+"use server";
 import { VIEWPORT_HEADER } from "@repo/core/constants/constants";
 import { headers } from "next/headers";
 import React from "react";

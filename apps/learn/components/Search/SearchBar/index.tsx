@@ -1,65 +1,25 @@
 "use client";
-import SearchIcon from "@/assets/svg/search";
-import Link from "next/link";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import style from "./SearchBar.module.scss";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
-import useDebounceAction from "@repo/core/hooks/useDebounceAction";
+import { SearchBar as SharedSearchBar } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   haveFilterButton?: boolean;
 };
 
 const SearchBar = ({ haveFilterButton }: Props) => {
-  const [searchText, setSearchText] = useState("");
-  const params = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const debouncedSearchText = useDebounceAction(() => {
-    if (searchText || pathname === "/search") {
-      router.push("/search?q=" + searchText);
-    }
-  }, 750);
-
   const { data, isLoading } = useQuery({
     queryKey: ["search_count"],
     queryFn: () => api.getLessonsCount(),
   });
 
-  useEffect(() => {
-    debouncedSearchText();
-  }, [searchText]);
-
-  useEffect(() => {
-    setSearchText(params?.get("q") || "");
-  }, [params]);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
   return (
-    <div className={`${style.search} search-bar`}>
-      <div className={style.searchForm}>
-        <div
-          className={`${style.searchFormInput} ${haveFilterButton ? style.searchFormInputWithFilterButton : ""}`}
-        >
-          <input
-            type="search"
-            onChange={onChange}
-            value={searchText}
-            placeholder={`در مباحث ${data?.data.data || 10000} درس جست و جو کن!`}
-          />
-          <Link href={"/search?q=" + searchText}>
-            <SearchIcon />
-          </Link>
-        </div>
-        {haveFilterButton && <Link href={"/filter"}>فیلترکردن</Link>}
-      </div>
-    </div>
+    <SharedSearchBar
+      app={Apps.LEARN}
+      haveFilterButton={haveFilterButton}
+      placeholder={`در مباحث ${data?.data.data || 10000} درس جست و جو کن!`}
+    />
   );
 };
 
