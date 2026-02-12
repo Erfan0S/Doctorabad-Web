@@ -4,10 +4,11 @@ import ToolCard from "@/components/ToolCard/ToolCard";
 import { ALL_TOOLS } from "@/data/toolsData";
 import ToolsHeader from "@/components/ToolsHeader/ToolsHeader"; // هدر شما
 import { HeaderType } from "@/types/tools";
+import styles from "./page.module.scss";
 
 export default function ToolsListPage() {
   return (
-    <div>
+    <div className={styles.container}>
       <ToolsHeader 
         headerPageType={HeaderType.OTHERS}
         title="ابزارهای من"

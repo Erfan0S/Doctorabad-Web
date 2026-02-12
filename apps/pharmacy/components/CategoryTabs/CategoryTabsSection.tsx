@@ -29,7 +29,7 @@ export default function CategoryTabsSection({
   const handleCategoryChange = useCallback(
     (categoryId: number | null) => {
       onSelectCategory(categoryId);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 470, behavior: "smooth" });
     },
     [onSelectCategory],
   );
