@@ -2,7 +2,7 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import React from "react";
 import Logo from ".";
-import { MobileHeader } from "@repo/shared_modules/components";
+import { MobileHeaderBase } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 
@@ -11,7 +11,7 @@ const LogoProvider = () => {
   const shouldRender = useClientComponentInitiated();
 
   return isMobile && shouldRender ? (
-    <MobileHeader type={Apps.MARKET} />
+    <MobileHeaderBase type={Apps.MARKET} />
   ) : (
     <Logo />
   );
