@@ -13,8 +13,6 @@ export { MultimediaGallery } from "./multimediaGallery/multimediaGallery";
 
 export { default as Logo } from "./logo";
 
-export { default as MobileHeader } from "./mobileHeader";
-
 export { default as LogoProvider } from "./logo/logoProvider";
 
 export { default as TabsController } from "./TabsController";
@@ -56,3 +54,7 @@ export { ListProductSnappayNotif } from "./productSnappayNotif";
 export { default as GlobalError } from "./globalError";
 
 export { default as FavoriteHeartIcon } from "./favoriteHeartIcon";
+
+export { default as DiviceSwitchShell } from "./Loayout/DiviceSwitchShell";
+
+export { default as SearchBar } from "./SearchBar";
