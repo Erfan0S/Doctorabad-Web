@@ -114,8 +114,6 @@ const BuyInsurancePage = () => {
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
     null
   );
-  const [isProfileManuallySelected, setIsProfileManuallySelected] =
-    useState(false);
 
   const [activeClinic, setActiveClinic] = useState(false);
   const [provinceId, setProvinceId] = useState<number | undefined>();
@@ -172,49 +170,30 @@ const BuyInsurancePage = () => {
 
   // برای گرفتن title رشته و تخصص از API
   const { data: allFields = [] } = useInsuranceFields();
-  // استفاده از field_id: اگر پروفایلی انتخاب شده، از profileData استفاده کن، در غیر این صورت از URL
-  const fieldIdToUse =
-    selectedProfileId && profileData?.field_id
-      ? profileData.field_id
-      : fieldId || profileData?.field_id;
+  // استفاده از field_id: همیشه ابتدا از URL (صفحه قبل) و در صورت نبود، از profileData
+  const fieldIdToUse = fieldId ?? profileData?.field_id ?? null;
   const { data: allGrades = [] } = useGrades(
     fieldIdToUse ? [fieldIdToUse] : []
   );
 
   // پیدا کردن title رشته و تخصص
-  // اولویت: اگر پروفایل انتخاب شده: از profileData (از API)
-  // اگر پروفایل انتخاب نشده: از URL یا profileData
+  // اولویت: همیشه مقادیر انتخاب‌شده از صفحه قبل (URL)، و در صورت نبود، از profileData
   const displayFieldTitle = (() => {
-    // اگر پروفایلی انتخاب شده و profileData موجود است، از آن استفاده کن
-    if (selectedProfileId && profileData?.field_id) {
-      return (
-        allFields.find((f) => f.id === profileData.field_id)?.title || "---"
-      );
-    }
-    // در غیر این صورت از URL یا profileData استفاده کن
+    // اگر از صفحه قبل title داریم، همان را نشان بده
     if (fieldData?.title) return fieldData.title;
-    if (fieldIdToUse) {
+    // در غیر این صورت از fieldIdToUse (URL یا profileData) استفاده کن
+    if (fieldIdToUse)
       return allFields.find((f) => f.id === fieldIdToUse)?.title || "---";
-    }
     return "---";
   })();
 
-  const gradeIdToUse =
-    selectedProfileId && profileData?.grade_id
-      ? profileData.grade_id
-      : gradeId || profileData?.grade_id;
+  const gradeIdToUse = gradeId ?? profileData?.grade_id ?? null;
   const displayGradeTitle = (() => {
-    // اگر پروفایلی انتخاب شده و profileData موجود است، از آن استفاده کن
-    if (selectedProfileId && profileData?.grade_id) {
-      return (
-        allGrades.find((g) => g.id === profileData.grade_id)?.title || "---"
-      );
-    }
-    // در غیر این صورت از URL یا profileData استفاده کن
+    // اگر از صفحه قبل title داریم، همان را نشان بده
     if (gradeData?.title) return gradeData.title;
-    if (gradeIdToUse) {
+    // در غیر این صورت از gradeIdToUse (URL یا profileData) استفاده کن
+    if (gradeIdToUse)
       return allGrades.find((g) => g.id === gradeIdToUse)?.title || "---";
-    }
     return "---";
   })();
 
@@ -258,24 +237,21 @@ const BuyInsurancePage = () => {
     }
   }, [insuranceInfos, fieldId, gradeId, residencyId, selectedProfileId]);
 
-  // تنظیم state از URL (فقط در ابتدا، قبل از انتخاب پروفایل)
+  // تنظیم state از URL (مقادیر انتخاب شده در صفحه قبل)
   useEffect(() => {
-    // فقط اگر هنوز پروفایلی انتخاب نشده، از URL استفاده کن
-    if (!selectedProfileId) {
-      if (residencyId) {
-        setResidencyStatusId(residencyId);
-      }
-      if (damageHistoryId) {
-        setSelectedDamageHistoryId(damageHistoryId);
-      }
-      if (lastInsuranceId) {
-        setSelectedLastInsuranceId(lastInsuranceId);
-      }
-      if (endDate) {
-        setInsuranceEndDate(endDate);
-      }
+    if (residencyId) {
+      setResidencyStatusId(residencyId);
     }
-  }, [residencyId, damageHistoryId, lastInsuranceId, endDate, selectedProfileId]);
+    if (damageHistoryId) {
+      setSelectedDamageHistoryId(damageHistoryId);
+    }
+    if (lastInsuranceId) {
+      setSelectedLastInsuranceId(lastInsuranceId);
+    }
+    if (endDate) {
+      setInsuranceEndDate(endDate);
+    }
+  }, [residencyId, damageHistoryId, lastInsuranceId, endDate]);
 
   // Sync state with fetched profile data
   // وقتی پروفایل انتخاب می‌شود، همیشه از profileData استفاده می‌کنیم
@@ -289,8 +265,10 @@ const BuyInsurancePage = () => {
       setInsuredName(profileData.insured_name || profileData.title || "");
       setInsuredPhone(profileData.insured_phone || "");
 
-      // کاربر از modal انتخاب کرده، پس از profileData استفاده کن
-      setResidencyStatusId(profileData.residency_status ? 2 : 1);
+      // اگر از صفحه قبل وضعیت (residency) انتخاب نشده باشد، از profileData استفاده کن
+      if (!residencyId) {
+        setResidencyStatusId(profileData.residency_status ? 2 : 1);
+      }
       // مهم: damage_history_id می‌تواند undefined باشد، پس باید به null تبدیل شود
       // setSelectedDamageHistoryId(profileData.damage_history_id ?? null);
 
@@ -346,7 +324,6 @@ const BuyInsurancePage = () => {
     modalActions.addModal(ModalTypes.INSURANCE_INFO, {
       onSelect: (id: number) => {
         setSelectedProfileId(id);
-        setIsProfileManuallySelected(true); // نشان می‌دهد که کاربر به صورت دستی پروفایل را انتخاب کرده
       },
       currentId: selectedProfileId,
     });
@@ -581,17 +558,6 @@ const BuyInsurancePage = () => {
   };
 
   // بررسی اینکه آیا باید فیلدهای سابقه خسارت، بیمه‌گر قبلی و تاریخ اتمام را نشان بدهیم
-  // فقط اگر پروفایلی به صورت دستی انتخاب شده باشد (نه از auto-select)
-  const shouldShowDamageHistoryFields =
-    selectedProfileId && isProfileManuallySelected;
-
-  // بررسی اینکه آیا باید بیمه‌گر قبلی و تاریخ اتمام را نشان بدهیم
-  // فقط اگر سابقه خسارت انتخاب شده و ID != 1
-  const shouldShowLastInsuranceFields =
-    shouldShowDamageHistoryFields &&
-    selectedDamageHistoryId !== null &&
-    selectedDamageHistoryId !== 1;
-
   // اولویت: اگر پروفایل انتخاب شده: از state (که از profileData تنظیم شده)
   // اگر پروفایل انتخاب نشده: 1) از URL 2) از state 3) "وضعیت"
   const getResidencyLabel = () => {
@@ -732,51 +698,16 @@ const BuyInsurancePage = () => {
           <InfoRow label="تخصص" value={displayGradeTitle} />
           <InfoRow label="وضعیت" value={getResidencyLabel()} />
 
-          {/* سابقه خسارت: اگر پروفایل انتخاب شده، selectBox باشد، در غیر این صورت InfoRow */}
-          {shouldShowDamageHistoryFields ? (
-            <div className={styles.infoRow}>
-              <span className={styles.bullet}>•</span> سابقه خسارت:{" "}
-              <div
-                className={`${styles.selectBox} ${styles.inlineSelectBox}`}
-                onClick={openDamageHistoryModal}
-              >
-                {getDamageHistoryLabel()} <DownArrow />
-              </div>
-            </div>
-          ) : (
-            <InfoRow label="سابقه خسارت" value={getDamageHistoryLabel()} />
-          )}
+          {/* سابقه خسارت و فیلدهای وابسته فقط به‌صورت نمایش مقدار انتخاب‌شده از صفحه قبل */}
+          <InfoRow label="سابقه خسارت" value={getDamageHistoryLabel()} />
 
-          {/* بیمه‌گر قبلی و تاریخ اتمام - فقط اگر سابقه خسارت != 1 */}
-          {shouldShowLastInsuranceFields ? (
-            <>
-              <div className={styles.infoRow}>
-                <span className={styles.bullet}>•</span> بیمه‌گر قبلی:{" "}
-                <div
-                  className={`${styles.selectBox} ${styles.inlineSelectBox}`}
-                  onClick={openLastInsuranceModal}
-                >
-                  {getLastInsuranceLabel()} <DownArrow />
-                </div>
-              </div>
-              <div className={styles.infoRow}>
-                <span className={styles.bullet}>•</span> اتمام بیمه‌نامه:{" "}
-                <div
-                  className={`${styles.selectBox} ${styles.inlineSelectBox}`}
-                  onClick={openDatePickerModal}
-                >
-                  {getEndDateLabel()} <DownArrow />
-                </div>
-              </div>
-            </>
-          ) : (
-            (selectedDamageHistoryId || damageHistoryId) && (selectedDamageHistoryId || damageHistoryId) !== 1 && (
+          {(selectedDamageHistoryId || damageHistoryId) &&
+            (selectedDamageHistoryId || damageHistoryId) !== 1 && (
               <>
-                 <InfoRow label="بیمه‌گر قبلی" value={getLastInsuranceLabel()} />
-                 <InfoRow label="اتمام بیمه‌نامه" value={getEndDateLabel()} />
+                <InfoRow label="بیمه‌گر قبلی" value={getLastInsuranceLabel()} />
+                <InfoRow label="اتمام بیمه‌نامه" value={getEndDateLabel()} />
               </>
-            )
-          )}
+            )}
         </div>
 
         {/* Uploads */}
