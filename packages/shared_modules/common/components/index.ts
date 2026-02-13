@@ -58,3 +58,5 @@ export { default as FavoriteHeartIcon } from "./favoriteHeartIcon";
 export { default as DiviceSwitchShell } from "./Loayout/DiviceSwitchShell";
 
 export { default as SearchBar } from "./SearchBar";
+
+export { default as ProductSliderContainer } from "./productSliderContainer";
