@@ -36,7 +36,13 @@ export default async function HomeMarket() {
 
   return (
     <DiviceSwitchShell
-      MobileComponent={<MobileMainPage />}
+      MobileComponent={
+        <MobileMainPage
+          sliders={sliders}
+          amazingProducts={amazingProducts}
+          ProvidersList={ProvidersList}
+        />
+      }
       DesktopComponent={
         <DesktopMainPage
           sliders={sliders}

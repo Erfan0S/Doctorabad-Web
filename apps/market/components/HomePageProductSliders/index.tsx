@@ -10,9 +10,13 @@ import { ResponseType } from "@repo/core/types/general";
 
 type Props = {
   type: "suggested" | "bestSelling" | "newest" | "lastSeen";
+  isMobileLayout?: boolean;
 };
 
-export const HomePageProductSliders = ({ type }: Props) => {
+export const HomePageProductSliders = ({
+  type,
+  isMobileLayout = false,
+}: Props) => {
   const configs = {
     bestSelling: {
       loader: () => api.getBesSellingProductList({ limit: "10", page: "1" }),
@@ -32,7 +36,7 @@ export const HomePageProductSliders = ({ type }: Props) => {
           () =>
             ({ data: { data: [] } }) as unknown as ResponseType<{
               data: Product[];
-            }>
+            }>,
         ),
       title: "بازدیدهای‌‌من",
       archiveLink: undefined,
@@ -56,6 +60,7 @@ export const HomePageProductSliders = ({ type }: Props) => {
           data={d.data.data.data}
           title={configs[type].title}
           archiveLink={configs[type].archiveLink}
+          isMobileLayout={isMobileLayout}
         />
       )}
     />
