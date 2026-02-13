@@ -7,18 +7,10 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "src/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "src/*": ["./*"]
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "incremental": true,
     "resolveJsonModule": true,
     "strictNullChecks": true
@@ -27,9 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../packages/shared_modules/assets/svg/amazingStart.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
