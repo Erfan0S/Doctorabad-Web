@@ -60,3 +60,5 @@ export { default as DiviceSwitchShell } from "./Loayout/DiviceSwitchShell";
 export { default as SearchBar } from "./SearchBar";
 
 export { default as ProductSliderContainer } from "./productSliderContainer";
+
+export { default as MobileProductLayout } from "./MobileProductLayout";

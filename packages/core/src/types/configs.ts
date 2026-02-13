@@ -3,3 +3,8 @@ export type MobileHomeHeaderDataConfig = {
   title: string;
   url: string;
 };
+
+export interface MobileHomeHeaderDataConfigWithContent
+  extends MobileHomeHeaderDataConfig {
+  content: React.ReactNode;
+}
