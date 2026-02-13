@@ -1,6 +1,4 @@
-import React from "react";
 import style from "./Course.module.scss";
-import { CourseDataType } from "@/types/courses";
 import { OrderType } from "@repo/core/types/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { modalActions } from "@repo/core/modal/modals";
@@ -11,45 +9,55 @@ import {
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
-import AmazingStarIcon from "@repo/shared_modules/icons/amazingStart";
+import AmazingStarIcon from "../../../assets/svg/amazingStart";
 
-type Props = {
-  course: CourseDataType;
+export type ProductButtonProps = {
   mainPrice: number;
   offPrice?: number | null;
+  amazingPrice?: number | null;
+  replaceButton?: React.ReactNode;
+  children: React.ReactNode;
+  installment_payment: boolean;
+  installment_text: string;
+  orderType: OrderType;
+  productId: number;
+  app?: Apps;
 };
 
-export default function CourseButton({ course, mainPrice, offPrice }: Props) {
+export default function ProductButton({
+  mainPrice,
+  offPrice,
+  amazingPrice,
+  replaceButton,
+  children,
+  installment_payment,
+  installment_text,
+  app,
+  productId,
+  orderType,
+}: ProductButtonProps) {
   const { discountPercent } = getDiscountInformation(
-    course?.price_main,
-    course?.price_off || undefined,
-    course?.price_amazing || undefined,
+    mainPrice,
+    offPrice || undefined,
+    amazingPrice || undefined,
   );
 
   return (
     <div className={`${style.purchaseBar}`}>
-      {!course.user_has_access &&
-        course.installment_payment &&
-        course.installment_text && (
-          <ProductSnappayNotif
-            text={course.installment_text}
-            className={style.snappayNotif}
-          />
-        )}
-      <div
-        className={`${style.purchaseButtonWrapper} ${course.user_has_access && style.purchaseBarAccess}`}
-      >
-        {course.user_has_access ? (
-          <span
-            className={`${style.purchaseButton} ${style.purchaseButtonActive}`}
-          >
-            دانشجوی این دوره‌ام!
-          </span>
+      {installment_payment && installment_text && (
+        <ProductSnappayNotif
+          text={installment_text}
+          className={style.snappayNotif}
+        />
+      )}
+      <div className={`${style.purchaseButtonWrapper}`}>
+        {replaceButton ? (
+          replaceButton
         ) : (
           <AddToCartButton
-            id={+course.id}
-            type={OrderType.Course}
-            app={Apps.LEARN}
+            id={+productId}
+            type={orderType}
+            app={app}
             isFullWidth
             className={`${style.addToCartButton} ${!!offPrice && style.priceOffWrapper}`}
           >
@@ -78,15 +86,7 @@ export default function CourseButton({ course, mainPrice, offPrice }: Props) {
             <span>&nbsp;&nbsp;|&nbsp;&nbsp;افزودن به سبد خرید</span>
           </AddToCartButton>
         )}
-        {!!course.only_watchable_on_app && (
-          <div
-            className={`${style.appOnly} ${style.purchaseButton}`}
-            onClick={() => modalActions.addModal(ModalTypes.AppOnly)}
-          >
-            {/* <PhoneIcon /> */}
-            <span>قابل استفاده فقط در اپ</span>
-          </div>
-        )}
+        {children && children}
       </div>
     </div>
   );
