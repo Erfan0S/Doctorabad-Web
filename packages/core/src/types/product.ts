@@ -22,6 +22,7 @@ export interface Product {
 export type ProductCard = Product & {
   gridView?: boolean;
   lazyLoadImage?: boolean;
+  isMobileLayout?: boolean;
 };
 export interface SingleProductSellerInfo {
   name: string;

@@ -18,6 +18,18 @@
   cursor: pointer;
 }
 
+.mobileLayout {
+  .productButtons {
+    > button,
+    > a {
+      width: 100%;
+    }
+    .productAddToFavorite {
+      display: none;
+    }
+  }
+}
+
 .product {
   background-color: #fff;
   border-radius: radius(4);
