@@ -5,6 +5,8 @@ import { Banner } from "@/types/banner";
 import { MobileHomeHeader } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";
 import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
+import { MainSlider } from "@repo/shared_modules/components";
+import { HomePageProductSliders } from "@/components/HomePageProductSliders";
 
 type Props = {
   sliders: Banner[];
@@ -30,12 +32,24 @@ const TabsData: MobileHomeHeaderDataConfig[] = [
   },
 ];
 
-function MobileMainPage() {
+function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
   return (
     <>
       <div>
         <MobileHomeHeader type={Apps.MARKET} tabData={TabsData} haveSearch />
-        <div> mobile layout </div>
+        <div>
+          {sliders && (
+            <MainSlider
+              banners={sliders.filter((s) => s.location === 1) || []}
+              swiperOptions={{ spaceBetween: 0 }}
+              app={Apps.MARKET}
+            />
+          )}
+          <HomePageProductSliders type="suggested" isMobileLayout />
+          <HomePageProductSliders type="newest" isMobileLayout />
+          <HomePageProductSliders type="bestSelling" isMobileLayout />
+          <HomePageProductSliders type="lastSeen" isMobileLayout />
+        </div>
       </div>
     </>
   );

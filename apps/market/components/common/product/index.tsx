@@ -38,6 +38,7 @@ const Product: React.FC<ProductCard> = ({
   lazyLoadImage = true,
   has_variant = false,
   installment_payment = false,
+  isMobileLayout = false,
 }) => {
   const { isFavorite, isLoading, toggleFavorite } =
     useToggleFavoriteProduct(!!user_favorite);
@@ -60,7 +61,9 @@ const Product: React.FC<ProductCard> = ({
   const isProductHasStock = quantity !== 0;
 
   return (
-    <div className={`${style.product} ${gridView ? style.gridView : ""}`}>
+    <div
+      className={`${style.product} ${gridView ? style.gridView : ""} ${isMobileLayout ? style.mobileLayout : ""}`}
+    >
       <div className={style.productImage}>
         {installment_payment && (
           <ListProductSnappayNotif className={style.installmentPayment} />
