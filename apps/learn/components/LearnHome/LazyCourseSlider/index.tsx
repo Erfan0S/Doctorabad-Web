@@ -75,7 +75,7 @@ export default function LazyCourseSlider({ type }: Props) {
         return (
           <CourseSlider
             title={Configs[type].title}
-            archiveLink={Configs[type].archiveLink}
+            archiveLink={Configs[type].archiveLink || undefined}
             data={d.data.data}
             amazingTime={(d.data as any).amazing_time as string | undefined}
           />

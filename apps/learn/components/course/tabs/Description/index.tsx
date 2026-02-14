@@ -1,14 +1,10 @@
-import { CourseDataType } from "@/types/courses";
-import React, { useEffect } from "react";
+import React from "react";
+import { CourseContentProps } from "../tabs-data";
 
-type Props = {
-  description: string;
-};
-
-const CourseDescription = ({ description }: Props) => {
+const CourseDescription = ({ course }: CourseContentProps) => {
   return (
     <div style={{ width: "100%" }}>
-      <div dangerouslySetInnerHTML={{ __html: description }} />
+      <div dangerouslySetInnerHTML={{ __html: course.description }} />
     </div>
   );
 };

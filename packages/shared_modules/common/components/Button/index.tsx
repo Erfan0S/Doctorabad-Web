@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+      suppressHydrationWarning
       className={`${className} ${style[app]} ${style.button} ${style[variant]} ${
         disabled ? style.disabled : ""
       }`}

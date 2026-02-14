@@ -20,6 +20,4 @@ export interface VideoPlayerProps {
   goToNextTrack: () => void;
   goToPreviousTrack: () => void;
   courseId: number;
-  suggestedCurrentTime?: number | null;
-  setSuggestedCurrentTime?: (value: number | null) => void;
 }

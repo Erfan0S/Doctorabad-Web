@@ -2,7 +2,7 @@ import { api } from "@/api/Api";
 import { ProvidersList } from "@/types/providers";
 import { AmazingProduct } from "@repo/core/types/product";
 import { Banner } from "@/types/banner";
-import { DiviceSwitchShell } from "@repo/shared_modules/components";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import DesktopMainPage from "@/components/layouts/desktop/MainPage";
 import MobileMainPage from "@/components/layouts/mobile/MainPage";
 

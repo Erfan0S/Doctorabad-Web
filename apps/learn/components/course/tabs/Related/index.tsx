@@ -1,17 +1,15 @@
+"use client";
 import { api } from "@/api/Api";
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
 import Loading from "@/components/common/Loading";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { CourseContentProps } from "../tabs-data";
 
-type Props = {
-  CourseId: number;
-};
-
-const RelatedCourses = ({ CourseId }: Props) => {
-  const { data, isLoading, status, error } = useQuery({
-    queryFn: () => api.getRelatedCourses(CourseId),
-    queryKey: ["related_courses", CourseId],
+const RelatedCourses = ({ course }: CourseContentProps) => {
+  const { data, isLoading } = useQuery({
+    queryFn: () => api.getRelatedCourses(course.id),
+    queryKey: ["related_courses", course.id],
     retry: false,
   });
 

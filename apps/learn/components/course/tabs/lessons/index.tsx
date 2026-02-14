@@ -1,17 +1,27 @@
-import { FC, useEffect, useState } from "react";
-import { Lesson, Section } from "@/types/courses";
+"use client";
+import { FC, useContext, useEffect, useState } from "react";
+import { Lesson } from "@/types/courses";
 import Play from "@/assets/svg/play";
 import styles from "./Lessons.module.scss";
 import formatDuration from "@/utils/formatDuration";
 import clsx from "clsx";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { LessonVideoContext } from "@/context/LessonVideoContext";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { toast } from "react-toastify";
+import { CourseContentProps } from "../tabs-data";
 
-interface CourseContentProps {
-  sections: Section[];
-  onLessonClick: (leason: Lesson) => void;
-}
-
-const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
+const CourseContent: FC<CourseContentProps> = ({ course }) => {
   const [closeSections, setCloseSections] = useState<Set<number>>(new Set());
+  const { setCurrentLeasson, clearBookmark } = useContext(LessonVideoContext);
+  const changeSearchParamsFilter = useChangeSearchParamsFilter();
+
+  const sections = course.sections;
+
+  const isMobileView =
+    typeof window !== "undefined" && window.innerWidth <= 768;
 
   const toggleSection = (sectionId: number) => {
     setCloseSections((prev) => {
@@ -26,6 +36,28 @@ const CourseContent: FC<CourseContentProps> = ({ sections, onLessonClick }) => {
   };
 
   const isSectionTitleValid = (title: string) => title !== "" && title !== ".";
+
+  const onLessonClick = (lesson: Lesson) => {
+    if (!isUserLoggedIn(true)) {
+      modalActions.addModal(ModalTypes.REGISTER);
+      return;
+    }
+    if (course.user_has_access && !course.only_watchable_on_app) {
+      clearBookmark();
+      setCurrentLeasson(lesson);
+      changeSearchParamsFilter({ lesson: lesson.id.toString() });
+      if (!isMobileView) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    } else if (!course.user_has_access) {
+      toast.error("این دوره را هنوز نخریدی!");
+    } else if (course.only_watchable_on_app) {
+      modalActions.addModal(ModalTypes.AppOnly);
+    }
+  };
 
   useEffect(() => {
     const newSet = new Set<number>();

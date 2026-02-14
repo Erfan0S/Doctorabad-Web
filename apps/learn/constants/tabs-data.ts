@@ -1,7 +1,7 @@
 import { HomeTabs } from "@/types/courses";
-import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
+import { MobileTabsConfig } from "@repo/core/types/configs";
 
-export const MainTabsData: MobileHomeHeaderDataConfig[] = [
+export const MainTabsData: MobileTabsConfig[] = [
   {
     id: HomeTabs.COURSES,
     title: "دوره‌ها",

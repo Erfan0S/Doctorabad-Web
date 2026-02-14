@@ -1,8 +1,7 @@
-import style from "./Course.module.scss";
+"use client";
+import style from "./ProductLayout.module.scss";
 import { OrderType } from "@repo/core/types/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import { modalActions } from "@repo/core/modal/modals";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import {
   AddToCartButton,
   ProductSnappayNotif,
@@ -16,9 +15,9 @@ export type ProductButtonProps = {
   offPrice?: number | null;
   amazingPrice?: number | null;
   replaceButton?: React.ReactNode;
-  children: React.ReactNode;
-  installment_payment: boolean;
-  installment_text: string;
+  children?: React.ReactNode;
+  installment_payment?: boolean;
+  installment_text?: string;
   orderType: OrderType;
   productId: number;
   app?: Apps;
@@ -61,15 +60,15 @@ export default function ProductButton({
             isFullWidth
             className={`${style.addToCartButton} ${!!offPrice && style.priceOffWrapper}`}
           >
-            <div>
-              <div>
+            <span className={style.columnWrapper}>
+              <span>
                 {!!discountPercent && (
-                  <div className={style.purcheseBarDiscountPercent}>
-                    <div>
+                  <span className={style.purcheseBarDiscountPercent}>
+                    <span>
                       <AmazingStarIcon />
                       <span>%{discountPercent}</span>
-                    </div>
-                  </div>
+                    </span>
+                  </span>
                 )}{" "}
                 {offPrice && (
                   <span className={style.priceOff}>
@@ -77,12 +76,12 @@ export default function ProductButton({
                     تومن
                   </span>
                 )}
-              </div>
-              <div>
+              </span>
+              <span>
                 {priceFormatter(offPrice || mainPrice)}
                 تومن
-              </div>
-            </div>{" "}
+              </span>
+            </span>{" "}
             <span>&nbsp;&nbsp;|&nbsp;&nbsp;افزودن به سبد خرید</span>
           </AddToCartButton>
         )}
