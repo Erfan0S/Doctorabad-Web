@@ -7,10 +7,8 @@ import "../assets/styles/general.scss";
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
 import { api } from "@repo/shared_modules/api";
-import {
-  DiviceSwitchShell,
-  InstallBannerShow,
-} from "@repo/shared_modules/components";
+import { InstallBannerShow } from "@repo/shared_modules/components";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import Script from "next/script";
 import MarketHeader from "@/components/common/header/market";

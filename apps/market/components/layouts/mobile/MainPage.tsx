@@ -4,7 +4,7 @@ import { AmazingProduct } from "@repo/core/types/product";
 import { Banner } from "@/types/banner";
 import { MobileHomeHeader } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";
-import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
+import { MobileTabsConfig } from "@repo/core/types/configs";
 import { MainSlider } from "@repo/shared_modules/components";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
 
@@ -14,7 +14,7 @@ type Props = {
   ProvidersList: ProvidersList;
 };
 
-const TabsData: MobileHomeHeaderDataConfig[] = [
+const TabsData: MobileTabsConfig[] = [
   {
     id: "1",
     title: "محصولات",

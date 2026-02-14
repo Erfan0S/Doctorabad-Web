@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import styles from "./VideoPlayer.module.scss";
 import { VideoPlayerProps } from "./types";
@@ -15,6 +21,7 @@ import AddLeasonNoteModal from "./addNoteModal/AddLeasonNoteModal";
 import Watermark from "../watermark";
 import Loading from "@/components/common/Loading";
 import { api } from "@/api/Api";
+import { LessonVideoContext } from "@/context/LessonVideoContext";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -24,9 +31,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   lessonId,
   goToNextTrack,
   goToPreviousTrack,
-  suggestedCurrentTime,
   courseId,
-  setSuggestedCurrentTime,
 }) => {
   const videoRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<VideoPlayerType>();
@@ -35,6 +40,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const isVideoPlayedRef = useRef(false);
   const previousTimeRef = useRef(-1);
   const missionIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const { currentLeasson, clearBookmark, bookmark } =
+    useContext(LessonVideoContext);
 
   lessonIdRef.current = lessonId;
   courseIdRef.current = courseId;
@@ -252,7 +260,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       playerRef.current?.poster(config?.thumbnail || undefined);
       playerRef.current?.on("timeupdate", () => {
-        setSuggestedCurrentTime && setSuggestedCurrentTime(null);
+        clearBookmark();
       });
       let noteButton: CustomButton | null = null;
       const nextTrackButton = new CustomButton(playerRef.current!, {
@@ -314,11 +322,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   useEffect(() => {
     if (!isPlayerReady) return;
     titleRef.current?.updateTextContent(title || "");
-    if (suggestedCurrentTime) {
-      playerRef.current!.currentTime(suggestedCurrentTime);
+    if (bookmark?.time) {
+      playerRef.current!.currentTime(bookmark.time);
       playerRef.current!.play();
     }
-  }, [title, isPlayerReady, suggestedCurrentTime]);
+  }, [title, isPlayerReady, bookmark]);
 
   return (
     <div onContextMenu={(e) => e.preventDefault()}>

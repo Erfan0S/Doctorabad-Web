@@ -222,7 +222,8 @@
   padding: 8px;
   border-radius: 50px;
   color: black;
-  > div {
+  > span {
+    display: block;
     position: relative;
     width: 40px;
 
@@ -265,7 +266,7 @@
   }
 
   .purcheseBarDiscountPercent {
-    > div {
+    > span {
       width: 30px;
       span {
         font-size: 10px;
@@ -276,4 +277,9 @@
       }
     }
   }
+}
+
+.columnWrapper {
+  display: flex !important;
+  flex-direction: column;
 }

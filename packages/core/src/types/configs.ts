@@ -1,10 +1,9 @@
-export type MobileHomeHeaderDataConfig = {
+export type MobileTabsConfig = {
   id: string;
   title: string;
-  url: string;
+  url?: string;
 };
 
-export interface MobileHomeHeaderDataConfigWithContent
-  extends MobileHomeHeaderDataConfig {
+export interface MobileTabsConfigWithContent extends MobileTabsConfig {
   content: React.ReactNode;
 }

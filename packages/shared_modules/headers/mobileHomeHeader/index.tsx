@@ -2,11 +2,11 @@ import { Apps } from "@repo/core/types/general";
 import MobileHeaderBase from "../mobileHeaderBase";
 import TabsController from "../../common/components/TabsController";
 import styles from "./HomeHeader.module.scss";
-import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
+import { MobileTabsConfig } from "@repo/core/types/configs";
 import SearchBar from "../../common/components/SearchBar";
 
 type Props = {
-  tabData: MobileHomeHeaderDataConfig[];
+  tabData: MobileTabsConfig[];
   children?: React.ReactNode;
   type?: Apps;
   defaultTab?: string;

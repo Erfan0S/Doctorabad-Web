@@ -19,7 +19,8 @@
     "./components": "./common/components/index.ts",
     "./assets/styles/*": "./assets/styles/*.scss",
     "./headers": "./headers/index.ts",
-    "./ui": "./common/components/ui/index.ts"
+    "./ui": "./common/components/ui/index.ts",
+    "./components/DiviceSwitchShell": "./common/components/Loayout/DiviceSwitchShell/index.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
