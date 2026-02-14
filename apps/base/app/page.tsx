@@ -7,6 +7,7 @@ import Intro from "@/components/home/intro";
 import Statistics from "@/components/home/Statistics";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
+import HomeHeader from "@/components/headers/homeHeader"
 
 export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
@@ -16,6 +17,7 @@ export default async function Home() {
 
   return (
     <>
+    <HomeHeader />
       <Intro statistic={statistic} />
       <Statistics statistic={statistic} />
       {bigBannerData.map((item, index) => (
