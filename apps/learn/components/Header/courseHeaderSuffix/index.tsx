@@ -5,15 +5,17 @@ import BugIcon from "@/assets/svg/bug";
 import ProfileIcon from "@/assets/svg/profile";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { CourseDataType } from "@/types/courses";
+import { CourseDataType, Lesson } from "@/types/courses";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { api } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import Loading from "@/components/common/Loading";
 import { Apps } from "@repo/core/types/general";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { FavoriteHeartIcon } from "@repo/shared_modules/components";
+import { LessonVideoContext } from "@/context/LessonVideoContext";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 
 interface Button {
   icon: React.ReactNode;
@@ -23,20 +25,18 @@ interface Button {
 type Props = {
   course: CourseDataType;
   currentLessonId: number;
-  goToBookmark: (lessonId: number, jumpTime: number) => void;
 };
 
-const CourseHeaderSiffix = ({
-  course,
-  currentLessonId,
-  goToBookmark,
-}: Props) => {
+const CourseHeaderSiffix = ({ course, currentLessonId }: Props) => {
   const {
     isFavorite,
     toggleFavorite,
     isLoading: favoriteLoading,
   } = useToggleFavoriteProduct(!!course.user_favorite);
   const router = useRouter();
+  const { setBookmark } = useContext(LessonVideoContext);
+
+  const changeSearchParamsFilter = useChangeSearchParamsFilter();
 
   const { shareProduct, isLoading: shareLoading } = useShareProduct(
     async () => {
@@ -47,7 +47,7 @@ const CourseHeaderSiffix = ({
         description: res.data.data.description,
         url: res.data.data.course_url,
       };
-    }
+    },
   );
 
   const onShareProduct = async () => {
@@ -59,9 +59,11 @@ const CourseHeaderSiffix = ({
     toggleFavorite(course.id);
   };
 
-  useEffect(() => {
-    router.refresh();
-  }, [isFavorite]);
+  const goToBookmark = (lessonId: number, jumpTime: number) => {
+    changeSearchParamsFilter({ lesson: lessonId.toString() });
+    setBookmark({ lessonId, time: jumpTime });
+    modalActions.removeLastModal();
+  };
 
   const buttons: Button[] = [
     {
