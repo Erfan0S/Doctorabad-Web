@@ -1,0 +1,21 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/functions';
+
+.section {
+  padding: space(4) 0;
+}
+
+.wrapper {
+  display: flex;
+  gap: space(3);
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+  .wrapper {
+    gap: space(2);
+  }
+}

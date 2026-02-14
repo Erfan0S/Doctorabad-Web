@@ -5,6 +5,7 @@ import BlogSlider from "@/components/home/blogSlider";
 import Companies from "@/components/home/companies";
 import Intro from "@/components/home/intro";
 import Statistics from "@/components/home/Statistics";
+import ServiceShortcuts from "@/components/home/ServiceShortcuts";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
 import HomeHeader from "@/components/headers/homeHeader"
@@ -20,6 +21,7 @@ export default async function Home() {
     <HomeHeader />
       <Intro statistic={statistic} />
       <Statistics statistic={statistic} />
+      <ServiceShortcuts />
       {bigBannerData.map((item, index) => (
         <BigBanner key={index} {...item} />
       ))}
