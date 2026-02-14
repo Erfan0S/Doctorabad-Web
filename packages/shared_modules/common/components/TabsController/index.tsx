@@ -2,12 +2,12 @@
 import React, { Suspense } from "react";
 import style from "./ProductTabsController.module.scss";
 import Item from "./Item";
-import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
+import { MobileTabsConfig } from "@repo/core/types/configs";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Apps } from "@repo/core/types/general";
 
 interface Props {
-  tabData: MobileHomeHeaderDataConfig[];
+  tabData: MobileTabsConfig[];
   type: Apps;
   className?: string;
   defaultTab?: string;
@@ -20,8 +20,6 @@ const TabsControllerContent: React.FC<Props> = ({
 }) => {
   const params = useSearchParams();
   const pathname = usePathname();
-
-  const appStyle = style[type];
 
   return (
     <div

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./style.module.scss";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { Apps } from "@repo/core/types/general";
@@ -40,8 +40,32 @@ function AddToCartButton({
     useCartActionsLoadingHandler();
   const { data, initLoading } = useCart();
   const orderId = data?.find(
-    (d) => d.product_id === id && d.product_type === type
+    (d) => d.product_id === id && d.product_type === type,
   )?.id;
+
+  /* To prevent Hydration Mismatch */
+  const [mounted, setMounted] = React.useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (initLoading) {
+      cartActions.getCartData();
+    }
+  }, [initLoading]);
+
+  if (!mounted) {
+    return (
+      <div
+        className={` ${
+          isFullWidth && styles.fullWidth
+        } ${className} ${styles.buttonWrapper}`}
+      >
+        <Button app={app}>{children || "افزودن به سبد خرید"}</Button>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -56,7 +80,7 @@ function AddToCartButton({
           <Button
             app={app}
             onClick={cartActionsLoadingHandler(() =>
-              cartActions.removeFromCart(orderId)
+              cartActions.removeFromCart(orderId),
             )}
             variant="outline"
           >
@@ -80,8 +104,8 @@ function AddToCartButton({
               ? onClick
               : authorizeClientAction(
                   cartActionsLoadingHandler(() =>
-                    cartActions.addToCart(id, type)
-                  )
+                    cartActions.addToCart(id, type),
+                  ),
                 )
           }
         >

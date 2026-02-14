@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import style from "./ProductLayout.module.scss";
 import { PageHeader } from "@repo/shared_modules/headers";
@@ -11,11 +8,11 @@ import {
   PreventContext,
   TabsController,
 } from "@repo/shared_modules/components";
-import { MobileHomeHeaderDataConfigWithContent } from "@repo/core/types/configs";
+import { MobileTabsConfigWithContent } from "@repo/core/types/configs";
 import ProductButton, { ProductButtonProps } from "./ProductButton";
 
 type Props = {
-  tabsData: MobileHomeHeaderDataConfigWithContent[];
+  tabsData: MobileTabsConfigWithContent[];
   app: Apps;
   title: string;
   preview: string | React.ReactNode;
@@ -25,24 +22,26 @@ type Props = {
     name: string;
     id: number;
   };
-  headerSiffix?: React.ReactNode;
+  headerSuffix?: React.ReactNode;
+  activeTab?: string;
 };
 
 const MobileProductLayout = ({
-  headerSiffix,
+  headerSuffix,
   tabsData,
   app = Apps.BASE,
   provider,
   title,
   preview,
   productButtonProps,
+  activeTab,
 }: Props) => {
-  const [activeTab, setActiveTab] = useState<any>("");
+  console.log(activeTab);
 
   return (
-    <div className={style.wrapper} onContextMenu={(e) => e.preventDefault()}>
+    <div className={style.wrapper}>
       <PreventContext />
-      <PageHeader title="" app={app} suffix={headerSiffix} haveMargin={false} />
+      <PageHeader title="" app={app} suffix={headerSuffix} haveMargin={false} />
       <div>
         <div className={style.container}>
           <div className={style.courseHeader}>
@@ -73,11 +72,21 @@ const MobileProductLayout = ({
                 <h1>{title}</h1>
               </div>
             </div>
-            <TabsController tabData={tabsData} type={app} />
+            <TabsController
+              tabData={tabsData}
+              type={app}
+              defaultTab={tabsData[0].id}
+            />
           </div>
           <div className={style.tabsContent}>
-            {tabsData.map((tab) => {
-              return tab.id === activeTab ? tab.content : null;
+            {tabsData.map((tab, i) => {
+              return activeTab
+                ? tab.id == activeTab
+                  ? tab.content
+                  : null
+                : i == 0
+                  ? tab.content
+                  : null;
             })}
           </div>
           {!!productButtonProps && <ProductButton {...productButtonProps} />}
