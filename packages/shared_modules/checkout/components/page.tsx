@@ -13,14 +13,9 @@ import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import styles from "./chekcout.module.scss";
 import { Apps } from "@repo/core/types/general";
 import PaymentMethods from "./payment_methods";
-import { Button, Loading } from "../../common/components";
-import {
-  CartPayInfo,
-  CreateOrderRequest,
-  PaymentProviders,
-} from "../types/cart";
+import { CartPayInfo, PaymentProviders } from "../types/cart";
 import { useRouter, useSearchParams } from "next/navigation";
-import { baseUrls, routePath } from "@repo/core/constants/routePath";
+import { baseUrls } from "@repo/core/constants/routePath";
 import CreateOrderButton from "./createOrderButton";
 import { PageHeader } from "../../headers";
 import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
@@ -90,7 +85,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   };
 
   const hasPhysicalProduct = cartItems?.some(
-    (item) => item.product_type === OrderType.ShopProduct
+    (item) => item.product_type === OrderType.ShopProduct,
   );
 
   useEffect(() => {

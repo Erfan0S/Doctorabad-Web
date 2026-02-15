@@ -10,7 +10,7 @@ export type IsEligibleForProviderResponse = {
   successful: boolean;
   response: {
     eligible: boolean;
-    title_massage: string;
+    title_message: string;
     description: string;
   };
 };

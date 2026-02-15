@@ -9,8 +9,6 @@ import {
 import PaymentMethodItem from "./PaymentMethodItem";
 // @ts-ignore
 import sepImage from "@repo/shared_modules/images/sep.png";
-// @ts-ignore
-import snappayImage from "@repo/shared_modules/images/snapppay.png";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useCart } from "@repo/core/states/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
@@ -29,30 +27,28 @@ type Props = {
 
 function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
   const { data: cartData, price_paid, user_credit } = useCart();
-  const installmentCartItems = cartData.filter(
-    (item) => item.installment_payment
-  );
+  const [installmentEligible, setInstallmentEligible] = useState(false);
   const [providerLoading, setProviderLoading] = useState(false);
 
   const priceToPay = calcPriceToPay(
     price_paid,
     payInfo,
     shippingMethod?.price,
-    user_credit
+    user_credit,
   );
-  const activeSnappay = !!installmentCartItems.length && priceToPay >= 4000;
+  const activeSnappay = installmentEligible && priceToPay >= 4000;
 
   const {
-    data: installmentEligible,
+    data: installmentEligibleData,
     isLoading: installmentLoading,
     refetch: installmentRefetch,
   } = useQuery({
     queryKey: ["installment_eligible", priceToPay],
     queryFn: () =>
       api.isEligibleForProvider(priceToPay, PaymentProviders.SNAPP_PAY),
-    enabled: activeSnappay,
-    retry: 0,
-    staleTime: Infinity,
+    enabled: installmentEligible,
+    staleTime: 0,
+    retry: false,
   });
 
   const PaymentMethidsConfig: PaymentMethodType[] = [
@@ -65,10 +61,10 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     {
       id: PaymentProviders.SNAPP_PAY,
       title:
-        installmentEligible?.data.data.response.title_massage ||
+        installmentEligibleData?.data.data.response.title_message ||
         "پرداخت اقساطی اسنپ‌پی",
       description:
-        installmentEligible?.data.data.response.description ||
+        installmentEligibleData?.data.data.response.description ||
         "پرداخت اقساطی اسنپ‌پی" +
           (priceToPay >= 4000
             ? `\n4 قسط ماهیانه ${priceFormatter(priceToPay / 4)}تومان\n(بدون کارمزد)`
@@ -97,9 +93,19 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
         }
       },
       isLoading: installmentLoading || providerLoading,
-      isHide: !installmentEligible?.data.data.response.eligible,
+      isHide: !installmentEligible,
     },
   ];
+
+  useEffect(() => {
+    setInstallmentEligible(!cartData.find((item) => !item.installment_payment));
+  }, [cartData, priceToPay]);
+
+  useEffect(() => {
+    if (installmentEligible) {
+      installmentRefetch();
+    }
+  }, [installmentEligible]);
 
   useEffect(() => {
     if (!activeSnappay) {
@@ -127,7 +133,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
               disabled={item.disabled}
               isLoading={item.isLoading}
             />
-          )
+          ),
         )}
       </div>
     </div>
