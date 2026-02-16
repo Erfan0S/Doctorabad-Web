@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { Loading } from "@repo/shared_modules/components";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+import sanitize from "@repo/core/utils/sanitize";
 type Props = {
   id: number;
 };
@@ -39,7 +40,7 @@ const MessagesDetail: React.FC<Props> = ({ id }: Props) => {
           </div>
           <div className={style.sidePanelMessagesDetialContent}>
             <p
-              dangerouslySetInnerHTML={{ __html: data!.body }}
+              dangerouslySetInnerHTML={{ __html: sanitize(data!.body) }}
               style={{ whiteSpace: "pre-wrap" }}
             ></p>
           </div>

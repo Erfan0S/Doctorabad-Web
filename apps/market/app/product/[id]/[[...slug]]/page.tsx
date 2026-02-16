@@ -1,12 +1,13 @@
 import { api } from "@/api/Api";
-import ProductIntro from "@/components/product/intro";
-import ProductSidebar from "@/components/product/sidebar";
-import ProductTabs from "@/components/product/tabs";
+import DesktopProductSingle from "@/components/layouts/desktop/ProductSingle";
+import MobileProductSingle from "@/components/layouts/mobile/ProductSingle";
 import { NextPageProps } from "@repo/core/types/general";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import { notFound } from "next/navigation";
 
 export default async function Product({
   params,
+  searchParams,
 }: NextPageProps<{ id: string }>) {
   try {
     const productFetcher = isNaN(Number(params.id))
@@ -16,22 +17,25 @@ export default async function Product({
     const { data } = (await productFetcher).data;
 
     const { data: relatedProductList } = await api.getRelatedProducts(
-      Number(data.id)
+      Number(data.id),
     );
 
     return (
-      <>
-        <div className="col-xl-8">
-          <ProductIntro productData={data} />
-          <ProductTabs
-            productData={data}
+      <DiviceSwitchShell
+        DesktopComponent={
+          <DesktopProductSingle
+            data={data}
             relatedProductList={relatedProductList.data}
           />
-        </div>
-        <div className="col-xl-4 d-none d-xl-block">
-          <ProductSidebar product={data} />
-        </div>
-      </>
+        }
+        MobileComponent={
+          <MobileProductSingle
+            data={data}
+            relatedProductList={relatedProductList.data}
+            searchParams={searchParams}
+          />
+        }
+      />
     );
   } catch (error) {
     notFound();
