@@ -23,7 +23,7 @@ type Props = {
     id: number;
   };
   headerSuffix?: React.ReactNode;
-  activeTab?: string;
+  tabParam?: string;
 };
 
 const MobileProductLayout = ({
@@ -34,9 +34,9 @@ const MobileProductLayout = ({
   title,
   preview,
   productButtonProps,
-  activeTab,
+  tabParam,
 }: Props) => {
-  console.log(activeTab);
+  console.log(tabParam);
 
   return (
     <div className={style.wrapper}>
@@ -51,8 +51,9 @@ const MobileProductLayout = ({
                 <Image
                   src={preview}
                   alt={title}
-                  width={100}
-                  height={44}
+                  width={0}
+                  height={0}
+                  sizes="100vh"
                   placeholder={placeHolderDataUrl}
                 />
               ) : (
@@ -80,8 +81,8 @@ const MobileProductLayout = ({
           </div>
           <div className={style.tabsContent}>
             {tabsData.map((tab, i) => {
-              return activeTab
-                ? tab.id == activeTab
+              return tabParam
+                ? tab.id == tabParam
                   ? tab.content
                   : null
                 : i == 0
