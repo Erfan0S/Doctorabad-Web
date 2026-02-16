@@ -40,26 +40,29 @@ const MobileProductLayout = ({
 
   return (
     <div className={style.wrapper}>
-      <PreventContext />
+      {/* ?: uncomment in product */}
+      {/* <PreventContext /> */}
       <PageHeader title="" app={app} suffix={headerSuffix} haveMargin={false} />
       <div>
         <div className={style.container}>
-          <div className={style.courseHeader}>
-            <div className={style.courseHeaderTop}>
+          <div className={style.producteHeader}>
+            <div className={style.producteHeaderTop}>
               {/* image or video */}
               {typeof preview === "string" ? (
-                <Image
-                  src={preview}
-                  alt={title}
-                  width={0}
-                  height={0}
-                  sizes="100vh"
-                  placeholder={placeHolderDataUrl}
-                />
+                <div className={style.ProductpreviewImage}>
+                  <Image
+                    src={preview}
+                    alt={title}
+                    width={0}
+                    height={0}
+                    sizes="100vh"
+                    placeholder={placeHolderDataUrl}
+                  />
+                </div>
               ) : (
                 preview
               )}
-              <div className={style["course-title"]}>
+              <div className={style["producte-title"]}>
                 <Link href={`/providers/${provider?.id}`}>
                   {/* provider image */}
                   <Image
