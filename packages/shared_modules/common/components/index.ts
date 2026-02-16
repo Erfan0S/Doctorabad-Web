@@ -60,3 +60,9 @@ export { default as SearchBar } from "./SearchBar";
 export { default as ProductSliderContainer } from "./MobileLayoutComponents/productSliderContainer";
 
 export { default as MobileProductLayout } from "./MobileLayoutComponents/MobileProductLayout";
+
+export { default as ProductList } from "./MobileLayoutComponents/MobileProductList";
+
+export { default as ProductListItem } from "./MobileLayoutComponents/MobileProductList/MobileProductListItem";
+
+export { default as StaticMobileProductList } from "./MobileLayoutComponents/MobileProductList/StaticMobileProductList";
