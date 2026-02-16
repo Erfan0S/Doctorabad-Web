@@ -4,13 +4,13 @@ import ToolCard from "@/components/ToolCard/ToolCard";
 import { ALL_TOOLS } from "@/data/toolsData";
 import ToolsHeader from "@/components/ToolsHeader/ToolsHeader";
 import { HeaderType } from "@/types/tools";
-import { useFavorites } from "@/hooks/useFavorites";
+import { useHomePageTools } from "@/hooks/useHomePageTools";
 
 export default function FavoritesPage() {
-  const { favorites, isLoaded } = useFavorites();
+  const { homePageTools, isLoaded } = useHomePageTools();
 
-  // فیلتر کردن ابزارها: فقط آنهایی که آی‌دی‌شان در لیست فیوریت است
-  const favoriteTools = ALL_TOOLS.filter(tool => favorites.includes(tool.id));
+  // ابزارهایی که برای نمایش در صفحه اصلی انتخاب شده‌اند
+  const selectedTools = ALL_TOOLS.filter((tool) => homePageTools.includes(tool.id));
 
   return (
     <div>
@@ -19,12 +19,12 @@ export default function FavoritesPage() {
       <div style={{ padding: "16px", paddingBottom: "80px" }}>
         {!isLoaded ? (
           <p style={{textAlign: 'center', marginTop: '20px'}}>در حال بارگذاری...</p>
-        ) : favoriteTools.length === 0 ? (
+        ) : selectedTools.length === 0 ? (
           <div style={{ textAlign: "center", marginTop: "40px", color: "#666" }}>
-            <p>لیست علاقه‌مندی‌های شما خالی است.</p>
+            <p>هنوز ابزاری برای نمایش در صفحه اصلی انتخاب نکرده‌اید.</p>
           </div>
         ) : (
-          favoriteTools.map((tool) => (
+          selectedTools.map((tool) => (
             <ToolCard key={tool.id} tool={tool} />
           ))
         )}
