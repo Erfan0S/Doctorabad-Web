@@ -8,7 +8,7 @@ import {
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
-import AmazingStarIcon from "../../../assets/svg/amazingStart";
+import AmazingStarIcon from "../../../../assets/svg/amazingStart";
 
 export type ProductButtonProps = {
   mainPrice: number;

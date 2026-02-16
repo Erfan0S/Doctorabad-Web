@@ -57,6 +57,6 @@ export { default as FavoriteHeartIcon } from "./favoriteHeartIcon";
 
 export { default as SearchBar } from "./SearchBar";
 
-export { default as ProductSliderContainer } from "./productSliderContainer";
+export { default as ProductSliderContainer } from "./MobileLayoutComponents/productSliderContainer";
 
-export { default as MobileProductLayout } from "./MobileProductLayout";
+export { default as MobileProductLayout } from "./MobileLayoutComponents/MobileProductLayout";
