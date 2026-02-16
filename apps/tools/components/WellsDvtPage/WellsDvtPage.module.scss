@@ -207,6 +207,14 @@
   z-index: 8; // یک عدد کمتر از دکمه
   background: #f0f0f0; // خاکستری
   padding: 0.5rem 1rem; // از پایین تا کمی بالاتر از دکمه
+
+  @media (min-width: 1024px) {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 800px;
+    max-width: calc(100vw - 2rem);
+  }
 }
 
 .calculateButton {
