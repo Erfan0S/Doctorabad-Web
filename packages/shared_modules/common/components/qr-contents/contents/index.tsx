@@ -2,15 +2,15 @@ import { EffectCards } from "swiper/modules";
 
 import "swiper/css/effect-cards";
 
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BookContentFile } from "@repo/core/types/bookContents";
 import styles from "./bookContents.module.scss";
 import { getMediaType } from "@repo/core/utils/getMediaType";
-
+import sanitize from "@repo/core/utils/sanitize";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import "photoswipe/style.css";
 import { MultimediaGallery } from "../../multimediaGallery/multimediaGallery";
+
 type Props = { items: BookContentFile[]; title: string };
 
 export const Contents = ({ items, title }: Props) => {
@@ -56,7 +56,7 @@ export const Contents = ({ items, title }: Props) => {
                 {body && (
                   <div
                     style={{ overflow: "auto", maxHeight: "100%" }}
-                    dangerouslySetInnerHTML={{ __html: body }}
+                    dangerouslySetInnerHTML={{ __html: sanitize(body) }}
                   ></div>
                 )}
               </div>

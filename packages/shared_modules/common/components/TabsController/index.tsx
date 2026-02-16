@@ -32,8 +32,8 @@ const TabsControllerContent: React.FC<Props> = ({
             tabData={data}
             url={data?.url}
             isActive={
-              params?.get("tab") || data?.url
-                ? params?.get("tab") === data.id || pathname === data?.url
+              !!params?.get("tab") || data?.url
+                ? params?.get("tab") == data.id || pathname === data?.url
                 : data.id === defaultTab
             }
           />

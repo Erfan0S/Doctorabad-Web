@@ -31,7 +31,7 @@ const Course = ({ course, lessonParam, activeTab }: Props) => {
   return (
     <MobileProductLayout
       tabsData={tabsData}
-      activeTab={activeTab}
+      tabParam={activeTab}
       app={Apps.LEARN}
       preview={
         <VideoPlayerComponent

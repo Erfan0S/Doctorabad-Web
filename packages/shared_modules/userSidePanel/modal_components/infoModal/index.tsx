@@ -3,6 +3,8 @@ import style from "./SidePanelClubInfo.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import Loading from "../../../common/components/loading";
+import sanitize from "@repo/core/utils/sanitize";
+
 interface Props {
   title: string;
 }
@@ -27,7 +29,9 @@ const ClubInfo: React.FC<Props> = ({ title }) => {
         <>
           <div
             className={style.sidePanelClubInfoContent}
-            dangerouslySetInnerHTML={{ __html: data!.data.data.help_text }}
+            dangerouslySetInnerHTML={{
+              __html: sanitize(data!.data.data.help_text),
+            }}
           ></div>
           <button onClick={handleCloseInfo}>حله</button>
         </>
