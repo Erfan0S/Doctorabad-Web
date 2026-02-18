@@ -27,7 +27,7 @@ const StaticMobileProductList = ({
     <div className={styles.relatedCoursesWrapper}>
       {products.map((p) => (
         <Link href={`/${p.baseUrl}/${p.id}`} key={p.id}>
-          <MobileProductListItem {...p} />
+          <MobileProductListItem app={app} {...p} />
         </Link>
       ))}
     </div>

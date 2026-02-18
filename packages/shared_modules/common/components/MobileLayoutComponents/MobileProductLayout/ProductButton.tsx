@@ -21,6 +21,8 @@ export type ProductButtonProps = {
   orderType: OrderType;
   productId: number;
   app?: Apps;
+  canIncrease?: boolean;
+  compact?: boolean;
 };
 
 export default function ProductButton({
@@ -34,6 +36,8 @@ export default function ProductButton({
   app,
   productId,
   orderType,
+  canIncrease = false,
+  compact,
 }: ProductButtonProps) {
   const { discountPercent } = getDiscountInformation(
     mainPrice,
@@ -59,6 +63,8 @@ export default function ProductButton({
             app={app}
             isFullWidth
             className={`${style.addToCartButton} ${!!offPrice && style.priceOffWrapper}`}
+            canIncrease={canIncrease}
+            compact={compact}
           >
             <span className={style.columnWrapper}>
               <span>
