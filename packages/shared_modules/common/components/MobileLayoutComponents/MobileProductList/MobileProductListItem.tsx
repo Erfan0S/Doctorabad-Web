@@ -3,6 +3,7 @@ import styles from "./MobileProductList.module.scss";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ListProductSnappayNotif } from "@repo/shared_modules/components";
 import { ProductListItemProps } from "@repo/core/types/props";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 const MobileProductListItem = ({
   baseUrl,
@@ -13,9 +14,12 @@ const MobileProductListItem = ({
   installmentPayment = false,
   lang = null,
   providerTitle,
+  price_main,
+  price_off,
+  app,
 }: ProductListItemProps) => {
   return (
-    <div className={styles.courseCard}>
+    <div className={`${styles.productCard} ${app && styles[app]}`}>
       {installmentPayment && (
         <ListProductSnappayNotif className={styles.installmentPayment} />
       )}
@@ -23,15 +27,16 @@ const MobileProductListItem = ({
         <Image
           src={pic_url || placeHolderDataUrl}
           alt={title}
-          width={115}
-          height={65}
-          className={styles.courseImage}
+          width={0}
+          height={0}
+          sizes="100vh"
+          className={styles.productImage}
           placeholder={placeHolderDataUrl}
         />
       ) : (
-        <div className={styles.courseImage} />
+        <div className={styles.productImage} />
       )}
-      <div className={styles.courseInfo}>
+      <div className={styles.productInfo}>
         <h3 className={styles.title}>{title}</h3>
         {providerTitle && <span>{providerTitle}</span>}
         <div className={styles.metadata}>
@@ -47,8 +52,22 @@ const MobileProductListItem = ({
             })}
           </div>
         </div>
+        {price_main && (
+          <div className={styles.productPrice}>
+            <div className={styles.productPriceRegular}>
+              {!!price_off && (
+                <>
+                  <span>{priceFormatter(price_main)} تومن</span>
+                </>
+              )}
+            </div>
+            <span className={styles.productPriceSale}>
+              {priceFormatter(price_off || price_main)} تومن
+            </span>
+          </div>
+        )}
       </div>
-      {!!lang ? <div className={styles.courseLanguageTag}>{lang}</div> : null}
+      {!!lang ? <div className={styles.productLanguageTag}>{lang}</div> : null}
     </div>
   );
 };

@@ -16,4 +16,7 @@ export type ProductListItemProps = {
   }[];
   installmentPayment?: boolean;
   providerTitle?: string;
+  price_main?: number;
+  price_off?: number;
+  app?: Apps;
 };
