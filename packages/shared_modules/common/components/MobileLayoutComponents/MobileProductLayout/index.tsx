@@ -39,7 +39,7 @@ const MobileProductLayout = ({
   console.log(tabParam);
 
   return (
-    <div className={style.wrapper}>
+    <div className={`${style.wrapper} ${app && style[app]}`}>
       {/* ?: uncomment in product */}
       {/* <PreventContext /> */}
       <PageHeader title="" app={app} suffix={headerSuffix} haveMargin={false} />
@@ -93,7 +93,9 @@ const MobileProductLayout = ({
                   : null;
             })}
           </div>
-          {!!productButtonProps && <ProductButton {...productButtonProps} />}
+          {!!productButtonProps && (
+            <ProductButton app={app} {...productButtonProps} />
+          )}
         </div>
       </div>
     </div>

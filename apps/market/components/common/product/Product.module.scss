@@ -1,23 +1,5 @@
 @import "@/assets/styles/functions";
 
-@mixin cart-button {
-  flex: 0 0 calc(100% - 55px);
-  width: calc(100% - 55px);
-  border: unset;
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-  line-height: 45px;
-  height: 45px;
-  outline: unset;
-  font-size: 13px;
-  margin-left: space(2.5);
-  border-radius: radius(3);
-  padding: 0;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
 .mobileLayout {
   .productButtons {
     > button,
@@ -81,6 +63,23 @@
     }
   }
 
+  &VariantButton {
+    min-height: 41px;
+  }
+
+  &AddToCart,
+  &NoStock,
+  &VariantButton {
+    font-size: 12px;
+    gap: 5px;
+    flex: 1;
+    > button,
+    > div > div {
+      font-size: 12px;
+      min-height: 41px;
+    }
+  }
+
   &Title {
     min-height: 54px;
     margin-bottom: space(2);
@@ -138,31 +137,7 @@
   &Buttons {
     display: flex;
     align-items: center;
-  }
-  &NoStock {
-    background: #a6a6a6;
-    color: #fff;
-    @include cart-button;
-  }
-  &QuantityButton {
-    margin-left: space(2.5);
-    flex: auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  &AddToCart {
-    @include cart-button;
-    background: $header-nav-bg;
-
-    transition: 0.15s;
-
-    &:hover {
-      color: #fff;
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-    }
-    &:focus {
-      outline: unset;
-    }
+    gap: 5px;
   }
 
   &AddToFavorite {
@@ -191,15 +166,6 @@
   }
 
   .product {
-    &AddToCart {
-      width: 100px;
-      margin-left: space(1);
-      flex-basis: auto;
-    }
-    &QuantityButton {
-      width: 100px !important;
-      flex: none !important;
-    }
     &.gridView {
       display: flex;
       padding: 6px;
@@ -228,6 +194,22 @@
       }
       .productButtons .productAddToFavorite {
         display: none;
+      }
+    }
+
+    &AddToCart,
+    &NoStock,
+    &VariantButton {
+      font-size: 15px;
+
+      > button,
+      > div > div {
+        padding: 7px 0;
+        font-size: 15px;
+        button {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
 

@@ -15,6 +15,7 @@ import MarketHeader from "@/components/common/header/market";
 import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
 import { Apps } from "@repo/core/types/general";
+import { marketPaths } from "@repo/core/constants/routePath";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -46,7 +47,7 @@ export default async function RootLayout({
             />
 
             <main>{children}</main>
-            <MobileNavBar />
+            <MobileNavBar excludePaths={[marketPaths.single]} />
 
             <DiviceSwitchShell
               DesktopComponent={<Footer statistic={statistic} />}

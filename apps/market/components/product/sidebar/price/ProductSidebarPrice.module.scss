@@ -18,7 +18,7 @@
         flex-direction: row-reverse;
         align-items: center;
         > small {
-          background-color: $gray;
+          background: $button-bg-orange;
           padding: 0 space(2);
           font-size: 12px;
           border-radius: radius(1);
@@ -43,6 +43,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        color: $orange;
         small {
           margin-right: space(1);
         }
@@ -53,10 +54,12 @@
   &Button {
     flex: 0 0 60%;
     width: 60%;
+    > button,
+    > div {
+      width: 100%;
+    }
     &NoStuck {
       background: $gray !important;
-    }
-    button {
       width: 100%;
       border: unset;
       color: #fff;
@@ -74,66 +77,6 @@
 
       &:hover {
         box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-
-  &.orange {
-    #{$productSidebarPrice}Number {
-      div {
-        &:first-of-type {
-          > small {
-            background: $button-bg-orange;
-          }
-        }
-        &:last-of-type {
-          color: $orange;
-        }
-      }
-    }
-    #{$productSidebarPrice}Button {
-      button {
-        background: $button-bg-orange;
-      }
-    }
-  }
-
-  &.blue {
-    #{$productSidebarPrice}Number {
-      div {
-        &:first-of-type {
-          > small {
-            background: $button-bg-blue;
-          }
-        }
-        &:last-of-type {
-          color: $darkBlue;
-        }
-      }
-    }
-    #{$productSidebarPrice}Button {
-      button {
-        background: $button-bg-blue;
-      }
-    }
-  }
-
-  &.gray {
-    #{$productSidebarPrice}Number {
-      div {
-        &:first-of-type {
-          > small {
-            background: $gray;
-          }
-        }
-        &:last-of-type {
-          color: $orange;
-        }
-      }
-    }
-    #{$productSidebarPrice}Button {
-      button {
-        background: $gray;
       }
     }
   }
