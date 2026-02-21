@@ -39,6 +39,17 @@ export default withPWA({
   sassOptions: {
     quietDeps: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/mp/:id*", 
+
+        destination: "/pharmacy/:id*", 
+        permanent: true, 
+        basePath: false, 
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
