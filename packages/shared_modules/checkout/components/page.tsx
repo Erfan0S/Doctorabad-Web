@@ -18,7 +18,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { baseUrls } from "@repo/core/constants/routePath";
 import CreateOrderButton from "./createOrderButton";
 import { PageHeader } from "../../headers";
-import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
+import {
+  REDIRECTED_APP_KEY,
+  TRACK_CHANGES,
+} from "@repo/core/constants/queryKeys";
 
 type Props = {
   app?: Apps;
@@ -39,7 +42,8 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
 
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
-    queryKey: ["addressList"],
+    // TODO: change this to context
+    queryKey: ["addressList", searchParams.get(TRACK_CHANGES)],
   });
 
   useEffect(() => {
