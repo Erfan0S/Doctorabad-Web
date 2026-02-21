@@ -30,7 +30,7 @@ export const AddAddressModal = ({
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["addressList"] });
 
-      const currentTC = Number(searchParams.get(TRACK_CHANGES));
+      const currentTC = Number(searchParams?.get(TRACK_CHANGES));
       setTimeout(() => {
         if (!isNaN(currentTC)) {
           changeSearchParams({

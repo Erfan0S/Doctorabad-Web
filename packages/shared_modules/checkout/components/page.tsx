@@ -43,7 +43,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   const { data: address, isLoading: loadingAddress } = useQuery({
     queryFn: api.getAddressesList,
     // TODO: change this to context
-    queryKey: ["addressList", searchParams.get(TRACK_CHANGES)],
+    queryKey: ["addressList", searchParams?.get(TRACK_CHANGES)],
   });
 
   useEffect(() => {
