@@ -11,17 +11,26 @@ import { Apps } from "@repo/core/types/general";
 
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api"; // مسیر سرویست
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
+
+
 
 interface Props {
   closeModal: (clearModals?: boolean) => void;
 }
 
+
+
 const ClinicPlans: React.FC<Props> = ({ closeModal }) => {
+  const isLoggedIn = generalAuthorizeState((state) => state.isAuthorized);
   // ------------------ API CALL ------------------
 
   const { data, isLoading, isError } = useQuery({
+
     queryKey: ["discount-plans"],
     queryFn: async () => (await clinicApi.getDiscountPlans()).data.data,
+    enabled: isLoggedIn,
   });
 
   // ------------------ Local State ------------------

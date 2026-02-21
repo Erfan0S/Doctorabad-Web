@@ -33,9 +33,8 @@ export default function CategoryTabs({
 
     if (e) {
       try {
-        el.releasePointerCapture(e.pointerId);
+        (e.target as HTMLElement).releasePointerCapture(e.pointerId);
       } catch {
-        // ignore
       }
     }
   };
@@ -44,7 +43,6 @@ export default function CategoryTabs({
     const el = scrollRef.current;
     if (!el) return;
 
-    // فقط دکمه اصلی ماوس
     if (e.pointerType === "mouse" && e.button !== 0) return;
 
     isDraggingRef.current = true;
@@ -56,9 +54,8 @@ export default function CategoryTabs({
     setDragging(true);
 
     try {
-      el.setPointerCapture(e.pointerId);
+      (e.target as HTMLElement).setPointerCapture(e.pointerId);
     } catch {
-      // ignore
     }
   };
 
@@ -68,12 +65,11 @@ export default function CategoryTabs({
 
     const dx = e.clientX - startXRef.current;
 
-    if (Math.abs(dx) > 4) draggedRef.current = true; // برای جلوگیری از کلیکِ ناخواسته بعد از درگ
+    if (Math.abs(dx) > 4) draggedRef.current = true; 
     el.scrollLeft = startScrollLeftRef.current - dx;
   };
 
   const handleTabClick = (categoryId: number | null) => (e: React.MouseEvent) => {
-    // اگر کاربر درگ کرده، کلیک را نادیده بگیر (و فلگ را ریست کن)
     if (draggedRef.current) {
       e.preventDefault();
       e.stopPropagation();
