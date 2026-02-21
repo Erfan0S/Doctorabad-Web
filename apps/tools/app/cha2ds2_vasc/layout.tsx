@@ -10,8 +10,8 @@ export default function RootLayout({
     <>
       <ToolsHeader
         headerPageType={HeaderType.TOOL_DETAILS}
-        title="Wells PTE"
-        toolData={{ id: "wells-pte", title: "Wells PTE" }}
+        title="CHA2DS2-VASC"
+        toolData={{ id: "cha2ds2_vasc", title: "CHA2DS2-VASC" }}
       ></ToolsHeader>
       {children}
     </>

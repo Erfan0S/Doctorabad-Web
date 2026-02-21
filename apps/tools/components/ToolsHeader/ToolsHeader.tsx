@@ -48,7 +48,8 @@ export default function ToolsHeader({
       return {
         title: toolData?.title,
         description: `${toolData?.title} را در دکترآباد ببینید: `,
-        url: window.location.href, // اشتراک‌گذاری آدرس فعلی
+        url: `https://doctorabad.com/mt/dt/${toolData?.id}`,
+        
       };
     }
   );

@@ -69,7 +69,7 @@ export default function PharmacyHeader({
       return {
         title: medicineData?.title_fa,
         description: `${medicineData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/pharmacy/${id}`,
+        url: `https://doctorabad.com/mp/${id}`,
       };
     }
   );

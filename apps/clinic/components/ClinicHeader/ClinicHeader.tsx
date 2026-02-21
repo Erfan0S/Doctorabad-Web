@@ -69,7 +69,7 @@ export default function ClinicHeader({
       return {
         title: diseaseData?.title_fa,
         description: `${diseaseData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/clinic/${id}`,
+        url: `https://doctorabad.com/mc/${id}`,
       };
     }
   );

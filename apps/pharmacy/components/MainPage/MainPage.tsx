@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation"; 
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import PharmacySearchSection from "@/components/PharmacySearchSection/PharmacySearchSection";
 import styles from "./page.module.scss";
@@ -20,8 +20,8 @@ export default function PharmacyHomePage() {
   const initialSearch = searchParams.get("q") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState(initialSearch); 
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch); 
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch);
 
   const isSearchMode = searchQuery.length > 0;
 
@@ -35,7 +35,7 @@ export default function PharmacyHomePage() {
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
-    
+
     if (debouncedSearchQuery) {
       if (params.get("q") !== debouncedSearchQuery) {
         params.set("q", debouncedSearchQuery);
@@ -52,7 +52,7 @@ export default function PharmacyHomePage() {
   const handleClearSearch = () => {
     setSearchQuery("");
     setDebouncedSearchQuery("");
-    
+
     const params = new URLSearchParams(searchParams.toString());
     params.delete("q");
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
@@ -60,13 +60,13 @@ export default function PharmacyHomePage() {
 
   return (
     <div className={styles.container}>
-      <PharmacyHeader headerPageType={HeaderType.HOME} title="داروخانه من"   onBackClick={isSearchMode ? handleClearSearch : undefined} />
-      <PharmacySearchSection 
+      <PharmacyHeader headerPageType={HeaderType.HOME} title="داروخانه من" onBackClick={isSearchMode ? handleClearSearch : undefined} />
+      <PharmacySearchSection
         onSearchChange={setSearchQuery}
         onSearchDebounced={setDebouncedSearchQuery}
-        searchQuery={searchQuery} 
+        searchQuery={searchQuery}
       />
-      
+
       {!isSearchMode && (
         <>
           <PharmacySliderSection />
@@ -81,7 +81,7 @@ export default function PharmacyHomePage() {
         selectedCategory={selectedCategory}
         searchQuery={searchQuery}
         debouncedSearchQuery={debouncedSearchQuery}
-        />
+      />
     </div>
   );
 }
