@@ -8,16 +8,23 @@ import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 interface PharmacySearchSectionProps {
   onSearchChange: (query: string) => void;
   onSearchDebounced: (query: string) => void;
+  initialValue?: string; // پراپ جدید
 }
 
 export default function PharmacySearchSection({
   onSearchChange,
   onSearchDebounced,
+  initialValue = "", 
 }: PharmacySearchSectionProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialValue);
   const router = useRouter();
   const trimmedQuery = useMemo(() => searchQuery.trim(), [searchQuery]);
-  const debouncedSearch = useDebounceAction(onSearchDebounced, 5000);
+  const debouncedSearch = useDebounceAction(onSearchDebounced, 3000);
+
+  useEffect(() => {
+    setSearchQuery(initialValue);
+  }, [initialValue]);
+
   useEffect(() => {
     onSearchChange(trimmedQuery);
   }, [trimmedQuery, onSearchChange]);
