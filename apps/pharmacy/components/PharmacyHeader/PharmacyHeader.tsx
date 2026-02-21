@@ -22,11 +22,13 @@ import {
 interface PharmacyHeaderProps {
   title?: string;
   headerPageType: HeaderType;
+  onBackClick?: () => void; // پراپ جدید اضافه شد
 }
 
 export default function PharmacyHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
+  onBackClick
 }: PharmacyHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
@@ -75,6 +77,16 @@ export default function PharmacyHeader({
   const handleShareButton = () => {
     shareProduct();
   };
+  const handleBack = () => {
+    // اگر تابع از پدر فرستاده شده بود (مثل حالت جستجو در صفحه اصلی)، آن را اجرا کن
+    if (onBackClick) {
+      onBackClick();
+      return;
+    }
+    
+    // در غیر این صورت، رفتار پیش‌فرض (بازگشت به صفحه قبل)
+    router.back();
+  };
 
   return (
     <header className={styles.header}>
@@ -109,7 +121,7 @@ export default function PharmacyHeader({
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => router.back()}>
+          <div className={styles.backBtn} onClick={handleBack}>
             <BackArrow strokeWidth={2}></BackArrow>
           </div>
         </div>

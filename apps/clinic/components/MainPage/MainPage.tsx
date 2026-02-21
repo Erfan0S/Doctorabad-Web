@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation"; // اضافه شده
+import { useSearchParams, useRouter, usePathname } from "next/navigation"; 
 import ClinicHeader from "@/components/ClinicHeader/ClinicHeader";
 import ClinicSearchSection from "@/components/ClinicSearchSection/ClinicSearchSection";
 import styles from "./page.module.scss";
@@ -17,37 +17,56 @@ export default function ClinicHomePage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // دریافت مقدار اولیه از URL
   const initialSearch = searchParams.get("q") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState(initialSearch); // مقدار اولیه
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch); // مقدار اولیه
+  const [searchQuery, setSearchQuery] = useState(initialSearch); 
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch); 
 
   const isSearchMode = searchQuery.length > 0;
 
-    // همگام‌سازی URL با مقدار جستجو
-    useEffect(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      
-      if (debouncedSearchQuery) {
+  useEffect(() => {
+    const currentQ = searchParams.get("q") || "";
+    if (currentQ !== debouncedSearchQuery) {
+      setSearchQuery(currentQ);
+      setDebouncedSearchQuery(currentQ);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    
+    if (debouncedSearchQuery) {
+      if (params.get("q") !== debouncedSearchQuery) {
         params.set("q", debouncedSearchQuery);
-      } else {
-        params.delete("q");
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
       }
-  
-      // استفاده از replace برای جلوگیری از ایجاد تاریخچه اضافی هنگام تایپ
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-    }, [debouncedSearchQuery, pathname, router]);
-  
+    } else {
+      if (params.has("q")) {
+        params.delete("q");
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      }
+    }
+  }, [debouncedSearchQuery, pathname, router]);
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setDebouncedSearchQuery("");
+    
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("q");
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
 
   return (
     <div className={styles.container}>
-      <ClinicHeader headerPageType={HeaderType.OTHERS} title="کلینیک من" />
+      <ClinicHeader headerPageType={HeaderType.HOME} title="کلینیک من"           onBackClick={isSearchMode ? handleClearSearch : undefined} 
+ />
       <ClinicSearchSection
         onSearchChange={setSearchQuery}
         onSearchDebounced={setDebouncedSearchQuery}
-        initialValue={initialSearch} 
+        searchQuery={searchQuery} 
       />
 
       {!isSearchMode && (

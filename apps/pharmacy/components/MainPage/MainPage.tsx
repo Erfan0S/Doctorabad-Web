@@ -17,37 +17,54 @@ export default function PharmacyHomePage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // دریافت مقدار اولیه از URL
   const initialSearch = searchParams.get("q") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState(initialSearch); // مقدار اولیه
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch); // مقدار اولیه
-  
+  const [searchQuery, setSearchQuery] = useState(initialSearch); 
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch); 
+
   const isSearchMode = searchQuery.length > 0;
 
-    // همگام‌سازی URL با مقدار جستجو
-    useEffect(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      
-      if (debouncedSearchQuery) {
+  useEffect(() => {
+    const currentQ = searchParams.get("q") || "";
+    if (currentQ !== debouncedSearchQuery) {
+      setSearchQuery(currentQ);
+      setDebouncedSearchQuery(currentQ);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    
+    if (debouncedSearchQuery) {
+      if (params.get("q") !== debouncedSearchQuery) {
         params.set("q", debouncedSearchQuery);
-      } else {
-        params.delete("q");
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
       }
-  
-      // استفاده از replace برای جلوگیری از ایجاد تاریخچه اضافی هنگام تایپ
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-    }, [debouncedSearchQuery, pathname, router]);
-  
+    } else {
+      if (params.has("q")) {
+        params.delete("q");
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      }
+    }
+  }, [debouncedSearchQuery, pathname, router]);
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setDebouncedSearchQuery("");
+    
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("q");
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <div className={styles.container}>
-      <PharmacyHeader headerPageType={HeaderType.OTHERS} title="داروخانه من" />
+      <PharmacyHeader headerPageType={HeaderType.HOME} title="داروخانه من"   onBackClick={isSearchMode ? handleClearSearch : undefined} />
       <PharmacySearchSection 
         onSearchChange={setSearchQuery}
         onSearchDebounced={setDebouncedSearchQuery}
-        initialValue={initialSearch} 
+        searchQuery={searchQuery} 
       />
       
       {!isSearchMode && (
