@@ -1,7 +1,7 @@
 // app/pharmacy/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import PharmacyHeader from "@/components/PharmacyHeader/PharmacyHeader";
 import PharmacySearchSection from "@/components/PharmacySearchSection/PharmacySearchSection";
@@ -11,17 +11,19 @@ import PharmacySliderSection from "@/components/PharmacySlider/PharmacySliderSec
 import CategoryTabsSection from "@/components/CategoryTabs/CategoryTabsSection";
 import MedicineListSection from "@/components/MedicineList/MedicineListSection";
 
-
 export default function PharmacyHomePage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const medicineListRef = useRef<HTMLDivElement>(null);
+
   const initialSearch = searchParams.get("q") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearch);
+  const [debouncedSearchQuery, setDebouncedSearchQuery] =
+    useState(initialSearch);
 
   const isSearchMode = searchQuery.length > 0;
 
@@ -58,9 +60,29 @@ export default function PharmacyHomePage() {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  const handleCategorySelectAndScroll = (categoryId: number | null) => {
+    setSelectedCategory(categoryId);
+
+    if (medicineListRef.current) {
+      const listPosition = medicineListRef.current.getBoundingClientRect().top;
+      const headerAndTabsHeight = 170;
+
+      const scrollToY = listPosition + window.scrollY - headerAndTabsHeight;
+
+      window.scrollTo({
+        top: scrollToY,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <PharmacyHeader headerPageType={HeaderType.HOME} title="داروخانه من" onBackClick={isSearchMode ? handleClearSearch : undefined} />
+      <PharmacyHeader
+        headerPageType={HeaderType.HOME}
+        title="داروخانه من"
+        onBackClick={isSearchMode ? handleClearSearch : undefined}
+      />
       <PharmacySearchSection
         onSearchChange={setSearchQuery}
         onSearchDebounced={setDebouncedSearchQuery}
@@ -72,17 +94,17 @@ export default function PharmacyHomePage() {
           <PharmacySliderSection />
           <CategoryTabsSection
             selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
+            onSelectCategory={handleCategorySelectAndScroll}
           />
         </>
       )}
-
-      <MedicineListSection
-        selectedCategory={selectedCategory}
-        searchQuery={searchQuery}
-        debouncedSearchQuery={debouncedSearchQuery}
-      />
+      <div ref={medicineListRef}>
+        <MedicineListSection
+          selectedCategory={selectedCategory}
+          searchQuery={searchQuery}
+          debouncedSearchQuery={debouncedSearchQuery}
+        />
+      </div>
     </div>
   );
 }
-

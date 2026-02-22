@@ -1,7 +1,7 @@
 // app/clinic/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import ClinicHeader from "@/components/ClinicHeader/ClinicHeader";
 import ClinicSearchSection from "@/components/ClinicSearchSection/ClinicSearchSection";
@@ -15,6 +15,8 @@ export default function ClinicHomePage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const diseaseListRef = useRef<HTMLDivElement>(null);
 
   const initialSearch = searchParams.get("q") || "";
 
@@ -58,6 +60,22 @@ export default function ClinicHomePage() {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  const handleCategorySelectAndScroll = (categoryId: number | null) => {
+    setSelectedCategory(categoryId);
+
+    if (diseaseListRef.current) {
+      const listPosition = diseaseListRef.current.getBoundingClientRect().top;
+      const headerAndTabsHeight = 170;
+
+      const scrollToY = listPosition + window.scrollY - headerAndTabsHeight;
+
+      window.scrollTo({
+        top: scrollToY,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className={styles.container}>
       <ClinicHeader
@@ -76,16 +94,18 @@ export default function ClinicHomePage() {
           <ClinicSliderSection />
           <CategoryTabsSection
             selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
+            onSelectCategory={handleCategorySelectAndScroll}
           />
         </>
       )}
 
-      <DiseaseListSection
-        selectedCategory={selectedCategory}
-        searchQuery={searchQuery}
-        debouncedSearchQuery={debouncedSearchQuery}
-      />
+      <div ref={diseaseListRef}>
+        <DiseaseListSection
+          selectedCategory={selectedCategory}
+          searchQuery={searchQuery}
+          debouncedSearchQuery={debouncedSearchQuery}
+        />
+      </div>
     </div>
   );
 }

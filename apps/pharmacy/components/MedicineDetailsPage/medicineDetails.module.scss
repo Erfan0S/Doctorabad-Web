@@ -4,9 +4,11 @@
   color: #222;
 }
 .header {
-  position: relative;
-    padding-top: 1rem;
-    background: $green;
+  position: sticky;
+  z-index: 100;
+  top: 62px;
+  padding-top: 1rem;
+  background: $green;
   --img-size: 6.7rem;
   --img-offset-right: 10px;
 
@@ -52,30 +54,25 @@
 
     background-color: white;
 
-    min-height: 3rem;
+    min-height: 4rem;
 
     padding-inline: 20px;
     padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
   }
 }
 
-
-
-
 .pillsIcon {
-
-      width: var(--img-size);
-      height: var(--img-size);
-      position: absolute;
-      right: var(--img-offset-right);
-      bottom: calc(var(--img-size) / -2);
-      border-radius: 23px;
-      background: white;
-      border: solid 4px white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      padding: 15px;
+  width: var(--img-size);
+  height: var(--img-size);
+  position: absolute;
+  right: var(--img-offset-right);
+  bottom: calc(var(--img-size) / -2);
+  border-radius: 23px;
+  background: white;
+  border: solid 4px white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 15px;
 }
-
 
 .title_fa {
   color: $green;
@@ -125,8 +122,7 @@
   font-size: 0.9rem;
   direction: rtl;
   line-height: 1.6;
-  margin:-0.25rem -4rem 0 -4rem;
-
+  margin: -0.25rem -4rem 0 -4rem;
 }
 
 .directionContainer {
@@ -185,8 +181,6 @@
     }
   }
 }
-
-
 
 .fileImageWrapper {
   width: 100%;
