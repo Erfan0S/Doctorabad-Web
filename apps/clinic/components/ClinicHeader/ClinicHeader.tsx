@@ -117,7 +117,6 @@ export default function ClinicHeader({
             >
               <Heart
                 size={32}
-                strokeWidth={2}
                 fill={isFavorite ? "#57d43b" : "none"}
               />
             </div>

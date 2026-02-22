@@ -74,13 +74,24 @@ export default function WellsDvtPage() {
           <div className={styles.parameters}>
             {parameters.map((item, index) => (
               <Fragment key={item.id}>
-                <div className={styles.parameterRow}>
+                <div
+                  className={styles.parameterRow}
+                  onClick={() => toggleParameter(item.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && toggleParameter(item.id)
+                  }
+                >
                   <div>
 
                     <span className={styles.parameterText}>{item.title}</span>
                     {item.id === 3 ? <><br/><span className={styles.subText}>(بیش از ۳ سانتی‌متر افزایش قطر ۱۰ سانتی‌متر پاین‌تر از توبروزیته تیبیا نسبت به پای مقابل)</span></> : null}
                   </div>
-                  <label className={styles.switch}>
+                  <label
+                    className={styles.switch}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <input
                       type="checkbox"
                       checked={selectedIds.includes(item.id)}

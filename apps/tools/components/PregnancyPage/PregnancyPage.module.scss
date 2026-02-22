@@ -302,6 +302,9 @@
 }
 
 .listItems {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   .item {
     display: flex;
     justify-content: right;

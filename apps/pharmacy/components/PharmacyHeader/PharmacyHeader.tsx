@@ -22,7 +22,7 @@ import {
 interface PharmacyHeaderProps {
   title?: string;
   headerPageType: HeaderType;
-  onBackClick?: () => void; // پراپ جدید اضافه شد
+  onBackClick?: () => void;
 }
 
 export default function PharmacyHeader({
@@ -34,7 +34,6 @@ export default function PharmacyHeader({
   const { id } = useParams();
   const medicineId = id ? Number(id) : undefined;
 
-  // فقط برای صفحه جزئیات دارو، داده را fetch می‌کنیم
   const { data: medicineData } = useQuery({
     queryKey: ["medicine-details", medicineId],
     queryFn: async () => {
@@ -78,13 +77,11 @@ export default function PharmacyHeader({
     shareProduct();
   };
   const handleBack = () => {
-    // اگر تابع از پدر فرستاده شده بود (مثل حالت جستجو در صفحه اصلی)، آن را اجرا کن
     if (onBackClick) {
       onBackClick();
       return;
     }
     
-    // در غیر این صورت، رفتار پیش‌فرض (بازگشت به صفحه قبل)
     router.back();
   };
 
@@ -115,14 +112,13 @@ export default function PharmacyHeader({
             >
               <Heart
                 size={32}
-                strokeWidth={2}
                 fill={isFavorite ? "#57d43b" : "none"}
               />
             </div>
           )}
 
           <div className={styles.backBtn} onClick={handleBack}>
-            <BackArrow strokeWidth={2}></BackArrow>
+            <BackArrow ></BackArrow>
           </div>
         </div>
       </div>

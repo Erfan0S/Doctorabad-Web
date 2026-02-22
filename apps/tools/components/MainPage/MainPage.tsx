@@ -15,7 +15,7 @@ export default function ToolsListPage() {
         toolData={{ id: "all-tools", title: "ابزارهای من" }}
       />
       
-      <div style={{ padding: "16px", paddingBottom: "80px" }}>
+      <div style={{ paddingLeft: "16px", paddingRight: "16px" , paddingTop: "10px"}}>
         {ALL_TOOLS.map((tool) => (
           <ToolCard key={tool.id} tool={tool} />
         ))}

@@ -94,7 +94,16 @@ export default function GCSPage() {
             <div className={styles.sectionContent}>
               <div className={styles.listItems}>
                 {eyeItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedEye(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedEye(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedEye === item.id}
@@ -113,7 +122,16 @@ export default function GCSPage() {
             <div className={styles.sectionContent}>
               <div className={styles.listItems}>
                 {verbalItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedVerbal(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedVerbal(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedVerbal === item.id}
@@ -132,7 +150,16 @@ export default function GCSPage() {
             <div className={styles.sectionContent}>
               <div className={styles.listItems}>
                 {motorItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedMotor(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedMotor(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedMotor === item.id}

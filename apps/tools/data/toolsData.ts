@@ -110,7 +110,7 @@ export const ALL_TOOLS: Tool[] = [
     description: "تخمین ریسک سکته مغزی در بیماران قلبی",
     iconChar: "C",
     colorClass: "blue-dark", // سرمه‌ای
-    href: "/cha2ds2-vasc",
+    href: "/cha2ds2_vasc",
   },
   {
     id: "chads2",

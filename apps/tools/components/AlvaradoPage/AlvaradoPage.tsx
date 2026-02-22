@@ -73,9 +73,20 @@ export default function AlvardoPage() {
           <div className={styles.parameters}>
             {parameters.map((item, index) => (
               <Fragment key={item.id}>
-                <div className={styles.parameterRow}>
+                <div
+                  className={styles.parameterRow}
+                  onClick={() => toggleParameter(item.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && toggleParameter(item.id)
+                  }
+                >
                   <span className={styles.parameterText}>{item.title}</span>
-                  <label className={styles.switch}>
+                  <label
+                    className={styles.switch}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <input
                       type="checkbox"
                       checked={selectedIds.includes(item.id)}

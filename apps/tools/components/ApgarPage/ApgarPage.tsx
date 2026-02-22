@@ -103,7 +103,16 @@ export default function ApgarPage() {
             <div className={styles.sectionContent}>
               <div className={styles.listItems}>
                 {heartRateItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedHeartRate(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedHeartRate(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedHeartRate === item.id}
@@ -121,7 +130,16 @@ export default function ApgarPage() {
               {" "}
               <div className={styles.listItems}>
                 {breathingItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedBreathing(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedBreathing(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedBreathing === item.id}
@@ -139,7 +157,16 @@ export default function ApgarPage() {
               {" "}
               <div className={styles.listItems}>
                 {muscleItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedMuscle(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedMuscle(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedMuscle === item.id}
@@ -157,7 +184,16 @@ export default function ApgarPage() {
               {" "}
               <div className={styles.listItems}>
                 {reflexItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedReflex(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedReflex(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedReflex === item.id}
@@ -175,7 +211,16 @@ export default function ApgarPage() {
               {" "}
               <div className={styles.listItems}>
                 {skinColorItems.map((item) => (
-                  <div className={styles.item} key={item.id}>
+                  <div
+                    className={styles.item}
+                    key={item.id}
+                    onClick={() => setSelectedSkinColor(item.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedSkinColor(item.id)
+                    }
+                  >
                     <input
                       type="radio"
                       checked={selectedSkinColor === item.id}
