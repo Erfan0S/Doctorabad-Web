@@ -7,7 +7,7 @@ import {
 } from "../constants/routePath";
 import { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
 import { isServerSide } from "../constants/constants";
-import { OrderType } from "../types/cart";
+import { DiscountPlanType, OrderType } from "../types/cart";
 
 interface ParamsStringifyOptions {
   appendPrevSearchParams?: boolean;
@@ -23,8 +23,8 @@ export class SearchParamsUtils {
 
     const queryParams = new URLSearchParams(
       searchParams.slice(
-        startSearchParamsPosition === -1 ? 0 : startSearchParamsPosition + 1
-      )
+        startSearchParamsPosition === -1 ? 0 : startSearchParamsPosition + 1,
+      ),
     );
 
     const queryObject: { [key: string]: string } = {};
@@ -42,19 +42,19 @@ export class SearchParamsUtils {
       appendPrevSearchParams,
       customPrevSearchParam,
       questionMarkPrefix,
-    }: ParamsStringifyOptions = {}
+    }: ParamsStringifyOptions = {},
   ) {
     const paramsObject = {
       ...(appendPrevSearchParams
         ? SearchParamsUtils.paramsToObject(
-            customPrevSearchParam ? customPrevSearchParam : undefined
+            customPrevSearchParam ? customPrevSearchParam : undefined,
           )
         : {}),
       ...qs,
     };
 
     let params = new URLSearchParams(
-      purgeObjectFromFalsyValues(paramsObject, true)
+      purgeObjectFromFalsyValues(paramsObject, true),
     ).toString();
     if (questionMarkPrefix) params = `?${params}`;
 
@@ -75,7 +75,8 @@ export const generateSingleProviderUrlFromId = (id: number) => {
 export const generateSingleProductUrlFromId = (
   id: number,
   slug: string = "",
-  type: OrderType = OrderType.ShopProduct
+  type: OrderType = OrderType.ShopProduct,
+  discount_plan_type?: DiscountPlanType | null,
 ) => {
   const getSlug = () => (!!slug ? slug : "");
 
@@ -86,6 +87,15 @@ export const generateSingleProductUrlFromId = (
       return `${baseUrls.learn}${learnPaths.single}/${id}/${getSlug()}`;
     case OrderType.Exam:
       return `${baseUrls.exam}${examPaths.single}`;
+    case OrderType.DiscountPlan: {
+      if (discount_plan_type == DiscountPlanType.CLINIC) {
+        return `${baseUrls.clinic}`;
+      } else if (discount_plan_type == DiscountPlanType.EXAM) {
+        return `${baseUrls.exam}`;
+      } else if (discount_plan_type == DiscountPlanType.LERN) {
+        return `${baseUrls.learn}`;
+      }
+    }
 
     default:
       return `${baseUrls.market}${marketPaths.single}/${id}/${getSlug()}`;

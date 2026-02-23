@@ -8,8 +8,6 @@ import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { DiscountPlanType, Order, OrderType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
-// @ts-ignore
-import snappayImage from "@repo/shared_modules/images/snapppay_2.png";
 import {
   ListProductSnappayNotif,
   Loading,
@@ -21,6 +19,8 @@ import { Apps } from "@repo/core/types/general";
 import examLogo from "@repo/shared_modules/images/doctor-exam.png";
 // @ts-ignore
 import learnLogo from "@repo/shared_modules/images/doctor-learn.png";
+// @ts-ignore
+import clinicPlanLogo from "@repo/shared_modules/images/heart.png";
 // @ts-ignore
 import marketLogo from "@repo/shared_modules/images/doctor-market.png";
 import { modalActions } from "@repo/core/modal/modals";
@@ -41,7 +41,12 @@ const CartItem = ({
   installment_payment,
   discount_plan_type,
 }: Order) => {
-  const url = generateSingleProductUrlFromId(product_id, "", product_type);
+  const url = generateSingleProductUrlFromId(
+    product_id,
+    "",
+    product_type,
+    discount_plan_type,
+  );
 
   const canIncrease = product_type === OrderType.ShopProduct;
   const { cartActionsLoadingHandler, updateCartLoading } =
@@ -55,14 +60,32 @@ const CartItem = ({
     product_type === OrderType.Course ||
     (product_type === OrderType.DiscountPlan &&
       discount_plan_type === DiscountPlanType.LERN);
+  const isClinic =
+    product_type === OrderType.DiscountPlan &&
+    discount_plan_type === DiscountPlanType.CLINIC;
+  const isMarket = product_type === OrderType.ShopProduct;
+  const description = (): string | null => {
+    if (isExam) {
+      return "مرکز آزمون";
+    } else if (isLearn) {
+      return "مرکز آموزش";
+    } else if (isClinic) {
+      return "کلینیک من";
+    } else if (isMarket) {
+      return "مرکز خرید";
+    }
+    return null;
+  };
 
   const defaultImage = () => {
     if (isExam) {
       return examLogo;
     } else if (isLearn) {
       return learnLogo;
-    } else if (product_type === OrderType.ShopProduct) {
+    } else if (isMarket) {
       return marketLogo;
+    } else if (isClinic) {
+      return clinicPlanLogo;
     }
     return placeHolderDataUrl;
   };
@@ -90,8 +113,13 @@ const CartItem = ({
           <Image
             src={product_pic || defaultImage()}
             alt={product_title}
-            width={60}
-            height={60}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
           />
         </a>
       </div>
@@ -100,7 +128,11 @@ const CartItem = ({
           <a href={url} onClick={onClickHandler} target="_blank">
             {product_title}
           </a>
+          {description() && (
+            <span className={style.cartItemDescription}>{description()}</span>
+          )}
         </div>
+
         <div className={style.cartItemFooter}>
           <div className={style.cartItemPrice}>
             {(!!price_off || price_amazing) && (
@@ -109,7 +141,7 @@ const CartItem = ({
                   ٪
                   {calcDiscountPercentage(
                     price_main,
-                    price_amazing || price_off
+                    price_amazing || price_off,
                   )}
                 </small>
                 <span>{priceFormatter(price_main)}</span>
@@ -139,7 +171,7 @@ const CartItem = ({
             <div className={style.cartItemButton}>
               <button
                 onClick={cartActionsLoadingHandler(() =>
-                  cartActions.removeFromCart(id)
+                  cartActions.removeFromCart(id),
                 )}
               >
                 {updateCartLoading ? (

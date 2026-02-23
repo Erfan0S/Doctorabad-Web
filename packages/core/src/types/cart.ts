@@ -12,6 +12,7 @@ export enum OrderType {
 export enum DiscountPlanType {
   LERN = 1,
   EXAM = 2,
+  CLINIC = 3,
 }
 
 export type Order = {

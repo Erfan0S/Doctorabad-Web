@@ -3,11 +3,10 @@
 import styles from "./clinicPlans.module.scss";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import Heart from "@/assets/img/heart.png";
+import Heart from "@repo/shared_modules/images/heart.png";
 
 import { AddToCartButton } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
-import { Apps } from "@repo/core/types/general";
 
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api"; // مسیر سرویست
@@ -97,7 +96,7 @@ const ClinicPlans: React.FC<Props> = ({ closeModal }) => {
 
       {/* ADD TO CART */}
       {selected && (
-        <div >
+        <div>
           <AddToCartButton
             id={selected}
             type={OrderType.DiscountPlan}
