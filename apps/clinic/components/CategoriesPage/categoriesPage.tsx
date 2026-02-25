@@ -29,8 +29,6 @@ function setOpenCategoryIds(ids: number[]) {
 }
 
 export default function Categories() {
-  
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["disease-categories"],
     queryFn: async () => (await clinicApi.getDiseaseCategories()).data.data,
@@ -43,16 +41,14 @@ export default function Categories() {
 
   return (
     <div className={styles.container}>
-      {data?.map((cat) => (
-        <CategoryItem key={cat.id} category={cat} />
-      ))}
+      {data?.map((cat) => <CategoryItem key={cat.id} category={cat} />)}
     </div>
   );
 }
 
 function CategoryItem({ category }: { category: DiseaseCategory }) {
   const [open, setOpenState] = useState(() =>
-    getOpenCategoryIds().includes(category.id)
+    getOpenCategoryIds().includes(category.id),
   );
 
   const setOpen = (value: boolean) => {
@@ -78,7 +74,7 @@ function CategoryItem({ category }: { category: DiseaseCategory }) {
       (await clinicApi.getDiseaseTreatments(category.id)).data.data,
     enabled: open && !category.has_children,
   });
-const router = useRouter();
+  const router = useRouter();
   return (
     <div className={styles.item}>
       <div
@@ -109,9 +105,7 @@ const router = useRouter();
             <div className={styles.treatments}>
               {treatments?.map((drug) => (
                 <div
-                  onClick={authorizeClientAction(() =>
-                    router.push(`/disease/${drug.id}`)
-                  )}
+                  onClick={() => router.push(`/disease/${drug.id}`)}
                   key={drug.id}
                   className={styles.treatment}
                 >
