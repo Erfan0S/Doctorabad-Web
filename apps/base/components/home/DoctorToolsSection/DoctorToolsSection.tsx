@@ -9,8 +9,8 @@ import { Apps } from "@repo/core/types/general";
 import { api } from "@repo/shared_modules/api";
 import styles from "./DoctorToolsSection.module.scss";
 import "swiper/css";
+import { LeftArrow } from "@/assets/svg/leftArrow";
 
-const FALLBACK_STORAGE_KEY = "user_home_page_tools";
 const STORAGE_SUFFIX = "tools_shortcut";
 
 export default function DoctorToolsSection() {
@@ -23,7 +23,7 @@ export default function DoctorToolsSection() {
         return;
       }
 
-      let resolvedKey = FALLBACK_STORAGE_KEY;
+      let resolvedKey: string | null = null;
 
       try {
         const response = await api.getUser();
@@ -32,16 +32,15 @@ export default function DoctorToolsSection() {
           resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
         }
       } catch (e) {
-        // اگر کاربر لاگین نباشد یا فراخوانی خطا بدهد، از کلید پیش‌فرض استفاده می‌کنیم
         console.error("Error fetching user for tools storage:", e);
       }
 
-      let stored = localStorage.getItem(resolvedKey);
-
-      // مهاجرت از کلید قدیمی به کلید جدید در صورت نیاز
-      if (!stored && resolvedKey !== FALLBACK_STORAGE_KEY) {
-        stored = localStorage.getItem(FALLBACK_STORAGE_KEY);
+      if (!resolvedKey) {
+        setToolsToShow([]);
+        return;
       }
+
+      const stored = localStorage.getItem(resolvedKey);
 
       if (stored) {
         try {
@@ -76,7 +75,7 @@ export default function DoctorToolsSection() {
             href={toolsBaseUrl}
             className={styles.viewMore}
           >
-            مشاهده بیشتر &gt;
+            مشاهده بیشتر<LeftArrow width={16} height={16} />
           </Link>
         </div>
         <div className={styles.toolsWrapper}>
@@ -92,8 +91,9 @@ export default function DoctorToolsSection() {
                   className={`${styles.toolCard} ${styles[tool.colorClass] || styles.green}`}
                 >
                   <span className={styles.iconChar}>{tool.iconChar}</span>
-                  <span className={styles.toolTitle}>{tool.title}</span>
                 </Link>
+                <span className={styles.toolTitle}>{tool.title}</span>
+
               </SwiperSlide>
             ))}
           </Swiper>

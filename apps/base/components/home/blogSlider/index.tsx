@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { BlogType } from "@/types/blog";
 import Blog from "@/components/common/blog";
 import { swiperBreakpoints } from "@repo/core/constants/sliders";
+import { LeftArrow } from "@/assets/svg/leftArrow";
 
 interface Props {
   data: BlogType[];
@@ -31,7 +32,7 @@ const BlogSlider: React.FC<Props> = ({
             {archiveLink && (
               <div className={style.blogSliderHeaderLink}>
                 <Link href={archiveLink} title={title} target={"_blank"}>
-                  مشاهده‌همه
+                  مشاهده بیشتر<LeftArrow width={16} height={16} />
                 </Link>
               </div>
             )}

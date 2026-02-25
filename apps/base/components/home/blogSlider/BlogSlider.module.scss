@@ -82,6 +82,48 @@
 
 @media (max-width: 768px) {
     .blogSlider {
+        &Header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: space(4);
+
+            &:before {
+                display: none;
+            }
+
+            &Title {
+                padding-left: 0;
+                background-color: transparent;
+
+                span {
+                    line-height: 1.2;
+                    font-size: 1.25rem;
+                    font-weight: 800;
+                }
+            }
+
+            &Link {
+                margin-right: 0;
+                padding-right: 0;
+                background-color: transparent;
+
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    line-height: 1;
+                    padding: 0;
+                    border-radius: 0;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    color: $gray;
+                    background-color: transparent;
+                }
+            }
+        }
+
         &Slider {
             &:before {
                 display: none;

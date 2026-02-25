@@ -7,7 +7,6 @@
 }
 
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 space(4);
 }
@@ -17,22 +16,23 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: space(4);
-  padding: 0 space(1);
 }
 
 .title {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #333;
   margin: 0;
 }
 
 .viewMore {
   font-size: 0.9rem;
-  color: $green;
+  color: $gray;
   text-decoration: none;
   font-weight: 500;
-
+  display: flex;
+  align-items: center;
+  gap: 4px;
   &:hover {
     text-decoration: underline;
   }
@@ -48,6 +48,11 @@
 
 .slide {
   width: auto !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: space(2);
 }
 
 .toolCard {
@@ -70,16 +75,14 @@
 }
 
 .iconChar {
-  font-size: 2rem;
-  font-weight: 300;
-  margin-bottom: space(1);
+  font-size: 2.5rem;
+  font-weight: 500;
 }
 
 .toolTitle {
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
-  line-height: 1.2;
 }
 
 // رنگ‌های ابزار

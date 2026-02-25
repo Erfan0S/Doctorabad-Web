@@ -2,20 +2,19 @@
 @import '@/assets/styles/functions';
 
 .section {
-  padding: space(4) 0;
+  padding: space(4) ();
 }
 
 .wrapper {
   display: flex;
-  gap: space(3);
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 800px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: space(1);
   margin: 0 auto;
 }
 
 @media (max-width: 576px) {
   .wrapper {
-    gap: space(2);
+    gap: space(3);
   }
 }

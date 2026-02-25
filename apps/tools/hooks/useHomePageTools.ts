@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { api } from "@repo/shared_modules/api";
 
-const FALLBACK_STORAGE_KEY = "user_home_page_tools";
 const STORAGE_SUFFIX = "tools_shortcut";
 
 export const useHomePageTools = () => {
@@ -17,7 +16,7 @@ export const useHomePageTools = () => {
         return;
       }
 
-      let resolvedKey = FALLBACK_STORAGE_KEY;
+      let resolvedKey: string | null = null;
 
       try {
         const response = await api.getUser();
@@ -26,18 +25,17 @@ export const useHomePageTools = () => {
           resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
         }
       } catch (e) {
-        // اگر کاربر لاگین نباشد یا فراخوانی خطا بدهد، از کلید پیش‌فرض استفاده می‌کنیم
         console.error("Error fetching user for tools storage:", e);
+      }
+
+      if (!resolvedKey) {
+        setIsLoaded(true);
+        return;
       }
 
       setStorageKey(resolvedKey);
 
-      let stored = localStorage.getItem(resolvedKey);
-
-      // مهاجرت از کلید قدیمی به کلید جدید در صورت نیاز
-      if (!stored && resolvedKey !== FALLBACK_STORAGE_KEY) {
-        stored = localStorage.getItem(FALLBACK_STORAGE_KEY);
-      }
+      const stored = localStorage.getItem(resolvedKey);
 
       if (stored) {
         try {
