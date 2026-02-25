@@ -40,7 +40,7 @@ const BlogSlider: React.FC<Props> = ({
         )}
         <div className={style.blogSliderSlider}>
           <Swiper
-            spaceBetween={30}
+            spaceBetween={16}
             slidesPerView="auto"
             breakpoints={swiperBreakpoints}
           >

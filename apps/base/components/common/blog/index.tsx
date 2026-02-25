@@ -15,6 +15,7 @@ const Blog: React.FC<BlogType> = ({ pic_url, title, link }) => {
             src={pic_url || placeHolderDataUrl}
             alt={title}
             placeholder={placeHolderDataUrl}
+            style={{ objectFit: "contain" }} // مهم
           />
         </a>
       </div>
