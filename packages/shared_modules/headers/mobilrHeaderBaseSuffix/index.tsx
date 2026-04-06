@@ -1,21 +1,13 @@
 "use client";
 import style from "./courseHeader.module.scss";
-import ShareIcon from "@/assets/svg/share";
-import BugIcon from "@/assets/svg/bug";
-import ProfileIcon from "@/assets/svg/profile";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { CourseDataType, Lesson } from "@/types/courses";
-import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
-import { api } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
-import Loading from "@/components/common/Loading";
 import { Apps } from "@repo/core/types/general";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
-import { FavoriteHeartIcon } from "@repo/shared_modules/components";
-import { LessonVideoContext } from "@/context/LessonVideoContext";
-import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { FavoriteHeartIcon, Loading } from "@repo/shared_modules/components";
+import { BugIcon, ShareIcon } from "../../assets";
+import { useToggleFavoriteProduct } from "@repo/core/hooks/useToggleFavoriteProduct";
+import { ShareProductAction } from "@repo/core/types/product";
 
 interface Button {
   icon: React.ReactNode;
@@ -23,29 +15,37 @@ interface Button {
 }
 
 type Props = {
-  course: CourseDataType;
-  currentLessonId: number;
+  id: number;
+  initialFavorite: boolean;
+  app: Apps;
+  shareAction: ShareProductAction;
+  favoriteAction: (isFavorite: boolean) => Promise<any>;
 };
 
-const CourseHeaderSiffix = ({ course, currentLessonId }: Props) => {
+const MobileHeaderBaseSiffix = ({
+  id,
+  app,
+  initialFavorite,
+  shareAction,
+  favoriteAction,
+}: Props) => {
   const {
     isFavorite,
     toggleFavorite,
     isLoading: favoriteLoading,
-  } = useToggleFavoriteProduct(!!course.user_favorite);
-  const router = useRouter();
-  const { setBookmark } = useContext(LessonVideoContext);
-
-  const changeSearchParamsFilter = useChangeSearchParamsFilter();
+  } = useToggleFavoriteProduct({
+    initialState: initialFavorite,
+    action: favoriteAction,
+  });
 
   const { shareProduct, isLoading: shareLoading } = useShareProduct(
     async () => {
-      const res = await api.shareCourse(course.id);
+      const res = await shareAction();
 
       return {
-        title: res.data.data.title,
-        description: res.data.data.description,
-        url: res.data.data.course_url,
+        title: res.title,
+        description: res.description,
+        url: res.url,
       };
     },
   );
@@ -56,13 +56,7 @@ const CourseHeaderSiffix = ({ course, currentLessonId }: Props) => {
   };
 
   const favoriteOnClick = () => {
-    toggleFavorite(course.id);
-  };
-
-  const goToBookmark = (lessonId: number, jumpTime: number) => {
-    changeSearchParamsFilter({ lesson: lessonId.toString() });
-    setBookmark({ lessonId, time: jumpTime });
-    modalActions.removeLastModal();
+    toggleFavorite(id);
   };
 
   const buttons: Button[] = [
@@ -71,30 +65,21 @@ const CourseHeaderSiffix = ({ course, currentLessonId }: Props) => {
         <FavoriteHeartIcon
           isFavorite={isFavorite}
           loading={favoriteLoading}
-          app={Apps.LEARN}
+          app={app}
         />
       ),
       onClick: favoriteOnClick,
     },
     {
-      icon: shareLoading ? <Loading /> : <ShareIcon />,
+      icon: shareLoading ? <Loading size={24} app={app} /> : <ShareIcon />,
       onClick: onShareProduct,
     },
     {
       icon: <BugIcon />,
       onClick: () =>
         modalActions.addModal(ModalTypes.BUG_REPORT, {
-          productId: course.id,
-          app: Apps.LEARN,
-        }),
-    },
-    {
-      icon: <ProfileIcon />,
-      onClick: () =>
-        modalActions.addModal(ModalTypes.VIDEO_NOTES_LIST, {
-          courseId: course.id,
-          goToBookmark,
-          currentLessonId,
+          productId: id,
+          app: app,
         }),
     },
   ];
@@ -109,4 +94,4 @@ const CourseHeaderSiffix = ({ course, currentLessonId }: Props) => {
   );
 };
 
-export default CourseHeaderSiffix;
+export default MobileHeaderBaseSiffix;

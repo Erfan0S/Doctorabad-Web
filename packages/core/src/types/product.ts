@@ -195,3 +195,9 @@ export interface ProductShare {
   description: string;
   product_url: null | string;
 }
+
+export type ShareProductAction = () => Promise<{
+  title?: string;
+  description?: string;
+  url: string | null;
+}>;

@@ -2,28 +2,29 @@
 import { useEffect } from "react";
 import { FavoriteHeartIcon } from "..";
 import { Apps } from "@repo/core/types/general";
-import { useToggleFavoriteProduct } from "@repo/core/hooks/useToggleFavoriteProduct";
+import {
+  useToggleFavoriteProduct,
+  UseToggleFavoriteProductType,
+} from "@repo/core/hooks/useToggleFavoriteProduct";
 import { useRouter } from "next/navigation";
 import style from "./style.module.scss";
 
-type Props = {
-  id: number;
-  initialFavoriteState: boolean;
-  app: Omit<Apps, "BASE">;
+interface Props extends UseToggleFavoriteProductType {
+  app: Apps;
   className?: string;
-};
+}
 
-function FavoriteButton({ id, initialFavoriteState, app, className }: Props) {
+function FavoriteButton({ app, className, ...rest }: Props) {
   const router = useRouter();
 
   const {
     isFavorite,
     toggleFavorite,
     isLoading: favoriteLoading,
-  } = useToggleFavoriteProduct(initialFavoriteState, app);
+  } = useToggleFavoriteProduct(rest);
 
   const favoriteOnClick = () => {
-    toggleFavorite(id);
+    toggleFavorite();
   };
 
   useEffect(() => {

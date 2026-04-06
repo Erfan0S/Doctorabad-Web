@@ -23,11 +23,13 @@ type Props = {
     id: number;
   };
   headerSuffix?: React.ReactNode;
+  headerTitle?: string;
   tabParam?: string;
 };
 
 const MobileProductLayout = ({
   headerSuffix,
+  headerTitle,
   tabsData,
   app = Apps.BASE,
   provider,
@@ -42,7 +44,12 @@ const MobileProductLayout = ({
     <div className={`${style.wrapper} ${app && style[app]}`}>
       {/* ?: uncomment in product */}
       {/* <PreventContext /> */}
-      <PageHeader title="" app={app} suffix={headerSuffix} haveMargin={false} />
+      <PageHeader
+        title={headerTitle}
+        app={app}
+        suffix={headerSuffix}
+        haveMargin={false}
+      />
       <div>
         <div className={style.container}>
           <div className={style.producteHeader}>

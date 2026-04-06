@@ -12,6 +12,7 @@ import ProductComments from "@/components/product/tabs/comments";
 import sanitize from "@repo/core/utils/sanitize";
 import { OrderType } from "@repo/core/types/cart";
 import { marketPaths } from "@repo/core/constants/routePath";
+import ProductHeaderSuffix from "@/components/product/mobileLayout/productHeaderSuffix";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -89,6 +90,7 @@ function MobileProductSingle({
           orderType: OrderType.ShopProduct,
           canIncrease: true,
         }}
+        headerSuffix={<ProductHeaderSuffix product={data} />}
       />
     </>
   );
