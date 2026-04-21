@@ -22,6 +22,7 @@ export interface Product {
 export type ProductCard = Product & {
   gridView?: boolean;
   lazyLoadImage?: boolean;
+  isMobileLayout?: boolean;
 };
 export interface SingleProductSellerInfo {
   name: string;
@@ -194,3 +195,9 @@ export interface ProductShare {
   description: string;
   product_url: null | string;
 }
+
+export type ShareProductAction = () => Promise<{
+  title?: string;
+  description?: string;
+  url: string | null;
+}>;

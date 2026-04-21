@@ -5,7 +5,6 @@ import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import {
   AddToCartButton,
   Button,
@@ -20,13 +19,23 @@ import { OrderType } from "@repo/core/types/cart";
 import { Apps } from "@repo/core/types/general";
 import { baseUrls, marketPaths } from "@repo/core/constants/routePath";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { api } from "../../../api/Api";
 
 type Props = {
   data: Product;
 };
 
 function ShoppingFavoriteItem({
-  data: { id, title, price_main, price_off, product_pic, slug, has_variant },
+  data: {
+    id,
+    title,
+    price_main,
+    price_off,
+    product_pic,
+    slug,
+    has_variant,
+    user_favorite,
+  },
 }: Props) {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
@@ -34,7 +43,7 @@ function ShoppingFavoriteItem({
   const { data } = useCart();
   const productOrder = data.find(
     (order) =>
-      order.product_id === id && order.product_type === OrderType.ShopProduct
+      order.product_id === id && order.product_type === OrderType.ShopProduct,
   );
 
   return (
@@ -61,7 +70,13 @@ function ShoppingFavoriteItem({
           >
             {title}
           </Link>
-          <FavoriteButton id={id} app={Apps.MARKET} initialFavoriteState />
+          <FavoriteButton
+            app={Apps.MARKET}
+            initialState={!!user_favorite}
+            action={() => {
+              return api.addMarketFavorite(id);
+            }}
+          />
         </div>
         <div className={style.sidePanelFavoritesLearningItemFooter}>
           <div className={style.sidePanelFavoritesLearningItemPrice}>
@@ -77,11 +92,11 @@ function ShoppingFavoriteItem({
           {!has_variant ? (
             productOrder ? (
               <QuantityProductButton
-                id={productOrder.id}
+                orderId={productOrder.id}
                 quantity={productOrder.quantity}
-                cardActionsLoadingHandler={cartActionsLoadingHandler}
                 className={style.sidePanelFavoritesLearningItemQuantityButton}
-                isLoadibg={updateCartLoading}
+                orderType={OrderType.ShopProduct}
+                app={Apps.MARKET}
               />
             ) : (
               <AddToCartButton
@@ -90,7 +105,7 @@ function ShoppingFavoriteItem({
                 type={OrderType.ShopProduct}
                 className={style.sidePanelFavoritesLearningItemAddToCart}
                 onClick={authorizeClientAction(
-                  cartActionsLoadingHandler(() => cartActions.addToCart(id))
+                  cartActionsLoadingHandler(() => cartActions.addToCart(id)),
                 )}
                 isLoading={updateCartLoading}
               />

@@ -11,6 +11,7 @@ import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Apps } from "@repo/core/types/general";
+import sanitize from "@repo/core/utils/sanitize";
 
 type Props = {
   id: number;
@@ -46,7 +47,7 @@ const ProviderPageContent = ({
     case ProviderTabs.DESCRIPTION:
       return (
         <div className={styles.pageDescription}>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
+          <div dangerouslySetInnerHTML={{ __html: sanitize(description) }} />
         </div>
       );
     default:
@@ -83,8 +84,8 @@ const ProviderPage = ({ id }: Props) => {
               name: page.provider.name,
               pic_url: page.provider.pic_url,
             },
-          }) as CourseListItemType
-      )
+          }) as CourseListItemType,
+      ),
     );
   }, [data]);
 

@@ -1,6 +1,7 @@
 import { SingleProduct } from "@repo/core/types/product";
 import style from "./ProductDescription.module.scss";
-import ProductFaq from "../faq";
+import sanitize from "@repo/core/utils/sanitize";
+
 interface Props {
   productData: SingleProduct;
 }
@@ -9,7 +10,7 @@ const ProductDescription: React.FC<Props> = ({ productData }) => {
     <>
       <div
         className={style.productDescription}
-        dangerouslySetInnerHTML={{ __html: productData.description }}
+        dangerouslySetInnerHTML={{ __html: sanitize(productData.description) }}
       ></div>
       {/* <ProductFaq faq={productData.faq} /> */}
     </>

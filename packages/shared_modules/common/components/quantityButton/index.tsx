@@ -4,39 +4,47 @@ import React from "react";
 import { cartActions } from "@repo/core/states/cart";
 import { Loading } from "..";
 import { Apps } from "@repo/core/types/general";
+import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
+import { OrderType } from "@repo/core/types/cart";
 
 export interface Props {
-  id: number;
+  orderId: number;
   quantity: number;
-  cardActionsLoadingHandler: (fn: () => Promise<any>) => () => void;
+  orderType: OrderType;
   app?: Apps;
   className?: string;
-  isLoadibg?: boolean;
+  style?: "default" | "outline";
 }
 
 const QuantityProductButton: React.FC<Props> = ({
-  id,
-  quantity,
-  cardActionsLoadingHandler,
   className,
-  isLoadibg,
   app = Apps.MARKET,
+  orderId,
+  quantity,
+  style: componentStyle,
 }) => {
+  const { cartActionsLoadingHandler, updateCartLoading } =
+    useCartActionsLoadingHandler();
+
   return (
-    <div className={`${style.quantityButton} ${className} ${style[app]}`}>
+    <div
+      className={`${style.quantityButton} ${style[componentStyle || "default"]}  ${className} ${style[app]}`}
+    >
       <button
-        onClick={cardActionsLoadingHandler(() =>
+        onClick={cartActionsLoadingHandler(() =>
           quantity > 1
-            ? cartActions.decreaseQuantity(id)
-            : cartActions.removeFromCart(id)
+            ? cartActions.decreaseQuantity(orderId)
+            : cartActions.removeFromCart(orderId),
         )}
       >
         {quantity > 1 ? "-" : <RecycleBin height={20} width={20} />}
       </button>
-      <span>{isLoadibg ? <Loading size={15} app={app} /> : quantity}</span>
+      <span>
+        {updateCartLoading ? <Loading size={15} app={app} /> : quantity}
+      </span>
       <button
-        onClick={cardActionsLoadingHandler(() =>
-          cartActions.increaseQuantity(id)
+        onClick={cartActionsLoadingHandler(() =>
+          cartActions.increaseQuantity(orderId),
         )}
       >
         +

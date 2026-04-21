@@ -1,21 +1,36 @@
-import { CourseTab, TabData } from "@/types/courses";
+import { CourseDataType, CourseTab, TabData } from "@/types/courses";
+import { MobileTabsConfigWithContent } from "@repo/core/types/configs";
+import CourseContent from "./lessons";
+import CourseDescription from "./Description";
+import CourseComments from "./comments";
+import RelatedCourses from "./Related";
 
-export const CourseTabsData = [
+export type CourseContentProps = {
+  course: CourseDataType;
+};
+
+export const CourseTabsData = (
+  props: CourseContentProps,
+): MobileTabsConfigWithContent[] => [
   {
     id: CourseTab.LESSONS,
     title: "درس‌ها",
+    content: <CourseContent {...props} />,
   },
   {
     id: CourseTab.DESCRIPTION,
     title: "توضیحات",
+    content: <CourseDescription {...props} />,
   },
   {
     id: CourseTab.COMMENTS,
     title: "نظرات",
+    content: <CourseComments {...props} />,
   },
   {
     id: CourseTab.RELATED_PRODUCTS,
     title: "مرتبط",
+    content: <RelatedCourses {...props} />,
   },
 ];
 

@@ -8,11 +8,14 @@ import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
 import { api } from "@repo/shared_modules/api";
 import { InstallBannerShow } from "@repo/shared_modules/components";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import Script from "next/script";
 import MarketHeader from "@/components/common/header/market";
 import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
+import { Apps } from "@repo/core/types/general";
+import { marketPaths } from "@repo/core/constants/routePath";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -38,11 +41,19 @@ export default async function RootLayout({
         <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>
-            <MarketHeader />
-            <main>{children}</main>
-            <MobileNavBar />
+            <DiviceSwitchShell
+              DesktopComponent={<MarketHeader />}
+              MobileComponent={null}
+            />
 
-            <Footer statistic={statistic} />
+            <main>{children}</main>
+            <MobileNavBar excludePaths={[marketPaths.single]} />
+
+            <DiviceSwitchShell
+              DesktopComponent={<Footer statistic={statistic} />}
+              MobileComponent={null}
+            />
+
             <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>

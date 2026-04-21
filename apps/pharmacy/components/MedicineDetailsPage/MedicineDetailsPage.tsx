@@ -13,6 +13,7 @@ import MedicineDetailsSkeleton from "@/components/Skeletons/MedicineDetailsSkele
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { canTrackMedicineView } from "@/utils/medicineViewTracking";
 import { useMedicineView } from "@/hooks/useMedicineView";
+import sanitize from "@repo/core/utils/sanitize";
 
 export default function MedicineDetailsPage() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function MedicineDetailsPage() {
     setOpenSections((prev) =>
       prev.includes(key)
         ? prev.filter((section) => section !== key)
-        : [...prev, key]
+        : [...prev, key],
     );
   };
 
@@ -109,9 +110,7 @@ export default function MedicineDetailsPage() {
     use_type: number;
   };
 
-  const getImagesByUseType = (
-    sectionKey: string
-  ): MedicineFile[] => {
+  const getImagesByUseType = (sectionKey: string): MedicineFile[] => {
     if (!medicine.files?.length) return [];
 
     const useTypeMap: Record<string, number[]> = {
@@ -124,7 +123,7 @@ export default function MedicineDetailsPage() {
     if (!useTypes.length) return [];
 
     return medicine.files.filter((file: MedicineFile) =>
-      useTypes.includes(file.use_type)
+      useTypes.includes(file.use_type),
     );
   };
 
@@ -236,17 +235,24 @@ export default function MedicineDetailsPage() {
       <div className={styles.header}>
         <div className={styles.top}>
           {medicine.title_en}
-          <div > {medicine.picture ? (
-            <Image
-              src={medicine.picture ? medicine.picture : ""}
-              alt={medicine.title_fa}
-              width={140}
-              height={140}
-              className={styles.image}
-            />
-          ) : (
-            <PillsIcon className={styles.pillsIcon} width={100} height={100} />
-          )}</div>
+          <div>
+            {" "}
+            {medicine.picture ? (
+              <Image
+                src={medicine.picture ? medicine.picture : ""}
+                alt={medicine.title_fa}
+                width={140}
+                height={140}
+                className={styles.image}
+              />
+            ) : (
+              <PillsIcon
+                className={styles.pillsIcon}
+                width={100}
+                height={100}
+              />
+            )}
+          </div>
         </div>
 
         <div className={styles.bottom}>{medicine.title_fa}</div>
@@ -319,21 +325,21 @@ export default function MedicineDetailsPage() {
                         medicine.direction?.adult?.map(
                           (item: string, index: number) => (
                             <p key={index}>{item}</p>
-                          )
+                          ),
                         )}
 
                       {selectedAgeGroup === "child" &&
                         medicine.direction?.child?.map(
                           (item: string, index: number) => (
                             <p key={index}>{item}</p>
-                          )
+                          ),
                         )}
 
                       {selectedAgeGroup === "elder" &&
                         medicine.direction?.elder?.map(
                           (item: string, index: number) => (
                             <p key={index}>{item}</p>
-                          )
+                          ),
                         )}
                     </div>
                   </div>
@@ -351,11 +357,12 @@ export default function MedicineDetailsPage() {
                   </div>
                 ) : typeof content === "string" ? (
                   <>
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                        {getImagesByUseType(key).length > 0 && (
+                    <div
+                      dangerouslySetInnerHTML={{ __html: sanitize(content) }}
+                    />
+                    {getImagesByUseType(key).length > 0 && (
                       <div className={styles.files}>
-                            {getImagesByUseType(key).map(
-                              (file: MedicineFile) => (
+                        {getImagesByUseType(key).map((file: MedicineFile) => (
                           <div
                             key={file.id}
                             className={styles.fileImageWrapper}
@@ -366,8 +373,7 @@ export default function MedicineDetailsPage() {
                               className={styles.fileImage}
                             />
                           </div>
-                              )
-                            )}
+                        ))}
                       </div>
                     )}
                   </>
@@ -375,8 +381,7 @@ export default function MedicineDetailsPage() {
                   <>
                     {getImagesByUseType(key).length > 0 && (
                       <div className={styles.files}>
-                        {getImagesByUseType(key).map(
-                          (file: MedicineFile) => (
+                        {getImagesByUseType(key).map((file: MedicineFile) => (
                           <div
                             key={file.id}
                             className={styles.fileImageWrapper}
@@ -387,8 +392,7 @@ export default function MedicineDetailsPage() {
                               className={styles.fileImage}
                             />
                           </div>
-                          )
-                        )}
+                        ))}
                       </div>
                     )}
                     {content}

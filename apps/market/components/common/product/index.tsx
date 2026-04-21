@@ -9,8 +9,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
-import { cartActions, useCart } from "@repo/core/states/cart";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useCart } from "@repo/core/states/cart";
 import Loading from "../loading";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
@@ -18,9 +17,10 @@ import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoa
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { OrderType } from "@repo/core/types/cart";
 import {
+  AddToCartButton,
+  Button,
   FavoriteHeartIcon,
   ListProductSnappayNotif,
-  QuantityProductButton,
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 
@@ -38,6 +38,7 @@ const Product: React.FC<ProductCard> = ({
   lazyLoadImage = true,
   has_variant = false,
   installment_payment = false,
+  isMobileLayout = false,
 }) => {
   const { isFavorite, isLoading, toggleFavorite } =
     useToggleFavoriteProduct(!!user_favorite);
@@ -60,7 +61,9 @@ const Product: React.FC<ProductCard> = ({
   const isProductHasStock = quantity !== 0;
 
   return (
-    <div className={`${style.product} ${gridView ? style.gridView : ""}`}>
+    <div
+      className={`${style.product} ${gridView ? style.gridView : ""} ${isMobileLayout ? style.mobileLayout : ""}`}
+    >
       <div className={style.productImage}>
         {installment_payment && (
           <ListProductSnappayNotif className={style.installmentPayment} />
@@ -104,31 +107,28 @@ const Product: React.FC<ProductCard> = ({
         )}
         <div className={style.productButtons}>
           <>
-            {productOrder && !has_variant ? (
-              <QuantityProductButton
-                id={productOrder.id}
-                quantity={productOrder.quantity}
-                cardActionsLoadingHandler={cartActionsLoadingHandler}
-                isLoadibg={updateCartLoading}
-                className={`${style.productAddToCart} ${style.productQuantityButton}`}
-              />
-            ) : isProductHasStock ? (
+            {isProductHasStock ? (
               has_variant ? (
-                <Link className={style.productAddToCart} href={url}>
-                  انتخاب گزینه‌ها خرید
-                </Link>
-              ) : (
-                <button
-                  className={style.productAddToCart}
-                  onClick={authorizeClientAction(
-                    cartActionsLoadingHandler(() => cartActions.addToCart(id)),
-                  )}
+                <Button
+                  className={style.productVariantButton}
+                  app={Apps.MARKET}
                 >
-                  {updateCartLoading ? <Loading size={22} /> : "افزودن‌به‌سبد"}
-                </button>
+                  <Link href={url}>انتخاب گزینه‌ها خرید</Link>
+                </Button>
+              ) : (
+                <AddToCartButton
+                  id={id}
+                  type={OrderType.ShopProduct}
+                  app={Apps.MARKET}
+                  className={`${style.productAddToCart}`}
+                  compact
+                  isFullWidth
+                  canIncrease
+                />
               )
             ) : (
-              <button
+              <Button
+                app={Apps.MARKET}
                 className={style.productNoStock}
                 onClick={restockNotification}
                 disabled={restockNotificationLoading}
@@ -138,7 +138,7 @@ const Product: React.FC<ProductCard> = ({
                 ) : (
                   "موجود شد خبرم کن!"
                 )}
-              </button>
+              </Button>
             )}
             <button
               aria-label="AddToFavorite"
