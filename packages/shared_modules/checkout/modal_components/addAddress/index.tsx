@@ -53,9 +53,9 @@ const AddAddress = ({
     >
       {({ submitForm }) => (
         <div className={`${style.addAddress} ${style[app]}`}>
-          <div className={style.addAddressMap}>
+          {/* <div className={style.addAddressMap}>
             {!loadingMap && Map ? <Map /> : <Loading size={15} />}
-          </div>
+          </div> */}
           <ErrorMessage name="latitude" component="p" />
           <div className="row">
             <div className="col-lg-12">

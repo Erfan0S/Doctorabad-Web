@@ -19,14 +19,15 @@ import { useToggleFavoriteQuestion } from "@/hooks/useToggleFavoriteQuestion";
 import { generateQuestionId } from "@/utils/generateQuestionId";
 import BookMarkIcon from "@/assets/svg/bookMark";
 import { ExamStatus } from "@repo/apps_shared_components/exam/types";
+import { api } from "@/api/Api";
 
 const buttons = (
   question: QuestionType,
   examTitle: string,
-  isFavoriteList?: boolean
+  isFavoriteList?: boolean,
 ) => {
   const { isFavorite, toggleFavorite, isLoading } = useToggleFavoriteQuestion(
-    isFavoriteList || question.favorite
+    isFavoriteList || question.favorite,
   );
 
   const bugReport = () =>
@@ -34,7 +35,7 @@ const buttons = (
       modalActions.addModal(ModalTypes.BUG_REPORT, {
         productId: question.id,
         app: Apps.EXAM,
-      })
+      }),
     );
 
   return [
@@ -91,14 +92,12 @@ function QuestionItem({
   const [showTestAnswer, setShowTestAnswer] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
   const [questionStatus, setQuestionStatus] = useState<QuestionStatus>(
-    QuestionStatus.DEFAULT
+    QuestionStatus.DEFAULT,
   );
   const [selectedAnswer, setSelectedAnswer] = useState<string[] | null>(
-    initUserAnswer || null
+    initUserAnswer || null,
   );
   const { addAnswer } = useContext(QuestionsAnswersContext);
-
-  useEffect(() => {}, [initUserAnswer]);
 
   useEffect(() => {
     addAnswer(
@@ -111,7 +110,7 @@ function QuestionItem({
           .map((option) => option.id.toString()),
         lesson_id: question.lesson_id,
       },
-      question.id
+      question.id,
     );
   }, [selectedAnswer, questionStatus]);
 
@@ -121,6 +120,17 @@ function QuestionItem({
   }, [status]);
 
   const isTextQuestion = question.type === QuestionTypes.Text;
+
+  const currectAnswer = question.options
+    .filter((option) => option.is_correct)
+    .map((option) => option.id.toString());
+
+  const questionAnswerStatus = selectedAnswer
+    ? selectedAnswer.length === currectAnswer.length &&
+      selectedAnswer.every((value, index) => value === currectAnswer[index])
+      ? 2
+      : 1
+    : null;
 
   const AnewrButtons = () => {
     const pathName = usePathname();
@@ -137,7 +147,7 @@ function QuestionItem({
               setQuestionStatus((prev) =>
                 prev === QuestionStatus.NoT_SURE
                   ? QuestionStatus.DEFAULT
-                  : QuestionStatus.NoT_SURE
+                  : QuestionStatus.NoT_SURE,
               )
             }
           >
@@ -149,7 +159,7 @@ function QuestionItem({
               setQuestionStatus((prev) =>
                 prev === QuestionStatus.DONT_KNOW
                   ? QuestionStatus.DEFAULT
-                  : QuestionStatus.DONT_KNOW
+                  : QuestionStatus.DONT_KNOW,
               )
             }
           >
@@ -168,7 +178,7 @@ function QuestionItem({
             app={Apps.EXAM}
             onClick={authorizeClientAction(
               () => setShowAnswer((prev) => !prev),
-              true
+              true,
             )}
           >
             پاسخ تشریحی
@@ -177,7 +187,15 @@ function QuestionItem({
         {status !== ExamStatus.FINISHED && !isTextQuestion && (
           <Button
             app={Apps.EXAM}
-            onClick={() => setShowTestAnswer((prev) => !prev)}
+            onClick={() => {
+              if (!showTestAnswer) {
+                api.submitQuestionMission({
+                  question_id: question.id,
+                  answer: questionAnswerStatus,
+                });
+              }
+              setShowTestAnswer((prev) => !prev);
+            }}
           >
             پاسخ تستی
           </Button>
@@ -191,7 +209,7 @@ function QuestionItem({
       className={`${styles.questionItem} card ${mobileMode ? styles.mobileMode : ""} ${questionStatus === QuestionStatus.NoT_SURE ? styles.notSureQuestion : ""} ${questionStatus === QuestionStatus.DONT_KNOW ? styles.dontKnowQuestion : ""}`}
       id={generateQuestionId(
         question.id.toString(),
-        question.lesson_id.toString()
+        question.lesson_id.toString(),
       )}
     >
       <h4>
@@ -262,6 +280,7 @@ function QuestionItem({
           examId={examId}
           enabled={showAnswer}
           setEnabled={setShowAnswer}
+          answer={questionAnswerStatus}
         />
       )}
       <div className={styles.buttonsWrapper}>

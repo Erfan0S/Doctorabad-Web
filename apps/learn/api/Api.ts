@@ -17,6 +17,7 @@ import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 import { PaymentResult } from "@repo/core/types/cart";
 import { User, UserPlans } from "@repo/core/types/user";
+import { VideoMissionParams } from "@/types/VideoPlayer";
 
 class Api extends Request {
   constructor() {
@@ -28,10 +29,10 @@ class Api extends Request {
   }
 
   getOrderResult = (
-    paymentToken: string
+    paymentToken: string,
   ): Promise<ResponseType<PaymentResult>> => {
     return this.request.get<PaymentResult>(
-      `/user/shop/order/result/${paymentToken}`
+      `/user/shop/order/result/${paymentToken}`,
     );
   };
 
@@ -43,32 +44,32 @@ class Api extends Request {
 
   getCourse(id: number): Promise<ResponseType<{ data: CourseDataType }>> {
     return this.request.get<{ data: CourseDataType }>(
-      `/user/v1/education/course/${id}`
+      `/user/v1/education/course/${id}`,
     );
   }
 
   createComment(data: { courseId: number; text: string }): Promise<any> {
     return this.request.post(
       `/user/v1/education/course/${data.courseId}/comment`,
-      data
+      data,
     );
   }
 
   getCommentsList(
     courseID: number,
-    page: number
+    page: number,
   ): Promise<ResponseType<CourseComents>> {
     return this.request.get<CourseComents>(
       `/user/v1/education/course/${courseID}/comment`,
-      { params: { page } }
+      { params: { page } },
     );
   }
 
   getRelatedCourses(
-    id: number
+    id: number,
   ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
     return this.request.get<{ data: CourseListItemType[] }>(
-      `/user/v1/education/course/${id}/related`
+      `/user/v1/education/course/${id}/related`,
     );
   }
 
@@ -91,55 +92,55 @@ class Api extends Request {
   // video
   getVideo(
     courseID: number,
-    lessonID: number
+    lessonID: number,
   ): Promise<ResponseType<{ data: VideoType }>> {
     return this.request.get<{ data: VideoType }>(
-      `/user/v1/education/course/${courseID}/lesson/${lessonID}/video`
+      `/user/v1/education/course/${courseID}/lesson/${lessonID}/video`,
     );
   }
 
   getVideowBookmarks(
     courseID: number,
     lessonID: number,
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<Note[]>>> {
     return this.request.get<PaginatedResponse<Note[]>>(
       `/user/v1/education/course/${courseID}/lesson/${lessonID}/pins`,
-      { params: { page } }
+      { params: { page } },
     );
   }
 
   createVideoBookmark(
     lessonID: number,
-    data: { jump_time: number; title: string; description: string }
+    data: { jump_time: number; title: string; description: string },
   ): Promise<ResponseType<VideoType>> {
     return this.request.post<VideoType>(
       `/user/v1/education/lesson/${lessonID}/pins`,
-      data
+      data,
     );
   }
 
   deleteVideoBookmark(
     lessonID: number,
-    id: number
+    id: number,
   ): Promise<ResponseType<VideoType>> {
     return this.request.delete<VideoType>(
-      `/user/v1/education/lesson/${lessonID}/pins/${id}`
+      `/user/v1/education/lesson/${lessonID}/pins/${id}`,
     );
   }
 
   getVideoBookmarkUsage(
     lessonID: number,
-    id: number
+    id: number,
   ): Promise<ResponseType<VideoType>> {
     return this.request.get<VideoType>(
-      `/user/v1/education/lesson/${lessonID}/pins/${id}`
+      `/user/v1/education/lesson/${lessonID}/pins/${id}`,
     );
   }
 
   // main page
   getProviders(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<ProviderType[]>>> {
     return this.request.get("/user/v1/education/provider", {
       params: { page },
@@ -147,7 +148,7 @@ class Api extends Request {
   }
   getSingleProvider(
     id: number,
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<SingleProviderType>> {
     return this.request.get(`/user/v1/education/provider/${id}`, {
       params: {
@@ -157,7 +158,7 @@ class Api extends Request {
   }
 
   getCategories(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
     return this.request.get("/user/v1/education/category", {
       params: { page },
@@ -165,7 +166,7 @@ class Api extends Request {
   }
 
   getAmazingCourses(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedAmazingCourses>> {
     return this.request.get("/user/v1/education/course/amazing", {
       params: { page },
@@ -173,7 +174,7 @@ class Api extends Request {
   }
 
   getNewestCourses(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/newest", {
       params: { page },
@@ -181,7 +182,7 @@ class Api extends Request {
   }
 
   getBestSellerCourses(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/bestselling", {
       params: { page },
@@ -189,7 +190,7 @@ class Api extends Request {
   }
 
   getSuggestedCourses(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/course/suggest", {
       params: { page },
@@ -197,7 +198,7 @@ class Api extends Request {
   }
 
   getUserLastViewedCourses(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/user/last-seen", {
       params: { page },
@@ -215,7 +216,7 @@ class Api extends Request {
   }
 
   getPrviosCourseOrders(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
     return this.request.get("/user/v1/education/previous/orders/courses/buy", {
       params: { page },
@@ -223,7 +224,7 @@ class Api extends Request {
   }
 
   getPreviosPlanOrders(
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return this.request.get("/user/v1/education/previous/orders/courses/plan", {
       params: { page },
@@ -234,7 +235,7 @@ class Api extends Request {
 
   getSearchList(
     query: string,
-    page: number = 1
+    page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
     return query
       ? this.request.get("/user/v1/education/course/search", {
@@ -288,7 +289,7 @@ class Api extends Request {
 
   getGrades(
     type: number,
-    field_id: number
+    field_id: number,
   ): Promise<ResponseType<{ data: FieldGradeType[] }>> {
     return this.request.get("/user/find/grades", {
       params: { type, field_id },
@@ -296,7 +297,7 @@ class Api extends Request {
   }
 
   getCategoriesByGrade(
-    grade_id: number
+    grade_id: number,
   ): Promise<ResponseType<{ data: CategoryType[] }>> {
     return this.request.get(`/user/v1/education/category/search`, {
       params: { grade_id },
@@ -315,6 +316,12 @@ class Api extends Request {
 
   getCardList(): Promise<ResponseType<any>> {
     return this.request.get("/user/v1/cart");
+  }
+
+  // mission
+
+  videoMission(params: VideoMissionParams) {
+    return this.request.post("/user/club/mission/watch/lesson", params);
   }
 }
 

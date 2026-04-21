@@ -16,7 +16,6 @@ export interface User {
   city_title: string | null;
   address: string | null;
   avatar: null;
-  improvement: number;
   birthday: string | null;
   postal_code: string | null;
   nickname: string | null;
@@ -25,6 +24,7 @@ export interface User {
   credit: number | null;
   coins: number | null;
   introductionCode: string | null;
+  student_id: number | null;
 }
 
 export interface UserAvatar {

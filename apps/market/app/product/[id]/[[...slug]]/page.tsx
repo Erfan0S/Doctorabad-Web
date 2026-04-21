@@ -16,7 +16,7 @@ export default async function Product({
     const { data } = (await productFetcher).data;
 
     const { data: relatedProductList } = await api.getRelatedProducts(
-      Number(data.id)
+      Number(data.id),
     );
 
     return (

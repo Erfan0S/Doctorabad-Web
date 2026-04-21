@@ -7,12 +7,14 @@ import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import Loading from "@/components/common/Loading/Loading";
+import { QuestionAnswer } from "@/types/questions";
 
 type Props = {
   questionId: number;
   examId?: number;
   enabled?: boolean;
   setEnabled?: React.Dispatch<React.SetStateAction<boolean>>;
+  answer?: QuestionAnswer | null;
 };
 
 function QuestionExplanation({
@@ -20,6 +22,7 @@ function QuestionExplanation({
   enabled,
   examId,
   setEnabled,
+  answer,
 }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: [`questionExplanation-${questionId}-${examId}`],
@@ -27,6 +30,7 @@ function QuestionExplanation({
       api.getQuestionExplanation({
         question_id: questionId,
         exam_id: examId,
+        answer: answer,
       }),
     enabled: !!isUserLoggedIn() && enabled,
     retry: (failureCount, error) => {

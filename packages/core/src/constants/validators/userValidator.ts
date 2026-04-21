@@ -10,7 +10,8 @@ export const shippingAddressValidator = object().shape({
   province_id: string().required("استان را انتخاب کنید"),
   city_id: string().required("شهر را انتخاب کنید"),
   address: string().required("ادرس خود را وارد کنید"),
-  latitude: number().optional(),
+  latitude: number().optional().nullable(),
+  longitude: number().optional().nullable(),
   postal_code: string()
     .required("کد پستی خود را وارد کنید")
     .length(10, "کد پستی شامل 10 رقم است"),

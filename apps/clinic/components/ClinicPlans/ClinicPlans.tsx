@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./clinicPlans.module.scss";
+import styles from "./ClinicPlans.module.scss";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Heart from "@repo/shared_modules/images/heart.png";

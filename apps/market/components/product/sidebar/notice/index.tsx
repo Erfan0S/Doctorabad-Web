@@ -22,19 +22,19 @@ const ProductSidebarNotice = ({
   return (
     <div className={style.productSidebarNotice}>
       <ul>
-        {bonusCoins && (
+        {!!bonusCoins && (
           <li>
             <Image src={coinIcon} alt="" />
             با خرید این محصول {bonusCoins} سکه دکترکلاب دریافت میکنی!
           </li>
         )}
-        {normalDiscount && (
+        {!!normalDiscount && (
           <li>
             <StarIcon />
             تخفیف و سودت از خرید: {priceFormatter(normalDiscount)} تومن!
           </li>
         )}
-        {readyToShipState !== "معمولی" && (
+        {!!readyToShipState && readyToShipState !== "معمولی" && (
           <li>
             <Image src={giftIcon} alt="" />
             {readyToShipState}

@@ -7,7 +7,7 @@ module.exports = {
             cwd: "/var/www/web-site/web-doctorabad/apps/base",
             env: {
                 NODE_ENV: "production",
-                PORT: 3010 // Choose different port for each app
+                PORT: 3010
             }
         },
         {
@@ -17,7 +17,7 @@ module.exports = {
             cwd: "/var/www/web-site/web-doctorabad/apps/market",
             env: {
                 NODE_ENV: "production",
-                PORT: 3020 // Choose different port for each app
+                PORT: 3020
             }
         },
         {
@@ -38,6 +38,36 @@ module.exports = {
             env: {
                 NODE_ENV: "production",
                 PORT: 3040
+            }
+        },
+        {
+            name: "live-pharmacy",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/web-site/web-doctorabad/apps/pharmacy",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3050
+            }
+        },
+        {
+            name: "live-clinic",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/web-site/web-doctorabad/apps/clinic",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3060
+            }
+        },
+        {
+            name: "live-tools",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/web-site/web-doctorabad/apps/tools",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3070
             }
         },
     ]
