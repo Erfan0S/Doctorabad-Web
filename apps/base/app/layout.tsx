@@ -41,7 +41,6 @@ export default async function RootLayout({
             <MobileNavBar />
 
             <Footer statistic={statistic} />
-            <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>
       </body>

@@ -2,25 +2,33 @@
 
 import Link from "next/link";
 import styles from "./ToolCard.module.scss";
-import { useFavorites } from "@/hooks/useFavorites"; // هوکی که قبلا ساختیم
 import { Tool } from "@/data/toolsData";
 
 interface Props {
   tool: Tool;
+  isOnHomePage?: boolean;
+  onToggleHomePage?: (toolId: string) => void;
+  isLoaded?: boolean;
 }
 
-export default function ToolCard({ tool }: Props) {
-  const { isFavorite, toggleFavorite, isLoaded } = useFavorites();
-
-  const isFav = isFavorite(tool.id);
+export default function ToolCard({
+  tool,
+  isOnHomePage = false,
+  onToggleHomePage,
+  isLoaded = true,
+}: Props) {
+  const showOnHome = isOnHomePage;
 
   return (
     <div className={styles.card}>
-      {/* بخش سمت راست: سوئیچ فیوریت */}
-      <div className={styles.switchWrapper} onClick={() => toggleFavorite(tool.id)}>
+      {/* بخش سمت راست: سوئیچ نمایش در صفحه اصلی */}
+      <div
+        className={styles.switchWrapper}
+        onClick={() => onToggleHomePage && onToggleHomePage(tool.id)}
+      >
         <div
           className={`${styles.toggle} ${
-            isLoaded && isFav ? styles.active : ""
+            isLoaded && showOnHome ? styles.active : ""
           }`}
         >
           <div className={styles.circle} />

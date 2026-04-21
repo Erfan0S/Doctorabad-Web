@@ -12,7 +12,13 @@ export const useFavorites = () => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        setFavorites(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const normalized = parsed
+            .filter((id): id is string => typeof id === "string")
+            .map((id) => id.replace(/-/g, "_"));
+          setFavorites(normalized);
+        }
       } catch (e) {
         console.error("Error parsing favorites:", e);
       }

@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:proxy": "node dev-proxy.js",
     "lint": "turbo lint",
     "checkType": "turbo check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -39,6 +40,7 @@
     "react-toastify": "^9.1.3",
     "swiper": "^11.2.10",
     "zaman": "^2.1.1",
-    "zustand": "^4.4.0"
+    "zustand": "^4.4.0",
+    "http-proxy": "^1.18.1"
   }
 }

@@ -17,6 +17,7 @@ import {
 } from "@repo/core/types/product";
 import { PaymentResult } from "@repo/core/types/cart";
 import { Banner } from "@/types/banner";
+import { MainSliderItem, MainSliderResponse } from "@/types/slider";
 import { HomeStatisticsType } from "@/types/homeStatistics";
 import { BlogType } from "@/types/blog";
 
@@ -216,6 +217,14 @@ class Api extends Request {
       next: { revalidate: 3600 },
     });
   }
+
+  getMainHomePageSlider(): Promise<
+    ResponseType<MainSliderResponse>
+  > {
+    return this.request.get<MainSliderResponse>("/user/home/main/sliders", {
+      next: { revalidate: 3600 },
+    });
+  } 
 
   reportIssue = ({
     text,
