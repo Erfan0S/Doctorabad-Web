@@ -71,4 +71,5 @@ export enum Apps {
   PHARMACY = "pharmacy",
   CLINIC = "clinic",
   TOOLS = "tools",
+  DOWNLOAD = "download",
 }

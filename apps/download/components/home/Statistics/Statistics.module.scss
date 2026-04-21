@@ -1,0 +1,59 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/functions';
+
+.statistics {
+  &Wrapper {
+    display: flex;
+    gap: space(3);
+    > div {
+      background-color: #f2f2f2;
+      border-radius: radius(5);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: space(3) space(3);
+      text-align: center;
+      span {
+        color: $green;
+        font-weight: 600;
+        font-size: 22px;
+      }
+      small {
+        color: #999;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .statistics {
+    &Wrapper {
+      gap: space(1);
+      
+      > div { 
+        border-radius: radius(3);
+        span {
+          font-size: 16px;
+        }
+        small {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 576px) {
+  .statistics {
+    &Wrapper {
+      gap: space(1);
+      flex-wrap: wrap;
+      
+      > div { 
+        min-width: 85px;
+      }
+    }
+  }
+}

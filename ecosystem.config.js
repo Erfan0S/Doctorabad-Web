@@ -70,5 +70,15 @@ module.exports = {
                 PORT: 3007
             }
         },
+        {
+            name: "mono-download",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/download",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3008
+            }
+        },
     ]
 };

@@ -1,0 +1,47 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.productSidebarCountdown {
+    background: $header-nav-bg;
+    padding: space(2) space(3);
+    border-radius: radius(3);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    margin-bottom: space(5);
+    margin-top: space(4);
+
+    >span {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    >div {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: auto;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+                background-color: #fff;
+                color: $orange;
+                min-width: 26px;
+                font-weight: 700;
+                border-radius: radius(2);
+                font-size: 14px;
+                line-height: 26px;
+                margin: 0 space(1) space(0.5);
+                text-align: center;
+            }
+
+            small {
+                color: #fff;
+            }
+        }
+    }
+}

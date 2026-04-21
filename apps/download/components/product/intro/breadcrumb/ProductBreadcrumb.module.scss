@@ -1,0 +1,42 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.productBreadcrumb {
+  margin-bottom: space(4);
+  ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      margin-left: space(1.5);
+      display: inline-flex;
+      &:after {
+        content: '>';
+        color: $gray;
+        margin-right: space(1.5);
+      }
+      &:last-of-type {
+        margin-left: unset;
+        &:after {
+          display: none;
+        }
+        span,
+        a {
+          font-weight: 600;
+        }
+      }
+      span,
+      a {
+        display: inline-block;
+        color: $gray;
+        max-width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+}

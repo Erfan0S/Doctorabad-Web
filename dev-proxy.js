@@ -4,12 +4,13 @@ const httpProxy = require("http-proxy");
 const proxy = httpProxy.createProxyServer({});
 
 const routes = [
-  { path: "/tools", target: "http://localhost:3007" },
   { path: "/market", target: "http://localhost:3002" },
   { path: "/learn", target: "http://localhost:3003" },
   { path: "/exam", target: "http://localhost:3004" },
   { path: "/pharmacy", target: "http://localhost:3005" },
   { path: "/clinic", target: "http://localhost:3006" },
+  { path: "/tools", target: "http://localhost:3007" },
+  { path: "/download", target: "http://localhost:3008" },
 ];
 
 const defaultTarget = "http://localhost:3001";

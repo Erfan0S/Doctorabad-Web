@@ -1,0 +1,27 @@
+@import '@/assets/styles/functions';
+@import '@/assets/styles/variables';
+
+.productFaq {
+    border: 2px solid $orange;
+    padding: space(2) space(3);
+    margin-bottom: space(2);
+    border-radius: radius(3);
+    font-size: 13px;
+
+    &:last-of-type {
+        margin-bottom: unset
+    }
+    p {
+        margin: 0;
+    }
+
+    &Question, &Answer {
+        display: flex;
+        color: $gray;
+        span {
+            color: $red;
+            font-weight: 500;
+            margin-left: space(1);
+        }
+    }
+}

@@ -1,0 +1,71 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/functions';
+
+.appLinkSender {
+  padding: space(10) 0;
+  &Wrapper {
+    padding: space(5) 0;
+    background-color: #f2f2f2;
+    border-radius: radius(6);
+    display: flex;
+    justify-content: center;
+    gap: space(3);
+    input {
+        line-height: 45px;
+        border: unset;
+        padding: 0 space(3);
+        background-color: #fff;
+        border-radius: radius(4);
+        width: 30%;
+        text-align: center;
+        font-size: 16px;
+        &:focus {
+            outline: unset;
+        }
+    }
+    button {
+        background-color: $green;
+        border: unset;
+        line-height: 45px;
+        border: unset;
+        padding: 0 space(4);
+        border-radius: radius(4);
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        white-space: nowrap;
+        &:focus {
+            outline: unset;
+        }
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .appLinkSender {
+    padding: space(5) 0;
+    &Wrapper {
+      padding: space(2);
+      border-radius: radius(5);
+      flex-direction: row-reverse;
+    }
+    input {
+      width: 100%;
+      font-size: 14px;
+      flex: 1;
+    }
+    button {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .appLinkSender {
+    &Wrapper {
+      flex-direction: column;
+    }
+  }
+}
