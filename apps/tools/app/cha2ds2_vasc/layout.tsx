@@ -11,7 +11,7 @@ export default function RootLayout({
       <ToolsHeader
         headerPageType={HeaderType.TOOL_DETAILS}
         title="CHA2DS2-VASC"
-        toolData={{ id: "cha2ds2-vasc", title: "CHA2DS2-VASC" }}
+        toolData={{ id: "cha2ds2_vasc", title: "CHA2DS2-VASC" }}
       ></ToolsHeader>
       {children}
     </>

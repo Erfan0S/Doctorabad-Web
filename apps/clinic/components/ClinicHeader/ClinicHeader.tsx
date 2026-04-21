@@ -21,12 +21,14 @@ import {
 
 interface ClinicHeaderProps {
   title?: string;
-  headerPageType: HeaderType;
+  headerPageType?: HeaderType; // اضافه کردن علامت سوال اگر در برخی جاها پاس داده نمیشه
+  onBackClick?: () => void; // پراپ جدید اضافه شد
 }
 
 export default function ClinicHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
+  onBackClick
 }: ClinicHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
@@ -67,7 +69,7 @@ export default function ClinicHeader({
       return {
         title: diseaseData?.title_fa,
         description: `${diseaseData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/clinic/${id}`,
+        url: `https://doctorabad.com/mc/${id}`,
       };
     }
   );
@@ -75,6 +77,18 @@ export default function ClinicHeader({
   const handleShareButton = () => {
     shareProduct();
   };
+
+  const handleBack = () => {
+    // اگر تابع از پدر فرستاده شده بود (مثل حالت جستجو در صفحه اصلی)، آن را اجرا کن
+    if (onBackClick) {
+      onBackClick();
+      return;
+    }
+    
+    // در غیر این صورت، رفتار پیش‌فرض (بازگشت به صفحه قبل)
+    router.back();
+  };
+
 
   return (
     <header className={styles.header}>
@@ -103,13 +117,12 @@ export default function ClinicHeader({
             >
               <Heart
                 size={32}
-                strokeWidth={2}
                 fill={isFavorite ? "#57d43b" : "none"}
               />
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => router.back()}>
+          <div className={styles.backBtn} onClick={handleBack}>
             <BackArrow strokeWidth={2}></BackArrow>
           </div>
         </div>

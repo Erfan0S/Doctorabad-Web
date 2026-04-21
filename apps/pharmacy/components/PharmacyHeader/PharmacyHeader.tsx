@@ -22,17 +22,18 @@ import {
 interface PharmacyHeaderProps {
   title?: string;
   headerPageType: HeaderType;
+  onBackClick?: () => void;
 }
 
 export default function PharmacyHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
+  onBackClick
 }: PharmacyHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
   const medicineId = id ? Number(id) : undefined;
 
-  // فقط برای صفحه جزئیات دارو، داده را fetch می‌کنیم
   const { data: medicineData } = useQuery({
     queryKey: ["medicine-details", medicineId],
     queryFn: async () => {
@@ -67,13 +68,21 @@ export default function PharmacyHeader({
       return {
         title: medicineData?.title_fa,
         description: `${medicineData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/pharmacy/${id}`,
+        url: `https://doctorabad.com/mp/${id}`,
       };
     }
   );
 
   const handleShareButton = () => {
     shareProduct();
+  };
+  const handleBack = () => {
+    if (onBackClick) {
+      onBackClick();
+      return;
+    }
+    
+    router.back();
   };
 
   return (
@@ -103,14 +112,13 @@ export default function PharmacyHeader({
             >
               <Heart
                 size={32}
-                strokeWidth={2}
                 fill={isFavorite ? "#57d43b" : "none"}
               />
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => router.back()}>
-            <BackArrow strokeWidth={2}></BackArrow>
+          <div className={styles.backBtn} onClick={handleBack}>
+            <BackArrow ></BackArrow>
           </div>
         </div>
       </div>

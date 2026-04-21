@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./style.module.scss";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { Apps } from "@repo/core/types/general";
@@ -34,14 +34,20 @@ function AddToCartButton({
   isFullWidth,
   className,
   onClick,
-  isLoading,
+  isLoading = false,
 }: Props) {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
   const { data, initLoading } = useCart();
   const orderId = data?.find(
-    (d) => d.product_id === id && d.product_type === type
+    (d) => d.product_id === id && d.product_type === type,
   )?.id;
+
+  useEffect(() => {
+    // console.log("initLoading", initLoading);
+    // console.log("isLoading", isLoading);
+    // console.log("updateCartLoading", updateCartLoading);
+  }, [initLoading, isLoading, updateCartLoading]);
 
   return (
     <div
@@ -56,7 +62,7 @@ function AddToCartButton({
           <Button
             app={app}
             onClick={cartActionsLoadingHandler(() =>
-              cartActions.removeFromCart(orderId)
+              cartActions.removeFromCart(orderId),
             )}
             variant="outline"
           >
@@ -80,8 +86,8 @@ function AddToCartButton({
               ? onClick
               : authorizeClientAction(
                   cartActionsLoadingHandler(() =>
-                    cartActions.addToCart(id, type)
-                  )
+                    cartActions.addToCart(id, type),
+                  ),
                 )
           }
         >

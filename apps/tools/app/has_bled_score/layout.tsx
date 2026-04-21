@@ -11,7 +11,7 @@ export default function RootLayout({
       <ToolsHeader
         headerPageType={HeaderType.TOOL_DETAILS}
         title="HAS-BLED Score"
-        toolData={{ id: "has-bled-score", title: "HAS-BLED Score" }}
+        toolData={{ id: "has_bled_score", title: "HAS-BLED Score" }}
       ></ToolsHeader>
       {children}
     </>

@@ -11,7 +11,7 @@ export default function RootLayout({
       <ToolsHeader
         headerPageType={HeaderType.TOOL_DETAILS}
         title="Wells DVT"
-        toolData={{ id: "wells-dvt", title: "Wells DVT" }}
+        toolData={{ id: "wells_dvt", title: "Wells DVT" }}
       ></ToolsHeader>
       {children}
     </>

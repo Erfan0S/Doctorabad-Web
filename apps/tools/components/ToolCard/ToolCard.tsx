@@ -37,7 +37,7 @@ export default function ToolCard({
 
       {/* بخش وسط: توضیحات لینک دار */}
       <Link href={tool.href} className={styles.content}>
-        <h3 className={styles.title}>{tool.title}</h3>
+        <h1 className={styles.title}>{tool.title}</h1>
         <p className={styles.desc}>{tool.description}</p>
       </Link>
 

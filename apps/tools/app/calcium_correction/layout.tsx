@@ -11,7 +11,7 @@ export default function RootLayout({
       <ToolsHeader
         headerPageType={HeaderType.TOOL_DETAILS}
         title="Calcium Correction"
-        toolData={{ id: "calcium-correction", title: "Calcium Correction" }}
+        toolData={{ id: "calcium_correction", title: "Calcium Correction" }}
       ></ToolsHeader>
       {children}
     </>

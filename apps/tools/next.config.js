@@ -39,6 +39,19 @@ export default withPWA({
   sassOptions: {
     quietDeps: true,
   },
+  
+  async redirects() {
+    return [
+      {
+        source: "/mt/dt/:toolName*", 
+
+        destination: "/tools/:toolName*", 
+        permanent: true, 
+        basePath: false, 
+      },
+    ];
+  },
+
   async rewrites() {
     return [
       {

@@ -1,26 +1,23 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./ClinicSearchSection.module.scss";
-import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 interface ClinicSearchSectionProps {
+  searchQuery: string; 
   onSearchChange: (query: string) => void;
   onSearchDebounced: (query: string) => void;
 }
 
 export default function ClinicSearchSection({
+  searchQuery,
   onSearchChange,
   onSearchDebounced,
 }: ClinicSearchSectionProps) {
-  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  
   const trimmedQuery = useMemo(() => searchQuery.trim(), [searchQuery]);
-  const debouncedSearch = useDebounceAction(onSearchDebounced, 5000);
-  useEffect(() => {
-    onSearchChange(trimmedQuery);
-  }, [trimmedQuery, onSearchChange]);
 
   useEffect(() => {
     if (!trimmedQuery) {
@@ -28,11 +25,15 @@ export default function ClinicSearchSection({
       return;
     }
 
-    debouncedSearch(trimmedQuery);
-  }, [trimmedQuery, debouncedSearch, onSearchDebounced]);
+    const timeoutId = setTimeout(() => {
+      onSearchDebounced(trimmedQuery);
+    }, 2000); 
+
+    return () => clearTimeout(timeoutId);
+  }, [trimmedQuery, onSearchDebounced]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    onSearchChange(e.target.value);
   };
 
   const handleCategoriesClick = () => {

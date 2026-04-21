@@ -48,7 +48,8 @@ export default function ToolsHeader({
       return {
         title: toolData?.title,
         description: `${toolData?.title} را در دکترآباد ببینید: `,
-        url: window.location.href, // اشتراک‌گذاری آدرس فعلی
+        url: `https://doctorabad.com/mt/dt/${toolData?.id}`,
+        
       };
     }
   );
@@ -84,7 +85,6 @@ export default function ToolsHeader({
             >
               <Heart
                 size={32}
-                strokeWidth={2}
                 // اگر لود شده بود و فیوریت بود سبز، در غیر این صورت خالی
                 fill={isLoaded && isFav ? "#57d43b" : "none"}
                 // برای حالت لینک به صفحه فیوریت‌ها (وقتی دیتیل نیست) همیشه توخالی یا رنگ دیگری باشد

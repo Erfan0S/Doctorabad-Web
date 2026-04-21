@@ -137,6 +137,7 @@ export enum HeaderType {
   FAVORITES = "favorites",
   DISEASE_DETAILS = "disease_details",
   OTHERS = "others",
+  HOME = "home"
 }
 
 export interface DiscountPlan {

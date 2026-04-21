@@ -13,10 +13,10 @@ const initialState = {
   initLoading: !!isUserLoggedIn(),
 } as CartState;
 
-export const useCart = create<CartState>(() => initialState);
+export const storeCart = create<CartState>(() => initialState);
 
 const updateCart = (response: ResponseType<CartResponse>) =>
-  useCart.setState({ ...response.data, initLoading: false });
+  storeCart.setState({ ...response.data, initLoading: false });
 
 export const cartActions = {
   async getCartData() {
@@ -26,7 +26,7 @@ export const cartActions = {
   async addToCart(
     cartItem: number,
     type: OrderType = OrderType.ShopProduct,
-    variants?: ProductVariantsValue[]
+    variants?: ProductVariantsValue[],
   ) {
     if (!isUserLoggedIn(true)) return;
 
@@ -58,6 +58,13 @@ export const cartActions = {
     toast("تعداد محصول کاهش یافت", { type: "warning", position: "top-left" });
   },
   clearCart() {
-    useCart.setState(initialState, true);
+    storeCart.setState(initialState, true);
   },
 };
+
+const createUseCart = () => {
+  cartActions.getCartData();
+  return storeCart;
+};
+
+export const useCart = createUseCart();

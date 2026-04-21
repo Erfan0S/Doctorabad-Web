@@ -69,7 +69,15 @@ export default function GFRPage() {
             <div className={styles.sectionTitle}>جنسیت</div>
             <div className={styles.sectionContent}>
               <div className={styles.listItems}>
-                <div className={styles.item}>
+                <div
+                  className={styles.item}
+                  onClick={() => setGender("male")}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && setGender("male")
+                  }
+                >
                   <input
                     type="radio"
                     checked={gender === "male"}
@@ -77,7 +85,15 @@ export default function GFRPage() {
                   />
                   <span>مرد</span>
                 </div>
-                <div className={styles.item}>
+                <div
+                  className={styles.item}
+                  onClick={() => setGender("female")}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && setGender("female")
+                  }
+                >
                   <input
                     type="radio"
                     checked={gender === "female"}
