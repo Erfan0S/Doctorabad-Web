@@ -1,12 +1,7 @@
-import style from './Loading.module.scss';
+import React from "react";
+import { Loading as SharedLoading } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
-interface Props {
-  size?: number;
-
-  className?: string;
+export default function Loading() {
+  return <SharedLoading app={Apps.DOWNLOAD} />;
 }
-const Loading: React.FC<Props> = ({ size = 20, className }) => {
-  return <div className={`${style.loading} ${className}`} style={{ width: size, height: size }} />;
-};
-
-export default Loading;

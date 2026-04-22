@@ -12,14 +12,15 @@
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "incremental": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/core/src/utils/variantsUtils.ts"
+    "../../packages/shared_modules/assets/svg/amazingStart.tsx"
   ],
   "exclude": ["node_modules"]
 }

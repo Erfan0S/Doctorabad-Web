@@ -1,29 +1,23 @@
-import { CategoryList } from "@/types/category";
 import { Request } from "@repo/core/http-request/Request";
-import { User, VerifyPhoneInput } from "@repo/core/types/user";
-import { ProvidersList } from "@/types/providers";
-import {
-  PaginatedRequest,
-  PaginatedResponse,
-  ResponseType,
-  SelectionItem,
-} from "@repo/core/types/general";
-import {
-  ProductListOptions,
-  Product,
-  SingleProduct,
-  AmazingProduct,
-  ProductComments,
-  ProductShare,
-} from "@repo/core/types/product";
-import { PaymentResult } from "@repo/core/types/cart";
-import { Banner } from "@/types/banner";
-import { LastProcessingOrder } from "@/types/orders";
-import { FestivalInfo } from "@/types/festival";
-import { BlogType } from "@/types/blog";
-
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
+import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
+import {
+  CourseComents,
+  CourseDataType,
+  CourseListItemType,
+  CourseShare,
+  Note,
+  PaginatedAmazingCourses,
+  previousOrders,
+  VideoType,
+} from "@/types/courses";
+import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
+import { FieldGradeType, SortType } from "@/types/filters";
+import { SingleProviderType } from "@/types/ProviderPage";
+import { PaymentResult } from "@repo/core/types/cart";
+import { User, UserPlans } from "@repo/core/types/user";
+import { VideoMissionParams } from "@/types/VideoPlayer";
 
 class Api extends Request {
   constructor() {
@@ -34,491 +28,300 @@ class Api extends Request {
     });
   }
 
-  getCsrf(): Promise<any> {
-    return this.request.get("/sanctum/csrf-cookie");
-  }
-
-  // user
-  sendVerificationCode(mobile: string): Promise<any> {
-    return this.request.post("/user/verification/send", { mobile });
-  }
-
-  verifyPhone(data: VerifyPhoneInput): Promise<ResponseType<User>> {
-    return this.request.post<User>("/user", data);
-  }
-
-  // logout(): Promise<any> {
-  //   return this.request.get("/user/logout");
-  // }
-
-  // getUser = (): Promise<ResponseType<{ data: User }>> => {
-  //   return this.request.get<{ data: User }>("/user");
-  // };
-
-  // updateUser = (data: Partial<User>): Promise<any> => {
-  //   return this.request.put("/user", {
-  //     ...data,
-  //     grade: data.grade_id,
-  //     field: data.field_id,
-  //     province: data.province_id,
-  //     city: data.city_id,
-  //   });
-  // };
-
-  // categories
-  getCategoriesList(): Promise<ResponseType<CategoryList>> {
-    return this.request.get<CategoryList>("/user/shop/category", {
-      next: { revalidate: 3600 },
-    });
-  }
-
-  // providers
-  getProviders(): Promise<ResponseType<PaginatedResponse<ProvidersList>>> {
-    return this.request.get<PaginatedResponse<ProvidersList>>(
-      "/user/shop/provider",
-      {
-        next: { revalidate: 3600 },
-      }
-    );
-  }
-
-  // product
-  getProductList = (
-    params: PaginatedRequest<ProductListOptions>
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/list",
-      { params }
+  getOrderResult = (
+    paymentToken: string,
+  ): Promise<ResponseType<PaymentResult>> => {
+    return this.request.get<PaymentResult>(
+      `/user/shop/order/result/${paymentToken}`,
     );
   };
 
-  searchProducts = (
-    params: PaginatedRequest<{ q: string }>
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/search",
-      { params }
-    );
+  getUser = (): Promise<ResponseType<{ data: User }>> => {
+    return this.request.get("/user");
   };
 
-  getAmazingProductList = (
-    params: PaginatedRequest
-  ): Promise<
-    ResponseType<{ data: AmazingProduct[]; amazing_time: string }>
-  > => {
-    return this.request.get<{ data: AmazingProduct[]; amazing_time: string }>(
-      "/user/shop/product/new/amazing",
-      { params }
-    );
-  };
+  // single course
 
-  getSuggestedProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/suggest",
-      { params }
-    );
-  };
-
-  getNewestProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/newest",
-      { params }
-    );
-  };
-
-  getBesSellingProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/bestselling",
-      { params }
-    );
-  };
-
-  getLastSeenProductList = (
-    params: PaginatedRequest
-  ): Promise<ResponseType<{ data: Product[] }>> => {
-    return this.request.get<{ data: Product[] }>(
-      "/user/shop/product/new/lastSeen",
-      {
-        params,
-        cache: "no-store",
-      }
-    );
-  };
-
-  getProductCount = (): Promise<ResponseType<{ data: number }>> => {
-    return this.request.get<{ data: number }>("/user/shop/product/count");
-  };
-
-  shareProduct(id: number): Promise<ResponseType<{ data: ProductShare }>> {
-    return this.request.get<{ data: ProductShare }>(
-      `/user/shop/product/share/${id}`
+  getCourse(id: number): Promise<ResponseType<{ data: CourseDataType }>> {
+    return this.request.get<{ data: CourseDataType }>(
+      `/user/v1/education/course/${id}`,
     );
   }
 
-  restockNotification(
-    id: number
-  ): Promise<ResponseType<{ data: ProductShare }>> {
-    return this.request.get<{ data: ProductShare }>(
-      `/user/shop/product/letMeKnow/${id}`
+  createComment(data: { courseId: number; text: string }): Promise<any> {
+    return this.request.post(
+      `/user/v1/education/course/${data.courseId}/comment`,
+      data,
     );
-  }
-
-  // single product
-  getSingleProduct(id: number): Promise<ResponseType<{ data: SingleProduct }>> {
-    return this.request.get<{ data: SingleProduct }>(
-      `/user/shop/product/single/${id}`
-    );
-  }
-
-  getSingleProductBySlug(
-    slug: string
-  ): Promise<ResponseType<{ data: SingleProduct }>> {
-    return this.request.get<{ data: SingleProduct }>(
-      `/user/shop/product/slug/${slug}`
-    );
-  }
-
-  getRelatedProducts(id: number): Promise<ResponseType<{ data: Product[] }>> {
-    return this.request.get<{ data: Product[] }>(
-      `/user/shop/product/new/related/${id}`
-    );
-  }
-
-  createCOmment(data: {
-    id: number;
-    text: string;
-    rate: number;
-  }): Promise<any> {
-    return this.request.post("/user/shop/comment", data);
   }
 
   getCommentsList(
-    productID: number,
-    page: number
-  ): Promise<ResponseType<ProductComments>> {
-    return this.request.get<ProductComments>(
-      `/user/shop/comment/new/${productID}`,
-      { params: { page } }
+    courseID: number,
+    page: number,
+  ): Promise<ResponseType<CourseComents>> {
+    return this.request.get<CourseComents>(
+      `/user/v1/education/course/${courseID}/comment`,
+      { params: { page } },
     );
   }
 
-  // getAvatarList = (): Promise<ResponseType<AvatarList>> => {
-  //   return this.request.get<AvatarList>("/user/avatar/list");
-  // };
-
-  // selectAvatar = (filename: string): Promise<any> => {
-  //   return this.request.post(`/user/avatar/select`, { filename });
-  // };
-
-  addToFavorite = (id: number): Promise<any> => {
-    return this.request.post(`/user/shop/favorite`, { id });
-  };
-
-  removeFromFavorite = (id: number): Promise<any> => {
-    return this.request.delete(`/user/shop/favorite/${id}`);
-  };
-
-  // // cart
-  // getCartList(): Promise<ResponseType<CartResponse>> {
-  //   return this.request.get<CartResponse>("/user/shop/cart");
-  // }
-
-  // addToCart(
-  //   productId: number,
-  //   variants?: ProductVariantsValue[]
-  // ): Promise<ResponseType<CartResponse>> {
-  //   return this.request.post<CartResponse>("/user/shop/cart", {
-  //     id: productId,
-  //     quantity: 1,
-  //     variants: variants,
-  //   });
-  // }
-
-  // removeFromCart(orderId: number): Promise<any> {
-  //   return this.request.delete(`/user/shop/cart/${orderId}`);
-  // }
-
-  // decreaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
-  //   return this.request.put<CartResponse>("/user/shop/cart/decrease", {
-  //     id: orderId,
-  //   });
-  // }
-
-  // increaseQuantity(orderId: number): Promise<ResponseType<CartResponse>> {
-  //   return this.request.put<CartResponse>("/user/shop/cart/increase", {
-  //     id: orderId,
-  //   });
-  // }
-
-  getLastProcessingOrder = (): Promise<ResponseType<LastProcessingOrder>> => {
-    return this.request.get<LastProcessingOrder>("/user/shop/order/last/doing");
-  };
-
-  // address
-  // getAddressesList = (): Promise<ResponseType<{ data: ShippingAddress[] }>> => {
-  //   return this.request.get<{ data: ShippingAddress[] }>("/user/shop/address");
-  // };
-
-  // getProvincesList = (): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-  //   return this.request.get<{ data: SelectionItem[] }>("/user/find/provinces");
-  // };
-
-  // getCitiesList = (
-  //   provinceId: number
-  // ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-  //   return this.request.post<{ data: SelectionItem[] }>("/user/find/cities", {
-  //     province_id: provinceId,
-  //   });
-  // };
-
-  // getTopinCitiesList = (
-  //   provinceId: number
-  // ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-  //   return this.request.post<{ data: SelectionItem[] }>(
-  //     "/user/find/tapin/cities",
-  //     {
-  //       province_id: provinceId,
-  //     }
-  //   );
-  // };
-
-  // addAddress = (
-  //   data: Partial<ShippingAddress>
-  // ): Promise<ResponseType<{ data: ShippingAddress }>> => {
-  //   return this.request.post<{ data: ShippingAddress }>(
-  //     "/user/shop/address",
-  //     data
-  //   );
-  // };
-
-  // updateAddress = (
-  //   addressId: number,
-  //   data: Partial<ShippingAddress>
-  // ): Promise<ResponseType<{ data: ShippingAddress }>> => {
-  //   return this.request.put<{ data: ShippingAddress }>(
-  //     `/user/shop/address/${addressId}`,
-  //     data
-  //   );
-  // };
-
-  // getShippingMethods = (): Promise<
-  //   ResponseType<{ data: ShippingMethod[] }>
-  // > => {
-  //   return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
-  // };
-
-  // selectShippingMethod = (data: {
-  //   shipping_method_id: number;
-  //   address_id: number;
-  // }): Promise<ResponseType<{ data: { price: number } }>> => {
-  //   return this.request.post<{ data: { price: number } }>(
-  //     "/user/shop/shipping/select",
-  //     data
-  //   );
-  // };
-
-  // checkDiscountCode(code: string): Promise<ResponseType<DiscountInfo>> {
-  //   return this.request.get<DiscountInfo>(
-  //     `/user/shop/discountCode/check?code=${code}`
-  //   );
-  // }
-
-  // createOrder(
-  //   data: CreateOrderRequest
-  // ): Promise<ResponseType<CreateOrderResponse>> {
-  //   return this.request.post<CreateOrderResponse>("/user/shop/order", data);
-  // }
-
-  getOrderResult = (
-    paymentToken: string
-  ): Promise<ResponseType<PaymentResult>> => {
-    return this.request.get<PaymentResult>(
-      `/user/shop/order/result/${paymentToken}`
+  getRelatedCourses(
+    id: number,
+  ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
+    return this.request.get<{ data: CourseListItemType[] }>(
+      `/user/v1/education/course/${id}/related`,
     );
+  }
+
+  shareCourse(id: number): Promise<ResponseType<{ data: CourseShare }>> {
+    return this.request.get(`/user/v1/education/course/${id}/share`);
+  }
+
+  errorReport(data: { id: number; text: string }): Promise<any> {
+    return this.request.post("/user/v1/education/error/report", data);
+  }
+
+  addFavorite(id: number): Promise<{}> {
+    return this.request.post(`/user/v1/education/favorite`, { id });
+  }
+
+  removeFavorite = (id: number): Promise<any> => {
+    return this.request.delete(`/user/v1/education/favorite/${id}`);
   };
 
-  // fields and grades
-  getFields = (
-    type: number
-  ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-    return this.request.get<{ data: SelectionItem[] }>("/user/find/fields", {
-      params: { type },
+  // video
+  getVideo(
+    courseID: number,
+    lessonID: number,
+  ): Promise<ResponseType<{ data: VideoType }>> {
+    return this.request.get<{ data: VideoType }>(
+      `/user/v1/education/course/${courseID}/lesson/${lessonID}/video`,
+    );
+  }
+
+  getVideowBookmarks(
+    courseID: number,
+    lessonID: number,
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<Note[]>>> {
+    return this.request.get<PaginatedResponse<Note[]>>(
+      `/user/v1/education/course/${courseID}/lesson/${lessonID}/pins`,
+      { params: { page } },
+    );
+  }
+
+  createVideoBookmark(
+    lessonID: number,
+    data: { jump_time: number; title: string; description: string },
+  ): Promise<ResponseType<VideoType>> {
+    return this.request.post<VideoType>(
+      `/user/v1/education/lesson/${lessonID}/pins`,
+      data,
+    );
+  }
+
+  deleteVideoBookmark(
+    lessonID: number,
+    id: number,
+  ): Promise<ResponseType<VideoType>> {
+    return this.request.delete<VideoType>(
+      `/user/v1/education/lesson/${lessonID}/pins/${id}`,
+    );
+  }
+
+  getVideoBookmarkUsage(
+    lessonID: number,
+    id: number,
+  ): Promise<ResponseType<VideoType>> {
+    return this.request.get<VideoType>(
+      `/user/v1/education/lesson/${lessonID}/pins/${id}`,
+    );
+  }
+
+  // main page
+  getProviders(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<ProviderType[]>>> {
+    return this.request.get("/user/v1/education/provider", {
+      params: { page },
     });
-  };
-
-  getGrades = (
-    field_id: number,
-    type: number
-  ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
-    return this.request.get<{ data: SelectionItem[] }>("/user/find/grades", {
+  }
+  getSingleProvider(
+    id: number,
+    page: number = 1,
+  ): Promise<ResponseType<SingleProviderType>> {
+    return this.request.get(`/user/v1/education/provider/${id}`, {
       params: {
-        field_id: String(field_id),
-        type,
+        page,
       },
     });
-  };
+  }
 
-  // home page sliders
-  getMainSliders(): Promise<ResponseType<{ data: Banner[] }>> {
-    return this.request.get<{ data: Banner[] }>("/user/shop/sliders", {
-      next: { revalidate: 3600 },
+  getCategories(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
+    return this.request.get("/user/v1/education/category", {
+      params: { page },
     });
   }
 
-  // account
-  // getMessageList = (
-  //   page: number
-  // ): Promise<ResponseType<{ data: MessageItem[] }>> => {
-  //   return this.request.get<{ data: MessageItem[] }>(
-  //     `/user/message?page=${page}`
-  //   );
-  // };
+  getAmazingCourses(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedAmazingCourses>> {
+    return this.request.get("/user/v1/education/course/amazing", {
+      params: { page },
+    });
+  }
 
-  // getSingleMessage = (
-  //   id: number
-  // ): Promise<ResponseType<{ data: SingleMessage }>> => {
-  //   return this.request.get<{ data: SingleMessage }>(
-  //     `/user/message/show/${id}`
-  //   );
-  // };
+  getNewestCourses(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/newest", {
+      params: { page },
+    });
+  }
 
-  getMessagesCount = (): Promise<
-    ResponseType<{ data: { counter: number } }>
-  > => {
-    return this.request.get<{ data: { counter: number } }>(
-      `/user/message/new/count`
-    );
-  };
+  getBestSellerCourses(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/bestselling", {
+      params: { page },
+    });
+  }
 
-  // shareInformation = (): Promise<ResponseType<{ data: ShareToFriends }>> => {
-  //   return this.request.get<{ data: ShareToFriends }>(`/user/share`);
-  // };
+  getSuggestedCourses(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/suggest", {
+      params: { page },
+    });
+  }
 
-  // getOrdersList = (
-  //   page: number
-  // ): Promise<ResponseType<{ data: PreviousOrder[] }>> => {
-  //   return this.request.get<{ data: PreviousOrder[] }>(
-  //     `/user/shop/order/list?page=${page}`
-  //   );
-  // };
+  getUserLastViewedCourses(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/user/last-seen", {
+      params: { page },
+    });
+  }
 
-  // getFavoriteList = (
-  //   page: number
-  // ): Promise<ResponseType<{ data: Product[] }>> => {
-  //   return this.request.get<{ data: Product[] }>(
-  //     `/user/shop/favorite/list?page=${page}`
-  //   );
-  // };
+  getMainSlider(): Promise<ResponseType<{ data: SliderType[] }>> {
+    return this.request.get("/user/v1/education/slider?location=1");
+  }
 
-  reportIssue = ({
-    text,
-    productId,
+  getUserPreviousOrders(): Promise<
+    ResponseType<PaginatedResponse<previousOrders[]>>
+  > {
+    return this.request.get("/user/v1/education/previous/orders");
+  }
+
+  getPrviosCourseOrders(
+    page: number = 1,
+  ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
+    return this.request.get("/user/v1/education/previous/orders/courses/buy", {
+      params: { page },
+    });
+  }
+
+  getPreviosPlanOrders(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/previous/orders/courses/plan", {
+      params: { page },
+    });
+  }
+
+  // filter / search
+
+  getSearchList(
+    query: string,
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return query
+      ? this.request.get("/user/v1/education/course/search", {
+          params: { q: query, page },
+        })
+      : this.getNewestCourses(page);
+  }
+
+  getFilterList({
+    page,
+    categories,
+    fields,
+    grades,
+    language,
+    maxPrice,
+    minPrice,
+    providers,
+    sort,
   }: {
-    text: string;
-    productId: number;
-  }): Promise<any> => {
-    return this.request.post(`/user/shop/error/report`, {
-      error_report_text: text,
-      id: productId,
+    sort?: SortType;
+    fields?: number;
+    grades?: number;
+    categories?: number;
+    providers?: number;
+    minPrice?: number;
+    maxPrice?: number;
+    language?: number;
+    page?: number;
+  }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+    return this.request.get("/user/v1/education/course/list", {
+      params: {
+        sort: sort,
+        fields,
+        grades,
+        categories,
+        providers,
+        min_price: minPrice,
+        max_price: maxPrice,
+        language,
+        page,
+      },
     });
-  };
-
-  getFestivalInfo = (): Promise<ResponseType<{ data: FestivalInfo }>> => {
-    return this.request.get<{ data: FestivalInfo }>("/user/shop/festival");
-  };
-
-  getFestivalProductList = ({
-    id,
-    ...params
-  }: PaginatedRequest<{ id: number }>): Promise<
-    ResponseType<{ data: Product[] }>
-  > => {
-    return this.request.get<{ data: Product[] }>(`/user/shop/festival/${id}`, {
-      params,
-    });
-  };
-
-  // getLiveChatInformation = (): Promise<
-  //   ResponseType<{ data: LiveChatInformation }>
-  // > => {
-  //   return this.request.get<{ data: LiveChatInformation }>("/user/chat");
-  // };
-
-  getPreviousOrderDetail = (
-    orderCode: string
-  ): Promise<ResponseType<LastProcessingOrder>> => {
-    return this.request.get<LastProcessingOrder>(
-      `/user/shop/order/details/${orderCode}`
-    );
-  };
-
-  getProductTypes = (): Promise<
-    ResponseType<{ data: { id: number; title: string }[] }>
-  > => {
-    return this.request.get<{ data: { id: number; title: string }[] }>(
-      `/user/find/product/types`
-    );
-  };
-
-  getProductPriceRange = (): Promise<
-    ResponseType<{ data: { min: number; max: number } }>
-  > => {
-    return this.request.get<{ data: { min: number; max: number } }>(
-      `/user/shop/product/price/range`
-    );
-  };
-
-  // club
-  // getClubHelpText = (): Promise<ResponseType<{ data: HelpText }>> => {
-  //   return this.request.get<{ data: HelpText }>(`/user/club/help/text`);
-  // };
-
-  // getUserClubInfo = (): Promise<ResponseType<{ data: UserClubInfo }>> => {
-  //   return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
-  // };
-
-  // getOffersList = (
-  //   page: number
-  // ): Promise<ResponseType<{ data: ClubOffer[] }>> => {
-  //   return this.request.get<{ data: ClubOffer[] }>(`/user/club/plan/list`, {
-  //     params: { page },
-  //   });
-  // };
-
-  // buyOffer = (
-  //   id: number
-  // ): Promise<ResponseType<{ data: BuyOfferResponse }>> => {
-  //   return this.request.get<{ data: BuyOfferResponse }>(
-  //     `/user/club/plan/buy/${id}`
-  //   );
-  // };
-
-  // getClubTransactionsList = (
-  //   page: number
-  // ): Promise<ResponseType<{ data: ClubTransaction[] }>> => {
-  //   return this.request.get<{ data: ClubTransaction[] }>(
-  //     `/user/club/coin/list`,
-  //     { params: { page } }
-  //   );
-  // };
-
-  verifyMultimediaContent(data: {
-    verification_code: string;
-    token: string;
-  }): Promise<any> {
-    return this.request.post("/user/qrcode/verify", data);
+  }
+  getLessonsCount(): Promise<ResponseType<{ data: number; status: string }>> {
+    return this.request.get(`/user/v1/education/lesson/count`);
   }
 
-  getMagazinePosts(): Promise<ResponseType<{ data: BlogType[] }>> {
-    return this.request.get<{ data: BlogType[] }>("/user/shop/magazine/posts", {
-      next: { revalidate: 36000 },
+  getFields(type: number): Promise<ResponseType<{ data: FieldGradeType[] }>> {
+    return this.request.get("/user/find/fields", { params: { type } });
+  }
+
+  getGrades(
+    type: number,
+    field_id: number,
+  ): Promise<ResponseType<{ data: FieldGradeType[] }>> {
+    return this.request.get("/user/find/grades", {
+      params: { type, field_id },
     });
+  }
+
+  getCategoriesByGrade(
+    grade_id: number,
+  ): Promise<ResponseType<{ data: CategoryType[] }>> {
+    return this.request.get(`/user/v1/education/category/search`, {
+      params: { grade_id },
+    });
+  }
+
+  getLanguages(): Promise<ResponseType<{ id: number; language: string }[]>> {
+    return this.request.get("/user/v1/education/course/lang");
+  }
+
+  getPriceRange(): Promise<
+    ResponseType<{ min_price: number; max_price: number }>
+  > {
+    return this.request.get("/user/v1/education/course/price");
+  }
+
+  getCardList(): Promise<ResponseType<any>> {
+    return this.request.get("/user/v1/cart");
+  }
+
+  // mission
+
+  videoMission(params: VideoMissionParams) {
+    return this.request.post("/user/club/mission/watch/lesson", params);
   }
 }
 

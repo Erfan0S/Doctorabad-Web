@@ -1,4 +1,5 @@
 import { AuthorizeClientPage } from "@repo/shared_modules/components";
+import { PageHeader } from "@repo/shared_modules/headers";
 import { checkoutMetadata } from "@repo/core/metadata/checkout";
 import { routePath } from "@repo/core/constants/routePath";
 
@@ -10,10 +11,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="container">
-      <AuthorizeClientPage baseUrl={routePath.marketBasePath}>
-        {children}
-      </AuthorizeClientPage>
-    </div>
+    <>
+      <PageHeader title="سبد خرید" />
+      <div className="container">
+        <AuthorizeClientPage baseUrl={routePath.learnBasePath}>
+          {children}
+        </AuthorizeClientPage>
+      </div>
+    </>
   );
 }
