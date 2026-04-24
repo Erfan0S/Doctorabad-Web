@@ -3,8 +3,8 @@ import { headers } from "next/headers";
 import React from "react";
 
 type Props = {
-  MobileComponent: React.ReactNode;
-  DesktopComponent: React.ReactNode;
+  MobileComponent: React.ReactNode | (() => void);
+  DesktopComponent: React.ReactNode | (() => void);
 };
 
 function DiviceSwitchShell({ MobileComponent, DesktopComponent }: Props) {

@@ -8,6 +8,7 @@ export type CategoryType = {
   title?: string;
   pic_url?: string;
   alt?: string;
+  objectFit?: "contain" | "fill" | "cover";
 };
 
 type Props = {
@@ -31,7 +32,7 @@ const TileListItem = ({ category, baseUrl }: Props) => {
         src={category.pic_url || placeHolderDataUrl}
         alt={category.alt || category.title || "دسته بندی"}
         fill
-        style={{ objectFit: "contain" }}
+        style={{ objectFit: category.objectFit || "contain" }}
         placeholder={placeHolderDataUrl}
       />
       {category.title ? (

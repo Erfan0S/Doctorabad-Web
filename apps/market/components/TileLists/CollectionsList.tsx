@@ -16,6 +16,7 @@ async function CollectionsList() {
           id: c.id,
           pic_url: c.pic_url,
           alt: c.title,
+          objectFit: "cover",
         }))}
     />
   );

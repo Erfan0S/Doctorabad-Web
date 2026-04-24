@@ -41,7 +41,9 @@ const CategoriesPage = () => {
           {data?.pages.map((page, i) => (
             <TileList
               key={`${page.meta.current_page}-${i}`}
-              categories={page.data || []}
+              categories={
+                page.data.map((c) => ({ ...c, objectFit: "cover" })) || []
+              }
             />
           ))}
         </InfiniteScroll>
