@@ -41,7 +41,7 @@
   left: 0;
   width: 50%;
   height: 5px;
-  background: $green;
+  background: $base-green;
   border-radius: 999px;
   transition: transform 0.25s ease;
 }
@@ -55,7 +55,7 @@
 }
 
 .sectionTitle {
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 13px;
@@ -118,7 +118,7 @@
     input[type="radio"] {
       width: 20px;
       height: 20px;
-      accent-color: $green;
+      accent-color: $base-green;
       cursor: pointer;
     }
   }
@@ -143,7 +143,7 @@
 }
 
 .calculateButton {
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 13px;
@@ -198,7 +198,7 @@
 }
 
 .green {
-  background: $green;
+  background: $base-green;
 }
 
 .gray {
@@ -276,7 +276,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid $green;
+  border: 2px solid $base-green;
   border-radius: 10px;
   overflow: hidden;
   width: 55%;
@@ -285,7 +285,7 @@
 }
 
 .inputLabel {
-  background: $green;
+  background: $base-green;
   color: #fff;
   display: flex;
   align-items: center;

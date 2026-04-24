@@ -8,12 +8,12 @@
   z-index: 100;
   top: 62px;
   padding-top: 1rem;
-  background: $green;
+  background: $base-green;
   --img-size: 6.7rem;
   --img-offset-right: 10px;
 
   .top {
-    background-color: $green;
+    background-color: $base-green;
     position: relative;
     min-height: 3rem;
     color: white;
@@ -46,7 +46,7 @@
   .bottom {
     display: flex;
     justify-content: flex-start;
-    color: $green;
+    color: $base-green;
     font-size: 0.9rem;
     font-weight: 700;
 
@@ -75,7 +75,7 @@
 }
 
 .title_fa {
-  color: $green;
+  color: $base-green;
 }
 .title_en {
   font-size: 1.3rem;
@@ -90,7 +90,7 @@
 }
 
 .sectionButton {
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 10px;
@@ -159,12 +159,12 @@
   max-height: 70px;
 
   &:hover {
-    color: $green;
+    color: $base-green;
   }
 
   &.active {
-    color: $green;
-    border-bottom-color: $green;
+    color: $base-green;
+    border-bottom-color: $base-green;
     background: rgba(76, 175, 80, 0.05);
   }
 }

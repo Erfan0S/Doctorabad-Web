@@ -64,13 +64,13 @@
       input[type="radio"] {
         width: 20px;
         height: 20px;
-        accent-color: $green;
+        accent-color: $base-green;
         cursor: pointer;
       }
     }
 
     .selected {
-      color: $green;
+      color: $base-green;
     }
   }
 

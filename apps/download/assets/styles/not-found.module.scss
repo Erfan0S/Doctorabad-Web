@@ -18,12 +18,12 @@
   margin-top: 10px;
   font-size: large;
   padding: 0 20px;
-  color: $green;
-  border: 1px solid $green;
+  color: $base-green;
+  border: 1px solid $base-green;
   border-radius: 10px;
   transition: 0.25s;
 }
 .redirectButton:hover {
-  background-color: $green;
+  background-color: $base-green;
   color: #ffff;
 }
