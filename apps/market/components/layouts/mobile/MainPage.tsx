@@ -7,6 +7,7 @@ import { Apps } from "@repo/core/types/general";
 import { MobileTabsConfig } from "@repo/core/types/configs";
 import { MainSlider } from "@repo/shared_modules/components";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
+import { MainTabsData } from "@/constants/tabsData";
 
 type Props = {
   sliders: Banner[];
@@ -14,29 +15,15 @@ type Props = {
   ProvidersList: ProvidersList;
 };
 
-const TabsData: MobileTabsConfig[] = [
-  {
-    id: "1",
-    title: "محصولات",
-    url: "/",
-  },
-  {
-    id: "2",
-    title: "مجموعه‌ها",
-    url: "/collections",
-  },
-  {
-    id: "3",
-    title: "فروشندگان",
-    url: "/providers",
-  },
-];
-
 function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
   return (
     <>
       <div>
-        <MobileHomeHeader type={Apps.MARKET} tabData={TabsData} haveSearch />
+        <MobileHomeHeader
+          type={Apps.MARKET}
+          tabData={MainTabsData}
+          haveSearch
+        />
         <div>
           {sliders && (
             <MainSlider

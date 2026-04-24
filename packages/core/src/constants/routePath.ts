@@ -28,6 +28,7 @@ export const learnPaths = {
 
 export const marketPaths = {
   single: "/product",
+  mobileProviders: "/providers",
 };
 
 export const examPaths = {
@@ -40,9 +41,7 @@ export const clinicPaths = {
   single: "/disease",
 };
 
-
 export const productionBaseUrl = "https://develop.doctorabad.com";
-
 
 export const baseUrls = {
   [Apps.BASE]:

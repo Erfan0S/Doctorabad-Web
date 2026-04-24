@@ -1,21 +1,26 @@
-import { CategoryType, ProviderType } from "@/types/homePage";
-import React from "react";
 import style from "./CategoriesList.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
-type Props = {
-  category: CategoryType | ProviderType;
-  isProvider?: boolean;
+export type CategoryType = {
+  id: number | string;
+  title?: string;
+  pic_url?: string;
+  alt?: string;
 };
 
-const CategoryListItem = ({ category, isProvider }: Props) => {
+type Props = {
+  category: CategoryType;
+  baseUrl?: string;
+};
+
+const TileListItem = ({ category, baseUrl }: Props) => {
   return (
     <Link
       href={
-        isProvider
-          ? `/providers/${category.id}`
+        baseUrl
+          ? `/${baseUrl}/${category.id}`
           : `/categories/${category.id}/${(category as CategoryType).title}`
       }
       className={style.ListItemWrapper}
@@ -24,19 +29,16 @@ const CategoryListItem = ({ category, isProvider }: Props) => {
         className={style.ListItem}
         // style={{ backgroundImage: `url(${category.pic_url})` }}
         src={category.pic_url || placeHolderDataUrl}
-        alt={isProvider ? "ارائه‌دهنده" : "دسته بندی"}
+        alt={category.alt || category.title || "دسته بندی"}
         fill
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "contain" }}
         placeholder={placeHolderDataUrl}
       />
-      {!isProvider ? (
-        <h2 className={style.ListItemTitle}>
-          {/* @ts-ignore */}
-          {category?.title || category?.name}
-        </h2>
+      {category.title ? (
+        <h2 className={style.ListItemTitle}>{category?.title}</h2>
       ) : null}
     </Link>
   );
 };
 
-export default CategoryListItem;
+export default TileListItem;
