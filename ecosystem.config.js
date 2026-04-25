@@ -69,15 +69,23 @@ module.exports = {
                 NODE_ENV: "production",
                 PORT: 3007
             }
-        },
+        },{
+        name: "mono-insurance",
+        script: "npm",
+        args: "start",
+        cwd: "/var/www/develop/doctorabad/apps/insurance",
+        env: {
+            NODE_ENV: "production",
+            PORT: 3008
+        }},
         {
             name: "mono-download",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/download",
-            env: {
+                        env: {
                 NODE_ENV: "production",
-                PORT: 3008
+                PORT: 3009
             }
         },
     ]

@@ -27,10 +27,14 @@ export const cartActions = {
     cartItem: number,
     type: OrderType = OrderType.ShopProduct,
     variants?: ProductVariantsValue[],
+    draft_id?: number,
+    damage_history?: number,
+    last_insurance?: number,
+    current_insurance_end_date?: string,
   ) {
     if (!isUserLoggedIn(true)) return;
 
-    updateCart(await api.addToCart(cartItem, type, variants));
+    updateCart(await api.addToCart(cartItem, type, variants, draft_id, damage_history, last_insurance, current_insurance_end_date));
     toast("محصول به سبدخرید اضافه شد", { type: "success" });
   },
   async removeFromCart(cartItemId: number) {

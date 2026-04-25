@@ -99,17 +99,24 @@ export class RequestUtils {
         ? rawBody
         : JSON.stringify(rawBody);
 
+    // When using FormData, don't set Content-Type header - let the browser set it automatically with boundary
+    const headers: Record<string, string> = {
+      ...options.headers,
+      Accept: "application/json",
+    };
+
+    if (isBodyFormData) {
+      // Remove Content-Type header for FormData to let browser set it with boundary
+      delete headers["Content-Type"];
+    } else {
+      headers["Content-Type"] = isInstanceOfSearchParam
+        ? "application/x-www-form-urlencoded"
+        : "application/json";
+    }
+
     return {
       ...options,
-      headers: {
-        ...options.headers,
-        Accept: "application/json",
-        "Content-Type": isInstanceOfSearchParam
-          ? "application/x-www-form-urlencoded"
-          : isBodyFormData
-            ? "multipart/form-data"
-            : "application/json",
-      },
+      headers,
       body,
     };
   }

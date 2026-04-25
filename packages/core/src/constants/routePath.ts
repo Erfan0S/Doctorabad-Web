@@ -20,6 +20,7 @@ export const routePath = {
   clinicBasePath: "/clinic",
   toolsBasePath: "/tools",
   downloadBasePath: "/download",
+  insuranceBasePath: "/insurance",
 };
 
 export const learnPaths = {
@@ -39,6 +40,9 @@ export const pharmacyPaths = {
 };
 export const clinicPaths = {
   single: "/disease",
+};
+export const insurancePaths = {
+  single: "/insurance",
 };
 
 export const downloadPaths = {
@@ -80,8 +84,12 @@ export const baseUrls = {
       : productionBaseUrl) + routePath.toolsBasePath,
       [Apps.DOWNLOAD]:
         (process.env.NODE_ENV === "development"
-          ? "http://localhost:3002"
+          ? "http://localhost:3009"
           : productionBaseUrl) + routePath.marketBasePath,
+  [Apps.INSURANCE]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3008"
+      : productionBaseUrl) + routePath.insuranceBasePath,
 };
 
 // export const baseUrls = {

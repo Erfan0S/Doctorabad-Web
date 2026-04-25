@@ -1,0 +1,351 @@
+@import "@/assets/styles/variables";
+
+.pageContainer {
+  background: white;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.header {
+  position: relative;
+  padding-top: 1rem;
+  background: $green;
+  --img-size: 6.7rem;
+  --img-offset-right: 10px;
+
+  .top {
+    background-color: $green;
+    position: relative;
+    min-height: 3rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    direction: ltr;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    text-align: left;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
+
+    .image {
+      width: var(--img-size);
+      height: var(--img-size);
+      position: absolute;
+      right: var(--img-offset-right);
+      bottom: calc(var(--img-size) / -2);
+      border-radius: 23px;
+      background: white;
+      border: solid 4px white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      object-fit: contain;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: flex-start;
+    color: $green;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    text-align: right;
+
+    background-color: white;
+
+    min-height: 3rem;
+
+    padding-inline: 20px;
+    padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
+  }
+}
+
+.infoCard {
+  background: white;
+  margin: 0 16px;
+  margin-top: calc(6.7rem / 2 + 20px); // فاصله برای تصویر header
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .cardTitle {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .editBtn {
+    background: $green;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+
+  .bullet {
+    color: #2ecc71;
+    font-size: 18px;
+    line-height: 0;
+  }
+}
+.divider {
+  border: none;
+  border-top: 1px solid #e0e0e0; /* رنگ طوسی ملایم */
+  margin: 16px 0; /* فاصله از بالا و پایین */
+  width: 100%;
+}
+
+.uploadSection {
+  margin-bottom: 20px;
+}
+
+.bigUploadBox {
+  background: #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  // برای ایجاد فاصله بین دو آپلود باکس داخلی
+}
+
+.clinicSection {
+  margin-top: 16px;
+}
+
+.switchRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+// ----- استایل‌های سوییچ (Toggle Switch) -----
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+
+  input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px; // وضعیت خاموش (RTL دقت کنید)
+      bottom: 3px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #2ecc71;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2ecc71;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+}
+// ---------------------------------------------
+
+.geoRow {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+
+
+}
+  .selectBox {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+.addressInput {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.footer {
+  position: fixed;
+  bottom: 65px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 800px;
+  background: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  .discountBadge {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 110;
+    color: #000;
+    font-weight: 800;
+    font-size: 16px;
+    transform: rotate(-15deg);
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      color: #FFC107; // Yellow color
+      filter: drop-shadow(0 5px 15px rgba(255, 193, 7, 0.4));
+    }
+    
+    span {
+      transform: rotate(15deg); // Counter-rotate text
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .submitBtn {
+    width: 100%;
+    background: $green;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:active {
+      transform: scale(0.98);
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  .btnContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 16px;
+    direction: rtl; // Ensure RTL layout
+  }
+
+  .btnText {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .verticalLine {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.4);
+    margin: 0 10px;
+  }
+
+  .priceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .oldPrice {
+    font-size: 11px;
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2px;
+  }
+
+  .newPrice {
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
