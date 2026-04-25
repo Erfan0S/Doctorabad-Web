@@ -493,7 +493,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
                 <div className={styles.clinicInputs}>
                   <textarea
                     className={styles.addressInput}
-                    placeholder="آدرس مطب / شرح فعالیت"
+                    placeholder="کلیه مراکز بهداشتی و درمانی مجاز سراسر کشور"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />

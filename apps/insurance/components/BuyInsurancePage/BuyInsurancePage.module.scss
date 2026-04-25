@@ -238,9 +238,11 @@
 
 .footer {
   position: fixed;
-  bottom: 0;
+  bottom: 65px;
   left: 0;
   right: 0;
+  margin: 0 auto;
+  max-width: 800px;
   background: white;
   padding: 16px 20px;
   display: flex;
@@ -255,23 +257,32 @@
     position: absolute;
     top: -15px;
     left: 25px;
-    background: #FFC107;
-    color: #000;
     width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 110;
+    color: #000;
     font-weight: 800;
     font-size: 16px;
-    z-index: 110;
-    // Simple 12-point star polygon
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     transform: rotate(-15deg);
-    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      color: #FFC107; // Yellow color
+      filter: drop-shadow(0 5px 15px rgba(255, 193, 7, 0.4));
+    }
     
     span {
       transform: rotate(15deg); // Counter-rotate text
+      position: relative;
+      z-index: 1;
     }
   }
 

@@ -7,7 +7,7 @@ import { ModalsList } from "../components/common/modal/modalsList";
 
 const Providers = ({ children }: React.PropsWithChildren) => {
   return (
-    <SharedProviders haveSideBar modalList={ModalsList}>
+    <SharedProviders modalList={ModalsList}>
       {children}
     </SharedProviders>
   );

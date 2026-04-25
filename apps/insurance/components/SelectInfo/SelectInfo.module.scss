@@ -2,7 +2,7 @@
 @import "@/assets/styles/variables";
 
 .container {
-  width: 90%; // اول width درصد
+  width: calc(100% - 10px);
   margin: 0 auto;
   margin-top: -16px;
   background: #fff;

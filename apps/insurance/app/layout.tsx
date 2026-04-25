@@ -8,6 +8,7 @@ import { homeViewPort } from "@repo/core/metadata/home";
 import { homeMetadata } from "@/metadata/home";
 import InsuranceHeader from "@/components/InsuranceHeader/InsuranceHeader";
 import { HeaderType } from "@/types/insurance";
+import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -26,9 +27,12 @@ export default function RootLayout({
   return (
     <html className={font.variable} dir="rtl" lang="fa">
       <body className={font.className}>
-        <div className="clinic-container">
+        <div className="root">
           <Providers>
-            {children}
+            <div className="learn-container">
+              <main>{children}</main>
+              <MobileNavBar onlyOnMobile={false} />
+            </div>
           </Providers>
         </div>
       </body>

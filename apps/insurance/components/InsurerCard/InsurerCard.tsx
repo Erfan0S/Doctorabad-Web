@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import styles from "./InsurerCard.module.scss";
 import { Insurer } from "@/types/insurance";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 
 interface InsurerCardProps {
   insurer: Insurer;
@@ -104,10 +105,10 @@ export default function InsurerCard({ insurer, searchParams }: InsurerCardProps)
           )}
         </div>
 
-        <button className={styles.buyButton} onClick={handleBuyClick}>
+        <button className={styles.buyButton} onClick={authorizeClientAction(()=>handleBuyClick())}>
             خرید
         </button>
       </div>
-    </div>
+      </div>
   );
 }

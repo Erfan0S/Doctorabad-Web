@@ -8,6 +8,7 @@ import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import UploadBox from "@/components/common/UploadBox";
 import DownArrow from "@/assets/svg/downArrow";
+import DiscountIcon from "@/assets/svg/discount_icon";
 import Loading from "@/components/common/loading";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 
@@ -403,7 +404,6 @@ const BuyInsurancePage = () => {
 
   const handleSubmit = () => {
     if (!selectedProfileId) {
-      alert("لطفا ابتدا اطلاعات پایه را ویرایش/انتخاب کنید");
       return;
     }
 
@@ -432,7 +432,6 @@ const BuyInsurancePage = () => {
   // Handler for adding to cart
   const handleAddToCart = async () => {
     if (!insurerId) {
-      alert("خطا: شناسه بیمه‌گر یافت نشد");
       return;
     }
 
@@ -442,7 +441,6 @@ const BuyInsurancePage = () => {
     if (!selectedProfileId) {
       // بررسی فیلدهای الزامی
       if (!fieldIdToUse || !gradeIdToUse || !residencyStatusId) {
-        alert("لطفا ابتدا اطلاعات پایه (رشته، تخصص و وضعیت) را پر کنید");
         return;
       }
 
@@ -492,11 +490,9 @@ const BuyInsurancePage = () => {
           // و سپس useEffect مربوطه (line 242) اطلاعات را در صفحه پر می‌کند
           setSelectedProfileId(profileIdToUse);
         } else {
-          alert("خطا در دریافت شناسه پروفایل");
           return;
         }
       } catch (error) {
-        alert("خطا در ثبت اطلاعات. لطفا دوباره تلاش کنید");
         return;
       }
     }
@@ -745,7 +741,7 @@ const BuyInsurancePage = () => {
           <input
             className={styles.addressInput}
             type="text"
-            placeholder="کد پستی"
+            placeholder="کد پستی (ثبت شده در amlak.mrud.ir)"
             value={postalCode ? String(postalCode) : ""}
             onChange={(e) => setPostalCode(Number(e.target.value) || undefined)}
             style={{ minHeight: "auto", height: "auto" }}
@@ -769,7 +765,7 @@ const BuyInsurancePage = () => {
           {activeClinic && (
             <textarea
               className={styles.addressInput}
-              placeholder="آدرس مطب / شرح فعالیت"
+              placeholder="کلیه مراکز بهداشتی و درمانی مجاز سراسر کشور"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
@@ -781,6 +777,7 @@ const BuyInsurancePage = () => {
       <div className={styles.footer}>
         {discountPercent > 0 && (
           <div className={styles.discountBadge}>
+            <DiscountIcon />
             <span>٪{discountPercent}</span>
           </div>
         )}

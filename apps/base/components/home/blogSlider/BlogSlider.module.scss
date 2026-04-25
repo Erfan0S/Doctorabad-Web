@@ -4,7 +4,12 @@
 .blogSlider {
     padding: space(10) 0;
 
-    &Header {
+  :global {
+    .container {
+      max-width: 100%;
+      padding: 0 16px;
+    }
+  }
         position: relative;
         display: flex;
         align-items: center;
