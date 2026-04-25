@@ -5,6 +5,8 @@ import styles from "./MainSliderSkeleton.module.scss";
 
 export default function MainSliderSkeleton() {
   return (
+    <div className="container">
+
     <div className={styles.sliderSection}>
       <div className={styles.skeletonSlide}>
         <div className={styles.shimmer}></div>
@@ -14,6 +16,7 @@ export default function MainSliderSkeleton() {
         <span className={styles.dot}></span>
         <span className={styles.dot}></span>
       </div>
+    </div>
     </div>
   );
 }

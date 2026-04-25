@@ -41,6 +41,8 @@ export default function MainSlider({ sliders }: MainSliderProps) {
   if (sliders.length === 0) return null;
 
   return (
+    <div className="container">
+
     <div className={styles.sliderSection}>
       <Swiper
         modules={[Autoplay, Pagination]}
@@ -75,6 +77,7 @@ export default function MainSlider({ sliders }: MainSliderProps) {
           );
         })}
       </Swiper>
+    </div>
     </div>
   );
 }

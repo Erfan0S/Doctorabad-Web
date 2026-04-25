@@ -4,12 +4,7 @@
 .blogSlider {
   padding: space(10) 0;
 
-  :global {
-    .container {
-      max-width: 100%;
-      padding: 0 16px;
-    }
-  }
+  // Removed .container override to align with global grid.scss
 
   &Header {
     display: flex;

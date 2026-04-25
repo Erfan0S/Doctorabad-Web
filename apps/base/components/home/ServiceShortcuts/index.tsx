@@ -34,7 +34,7 @@ const ServiceShortcuts = () => {
   ];
 
   return (
-    <section className={styles.section}>
+    <section style={{ paddingBottom: 15 }} className="container">
       <div className={styles.wrapper}>
         {services.map((service) => (
           <ServiceCard key={service.id} {...service} />

@@ -67,7 +67,7 @@ export default function DoctorToolsSection() {
   const toolsBaseUrl = baseUrls[Apps.TOOLS];
 
   return (
-    <section className={styles.section}>
+    <section className="container">
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>دکتر تولز</h2>

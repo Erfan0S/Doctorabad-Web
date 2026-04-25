@@ -41,7 +41,6 @@ export default async function Home() {
           {bigBannerData.map((item, index) => (
             <BigBanner key={index} {...item} />
           ))}
-          <DoctorToolsSection />
           <BlogSlider
             data={blogPosts}
             title="دکترمگ"
