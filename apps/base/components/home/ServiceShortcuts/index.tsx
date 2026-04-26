@@ -3,10 +3,9 @@ import { baseUrls } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
 import ServiceCard from "./ServiceCard";
 import styles from "./ServiceShortcuts.module.scss";
-import myInsurance from '@/assets/img/bigBanner/icons/my_insurance.png';
-import myPharmacy from '@/assets/img/bigBanner/icons/my_pharmacy.png';
-import myClinic from '@/assets/img/bigBanner/icons/my_clinic.png';
-
+import myInsurance from "@/assets/img/bigBanner/icons/my_insurance.png";
+import myPharmacy from "@/assets/img/bigBanner/icons/my_pharmacy.png";
+import myClinic from "@/assets/img/bigBanner/icons/my_clinic.png";
 
 const ServiceShortcuts = () => {
   const services = [
@@ -29,7 +28,7 @@ const ServiceShortcuts = () => {
       title: "بیمه من",
       enTitle: "MyInsurance",
       icon: myInsurance,
-      href: baseUrls[Apps.TOOLS],
+      href: baseUrls[Apps.INSURANCE],
     },
   ];
 

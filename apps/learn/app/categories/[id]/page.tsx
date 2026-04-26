@@ -4,13 +4,11 @@ import React from "react";
 type Props = {
   params: {
     id: string;
-    name: string;
   };
 };
 
 const CategoryPage = ({ params }: Props) => {
-  const decodedName = decodeURIComponent(params.name);
-  return <CategoryListPage id={+params.id} name={decodedName} />;
+  return <CategoryListPage id={+params.id} />;
 };
 
 export default CategoryPage;

@@ -35,6 +35,31 @@ export default withPWA({
   sassOptions: {
     quietDeps: true,
   },
+    async redirects() {
+    return [
+      {
+        source: "/dl/ch/:id+", 
+
+        destination: "/learn/providers/:id+", 
+        permanent: true, 
+        basePath: false, 
+      },
+      {
+        source: "/dl/ca/:id+", 
+
+        destination: "/learn/categories/:id+", 
+        permanent: true, 
+        basePath: false, 
+      },
+      {
+        source: "/dl/:id+", 
+
+        destination: "/learn/course/:id+", 
+        permanent: true, 
+        basePath: false, 
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
