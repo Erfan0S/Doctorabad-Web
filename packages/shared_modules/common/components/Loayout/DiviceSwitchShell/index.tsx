@@ -3,14 +3,13 @@ import { headers } from "next/headers";
 import React from "react";
 
 type Props = {
-  MobileComponent: React.ReactNode | (() => void);
-  DesktopComponent: React.ReactNode | (() => void);
+  mobile: React.ReactNode;
+  desktop: React.ReactNode;
 };
 
-function DiviceSwitchShell({ MobileComponent, DesktopComponent }: Props) {
-  const headersList = headers();
+export default async function DiviceSwitchShell({ mobile, desktop }: Props) {
+  const headersList = await headers();
   const viewport = headersList.get(VIEWPORT_HEADER);
-  return <>{viewport === "mobile" ? MobileComponent : DesktopComponent}</>;
-}
 
-export default DiviceSwitchShell;
+  return <>{viewport === "mobile" ? mobile : desktop}</>;
+}

@@ -1,17 +1,13 @@
 import MobileTileListPage from "@/components/layouts/mobile/MobileTileListPage";
+import { RedirectComponent } from "@repo/shared_modules/components";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
-import { redirect } from "next/navigation";
 import React from "react";
 
-function CollectionsList() {
+export default function CollectionsList() {
   return (
-    <div>
-      <DiviceSwitchShell
-        DesktopComponent={() => redirect("/product-list/archive")}
-        MobileComponent={<MobileTileListPage />}
-      />
-    </div>
+    <DiviceSwitchShell
+      mobile={<MobileTileListPage />}
+      desktop={<RedirectComponent url="/product-list/archive" />}
+    />
   );
 }
-
-export default CollectionsList;

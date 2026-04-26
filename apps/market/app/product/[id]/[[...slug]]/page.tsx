@@ -22,13 +22,13 @@ export default async function Product({
 
     return (
       <DiviceSwitchShell
-        DesktopComponent={
+        desktop={
           <DesktopProductSingle
             data={data}
             relatedProductList={relatedProductList.data}
           />
         }
-        MobileComponent={
+        mobile={
           <MobileProductSingle
             data={data}
             relatedProductList={relatedProductList.data}

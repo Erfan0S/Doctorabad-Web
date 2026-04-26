@@ -68,3 +68,5 @@ export { default as ProductListItem } from "./MobileLayoutComponents/MobileProdu
 export { default as StaticMobileProductList } from "./MobileLayoutComponents/MobileProductList/StaticMobileProductList";
 
 export { default as TileList } from "./CategoriesList";
+
+export { default as RedirectComponent } from "./RedirectComponent";
