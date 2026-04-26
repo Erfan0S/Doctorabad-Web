@@ -25,6 +25,13 @@ import { BlogType } from "@/types/blog";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 
+type CollectionItem = {
+  id: number;
+  title: string;
+  description: string | null;
+  pic_url: string;
+};
+
 class Api extends Request {
   constructor() {
     super({
@@ -80,6 +87,12 @@ class Api extends Request {
         next: { revalidate: 3600 },
       }
     );
+  }
+
+  getCollections(): Promise<ResponseType<{ data: CollectionItem[] }>> {
+    return this.request.get<{ data: CollectionItem[] }>("/user/shop/collection", {
+      next: { revalidate: 3600 },
+    });
   }
 
   // product
