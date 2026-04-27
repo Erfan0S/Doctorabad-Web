@@ -11,6 +11,8 @@ import DownArrow from "@/assets/svg/downArrow";
 import DiscountIcon from "@/assets/svg/discount_icon";
 import Loading from "@/components/common/loading";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
+import { AddToCartButton } from "@repo/shared_modules/components";
+
 
 
 moment.loadPersian({ usePersianDigits: true });
@@ -782,15 +784,36 @@ const BuyInsurancePage = () => {
           </div>
         )}
 
-        <button
-          className={styles.submitBtn}
-          onClick={authorizeClientAction(
-            cartActionsLoadingHandler(handleAddToCart)
-          )}
-        >
-          {updateCartLoading ? (
-            <Loading size={22} />
-          ) : (
+        {insurerId ? (
+          <AddToCartButton
+            id={insurerId}
+            type={OrderType.Insurance}
+            className={styles.submitBtn}
+            onClick={authorizeClientAction(
+              cartActionsLoadingHandler(handleAddToCart)
+            )}
+          >
+            {updateCartLoading ? (
+              <Loading size={22} />
+            ) : (
+              <div className={styles.btnContent}>
+                <div className={styles.priceContainer}>
+                  {mainPriceToShow > priceToShow && (
+                    <span className={styles.oldPrice}>
+                      {mainPriceToShow.toLocaleString("fa-IR")} تومان
+                    </span>
+                  )}
+                  <span className={styles.newPrice}>
+                    {priceToShow.toLocaleString("fa-IR")} تومان
+                  </span>
+                </div>
+                <div className={styles.verticalLine}></div>
+                <span className={styles.btnText}>افزودن به سبد خرید</span>
+              </div>
+            )}
+          </AddToCartButton>
+        ) : (
+          <button className={styles.submitBtn} disabled>
             <div className={styles.btnContent}>
               <div className={styles.priceContainer}>
                 {mainPriceToShow > priceToShow && (
@@ -805,8 +828,8 @@ const BuyInsurancePage = () => {
               <div className={styles.verticalLine}></div>
               <span className={styles.btnText}>افزودن به سبد خرید</span>
             </div>
-          )}
-        </button>
+          </button>
+        )}
       </div>
     </div>
   );

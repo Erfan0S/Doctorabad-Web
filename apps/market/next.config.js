@@ -14,9 +14,13 @@ const withPWA = initPwa({
 const defaultRedirects = [
   {
     source: "/dm/ch/:id(\\d+)",
-    destination: "/market/product-list/archive?provider=:id",
-    permanent: true,
-    basePath: false,
+      destination: "/product-list/archive?provider=:id",
+      permanent: true,
+  },
+  {
+    source: "/dm/:id(\\d+)",
+      destination: "/product/:id",
+      permanent: true,
   },
 ];
 
@@ -56,8 +60,10 @@ const getCollectionRedirects = async () => {
 
         const redirect = {
           source: `/dm/cl/${collection.id}`,
-          destination: `/market/product-list/search?search=${encodeURIComponent(searchText)}`,
-          permanent: true,
+          destination: `/product-list/search?search=${encodeURIComponent(
+            searchText
+          )}`,
+          permanent: false,
         };
 
         console.log("redirect built:", redirect);
