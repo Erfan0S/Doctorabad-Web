@@ -70,3 +70,5 @@ export { default as StaticMobileProductList } from "./MobileLayoutComponents/Mob
 export { default as TileList } from "./CategoriesList";
 
 export { default as RedirectComponent } from "./RedirectComponent";
+
+export { default as MobileProviderPageLayout } from "./MobileLayoutComponents/MobileProviderSingle";

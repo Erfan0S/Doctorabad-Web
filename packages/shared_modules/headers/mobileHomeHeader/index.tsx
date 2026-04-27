@@ -31,7 +31,7 @@ function MobileHomeHeader({
         <div className={styles.childContainer}>
           <MobileHeaderBase type={type} />
         </div>
-        <TabsController tabData={tabData} defaultTab={defaultTab} type={type} />
+        <TabsController tabData={tabData} defaultTab={defaultTab} app={type} />
       </div>
       {haveSearch && (
         <div className={styles.childContainer}>

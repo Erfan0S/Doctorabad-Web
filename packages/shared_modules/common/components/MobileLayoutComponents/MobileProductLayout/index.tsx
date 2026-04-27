@@ -85,7 +85,7 @@ const MobileProductLayout = ({
             </div>
             <TabsController
               tabData={tabsData}
-              type={app}
+              app={app}
               defaultTab={tabsData[0].id}
             />
           </div>

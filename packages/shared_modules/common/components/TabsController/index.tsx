@@ -8,7 +8,7 @@ import { Apps } from "@repo/core/types/general";
 
 interface Props {
   tabData: MobileTabsConfig[];
-  type: Apps;
+  app?: Apps;
   className?: string;
   defaultTab?: string;
 }
@@ -16,14 +16,14 @@ const TabsControllerContent: React.FC<Props> = ({
   tabData,
   className,
   defaultTab,
-  type,
+  app = Apps.BASE,
 }) => {
   const params = useSearchParams();
   const pathname = usePathname();
 
   return (
     <div
-      className={`${style.productTabsController} ${className} ${style[type]}`}
+      className={`${style.productTabsController} ${className} ${style[app]}`}
     >
       <ul>
         {tabData.map((data) => (
