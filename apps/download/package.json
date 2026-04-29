@@ -4,9 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3008",
+    "dev": "next dev -p 3009",
     "build": "cross-env NODE_ENV=production && next build",
-    "start": "next start -p 3008",
+    "start": "next start -p 3009",
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit",
     "proxy_server": "lcp --proxyUrl https://drabadapp.ir --credentials --origin http://localhost:3000"

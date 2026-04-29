@@ -10,7 +10,8 @@ const routes = [
   { path: "/pharmacy", target: "http://localhost:3005" },
   { path: "/clinic", target: "http://localhost:3006" },
   { path: "/tools", target: "http://localhost:3007" },
-  { path: "/download", target: "http://localhost:3008" },
+  { path: "/insurance", target: "http://localhost:3008" },
+  { path: "/download", target: "http://localhost:3009" },
 ];
 
 const defaultTarget = "http://localhost:3001";

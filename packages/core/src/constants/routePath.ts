@@ -51,7 +51,6 @@ export const downloadPaths = {
 
 export const productionBaseUrl = "https://develop.doctorabad.com";
 
-
 export const baseUrls = {
   [Apps.BASE]:
     process.env.NODE_ENV === "development"
@@ -65,31 +64,31 @@ export const baseUrls = {
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3002"
       : productionBaseUrl) + routePath.marketBasePath,
-      [Apps.EXAM]:
-      (process.env.NODE_ENV === "development"
+  [Apps.EXAM]:
+    (process.env.NODE_ENV === "development"
       ? "http://localhost:3004"
       : productionBaseUrl) + routePath.examBasePath,
-      
-      [Apps.PHARMACY]:
-      (process.env.NODE_ENV === "development"
+
+  [Apps.PHARMACY]:
+    (process.env.NODE_ENV === "development"
       ? "http://localhost:3005"
       : productionBaseUrl) + routePath.pharmacyBasePath,
   [Apps.CLINIC]:
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3006"
       : productionBaseUrl) + routePath.clinicBasePath,
-      [Apps.TOOLS]:
+  [Apps.TOOLS]:
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3007"
       : productionBaseUrl) + routePath.toolsBasePath,
-      [Apps.DOWNLOAD]:
-        (process.env.NODE_ENV === "development"
-          ? "http://localhost:3009"
-          : productionBaseUrl) + routePath.marketBasePath,
   [Apps.INSURANCE]:
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3008"
       : productionBaseUrl) + routePath.insuranceBasePath,
+  [Apps.DOWNLOAD]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3009"
+      : productionBaseUrl) + routePath.marketBasePath,
 };
 
 // export const baseUrls = {
