@@ -3,9 +3,9 @@ import { baseUrls } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
 import ServiceCard from "./ServiceCard";
 import styles from "./ServiceShortcuts.module.scss";
-import myInsurance from "@/assets/img/bigBanner/icons/my_insurance.png";
-import myPharmacy from "@/assets/img/bigBanner/icons/my_pharmacy.png";
-import myClinic from "@/assets/img/bigBanner/icons/my_clinic.png";
+import myInsurance from "@/assets/img/bigBanner/icons/DA-01 (1).png";
+import myPharmacy from "@/assets/img/bigBanner/icons/DA-03 (1).png";
+import myClinic from "@/assets/img/bigBanner/icons/DA-04 (1).png";
 
 const ServiceShortcuts = () => {
   const services = [

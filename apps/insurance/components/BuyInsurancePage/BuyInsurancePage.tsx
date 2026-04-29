@@ -76,6 +76,23 @@ const BuyInsurancePage = () => {
   const lastInsuranceId = searchParams.get("lastInsurance")
     ? Number(searchParams.get("lastInsurance"))
     : null;
+  const urlProvinceId = searchParams.get("province_id")
+    ? Number(searchParams.get("province_id"))
+    : undefined;
+  const urlCityId = searchParams.get("city_id")
+    ? Number(searchParams.get("city_id"))
+    : undefined;
+  const urlPostalCode = searchParams.get("postal_code")
+    ? Number(searchParams.get("postal_code"))
+    : undefined;
+  const urlLastInsuranceFileId = searchParams.get("last_insurance_file_id")
+    ? Number(searchParams.get("last_insurance_file_id"))
+    : null;
+  const urlActiveClinic = searchParams.get("active_clinic")
+    ? searchParams.get("active_clinic") === "true"
+    : undefined;
+  const urlClinicAddress = searchParams.get("clinic_address") || undefined;
+
   // const endDate = searchParams.get("endDate");
 
   // ----- فیلترهای کاربر (Title ها) -----
@@ -118,11 +135,11 @@ const BuyInsurancePage = () => {
     null
   );
 
-  const [activeClinic, setActiveClinic] = useState(false);
-  const [provinceId, setProvinceId] = useState<number | undefined>();
-  const [cityId, setCityId] = useState<number | undefined>();
-  const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState<number | undefined>(undefined);
+  const [activeClinic, setActiveClinic] = useState(urlActiveClinic ?? false);
+  const [provinceId, setProvinceId] = useState<number | undefined>(urlProvinceId);
+  const [cityId, setCityId] = useState<number | undefined>(urlCityId);
+  const [address, setAddress] = useState(urlClinicAddress ?? "");
+  const [postalCode, setPostalCode] = useState<number | undefined>(urlPostalCode);
   const [insuredName, setInsuredName] = useState("");
   const [insuredPhone, setInsuredPhone] = useState("");
   const [residencyStatusId, setResidencyStatusId] = useState<number | null>(
@@ -139,6 +156,7 @@ const BuyInsurancePage = () => {
 
   const [nationalCardId, setNationalCardId] = useState<number | null>(null);
   const [medicalCardId, setMedicalCardId] = useState<number | null>(null);
+  const [lastInsuranceFileId, setLastInsuranceFileId] = useState<number | null>(null);
   const [endDate, setEndDate] = useState<string>(
     searchParams.get("endDate") || ""
   );
@@ -254,7 +272,10 @@ const BuyInsurancePage = () => {
     if (endDate) {
       setInsuranceEndDate(endDate);
     }
-  }, [residencyId, damageHistoryId, lastInsuranceId, endDate]);
+    if (urlLastInsuranceFileId) {
+      setLastInsuranceFileId(urlLastInsuranceFileId);
+    }
+  }, [residencyId, damageHistoryId, lastInsuranceId, endDate, urlLastInsuranceFileId]);
 
   // Sync state with fetched profile data
   // وقتی پروفایل انتخاب می‌شود، همیشه از profileData استفاده می‌کنیم
@@ -287,6 +308,11 @@ const BuyInsurancePage = () => {
       } else {
         setMedicalCardId(null);
       }
+      if (profileData.last_insurance_files?.length > 0) {
+        setLastInsuranceFileId(profileData.last_insurance_files[0].id);
+      } else {
+        setLastInsuranceFileId(null);
+      }
     } else if (profileData && !selectedProfileId) {
       // اگر پروفایلی انتخاب نشده، فقط اگر از URL تنظیم نشده باشد از profileData استفاده کن
       setActiveClinic(!!profileData.active_clinic);
@@ -315,6 +341,12 @@ const BuyInsurancePage = () => {
         setMedicalCardId(profileData.medical_education_card_files[0].id);
       } else {
         setMedicalCardId(null);
+      }
+
+      if (profileData.last_insurance_files?.length > 0) {
+        setLastInsuranceFileId(profileData.last_insurance_files[0].id);
+      } else {
+        setLastInsuranceFileId(null);
       }
     }
   }, [profileData, selectedProfileId, residencyId, damageHistoryId]);
@@ -419,6 +451,7 @@ const BuyInsurancePage = () => {
       damage_history_id: selectedDamageHistoryId || undefined,
       national_id_card_files: nationalCardId ? [nationalCardId] : [],
       medical_education_card_files: medicalCardId ? [medicalCardId] : [],
+      last_insurance_files: lastInsuranceFileId ? [lastInsuranceFileId] : [],
       active_clinic: activeClinic,
       province_id: provinceId,
       city_id: cityId,
@@ -454,6 +487,7 @@ const BuyInsurancePage = () => {
         residency_status: residencyStatusId as 1 | 2,
         national_id_card_files: nationalCardId ? [nationalCardId] : [],
         medical_education_card_files: medicalCardId ? [medicalCardId] : [],
+        last_insurance_files: lastInsuranceFileId ? [lastInsuranceFileId] : [],
         active_clinic: activeClinic,
         province_id: provinceId,
         city_id: cityId,
@@ -707,6 +741,10 @@ const BuyInsurancePage = () => {
               </>
             )}
         </div>
+        <div className={styles.mobileCheckContainer}>
+          <input className={styles.checkbox} type="checkbox" />
+          <h3>شماره موبایل وارد شده به نام فرد بیمه‌گذار است.</h3>
+        </div>
 
         {/* Uploads */}
         <div className={styles.uploadSection}>
@@ -725,6 +763,15 @@ const BuyInsurancePage = () => {
               fileId={medicalCardId}
               onUploadSuccess={setMedicalCardId}
               onDeleteSuccess={() => setMedicalCardId(null)}
+            />
+                        <div style={{ height: 10 }} />
+
+            <UploadBox
+              type={3}
+              title=" بیمه‌نامه قبلی"
+              fileId={lastInsuranceFileId}
+              onUploadSuccess={setLastInsuranceFileId}
+              onDeleteSuccess={() => setLastInsuranceFileId(null)}
             />
           </div>
         </div>

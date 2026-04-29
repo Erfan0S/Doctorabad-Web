@@ -20,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eee;
-  background: $green;
+  background: $base-green;
   color: white;
   flex-shrink: 0;
 
@@ -93,14 +93,14 @@
 
   &:hover {
     background: #e9ecef;
-    border-color: $green;
+    border-color: $base-green;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
   }
 
   &.selected {
     background: rgba(46, 204, 113, 0.1);
-    border-color: $green;
+    border-color: $base-green;
     box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
   }
 }
@@ -129,7 +129,7 @@
 }
 
 .editBtn {
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 8px;
@@ -142,7 +142,7 @@
   flex-shrink: 0;
 
   &:hover {
-    background: $green;
+    background: $base-green;
     transform: scale(1.05);
   }
 
@@ -152,7 +152,7 @@
 }
 
 .addNewBtn {
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 12px;
@@ -270,22 +270,22 @@
   user-select: none;
 
   &:hover {
-    border-color: $green;
+    border-color: $base-green;
     background: #fff;
-    color: $green;
+    color: $base-green;
   }
 
   // حالت آپلود شده (مینیمال)
   &.uploaded {
     border-style: solid; // خط ممتد
-    border-color: $green; // سبز ملایم
+    border-color: $base-green; // سبز ملایم
     background: rgba(46, 204, 113, 0.05); // پس‌زمینه خیلی محو
     color: #374151; // متن تیره برای خوانایی
     cursor: default; // خود باکس دیگر کلیک نمی‌شود
     padding-left: 40px; // جا برای دکمه حذف
     color: #03a145;
     &:hover {
-      border-color: $green;
+      border-color: $base-green;
     }
   }
 
@@ -405,7 +405,7 @@
   }
 
   input:checked + .slider {
-    background-color: $green;
+    background-color: $base-green;
   }
 
   input:checked + .slider:before {
@@ -441,7 +441,7 @@
 
   &:focus {
     outline: none;
-    border-color: $green;
+    border-color: $base-green;
     box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
   }
 
@@ -462,7 +462,7 @@
 }
 
 .saveBtn {
-  background: $green;
+  background: $base-green;
   border: 2px solid white;
   color: white;
   padding: 12px 32px;

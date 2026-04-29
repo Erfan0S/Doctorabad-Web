@@ -42,12 +42,12 @@
   justify-content: center;
 
   svg {
-    fill: $green;
+    fill: $base-green;
     width: 24px;
     height: 24px;
 
     path {
-      fill: $green;
+      fill: $base-green;
     }
   }
 }
@@ -63,7 +63,7 @@
   appearance: none;
   -webkit-appearance: none;
   background: #fff;
-  border: 1.5px solid $green;
+  border: 1.5px solid $base-green;
   border-radius: 10px;
   
   height: 45px;
@@ -92,7 +92,7 @@
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba($green, 0.2);
+    box-shadow: 0 0 0 2px rgba($base-green, 0.2);
   }
 }
 
@@ -124,7 +124,7 @@
 
 .calendarDay {
   flex: 1 0 30%;
-  border: 1px solid $green;
+  border: 1px solid $base-green;
   border-radius: 6px;
   background: #fff;
   color: #333;
@@ -134,7 +134,7 @@
 }
 
 .calendarDay:hover {
-  background: rgba($green, 0.08);
+  background: rgba($base-green, 0.08);
 }
 
 .calendarClose {

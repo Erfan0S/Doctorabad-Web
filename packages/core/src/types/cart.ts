@@ -29,6 +29,29 @@ export type Order = {
   discount_plan_type: DiscountPlanType | null;
   variants: CartVariants[];
   installment_payment?: boolean;
+  draft?: {
+    id: number;
+    draft_id: number;
+    insured_name: string;
+    insured_phone: string;
+    field_id: number;
+    field: string;
+    speciality_id: number;
+    speciality: string;
+    residency_status: number;
+    damage_history_id: number;
+    damage_history: string;
+    last_insurance_id: number | null;
+    last_insurance: string | null;
+    current_insurance_end_date: string | null;
+    active_clinic: boolean;
+    province_id: number;
+    province: string;
+    city_id: number;
+    city: string;
+    clinic_address: string | null;
+    postal_code: string;
+  };
 };
 
 // export type CartResponse = {

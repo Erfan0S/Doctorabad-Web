@@ -14,7 +14,7 @@
 }
 
 .header {
-  background-color: $green;
+  background-color: $base-green;
   padding: 16px;
   text-align: center;
   color: white;
@@ -67,12 +67,12 @@
   }
 
   &:hover {
-    border-color: $green;
+    border-color: $base-green;
   }
 }
 
 .filled {
-  border-color: $green;
+  border-color: $base-green;
   span {
     color: #333;
     font-weight: 700;
@@ -80,7 +80,7 @@
   svg {
     opacity: 1;
     path {
-      fill: $green;
+      fill: $base-green;
     }
   }
 }
@@ -93,7 +93,7 @@
 
 .submitBtn {
   width: 100%;
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 12px;

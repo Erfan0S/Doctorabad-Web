@@ -22,7 +22,7 @@
 }
 
 .interactionPill {
-  background: $green;
+  background: $base-green;
   color: white !important;
   padding: 6px 14px;
   border-radius: 12px;
@@ -34,7 +34,7 @@
   white-space: nowrap;
 
   &:hover {
-    background: $green;
+    background: $base-green;
     transform: translateY(-2px);
   }
 }

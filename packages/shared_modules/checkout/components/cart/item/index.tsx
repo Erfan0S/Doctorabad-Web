@@ -26,6 +26,8 @@ import marketLogo from "@repo/shared_modules/images/doctor-market.png";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
+import { useRouter } from 'next/navigation'
+
 
 const CartItem = ({
   id,
@@ -40,10 +42,33 @@ const CartItem = ({
   product_type,
   installment_payment,
   discount_plan_type,
+  draft,
 }: Order) => {
+  const router = useRouter();
+
+  const getInsuranceSlug = () => {
+    const params = new URLSearchParams();
+    params.append("insurer_id", String(product_id));
+    params.append("insurer_title", product_title);
+    params.append("insurer_logo", product_pic);
+    params.append("price", String(price_off));
+    params.append("main_price", String(price_main));
+    if (draft?.field_id) params.append("field", String(draft.field_id));
+    if (draft?.speciality_id) params.append("grade", String(draft.speciality_id));
+    if (draft?.residency_status) params.append("residency", String(draft.residency_status));
+    if (draft?.damage_history_id) params.append("damageHistory", String(draft.damage_history_id));
+    if (draft?.postal_code) params.append("postal_code", String(draft.postal_code));
+    if (draft?.city_id) params.append("city_id", String(draft.city_id));
+    if (draft?.province_id) params.append("province_id", String(draft.province_id));
+    if (draft?.last_insurance_files && draft.last_insurance_files.length > 0) params.append("last_insurance_file_id", String(draft.last_insurance_files[0].id));
+    if (typeof draft?.active_clinic === 'boolean') params.append("active_clinic", String(draft.active_clinic));
+    if (draft?.clinic_address) params.append("clinic_address", draft.clinic_address);
+    return `?${params.toString()}`;
+  };
+
   const url = generateSingleProductUrlFromId(
     product_id,
-    "",
+    OrderType.Insurance ? getInsuranceSlug() : "",
     product_type,
     discount_plan_type,
   );

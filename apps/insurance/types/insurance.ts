@@ -97,6 +97,7 @@ export interface InsuranceInfo {
   // فایل‌ها در پاسخ GET آرایه‌ای از آبجکت هستند
   national_id_card_files: InsuranceInfoFile[]; 
   medical_education_card_files: InsuranceInfoFile[];
+  last_insurance_files: InsuranceInfoFile[];
   
   active_clinic: boolean;
   city_id?: number;
@@ -122,6 +123,7 @@ export interface UpdateUserInfoInput {
   // فایل‌ها در ارسال فقط آرایه‌ای از ID هستند
   national_id_card_files: number[]; 
   medical_education_card_files: number[];
+  last_insurance_files: number[];
   
   active_clinic: boolean;
   city_id?: number;

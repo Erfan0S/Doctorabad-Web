@@ -9,12 +9,12 @@
 .header {
   position: relative;
   padding-top: 1rem;
-  background: $green;
+  background: $base-green;
   --img-size: 6.7rem;
   --img-offset-right: 10px;
 
   .top {
-    background-color: $green;
+    background-color: $base-green;
     position: relative;
     min-height: 3rem;
     color: white;
@@ -48,7 +48,7 @@
   .bottom {
     display: flex;
     justify-content: flex-start;
-    color: $green;
+    color: $base-green;
     font-size: 0.9rem;
     font-weight: 700;
 
@@ -84,7 +84,7 @@
   }
 
   .editBtn {
-    background: $green;
+    background: $base-green;
     color: white;
     border: none;
     padding: 6px 16px;
@@ -112,7 +112,7 @@
   font-weight: 600;
 
   .bullet {
-    color: #2ecc71;
+    color: $base-green;
     font-size: 18px;
     line-height: 0;
   }
@@ -288,7 +288,7 @@
 
   .submitBtn {
     width: 100%;
-    // background: $green;
+    // background: $base-green;
     color: white;
     border: none;
     border-radius: 12px;
@@ -347,5 +347,39 @@
   .newPrice {
     font-size: 15px;
     font-weight: 700;
+  }
+}
+.mobileCheckContainer{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  .checkbox {
+    appearance: none; // حذف استایل پیش‌فرض
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px; // 👈 اینجا گرد میشه
+    cursor: pointer;
+    position: relative;
+    background-color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .checkbox:checked {
+    background-color: $base-green;
+    border-color: $base-green;
+  }
+
+  .checkbox:checked::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid white; // 👈 تیک سفید
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
   }
 }

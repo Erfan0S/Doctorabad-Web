@@ -24,7 +24,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       />
       <div className={styles.textWrap}>
         <span className={styles.title}>{title}</span>
-        <span className={styles.enTitle}>{enTitle}</span>
+        {/* <span className={styles.enTitle}>{enTitle}</span> */}
       </div>
     </a>
   );

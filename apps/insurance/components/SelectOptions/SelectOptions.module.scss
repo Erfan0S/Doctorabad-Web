@@ -12,7 +12,7 @@
 }
 
 .header {
-  background: $green;
+  background: $base-green;
   color: #fff;
   text-align: center;
   font-size: 18px;
@@ -40,17 +40,17 @@
   cursor: pointer;
 
   // خط جداکننده سبز روشن
-  border-bottom: 1px solid rgba($green, 0.35);
+  border-bottom: 1px solid rgba($base-green, 0.35);
 
   &:last-child {
     border-bottom: none;
   }
 
   &:active {
-    background: rgba($green, 0.08);
+    background: rgba($base-green, 0.08);
   }
 }
 
 .optionActive {
-  background: rgba($green, 0.10);
+  background: rgba($base-green, 0.10);
 }
