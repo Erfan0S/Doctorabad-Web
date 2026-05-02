@@ -8,14 +8,11 @@
 // }
 
 export interface Banner {
-  id: number;
-  title: string;
-  url: string;
-  location: number;
-  priority: number;
-  product_id: number | null;
-  product_title: string | null;
+  id?: number;
+  title?: null | string;
+  url: null | string;
+  package_id: number | null;
   provider_id: null | number;
-  category_id: null | number;
-  pic_url: string;
+  collection_id: null | number;
+  picture?: string;
 }

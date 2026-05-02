@@ -2,8 +2,8 @@
 import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
 import Loading from "@/components/common/Loading";
-import CategoryListHeader from "@/components/Header/CategoryListHeader";
-import { CourseListItemType } from "@/types/courses";
+import CollectionListHeader from "@/components/Header/CollectionListHeader";
+import { PackageListItemTypeListItemType } from "@/types/courses";
 import { SortType } from "@/types/filters";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -15,17 +15,17 @@ type Props = {
   name?: string;
 };
 
-function CategoryListPage({ id, name }: Props) {
+function CollectionListPage({ id, name }: Props) {
   const params = useSearchParams();
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
   >({
-    queryKey: ["category", id, params?.get("sort")],
+    queryKey: ["collection", id, params?.get("sort")],
     queryFn: ({ pageParam }) =>
       api
         .getFilterList({
-          categories: id,
+          collections: id,
           sort: (params?.get("sort") as SortType) || null,
           page: pageParam as number,
         })
@@ -41,7 +41,7 @@ function CategoryListPage({ id, name }: Props) {
 
   return (
     <div>
-      <CategoryListHeader title={name || ""} />
+      <CollectionListHeader title={name || ""} />
       {isLoading ? (
         <Loading />
       ) : (
@@ -57,4 +57,4 @@ function CategoryListPage({ id, name }: Props) {
   );
 }
 
-export default CategoryListPage;
+export default CollectionListPage;

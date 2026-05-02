@@ -1,4 +1,4 @@
-import CategoryListPage from "@/pagesComponents/CategoryListPage";
+import CollectionListPage from "@/pagesComponents/CollectionListPage";
 import React from "react";
 
 type Props = {
@@ -8,9 +8,9 @@ type Props = {
   };
 };
 
-const CategoryPage = ({ params }: Props) => {
+const CollectionPage = ({ params }: Props) => {
   const decodedName = decodeURIComponent(params.name);
-  return <CategoryListPage id={+params.id} name={decodedName} />;
+  return <CollectionListPage id={+params.id} name={decodedName} />;
 };
 
-export default CategoryPage;
+export default CollectionPage;

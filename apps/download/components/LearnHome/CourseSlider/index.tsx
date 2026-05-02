@@ -3,14 +3,14 @@ import { SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import { CourseListItemType } from "@/types/courses";
+import { PackageListItemType } from "@/types/courses";
 import { Apps } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ProductSliderContainer } from "@repo/shared_modules/components";
 
 interface Props {
-  data: CourseListItemType[];
+  data: PackageListItemType[];
   title: string;
   archiveLink?: string;
   isLoading?: boolean;
@@ -43,7 +43,7 @@ const CourseSlider: React.FC<Props> = ({
           <Link href={`/course/${course.id}`}>
             <Image
               className={style.course}
-              src={course.pic_url || placeHolderDataUrl}
+              src={course.picture || placeHolderDataUrl}
               alt={course.title || "دروس"}
               width={170}
               height={95}

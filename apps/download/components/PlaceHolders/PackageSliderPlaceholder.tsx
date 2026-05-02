@@ -4,7 +4,7 @@ import style from "./PlaceHolder.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-const CourseSliderPlaceholder = () => {
+const PackageSliderPlaceholder = () => {
   const placeholderCards = Array(5).fill(null);
 
   return (
@@ -33,4 +33,4 @@ const CourseSliderPlaceholder = () => {
   );
 };
 
-export default CourseSliderPlaceholder;
+export default PackageSliderPlaceholder;

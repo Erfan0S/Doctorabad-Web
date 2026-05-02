@@ -1,18 +1,17 @@
 "use client";
 import React from "react";
 import styles from "./LearnHome.module.scss";
-import { HomePageCourseSliders } from "@/types/homePage";
-import LazyCourseSlider from "./LazyCourseSlider";
+import { HomePagePackageSliders } from "@/types/homePage";
+import LazyCourseSlider from "./LazyPackageSlider";
 
 const MainPage = () => {
   return (
     <div className={styles.container}>
-      <LazyCourseSlider type={HomePageCourseSliders.Amazing} />
-      <LazyCourseSlider type={HomePageCourseSliders.MyCourses} />
-      <LazyCourseSlider type={HomePageCourseSliders.Suggested} />
-      <LazyCourseSlider type={HomePageCourseSliders.Newest} />
-      <LazyCourseSlider type={HomePageCourseSliders.BestSeller} />
-      <LazyCourseSlider type={HomePageCourseSliders.LastViewed} />
+      <LazyCourseSlider type={HomePagePackageSliders.MyPackages} />
+      <LazyCourseSlider type={HomePagePackageSliders.Suggested} />
+      <LazyCourseSlider type={HomePagePackageSliders.Newest} />
+      <LazyCourseSlider type={HomePagePackageSliders.BestSelling} />
+      <LazyCourseSlider type={HomePagePackageSliders.LastViewed} />
     </div>
   );
 };

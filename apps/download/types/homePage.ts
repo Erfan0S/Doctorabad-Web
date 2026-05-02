@@ -1,27 +1,29 @@
-import { CourseListItemType } from "./courses";
+// import { CourseListItemType } from "./courses";
 
 export interface ProviderType {
   id: number;
   name: string;
-  pic_url: string;
+  picture: string;
 }
 
-export type CategoryType = {
+export type CollectionType = {
   id: number;
   title: string;
-  pic_url: string;
+  picture: string;
+};
+export type SubjectType = {
+  id: number;
+  title: string;
 };
 
 export type SliderType = {
   id: number;
-  title?: string;
-  url: string;
-  location: number;
-  priority?: number;
-  course_id?: number;
-  provider_id?: number;
-  category_id?: number;
-  pic_url: string;
+  title: string;
+  url: null | string;
+  package_id: null | number;
+  provider_id: null | number;
+  collection_id: null | number;
+  picture: string;
 };
 
 export enum CourseListType {
@@ -31,11 +33,10 @@ export enum CourseListType {
   Amazing = "amazing",
 }
 
-export enum HomePageCourseSliders {
-  Amazing = "amazing",
-  MyCourses = "my-courses",
+export enum HomePagePackageSliders {
+  MyPackages = "my-packages",
   Suggested = "suggested",
   Newest = "newest",
-  BestSeller = "best-seller",
+  BestSelling = "best-selling",
   LastViewed = "last-viewed",
 }

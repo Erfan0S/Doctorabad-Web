@@ -15,7 +15,7 @@ const CategoriesPage = () => {
     PaginatedResponse<CategoryType[]>
   >({
     queryFn: ({ pageParam }) =>
-      api.getCategories(pageParam as number).then((res) => res.data),
+      api.getCollections(pageParam as number).then((res) => res.data),
     queryKey: ["categories"],
     enabled: true,
     retry: false,

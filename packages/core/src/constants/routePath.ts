@@ -68,7 +68,6 @@ export const baseUrls = {
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3004"
       : productionBaseUrl) + routePath.examBasePath,
-
   [Apps.PHARMACY]:
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3005"
@@ -88,7 +87,7 @@ export const baseUrls = {
   [Apps.DOWNLOAD]:
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3009"
-      : productionBaseUrl) + routePath.marketBasePath,
+      : productionBaseUrl) + routePath.downloadBasePath,
 };
 
 // export const baseUrls = {

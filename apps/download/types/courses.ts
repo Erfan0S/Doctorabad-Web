@@ -77,27 +77,43 @@ export interface TabData {
   url?: string;
 }
 
-export type CourseListItemType = {
+
+export type PackageListItemType = {
   id: number;
   title: string;
-  pic_url: string;
-  price_main: number;
-  price_off: number | null;
-  price_amazing: number | null;
-  only_watchable_on_app: boolean;
+  picture: string;
+  main_price: number;
   language: number;
-  provider: {
+  category: {
     id: number;
     name: string;
-    pic_url: string;
   };
-  duration: number;
-  student_count: number;
+  provider: string;
+  sell_count: number;
+  download_count: number;
+  publish_date: number;
   installment_payment?: boolean;
 };
-
+export type PackageOrderListItemType = {
+  id: number;
+  title: string;
+  picture: string;
+  main_price: number;
+  language: number;
+  category: {
+    id: number;
+    name: string;
+  };
+  provider: string;
+  sell_count: number;
+  download_count: number;
+  publish_date: number;
+  installment_payment?: boolean;
+  order_code: string;
+  created_at: string;
+};
 export interface PaginatedAmazingCourses
-  extends PaginatedResponse<CourseListItemType[]> {
+  extends PaginatedResponse<PackageListItemType[]> {
   amazing_time: string;
 }
 

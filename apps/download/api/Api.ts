@@ -5,14 +5,21 @@ import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
 import {
   CourseComents,
   CourseDataType,
-  CourseListItemType,
+  PackageListItemType,
   CourseShare,
   Note,
   PaginatedAmazingCourses,
   previousOrders,
   VideoType,
+  PackageOrderListItemType,
 } from "@/types/courses";
-import { CategoryType, ProviderType, SliderType } from "@/types/homePage";
+import {
+  CategoryType,
+  CollectionType,
+  ProviderType,
+  SliderType,
+  SubjectType,
+} from "@/types/homePage";
 import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 import { PaymentResult } from "@repo/core/types/cart";
@@ -142,7 +149,7 @@ class Api extends Request {
   getProviders(
     page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<ProviderType[]>>> {
-    return this.request.get("/user/v1/education/provider", {
+    return this.request.get("/user/v1/package/provider", {
       params: { page },
     });
   }
@@ -157,10 +164,10 @@ class Api extends Request {
     });
   }
 
-  getCategories(
+  getCollections(
     page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CategoryType[]>>> {
-    return this.request.get("/user/v1/education/category", {
+  ): Promise<ResponseType<PaginatedResponse<CollectionType[]>>> {
+    return this.request.get("/user/v1/package/collection", {
       params: { page },
     });
   }
@@ -173,25 +180,26 @@ class Api extends Request {
     });
   }
 
-  getNewestCourses(
+  getPackages(
     page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
-    return this.request.get("/user/v1/education/course/newest", {
-      params: { page },
-    });
-  }
-
-  getBestSellerCourses(
-    page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
-    return this.request.get("/user/v1/education/course/bestselling", {
-      params: { page },
+    order_by:
+      | "newest"
+      | "bestselling"
+      | "oldest"
+      | "cheapest"
+      | "expensive"
+      | "favorite"
+      | "priority",
+    suggested: 0 | 1,
+  ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
+    return this.request.get(`/user/v1/package`, {
+      params: { page, order_by, suggested },
     });
   }
 
   getSuggestedCourses(
     page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+  ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
     return this.request.get("/user/v1/education/course/suggest", {
       params: { page },
     });
@@ -199,14 +207,14 @@ class Api extends Request {
 
   getUserLastViewedCourses(
     page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
-    return this.request.get("/user/v1/education/user/last-seen", {
+  ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
+    return this.request.get("/user/v1/package/last/seen", {
       params: { page },
     });
   }
 
   getMainSlider(): Promise<ResponseType<{ data: SliderType[] }>> {
-    return this.request.get("/user/v1/education/slider?location=1");
+    return this.request.get("/user/v1/package/slider");
   }
 
   getUserPreviousOrders(): Promise<
@@ -215,10 +223,10 @@ class Api extends Request {
     return this.request.get("/user/v1/education/previous/orders");
   }
 
-  getPrviosCourseOrders(
+  getPreviousPackageOrders(
     page: number = 1,
-  ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
-    return this.request.get("/user/v1/education/previous/orders/courses/buy", {
+  ): Promise<ResponseType<{ data: PackageOrderListItemType[] }>> {
+    return this.request.get("/user/v1/package/order", {
       params: { page },
     });
   }
@@ -246,7 +254,7 @@ class Api extends Request {
 
   getFilterList({
     page,
-    categories,
+    collections,
     fields,
     grades,
     language,
@@ -258,7 +266,7 @@ class Api extends Request {
     sort?: SortType;
     fields?: number;
     grades?: number;
-    categories?: number;
+    collections?: number;
     providers?: number;
     minPrice?: number;
     maxPrice?: number;
@@ -270,7 +278,7 @@ class Api extends Request {
         sort: sort,
         fields,
         grades,
-        categories,
+        collections,
         providers,
         min_price: minPrice,
         max_price: maxPrice,
@@ -284,22 +292,24 @@ class Api extends Request {
   }
 
   getFields(type: number): Promise<ResponseType<{ data: FieldGradeType[] }>> {
-    return this.request.get("/user/find/fields", { params: { type } });
+    return this.request.get("/user/v1/package/find/fields", {
+      params: { type },
+    });
   }
 
   getGrades(
     type: number,
     field_id: number,
   ): Promise<ResponseType<{ data: FieldGradeType[] }>> {
-    return this.request.get("/user/find/grades", {
+    return this.request.get("/user/v1/package/find/grades", {
       params: { type, field_id },
     });
   }
 
-  getCategoriesByGrade(
+  getSubjectsByGrade(
     grade_id: number,
-  ): Promise<ResponseType<{ data: CategoryType[] }>> {
-    return this.request.get(`/user/v1/education/category/search`, {
+  ): Promise<ResponseType<{ data: SubjectType[] }>> {
+    return this.request.get(`/user/v1/package/find/subjects`, {
       params: { grade_id },
     });
   }

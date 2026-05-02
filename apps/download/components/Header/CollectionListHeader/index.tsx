@@ -1,6 +1,6 @@
 import React from "react";
 import { PageHeader } from "@repo/shared_modules/headers";
-import styles from "./CategoryListHeader.module.scss";
+import styles from "./CollectionListHeader.module.scss";
 import { SortType } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
 import { Accordion } from "@repo/shared_modules/components";
@@ -17,7 +17,7 @@ const filterData = [
   { id: SortType.FAVORITE, title: "محبوب ترین" },
 ];
 
-const CategoryListHeader = ({ title }: Props) => {
+const CollectionListHeader = ({ title }: Props) => {
   return (
     <PageHeader
       title={title}
@@ -37,4 +37,4 @@ const CategoryListHeader = ({ title }: Props) => {
   );
 };
 
-export default CategoryListHeader;
+export default CollectionListHeader;

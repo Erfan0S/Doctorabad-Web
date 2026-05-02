@@ -1,12 +1,13 @@
-import { CourseListType, HomePageCourseSliders } from "@/types/homePage";
+import { CourseListType, HomePagePackageSliders } from "@/types/homePage";
 import { LazyDataLoader } from "@repo/shared_modules/components";
 import React from "react";
 import CourseSlider from "../CourseSlider";
 import { api } from "@/api/Api";
-import CourseSliderPlaceholder from "@/components/PlaceHolders/CourseSliderPlaceholder";
+import CourseSliderPlaceholder from "@/components/PlaceHolders/PackageSliderPlaceholder";
+import PackageSliderPlaceholder from "@/components/PlaceHolders/PackageSliderPlaceholder";
 
 type Props = {
-  type: HomePageCourseSliders;
+  type: HomePagePackageSliders;
 };
 
 type ConfigsType = {
@@ -17,56 +18,50 @@ type ConfigsType = {
   isRefetchOnAuth?: boolean;
 };
 
-const Configs: Record<HomePageCourseSliders, ConfigsType> = {
-  [HomePageCourseSliders.Amazing]: {
-    loader: async () => (await api.getAmazingCourses()).data,
-    title: "شگفت‌انگیزان",
-    archiveLink: "/course_list/" + CourseListType.Amazing,
-    queryKey: "amazing-courses",
-  },
-  [HomePageCourseSliders.MyCourses]: {
+const Configs: Record<HomePagePackageSliders, ConfigsType> = {
+
+  [HomePagePackageSliders.MyPackages]: {
     loader: async () =>
-      (await api.getPrviosCourseOrders()).data ||
-      (await api.getPreviosPlanOrders()).data,
-    title: "دوره‌ها و طرح‌های من",
+      (await api.getPreviousPackageOrders()).data,
+    title:"محتواهای من",
     archiveLink: "/my_course",
-    queryKey: "my-courses",
+    queryKey: "my-packages",
     isRefetchOnAuth: true,
   },
-  [HomePageCourseSliders.Suggested]: {
-    loader: async () => (await api.getSuggestedCourses()).data,
+  [HomePagePackageSliders.Suggested]: {
+    loader: async () => (await api.getPackages(1, "newest", 1)).data,
     title: "پیشنهاد کدخدای دکترآباد",
     archiveLink: "/course_list/" + CourseListType.Suggested,
-    queryKey: "suggested-courses",
+    queryKey: "suggested-packages",
   },
 
-  [HomePageCourseSliders.Newest]: {
-    loader: async () => (await api.getNewestCourses()).data,
+  [HomePagePackageSliders.Newest]: {
+    loader: async () => (await api.getPackages(1, "newest", 0)).data,
     title: "جدید‌ترین ها",
     archiveLink: "/course_list/" + CourseListType.Newest,
-    queryKey: "newest-courses",
+    queryKey: "newest-packages",
   },
-  [HomePageCourseSliders.BestSeller]: {
-    loader: async () => (await api.getBestSellerCourses()).data,
+  [HomePagePackageSliders.BestSelling]: {
+    loader: async () => (await api.getPackages(1, "bestselling", 0)).data,
     title: "پرفروش‌ترین ها",
     archiveLink: "/course_list/" + CourseListType.BestSeller,
-    queryKey: "bestseller-courses",
+    queryKey: "bestselling-packages",
   },
 
-  [HomePageCourseSliders.LastViewed]: {
+  [HomePagePackageSliders.LastViewed]: {
     loader: async () => (await api.getUserLastViewedCourses()).data,
     title: "آخرین بازدید‌های من",
     archiveLink: null,
-    queryKey: "lastviewed-courses",
+    queryKey: "lastviewed-packages",
     isRefetchOnAuth: true,
   },
 };
 
-export default function LazyCourseSlider({ type }: Props) {
+export default function LazyPackageSlider({ type }: Props) {
   if (!Configs[type]) return null;
   return (
     <LazyDataLoader
-      placeHolder={() => <CourseSliderPlaceholder />}
+      placeHolder={() => <PackageSliderPlaceholder />}
       loader={Configs[type].loader}
       queryKey={Configs[type].queryKey}
       returnOnError
