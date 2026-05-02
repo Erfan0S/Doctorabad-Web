@@ -215,7 +215,7 @@ class Api extends Request {
     return this.request.get("/user/v1/education/previous/orders");
   }
 
-  getPrviosCourseOrders(
+  getPreviousCourseOrders(
     page: number = 1,
   ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
     return this.request.get("/user/v1/education/previous/orders/courses/buy", {

@@ -24,6 +24,7 @@ import { BlogType } from "@/types/blog";
 
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
+import { CollectionListItem, CollectionSingleType } from "@/types/collection";
 
 class Api extends Request {
   constructor() {
@@ -73,8 +74,8 @@ class Api extends Request {
   }
 
   // providers
-  getProviders(): Promise<ResponseType<PaginatedResponse<ProvidersList>>> {
-    return this.request.get<PaginatedResponse<ProvidersList>>(
+  getProviders() {
+    return this.request.get<Promise<ResponseType<ProvidersList>>>(
       "/user/shop/provider",
       {
         next: { revalidate: 3600 },
@@ -82,9 +83,13 @@ class Api extends Request {
     );
   }
 
-  getSingleProvider(id: number): Promise<ResponseType<Provider>> {
+  getSingleProvider(
+    id: number,
+    page: number = 1,
+  ): Promise<ResponseType<Provider>> {
     return this.request.get(`/user/shop/provider/new/${id}`, {
       next: { revalidate: 3600 },
+      params: { page },
     });
   }
   // product
@@ -476,6 +481,27 @@ class Api extends Request {
   > => {
     return this.request.get<{ data: { min: number; max: number } }>(
       `/user/shop/product/price/range`,
+    );
+  };
+
+  // Collections
+  getCollectionsList = ({ page = 1 }: { page: number }) => {
+    return this.request.get<Promise<PaginatedResponse<CollectionListItem[]>>>(
+      "/user/shop/collection",
+      {
+        params: {
+          page: String(page),
+        },
+      },
+    );
+  };
+
+  getSingleCollection = (id: number, page: number = 1) => {
+    return this.request.get<Promise<CollectionSingleType>>(
+      `/user/shop/collection/${id}`,
+      {
+        params: { page },
+      },
     );
   };
 

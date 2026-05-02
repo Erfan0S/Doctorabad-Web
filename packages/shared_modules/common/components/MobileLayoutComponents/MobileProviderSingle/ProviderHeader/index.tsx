@@ -15,6 +15,7 @@ export type ProviderheaderPropsType = {
   app?: Apps;
   contentTitle?: string;
   descriptionTitle?: string;
+  variant?: "primery" | "secondary";
 };
 
 const ProviderHeader = ({
@@ -25,6 +26,7 @@ const ProviderHeader = ({
   app,
   contentTitle,
   descriptionTitle,
+  variant = "primery",
 }: ProviderheaderPropsType) => {
   const ProviderTabsData: MobileTabsConfig[] = [
     {

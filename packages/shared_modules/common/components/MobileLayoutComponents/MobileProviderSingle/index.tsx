@@ -16,6 +16,7 @@ interface Props extends ProviderheaderPropsType {
   id: number;
   ProviderContent: React.ReactNode;
   ProviderInfo: string;
+  headertitle?: string;
   isLoading?: boolean;
 }
 
@@ -47,6 +48,7 @@ const MobileProviderPageLayout = ({
   ProviderContent,
   ProviderInfo,
   isLoading,
+  headertitle,
   app,
   ...rest
 }: Props) => {
@@ -58,7 +60,7 @@ const MobileProviderPageLayout = ({
     <div>
       <PageHeader
         className={styles.providerHeaderWrapper}
-        title="ارائه دهنده‌ها"
+        title={headertitle}
         app={app}
         children={<ProviderHeader app={app} {...rest} />}
       />

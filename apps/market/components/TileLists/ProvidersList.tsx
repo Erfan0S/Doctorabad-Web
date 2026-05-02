@@ -5,7 +5,11 @@ import { TileList } from "@repo/shared_modules/components";
 import React from "react";
 
 async function ProvidersList() {
-  const ProvidersList: ProvidersListType = (await api.getProviders()).data.data;
+  const ProvidersList: ProvidersListType = (
+    await (
+      await api.getProviders()
+    ).data
+  ).data;
 
   return (
     <TileList

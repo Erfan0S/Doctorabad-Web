@@ -1,19 +1,15 @@
 "use client";
-import { api } from "@/api/Api";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import React from "react";
+import { Apps } from "@repo/core/types/general";
 import {
   Loading,
   MobileProviderPageLayout,
 } from "@repo/shared_modules/components";
-import { Apps } from "@repo/core/types/general";
+import React from "react";
 import { Product as ProductType } from "@repo/core/types/product";
-import Product from "@/components/common/product";
 import InfiniteScroll from "react-infinite-scroller";
-
-type Props = {
-  id: number;
-};
+import Product from "@/components/common/product";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { api } from "@/api/Api";
 
 const ProviderPageContent = ({
   products,
@@ -40,11 +36,13 @@ const ProviderPageContent = ({
   );
 };
 
-const MobileProviderPage = ({ id }: Props) => {
+// TODO: make secodnary variant for MobileProviderPageLayout
+
+function CollectionSinglePage({ id }: { id: number }) {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["provider_" + id],
     queryFn: ({ pageParam }) =>
-      api.getSingleProvider(id, pageParam).then((res) => res.data),
+      api.getSingleCollection(id, pageParam).then((res) => res.data),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.data.length === 0) {
@@ -60,7 +58,7 @@ const MobileProviderPage = ({ id }: Props) => {
     return data.pages.flatMap((page) => page.data);
   }, [data]);
 
-  const provider = data?.pages[0].provider;
+  const collection = data?.pages[0].collection;
 
   return (
     <MobileProviderPageLayout
@@ -71,16 +69,17 @@ const MobileProviderPage = ({ id }: Props) => {
           hasNextPage={hasNextPage}
         />
       }
-      ProviderInfo={provider?.description || ""}
+      ProviderInfo={collection?.description || ""}
       id={id}
-      image={provider?.pic_url || ""}
-      summery={provider?.summary || ""}
-      title="فروشنده"
+      image={collection?.pic_url || ""}
+      title={collection?.title || ""}
       app={Apps.MARKET}
       contentTitle="محصولات"
       isLoading={isLoading}
-      headertitle="فروشنده"
+      headertitle="مجموعه"
+      variant="secondary"
     />
   );
-};
-export default MobileProviderPage;
+}
+
+export default CollectionSinglePage;

@@ -30,6 +30,7 @@ export const marketPaths = {
   single: "/product",
   mobileProviders: "/providers",
   archive: "/product-list/archive",
+  collections: "/collections",
 };
 
 export const examPaths = {

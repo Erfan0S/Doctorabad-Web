@@ -26,7 +26,7 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
   },
   [HomePageCourseSliders.MyCourses]: {
     loader: async () =>
-      (await api.getPrviosCourseOrders()).data ||
+      (await api.getPreviousCourseOrders()).data ||
       (await api.getPreviosPlanOrders()).data,
     title: "دوره‌ها و طرح‌های من",
     archiveLink: "/my_course",
