@@ -1,7 +1,7 @@
 import { CategoryList } from "@/types/category";
 import { Request } from "@repo/core/http-request/Request";
 import { User, VerifyPhoneInput } from "@repo/core/types/user";
-import { ProvidersList } from "@/types/providers";
+import { Provider, ProvidersList } from "@/types/providers";
 import {
   PaginatedRequest,
   PaginatedResponse,
@@ -78,76 +78,81 @@ class Api extends Request {
       "/user/shop/provider",
       {
         next: { revalidate: 3600 },
-      }
+      },
     );
   }
 
+  getSingleProvider(id: number): Promise<ResponseType<Provider>> {
+    return this.request.get(`/user/shop/provider/new/${id}`, {
+      next: { revalidate: 3600 },
+    });
+  }
   // product
   getProductList = (
-    params: PaginatedRequest<ProductListOptions>
+    params: PaginatedRequest<ProductListOptions>,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get<{ data: Product[] }>(
       "/user/shop/product/new/list",
-      { params }
+      { params },
     );
   };
 
   searchProducts = (
-    params: PaginatedRequest<{ q: string }>
+    params: PaginatedRequest<{ q: string }>,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get<{ data: Product[] }>(
       "/user/shop/product/new/search",
-      { params }
+      { params },
     );
   };
 
   getAmazingProductList = (
-    params: PaginatedRequest
+    params: PaginatedRequest,
   ): Promise<
     ResponseType<{ data: AmazingProduct[]; amazing_time: string }>
   > => {
     return this.request.get<{ data: AmazingProduct[]; amazing_time: string }>(
       "/user/shop/product/new/amazing",
-      { params }
+      { params },
     );
   };
 
   getSuggestedProductList = (
-    params: PaginatedRequest
+    params: PaginatedRequest,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get<{ data: Product[] }>(
       "/user/shop/product/new/suggest",
-      { params }
+      { params },
     );
   };
 
   getNewestProductList = (
-    params: PaginatedRequest
+    params: PaginatedRequest,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get<{ data: Product[] }>(
       "/user/shop/product/new/newest",
-      { params }
+      { params },
     );
   };
 
   getBesSellingProductList = (
-    params: PaginatedRequest
+    params: PaginatedRequest,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get<{ data: Product[] }>(
       "/user/shop/product/new/bestselling",
-      { params }
+      { params },
     );
   };
 
   getLastSeenProductList = (
-    params: PaginatedRequest
+    params: PaginatedRequest,
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get<{ data: Product[] }>(
       "/user/shop/product/new/lastSeen",
       {
         params,
         cache: "no-store",
-      }
+      },
     );
   };
 
@@ -157,36 +162,36 @@ class Api extends Request {
 
   shareProduct(id: number): Promise<ResponseType<{ data: ProductShare }>> {
     return this.request.get<{ data: ProductShare }>(
-      `/user/shop/product/share/${id}`
+      `/user/shop/product/share/${id}`,
     );
   }
 
   restockNotification(
-    id: number
+    id: number,
   ): Promise<ResponseType<{ data: ProductShare }>> {
     return this.request.get<{ data: ProductShare }>(
-      `/user/shop/product/letMeKnow/${id}`
+      `/user/shop/product/letMeKnow/${id}`,
     );
   }
 
   // single product
   getSingleProduct(id: number): Promise<ResponseType<{ data: SingleProduct }>> {
     return this.request.get<{ data: SingleProduct }>(
-      `/user/shop/product/single/${id}`
+      `/user/shop/product/single/${id}`,
     );
   }
 
   getSingleProductBySlug(
-    slug: string
+    slug: string,
   ): Promise<ResponseType<{ data: SingleProduct }>> {
     return this.request.get<{ data: SingleProduct }>(
-      `/user/shop/product/slug/${slug}`
+      `/user/shop/product/slug/${slug}`,
     );
   }
 
   getRelatedProducts(id: number): Promise<ResponseType<{ data: Product[] }>> {
     return this.request.get<{ data: Product[] }>(
-      `/user/shop/product/new/related/${id}`
+      `/user/shop/product/new/related/${id}`,
     );
   }
 
@@ -200,11 +205,11 @@ class Api extends Request {
 
   getCommentsList(
     productID: number,
-    page: number
+    page: number,
   ): Promise<ResponseType<ProductComments>> {
     return this.request.get<ProductComments>(
       `/user/shop/comment/new/${productID}`,
-      { params: { page } }
+      { params: { page } },
     );
   }
 
@@ -336,16 +341,16 @@ class Api extends Request {
   // }
 
   getOrderResult = (
-    paymentToken: string
+    paymentToken: string,
   ): Promise<ResponseType<PaymentResult>> => {
     return this.request.get<PaymentResult>(
-      `/user/shop/order/result/${paymentToken}`
+      `/user/shop/order/result/${paymentToken}`,
     );
   };
 
   // fields and grades
   getFields = (
-    type: number
+    type: number,
   ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
     return this.request.get<{ data: SelectionItem[] }>("/user/find/fields", {
       params: { type },
@@ -354,7 +359,7 @@ class Api extends Request {
 
   getGrades = (
     field_id: number,
-    type: number
+    type: number,
   ): Promise<ResponseType<{ data: SelectionItem[] }>> => {
     return this.request.get<{ data: SelectionItem[] }>("/user/find/grades", {
       params: {
@@ -392,7 +397,7 @@ class Api extends Request {
     ResponseType<{ data: { counter: number } }>
   > => {
     return this.request.get<{ data: { counter: number } }>(
-      `/user/message/new/count`
+      `/user/message/new/count`,
     );
   };
 
@@ -451,10 +456,10 @@ class Api extends Request {
   // };
 
   getPreviousOrderDetail = (
-    orderCode: string
+    orderCode: string,
   ): Promise<ResponseType<LastProcessingOrder>> => {
     return this.request.get<LastProcessingOrder>(
-      `/user/shop/order/details/${orderCode}`
+      `/user/shop/order/details/${orderCode}`,
     );
   };
 
@@ -462,7 +467,7 @@ class Api extends Request {
     ResponseType<{ data: { id: number; title: string }[] }>
   > => {
     return this.request.get<{ data: { id: number; title: string }[] }>(
-      `/user/find/product/types`
+      `/user/find/product/types`,
     );
   };
 
@@ -470,7 +475,7 @@ class Api extends Request {
     ResponseType<{ data: { min: number; max: number } }>
   > => {
     return this.request.get<{ data: { min: number; max: number } }>(
-      `/user/shop/product/price/range`
+      `/user/shop/product/price/range`,
     );
   };
 

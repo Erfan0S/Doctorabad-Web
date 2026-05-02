@@ -39,7 +39,7 @@ const ProviderHeader = ({
 
   return (
     <div>
-      <div className={`styles.ProviderHeader ${styles[app]}`}>
+      <div className={`${styles.ProviderHeader} ${styles[app]}`}>
         <div className={styles.redBackground} />
         <Image
           src={image}

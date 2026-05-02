@@ -202,6 +202,7 @@
         display: flex;
         justify-content: space-between;
         flex-flow: row wrap;
+        flex: 1;
         padding-right: 5px;
       }
       .productTitle {
@@ -252,6 +253,24 @@
     }
     &PriceSale {
       font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .product {
+    &AddToCart,
+    &NoStock,
+    &VariantButton {
+      font-size: 12px;
+
+      > button,
+      > div > div {
+        font-size: 12px;
+        button {
+          font-size: 12px;
+        }
+      }
     }
   }
 }

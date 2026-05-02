@@ -12,11 +12,12 @@
   position: relative;
   margin-bottom: 10px;
   padding: 0 10px;
+  flex-direction: row;
 
   img {
     object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0 0 10px #00000078;
+    box-shadow: 0 0 10px #f2e3e378;
     background-color: white;
   }
 
