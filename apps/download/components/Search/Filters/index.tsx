@@ -15,12 +15,12 @@ const FiltersContainer = () => {
 
   const { data: field, isLoading: fieldLoading } = useQuery({
     queryKey: [FiltersNames.FIELD],
-    queryFn: () => api.getFields(2),
+    queryFn: () => api.getFields(),
   });
   const { data: grade, isLoading: gradeLoading } = useQuery({
     queryKey: [FiltersNames.GRADE],
     queryFn: () =>
-      api.getGrades(2, (params?.get(FiltersNames.FIELD) || 1) as number),
+      api.getGrades((params?.get(FiltersNames.FIELD) || 1) as number),
     enabled: !!params?.get(FiltersNames.FIELD),
   });
   const { data: language, isLoading: languageLoading } = useQuery({
@@ -30,19 +30,20 @@ const FiltersContainer = () => {
   });
   const { data: category, isLoading: categoryLoading } = useQuery({
     queryKey: [FiltersNames.CATEGORY],
+    queryFn: () => api.getCategories(),
+    enabled: true,
+  });
+  const { data: subject, isLoading: subjectLoading } = useQuery({
+    queryKey: [FiltersNames.SUBJECT],
     queryFn: () =>
-      api.getCategoriesByGrade(+(params?.get(FiltersNames.GRADE) || 1)),
+      api.getSubjectsByGrade((params?.get(FiltersNames.GRADE) || 1) as number),
     enabled:
       !!params?.get(FiltersNames.FIELD) && !!params?.get(FiltersNames.GRADE),
   });
-  const { data: provider, isLoading: providerLoading } = useQuery({
-    queryKey: [FiltersNames.PROVIDER],
-    queryFn: () => api.getProviders(),
-  });
 
-  const ProviderData = provider?.data.data.map((item) => ({
+  const SubjectData = subject?.data.data.map((item) => ({
     id: item.id,
-    title: item.name,
+    title: item.title,
   }));
 
   const LanguageData = language?.data.map((item) => ({
@@ -92,17 +93,17 @@ const FiltersContainer = () => {
     },
     {
       title: "موضوع",
-      data: category?.data.data || [],
-      name: FiltersNames.CATEGORY,
-      loading: categoryLoading,
+      data: SubjectData || [],
+      name: FiltersNames.SUBJECT,
+      loading: subjectLoading,
       isActive:
         !!params?.get(FiltersNames.FIELD) && !!params?.get(FiltersNames.GRADE),
     },
     {
-      title: "ارائه‌دهنده",
-      data: ProviderData || [],
-      name: FiltersNames.PROVIDER,
-      loading: providerLoading,
+      title: "دسته‌بندی",
+      data: category?.data.data || [],
+      name: FiltersNames.CATEGORY,
+      loading: categoryLoading,
       isActive: true,
     },
     {
@@ -111,7 +112,8 @@ const FiltersContainer = () => {
       name: FiltersNames.LANGUAGE,
       loading: languageLoading,
       isActive: true,
-    },
+      multiSelection: true,
+    }, 
     {
       title: "براساس",
       data: SortData,

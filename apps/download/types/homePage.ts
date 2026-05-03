@@ -5,6 +5,10 @@ export interface ProviderType {
   name: string;
   picture: string;
 }
+export interface ProviderListType {
+  id: number;
+  name: string;
+}
 
 export type CollectionType = {
   id: number;

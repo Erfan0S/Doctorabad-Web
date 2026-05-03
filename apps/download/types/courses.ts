@@ -83,6 +83,7 @@ export type PackageListItemType = {
   title: string;
   picture: string;
   main_price: number;
+  off_price: number;
   language: number;
   category: {
     id: number;

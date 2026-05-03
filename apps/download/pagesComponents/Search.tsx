@@ -3,7 +3,7 @@ import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
 import FIlterNotFound from "@/components/common/FIlterNotFound";
 import Loading from "@/components/common/Loading";
-import { CourseListItemType } from "@/types/courses";
+import { PackageListItemType } from "@/types/courses";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -14,7 +14,7 @@ const SearchPageComponent = () => {
   const query = params?.get("q") || "";
 
   const { data, isError, isLoading, fetchNextPage, hasNextPage } =
-    useInfiniteQuery<PaginatedResponse<CourseListItemType[]>>({
+    useInfiniteQuery<PaginatedResponse<PackageListItemType[]>>({
       queryKey: ["search", query],
       queryFn: ({ pageParam }) =>
         api.getSearchList(query, pageParam as number).then((res) => res.data),

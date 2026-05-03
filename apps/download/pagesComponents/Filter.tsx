@@ -8,14 +8,15 @@ import { FiltersNames, SortType } from "@/types/filters";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+import { PackageListItemType } from "@/types/courses";
 import React from "react";
 
 const FilterPageList = () => {
   const params = useSearchParams();
 
   const filterParams = {
-    categories: params?.get(FiltersNames.CATEGORY)
-      ? Number(params?.get(FiltersNames.CATEGORY))
+    subjects: params?.get(FiltersNames.SUBJECT)
+      ? Number(params?.get(FiltersNames.SUBJECT))
       : undefined,
     sort: (params?.get(FiltersNames.SORT) as SortType) || null,
     fields: params?.get(FiltersNames.FIELD)
@@ -25,15 +26,15 @@ const FilterPageList = () => {
       ? Number(params?.get(FiltersNames.GRADE))
       : undefined,
     language: params?.get(FiltersNames.LANGUAGE)
-      ? Number(params?.get(FiltersNames.LANGUAGE))
+      ? params?.get(FiltersNames.LANGUAGE)?.split(",").map(Number)
       : undefined,
-    providers: params?.get(FiltersNames.PROVIDER)
-      ? Number(params?.get(FiltersNames.PROVIDER))
+    categories: params?.get(FiltersNames.CATEGORY)
+      ? Number(params?.get(FiltersNames.CATEGORY))
       : undefined,
   };
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
-    PaginatedResponse<CourseListItemType[]>
+    PaginatedResponse<PackageListItemType[]>
   >({
     queryFn: ({ pageParam }) =>
       api

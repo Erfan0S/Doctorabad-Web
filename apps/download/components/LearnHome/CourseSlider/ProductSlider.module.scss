@@ -1,11 +1,11 @@
 .course {
-  height: 95px;
-  width: 170px;
+  height: 150px;
+  width: 110px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-size: cover;
   background-position: center;
-  object-fit: scale-down;
+  // object-fit: scale-down;
   aspect-ratio: 16/9;
 }

@@ -25,7 +25,7 @@ export const productData = (
   return {
     id: course.id.toString(),
     title: course.title,
-    pic_url: course.pic_url,
+    pic_url: course.picture,
     baseUrl: "course",
     attributes: [
       {

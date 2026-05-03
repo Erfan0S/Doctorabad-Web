@@ -16,10 +16,12 @@ import {
 import {
   CategoryType,
   CollectionType,
+  ProviderListType,
   ProviderType,
   SliderType,
   SubjectType,
 } from "@/types/homePage";
+import { Categories } from "@/types/filters";
 import { FieldGradeType, SortType } from "@/types/filters";
 import { SingleProviderType } from "@/types/ProviderPage";
 import { PaymentResult } from "@repo/core/types/cart";
@@ -153,6 +155,13 @@ class Api extends Request {
       params: { page },
     });
   }
+  getProvidersList(
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<ProviderListType[]>>> {
+    return this.request.get("/user/v1/package/find/providers", {
+      params: { page },
+    });
+  }
   getSingleProvider(
     id: number,
     page: number = 1,
@@ -238,51 +247,55 @@ class Api extends Request {
       params: { page },
     });
   }
-
+  getSearchList(
+    title: string,
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
+    return this.request.get("/user/v1/package", {
+      params: { page, title, order_by: "newest" },
+    });
+  }
   // filter / search
 
-  getSearchList(
-    query: string,
-    page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
-    return query
-      ? this.request.get("/user/v1/education/course/search", {
-          params: { q: query, page },
-        })
-      : this.getNewestCourses(page);
-  }
+  // getSearchList(
+  //   query: string,
+  //   page: number = 1,
+  // ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+  //   return query
+  //     ? this.request.get("/user/v1/education/course/search", {
+  //         params: { q: query, page },
+  //       })
+  //     : this.getNewestCourses(page);
+  // }
 
   getFilterList({
     page,
-    collections,
     fields,
     grades,
     language,
-    maxPrice,
-    minPrice,
-    providers,
-    sort,
+    subject,
+    free,
+    suggested,
+    order_by,
   }: {
-    sort?: SortType;
+    order_by?: SortType;
     fields?: number;
     grades?: number;
-    collections?: number;
-    providers?: number;
-    minPrice?: number;
-    maxPrice?: number;
-    language?: number;
+    subject?: number;
+    free?: 0 | 1;
+    language?: number[];
+    suggested?: 0 | 1;
     page?: number;
-  }): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
-    return this.request.get("/user/v1/education/course/list", {
+  }): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
+    return this.request.get("/user/v1/package", {
       params: {
-        sort: sort,
+        order_by: order_by,
         fields,
         grades,
-        collections,
-        providers,
-        min_price: minPrice,
-        max_price: maxPrice,
         language,
+        subject,
+        free,
+        suggested,
         page,
       },
     });
@@ -291,26 +304,23 @@ class Api extends Request {
     return this.request.get(`/user/v1/education/lesson/count`);
   }
 
-  getFields(type: number): Promise<ResponseType<{ data: FieldGradeType[] }>> {
-    return this.request.get("/user/v1/package/find/fields", {
-      params: { type },
-    });
+  getFields(): Promise<ResponseType<{ data: FieldGradeType[] }>> {
+    return this.request.get("/user/v1/package/find/fields", {});
   }
 
-  getGrades(
-    type: number,
-    field_id: number,
-  ): Promise<ResponseType<{ data: FieldGradeType[] }>> {
+  getGrades(field: number): Promise<ResponseType<{ data: FieldGradeType[] }>> {
     return this.request.get("/user/v1/package/find/grades", {
-      params: { type, field_id },
+      params: { field },
     });
   }
-
+  getCategories(): Promise<ResponseType<{ data: Categories[] }>> {
+    return this.request.get("/user/v1/package/find/categories", {});
+  }
   getSubjectsByGrade(
-    grade_id: number,
+    grade: number,
   ): Promise<ResponseType<{ data: SubjectType[] }>> {
     return this.request.get(`/user/v1/package/find/subjects`, {
-      params: { grade_id },
+      params: { grade },
     });
   }
 

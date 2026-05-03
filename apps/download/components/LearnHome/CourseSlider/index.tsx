@@ -32,11 +32,12 @@ const CourseSlider: React.FC<Props> = ({
     <ProductSliderContainer
       title={title}
       archiveLink={archiveLink}
-      customSliderConfig={customSliderConfig}
+      customSliderConfig={{ spaceBetween: 5, ...customSliderConfig }}
       app={Apps.DOWNLOAD}
       isMobileLayout
       amazingTime={amazingTime}
       dynamicSlideWidth
+      slideWidth={115}
     >
       {data.map((course, i) => (
         <SwiperSlide key={course.id}>
@@ -45,8 +46,8 @@ const CourseSlider: React.FC<Props> = ({
               className={style.course}
               src={course.picture || placeHolderDataUrl}
               alt={course.title || "دروس"}
-              width={170}
-              height={95}
+              width={100}
+              height={100}
               placeholder={placeHolderDataUrl}
             />
           </Link>

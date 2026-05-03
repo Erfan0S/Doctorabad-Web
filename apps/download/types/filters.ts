@@ -22,7 +22,7 @@ export type PriceRange = {
   max_price: number;
 };
 
-export type categories = {
+export type Categories = {
   id: number;
   title: string;
 };
@@ -31,7 +31,7 @@ export enum FiltersNames {
   FIELD = "field",
   GRADE = "grade",
   CATEGORY = "category",
-  PROVIDER = "provider",
+  SUBJECT = "subject",
   LANGUAGE = "language",
   SORT = "sort",
 }
@@ -41,4 +41,23 @@ export enum SortType {
   EXPENSIVE = "expensive",
   BESTSELLING = "bestselling",
   FAVORITE = "favorite",
+  PRIORITY = "priority",
+  OLDEST = "oldest",
 }
+
+export type FiltersInputs = {
+  title: string;
+  field: number;
+  grade: number;
+  language: number[];
+  free: 0 | 1;
+  suggested: 0 | 1;
+  order_by:
+    | "newest"
+    | "bestselling"
+    | "oldest"
+    | "cheapest"
+    | "expensive"
+    | "favorite"
+    | "priority";
+};
