@@ -34,6 +34,13 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #333;
+  margin-bottom: 0.2rem;
+  padding-left: 67px;
+}
+
+.providerName {
+  font-size: 0.75rem;
+  color: #666;
   margin-bottom: 0.5rem;
   padding-left: 67px;
 }
@@ -80,7 +87,7 @@
   padding: 2px 0;
   border-radius: 5px;
   left: 1rem;
-  bottom: 1rem;
+  top: 1rem;
 }
 
 .coursePrice {

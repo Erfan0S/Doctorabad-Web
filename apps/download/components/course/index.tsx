@@ -1,28 +1,22 @@
 import React from "react";
 import { CourseTabsData } from "./tabs/tabs-data";
-import { CourseDataType } from "@/types/courses";
-import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
+import { PackageItem, CourseTab } from "@/types/courses";
 import { Apps } from "@repo/core/types/general";
 import { MobileProductLayout } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
-import VideoPlayerComponent from "./video-player/VideoPlayerComponent";
 import { CourseActiveButton, CourseAppOnlyButton } from "./CourseButton";
+import Image from "next/image";
+import CourseHeaderSiffix from "../Header/courseHeaderSuffix";
 
 type Props = {
-  course: CourseDataType;
+  course: PackageItem;
   lessonParam?: string | null;
   activeTab?: string;
 };
 
-const Course = ({ course, lessonParam, activeTab }: Props) => {
-  const currentLeasson = course.sections
-    .flatMap((section) =>
-      section.chapters.flatMap((chapter) => chapter.lessons),
-    )
-    .find((leasson) => leasson.id === +lessonParam!);
-
+const Course = ({ course, activeTab }: Props) => {
   const userHasAccess =
-    course?.user_has_access && !course.only_watchable_on_app;
+    course?.user_has_access && !course.only_usable_on_app;
 
   const tabsData = CourseTabsData({
     course,
@@ -31,37 +25,34 @@ const Course = ({ course, lessonParam, activeTab }: Props) => {
   return (
     <MobileProductLayout
       tabsData={tabsData}
-      tabParam={activeTab}
+      tabParam={activeTab || CourseTab.SPECIFICATIONS}
       app={Apps.DOWNLOAD}
       preview={
-        <VideoPlayerComponent
-          course={course}
-          lessonParam={lessonParam || undefined}
-          userHasAccess={userHasAccess}
-        />
+        <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+          <Image
+            src={course.picture}
+            alt={course.title}
+            fill
+            style={{ objectFit: "contain" }}
+          />
+        </div>
       }
       title={course.title}
-      headerSuffix={
-        <CourseHeaderSiffix
-          course={course}
-          currentLessonId={currentLeasson?.id!}
-        />
-      }
+      headerSuffix={<CourseHeaderSiffix course={course} />}
       provider={{
-        name: course.provider.name,
-        img_url: course.provider.pic_url,
-        id: course.provider.id,
+        name: course.authors?.[0]?.title || "",
+        img_url: course.provider_picture,
+        id: course.provider_id,
       }}
       productButtonProps={{
         installment_payment: course.user_has_access
           ? false
           : course.installment_payment,
         installment_text: course.installment_text || undefined,
-        mainPrice: course.price_main,
-        offPrice: course.price_off,
-        amazingPrice: course.price_amazing,
+        mainPrice: course.main_price ?? 0,
+        offPrice: course.off_price,
         productId: course.id,
-        orderType: OrderType.Course,
+        orderType: OrderType.Package,
         app: Apps.DOWNLOAD,
         replaceButton: course.user_has_access && (
           <CourseActiveButton course={course} />

@@ -3,9 +3,10 @@ import CoinIcon from "@/assets/svg/coin";
 import Image from "next/image";
 import React from "react";
 
+import CategoryIcon from "@/assets/svg/category";
 import Hat from "@/assets/svg/hat";
 import HomeIcon from "@/assets/svg/home";
-import { CourseListItemType } from "@/types/courses";
+import { PackageListItemType } from "@/types/courses";
 import styles from "./CourseList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import formatDuration from "@/utils/formatDuration";
@@ -13,19 +14,19 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ListProductSnappayNotif } from "@repo/shared_modules/components";
 
 type Props = {
-  course: CourseListItemType;
+  package_item: PackageListItemType;
 };
 
-const CourseListItem = ({ course }: Props) => {
+const CourseListItem = ({ package_item }: Props) => {
   return (
     <div className={styles.courseCard}>
-      {course.installment_payment && (
+      {package_item.installment_payment && (
         <ListProductSnappayNotif className={styles.installmentPayment} />
       )}
-      {course.pic_url ? (
+      {package_item.picture ? (
         <Image
-          src={course.pic_url || placeHolderDataUrl}
-          alt={course.title}
+          src={package_item.picture || placeHolderDataUrl}
+          alt={package_item.title}
           width={115}
           height={65}
           className={styles.courseImage}
@@ -35,12 +36,13 @@ const CourseListItem = ({ course }: Props) => {
         <div className={styles.courseImage} />
       )}
       <div className={styles.courseInfo}>
-        <h3 className={styles.title}>{course.title}</h3>
+        <h3 className={styles.title}>{package_item.title}</h3>
+        <p className={styles.providerName}>{package_item.provider}</p>
         <div className={styles.metadata}>
           <div className={styles.metadataWrapper}>
             <div className={styles.metadataItem}>
-              <Clock fontSize={16} />
-              <span>{formatDuration(course.duration)} ساعت</span>
+              <CategoryIcon fontSize={16} />
+              <span>{package_item.category[0].title || "_"}</span>
             </div>
 
             <div className={styles.metadataItem}>
@@ -48,33 +50,35 @@ const CourseListItem = ({ course }: Props) => {
               <div className={styles.coursePrice}>
                 <span
                   style={{
-                    textDecoration: course.price_off ? "line-through" : "",
+                    textDecoration: package_item.off_price
+                      ? "line-through"
+                      : "",
                   }}
                 >
-                  {!(course.price_main <= 0)
-                    ? priceFormatter(course.price_main) + " تومن"
+                  {!(package_item.main_price <= 0)
+                    ? priceFormatter(package_item.main_price) + " تومن"
                     : "رایگان"}
                 </span>
-                {course.price_off ? (
-                  <span>{priceFormatter(course.price_off)} تومن</span>
+                {package_item.off_price ? (
+                  <span>{priceFormatter(package_item.off_price)} تومن</span>
                 ) : null}
               </div>
             </div>
           </div>
           <div className={styles.metadataWrapper}>
             <div className={styles.metadataItem}>
-              <Hat fontSize={16} />
-              <span>{course?.provider?.name || "_"}</span>
-            </div>
-            <div className={styles.metadataItem}>
               <HomeIcon fontSize={16} />
-              <span>{course?.student_count || "_"} دانشجو</span>
+              <span>{package_item?.sell_count || "_"} دانشجو</span>
             </div>
           </div>
         </div>
       </div>
       <div className={styles.courseLanguageTag}>
-        {course.language == 1 ? "Fa" : "En"}
+        {package_item.language == 1
+          ? "Fa"
+          : package_item.language == 2
+            ? "En"
+            : "Ar"}
       </div>
     </div>
   );

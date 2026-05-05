@@ -26,7 +26,7 @@ const CategoryListItem = ({ category, isProvider }: Props) => {
         src={category.picture || placeHolderDataUrl}
         alt={isProvider ? "ارائه‌دهنده" : "دسته بندی"}
         fill
-        style={{ objectFit: "contain" }}
+        style={isProvider ? { objectFit: "contain" } : { objectFit: "cover" }}
         placeholder={placeHolderDataUrl}
       />
 

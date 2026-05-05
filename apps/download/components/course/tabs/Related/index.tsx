@@ -8,15 +8,15 @@ import { CourseContentProps } from "../tabs-data";
 
 const RelatedCourses = ({ course }: CourseContentProps) => {
   const { data, isLoading } = useQuery({
-    queryFn: () => api.getRelatedCourses(course.id),
-    queryKey: ["related_courses", course.id],
+    queryFn: () => api.getRelatedPackages(course.id),
+    queryKey: ["related_packages", course.id],
     retry: false,
   });
 
   return isLoading ? (
     <Loading />
   ) : (
-    <StaticCourseList courses={data?.data.data ?? []} />
+    <StaticCourseList packages={data?.data.data ?? []} />
   );
 };
 

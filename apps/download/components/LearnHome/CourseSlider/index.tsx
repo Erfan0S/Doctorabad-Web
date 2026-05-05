@@ -41,7 +41,7 @@ const CourseSlider: React.FC<Props> = ({
     >
       {data.map((course, i) => (
         <SwiperSlide key={course.id}>
-          <Link href={`/course/${course.id}`}>
+          <Link href={`/package/${course.id}/${course.title.replace(/\s+/g, "-")}`}>
             <Image
               className={style.course}
               src={course.picture || placeHolderDataUrl}

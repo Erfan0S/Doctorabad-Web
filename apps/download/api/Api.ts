@@ -12,6 +12,7 @@ import {
   previousOrders,
   VideoType,
   PackageOrderListItemType,
+  PackageItem,
 } from "@/types/courses";
 import {
   CategoryType,
@@ -56,6 +57,48 @@ class Api extends Request {
       `/user/v1/education/course/${id}`,
     );
   }
+  getPackage(id: number): Promise<ResponseType<{ data: PackageItem }>> {
+    return this.request.get<{ data: PackageItem }>(
+      `/user/v1/package/${id}`,
+    );
+  }
+
+  createPackageComment(data: { packageId: number; text: string }): Promise<any> {
+    return this.request.post(
+      `/user/v1/package/comment/${data.packageId}`,
+      data,
+    );
+  }
+
+  getPackageCommentsList(
+    packageId: number,
+    page: number,
+  ): Promise<ResponseType<CourseComents>> {
+    return this.request.get<CourseComents>(
+      `/user/v1/package/comment/${packageId}`,
+      { params: { page } },
+    );
+  }
+
+  getRelatedPackages(
+    id: number,
+  ): Promise<ResponseType<{ data: PackageListItemType[] }>> {
+    return this.request.get<{ data: PackageListItemType[] }>(
+      `/user/v1/package/related/${id}`,
+    );
+  }
+
+  sharePackage(id: number): Promise<ResponseType<{ data: CourseShare }>> {
+    return this.request.get(`/user/v1/package/${id}/share`);
+  }
+
+  addPackageFavorite(id: number): Promise<{}> {
+    return this.request.post(`/user/v1/package/favorite`, { id });
+  }
+
+  removePackageFavorite = (id: number): Promise<any> => {
+    return this.request.delete(`/user/v1/package/favorite/${id}`);
+  };
 
   createComment(data: { courseId: number; text: string }): Promise<any> {
     return this.request.post(
@@ -78,7 +121,7 @@ class Api extends Request {
     id: number,
   ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
     return this.request.get<{ data: CourseListItemType[] }>(
-      `/user/v1/education/course/${id}/related`,
+      `/user/v1/package/related/${id}`,
     );
   }
 

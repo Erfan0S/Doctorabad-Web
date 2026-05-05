@@ -100,7 +100,7 @@ export const MyCourses = () => {
       return (
         !!courseData?.data.data &&
         courseData?.data.data.map((course) => (
-          <Link href={`/course/${course.id}`} key={course.id}>
+          <Link href={`/package/${course.id}`} key={course.id}>
             <CourseListItem course={course} />
           </Link>
         ))

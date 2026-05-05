@@ -10,16 +10,20 @@ import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 
 type Props = {
-  courseId: number;
+  courseId?: number;
+  packageId?: number;
 };
 
-const ProductCommentsForm = ({ courseId }: Props) => {
+const ProductCommentsForm = ({ courseId, packageId }: Props) => {
   const [rate, setRate] = useState(0);
   const [comment, setComment] = useState("");
 
   const mutation = useMutation({
-    mutationFn: (data: Parameters<typeof api.createComment>["0"]) => {
-      return api.createComment(data);
+    mutationFn: (data: { id: number; text: string }) => {
+      if (packageId) {
+        return api.createPackageComment({ packageId: data.id, text: data.text });
+      }
+      return api.createComment({ courseId: data.id, text: data.text });
     },
     onSuccess() {
       toast("نظر شما با موفقیت ثبت شد و در انتظار تایید است", {
@@ -35,7 +39,7 @@ const ProductCommentsForm = ({ courseId }: Props) => {
 
   const submitComment = () => {
     if (comment) {
-      mutation.mutate({ courseId, text: comment });
+      mutation.mutate({ id: (packageId || courseId)!, text: comment });
     } else {
       toast("لطفا نظر خود را وارد کنید", { type: "warning" });
     }

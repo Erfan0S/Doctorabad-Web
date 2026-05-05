@@ -1,0 +1,42 @@
+.specifications {
+  padding: 15px 0;
+  width: 100%;
+
+  table {
+    width: 100%;
+    direction: rtl;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  tr {
+    &:not(:last-child) td {
+      border-bottom: 1px solid #000000;
+    }
+  }
+
+  td {
+    padding: 12px 8px;
+    font-size: 14px;
+    text-align: center;
+
+    &:not(:last-child) {
+      border-left: 1px solid #000000;
+    }
+
+    &:first-child {
+      color: #000000;
+      width: 120px;
+      font-weight: 500;
+    }
+
+    &:last-child {
+      color: #000000;
+      font-weight: 600;
+    }
+  }
+}

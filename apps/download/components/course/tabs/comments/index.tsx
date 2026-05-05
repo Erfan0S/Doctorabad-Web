@@ -14,12 +14,12 @@ import { CourseContentProps } from "../tabs-data";
 const CourseComments: React.FC<CourseContentProps> = ({ course }) => {
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useInfiniteQuery<ProductCommentType>({
-      queryKey: ["comments", course.id],
+      queryKey: ["package_comments", course.id],
       initialPageParam: 1,
       staleTime: Infinity,
       queryFn: ({ pageParam }) =>
         api
-          .getCommentsList(course.id, Number(pageParam))
+          .getPackageCommentsList(course.id, Number(pageParam))
           .then((res) => res.data),
       getNextPageParam: (lastPage, allPages, lastPageParam) => {
         if (lastPage.data.length === 0) {
@@ -33,7 +33,7 @@ const CourseComments: React.FC<CourseContentProps> = ({ course }) => {
 
   return (
     <div className={style.productComments}>
-      <ProductCommentsForm courseId={course.id} />
+      <ProductCommentsForm packageId={course.id} />
       <ProductCommentsList
         comments={data!}
         fetchNextPage={fetchNextPage}

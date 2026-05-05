@@ -19,10 +19,10 @@ export interface Section {
   chapters: Chapter[];
 }
 
-export interface Category {
-  id: number;
-  title: string;
-}
+// export interface Category {
+//   id: number;
+//   title: string;
+// }
 
 export interface CourseDataType {
   id: number;
@@ -53,6 +53,7 @@ export interface CourseDataType {
   installment_text: string | null;
 }
 export enum CourseTab {
+  SPECIFICATIONS = "specifications",
   LESSONS = "lessons",
   DESCRIPTION = "description",
   COMMENTS = "comments",
@@ -77,7 +78,6 @@ export interface TabData {
   url?: string;
 }
 
-
 export type PackageListItemType = {
   id: number;
   title: string;
@@ -85,10 +85,7 @@ export type PackageListItemType = {
   main_price: number;
   off_price: number;
   language: number;
-  category: {
-    id: number;
-    name: string;
-  };
+  category: [{ id: number; title: string }];
   provider: string;
   sell_count: number;
   download_count: number;
@@ -163,4 +160,72 @@ export interface CourseShare {
   title: string;
   description: string;
   course_url: null | string;
+}
+
+
+export interface PackageItem {
+  id: number;
+  title: string;
+  picture: string;
+  provider_id: number;
+  provider_picture: string;
+  main_price: number | null;
+  off_price: number | null;
+
+  category: Category[];
+  subjects: Subject[];
+  fields: Field[];
+  grades: Grade[];
+
+  authors: Author[];
+  translators: Translator[];
+
+  language: Language;
+  publish_date: string;
+  size: number;
+  edition: string;
+  volume: string;
+  page: number;
+  currency: number;
+  file_type: FileType;
+  description: string;
+
+  sample_file: SampleFile[];
+
+  only_usable_on_app: boolean;
+  coins: number;
+  favorite: boolean;
+  user_has_access: boolean;
+  installment_payment: boolean;
+  installment_text: string | null;
+}
+
+export interface BaseEntity {
+  id: number;
+  title: string;
+}
+
+export type Category = BaseEntity;
+export type Subject = BaseEntity;
+export type Field = BaseEntity;
+export type Grade = BaseEntity;
+export type Author = BaseEntity;
+export type Translator = BaseEntity;
+
+export interface SampleFile {
+  id: number;
+  url: string;
+  size: number;
+}
+
+export enum Language {
+  Persian = 1,
+  English = 2,
+  Arabic = 3,
+}
+
+export enum FileType {
+  Pdf = 1,
+  Epub = 2,
+  PowerPoint = 3,
 }

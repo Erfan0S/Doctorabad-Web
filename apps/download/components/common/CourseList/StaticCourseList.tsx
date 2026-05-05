@@ -1,17 +1,17 @@
 import React from "react";
-import { CourseListItemType } from "@/types/courses";
+import { PackageListItemType } from "@/types/courses";
 import { StaticMobileProductList } from "@repo/shared_modules/components";
 import { productData } from ".";
 import { Apps } from "@repo/core/types/general";
 
 interface Props {
-  courses: CourseListItemType[];
+  packages: PackageListItemType[];
 }
 
-const StaticCourseList = ({ courses }: Props) => {
+const StaticCourseList = ({ packages }: Props) => {
   return (
     <StaticMobileProductList
-      products={courses.map(productData)}
+      products={packages.map(productData)}
       app={Apps.DOWNLOAD}
       emptyErrorMassage="هیچ دوره‌ای یافت نشد"
     />
