@@ -17,24 +17,24 @@ export interface ShopProduct {
   DT_RowId: number;
 }
 
-
 export interface SingleProviderType {
   data: {
-    id: number;
-    title: string;
-    pic_url: string;
-    price_main: number;
-    price_off: number | null;
-    price_amazing: number | null;
+    picture: string;
+    main_price: number | null;
+    off_price: number | null;
+    sell_count: number;
+    download_count: number;
     language: number;
-    duration: number;
-    student_count: number;
+    publish_date: string | null;
+    installment_payment: boolean;
+    category: { id: number; title: string }[];
+    provider: string;
   }[];
   links: {
     first: string;
     last: string;
-    prev: string;
-    next: string;
+    prev: string | null;
+    next: string | null;
   };
   meta: {
     current_page: number;
@@ -45,11 +45,11 @@ export interface SingleProviderType {
     to: number;
     total: number;
   };
-  provider: {
+  publisher: {
     id: number;
     name: string;
     summary: string;
     description: string;
-    pic_url: string;
+    picture: string;
   };
 }

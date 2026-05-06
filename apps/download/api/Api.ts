@@ -209,7 +209,7 @@ class Api extends Request {
     id: number,
     page: number = 1,
   ): Promise<ResponseType<SingleProviderType>> {
-    return this.request.get(`/user/v1/education/provider/${id}`, {
+    return this.request.get(`/user/v1/package/provider/${id}`, {
       params: {
         page,
       },

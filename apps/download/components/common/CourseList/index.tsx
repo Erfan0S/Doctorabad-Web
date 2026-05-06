@@ -34,7 +34,7 @@ export const productData = (
     </>,
     provider: package_item.provider,
     pic_url: package_item.picture,
-    baseUrl: "course",
+    baseUrl: "package",
     attributes: [
 
       {

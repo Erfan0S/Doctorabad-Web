@@ -78,6 +78,7 @@ const MobileProductLayout = ({
                     width={100}
                     height={44}
                     placeholder={placeHolderDataUrl}
+                    style={{ objectFit: "contain"}}
                   />
                 </Link>
                 <h1>{title}</h1>

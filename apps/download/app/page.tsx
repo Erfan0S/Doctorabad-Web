@@ -14,13 +14,13 @@ const HomeLearn = async () => {
       return url;
     }
     if (collection_id) {
-      return `${baseUrls.download}/collection/${collection_id}`;
+      return `${baseUrls.download}/collections/${collection_id}`;
     }
     if (package_id) {
       return `${baseUrls.download}/package/${package_id}`;
     }
     if (provider_id) {
-      return `${baseUrls.download}/provider/${provider_id}`;
+      return `${baseUrls.download}/publishers/${provider_id}`;
     }
     return "";
   };

@@ -40,11 +40,11 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <Suspense fallback={<div></div>}>
-              <div className="learn-container">
+              <div className="">
                 <main>{children}</main>
                 <MobileNavBar
                   onlyOnMobile={false}
-                  excludePaths={["checkout", "course"]}
+                  excludePaths={["checkout", "package"]}
                 />
               </div>
             </Suspense>

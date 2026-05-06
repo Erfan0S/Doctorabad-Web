@@ -3,19 +3,19 @@ import { MobileTabsConfig } from "@repo/core/types/configs";
 
 export const MainTabsData: MobileTabsConfig[] = [
   {
-    id: HomeTabs.COURSES,
-    title: "دوره‌ها",
+    id: HomeTabs.PACKAGES,
+    title: "محتواها",
     url: "/",
   },
   {
-    id: HomeTabs.CATEGORIES,
-    title: "موضوعات",
-    url: "/categories",
+    id: HomeTabs.COLLECTIONS,
+    title: "مجموعه‌ها",
+    url: "/collections",
   },
 
   {
-    id: HomeTabs.PROVIDERS,
-    title: "ارائه‌دهنده‌ها",
-    url: "/providers",
+    id: HomeTabs.PUBLISHERS,
+    title: "ناشران",
+    url: "/publishers",
   },
 ];

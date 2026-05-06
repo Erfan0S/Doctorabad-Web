@@ -31,7 +31,7 @@ const ProviderPageContent = ({
   hasNextPage: boolean;
 }) => {
   switch (tab) {
-    case ProviderTabs.COURSES:
+    case ProviderTabs.PACKAGES:
       return (
         <div className="container">
           <InfiniteScroll
@@ -40,7 +40,7 @@ const ProviderPageContent = ({
             hasMore={hasNextPage}
             loader={<Loading key={0} app={Apps.DOWNLOAD} />}
           >
-            <StaticCourseList courses={courses} />
+            <StaticCourseList packages={courses} />
           </InfiniteScroll>
         </div>
       );
@@ -79,10 +79,10 @@ const ProviderPage = ({ id }: Props) => {
         (course) =>
           ({
             ...course,
-            provider: {
-              id: page.provider.id,
-              name: page.provider.name,
-              pic_url: page.provider.pic_url,
+            publisher: {
+              id: page.publisher.id,
+              name: page.publisher.name,
+              picture: page.publisher.picture,
             },
           }) as CourseListItemType,
       ),
@@ -95,24 +95,24 @@ const ProviderPage = ({ id }: Props) => {
     <div>
       <PageHeader
         className={styles.providerHeaderWrapper}
-        title="ارائه دهنده‌ها"
+        title="ناشر"
         app={Apps.DOWNLOAD}
         children={
           data && (
             <ProviderHeader
               id={id}
-              tite={data.pages[0].provider.name || ""}
-              summery={data.pages[0].provider.summary || ""}
-              image={data.pages[0].provider.pic_url || ""}
-              alt={data.pages[0].provider.name || ""}
+              tite={data.pages[0].publisher.name || ""}
+              summery={data.pages[0].publisher.summary || ""}
+              image={data.pages[0].publisher.picture || ""}
+              alt={data.pages[0].publisher.name || ""}
             />
           )
         }
       />
       <ProviderPageContent
-        tab={searchParams?.get("tab") || ProviderTabs.COURSES}
+        tab={searchParams?.get("tab") || ProviderTabs.PACKAGES}
         courses={courses}
-        description={data?.pages[0].provider.description || ""}
+        description={data?.pages[0].publisher.description || ""}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage || false}
       />

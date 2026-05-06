@@ -7,8 +7,8 @@ import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 const ProviderTabsData: TabData[] = [
   {
-    id: ProviderTabs.COURSES,
-    title: "دوره‌ها",
+    id: ProviderTabs.PACKAGES,
+    title: "محتواها",
   },
   {
     id: ProviderTabs.DESCRIPTION,
@@ -31,7 +31,7 @@ const ProviderHeader = ({ id, tite, summery, image, alt }: Props) => {
         <div className={styles.blueBackground} />
         <Image
           src={image}
-          alt={alt || "ارائه دهنده"}
+          alt={alt || "ناشر"}
           width={150}
           height={80}
           placeholder={placeHolderDataUrl}
@@ -43,7 +43,7 @@ const ProviderHeader = ({ id, tite, summery, image, alt }: Props) => {
       </div>
       <TabsController
         tabData={ProviderTabsData}
-        defaultTab={ProviderTabs.COURSES}
+        defaultTab={ProviderTabs.PACKAGES}
         className={styles.tabsContainer}
       />
     </div>

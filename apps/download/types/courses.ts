@@ -61,13 +61,13 @@ export enum CourseTab {
 }
 
 export enum HomeTabs {
-  COURSES = "courses",
-  CATEGORIES = "categories",
-  PROVIDERS = "providers",
+  PACKAGES = "packages",
+  COLLECTIONS = "collections",
+  PUBLISHERS = "publishers",
 }
 
 export enum ProviderTabs {
-  COURSES = "courses",
+  PACKAGES = "packages",
   DESCRIPTION = "description",
 }
 
