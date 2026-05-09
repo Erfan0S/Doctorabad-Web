@@ -8,6 +8,7 @@ import { MobileTabsConfig } from "@repo/core/types/configs";
 import { MainSlider } from "@repo/shared_modules/components";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
 import { MainTabsData } from "@/constants/tabsData";
+import OrderInformationWithFetch from "@/components/marketHome/intro/orderInformation/OrderInformationWithFetch";
 
 type Props = {
   sliders: Banner[];
@@ -32,6 +33,10 @@ function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
               app={Apps.MARKET}
             />
           )}
+          <div className="container" style={{ marginBottom: "20px" }}>
+            <OrderInformationWithFetch />
+          </div>
+
           <HomePageProductSliders type="suggested" isMobileLayout />
           <HomePageProductSliders type="newest" isMobileLayout />
           <HomePageProductSliders type="bestSelling" isMobileLayout />
