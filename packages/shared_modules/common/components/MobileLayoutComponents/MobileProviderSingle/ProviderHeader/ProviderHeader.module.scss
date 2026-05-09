@@ -7,6 +7,38 @@
   }
 }
 
+body .secondary {
+  flex-direction: column;
+  padding-top: 27px;
+  align-items: center;
+
+  img {
+    position: absolute;
+    transform: translate(0, -50%);
+    box-shadow: 0 0 10px rgb(111 111 111 / 52%);
+  }
+
+  h3 {
+    color: black;
+    &:last-child {
+      display: none;
+    }
+  }
+
+  .providerInfo {
+    background: white;
+    width: 90%;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 3px 5px #b5b5b5;
+    padding-top: 50px;
+  }
+
+  .redBackground {
+    height: 67%;
+  }
+}
+
 .ProviderHeader {
   display: flex;
   position: relative;
