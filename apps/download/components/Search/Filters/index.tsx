@@ -4,14 +4,16 @@ import { api } from "@/api/Api";
 import { FiltersNames, SortType } from "@/types/filters";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { SelectFilterQroup } from "@repo/shared_modules/components";
+import { OptionSwitch, SelectFilterQroup } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { SelectQroupItemType } from "@repo/core/types/filter";
 import { PersistQueryProvider } from "@repo/shared_modules";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import style from "./style.module.scss";
 
 const FiltersContainer = () => {
   const params = useSearchParams();
+  const setSeachParam = useChangeSearchParamsFilter();
 
   const { data: field, isLoading: fieldLoading } = useQuery({
     queryKey: [FiltersNames.FIELD],
@@ -46,10 +48,20 @@ const FiltersContainer = () => {
     title: item.title,
   }));
 
-  const LanguageData = language?.data.map((item) => ({
-    id: item.id,
-    title: item.language,
-  }));
+  const LanguageData = (() => {
+    const base =
+      language?.data.map((item) => ({
+        id: item.id,
+        title: item.language,
+      })) || [];
+
+    // ensure arabic exists as an option (id: 3)
+    if (!base.some((x) => Number(x.id) === 3)) {
+      base.push({ id: 3, title: "عربی" });
+    }
+
+    return base;
+  })();
 
   const SortData = [
     {
@@ -81,7 +93,8 @@ const FiltersContainer = () => {
       name: FiltersNames.FIELD,
       loading: fieldLoading,
       isActive: true,
-      dependencies: [FiltersNames.CATEGORY, FiltersNames.GRADE],
+      // changing field should reset dependent academic filters, not category
+      dependencies: [FiltersNames.GRADE, FiltersNames.SUBJECT],
     },
     {
       title: "مقطع",
@@ -89,7 +102,7 @@ const FiltersContainer = () => {
       name: FiltersNames.GRADE,
       loading: gradeLoading,
       isActive: !!params?.get(FiltersNames.FIELD),
-      dependencies: [FiltersNames.CATEGORY],
+      dependencies: [FiltersNames.SUBJECT],
     },
     {
       title: "موضوع",
@@ -105,6 +118,7 @@ const FiltersContainer = () => {
       name: FiltersNames.CATEGORY,
       loading: categoryLoading,
       isActive: true,
+      multiSelection: true,
     },
     {
       title: "زبان",
@@ -126,6 +140,19 @@ const FiltersContainer = () => {
   return (
     <div className={`${style.filtersWrapper} card`}>
       <SelectFilterQroup items={FiltersData} app={Apps.DOWNLOAD} />
+      <ul style={{ marginTop: 12, marginBottom: 0, padding: 0, listStyle: "none" }}>
+        <OptionSwitch
+          title="رایگان!"
+          name={FiltersNames.FREE}
+          app={Apps.DOWNLOAD}
+          isDefaulChecked={params?.get(FiltersNames.FREE) === "1"}
+          onToggle={(checked) => {
+            setSeachParam({
+              [FiltersNames.FREE]: checked ? "1" : "0",
+            });
+          }}
+        />
+      </ul>
     </div>
   );
 };

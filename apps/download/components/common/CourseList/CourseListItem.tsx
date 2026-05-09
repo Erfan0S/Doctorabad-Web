@@ -18,6 +18,12 @@ type Props = {
 };
 
 const CourseListItem = ({ package_item }: Props) => {
+  const categoryTitle = package_item?.category?.[0]?.title;
+  const showSellCount =
+    package_item?.sell_count !== null && package_item?.sell_count !== undefined;
+  const showLanguage =
+    package_item?.language !== null && package_item?.language !== undefined;
+
   return (
     <div className={styles.courseCard}>
       {package_item.installment_payment && (
@@ -37,13 +43,17 @@ const CourseListItem = ({ package_item }: Props) => {
       )}
       <div className={styles.courseInfo}>
         <h3 className={styles.title}>{package_item.title}</h3>
-        <p className={styles.providerName}>{package_item.provider}</p>
+        {package_item.provider ? (
+          <p className={styles.providerName}>{package_item.provider}</p>
+        ) : null}
         <div className={styles.metadata}>
           <div className={styles.metadataWrapper}>
-            <div className={styles.metadataItem}>
-              <CategoryIcon fontSize={16} />
-              <span>{package_item.category[0].title || "_"}</span>
-            </div>
+            {categoryTitle !== null && categoryTitle !== undefined ? (
+              <div className={styles.metadataItem}>
+                <CategoryIcon fontSize={16} />
+                <span>{categoryTitle}</span>
+              </div>
+            ) : null}
 
             <div className={styles.metadataItem}>
               <CoinIcon fontSize={16} />
@@ -66,20 +76,24 @@ const CourseListItem = ({ package_item }: Props) => {
             </div>
           </div>
           <div className={styles.metadataWrapper}>
-            <div className={styles.metadataItem}>
-              <HomeIcon fontSize={16} />
-              <span>{package_item?.sell_count || "_"} دانشجو</span>
-            </div>
+            {showSellCount ? (
+              <div className={styles.metadataItem}>
+                <HomeIcon fontSize={16} />
+                <span>{package_item.sell_count} دانشجو</span>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
-      <div className={styles.courseLanguageTag}>
-        {package_item.language == 1
-          ? "Fa"
-          : package_item.language == 2
-            ? "En"
-            : "Ar"}
-      </div>
+      {showLanguage ? (
+        <div className={styles.courseLanguageTag}>
+          {package_item.language == 1
+            ? "Fa"
+            : package_item.language == 2
+              ? "En"
+              : "Ar"}
+        </div>
+      ) : null}
     </div>
   );
 };

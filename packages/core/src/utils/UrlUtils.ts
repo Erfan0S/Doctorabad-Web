@@ -27,10 +27,17 @@ export class SearchParamsUtils {
       ),
     );
 
-    const queryObject: { [key: string]: string } = {};
+    const queryObject: { [key: string]: string | string[] } = {};
 
     queryParams.forEach((value, key) => {
-      queryObject[key] = value;
+      const prev = queryObject[key];
+      if (prev === undefined) {
+        queryObject[key] = value;
+      } else if (Array.isArray(prev)) {
+        queryObject[key] = [...prev, value];
+      } else {
+        queryObject[key] = [prev, value];
+      }
     });
 
     return queryObject;
@@ -53,9 +60,24 @@ export class SearchParamsUtils {
       ...qs,
     };
 
-    let params = new URLSearchParams(
-      purgeObjectFromFalsyValues(paramsObject, true),
-    ).toString();
+    const purified = purgeObjectFromFalsyValues(paramsObject, true);
+    const urlParams = new URLSearchParams();
+
+    Object.entries(purified).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          if (item !== undefined && item !== null)
+            urlParams.append(`${key}[]`, String(item));
+        });
+        return;
+      }
+
+      if (value !== undefined && value !== null) {
+        urlParams.append(key, typeof value === "object" ? JSON.stringify(value) : String(value));
+      }
+    });
+
+    let params = urlParams.toString();
     if (questionMarkPrefix) params = `?${params}`;
 
     return params;

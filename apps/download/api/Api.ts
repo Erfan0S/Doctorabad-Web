@@ -15,7 +15,6 @@ import {
   PackageItem,
 } from "@/types/courses";
 import {
-  CategoryType,
   CollectionType,
   ProviderListType,
   ProviderType,
@@ -119,8 +118,8 @@ class Api extends Request {
 
   getRelatedCourses(
     id: number,
-  ): Promise<ResponseType<{ data: CourseListItemType[] }>> {
-    return this.request.get<{ data: CourseListItemType[] }>(
+  ): Promise<ResponseType<{ data: PackageListItemType[] }>> {
+    return this.request.get<{ data: PackageListItemType[] }>(
       `/user/v1/package/related/${id}`,
     );
   }
@@ -285,7 +284,7 @@ class Api extends Request {
 
   getPreviosPlanOrders(
     page: number = 1,
-  ): Promise<ResponseType<PaginatedResponse<CourseListItemType[]>>> {
+  ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
     return this.request.get("/user/v1/education/previous/orders/courses/plan", {
       params: { page },
     });
@@ -317,6 +316,7 @@ class Api extends Request {
     grades,
     language,
     subject,
+    category,
     free,
     suggested,
     order_by,
@@ -325,6 +325,7 @@ class Api extends Request {
     fields?: number;
     grades?: number;
     subject?: number;
+    category?: number[];
     free?: 0 | 1;
     language?: number[];
     suggested?: 0 | 1;
@@ -337,6 +338,7 @@ class Api extends Request {
         grades,
         language,
         subject,
+        category,
         free,
         suggested,
         page,

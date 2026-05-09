@@ -12,7 +12,7 @@ type Props = {
 function CategoryPage({ id }: Props) {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["categoryPage", id],
-    queryFn: () => api.getFilterList({ page: 1, categories: +id }),
+    queryFn: () => api.getFilterList({ page: 1, category: [+id] }),
     getNextPageParam: (lastPage) => {
       const nextPage = lastPage.data.meta.current_page + 1;
       return nextPage <= lastPage.data.meta.last_page ? nextPage : undefined;

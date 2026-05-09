@@ -9,16 +9,20 @@ type Props = {
 };
 
 const SearchBar = ({ haveFilterButton }: Props) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["search_count"],
-    queryFn: () => api.getLessonsCount(),
+  const { data } = useQuery({
+    queryKey: ["packages_count"],
+    queryFn: () => api.getPackages(1, "newest", 0),
   });
+
+  const packagesCount = data?.data.meta.total || 0;
+  // اگه فیلدت count بود:
+  // const packagesCount = data?.data.data.count || 0;
 
   return (
     <SharedSearchBar
       app={Apps.DOWNLOAD}
       haveFilterButton={haveFilterButton}
-      placeholder={`در مباحث ${data?.data.data || 10000} درس جست و جو کن!`}
+      placeholder={`در میان ${packagesCount} پکیج جست‌وجو کن!`}
     />
   );
 };

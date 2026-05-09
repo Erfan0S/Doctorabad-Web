@@ -41,10 +41,11 @@ const MobileProductListItem = ({
         {providerTitle && <span>{providerTitle}</span>}
         <div className={styles.metadata}>
           <div className={styles.metadataWrapper}>
-            {attributes?.map(({ value, icon }) => {
-              if (!value) return null;
+            {attributes?.map(({ value, icon }, idx) => {
+              if (value === null || value === undefined || value === "")
+                return null;
               return (
-                <div className={styles.metadataItem}>
+                <div className={styles.metadataItem} key={idx}>
                   {icon && icon}
                   <span>{value}</span>
                 </div>

@@ -27,11 +27,7 @@ export const productData = (
 ): ProductListItemProps => {
   return {
     id: package_item.id.toString(),
-    title: <>
-      {package_item.title}
-      <br />
-      <span style={{ fontSize: '0.8em', color: '#666' }}>{package_item.provider}</span>
-    </>,
+    title: package_item.title,
     provider: package_item.provider,
     pic_url: package_item.picture,
     baseUrl: "package",
@@ -39,11 +35,11 @@ export const productData = (
 
       {
         icon: <CalenderIcon color="#8b8b8b" fontSize={16} />,
-        value: `${package_item.publish_date ? package_item.publish_date : null}`,
+        value: package_item.publish_date || null,
       },
       {
         icon: <CategoryIcon color="#8b8b8b" fontSize={16} />,
-        value: `${package_item.category[0]?.title}`,
+        value: package_item.category?.[0]?.title || null,
       },
       {
         icon: <CoinIcon fontSize={16} />,

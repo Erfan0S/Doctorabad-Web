@@ -34,6 +34,7 @@ export enum FiltersNames {
   SUBJECT = "subject",
   LANGUAGE = "language",
   SORT = "sort",
+  FREE = "free",
 }
 export enum SortType {
   NEWEST = "newest",

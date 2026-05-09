@@ -40,7 +40,7 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <Suspense fallback={<div></div>}>
-              <div className="">
+              <div className="download-container">
                 <main>{children}</main>
                 <MobileNavBar
                   onlyOnMobile={false}
