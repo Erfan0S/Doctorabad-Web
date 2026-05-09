@@ -36,7 +36,12 @@
   }
 
   &:hover {
-    background-color: lighten($base-green, 45%);
+    background-color: $base-green;
+    color: white;
+    .arrow {
+      color: white;
+      fill: white;
+    }
   }
 }
 
@@ -63,6 +68,7 @@
   margin-top: 0.4rem;
 
   .treatment {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     background-color: $base-green;
@@ -74,7 +80,7 @@
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: lighten($base-green, 45%);
+      background-color: darken($base-green, 10%);
     }
   }
 }
