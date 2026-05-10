@@ -1,3 +1,4 @@
+import MobileFilterContainer from "@/components/product-list/filters/archive/MobileFilterContainer";
 import ProductList from "@/components/product-list/productList";
 import { FilterParams } from "@/constants/filter";
 import { marketPaths } from "@repo/core/constants/routePath";
@@ -16,15 +17,19 @@ function MobileProductListPage({ type }: { type: ProductListType }) {
         app={Apps.MARKET}
         title="جستجو"
         children={
-          <SearchBar
-            app={Apps.MARKET}
-            haveFilterButton={false}
-            searchKey={FilterParams.SEARCH}
-            customeSearchUrl={marketPaths.search}
-          />
+          type == ProductListType.SEARCH ? (
+            <SearchBar
+              app={Apps.MARKET}
+              haveFilterButton={false}
+              searchKey={FilterParams.SEARCH}
+              customeSearchUrl={marketPaths.search}
+            />
+          ) : (
+            <MobileFilterContainer />
+          )
         }
       />
-      <ProductList hasFilterSideBar={false} />
+      <ProductList hasFilterSideBar={false} mobileView />
     </div>
   );
 }

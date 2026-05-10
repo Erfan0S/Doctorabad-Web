@@ -59,7 +59,7 @@ export const useGetProductListConfig = () => {
         return { params: {}, queryFn: api.getBesSellingProductList };
       case ProductListType.FESTIVAL:
         return {
-          params: { id: searchParams?.get("festival_id") },
+          params: { id: searchParams?.get(FilterParams.FestivalId) },
           queryFn: api.getFestivalProductList,
         };
       default:

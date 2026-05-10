@@ -75,7 +75,7 @@ class Api extends Request {
 
   // providers
   getProviders() {
-    return this.request.get<Promise<ResponseType<ProvidersList>>>(
+    return this.request.get<ResponseType<ProvidersList>>(
       "/user/shop/provider",
       {
         next: { revalidate: 3600 },

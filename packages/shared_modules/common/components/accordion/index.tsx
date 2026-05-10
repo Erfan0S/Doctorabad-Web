@@ -32,19 +32,23 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   singleSelection,
   app,
   isLoading,
+  customContent,
 }) => {
   const params = useSearchParams();
   const [selected, setSelected] = useState<SelectFilterItems[] | null>(null);
   const changeFilters = useChangeSearchParamsFilter();
 
+  const haveContent = !!items?.length || !!customContent;
+
   const handleClick = () => {
-    if (!isActive || isLoading || !items.length) return;
+    if (!isActive || isLoading || !haveContent) return;
     modalActions.addModal(ModalTypes.SELECT_FILTER, {
       title,
       items,
       queryKey,
       singleSelection,
       app,
+      customContent,
     });
   };
 
@@ -95,7 +99,7 @@ const Accordion: React.FC<Props & FilterModalType> = ({
 
   return (
     <div
-      className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}
+      className={`${style.accordion} ${!isActive || !haveContent ? style.deActive : ""} ${className} ${style[app]}`}
     >
       <div className={style.accordionTitle} onClick={handleClick}>
         <span>
@@ -105,7 +109,9 @@ const Accordion: React.FC<Props & FilterModalType> = ({
             getSelectedTitles(selected) || title
           )}
         </span>
-        {isActive && queryKey && <TriangleDown width={18} height={18} />}
+        {isActive && (queryKey || !!customContent) && (
+          <TriangleDown width={18} height={18} />
+        )}
       </div>
 
       <div className={style.accordionContent}>{children}</div>

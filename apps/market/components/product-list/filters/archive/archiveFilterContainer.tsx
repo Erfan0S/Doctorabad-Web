@@ -1,5 +1,5 @@
-import { api } from '@/api/Api';
-import ArchiveFilters from './archive';
+import { api } from "@/api/Api";
+import ArchiveFilters from "./archive";
 
 const ArchiveFiltersContainer = async () => {
   const categories = await api.getCategoriesList();

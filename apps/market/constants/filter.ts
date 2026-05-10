@@ -9,4 +9,5 @@ export enum FilterParams {
   MinPrice = "min_price",
   MaxPrice = "max_price",
   SEARCH = "search",
+  FestivalId = "festival_id",
 }

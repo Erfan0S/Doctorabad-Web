@@ -13,11 +13,12 @@ export type FilterModalType = {
   queryKey?: string;
   app: Apps;
   singleSelection?: boolean;
+  customContent?: React.ReactNode;
 };
 
-export type SelectQroupItemType = {
-  title: string;
-  data: Array<SelectFilterItems>;
+export interface SelectQroupItemType
+  extends Pick<FilterModalType, "title" | "customContent"> {
+  data?: Array<SelectFilterItems>;
   name?: string;
   dontAddQuery?: boolean;
   loading: boolean;
@@ -25,4 +26,4 @@ export type SelectQroupItemType = {
   dependencies?: string[];
   className?: string;
   multiSelection?: boolean;
-};
+}
