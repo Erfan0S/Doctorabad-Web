@@ -15,9 +15,6 @@ type Props = {
 };
 
 const Course = ({ course, activeTab }: Props) => {
-  const userHasAccess =
-    course?.user_has_access && !course.only_usable_on_app;
-
   const tabsData = CourseTabsData({
     course,
   });
@@ -28,7 +25,9 @@ const Course = ({ course, activeTab }: Props) => {
       tabParam={activeTab || CourseTab.SPECIFICATIONS}
       app={Apps.DOWNLOAD}
       preview={
-        <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+        <div
+          style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}
+        >
           <Image
             src={course.picture}
             alt={course.title}
@@ -54,9 +53,8 @@ const Course = ({ course, activeTab }: Props) => {
         productId: course.id,
         orderType: OrderType.Package,
         app: Apps.DOWNLOAD,
-        replaceButton: course.user_has_access && (
-          <CourseActiveButton course={course} />
-        ),
+        replaceButton: (course.user_has_access ||
+          course.main_price == null) && <CourseActiveButton course={course} />,
         children: <CourseAppOnlyButton course={course} />,
       }}
     />

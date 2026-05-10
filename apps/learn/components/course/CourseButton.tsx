@@ -4,6 +4,7 @@ import style from "./Course.module.scss";
 import { CourseDataType } from "@/types/courses";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+import { Apps } from "@repo/core/types/general";
 
 type Props = {
   course: CourseDataType;
@@ -27,7 +28,9 @@ export const CourseAppOnlyButton = ({ course }: Props) => {
   return (
     <div
       className={`${style.appOnly} ${style.purchaseButton}`}
-      onClick={() => modalActions.addModal(ModalTypes.AppOnly)}
+      onClick={() =>
+        modalActions.addModal(ModalTypes.AppOnly, { app: Apps.LEARN })
+      }
     >
       {/* <PhoneIcon /> */}
       <span>قابل استفاده فقط در اپ</span>

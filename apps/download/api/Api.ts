@@ -57,12 +57,13 @@ class Api extends Request {
     );
   }
   getPackage(id: number): Promise<ResponseType<{ data: PackageItem }>> {
-    return this.request.get<{ data: PackageItem }>(
-      `/user/v1/package/${id}`,
-    );
+    return this.request.get<{ data: PackageItem }>(`/user/v1/package/${id}`);
   }
 
-  createPackageComment(data: { packageId: number; text: string }): Promise<any> {
+  createPackageComment(data: {
+    packageId: number;
+    text: string;
+  }): Promise<any> {
     return this.request.post(
       `/user/v1/package/comment/${data.packageId}`,
       data,
@@ -213,6 +214,13 @@ class Api extends Request {
         page,
       },
     });
+  }
+  getPackageFile(
+    id: number,
+  ): Promise<
+    ResponseType<{ data: { id: number; url: string; size: number } }>
+  > {
+    return this.request.get(`/user/v1/package/files/${id}`, {});
   }
 
   getCollections(
