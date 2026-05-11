@@ -32,6 +32,8 @@ const BugReport = ({
         return pharmacyApi.reportMedicineError(text, data.productId);
       case Apps.CLINIC:
         return clinicApi.reportDiseaseError(text, data.productId);
+      case Apps.DOWNLOAD:
+        return api.downloadErrorReport( data.productId, text);
       default:
         return new Promise((resolve) => resolve(null));
     }

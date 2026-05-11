@@ -13,6 +13,7 @@ import {
   VideoType,
   PackageOrderListItemType,
   PackageItem,
+  CollectionSingleType,
 } from "@/types/courses";
 import {
   CollectionType,
@@ -92,13 +93,22 @@ class Api extends Request {
     return this.request.get(`/user/v1/package/${id}/share`);
   }
 
-  addPackageFavorite(id: number): Promise<{}> {
-    return this.request.post(`/user/v1/package/favorite`, { id });
+  addFavorite(id: number): Promise<{}> {
+    return this.request.post(`/user/v1/package/favorite`, {
+      favorite: 1,
+      package: id,
+    });
+  }
+  removeFavorite(id: number): Promise<{}> {
+    return this.request.post(`/user/v1/package/favorite`, {
+      favorite: 0,
+      package: id,
+    });
   }
 
-  removePackageFavorite = (id: number): Promise<any> => {
-    return this.request.delete(`/user/v1/package/favorite/${id}`);
-  };
+  // removePackageFavorite = (id: number): Promise<any> => {
+  //   return this.request.delete(`/user/v1/package/favorite/${id}`);
+  // };
 
   createComment(data: { courseId: number; text: string }): Promise<any> {
     return this.request.post(
@@ -129,17 +139,13 @@ class Api extends Request {
     return this.request.get(`/user/v1/education/course/${id}/share`);
   }
 
-  errorReport(data: { id: number; text: string }): Promise<any> {
-    return this.request.post("/user/v1/education/error/report", data);
-  }
+  // addFavorite(id: number): Promise<{}> {
+  //   return this.request.post(`/user/v1/education/favorite`, { id });
+  // }
 
-  addFavorite(id: number): Promise<{}> {
-    return this.request.post(`/user/v1/education/favorite`, { id });
-  }
-
-  removeFavorite = (id: number): Promise<any> => {
-    return this.request.delete(`/user/v1/education/favorite/${id}`);
-  };
+  // removeFavorite = (id: number): Promise<any> => {
+  //   return this.request.delete(`/user/v1/education/favorite/${id}`);
+  // };
 
   // video
   getVideo(
@@ -227,6 +233,15 @@ class Api extends Request {
     page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<CollectionType[]>>> {
     return this.request.get("/user/v1/package/collection", {
+      params: { page },
+    });
+  }
+
+  getSingleCollection(
+    id: number,
+    page: number = 1,
+  ): Promise<ResponseType<CollectionSingleType>> {
+    return this.request.get(`/user/v1/package/collection/${id}`, {
       params: { page },
     });
   }

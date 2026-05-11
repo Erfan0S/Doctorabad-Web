@@ -1,13 +1,9 @@
 "use client";
 import { api } from "@/api/Api";
 import CourseList from "@/components/common/CourseList";
-import Loading from "@/components/common/Loading";
-import CollectionListHeader from "@/components/Header/CollectionListHeader";
-import { PackageListItemTypeListItemType } from "@/types/courses";
-import { SortType } from "@/types/filters";
-import { PaginatedResponse } from "@repo/core/types/general";
+import { Apps } from "@repo/core/types/general";
+import { MobileProviderPageLayout } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 
 type Props = {
@@ -15,36 +11,25 @@ type Props = {
   name?: string;
 };
 
-function CollectionListPage({ id, name }: Props) {
-  const params = useSearchParams();
-
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
-    PaginatedResponse<CourseListItemType[]>
-  >({
-    queryKey: ["collection", id, params?.get("sort")],
+function CollectionListPage({ id }: Props) {
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["collection", id],
     queryFn: ({ pageParam }) =>
-      api
-        .getFilterList({
-          collections: id,
-          sort: (params?.get("sort") as SortType) || null,
-          page: pageParam as number,
-        })
-        .then((res) => res.data),
+      api.getSingleCollection(id, pageParam as number).then((res) => res.data),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      if (lastPage.links.next) {
-        return (lastPageParam as number) + 1;
+      if (lastPage.data.length === 0) {
+        return undefined;
       }
-      return undefined;
+      return (lastPageParam as number) + 1;
     },
   });
 
+  const collection = data?.pages[0]?.collection;
+
   return (
-    <div>
-      <CollectionListHeader title={name || ""} />
-      {isLoading ? (
-        <Loading />
-      ) : (
+    <MobileProviderPageLayout
+      ProviderContent={
         <div className="container">
           <CourseList
             courses={data}
@@ -52,8 +37,17 @@ function CollectionListPage({ id, name }: Props) {
             hasNextPage={hasNextPage}
           />
         </div>
-      )}
-    </div>
+      }
+      ProviderInfo={collection?.title || ""}
+      id={id}
+      image={collection?.picture || ""}
+      title={collection?.title || ""}
+      app={Apps.DOWNLOAD}
+      contentTitle="محصولات"
+      isLoading={isLoading}
+      headertitle="مجموعه"
+      variant="secondary"
+    />
   );
 }
 

@@ -1,5 +1,5 @@
 import { PaginatedResponse } from "@repo/core/types/general";
-import { ProviderType } from "./homePage";
+import { CollectionType, ProviderType } from "./homePage";
 
 export interface Lesson {
   id: number;
@@ -228,4 +228,9 @@ export enum FileType {
   Pdf = 1,
   Epub = 2,
   PowerPoint = 3,
+}
+
+export interface CollectionSingleType
+  extends PaginatedResponse<PackageListItemType[]> {
+  collection: CollectionType;
 }

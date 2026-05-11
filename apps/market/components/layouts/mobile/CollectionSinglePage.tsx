@@ -60,7 +60,8 @@ function CollectionSinglePage({ id }: { id: number }) {
 
   const collection = data?.pages[0].collection;
 
-  return (
+  return (  
+    
     <MobileProviderPageLayout
       ProviderContent={
         <ProviderPageContent

@@ -57,7 +57,7 @@ const CourseHeaderSiffix = ({ course }: Props) => {
         }}
         favoriteAction={async (isFavorite) => {
           await api[
-            !isFavorite ? "addPackageFavorite" : "removePackageFavorite"
+            !isFavorite ? "addFavorite" : "removeFavorite"
           ](course.id);
         }}
       />

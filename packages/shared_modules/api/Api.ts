@@ -551,6 +551,13 @@ class Api extends Request {
     });
   };
 
+  downloadErrorReport(id: number, error_report_text: string): Promise<any> {
+    return this.request.post("/user/v1/package/report", {
+      id,
+      error_report_text,
+    });
+  }
+
   // favorite
 
   addLearnFavorite(id: number): Promise<{}> {
