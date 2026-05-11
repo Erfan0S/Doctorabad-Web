@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 import Product from "@/components/common/product";
@@ -15,9 +15,13 @@ import style from "./ProductList.module.scss";
 
 interface Props {
   hasFilterSideBar?: boolean;
+  mobileView?: boolean;
 }
 
-const ProductList = ({ hasFilterSideBar = false }: Props) => {
+const ProductList = ({
+  hasFilterSideBar = false,
+  mobileView = false,
+}: Props) => {
   const { type } = useParams();
 
   const { params, queryFn } = useGetProductListConfig();
@@ -47,7 +51,7 @@ const ProductList = ({ hasFilterSideBar = false }: Props) => {
   if (isLoading)
     return (
       <div className={style.productList}>
-        <Loading size={50} />
+        <Loading size={30} />
       </div>
     );
 
@@ -60,11 +64,11 @@ const ProductList = ({ hasFilterSideBar = false }: Props) => {
       hasMore={hasNextPage}
       loader={
         <div className={style.productListLoader} key={0}>
-          <Loading size={36} />
+          <Loading size={25} />
         </div>
       }
     >
-      <div className="row">
+      <div className={`${mobileView ? null : "row"}`}>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.data.map((product) => (

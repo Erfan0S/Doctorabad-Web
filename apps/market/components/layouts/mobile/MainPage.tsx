@@ -7,6 +7,8 @@ import { Apps } from "@repo/core/types/general";
 import { MobileTabsConfig } from "@repo/core/types/configs";
 import { MainSlider } from "@repo/shared_modules/components";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
+import { MainTabsData } from "@/constants/tabsData";
+import OrderInformationWithFetch from "@/components/marketHome/intro/orderInformation/OrderInformationWithFetch";
 
 type Props = {
   sliders: Banner[];
@@ -14,29 +16,15 @@ type Props = {
   ProvidersList: ProvidersList;
 };
 
-const TabsData: MobileTabsConfig[] = [
-  {
-    id: "1",
-    title: "محصولات",
-    url: "/",
-  },
-  {
-    id: "2",
-    title: "مجموعه‌ها",
-    url: "/collections",
-  },
-  {
-    id: "3",
-    title: "فروشندگان",
-    url: "/providers",
-  },
-];
-
 function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
   return (
     <>
       <div>
-        <MobileHomeHeader type={Apps.MARKET} tabData={TabsData} haveSearch />
+        <MobileHomeHeader
+          type={Apps.MARKET}
+          tabData={MainTabsData}
+          haveSearch
+        />
         <div>
           {sliders && (
             <MainSlider
@@ -45,6 +33,10 @@ function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
               app={Apps.MARKET}
             />
           )}
+          <div className="container" style={{ marginBottom: "20px" }}>
+            <OrderInformationWithFetch />
+          </div>
+
           <HomePageProductSliders type="suggested" isMobileLayout />
           <HomePageProductSliders type="newest" isMobileLayout />
           <HomePageProductSliders type="bestSelling" isMobileLayout />

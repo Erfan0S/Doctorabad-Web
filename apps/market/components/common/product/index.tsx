@@ -9,10 +9,8 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 
 import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
-import { useCart } from "@repo/core/states/cart";
 import Loading from "../loading";
 import { useToggleFavoriteProduct } from "@/hooks/useToggleFavoriteProduct";
-import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 
 import { useRestockNotification } from "@/hooks/useRestockNotification";
 import { OrderType } from "@repo/core/types/cart";
@@ -43,18 +41,8 @@ const Product: React.FC<ProductCard> = ({
   const { isFavorite, isLoading, toggleFavorite } =
     useToggleFavoriteProduct(!!user_favorite);
 
-  const { cartActionsLoadingHandler, updateCartLoading } =
-    useCartActionsLoadingHandler();
-
-  const { data } = useCart();
-
   const { restockNotification, restockNotificationLoading } =
     useRestockNotification(id);
-
-  const productOrder = data.find(
-    (order) =>
-      order.product_id === id && order.product_type === OrderType.ShopProduct,
-  );
 
   const url = generateSingleProductUrlFromId(id, slug);
 

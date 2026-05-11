@@ -13,6 +13,7 @@ type Props = {
   placeholder?: string;
   customeFilterUrl?: string;
   customeSearchUrl?: string;
+  searchKey?: string;
 };
 
 const SearchBar = ({
@@ -21,6 +22,7 @@ const SearchBar = ({
   placeholder,
   customeFilterUrl,
   customeSearchUrl,
+  searchKey = "q",
 }: Props) => {
   const [searchText, setSearchText] = useState("");
   const params = useSearchParams();
@@ -29,7 +31,9 @@ const SearchBar = ({
 
   const debouncedSearchText = useDebounceAction(() => {
     if (searchText || pathname === (customeSearchUrl || "/search")) {
-      router.push(`${customeSearchUrl || "/search"}?q=` + searchText);
+      router.push(
+        `${customeSearchUrl || "/search"}?${searchKey}=` + searchText,
+      );
     }
   }, 750);
 
@@ -38,7 +42,7 @@ const SearchBar = ({
   }, [searchText]);
 
   useEffect(() => {
-    setSearchText(params?.get("q") || "");
+    setSearchText(params?.get(searchKey) || "");
   }, [params]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,9 +61,7 @@ const SearchBar = ({
             value={searchText}
             placeholder={placeholder || `جست و جو کن!`}
           />
-          <Link href={`${customeSearchUrl || "/search"}?q=` + searchText}>
-            <SearchIcon />
-          </Link>
+          <SearchIcon />
         </div>
         {haveFilterButton && (
           <Link href={`${customeFilterUrl || "/filter"}`}>فیلترکردن</Link>

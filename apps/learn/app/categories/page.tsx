@@ -1,11 +1,10 @@
 "use client";
 import { api } from "@/api/Api";
-import CategoriesList from "@/components/common/CategoriesList";
 import Loading from "@/components/common/Loading";
 import HomeHeader from "@/components/Header/HomeHeader";
 import { CategoryType } from "@/types/homePage";
-import { Apps, PaginatedResponse } from "@repo/core/types/general";
-
+import { PaginatedResponse } from "@repo/core/types/general";
+import { TileList } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
@@ -40,9 +39,11 @@ const CategoriesPage = () => {
           loader={<Loading key="loader" />}
         >
           {data?.pages.map((page, i) => (
-            <CategoriesList
+            <TileList
               key={`${page.meta.current_page}-${i}`}
-              categories={page.data || []}
+              categories={
+                page.data.map((c) => ({ ...c, objectFit: "cover" })) || []
+              }
             />
           ))}
         </InfiniteScroll>

@@ -18,8 +18,6 @@ import { useEffect } from "react";
 import { useCart } from "@repo/core/states/cart";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { useRouter } from "next/navigation";
-import { routePath } from "@repo/core/constants/routePath";
-import { OrderType } from "@repo/core/types/cart";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 
 const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({

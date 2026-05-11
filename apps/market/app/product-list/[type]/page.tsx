@@ -4,37 +4,17 @@ import ArchiveFiltersContainer from "@/components/product-list/filters/archive/a
 import SearchFilters from "@/components/product-list/filters/search/search";
 import { ProductListProps, ProductListType } from "@repo/core/types/product";
 import { ProductListHeader } from "@/components/product-list/header/ProductListHeader";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
+import DesktopProductListPage from "@/components/layouts/desktop/ProductListPage";
+import MobileProductListPage from "@/components/layouts/mobile/ProductListPage";
 
 export const generateMetadata = generateProductListMetaData;
 
 export default async function ProductList({ params }: ProductListProps) {
-  const getFilterComponent = () => {
-    switch (params.type) {
-      case ProductListType.SEARCH:
-        return SearchFilters;
-
-      case ProductListType.ARCHIVE:
-        return ArchiveFiltersContainer;
-
-      default:
-        return null;
-    }
-  };
-  const FilterComponent = getFilterComponent();
-
   return (
-    <div className="container">
-      <div className="row">
-        {FilterComponent && (
-          <div className="col-xl-3">
-            <FilterComponent />
-          </div>
-        )}
-        <div className={`col-xl-${FilterComponent ? "9" : "12"}`}>
-          <ProductListHeader />
-          <ArchiveList hasFilterSideBar={!!FilterComponent} />
-        </div>
-      </div>
-    </div>
+    <DiviceSwitchShell
+      desktop={<DesktopProductListPage type={params.type} />}
+      mobile={<MobileProductListPage type={params.type} />}
+    />
   );
 }

@@ -30,6 +30,11 @@ export const learnPaths = {
 
 export const marketPaths = {
   single: "/product",
+  mobileProviders: "/providers",
+  search: "/product-list/search",
+  productList: "/product-list",
+  archive: "/product-list/archive",
+  collections: "/collections",
 };
 
 export const examPaths = {

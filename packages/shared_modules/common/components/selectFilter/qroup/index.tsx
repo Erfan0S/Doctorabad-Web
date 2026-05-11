@@ -28,6 +28,7 @@ const SelectFilterQroup: React.FC<Props> = ({
           isLoading={item.loading}
           dependencies={item.dependencies}
           app={app}
+          customContent={item.customContent}
         />
       ))}
     </div>
