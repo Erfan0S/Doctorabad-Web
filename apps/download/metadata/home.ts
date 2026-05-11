@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { homeMetadata as SharedHomeMetadata } from "@repo/core/metadata/home";
 
-const title = "دکترلرن | مرکز آموزش دکترآباد";
+const title = "دکتردانلود | مرکز محتوا دکترآباد";
 const description =
   "دوره‌های آموزشی تخصصی علوم پزشکی، ویدیوهای آموزشی، مقالات و منابع علمی";
 
-const sharedHomeMetadata = SharedHomeMetadata("/learn", title, description);
+const sharedHomeMetadata = SharedHomeMetadata("/download", title, description);
 
 export const homeMetadata: Metadata = {
   ...sharedHomeMetadata,

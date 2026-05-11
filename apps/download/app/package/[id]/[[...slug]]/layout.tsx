@@ -1,4 +1,4 @@
-import { generateProductMetaData } from "@/metadata/singleCourse";
+import { generateProductMetaData } from "@/metadata/singlePackage";
 import React from "react";
 
 export const generateMetadata = generateProductMetaData;

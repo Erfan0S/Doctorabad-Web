@@ -3,12 +3,12 @@ import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
 import { PaginatedResponse, ResponseType } from "@repo/core/types/general";
 import {
-  CourseComents,
-  CourseDataType,
+  PackageComments,
+  PackageDataType,
   PackageListItemType,
-  CourseShare,
+  PackageShare,
   Note,
-  PaginatedAmazingCourses,
+  PaginatedAmazingPackages,
   previousOrders,
   VideoType,
   PackageOrderListItemType,
@@ -50,11 +50,13 @@ class Api extends Request {
     return this.request.get("/user");
   };
 
-  // single course
+  // single package
 
-  getCourse(id: number): Promise<ResponseType<{ data: CourseDataType }>> {
-    return this.request.get<{ data: CourseDataType }>(
-      `/user/v1/education/course/${id}`,
+  getPackageDataType(
+    id: number,
+  ): Promise<ResponseType<{ data: PackageDataType }>> {
+    return this.request.get<{ data: PackageDataType }>(
+      `/user/v1/package/${id}`,
     );
   }
   getPackage(id: number): Promise<ResponseType<{ data: PackageItem }>> {
@@ -74,8 +76,8 @@ class Api extends Request {
   getPackageCommentsList(
     packageId: number,
     page: number,
-  ): Promise<ResponseType<CourseComents>> {
-    return this.request.get<CourseComents>(
+  ): Promise<ResponseType<PackageComments>> {
+    return this.request.get<PackageComments>(
       `/user/v1/package/comment/${packageId}`,
       { params: { page } },
     );
@@ -89,7 +91,7 @@ class Api extends Request {
     );
   }
 
-  sharePackage(id: number): Promise<ResponseType<{ data: CourseShare }>> {
+  sharePackage(id: number): Promise<ResponseType<{ data: PackageShare }>> {
     return this.request.get(`/user/v1/package/${id}/share`);
   }
 
@@ -120,8 +122,8 @@ class Api extends Request {
   getCommentsList(
     courseID: number,
     page: number,
-  ): Promise<ResponseType<CourseComents>> {
-    return this.request.get<CourseComents>(
+  ): Promise<ResponseType<PackageComments>> {
+    return this.request.get<PackageComments>(
       `/user/v1/education/course/${courseID}/comment`,
       { params: { page } },
     );
@@ -135,7 +137,7 @@ class Api extends Request {
     );
   }
 
-  shareCourse(id: number): Promise<ResponseType<{ data: CourseShare }>> {
+  shareCourse(id: number): Promise<ResponseType<{ data: PackageShare }>> {
     return this.request.get(`/user/v1/education/course/${id}/share`);
   }
 
@@ -246,9 +248,9 @@ class Api extends Request {
     });
   }
 
-  getAmazingCourses(
+  getAmazingPackages(
     page: number = 1,
-  ): Promise<ResponseType<PaginatedAmazingCourses>> {
+  ): Promise<ResponseType<PaginatedAmazingPackages>> {
     return this.request.get("/user/v1/education/course/amazing", {
       params: { page },
     });
@@ -271,7 +273,7 @@ class Api extends Request {
     });
   }
 
-  getSuggestedCourses(
+  getSuggestedPackages(
     page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
     return this.request.get("/user/v1/education/course/suggest", {
@@ -279,7 +281,7 @@ class Api extends Request {
     });
   }
 
-  getUserLastViewedCourses(
+  getUserLastViewedPackages(
     page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> {
     return this.request.get("/user/v1/package/last/seen", {
@@ -299,7 +301,7 @@ class Api extends Request {
 
   getPreviousPackageOrders(
     page: number = 1,
-  ): Promise<ResponseType<{ data: PackageOrderListItemType[] }>> {
+  ): Promise<ResponseType<PaginatedResponse<PackageOrderListItemType[]>>> {
     return this.request.get("/user/v1/package/order", {
       params: { page },
     });

@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import { baseUrls, learnPaths } from "@repo/core/constants/routePath";
+import { baseUrls, downloadPaths, learnPaths } from "@repo/core/constants/routePath";
 import { Metadata } from "next";
 
 export const generateProviderMetaData = async ({
@@ -12,25 +12,25 @@ export const generateProviderMetaData = async ({
     const { data } = await productFetcher;
     const {
       name: title,
-      pic_url,
+      picture,
       description,
       id,
       summary: meta_description,
-    } = data.provider;
+    } = data.publisher;
     return {
       title,
       description: meta_description,
       openGraph: {
         title,
-        description: meta_description || "ارایه دهنده",
-        images: pic_url,
-        url: `${baseUrls.learn}${learnPaths.provider}/${id}`,
+        description: meta_description || "ناشر",
+        images: picture,
+        url: `${baseUrls.download}/publishers/${id}`,
         siteName: "دکتر‌لرن",
       },
       twitter: {
         title,
         description: meta_description || "",
-        images: pic_url,
+        images: picture,
         card: "summary_large_image",
       },
     };

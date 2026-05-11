@@ -1,6 +1,6 @@
 "use client";
 
-import { Lesson } from "@/types/courses";
+import { Lesson } from "@/types/packages";
 import { createContext, useState } from "react";
 
 type LessonVideoContextType = {

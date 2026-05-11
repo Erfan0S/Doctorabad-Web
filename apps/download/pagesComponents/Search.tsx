@@ -7,7 +7,7 @@ import { PackageListItemType } from "@/types/courses";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import PackageList from "@/components/common/PackageList";
 
 const SearchPageComponent = () => {
   const params = useSearchParams();
@@ -29,7 +29,7 @@ const SearchPageComponent = () => {
     });
 
   if (data?.pages[0].data.length === 0 || isError) {
-    return <FIlterNotFound />;
+    return <FIlterNotFound massage="موردی یافت نشد!" />;
   }
 
   return (
@@ -37,8 +37,8 @@ const SearchPageComponent = () => {
       {isLoading && !isError ? (
         <Loading />
       ) : (
-        <CourseList
-          courses={data}
+        <PackageList
+          packages={data}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage && !isError}
         />

@@ -1,7 +1,7 @@
 "use client";
 import style from "./ProductTabsController.module.scss";
 import Item from "./Item";
-import { TabData } from "@/types/courses";
+import { TabData } from "@/types/packages";
 import { usePathname, useSearchParams } from "next/navigation";
 
 interface Props {

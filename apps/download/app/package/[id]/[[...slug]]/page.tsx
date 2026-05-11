@@ -1,5 +1,5 @@
 import { api } from "@/api/Api";
-import Course from "@/components/course";
+import Package from "@/components/package/Package";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   };
 };
 
-export default async function CoursePage({ params, searchParams }: Props) {
+export default async function PackagePage({ params, searchParams }: Props) {
   try {
     const { data } = await api.getPackage(Number(params.id));
 
@@ -22,8 +22,8 @@ export default async function CoursePage({ params, searchParams }: Props) {
     }
 
     return (
-      <Course
-        course={data.data}
+      <Package
+        packageItem={data.data}
         activeTab={searchParams.tab}
       />
     );

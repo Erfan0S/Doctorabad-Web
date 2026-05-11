@@ -111,6 +111,8 @@ export const generateSingleProductUrlFromId = (
       return `${baseUrls.exam}${examPaths.single}`;
     case OrderType.Insurance:
       return `${baseUrls.insurance}/buy-insurance${slug}`;
+    case OrderType.Package:
+      return `${baseUrls.download}/package/${id}/${getSlug()}`;
     case OrderType.DiscountPlan: {
       if (discount_plan_type == DiscountPlanType.CLINIC) {
         return `${baseUrls.clinic}`;

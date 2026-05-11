@@ -1,13 +1,13 @@
 "use client";
 import { api } from "@/api/Api";
-import CourseList from "@/components/common/CourseList";
+import PackageList from "@/components/common/PackageList";
 import FIlterNotFound from "@/components/common/FIlterNotFound";
 import Loading from "@/components/common/Loading";
 import { FiltersNames, SortType } from "@/types/filters";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { PackageListItemType } from "@/types/courses";
+import { PackageListItemType } from "@/types/packages";
 import React from "react";
 
 const FilterPageList = () => {
@@ -96,7 +96,7 @@ const FilterPageList = () => {
 
   if (data?.pages[0].data.length === 0) {
     return (
-      <FIlterNotFound massage="فیلترهای کمتری اعمال کنین تا دوره‌های بیشتری نشون داده بشه!" />
+      <FIlterNotFound massage="فیلترهای کمتری اعمال کنین تا پکیج‌های بیشتری نشون داده بشه!" />
     );
   }
   return (
@@ -104,8 +104,8 @@ const FilterPageList = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <CourseList
-          courses={data}
+        <PackageList
+          packages={data}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
         />

@@ -1,5 +1,5 @@
 import TabsController from "@/components/common/TabsController";
-import { ProviderTabs, TabData } from "@/types/courses";
+import { ProviderTabs, TabData } from "@/types/packages";
 import React from "react";
 import styles from "./ProviderHeader.module.scss";
 import Image from "next/image";
@@ -18,13 +18,13 @@ const ProviderTabsData: TabData[] = [
 
 type Props = {
   id: number;
-  tite: string;
-  summery: string;
+  title: string;
+  summary: string;
   image: string;
   alt?: string;
 };
 
-const ProviderHeader = ({ id, tite, summery, image, alt }: Props) => {
+const ProviderHeader = ({ id, title, summary, image, alt }: Props) => {
   return (
     <div>
       <div className={styles.ProviderHeader}>
@@ -37,8 +37,8 @@ const ProviderHeader = ({ id, tite, summery, image, alt }: Props) => {
           placeholder={placeHolderDataUrl}
         />
         <div className={styles.providerInfo}>
-          <h3>{tite}</h3>
-          <h3>{summery}</h3>
+          <h3>{title}</h3>
+          <h3>{summary}</h3>
         </div>
       </div>
       <TabsController

@@ -1,11 +1,10 @@
 "use client";
 import { api } from "@/api/Api";
-import CourseList from "@/components/common/CourseList";
+// import CourseList from "@/components/common/CourseList";
 import { Apps } from "@repo/core/types/general";
 import { MobileProviderPageLayout } from "@repo/shared_modules/components";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import React from "react";
-
+import PackageList from "@/components/common/PackageList";
 type Props = {
   id: number;
   name?: string;
@@ -31,8 +30,8 @@ function CollectionListPage({ id }: Props) {
     <MobileProviderPageLayout
       ProviderContent={
         <div className="container">
-          <CourseList
-            courses={data}
+          <PackageList
+            packages={data}
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
           />

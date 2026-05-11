@@ -2,12 +2,12 @@
 import { api } from "@/api/Api";
 import { PageHeader } from "@repo/shared_modules/headers";
 import ProviderHeader from "@/components/Header/ProviderHeader";
-import { CourseListItemType, ProviderTabs } from "@/types/courses";
+import { PackageListItemType, ProviderTabs } from "@/types/packages";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import styles from "@/components/Header/ProviderHeader/ProviderHeader.module.scss";
-import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
+import StaticPackageList from "@/components/common/PackageList/StaticPackageList";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Apps } from "@repo/core/types/general";
@@ -19,13 +19,13 @@ type Props = {
 
 const ProviderPageContent = ({
   tab,
-  courses,
+  packages,
   description,
   fetchNextPage,
   hasNextPage,
 }: {
   tab: string;
-  courses: CourseListItemType[];
+  packages: PackageListItemType[];
   description: string;
   fetchNextPage: () => void;
   hasNextPage: boolean;
@@ -40,7 +40,7 @@ const ProviderPageContent = ({
             hasMore={hasNextPage}
             loader={<Loading key={0} app={Apps.DOWNLOAD} />}
           >
-            <StaticCourseList packages={courses} />
+            <StaticPackageList packages={packages} />
           </InfiniteScroll>
         </div>
       );
@@ -71,20 +71,20 @@ const ProviderPage = ({ id }: Props) => {
     },
   });
 
-  // Flatten the courses data from all pages and map to CourseListItemType
-  const courses = React.useMemo(() => {
+  // Flatten the courses data from all pages and map to PackageListItemType
+  const packages = React.useMemo(() => {
     if (!data) return [];
     return data.pages.flatMap((page) =>
       page.data.map(
-        (course) =>
+        (package_item) =>
           ({
-            ...course,
+            ...package_item,
             publisher: {
               id: page.publisher.id,
               name: page.publisher.name,
               picture: page.publisher.picture,
             },
-          }) as CourseListItemType,
+          }) as PackageListItemType,
       ),
     );
   }, [data]);
@@ -101,8 +101,8 @@ const ProviderPage = ({ id }: Props) => {
           data && (
             <ProviderHeader
               id={id}
-              tite={data.pages[0].publisher.name || ""}
-              summery={data.pages[0].publisher.summary || ""}
+              title={data.pages[0].publisher.name || ""}
+              summary={data.pages[0].publisher.summary || ""}
               image={data.pages[0].publisher.picture || ""}
               alt={data.pages[0].publisher.name || ""}
             />
@@ -111,7 +111,7 @@ const ProviderPage = ({ id }: Props) => {
       />
       <ProviderPageContent
         tab={searchParams?.get("tab") || ProviderTabs.PACKAGES}
-        courses={courses}
+        packages={packages}
         description={data?.pages[0].publisher.description || ""}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage || false}

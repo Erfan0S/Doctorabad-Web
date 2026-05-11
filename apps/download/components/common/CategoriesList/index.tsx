@@ -1,10 +1,10 @@
-import { CategoryType, ProviderType } from "@/types/homePage";
+import { CollectionType, ProviderType } from "@/types/homePage";
 import React from "react";
 import CategoryListItem from "./CategoryListItem";
 import style from "./CategoriesList.module.scss";
 
 type Props = {
-  categories: CategoryType[] | ProviderType[];
+  categories: CollectionType[] | ProviderType[];
   isProvider?: boolean;
 };
 
