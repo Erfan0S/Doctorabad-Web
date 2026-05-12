@@ -72,3 +72,5 @@ export { default as TileList } from "./CategoriesList";
 export { default as RedirectComponent } from "./RedirectComponent";
 
 export { default as MobileProviderPageLayout } from "./MobileLayoutComponents/MobileProviderSingle";
+
+export { default as ProductButton } from "./MobileLayoutComponents/MobileProductLayout/ProductButton";

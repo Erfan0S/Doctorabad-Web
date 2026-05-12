@@ -13,7 +13,7 @@ export interface Product {
   price_main: number;
   price_off: number;
   price_amazing: null;
-  provider: null;
+  provider: null | string;
   has_variant: boolean;
   user_favorite: number;
   installment_payment: boolean;
