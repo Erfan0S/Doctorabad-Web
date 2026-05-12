@@ -257,18 +257,21 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 425px) {
   .product {
     &AddToCart,
     &NoStock,
     &VariantButton {
-      font-size: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
 
       > button,
       > div > div {
-        font-size: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
         button {
-          font-size: 12px;
+          font-size: 0.75rem;
+          font-weight: 500;
         }
       }
     }
