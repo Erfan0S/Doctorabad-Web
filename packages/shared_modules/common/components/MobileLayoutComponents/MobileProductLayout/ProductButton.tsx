@@ -23,6 +23,8 @@ export type ProductButtonProps = {
   app?: Apps;
   canIncrease?: boolean;
   compact?: boolean;
+  text?: string;
+  onClick?: () => void;
 };
 
 export default function ProductButton({
@@ -38,6 +40,8 @@ export default function ProductButton({
   orderType,
   canIncrease = false,
   compact,
+  onClick,
+  text,
 }: ProductButtonProps) {
   const { discountPercent } = getDiscountInformation(
     mainPrice,
@@ -65,6 +69,7 @@ export default function ProductButton({
             className={`${style.addToCartButton} ${!!offPrice && style.priceOffWrapper}`}
             canIncrease={canIncrease}
             compact={compact}
+            onClick={onClick}
           >
             <span className={style.columnWrapper}>
               <span>
@@ -88,7 +93,9 @@ export default function ProductButton({
                 تومن
               </span>
             </span>{" "}
-            <span>&nbsp;&nbsp;|&nbsp;&nbsp;افزودن به سبد خرید</span>
+            <span>
+              &nbsp;&nbsp;|&nbsp;&nbsp;{text ? text : "افزودن به سبد خرید"}
+            </span>
           </AddToCartButton>
         )}
         {children && children}

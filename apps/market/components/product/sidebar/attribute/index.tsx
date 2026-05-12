@@ -16,7 +16,7 @@ import {
 } from "@repo/core/types/productVariants";
 import { Apps } from "@repo/core/types/general";
 
-interface Props {
+export interface ProductSidebarAttributeProps {
   product: SingleProduct;
   setProduct: Dispatch<SetStateAction<SingleProduct>>;
   basePriceMain: number;
@@ -25,7 +25,7 @@ interface Props {
   productVariants: Dispatch<SetStateAction<ProductVariantsValue[]>>;
 }
 
-const ProductSidebarAttribute: React.FC<Props> = ({
+const ProductSidebarAttribute: React.FC<ProductSidebarAttributeProps> = ({
   product,
   setProduct,
   basePriceMain,
