@@ -1,9 +1,12 @@
 "use client";
 import { api } from "@/api/Api";
-import { FilterParams } from "@/constants/filter";
+import { FilterParams, sortByConfigs } from "@/constants/filter";
 import { SelectQroupItemType } from "@repo/core/types/filter";
 import { Apps } from "@repo/core/types/general";
-import { SelectFilterQroup } from "@repo/shared_modules/components";
+import {
+  OptionSwitch,
+  SelectFilterQroup,
+} from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
@@ -102,21 +105,40 @@ function MobileFilterContainer() {
       ),
     },
     // TODO: continue here and add sort and only available filter
+    // {
+    //   data: productTypes?.data.data.map((p) => ({
+    //     id: p.id,
+    //     title: p.title,
+    //   })),
+    //   title: "نوع محصول",
+    //   isActive: true,
+    //   loading: isProductTypesLoading,
+    //   name: FilterParams.ProductType,
+    // },
     {
-      data: productTypes?.data.data.map((p) => ({
-        id: p.id,
+      data: sortByConfigs.map((p) => ({
+        id: p.value,
         title: p.title,
       })),
-      title: "نوع محصول",
+      title: "بر اساس",
       isActive: true,
-      loading: isProductTypesLoading,
-      name: FilterParams.ProductType,
+      loading: false,
+      name: FilterParams.Sort,
+      defaultValue: "newest",
     },
   ];
 
   return (
     <div className="container">
       <SelectFilterQroup app={Apps.MARKET} items={items} />
+      <div style={{ marginTop: "10px" }}>
+        <OptionSwitch
+          name={FilterParams.OnlyAvailable}
+          title="فقط کالا‌های موجود"
+          app={Apps.MARKET}
+          addToQuery
+        />
+      </div>
     </div>
   );
 }

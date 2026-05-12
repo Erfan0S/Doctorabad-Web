@@ -14,6 +14,7 @@ import {
   Variant,
   VariantsCheckBox,
 } from "@repo/core/types/productVariants";
+import { Apps } from "@repo/core/types/general";
 
 interface Props {
   product: SingleProduct;
@@ -33,7 +34,7 @@ const ProductSidebarAttribute: React.FC<Props> = ({
   productVariants,
 }) => {
   const { checkbox, selections }: ProductVariants = variantsSorter(
-    product.variants
+    product.variants,
   );
   const [values, setValues] = useState<ProductVariantsValues>({});
 
@@ -60,7 +61,7 @@ const ProductSidebarAttribute: React.FC<Props> = ({
         ...v,
         user_explanation:
           v.user_explanation == null ? "null" : v.user_explanation,
-      }))
+      })),
     );
   }, [values, setValues]);
 
@@ -171,6 +172,7 @@ const ProductSidebarAttribute: React.FC<Props> = ({
           );
         })}
         {checkbox.map((variant) => (
+          // TODO: use shared option switch component instead of this
           <OptionSwitch
             key={variant.variants[0].id}
             id={variant.variants[0].id.toString()}

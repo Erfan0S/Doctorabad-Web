@@ -29,6 +29,7 @@ const SelectFilterQroup: React.FC<Props> = ({
           dependencies={item.dependencies}
           app={app}
           customContent={item.customContent}
+          defaultValue={item.defaultValue}
         />
       ))}
     </div>
