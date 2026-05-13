@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PackageItem } from "@/types/courses";
+import { PackageItem } from "@/types/packages";
 import { api } from "@/api/Api";
 import { Apps } from "@repo/core/types/general";
 import { MobileHeaderBaseSiffix } from "@repo/shared_modules/headers";
@@ -17,7 +17,7 @@ const PackageHeaderSuffix = ({ packageItem }: Props) => {
   const [loading, setLoading] = useState(false);
   const sampleUrl = packageItem.sample_file?.[0]?.url;
 
-  const handleDownloadSample = authorizeClientAction(async () => {
+  const handleDownloadSample = (async () => {
     if (!sampleUrl) return;
     try {
       setLoading(true);

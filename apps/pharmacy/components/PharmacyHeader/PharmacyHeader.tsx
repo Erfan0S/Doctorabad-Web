@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./PharmacyHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
+import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
@@ -15,9 +16,9 @@ import { Apps } from "@repo/core/types/general";
 import { useFavorite } from "@/hooks/useFavorite";
 import { pharmacyApi } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
-import {
-  authorizeClientAction
-} from "@repo/core/utils/authUtils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+
 
 interface PharmacyHeaderProps {
   title?: string;
@@ -28,11 +29,12 @@ interface PharmacyHeaderProps {
 export default function PharmacyHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
-  onBackClick
+  onBackClick,
 }: PharmacyHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
   const medicineId = id ? Number(id) : undefined;
+  const navHistory = useNavigationHistory();
 
   const { data: medicineData } = useQuery({
     queryKey: ["medicine-details", medicineId],
@@ -70,7 +72,7 @@ export default function PharmacyHeader({
         description: `${medicineData?.title_fa} را در دکترآباد ببینید: `,
         url: `https://doctorabad.com/mp/${id}`,
       };
-    }
+    },
   );
 
   const handleShareButton = () => {
@@ -81,8 +83,8 @@ export default function PharmacyHeader({
       onBackClick();
       return;
     }
-    
-    router.back();
+
+    navHistory.goBack();
   };
 
   return (
@@ -110,15 +112,12 @@ export default function PharmacyHeader({
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >
-              <Heart
-                size={32}
-                fill={isFavorite ? "#57d43b" : "none"}
-              />
+              <Heart size={32} fill={isFavorite ? "#57d43b" : "none"} />
             </div>
           )}
 
           <div className={styles.backBtn} onClick={handleBack}>
-            <BackArrow ></BackArrow>
+            <BackIcon></BackIcon>
           </div>
         </div>
       </div>

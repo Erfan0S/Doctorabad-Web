@@ -5,6 +5,8 @@ import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./InsuranceHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
+import BackIcon from "@/assets/svg/back";
+
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
@@ -15,9 +17,8 @@ import { Apps } from "@repo/core/types/general";
 import { useFavorite } from "@/hooks/useFavorite";
 import { insuranceApi } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
-import {
-  authorizeClientAction
-} from "@repo/core/utils/authUtils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 
 interface InsuranceHeaderProps {
   title?: string;
@@ -31,6 +32,7 @@ export default function InsuranceHeader({
   const router = useRouter();
   const { id } = useParams();
   const insuranceId = id ? Number(id) : undefined;
+  const navHistory = useNavigationHistory();
 
   // برای صفحه جزئیات بیمه، داده را fetch می‌کنیم (در صورت نیاز)
   // فعلاً این بخش غیرفعال است چون API بیمه جزئیات ندارد
@@ -71,7 +73,7 @@ export default function InsuranceHeader({
         description: `${title || "بیمه"} را در دکترآباد ببینید: `,
         url: `https://doctorabad.com/insurance/${id}`,
       };
-    }
+    },
   );
 
   const handleShareButton = () => {
@@ -83,40 +85,11 @@ export default function InsuranceHeader({
       <div className={styles.headerTop}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.lefSideHeader}>
-          {/* {headerPageType === HeaderType.INSURANCE_DETAILS && (
-            <>
-              <div className={styles.favoriteBtn} onClick={toggleReportModal}>
-                <BugIcon />
-              </div>
-              <div className={styles.favoriteBtn} onClick={handleShareButton}>
-                <ShareIcon />
-              </div>
-            </>
-          )} */}
-
-          {/* {headerPageType !== HeaderType.FAVORITES && (
-            <div
-              className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
-              onClick={
-                headerPageType === HeaderType.INSURANCE_DETAILS
-                  ? handleFavoriteButton
-                  : authorizeClientAction(() => router.push("/favorites"))
-              }
-            >
-              <Heart
-                size={32}
-                strokeWidth={2}
-                fill={isFavorite ? "#57d43b" : "none"}
-              />
+            <div className={styles.backBtn} onClick={() => navHistory.goBack()}>
+              <BackIcon></BackIcon>
             </div>
-          )} */}
-
-          <div className={styles.backBtn} onClick={() => router.back()}>
-            <BackArrow strokeWidth={2}></BackArrow>
-          </div>
         </div>
       </div>
     </header>
   );
 }
-

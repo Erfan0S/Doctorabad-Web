@@ -44,7 +44,11 @@ export function PackageActiveButton({ packageItem }: Props) {
         !packageItem.only_usable_on_app
           ? handleDownload
           : () =>
-              modalActions.addModal(ModalTypes.AppOnly, { app: Apps.DOWNLOAD })
+              authorizeClientAction(() =>
+                modalActions.addModal(ModalTypes.AppOnly, {
+                  app: Apps.DOWNLOAD,
+                }),
+              )
       }
       className={`${style.purchaseButtonWrapper} ${(packageItem.user_has_access || packageItem.main_price == null) && style.purchaseBarAccess} ${loading && style.loading}`}
     >

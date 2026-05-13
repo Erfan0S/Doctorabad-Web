@@ -13,8 +13,6 @@ import Loading from "@/components/common/loading";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { AddToCartButton } from "@repo/shared_modules/components";
 
-
-
 moment.loadPersian({ usePersianDigits: true });
 import {
   useProvinces,
@@ -32,8 +30,14 @@ import {
   useDamageHistory,
   useLastInsurer,
 } from "@/hooks/useInsuranceFind";
-import { UpdateUserInfoInput, Province, City, Insurer } from "@/types/insurance";
+import {
+  UpdateUserInfoInput,
+  Province,
+  City,
+  Insurer,
+} from "@/types/insurance";
 import { insuranceApi } from "@/api/Api";
+import { toast } from "react-toastify";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { cartActions } from "@repo/core/states/cart";
 import { OrderType } from "@repo/core/types/cart";
@@ -41,7 +45,7 @@ import { OrderType } from "@repo/core/types/cart";
 const BuyInsurancePage = () => {
   const searchParams = useSearchParams();
 
-    const { cartActionsLoadingHandler, updateCartLoading } =
+  const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
 
   // ----- URL Params (از صفحه لیست بیمه) -----
@@ -58,36 +62,19 @@ const BuyInsurancePage = () => {
 
   // قیمت پویا بر اساس فیلدهای فعلی و نتیجه getInsurances
   const [dynamicMainPrice, setDynamicMainPrice] = useState<number | null>(null);
-  const [dynamicFinalPrice, setDynamicFinalPrice] = useState<number | null>(null);
+  const [dynamicFinalPrice, setDynamicFinalPrice] = useState<number | null>(
+    null,
+  );
 
   // ----- فیلترهای کاربر (ID ها) -----
-  const fieldId = searchParams.get("field")
-    ? Number(searchParams.get("field"))
-    : null;
-  const gradeId = searchParams.get("grade")
-    ? Number(searchParams.get("grade"))
-    : null;
-  const residencyId = searchParams.get("residency")
-    ? Number(searchParams.get("residency"))
-    : null;
-  const damageHistoryId = searchParams.get("damageHistory")
-    ? Number(searchParams.get("damageHistory"))
-    : null;
-  const lastInsuranceId = searchParams.get("lastInsurance")
-    ? Number(searchParams.get("lastInsurance"))
-    : null;
-  const urlProvinceId = searchParams.get("province_id")
-    ? Number(searchParams.get("province_id"))
-    : undefined;
-  const urlCityId = searchParams.get("city_id")
-    ? Number(searchParams.get("city_id"))
-    : undefined;
-  const urlPostalCode = searchParams.get("postal_code")
-    ? Number(searchParams.get("postal_code"))
-    : undefined;
-  const urlLastInsuranceFileId = searchParams.get("last_insurance_file_id")
-    ? Number(searchParams.get("last_insurance_file_id"))
-    : null;
+  const fieldId = searchParams.get("field") ? Number(searchParams.get("field")) : null;
+  const gradeId = searchParams.get("grade") ? Number(searchParams.get("grade")) : null;
+  const residencyId = searchParams.get("residency") ? Number(searchParams.get("residency")) : null;
+  const damageHistoryId = searchParams.get("damageHistory") ? Number(searchParams.get("damageHistory")) : null;
+  const lastInsuranceId = searchParams.get("lastInsurance") ? Number(searchParams.get("lastInsurance")) : null;
+  const urlProvinceId = searchParams.get("province_id") ? Number(searchParams.get("province_id")) : undefined;
+  const urlCityId = searchParams.get("city_id") ? Number(searchParams.get("city_id")) : undefined;
+  const urlPostalCode = searchParams.get("postal_code") ? Number(searchParams.get("postal_code")) : undefined;
   const urlActiveClinic = searchParams.get("active_clinic")
     ? searchParams.get("active_clinic") === "true"
     : undefined;
@@ -132,18 +119,22 @@ const BuyInsurancePage = () => {
 
   // ----- States -----
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
-    null
+    null,
   );
 
   const [activeClinic, setActiveClinic] = useState(urlActiveClinic ?? false);
-  const [provinceId, setProvinceId] = useState<number | undefined>(urlProvinceId);
+  const [provinceId, setProvinceId] = useState<number | undefined>(
+    urlProvinceId,
+  );
   const [cityId, setCityId] = useState<number | undefined>(urlCityId);
   const [address, setAddress] = useState(urlClinicAddress ?? "");
-  const [postalCode, setPostalCode] = useState<number | undefined>(urlPostalCode);
+  const [postalCode, setPostalCode] = useState<number | undefined>(
+    urlPostalCode,
+  );
   const [insuredName, setInsuredName] = useState("");
   const [insuredPhone, setInsuredPhone] = useState("");
   const [residencyStatusId, setResidencyStatusId] = useState<number | null>(
-    null
+    null,
   );
   const [selectedDamageHistoryId, setSelectedDamageHistoryId] = useState<
     number | null
@@ -156,19 +147,21 @@ const BuyInsurancePage = () => {
 
   const [nationalCardId, setNationalCardId] = useState<number | null>(null);
   const [medicalCardId, setMedicalCardId] = useState<number | null>(null);
-  const [lastInsuranceFileId, setLastInsuranceFileId] = useState<number | null>(null);
-  const [endDate, setEndDate] = useState<string>(
-    searchParams.get("endDate") || ""
+  const [lastInsuranceFileId, setLastInsuranceFileId] = useState<number | null>(
+    null,
   );
-
-  
+  const [endDate, setEndDate] = useState<string>(
+    searchParams.get("endDate") || "",
+  );
+  const [mobileCheckboxChecked, setMobileCheckboxChecked] = useState(false);
 
   // ----- Queries -----
   const { data: userProfile } = useUserProfile();
   const { data: provinces = [] } = useProvinces();
   const { data: cities = [] } = useCities(provinceId);
   const { data: profileData } = useInsuranceInfoSingle(selectedProfileId);
-  const { data: insuranceInfos = [], refetch: refetchInsuranceInfos } = useInsuranceInfos();
+  const { data: insuranceInfos = [], refetch: refetchInsuranceInfos } =
+    useInsuranceInfos();
   const { data: residencyStatuses = [] } = useResidencyStatus();
   const { data: damageHistories = [] } = useDamageHistory();
   const { data: lastInsurers = [] } = useLastInsurer();
@@ -176,17 +169,17 @@ const BuyInsurancePage = () => {
   // مقادیر موثر برای سابقه خسارت، بیمه‌گر قبلی و تاریخ اتمام (ترکیب URL و state)
   const effectiveDamageHistoryId = useMemo(
     () => selectedDamageHistoryId ?? damageHistoryId ?? null,
-    [selectedDamageHistoryId, damageHistoryId]
+    [selectedDamageHistoryId, damageHistoryId],
   );
 
   const effectiveLastInsuranceId = useMemo(
     () => selectedLastInsuranceId ?? lastInsuranceId ?? null,
-    [selectedLastInsuranceId, lastInsuranceId]
+    [selectedLastInsuranceId, lastInsuranceId],
   );
 
   const effectiveEndDate = useMemo(
     () => insuranceEndDate || endDate || null,
-    [insuranceEndDate, endDate]
+    [insuranceEndDate, endDate],
   );
 
   // برای گرفتن title رشته و تخصص از API
@@ -194,7 +187,7 @@ const BuyInsurancePage = () => {
   // استفاده از field_id: همیشه ابتدا از URL (صفحه قبل) و در صورت نبود، از profileData
   const fieldIdToUse = fieldId ?? profileData?.field_id ?? null;
   const { data: allGrades = [] } = useGrades(
-    fieldIdToUse ? [fieldIdToUse] : []
+    fieldIdToUse ? [fieldIdToUse] : [],
   );
 
   // پیدا کردن title رشته و تخصص
@@ -272,10 +265,12 @@ const BuyInsurancePage = () => {
     if (endDate) {
       setInsuranceEndDate(endDate);
     }
-    if (urlLastInsuranceFileId) {
-      setLastInsuranceFileId(urlLastInsuranceFileId);
-    }
-  }, [residencyId, damageHistoryId, lastInsuranceId, endDate, urlLastInsuranceFileId]);
+  }, [
+    residencyId,
+    damageHistoryId,
+    lastInsuranceId,
+    endDate,
+  ]);
 
   // Sync state with fetched profile data
   // وقتی پروفایل انتخاب می‌شود، همیشه از profileData استفاده می‌کنیم
@@ -285,7 +280,9 @@ const BuyInsurancePage = () => {
       setProvinceId(profileData.province_id);
       setCityId(profileData.city_id);
       setAddress(profileData.clinic_address || "");
-      setPostalCode(profileData.postal_code ? Number(profileData.postal_code) : undefined);
+      setPostalCode(
+        profileData.postal_code ? Number(profileData.postal_code) : undefined,
+      );
       setInsuredName(profileData.insured_name || profileData.title || "");
       setInsuredPhone(profileData.insured_phone || "");
 
@@ -319,7 +316,9 @@ const BuyInsurancePage = () => {
       setProvinceId(profileData.province_id);
       setCityId(profileData.city_id);
       setAddress(profileData.clinic_address || "");
-      setPostalCode(profileData.postal_code ? Number(profileData.postal_code) : undefined);
+      setPostalCode(
+        profileData.postal_code ? Number(profileData.postal_code) : undefined,
+      );
       setInsuredName(profileData.insured_name || profileData.title || "");
       setInsuredPhone(profileData.insured_phone || "");
 
@@ -427,7 +426,7 @@ const BuyInsurancePage = () => {
       onChange: (date: string) => {
         setEndDate(date);
         setInsuranceEndDate(date);
-      }
+      },
     });
   };
 
@@ -470,6 +469,11 @@ const BuyInsurancePage = () => {
       return;
     }
 
+    if (!mobileCheckboxChecked) {
+      toast.error("لطفاً تأیید کنید که شماره موبایل به نام بیمه‌گذار است.");
+      return;
+    }
+
     let profileIdToUse = selectedProfileId;
 
     // اگر پروفایلی انتخاب نشده، باید یک پروفایل جدید ایجاد کنیم
@@ -500,7 +504,7 @@ const BuyInsurancePage = () => {
       try {
         // ایجاد پروفایل جدید
         const newProfile = await storeMutation.mutateAsync(newProfilePayload);
-        
+
         // استفاده از id از پاسخ (اکنون که تایپ درست شده، مطمئن هستیم id وجود دارد)
         if (newProfile?.id) {
           profileIdToUse = newProfile.id;
@@ -511,7 +515,7 @@ const BuyInsurancePage = () => {
             (info) =>
               info.field_id === fieldIdToUse &&
               info.grade_id === gradeIdToUse &&
-              info.title === (insuredName || userProfile?.name || "")
+              info.title === (insuredName || userProfile?.name || ""),
           );
           if (foundProfile) {
             profileIdToUse = foundProfile.id;
@@ -520,7 +524,7 @@ const BuyInsurancePage = () => {
             profileIdToUse = updatedInfos[updatedInfos.length - 1].id;
           }
         }
-        
+
         if (profileIdToUse) {
           // این خط باعث می‌شود هوک useInsuranceInfoSingle با آی‌دی جدید کال شود
           // و سپس useEffect مربوطه (line 242) اطلاعات را در صفحه پر می‌کند
@@ -541,8 +545,10 @@ const BuyInsurancePage = () => {
         undefined,
         profileIdToUse,
         selectedDamageHistoryId || undefined,
-        selectedDamageHistoryId === 1 ? undefined  : selectedLastInsuranceId || undefined,
-        selectedDamageHistoryId === 1 ? undefined  : endDate || undefined,
+        selectedDamageHistoryId === 1
+          ? undefined
+          : selectedLastInsuranceId || undefined,
+        selectedDamageHistoryId === 1 ? undefined : endDate || undefined,
       );
     }
   };
@@ -582,7 +588,7 @@ const BuyInsurancePage = () => {
   const getEndDateLabel = () => {
     // 1. URL
     if (endDate && !insuranceEndDate) {
-       return moment(endDate, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
+      return moment(endDate, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
     }
 
     if (!insuranceEndDate) return "تاریخ اتمام بیمه";
@@ -617,7 +623,7 @@ const BuyInsurancePage = () => {
     if (selectedProfileId) {
       if (selectedDamageHistoryId) {
         const found = damageHistories.find(
-          (d) => d.id === selectedDamageHistoryId
+          (d) => d.id === selectedDamageHistoryId,
         );
         if (found) return found.title;
       }
@@ -630,7 +636,7 @@ const BuyInsurancePage = () => {
     }
     if (selectedDamageHistoryId) {
       const found = damageHistories.find(
-        (d) => d.id === selectedDamageHistoryId
+        (d) => d.id === selectedDamageHistoryId,
       );
       if (found) return found.title;
     }
@@ -644,7 +650,12 @@ const BuyInsurancePage = () => {
 
     // اعتبارسنجی مشابه صفحه لیست:
     // باید رشته، تخصص، وضعیت و سابقه خسارت مشخص باشند
-    if (!fieldIdToUse || !gradeIdToUse || !residencyStatusId || !effectiveDamageHistoryId) {
+    if (
+      !fieldIdToUse ||
+      !gradeIdToUse ||
+      !residencyStatusId ||
+      !effectiveDamageHistoryId
+    ) {
       return;
     }
 
@@ -663,7 +674,9 @@ const BuyInsurancePage = () => {
       residency_status: residencyStatusId ?? undefined,
       damage_history: effectiveDamageHistoryId ?? undefined,
       last_insurance:
-        effectiveDamageHistoryId === 1 ? undefined : effectiveLastInsuranceId ?? undefined,
+        effectiveDamageHistoryId === 1
+          ? undefined
+          : (effectiveLastInsuranceId ?? undefined),
       current_insurance_end_date:
         effectiveDamageHistoryId === 1 ? null : effectiveEndDate,
     };
@@ -742,7 +755,12 @@ const BuyInsurancePage = () => {
             )}
         </div>
         <div className={styles.mobileCheckContainer}>
-          <input className={styles.checkbox} type="checkbox" />
+          <input
+            className={styles.checkbox}
+            type="checkbox"
+            checked={mobileCheckboxChecked}
+            onChange={(e) => setMobileCheckboxChecked(e.target.checked)}
+          />
           <h3>شماره موبایل وارد شده به نام فرد بیمه‌گذار است.</h3>
         </div>
 
@@ -764,15 +782,17 @@ const BuyInsurancePage = () => {
               onUploadSuccess={setMedicalCardId}
               onDeleteSuccess={() => setMedicalCardId(null)}
             />
-                        <div style={{ height: 10 }} />
+            <div style={{ height: 10 }} />
 
-            <UploadBox
-              type={3}
-              title=" بیمه‌نامه قبلی"
-              fileId={lastInsuranceFileId}
-              onUploadSuccess={setLastInsuranceFileId}
-              onDeleteSuccess={() => setLastInsuranceFileId(null)}
-            />
+            {lastInsuranceData && (
+              <UploadBox
+                type={3}
+                title=" بیمه‌نامه قبلی"
+                fileId={lastInsuranceFileId}
+                onUploadSuccess={setLastInsuranceFileId}
+                onDeleteSuccess={() => setLastInsuranceFileId(null)}
+              />
+            )}
           </div>
         </div>
 
@@ -837,7 +857,7 @@ const BuyInsurancePage = () => {
             type={OrderType.Insurance}
             className={styles.submitBtn}
             onClick={authorizeClientAction(
-              cartActionsLoadingHandler(handleAddToCart)
+              cartActionsLoadingHandler(handleAddToCart),
             )}
           >
             {updateCartLoading ? (

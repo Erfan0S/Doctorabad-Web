@@ -92,7 +92,7 @@ class Api extends Request {
   }
 
   sharePackage(id: number): Promise<ResponseType<{ data: PackageShare }>> {
-    return this.request.get(`/user/v1/package/${id}/share`);
+    return this.request.get(`/user/v1/package/share/${id}`);
   }
 
   addFavorite(id: number): Promise<{}> {

@@ -130,4 +130,16 @@ export const useInsuranceInfos = () => {
       },
     });
   };
+
+export const useInsuranceOrderInfo = (orderId: number | null) => {
+  return useQuery<any>({
+    queryKey: ["insuranceOrderInfo", orderId],
+    queryFn: async () => {
+      if (!orderId) throw new Error("Order ID required");
+      const res = await insuranceApi.getInsuranceOrderInfo(orderId);
+      return res.data.data;
+    },
+    enabled: !!orderId,
+  });
+};
   

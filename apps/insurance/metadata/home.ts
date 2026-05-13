@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { homeMetadata as sharedHomeMetadataFactory } from "@repo/core/metadata/home";
 
-const title = "دکتراباد | کلینیک من";
+const title = "دکتراباد | بیمه من";
 const description =
   "جست‌وجو و بررسی بیماری‌ها، دسته‌بندی‌های تخصصی و اطلاعات کامل هر بیماری در کلینیک دکترآباد.";
 
 const sharedHomeMetadata = sharedHomeMetadataFactory(
-  "/clinic",
+  "/insurance",
   title,
   description,
 );

@@ -60,7 +60,6 @@ const CartItem = ({
     if (draft?.postal_code) params.append("postal_code", String(draft.postal_code));
     if (draft?.city_id) params.append("city_id", String(draft.city_id));
     if (draft?.province_id) params.append("province_id", String(draft.province_id));
-    if (draft?.last_insurance_files && draft.last_insurance_files.length > 0) params.append("last_insurance_file_id", String(draft.last_insurance_files[0].id));
     if (typeof draft?.active_clinic === 'boolean') params.append("active_clinic", String(draft.active_clinic));
     if (draft?.clinic_address) params.append("clinic_address", draft.clinic_address);
     return `?${params.toString()}`;
