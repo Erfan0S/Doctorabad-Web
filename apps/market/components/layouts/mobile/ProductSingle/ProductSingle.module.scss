@@ -1,0 +1,9 @@
+.productSlyderContainer {
+  max-width: 326px;
+}
+
+@media (max-height: 700px) {
+  .productSlyderContainer {
+    max-width: 225px;
+  }
+}

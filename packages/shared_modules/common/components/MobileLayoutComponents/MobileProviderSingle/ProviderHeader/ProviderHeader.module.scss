@@ -47,7 +47,7 @@ body .secondary {
   flex-direction: row;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 0 10px #f2e3e378;
     background-color: white;
