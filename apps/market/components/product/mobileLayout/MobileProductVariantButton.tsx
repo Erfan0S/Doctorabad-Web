@@ -27,7 +27,6 @@ function MobileProductVariantButton({ product }: Props) {
       offPrice={product.price_off}
       text="انتخاب گزینه‌ها"
       app={Apps.MARKET}
-      compact
       canIncrease
       onClick={() =>
         modalActions.addModal<

@@ -14,6 +14,8 @@ import { OrderType } from "@repo/core/types/cart";
 import { marketPaths } from "@repo/core/constants/routePath";
 import ProductHeaderSuffix from "@/components/product/mobileLayout/ProductHeaderSuffix";
 import MobileProductVariantButton from "@/components/product/mobileLayout/MobileProductVariantButton";
+import ProductSlider from "@/components/product/intro/slider";
+import styles from "./ProductSingle.module.scss";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -74,7 +76,16 @@ function MobileProductSingle({
     <>
       <MobileProductLayout
         app={Apps.MARKET}
-        preview={data.product_pic}
+        preview={
+          <div className={styles.productSlyderContainer}>
+            <ProductSlider
+              title={data.title}
+              slider={data.files}
+              thumbnail={data.product_pic}
+              isMobileLayout
+            />
+          </div>
+        }
         tabsData={TabsConfig(data, relatedProductList)}
         title={data.title || data.title_en || "____"}
         provider={{
