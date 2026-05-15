@@ -7,7 +7,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 import { Apps } from "@repo/core/types/general";
 
-type Props = {
+export type SearchBarProps = {
   app?: Apps;
   haveFilterButton?: boolean;
   placeholder?: string;
@@ -20,20 +20,18 @@ const SearchBar = ({
   app = Apps.BASE,
   haveFilterButton = true,
   placeholder,
-  customeFilterUrl,
-  customeSearchUrl,
+  customeFilterUrl = "/filter",
+  customeSearchUrl = "/search",
   searchKey = "q",
-}: Props) => {
+}: SearchBarProps) => {
   const [searchText, setSearchText] = useState("");
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   const debouncedSearchText = useDebounceAction(() => {
-    if (searchText || pathname === (customeSearchUrl || "/search")) {
-      router.push(
-        `${customeSearchUrl || "/search"}?${searchKey}=` + searchText,
-      );
+    if (searchText || pathname === customeSearchUrl) {
+      router.push(`${customeSearchUrl}?${searchKey}=` + searchText);
     }
   }, 750);
 
@@ -64,7 +62,7 @@ const SearchBar = ({
           <SearchIcon />
         </div>
         {haveFilterButton && (
-          <Link href={`${customeFilterUrl || "/filter"}`}>فیلترکردن</Link>
+          <Link href={`${customeFilterUrl}`}>فیلترکردن</Link>
         )}
       </div>
     </div>

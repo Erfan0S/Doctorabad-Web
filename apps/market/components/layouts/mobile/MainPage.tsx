@@ -9,6 +9,8 @@ import { MainSlider } from "@repo/shared_modules/components";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
 import { MainTabsData } from "@/constants/tabsData";
 import OrderInformationWithFetch from "@/components/marketHome/intro/orderInformation/OrderInformationWithFetch";
+import { marketPaths } from "@repo/core/constants/routePath";
+import { FilterParams } from "@/constants/filter";
 
 type Props = {
   sliders: Banner[];
@@ -24,6 +26,9 @@ function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
           type={Apps.MARKET}
           tabData={MainTabsData}
           haveSearch
+          customeSearchUrl={marketPaths.search}
+          customeFilterUrl={marketPaths.archive}
+          searchKey={FilterParams.SEARCH}
         />
         <div>
           {sliders && (

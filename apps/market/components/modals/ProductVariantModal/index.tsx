@@ -16,10 +16,6 @@ const ProductVariantModal: React.FC<
   const product = data.product;
   let [variants, setVariants] = useState<ProductVariantsValue[]>([]);
 
-  useEffect(() => {
-    console.log(variants);
-  }, [variants]);
-
   return (
     <ModalWrapper
       closeModal={closeModal}
@@ -43,8 +39,6 @@ const ProductVariantModal: React.FC<
           app={Apps.MARKET}
           compact
           onSucceed={() => {
-            console.log(variants);
-
             closeModal();
           }}
           variants={variants}

@@ -92,8 +92,6 @@ const ProductSliderContainer: React.FC<Props> = ({
     };
   }, [dynamicSlideWidth, slideWidthProp, spaceBetween]);
 
-  console.log(isMobileLayout);
-
   return (
     <section
       className={`${style.productSlider} ${isMobileLayout ? style.mobileLayout : ""} ${style[app]}`}

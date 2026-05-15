@@ -84,7 +84,7 @@ const Product: React.FC<ProductCard> = ({
                       price_main,
                       price_amazing || price_off,
                     )}
-                  </small>{" "}
+                  </small>
                 </>
               )}
             </div>
