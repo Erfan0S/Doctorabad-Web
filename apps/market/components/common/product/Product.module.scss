@@ -145,6 +145,7 @@
         padding: 0 space(3);
         border-radius: radius(1);
         background: $header-nav-bg;
+        line-height: 15px;
         color: #fff;
       }
     }
@@ -258,7 +259,7 @@
 }
 
 @media (max-width: 425px) {
-  .product {
+  body .product {
     &AddToCart,
     &NoStock,
     &VariantButton {

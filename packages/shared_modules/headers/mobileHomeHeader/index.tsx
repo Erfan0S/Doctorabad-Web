@@ -3,19 +3,15 @@ import MobileHeaderBase from "../mobileHeaderBase";
 import TabsController from "../../common/components/TabsController";
 import styles from "./HomeHeader.module.scss";
 import { MobileTabsConfig } from "@repo/core/types/configs";
-import SearchBar from "../../common/components/SearchBar";
+import SearchBar, { SearchBarProps } from "../../common/components/SearchBar";
 
-type Props = {
+interface Props extends SearchBarProps {
   tabData: MobileTabsConfig[];
   children?: React.ReactNode;
   type?: Apps;
   defaultTab?: string;
   haveSearch?: boolean;
-  customeSearchUrl?: string;
-  customeFilterUrl?: string;
-  placeholder?: string;
-  haveFilterButton?: boolean;
-};
+}
 
 function MobileHomeHeader({
   tabData,

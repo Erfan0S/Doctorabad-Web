@@ -28,8 +28,6 @@ const ProvidersPage = () => {
     },
   });
 
-  console.log(data?.pages);
-
   return (
     <div>
       <HomeHeader haveSearch={false} />
