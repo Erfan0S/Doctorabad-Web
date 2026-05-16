@@ -51,6 +51,7 @@ const ProviderHeader = ({
           width={150}
           height={80}
           placeholder={placeHolderDataUrl}
+          style={{ objectFit: variant == "secondary" ? "fill" : undefined }}
         />
         <div className={styles.providerInfo}>
           <h3>{title}</h3>
