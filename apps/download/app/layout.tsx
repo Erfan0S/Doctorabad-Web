@@ -8,12 +8,12 @@ import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
 import { api } from "@repo/shared_modules/api";
 import { InstallBannerShow } from "@repo/shared_modules/components";
-import Script from "next/script";
 import { Suspense } from "react";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { homeViewPort } from "@repo/core/metadata/home";
 import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
+import { SharedHeadContents } from "@repo/shared_modules";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -34,7 +34,7 @@ export default async function RootLayout({
   const statistic = (await api.getHomeStatistics()).data.data;
   return (
     <html lang="fa">
-      <head></head>
+      <SharedHeadContents />
       <body className={`${font.className} ${font.variable}`}>
         <NextTopLoader color="#006797" />
         <div className="root">
