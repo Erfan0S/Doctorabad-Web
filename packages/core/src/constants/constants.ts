@@ -19,3 +19,5 @@ export const IP_CHECKED_COOKIE = "IPChecked";
 export const IP_COUNTRY_COOKIE = "IPCountry";
 
 export const VIEWPORT_HEADER = "x-viewport";
+
+export const IS_PERVENT_GOOGLE_INDEX = false;

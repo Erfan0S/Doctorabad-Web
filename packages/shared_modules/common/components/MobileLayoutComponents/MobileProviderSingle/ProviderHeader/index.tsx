@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ProviderHeader.module.scss";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
