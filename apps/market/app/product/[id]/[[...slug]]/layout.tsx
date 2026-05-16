@@ -1,6 +1,6 @@
-import { generateProductMetaData } from "@/metadata/singleProduct";
+import { generateMarketProductMetaData } from "@/metadata/singleProduct";
 
-export const generateMetadata = generateProductMetaData;
+export const generateMetadata = generateMarketProductMetaData;
 
 export default function RootLayout({
   children,
