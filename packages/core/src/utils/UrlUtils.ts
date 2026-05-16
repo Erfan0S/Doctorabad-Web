@@ -94,6 +94,52 @@ export const generateSingleProviderUrlFromId = (id: number) => {
 
 // TODO: Fix Checkout URL
 
+export const generateInsuranceSlug = (data: {
+  product_id: number;
+  product_title: string;
+  product_pic: string;
+  price_off: number;
+  price_main: number;
+  draft?: {
+    field_id?: number;
+    speciality_id?: number;
+    residency_status?: number;
+    damage_history_id?: number;
+    postal_code?: string;
+    city_id?: number;
+    province_id?: number;
+    active_clinic?: boolean;
+    clinic_address?: string | null;
+  };
+}) => {
+  const params = new URLSearchParams();
+  params.append("insurer_id", String(data.product_id));
+  params.append("insurer_title", data.product_title);
+  params.append("insurer_logo", data.product_pic);
+  params.append("price", String(data.price_off));
+  params.append("main_price", String(data.price_main));
+
+  const draft = data.draft;
+  if (draft?.field_id) params.append("field", String(draft.field_id));
+  if (draft?.speciality_id)
+    params.append("grade", String(draft.speciality_id));
+  if (draft?.residency_status)
+    params.append("residency", String(draft.residency_status));
+  if (draft?.damage_history_id)
+    params.append("damageHistory", String(draft.damage_history_id));
+  if (draft?.postal_code)
+    params.append("postal_code", String(draft.postal_code));
+  if (draft?.city_id) params.append("city_id", String(draft.city_id));
+  if (draft?.province_id)
+    params.append("province_id", String(draft.province_id));
+  if (typeof draft?.active_clinic === "boolean")
+    params.append("active_clinic", String(draft.active_clinic));
+  if (draft?.clinic_address)
+    params.append("clinic_address", draft.clinic_address);
+
+  return `?${params.toString()}`;
+};
+
 export const generateSingleProductUrlFromId = (
   id: number,
   slug: string = "",

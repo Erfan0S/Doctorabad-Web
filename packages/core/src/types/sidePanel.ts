@@ -23,7 +23,7 @@ export enum SidePanelClubTab {
 export enum SidePanelFavoriteTab {
   LEARNING_CENTER = "learningCenter",
   SHOPPING_CENTER = "shoppingCenter",
-  CONTENT_CENTER = "contentCenter",
+  DOWNLOAD_CENTER = "downloadCenter",
   EXAM_CENTER = "examCenter",
 }
 

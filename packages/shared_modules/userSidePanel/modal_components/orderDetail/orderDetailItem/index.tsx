@@ -5,7 +5,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { calcDiscountPercentage } from "@repo/core/utils/calcDiscountPercentage";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { Order, OrderType } from "@repo/core/types/cart";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+import { generateSingleProductUrlFromId, generateInsuranceSlug } from "@repo/core/utils/UrlUtils";
 import { modalActions } from "@repo/core/modal/modals";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
@@ -20,15 +20,31 @@ const OrderDetailItem = ({
   product_type,
   quantity,
   title,
+  price_main,
+  draft,
 }: OrderDetailItemType) => {
   const { replace } = useRouter();
 
-  const url = generateSingleProductUrlFromId(id, "", product_type);
+  const getSlug = () => {
+    if (product_type === OrderType.Insurance) {
+      return generateInsuranceSlug({
+        product_id: id,
+        product_title: title,
+        product_pic: pic_url || "",
+        price_off: price,
+        price_main: price_main || price,
+        draft: draft,
+      });
+    }
+    return "";
+  };
+
+  const url = generateSingleProductUrlFromId(id, getSlug(), product_type);
   const navigate = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     modalActions.clearModals();
     window.open(url);
-  };
+  }; 
   return (
     <div className={style.OrderDetailItem}>
       <a href={url} target="_blank" onClick={navigate}>

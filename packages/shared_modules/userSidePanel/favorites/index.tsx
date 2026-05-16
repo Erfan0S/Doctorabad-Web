@@ -37,7 +37,7 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
   const clubTabsComponents = {
     [SidePanelFavoriteTab.LEARNING_CENTER]: SidePanelFavoritesLearning,
     [SidePanelFavoriteTab.SHOPPING_CENTER]: SidePanelFavoritesShopping,
-    [SidePanelFavoriteTab.CONTENT_CENTER]: SidePanelFavoritesContent,
+    [SidePanelFavoriteTab.DOWNLOAD_CENTER]: SidePanelFavoritesContent,
     [SidePanelFavoriteTab.EXAM_CENTER]: SidePanelFavoritesExam,
   };
 

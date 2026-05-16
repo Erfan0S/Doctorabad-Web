@@ -7,7 +7,7 @@ import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { DiscountPlanType, Order, OrderType } from "@repo/core/types/cart";
-import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+import { generateSingleProductUrlFromId, generateInsuranceSlug } from "@repo/core/utils/UrlUtils";
 import {
   ListProductSnappayNotif,
   Loading,
@@ -47,22 +47,14 @@ const CartItem = ({
   const router = useRouter();
 
   const getInsuranceSlug = () => {
-    const params = new URLSearchParams();
-    params.append("insurer_id", String(product_id));
-    params.append("insurer_title", product_title);
-    params.append("insurer_logo", product_pic);
-    params.append("price", String(price_off));
-    params.append("main_price", String(price_main));
-    if (draft?.field_id) params.append("field", String(draft.field_id));
-    if (draft?.speciality_id) params.append("grade", String(draft.speciality_id));
-    if (draft?.residency_status) params.append("residency", String(draft.residency_status));
-    if (draft?.damage_history_id) params.append("damageHistory", String(draft.damage_history_id));
-    if (draft?.postal_code) params.append("postal_code", String(draft.postal_code));
-    if (draft?.city_id) params.append("city_id", String(draft.city_id));
-    if (draft?.province_id) params.append("province_id", String(draft.province_id));
-    if (typeof draft?.active_clinic === 'boolean') params.append("active_clinic", String(draft.active_clinic));
-    if (draft?.clinic_address) params.append("clinic_address", draft.clinic_address);
-    return `?${params.toString()}`;
+    return generateInsuranceSlug({
+      product_id,
+      product_title,
+      product_pic,
+      price_off,
+      price_main,
+      draft,
+    });
   };
 
   const url = generateSingleProductUrlFromId(

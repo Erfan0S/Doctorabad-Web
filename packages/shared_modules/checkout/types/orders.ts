@@ -94,6 +94,8 @@ export type CartOrderDetails = {
   shop_products: CartOrderProductItem[];
   courses: CartOrderCourseItem[];
   exams: CartOrderExamItem[];
+  package: CartOrderPackageItem[];
+  insurance: CartOrderInsuranceItem[];
 };
 
 export type OrderDetailItemType = {
@@ -103,4 +105,55 @@ export type OrderDetailItemType = {
   title: string;
   pic_url: string | null;
   product_type: OrderType;
+  price_main?: number;
+  draft?: {
+    field_id?: number;
+    speciality_id?: number;
+    residency_status?: number;
+    damage_history_id?: number;
+    postal_code?: string;
+    city_id?: number;
+    province_id?: number;
+    active_clinic?: boolean;
+    clinic_address?: string | null;
+  };
 };
+export type CartOrderPackageItem = {
+  id: number;
+  price: number;
+  package_title: string;
+  package_pic_url: string | null;
+};
+
+
+type CartOrderInsuranceItem = {
+  id: number;
+  insurance_id: number;
+  insurance_title: string;
+  insurance_pic: string;
+  price: number;
+  draft: {
+    id: number;
+    draft_id: number;
+    insured_name: string;
+    insured_phone: string;
+    field_id: number;
+    field: string;
+    speciality_id: number;
+    speciality: string;
+    residency_status: number;
+    damage_history_id: number;
+    damage_history: string;
+    last_insurance_id: number | null;
+    last_insurance: string | null;
+    current_insurance_end_date: string | null;
+    active_clinic: boolean;
+    province_id: number;
+    province: string;
+    city_id: number;
+    city: string;
+    clinic_address: string | null;
+    postal_code: string;
+  };
+};
+

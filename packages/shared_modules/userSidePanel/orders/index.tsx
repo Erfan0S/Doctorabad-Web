@@ -31,7 +31,7 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const clubTabsComponents = {
     [SidePanelFavoriteTab.LEARNING_CENTER]: SidePanelOrdersLearning,
     [SidePanelFavoriteTab.SHOPPING_CENTER]: SidePanelOrdersShopping,
-    [SidePanelFavoriteTab.CONTENT_CENTER]: SidePanelOrdersContent,
+    [SidePanelFavoriteTab.DOWNLOAD_CENTER]: SidePanelOrdersContent,
     [SidePanelFavoriteTab.EXAM_CENTER]: SidePanelOrdersExam,
   };
 

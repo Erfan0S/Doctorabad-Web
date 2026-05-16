@@ -83,6 +83,36 @@ const OrderDetail: React.FC<Props> = ({
       }) || [];
     orderItems = [...orderItems, ...exam];
   }
+  if (!!data?.data.data.package && !!type ? type === OrderType.Package : true) {
+    const package_item =
+      data?.data.data.package.map((package_item) => {
+        return {
+          price: package_item.price,
+          id: package_item.id,
+          quantity: 1,
+          title: package_item.package_title,
+          pic_url: package_item.package_pic_url,
+          product_type: OrderType.Package,
+        };
+      }) || [];
+    orderItems = [...orderItems, ...package_item];
+  }
+  if (!!data?.data.data.insurance && !!type ? type === OrderType.Insurance : true) {
+    const insurance =
+      data?.data.data.insurance.map((insurance) => {
+        return {
+          price: insurance.price,
+          id: insurance.insurance_id,
+          quantity: 1,
+          title: insurance.insurance_title,
+          pic_url: insurance.insurance_pic,
+          product_type: OrderType.Insurance,
+          price_main: insurance.price, // Or insurance.price_main if available
+          draft: insurance.draft,
+        };
+      }) || [];
+    orderItems = [...orderItems, ...insurance];
+  }
 
   // fix order descount code
 

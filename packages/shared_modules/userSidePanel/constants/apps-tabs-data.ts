@@ -16,8 +16,8 @@ export const appsTabsData = [
   {
     id: 3,
     title: "مرکز محتوا",
-    content: SidePanelFavoriteTab.CONTENT_CENTER,
-    disabled: true,
+    content: SidePanelFavoriteTab.DOWNLOAD_CENTER,
+    disabled: false,
   },
   {
     id: 4,

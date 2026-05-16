@@ -47,7 +47,9 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
   const fieldIds = selectedFieldId ? [selectedFieldId] : [];
   const { data: grades = [] } = useGrades(fieldIds);
   const [selectedGradeId, setSelectedGradeId] = useState<number | null>(null);
-  const [selectedResidencyId, setSelectedResidencyId] = useState<number | null>(null);
+  const [selectedResidencyId, setSelectedResidencyId] = useState<number | null>(
+    null,
+  );
   const [activeClinic, setActiveClinic] = useState(false);
   const [provinceId, setProvinceId] = useState<number | undefined>();
   const { data: cities = [] } = useCities(provinceId);
@@ -74,12 +76,8 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
         setProvinceId(info.province_id);
         setCityId(info.city_id);
         setAddress(info.clinic_address || "");
-        setNationalCardId(
-          info.national_id_card_files?.[0]?.id || null
-        );
-        setMedicalCardId(
-          info.medical_education_card_files?.[0]?.id || null
-        );
+        setNationalCardId(info.national_id_card_files?.[0]?.id || null);
+        setMedicalCardId(info.medical_education_card_files?.[0]?.id || null);
         setInsuredPhone(info.insured_phone || "");
         setPostalCode(info.postal_code ? Number(info.postal_code) : null);
       }
@@ -211,7 +209,9 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
 
   const getProvinceLabel = () => {
     if (!provinceId) return "استان";
-    return provinces.find((p: Province) => p.id === provinceId)?.title || "استان";
+    return (
+      provinces.find((p: Province) => p.id === provinceId)?.title || "استان"
+    );
   };
 
   const getCityLabel = () => {
@@ -250,7 +250,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
             setView("list");
             setEditingId(null);
           },
-        }
+        },
       );
     } else {
       storeMutation.mutate(payload, {
@@ -267,20 +267,20 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
           // اگر id در پاسخ نبود (محض اطمینان)، از روش‌های قبلی استفاده کن
           // Refetch the list to get the new item
           const { data: updatedInfos = [] } = await refetch();
-          
+
           // Try to find by matching field and grade
           let newInfo = updatedInfos.find(
             (info) =>
               info.field_id === selectedFieldId &&
               info.grade_id === selectedGradeId &&
-              info.title === (formTitle || userProfile?.name || "")
+              info.title === (formTitle || userProfile?.name || ""),
           );
-          
+
           // If still not found, select the last item (most likely the new one)
           if (!newInfo && updatedInfos.length > 0) {
             newInfo = updatedInfos[updatedInfos.length - 1];
           }
-          
+
           if (newInfo) {
             handleSelect(newInfo.id);
           } else {
@@ -303,8 +303,8 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
           {view === "list"
             ? "انتخاب اطلاعات بیمه‌گذار"
             : editingId
-            ? "ویرایش اطلاعات بیمه‌گذار"
-            : "افزودن اطلاعات جدید"}
+              ? "ویرایش اطلاعات بیمه‌گذار"
+              : "افزودن اطلاعات جدید"}
         </h3>
         {view === "form" && (
           <button className={styles.backBtn} onClick={handleBack}>
@@ -340,15 +340,16 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
                 >
                   <div className={styles.infoContent}>
                     <div className={styles.infoTitle}>
-                      {info.title || "بدون عنوان"}
+                      {`${info.insured_name} (${info.insured_phone})` ||
+                        "بدون عنوان"}
                     </div>
-                    <div className={styles.infoSubtitle}>
+                    {/* <div className={styles.infoSubtitle}>
                       {fields.find((f) => f.id === info.field_id)?.title ||
                         "---"}{" "}
                       -{" "}
                       {grades.find((g) => g.id === info.grade_id)?.title ||
                         "---"}
-                    </div>
+                    </div> */}
                   </div>
                   <button
                     className={styles.editBtn}
@@ -391,10 +392,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
 
             <div className={styles.formSection}>
               <label className={styles.label}>رشته:</label>
-              <div
-                className={styles.selectBox}
-                onClick={openFieldModal}
-              >
+              <div className={styles.selectBox} onClick={openFieldModal}>
                 {getFieldLabel()} <DownArrow />
               </div>
             </div>
@@ -413,10 +411,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
 
             <div className={styles.formSection}>
               <label className={styles.label}>وضعیت:</label>
-              <div
-                className={styles.selectBox}
-                onClick={openResidencyModal}
-              >
+              <div className={styles.selectBox} onClick={openResidencyModal}>
                 {getResidencyLabel()} <DownArrow />
               </div>
             </div>
@@ -448,16 +443,10 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
             <div className={styles.formSection}>
               <label className={styles.label}>استان و شهر:</label>
               <div className={styles.geoRow}>
-                <div
-                  className={styles.selectBox}
-                  onClick={openProvinceModal}
-                >
+                <div className={styles.selectBox} onClick={openProvinceModal}>
                   {getProvinceLabel()} <DownArrow />
                 </div>
-                <div
-                  className={styles.selectBox}
-                  onClick={openCityModal}
-                >
+                <div className={styles.selectBox} onClick={openCityModal}>
                   {getCityLabel()} <DownArrow />
                 </div>
               </div>
@@ -509,13 +498,17 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
           <button
             className={styles.saveBtn}
             onClick={handleSave}
-            disabled={!isFormValid || storeMutation.isPending || updateMutation.isPending}
+            disabled={
+              !isFormValid ||
+              storeMutation.isPending ||
+              updateMutation.isPending
+            }
           >
             {storeMutation.isPending || updateMutation.isPending
               ? "در حال ذخیره..."
               : editingId
-              ? "ذخیره تغییرات"
-              : "ذخیره"}
+                ? "ذخیره تغییرات"
+                : "ذخیره"}
           </button>
         </div>
       )}
