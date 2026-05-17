@@ -14,72 +14,75 @@ const withPWA = initPwa({
 const defaultRedirects = [
   {
     source: "/dm/ch/:id(\\d+)",
-      destination: "/product-list/archive?provider=:id",
-      permanent: true,
+    destination: "/product-list/archive?provider=:id",
+    permanent: true,
   },
+  // {
+  //   source: "/dm/cl/:id",
+  //   destination: "/product-list",
+  //   permanent: false,
+  // },
   {
     source: "/dm/:id(\\d+)",
-      destination: "/product/:id",
-      permanent: true,
+    destination: "/product/:id",
+    permanent: true,
   },
 ];
 
-const buildCollectionSearchText = (title) => {
-  return title
-    .replace(/^مجموعه\s*کتاب[‌\s-]*های?\s*/u, "")
-    .replace(/\s*پزشکی\s*$/u, "")
-    .trim();
-};
+// const buildCollectionSearchText = (title) => {
+//   return title
+//     .replace(/^مجموعه\s*کتاب[‌\s-]*های?\s*/u, "")
+//     .replace(/\s*پزشکی\s*$/u, "")
+//     .trim();
+// };
 
-const getCollectionRedirects = async () => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 25000);
+// const getCollectionRedirects = async () => {
+//   try {
+//     const controller = new AbortController();
+//     const timeoutId = setTimeout(() => controller.abort(), 25000);
 
-    const response = await fetch(`https://drabadapp.ir/user/shop/collection`, {
-      signal: controller.signal,
-    });
+//     const response = await fetch(`https://drabadapp.ir/user/shop/collection`, {
+//       signal: controller.signal,
+//     });
 
-    clearTimeout(timeoutId);
+//     clearTimeout(timeoutId);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch collections: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch collections: ${response.status}`);
+//     }
 
-    const result = await response.json();
-    const collections = result?.data || [];
+//     const result = await response.json();
+//     const collections = result?.data || [];
 
-    console.log("collections fetched:", collections.length);
+//     console.log("collections fetched:", collections.length);
 
-    const redirects = collections
-      .filter((collection) => collection?.id && collection?.title)
-      .map((collection) => {
-        const searchText =
-          buildCollectionSearchText(collection.title) ||
-          collection.title.trim();
+//     const redirects = collections
+//       .filter((collection) => collection?.id && collection?.title)
+//       .map((collection) => {
+//         const searchText =
+//           buildCollectionSearchText(collection.title) ||
+//           collection.title.trim();
 
-        const redirect = {
-          source: `/dm/cl/${collection.id}`,
-          destination: `/product-list/search?search=${encodeURIComponent(
-            searchText
-          )}`,
-          permanent: false,
-        };
+//         const redirect = {
+//           source: `/dm/cl/${collection.id}`,
+//           destination: `/product-list/search?search=${encodeURIComponent(searchText)}`,
+//           permanent: false,
+//         };
 
-        console.log("redirect built:", redirect);
-        return redirect;
-      });
+//         console.log("redirect built:", redirect);
+//         return redirect;
+//       });
 
-    return redirects;
-  } catch (error) {
-    if (error.name === "AbortError") {
-      console.warn("Collection redirects fetch timed out, skipping...");
-    } else {
-      console.error("Failed to build collection redirects", error);
-    }
-    return [];
-  }
-};
+//     return redirects;
+//   } catch (error) {
+//     if (error.name === "AbortError") {
+//       console.warn("Collection redirects fetch timed out, skipping...");
+//     } else {
+//       console.error("Failed to build collection redirects", error);
+//     }
+//     return [];
+//   }
+// };
 /** @type {import('next').NextConfig} */
 export default withPWA({
   reactStrictMode: true,
@@ -111,11 +114,12 @@ export default withPWA({
   sassOptions: {
     quietDeps: true,
   },
-  async redirects() {
-    const collectionRedirects = await getCollectionRedirects();
-
-    return [...defaultRedirects, ...collectionRedirects];
-  },
+async redirects() {
+  // const collectionRedirects = await getCollectionRedirects();
+  const all = [ ...defaultRedirects];
+  console.log("ALL REDIRECTS:", JSON.stringify(all, null, 2));
+  return all;
+},
   async rewrites() {
     return [
       {
