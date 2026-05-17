@@ -97,6 +97,8 @@ export type PackageOrderListItemType = {
   title: string;
   picture: string;
   main_price: number;
+  off_price: number;
+  amazing_price: number;
   language: number;
   category: {
     id: number;

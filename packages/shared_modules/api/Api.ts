@@ -434,7 +434,7 @@ class Api extends Request {
     return this.request.get(`/user/shop/favorite/list?page=${page}`);
   };
 
-  getContentFavoriteList = (
+  getPackageFavoriteList = (
     page: number = 1,
   ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> => {
     return this.request.get("/user/v1/package/favorite", {

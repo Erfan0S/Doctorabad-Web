@@ -1,15 +1,16 @@
 import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
-import { PackageListItemType } from "../../../../apps/download/types/packages";
+import { PackageListItemType } from "../../../../../apps/download/types/packages";
 import { Loading } from "@repo/shared_modules/components";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { ProductList } from "@repo/shared_modules/components";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { ProductListItemProps } from "@repo/core/types/props";
 import { CoinIcon, HomeIcon } from "../../../assets";
-import PaperIcon from "../../../assets/svg/paper";
-import CalenderCheck from "../../../assets/svg/calenderCheck";
+import CalenderIcon from "../../../../../apps/download/assets/svg/calender";
+import CategoryIcon from "../../../../../apps/download/assets/svg/category";
+import DownloadIcon from "../../../../../apps/download/assets/svg/download";
 
 const productData = (
   package_item: PackageListItemType,
@@ -25,12 +26,13 @@ const productData = (
     pic_url: package_item.picture,
     baseUrl: "package",
     attributes: [
+
       {
-        icon: <CalenderCheck color="#8b8b8b" fontSize={16} />,
+        icon: <CalenderIcon color="#8b8b8b" fontSize={16} />,
         value: package_item.publish_date || null,
       },
       {
-        icon: <PaperIcon color="#8b8b8b" fontSize={16} />,
+        icon: <CategoryIcon color="#8b8b8b" fontSize={16} />,
         value: categoryTitle || null,
       },
       {
@@ -55,8 +57,20 @@ const productData = (
         ),
       },
       {
-        icon: <HomeIcon fontSize={16} />,
-        value: `${package_item.sell_count} دانشجو`,
+        icon:
+        
+                  <>
+            {package_item.main_price
+              ? <HomeIcon  fontSize={16} />
+              : <DownloadIcon color="#8b8b8b" fontSize={16} />}
+          </>,
+        value: (
+          <>
+            {package_item.main_price
+              ? `${package_item.sell_count} دانشجو`
+              : `${package_item.download_count} دانلود`}
+          </>
+        ),
       },
     ],
     installmentPayment: package_item.installment_payment,
@@ -64,13 +78,13 @@ const productData = (
   };
 };
 
-const SidePanelFavoritesContent: React.FC = () => {
+const SidePanelFavoritesDownload: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<PackageListItemType[]>
   >({
     queryFn: ({ pageParam }) =>
-      api.getContentFavoriteList(Number(pageParam)).then((res) => res.data),
-    queryKey: ["favorite", "content"],
+      api.getPackageFavoriteList(Number(pageParam)).then((res) => res.data),
+    queryKey: ["favorite", "package"],
     initialPageParam: 1,
     staleTime: 0,
     getNextPageParam: (lastPage) => {
@@ -97,4 +111,4 @@ const SidePanelFavoritesContent: React.FC = () => {
   );
 };
 
-export default SidePanelFavoritesContent;
+export default SidePanelFavoritesDownload;

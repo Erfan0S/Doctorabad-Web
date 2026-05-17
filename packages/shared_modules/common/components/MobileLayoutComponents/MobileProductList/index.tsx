@@ -7,6 +7,7 @@ import Loading from "../../loading";
 import MobileProductListItem from "./MobileProductListItem";
 import { ProductListItemProps } from "@repo/core/types/props";
 import InfiniteScroll from "react-infinite-scroller";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 const ProductList = ({
   products,
@@ -38,11 +39,14 @@ const ProductList = ({
         hasMore={hasNextPage}
         loader={<Loading app={app} />}
       >
-        {products.map((p) => (
-          <Link href={`/${p.baseUrl}/${p.id}`} key={p.id}>
-            <MobileProductListItem {...p} />
-          </Link>
-        ))}
+        {products.map((p) => {
+          const productBaseUrl = baseUrls[p.app || app] || "";
+          return (
+            <Link href={`${productBaseUrl}/${p.baseUrl}/${p.id}`} key={p.id}>
+              <MobileProductListItem {...p} />
+            </Link>
+          );
+        })}
       </InfiniteScroll>
     </div>
   );

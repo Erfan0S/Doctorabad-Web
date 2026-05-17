@@ -8,10 +8,10 @@ import SidePanelHeader from "../header";
 import sidePanelStyle from "../sidePanel.module.scss";
 import SidePanelFavoritesLearning from "./learning";
 import SidePanelFavoritesShopping from "./shopping";
-import SidePanelFavoritesContent from "./content";
 import SidePanelFavoritesExam from "./exam";
 import classNames from "classnames";
 import { appsTabsData } from "../constants/apps-tabs-data";
+import SidePanelFavoritesDownload from "./download";
 
 const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
   setPage,
@@ -37,7 +37,7 @@ const SidePanelFavorites: React.FC<SidePanelPageProps> = ({
   const clubTabsComponents = {
     [SidePanelFavoriteTab.LEARNING_CENTER]: SidePanelFavoritesLearning,
     [SidePanelFavoriteTab.SHOPPING_CENTER]: SidePanelFavoritesShopping,
-    [SidePanelFavoriteTab.DOWNLOAD_CENTER]: SidePanelFavoritesContent,
+    [SidePanelFavoriteTab.DOWNLOAD_CENTER]: SidePanelFavoritesDownload,
     [SidePanelFavoriteTab.EXAM_CENTER]: SidePanelFavoritesExam,
   };
 
