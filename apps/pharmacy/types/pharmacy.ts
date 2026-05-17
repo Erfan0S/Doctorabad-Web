@@ -104,6 +104,8 @@ export interface MedicineDetails {
     file: string;
     use_type: number;
   }[];
+  keywords: string[];
+  meta_description: string;
 }
 
 

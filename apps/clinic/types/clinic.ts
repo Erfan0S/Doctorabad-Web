@@ -131,6 +131,8 @@ export interface DiseaseDetails {
     file: string;
     use_type: number;
   }[];
+  keywords: string[];
+  meta_description: string;
 }
 
 export enum HeaderType {

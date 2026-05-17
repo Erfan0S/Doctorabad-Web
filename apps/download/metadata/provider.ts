@@ -25,7 +25,7 @@ export const generateProviderMetaData = async ({
         description: meta_description || "ناشر",
         images: picture,
         url: `${baseUrls.download}/publishers/${id}`,
-        siteName: "دکتر‌لرن",
+        siteName: "دکتردانلود",
       },
       twitter: {
         title,
@@ -35,6 +35,6 @@ export const generateProviderMetaData = async ({
       },
     };
   } catch (error) {
-    return { title: "دکترآباد | ارایه دهنده" };
+    return { title: "دکترآباد | ناشر"};
   }
 };
