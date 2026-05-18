@@ -1,6 +1,6 @@
 import { api } from "@/api/Api";
 import DesktopProductSingle from "@/components/layouts/desktop/ProductSingle";
-import MobileProductSingle from "@/components/layouts/mobile/ProductSingle";
+import MobileProductSingle from "@/components/layouts/mobile/ProductSingle/ProductSingle";
 import { NextPageProps } from "@repo/core/types/general";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import { notFound } from "next/navigation";
@@ -23,10 +23,14 @@ export default async function Product({
     return (
       <DiviceSwitchShell
         desktop={
-          <DesktopProductSingle
-            data={data}
-            relatedProductList={relatedProductList.data}
-          />
+          <div className="container">
+            <div className="row">
+              <DesktopProductSingle
+                data={data}
+                relatedProductList={relatedProductList.data}
+              />
+            </div>
+          </div>
         }
         mobile={
           <MobileProductSingle

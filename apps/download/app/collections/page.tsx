@@ -1,9 +1,9 @@
 "use client";
 import { api } from "@/api/Api";
 import CategoriesList from "@/components/common/CategoriesList";
-import Loading from "@/components/common/Loading";
+import Loading from "@/components/common/loading";
 import HomeHeader from "@/components/Header/HomeHeader";
-import { CategoryType } from "@/types/homePage";
+import { CollectionType } from "@/types/homePage";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -12,7 +12,7 @@ import InfiniteScroll from "react-infinite-scroller";
 
 const CategoriesPage = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
-    PaginatedResponse<CategoryType[]>
+    PaginatedResponse<CollectionType[]>
   >({
     queryFn: ({ pageParam }) =>
       api.getCollections(pageParam as number).then((res) => res.data),

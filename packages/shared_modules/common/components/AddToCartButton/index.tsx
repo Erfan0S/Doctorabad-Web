@@ -31,6 +31,7 @@ type Props = {
   canIncrease?: boolean;
   compact?: boolean;
   variants?: ProductVariantsValue[];
+  onSucceed?: () => void;
 };
 
 function AddToCartButton({
@@ -46,6 +47,7 @@ function AddToCartButton({
   canIncrease,
   compact,
   variants,
+  onSucceed,
 }: Props) {
   const { cartActionsLoadingHandler, updateCartLoading } =
     useCartActionsLoadingHandler();
@@ -79,6 +81,11 @@ function AddToCartButton({
       </div>
     );
   }
+
+  const validateVariants = () => {
+    // TODO: add validation for variants before add to cart
+    if (!variants) return true;
+  };
 
   return (
     <div
@@ -134,7 +141,9 @@ function AddToCartButton({
               ? onClick
               : authorizeClientAction(
                   cartActionsLoadingHandler(() =>
-                    cartActions.addToCart(id, type, variants),
+                    cartActions.addToCart(id, type, variants).then(() => {
+                      onSucceed && onSucceed();
+                    }),
                   ),
                 )
           }

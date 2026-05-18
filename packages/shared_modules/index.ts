@@ -8,3 +8,5 @@ export { default as SidebarProvider } from "./sideBar";
 export { default as Providers } from "./providers/providers";
 
 export { default as PersistQueryProvider } from "./providers/persistQueryClientProvider";
+
+export { default as SharedHeadContents } from "./SharedHead/sharedHeadContents";

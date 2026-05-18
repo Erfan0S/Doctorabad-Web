@@ -578,6 +578,25 @@ class Api extends Request {
     });
   }
 
+    reportDiseaseError = (
+    text: string,
+    productId: number
+  ): Promise<ResponseType<{ message: string }>> => {
+    return this.request.post(`/user/v1/clinic/error/report`, {
+      report: text,
+      id: productId,
+    });
+  };
+    reportMedicineError = (
+    text: string,
+    productId: number
+  ): Promise<ResponseType<{ message: string }>> => {
+    return this.request.post(`/user/v1/medicine/error/report`, {
+      report: text,
+      id: productId,
+    });
+  };
+
   // favorite
 
   addLearnFavorite(id: number): Promise<{}> {

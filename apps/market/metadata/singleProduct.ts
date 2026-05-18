@@ -1,9 +1,10 @@
 import { api } from "@/api/Api";
-import { routePath } from "@repo/core/constants/routePath";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
 import { Metadata } from "next";
+import { generateProductMetaData } from "@repo/core/metadata/singleProduct";
+import { OrderType } from "@repo/core/types/cart";
 
-export const generateProductMetaData = async ({
+export const generateMarketProductMetaData = async ({
   params,
 }: {
   params: { id: string };
@@ -15,24 +16,21 @@ export const generateProductMetaData = async ({
     const { data } = await productFetcher;
     const { title, product_pic, meta_description, keywords, id, slug } =
       data.data;
-    return {
-      title,
-      description: meta_description,
-      keywords: keywords,
-      openGraph: {
+
+    console.log(
+      generateSingleProductUrlFromId(id, slug, OrderType.ShopProduct),
+    );
+
+    return generateProductMetaData({
+      productData: async () => ({
         title,
         description: meta_description,
-        images: product_pic,
-        url: `${routePath.drAbadBaseUrl}${generateSingleProductUrlFromId(id, slug)}`,
-        siteName: "دکترمارکت",
-      },
-      twitter: {
-        title,
-        description: meta_description,
-        images: product_pic,
-        card: "summary_large_image",
-      },
-    };
+        keywords,
+        product_pic,
+        siteName: "Market",
+        url: generateSingleProductUrlFromId(id, slug, OrderType.ShopProduct),
+      }),
+    });
   } catch (error) {
     return { title: "دکترآباد | محصول" };
   }

@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./DiseaseDetails.module.scss";
-import { clinicApi } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 import LeftArrow from "@/assets/svg/leftArrow";
@@ -21,6 +20,7 @@ import {
 import { canTrackDiseaseView } from "@/utils/diseaseViewTracking";
 import { useDiseaseView } from "@/hooks/useDiseaseView";
 import sanitize from "@repo/core/utils/sanitize";
+import { clinicApi } from "@/api/Api";
 
 // Helper function to check if value is __NO_ACCESS__
 const isNoAccess = (value: any): boolean => {

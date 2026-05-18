@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ProviderHeader.module.scss";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
@@ -42,7 +41,7 @@ const ProviderHeader = ({
   return (
     <div>
       <div
-        className={`${styles.ProviderHeader} ${styles[app]} ${styles[variant]}`}
+        className={`${styles.ProviderHeader} ${styles[app || ""]} ${styles[variant]}`}
       >
         <div className={styles.redBackground} />
         <Image
@@ -51,6 +50,7 @@ const ProviderHeader = ({
           width={150}
           height={80}
           placeholder={placeHolderDataUrl}
+          style={{ objectFit: variant == "secondary" ? "fill" : undefined }}
         />
         <div className={styles.providerInfo}>
           <h3>{title}</h3>

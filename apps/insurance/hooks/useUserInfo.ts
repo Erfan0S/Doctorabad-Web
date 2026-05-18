@@ -1,11 +1,22 @@
 // hooks/useUserInfo.ts
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { insuranceApi  } from "@/api/Api"; // مسیر api را تنظیم کنید
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseMutationResult,
+  UseQueryResult,
+} from "@tanstack/react-query";
+import { insuranceApi } from "@/api/Api"; // مسیر api را تنظیم کنید
 import { User } from "@repo/core/types/user";
-import { UpdateUserInfoInput, InsuranceInfo, StoreInsuranceInfoResponse  } from "@/types/insurance";
+import {
+  UpdateUserInfoInput,
+  InsuranceInfo,
+  StoreInsuranceInfoResponse,
+  UploadFileResponse,
+} from "@/types/insurance";
 
 // 1. Get User Profile
-export const useUserProfile = () => {
+export const useUserProfile = (): UseQueryResult<User, unknown> => {
   return useQuery<User>({
     queryKey: ["userProfile"],
     queryFn: async () => {
@@ -42,13 +53,19 @@ export const useCities = (provinceId: number | undefined) => {
 };
 
 // 4. Upload File
-export const useUploadFile = () => {
-  return useMutation({
-    mutationFn: async ({ file, type }: { file: File; type: number }) => {
-      const res = await insuranceApi.uploadFile(file, type);
-      return res.data.data;
+export const useUploadFile = (): UseMutationResult<
+  UploadFileResponse,
+  unknown,
+  { file: File; type: number }
+> => {
+  return useMutation<UploadFileResponse, unknown, { file: File; type: number }>(
+    {
+      mutationFn: async ({ file, type }: { file: File; type: number }) => {
+        const res = await insuranceApi.uploadFile(file, type);
+        return res.data.data;
+      },
     },
-  });
+  );
 };
 
 // 5. Destroy File
@@ -89,57 +106,41 @@ export const useUpdateInsuranceInfo = () => {
   });
 };
 
-
-
 // لیست اطلاعات ذخیره شده کاربر
 export const useInsuranceInfos = () => {
-    return useQuery<InsuranceInfo[]>({
-      queryKey: ["insuranceInfos"],
-      queryFn: async () => {
-        const res = await insuranceApi.getInsuranceInfos();
-        return res.data.data;
-      },
-    });
-  };
-  
-  // دریافت اطلاعات تکی
-  export const useInsuranceInfoSingle = (id: number | null) => {
-    return useQuery<InsuranceInfo>({
-      queryKey: ["insuranceInfo", id],
-      queryFn: async () => {
-        if (!id) throw new Error("ID required");
-        const res = await insuranceApi.getInsuranceInfoSingle(id);
-        return res.data.data;
-      },
-      enabled: !!id,
-    });
-  };
-  
-  // ایجاد اطلاعات جدید
-  export const useStoreInsuranceInfo = () => {
-    const queryClient = useQueryClient();
-    return useMutation<StoreInsuranceInfoResponse, Error, UpdateUserInfoInput>({
-      mutationFn: async (payload: UpdateUserInfoInput) => {
-        const res = await insuranceApi.storeInsuranceInfo(payload);
-        console.log("API Store Response:", res);
-        return res.data?.data || res.data;
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["insuranceInfos"] });
-
-      },
-    });
-  };
-
-export const useInsuranceOrderInfo = (orderId: number | null) => {
-  return useQuery<any>({
-    queryKey: ["insuranceOrderInfo", orderId],
+  return useQuery<InsuranceInfo[]>({
+    queryKey: ["insuranceInfos"],
     queryFn: async () => {
-      if (!orderId) throw new Error("Order ID required");
-      const res = await insuranceApi.getInsuranceOrderInfo(orderId);
+      const res = await insuranceApi.getInsuranceInfos();
       return res.data.data;
     },
-    enabled: !!orderId,
   });
 };
-  
+
+// دریافت اطلاعات تکی
+export const useInsuranceInfoSingle = (id: number | null) => {
+  return useQuery<InsuranceInfo>({
+    queryKey: ["insuranceInfo", id],
+    queryFn: async () => {
+      if (!id) throw new Error("ID required");
+      const res = await insuranceApi.getInsuranceInfoSingle(id);
+      return res.data.data;
+    },
+    enabled: !!id,
+  });
+};
+
+// ایجاد اطلاعات جدید
+export const useStoreInsuranceInfo = () => {
+  const queryClient = useQueryClient();
+  return useMutation<StoreInsuranceInfoResponse, Error, UpdateUserInfoInput>({
+    mutationFn: async (payload: UpdateUserInfoInput) => {
+      const res = await insuranceApi.storeInsuranceInfo(payload);
+      console.log("API Store Response:", res);
+      return res.data?.data || res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["insuranceInfos"] });
+    },
+  });
+};

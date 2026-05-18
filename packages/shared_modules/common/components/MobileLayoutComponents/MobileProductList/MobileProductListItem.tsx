@@ -38,7 +38,9 @@ const MobileProductListItem = ({
       )}
       <div className={styles.productInfo}>
         <h3 className={styles.title}>{title}</h3>
-        {providerTitle && <span>{providerTitle}</span>}
+        <span className={styles.providerTitle}>
+          {providerTitle && providerTitle}
+        </span>
         <div className={styles.metadata}>
           <div className={styles.metadataWrapper}>
             {attributes?.map(({ value, icon }, idx) => {

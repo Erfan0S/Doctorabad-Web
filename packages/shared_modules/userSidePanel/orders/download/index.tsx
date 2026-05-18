@@ -12,20 +12,18 @@ import CalenderIcon from "../../../../../apps/download/assets/svg/calender";
 import CategoryIcon from "../../../../../apps/download/assets/svg/category";
 import DownloadIcon from "../../../../../apps/download/assets/svg/download";
 
-
 const productData = (
   package_item: PackageOrderListItemType,
 ): ProductListItemProps => {
   const categoryTitle = package_item.category?.name || "";
-  
+
   return {
     id: package_item.id.toString(),
     title: package_item.title,
-    provider: package_item.provider,
+    providerTitle: package_item.provider,
     pic_url: package_item.picture,
     baseUrl: "package",
     attributes: [
-
       {
         icon: <CalenderIcon color="#8b8b8b" fontSize={16} />,
         value: package_item.publish_date || null,
@@ -56,13 +54,15 @@ const productData = (
         ),
       },
       {
-        icon:
-        
-                  <>
-            {package_item.main_price
-              ? <HomeIcon  fontSize={16} />
-              : <DownloadIcon color="#8b8b8b" fontSize={16} />}
-          </>,
+        icon: (
+          <>
+            {package_item.main_price ? (
+              <HomeIcon fontSize={16} />
+            ) : (
+              <DownloadIcon color="#8b8b8b" fontSize={16} />
+            )}
+          </>
+        ),
         value: (
           <>
             {package_item.main_price

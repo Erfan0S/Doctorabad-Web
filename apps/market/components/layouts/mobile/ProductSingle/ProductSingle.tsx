@@ -13,6 +13,9 @@ import sanitize from "@repo/core/utils/sanitize";
 import { OrderType } from "@repo/core/types/cart";
 import { marketPaths } from "@repo/core/constants/routePath";
 import ProductHeaderSuffix from "@/components/product/mobileLayout/ProductHeaderSuffix";
+import MobileProductVariantButton from "@/components/product/mobileLayout/MobileProductVariantButton";
+import ProductSlider from "@/components/product/intro/slider";
+import styles from "./ProductSingle.module.scss";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -54,6 +57,7 @@ const TabsConfig = (
             pic_url: p.product_pic,
             price_main: p.price_main,
             price_off: p.price_amazing || p.price_off,
+            providerTitle: p.provider || undefined,
           }))}
         />
       </>
@@ -66,11 +70,22 @@ function MobileProductSingle({
   relatedProductList,
   searchParams,
 }: ProductSingleProps) {
+  const haveVariant = Object.keys(data.variants).length > 0;
+
   return (
     <>
       <MobileProductLayout
         app={Apps.MARKET}
-        preview={data.product_pic}
+        preview={
+          <div className={styles.productSlyderContainer}>
+            <ProductSlider
+              title={data.title}
+              slider={data.files}
+              thumbnail={data.product_pic}
+              isMobileLayout
+            />
+          </div>
+        }
         tabsData={TabsConfig(data, relatedProductList)}
         title={data.title || data.title_en || "____"}
         provider={{
@@ -89,6 +104,9 @@ function MobileProductSingle({
           productId: data.id,
           orderType: OrderType.ShopProduct,
           canIncrease: true,
+          replaceButton: haveVariant ? (
+            <MobileProductVariantButton product={data} />
+          ) : undefined,
         }}
         headerSuffix={<ProductHeaderSuffix product={data} />}
       />

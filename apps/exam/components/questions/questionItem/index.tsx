@@ -41,6 +41,7 @@ const buttons = (
   return [
     {
       onClick: () => toggleFavorite(question.id),
+      // TODO: use general FavoriteButton component if needed
       component: (
         <FavoriteHeartIcon
           loading={isLoading}

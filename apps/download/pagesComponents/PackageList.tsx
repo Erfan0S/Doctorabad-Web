@@ -1,12 +1,15 @@
 "use client";
-import Loading from "@/components/common/Loading";
+import Loading from "@/components/common/loading";
 import { PackageListConfigs } from "@/constants/PackageList";
 import { HomePagePackageSliders } from "@/types/homePage";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import PackageList from "@/components/common/PackageList";
-import { PackageListItemType, PackageOrderListItemType } from "@/types/packages";
+import {
+  PackageListItemType,
+  PackageOrderListItemType,
+} from "@/types/packages";
 
 type Props = {
   type: HomePagePackageSliders;
@@ -14,7 +17,7 @@ type Props = {
 
 const PackageListPage = ({ type }: Props) => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
-    PaginatedResponse<(PackageListItemType | PackageOrderListItemType)[]>  
+    PaginatedResponse<(PackageListItemType | PackageOrderListItemType)[]>
   >({
     queryKey: ["packages", PackageListConfigs[type].title],
     queryFn: ({ pageParam }) =>

@@ -37,8 +37,15 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #333;
-  margin-bottom: 0.5rem;
   margin-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.providerTitle {
+  color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
 .metadata {
@@ -69,7 +76,7 @@
 }
 
 .productImage {
-height: 100px;
+  height: 100px;
   width: 80px;
   border-radius: 0.5rem;
   object-fit: cover;

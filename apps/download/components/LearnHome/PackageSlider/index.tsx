@@ -3,7 +3,7 @@ import { SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import { PackageListItemType } from "@/types/courses";
+import { PackageListItemType } from "@/types/packages";
 import { Apps } from "@repo/core/types/general";
 import Image from "next/image";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";

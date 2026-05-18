@@ -1,11 +1,11 @@
-import { generateProductMetaData } from '@/metadata/singleProduct';
+import { generateMarketProductMetaData } from "@/metadata/singleProduct";
 
-export const generateMetadata = generateProductMetaData;
+export const generateMetadata = generateMarketProductMetaData;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="container">
-      <div className="row">{children}</div>
-    </div>
-  );
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return children;
 }

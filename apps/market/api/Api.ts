@@ -24,7 +24,11 @@ import { BlogType } from "@/types/blog";
 
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
-import { CollectionListItem, CollectionSingleType } from "@/types/collection";
+import {
+  CollectionListResponse,
+  CollectionListItem,
+  CollectionSingleType,
+} from "@/types/collection";
 
 class Api extends Request {
   constructor() {
@@ -486,14 +490,14 @@ class Api extends Request {
 
   // Collections
   getCollectionsList = ({ page = 1 }: { page: number }) => {
-    return this.request.get<Promise<PaginatedResponse<CollectionListItem[]>>>(
-      "/user/shop/collection",
-      {
-        params: {
-          page: String(page),
-        },
+    return this.request.get<{
+      data: CollectionListItem[];
+      meta: CollectionListResponse["meta"];
+    }>("/user/shop/collection", {
+      params: {
+        page: String(page),
       },
-    );
+    });
   };
 
   getSingleCollection = (id: number, page: number = 1) => {

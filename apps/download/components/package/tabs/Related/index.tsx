@@ -1,7 +1,7 @@
 "use client";
 import { api } from "@/api/Api";
 import StaticPackageList from "@/components/common/PackageList/StaticPackageList";
-import Loading from "@/components/common/Loading";
+import Loading from "@/components/common/loading";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { PackageContentProps } from "../tabs-data";

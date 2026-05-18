@@ -123,7 +123,7 @@ export interface UpdateUserInfoInput {
   // فایل‌ها در ارسال فقط آرایه‌ای از ID هستند
   national_id_card_files: number[]; 
   medical_education_card_files: number[];
-  last_insurance_files: number[];
+  last_insurance_files?: number[];
   
   active_clinic: boolean;
   city_id?: number;

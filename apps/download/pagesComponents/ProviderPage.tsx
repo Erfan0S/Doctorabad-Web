@@ -75,17 +75,42 @@ const ProviderPage = ({ id }: Props) => {
   const packages = React.useMemo(() => {
     if (!data) return [];
     return data.pages.flatMap((page) =>
-      page.data.map(
-        (package_item) =>
-          ({
-            ...package_item,
-            publisher: {
-              id: page.publisher.id,
-              name: page.publisher.name,
-              picture: page.publisher.picture,
-            },
-          }) as PackageListItemType,
-      ),
+      page.data.map((package_item: any) => {
+        const category = Array.isArray(package_item.category)
+          ? package_item.category
+          : package_item.category
+            ? [
+                {
+                  id: package_item.category.id,
+                  title: (package_item.category as any).name,
+                },
+              ]
+            : [{ id: 0, title: "" }];
+
+        const mapped: PackageListItemType = {
+          id: package_item.id,
+          title: package_item.title,
+          picture: (package_item as any).picture || "",
+          main_price:
+            (package_item as any).main_price ??
+            (package_item as any).price_main ??
+            0,
+          off_price:
+            (package_item as any).off_price ??
+            (package_item as any).price_off ??
+            0,
+          language: (package_item as any).language ?? 1,
+          category: category as [{ id: number; title: string }],
+          provider: page.publisher.name || (package_item as any).provider || "",
+          sell_count: (package_item as any).sell_count ?? 0,
+          download_count: (package_item as any).download_count ?? 0,
+          publish_date: (package_item as any).publish_date ?? 0,
+          installment_payment:
+            (package_item as any).installment_payment ?? false,
+        };
+
+        return mapped;
+      }),
     );
   }, [data]);
 

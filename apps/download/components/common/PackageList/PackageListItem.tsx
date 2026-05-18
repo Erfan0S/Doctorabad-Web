@@ -4,12 +4,10 @@ import Image from "next/image";
 import React from "react";
 
 import CategoryIcon from "@/assets/svg/category";
-import Hat from "@/assets/svg/hat";
 import HomeIcon from "@/assets/svg/home";
 import { PackageListItemType } from "@/types/packages";
 import styles from "./CourseList.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import formatDuration from "@/utils/formatDuration";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ListProductSnappayNotif } from "@repo/shared_modules/components";
 

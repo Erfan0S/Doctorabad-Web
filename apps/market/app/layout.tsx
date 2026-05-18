@@ -14,6 +14,7 @@ import MarketHeader from "@/components/common/header/market";
 import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
 import { marketPaths } from "@repo/core/constants/routePath";
+import { SharedHeadContents } from "@repo/shared_modules";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -34,7 +35,7 @@ export default async function RootLayout({
 
   return (
     <html lang="fa">
-      <head></head>
+      <SharedHeadContents />
       <body className={`${font.className} desktop_body`}>
         <NextTopLoader color="#f54f1a" />
         <div className="root">
