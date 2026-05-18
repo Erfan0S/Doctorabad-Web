@@ -19,7 +19,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/core/src/utils/variantsUtils.ts"
+    "../../packages/core/src/utils/variantsUtils.ts",
+    "../../packages/core/src/metadata/singleProduct.ts"
   ],
   "exclude": ["node_modules"]
 }
