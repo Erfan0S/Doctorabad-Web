@@ -49,9 +49,9 @@ const FiltersContainer = () => {
   }));
 
   const LanguageData = [
-    { id: 1, title: "Fa" },
-    { id: 2, title: "En" },
-    { id: 3, title: "Ar" },
+    { id: 1, title: "فارسی" },
+    { id: 2, title: "انگلیسی" },
+    { id: 3, title: "عربی" },
   ];
 
   const SortData = [

@@ -59,6 +59,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
   const [address, setAddress] = useState("");
   const [nationalCardId, setNationalCardId] = useState<number | null>(null);
   const [medicalCardId, setMedicalCardId] = useState<number | null>(null);
+  const [lastInsurerCardId, setLastInsurerCardId] = useState<number | null>(null);
   const [insuredPhone, setInsuredPhone] = useState("");
   const [postalCode, setPostalCode] = useState<number | null>(null);
 
@@ -82,6 +83,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
         setAddress(info.clinic_address || "");
         setNationalCardId(info.national_id_card_files?.[0]?.id || null);
         setMedicalCardId(info.medical_education_card_files?.[0]?.id || null);
+        setLastInsurerCardId(info.last_insurance_files?.[0]?.id || null);
         setInsuredPhone(info.insured_phone || "");
         setPostalCode(info.postal_code ? Number(info.postal_code) : null);
       }
@@ -97,6 +99,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
       setAddress("");
       setNationalCardId(null);
       setMedicalCardId(null);
+      setLastInsurerCardId(null);
       setInsuredPhone("");
       setPostalCode(null);
     }
@@ -222,6 +225,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
       grade_id: selectedGradeId,
       residency_status: selectedResidencyId as 1 | 2,
       national_id_card_files: nationalCardId ? [nationalCardId] : [],
+      last_insurance_files: lastInsurerCardId ? [lastInsurerCardId] : [],
       medical_education_card_files: medicalCardId ? [medicalCardId] : [],
       active_clinic: activeClinic,
       province_id: provinceId,
@@ -413,18 +417,25 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
               <label className={styles.label}>آپلود فایل‌ها:</label>
               <div className={styles.uploadSection}>
                 <UploadBox
-                  title="افزودن کارت ملی"
+                  title=" کارت ملی"
                   type={1}
                   fileId={nationalCardId}
                   onUploadSuccess={setNationalCardId}
                   onDeleteSuccess={() => setNationalCardId(null)}
                 />
                 <UploadBox
-                  title="افزودن کارت نظام پزشکی"
+                  title="  کارت نظام پزشکی"
                   type={2}
                   fileId={medicalCardId}
                   onUploadSuccess={setMedicalCardId}
                   onDeleteSuccess={() => setMedicalCardId(null)}
+                />
+                <UploadBox
+                  title="  بیمه‌نامه قبلی"
+                  type={3}
+                  fileId={lastInsurerCardId}
+                  onUploadSuccess={setLastInsurerCardId}
+                  onDeleteSuccess={() => setLastInsurerCardId(null)}
                 />
               </div>
             </div>
