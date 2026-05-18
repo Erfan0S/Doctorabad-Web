@@ -33,6 +33,7 @@ $button-bg-blue: linear-gradient(to right, #09b6f3, #0478ad);
 $button-bg-green: linear-gradient(to right, #50cf4b, #50cf4b);
 $button-bg-red: linear-gradient(90deg, #ee2e53 0%, #c02745 100%);
 $button-bg-darkBlue: #006797;
+$button-bg-proGreen: $proGreen;
 // $button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
 $button-bg-purple: $purple;
 
@@ -61,4 +62,8 @@ $card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 .download {
   --button-bg: #{$button-bg-darkBlue};
   --app-base: #{$darkBlue};
+}
+.dr-pro {
+  --button-bg: #{$button-bg-proGreen};
+  --app-base: #{$proGreen};
 }

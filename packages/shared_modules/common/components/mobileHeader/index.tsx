@@ -49,7 +49,7 @@ const MobileHeader = ({ type }: Props) => {
 
   const openSideMenu = (menu: SidePanelPage) =>
     authorizeClientAction(() =>
-      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
+      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu }),
     );
 
   useEffect(() => {
@@ -67,19 +67,8 @@ const MobileHeader = ({ type }: Props) => {
           )}
         </button>
         <button
-          onClick={() => {
-            if (!isServerSide) {
-              window.open(`${baseUrls[Apps.BASE]}${routePath.pro}`, "_self");
-            }
-          }}
-          className={style.proButton}
-        >
-          <PlansIcon />
-          <span>دکتر پرو</span>
-        </button>
-        <button
           onClick={authorizeClientAction(() =>
-            modalActions.addModal(ModalTypes.QR_CONTENTS)
+            modalActions.addModal(ModalTypes.QR_CONTENTS),
           )}
         >
           <QrScannerIcon />
@@ -110,6 +99,17 @@ const MobileHeader = ({ type }: Props) => {
         >
           <CartIcon />
           {cart.count > 0 && <span>{cart.count}</span>}
+        </button>
+        <button
+          onClick={() => {
+            if (!isServerSide) {
+              window.open(`${baseUrls[Apps.BASE]}${routePath.pro}`, "_self");
+            }
+          }}
+          className={style.proButton}
+        >
+          <PlansIcon />
+          <span>دکتر پرو</span>
         </button>
       </div>
     </div>

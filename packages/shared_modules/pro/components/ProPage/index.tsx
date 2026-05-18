@@ -8,7 +8,7 @@ import { Apps } from "@repo/core/types/general";
 const ProPage = () => {
   return (
     <div className={styles.proPageContainer}>
-      <PageHeader title="دکتر پرو" app={Apps.BASE} />
+      <PageHeader title="دکتر پرو" app={Apps.DRPRO} />
       
       <div className={styles.content}>
         <h1>به بخش دکتر پرو خوش آمدید</h1>
