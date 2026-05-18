@@ -21,6 +21,7 @@ export const routePath = {
   toolsBasePath: "/tools",
   downloadBasePath: "/download",
   insuranceBasePath: "/insurance",
+  pro: "/dr-pro",
 };
 
 export const learnPaths = {

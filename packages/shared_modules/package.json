@@ -19,6 +19,7 @@
     "./components": "./common/components/index.ts",
     "./assets/styles/*": "./assets/styles/*.scss",
     "./headers": "./headers/index.ts",
+    "./pro": "./pro/components/ProPage/index.tsx",
     "./ui": "./common/components/ui/index.ts",
     "./components/DiviceSwitchShell": "./common/components/Loayout/DiviceSwitchShell/index.tsx"
   },

@@ -73,6 +73,19 @@
       font-weight: 600;
     }
   }
+
+  .proButton {
+    border-color: $proGreen; // رنگ نارنجی برای تمایز
+    span {
+      color: $proGreen;
+      font-size: 11px;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    svg {
+      fill: $proGreen;
+    }
+  }
 }
 
 @media (max-width: 768px) {

@@ -14,8 +14,6 @@
   "dependencies": {
     "@repo/core": "*",
     "@repo/shared_modules": "*",
-    "@types/video.js": "^7.3.58",
-    "@videojs/http-streaming": "^3.17.0",
     "@zxing/browser": "^0.1.4",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
@@ -40,10 +38,6 @@
     "server-only": "^0.0.1",
     "sharp": "^0.33.2",
     "typescript": "5.1.6",
-    "video.js": "^8.21.0",
-    "videojs-contrib-quality-levels": "^4.1.0",
-    "videojs-hls-quality-selector": "^2.0.0",
-    "videojs-mobile-ui": "^1.1.1",
     "yup": "^1.2.0",
     "zaman": "^2.1.1",
     "zustand": "^4.4.0"

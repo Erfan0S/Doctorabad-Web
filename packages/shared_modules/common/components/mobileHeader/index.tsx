@@ -15,6 +15,7 @@ import HomeIcon from "../../../assets/svg/home";
 import ChatIcon from "../../../assets/svg/chat";
 import QrScannerIcon from "../../../assets/svg/qrScanner";
 import CartIcon from "../../../assets/svg/cart";
+import PlansIcon from "../../../assets/svg/plans";
 import { useRouter } from "next/navigation";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { useEffect } from "react";
@@ -22,6 +23,7 @@ import { SidePanelPage } from "@repo/core/types/sidePanel";
 import getCurrentAppName from "@repo/core/utils/getCurrentAppName";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import { isServerSide } from "@repo/core/constants/constants";
+import { baseUrls, routePath } from "@repo/core/constants/routePath";
 
 type Props = {
   type: Apps;
@@ -63,6 +65,17 @@ const MobileHeader = ({ type }: Props) => {
           {isSuccess && data.data.data.counter > 0 && (
             <span className={style.buttonsBadge}>{data.data.data.counter}</span>
           )}
+        </button>
+        <button
+          onClick={() => {
+            if (!isServerSide) {
+              window.open(`${baseUrls[Apps.BASE]}${routePath.pro}`, "_self");
+            }
+          }}
+          className={style.proButton}
+        >
+          <PlansIcon />
+          <span>دکتر پرو</span>
         </button>
         <button
           onClick={authorizeClientAction(() =>
