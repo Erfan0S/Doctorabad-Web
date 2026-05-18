@@ -1,3 +1,4 @@
+"use client";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -74,9 +75,9 @@ function SingleListItem({
         </div>
         {haveFavoriteButton && (
           <FavoriteButton
-            initialState={item.favorite}
+            initialState={!!item.favorite}
             action={() => {
-              return api.examSingleExamFavorite(item.id);
+              return api.examSingleExamFavorite(item.id, !item.favorite);
             }}
             app={Apps.EXAM}
             className={style.favoriteButton}
