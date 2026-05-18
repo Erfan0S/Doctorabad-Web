@@ -44,15 +44,12 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
             color,
             href,
             mobileTitle,
-            disabled,
             basePath,
           }) => {
             return (
               <li
                 key={id}
-                className={
-                  !disabled && activeCondition(basePath) ? style.active : ""
-                }
+                className={activeCondition(basePath) ? style.active : ""}
                 id={String(id)}
               >
                 <a href={href} className={style[color]}>
@@ -64,7 +61,7 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
                 </a>
               </li>
             );
-          }
+          },
         )}
       </ul>
     </div>

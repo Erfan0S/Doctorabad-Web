@@ -41,7 +41,7 @@ const ProviderHeader = ({
   return (
     <div>
       <div
-        className={`${styles.ProviderHeader} ${styles[app]} ${styles[variant]}`}
+        className={`${styles.ProviderHeader} ${styles[app || ""]} ${styles[variant]}`}
       >
         <div className={styles.redBackground} />
         <Image

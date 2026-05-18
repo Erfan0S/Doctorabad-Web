@@ -35,11 +35,7 @@ const CourseList = ({
         {courses?.pages.map((page, i) => (
           <React.Fragment key={i}>
             {page.data.map((course, index) => (
-              <CourseListItem
-                course={course}
-                haveFavoriteToggle={haveFavoriteToggle}
-                key={index}
-              />
+              <CourseListItem course={course} key={index} />
             ))}
           </React.Fragment>
         ))}

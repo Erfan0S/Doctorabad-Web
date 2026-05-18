@@ -1,11 +1,11 @@
 // useInsuranceFind.ts
-import { useQuery } from "@tanstack/react-query";
 import { insuranceApi } from "@/api/Api";
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { InsuranceField, DamageHistory, ResidencyStatus, Insurer, InsuranceGrade  } from "@/types/insurance";
 
 type ApiListResponse<T> = { data: T[] };
 
-export const useInsuranceFields = () =>
+export const useInsuranceFields = () : UseQueryResult<InsuranceField[], unknown> =>
   useQuery({
     queryKey: ["insurance", "fields"],
     queryFn: () => insuranceApi.getInsuranceFields(),

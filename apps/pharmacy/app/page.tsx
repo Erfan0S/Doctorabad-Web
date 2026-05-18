@@ -1,7 +1,10 @@
-import MainPage from '@/components/MainPage/MainPage';
+import MainPage from "@/components/MainPage/MainPage";
+import { Suspense } from "react";
 
 export default async function MedicinePage() {
-
-  
-  return <MainPage />;
+  return (
+    <Suspense>
+      <MainPage />
+    </Suspense>
+  );
 }

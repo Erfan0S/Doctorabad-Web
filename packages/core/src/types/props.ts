@@ -20,6 +20,7 @@ export type ProductListItemProps = {
   price_off?: number;
   app?: Apps;
 };
+
 // export type PackageListItemProps = {
 //   lang?: "Fa" | "En" | "Ar" | null;
 //   title: string;

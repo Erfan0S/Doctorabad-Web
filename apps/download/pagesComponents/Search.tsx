@@ -1,9 +1,8 @@
 "use client";
 import { api } from "@/api/Api";
-import CourseList from "@/components/common/CourseList";
 import FIlterNotFound from "@/components/common/FIlterNotFound";
-import Loading from "@/components/common/Loading";
-import { PackageListItemType } from "@/types/courses";
+import Loading from "@/components/common/loading";
+import { PackageListItemType } from "@/types/packages";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";

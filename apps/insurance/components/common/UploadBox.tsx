@@ -36,7 +36,7 @@ const UploadBox: React.FC<UploadBoxProps> = ({
             // با توجه به تایپ API شما: Promise<ResponseType<UploadFileResponse>>
             // response احتمالا ساختاری مثل { data: { file: number, ... }, status: ... } دارد
             // یا اگر خود data را برمی‌گرداند:
-            const uploadedFileId = response.data?.file || response.file; 
+            const uploadedFileId =  response.file; 
             
             if (uploadedFileId) {
               onUploadSuccess(uploadedFileId);

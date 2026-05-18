@@ -8,6 +8,19 @@ export type CollectionListItem = {
   pic_url: string;
 };
 
+export type CollectionListResponse = {
+  data: CollectionListItem[];
+  meta: {
+    current_page: number;
+    from: number;
+    last_page: number;
+    path: string;
+    per_page: number;
+    to: number;
+    total: number;
+  };
+};
+
 export interface CollectionSingleType extends PaginatedResponse<Product[]> {
   collection: CollectionListItem;
 }

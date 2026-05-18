@@ -10,7 +10,6 @@ import { OrderType } from "@repo/core/types/cart";
 
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api"; // مسیر سرویست
-import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
 
 

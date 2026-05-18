@@ -1,7 +1,7 @@
 "use client";
 import { api } from "@/api/Api";
 import CategoriesList from "@/components/common/CategoriesList";
-import Loading from "@/components/common/Loading";
+import Loading from "@/components/common/loading";
 import HomeHeader from "@/components/Header/HomeHeader";
 import { ProviderType } from "@/types/homePage";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";

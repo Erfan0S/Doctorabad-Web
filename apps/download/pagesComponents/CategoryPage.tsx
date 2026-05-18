@@ -3,7 +3,7 @@ import { PageHeader } from "@repo/shared_modules/headers";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { Apps } from "@repo/core/types/general";
-import Loading from "@/components/common/Loading";
+import Loading from "@/components/common/loading";
 
 type Props = {
   id: number;

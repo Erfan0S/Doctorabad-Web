@@ -16,6 +16,8 @@ import {
   useInsuranceFields,
   useGrades,
   useResidencyStatus,
+  useDamageHistory,
+  useLastInsurer,
 } from "@/hooks/useInsuranceFind";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -62,6 +64,8 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
 
   const storeMutation = useStoreInsuranceInfo();
   const updateMutation = useUpdateInsuranceInfo();
+
+  const { data: damageHistories = [] } = useDamageHistory();
 
   // Load editing data
   useEffect(() => {
@@ -150,14 +154,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
     });
   };
 
-  const openDamageHistoryModal = () => {
-    modalActions.addModal(ModalTypes.INSURANCE_FIELD_SELECT, {
-      title: "انتخاب سابقه خسارت",
-      options: damageHistories.map((d) => ({ id: d.id, label: d.title })),
-      selectedId: selectedDamageHistoryId,
-      onSelect: (id: number) => setSelectedDamageHistoryId(id),
-    });
-  };
+
 
   const openProvinceModal = () => {
     modalActions.addModal(ModalTypes.INSURANCE_FIELD_SELECT, {
@@ -199,13 +196,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
     );
   };
 
-  const getDamageHistoryLabel = () => {
-    if (!selectedDamageHistoryId) return "سابقه خسارت";
-    return (
-      damageHistories.find((d) => d.id === selectedDamageHistoryId)?.title ||
-      "سابقه خسارت"
-    );
-  };
+
 
   const getProvinceLabel = () => {
     if (!provinceId) return "استان";

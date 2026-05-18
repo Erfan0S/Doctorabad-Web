@@ -4,7 +4,10 @@ import { api } from "@/api/Api";
 import { FiltersNames, SortType } from "@/types/filters";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { OptionSwitch, SelectFilterQroup } from "@repo/shared_modules/components";
+import {
+  OptionSwitch,
+  SelectFilterQroup,
+} from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { SelectQroupItemType } from "@repo/core/types/filter";
 import { PersistQueryProvider } from "@repo/shared_modules";
@@ -25,11 +28,8 @@ const FiltersContainer = () => {
       api.getGrades((params?.get(FiltersNames.FIELD) || 1) as number),
     enabled: !!params?.get(FiltersNames.FIELD),
   });
-  const { data: language, isLoading: languageLoading } = useQuery({
-    queryKey: [FiltersNames.LANGUAGE],
-    queryFn: () => api.getLanguages(),
-    enabled: true,
-  });
+  // use static language options instead of calling API
+  const languageLoading = false;
   const { data: category, isLoading: categoryLoading } = useQuery({
     queryKey: [FiltersNames.CATEGORY],
     queryFn: () => api.getCategories(),
@@ -48,20 +48,11 @@ const FiltersContainer = () => {
     title: item.title,
   }));
 
-  const LanguageData = (() => {
-    const base =
-      language?.data.map((item) => ({
-        id: item.id,
-        title: item.language,
-      })) || [];
-
-    // ensure arabic exists as an option (id: 3)
-    if (!base.some((x) => Number(x.id) === 3)) {
-      base.push({ id: 3, title: "عربی" });
-    }
-
-    return base;
-  })();
+  const LanguageData = [
+    { id: 1, title: "Fa" },
+    { id: 2, title: "En" },
+    { id: 3, title: "Ar" },
+  ];
 
   const SortData = [
     {
@@ -127,7 +118,7 @@ const FiltersContainer = () => {
       loading: languageLoading,
       isActive: true,
       multiSelection: true,
-    }, 
+    },
     {
       title: "براساس",
       data: SortData,
@@ -140,7 +131,14 @@ const FiltersContainer = () => {
   return (
     <div className={`${style.filtersWrapper} card`}>
       <SelectFilterQroup items={FiltersData} app={Apps.DOWNLOAD} />
-      <ul style={{ marginTop: 12, marginBottom: 0, padding: 0, listStyle: "none" }}>
+      <ul
+        style={{
+          marginTop: 12,
+          marginBottom: 0,
+          padding: 0,
+          listStyle: "none",
+        }}
+      >
         <OptionSwitch
           title="رایگان!"
           name={FiltersNames.FREE}

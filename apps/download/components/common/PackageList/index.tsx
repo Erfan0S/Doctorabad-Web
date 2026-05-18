@@ -3,39 +3,41 @@ import styles from "./PackageList.module.scss";
 import { InfiniteData } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { ProductList } from "@repo/shared_modules/components";
-import Clock from "@/assets/svg/clock";
-import formatDuration from "@/utils/formatDuration";
 import { CoinIcon, HomeIcon } from "@repo/shared_modules/icons";
 import CalenderIcon from "@/assets/svg/calender";
 import DownloadIcon from "@/assets/svg/download";
 import CategoryIcon from "@/assets/svg/category";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import Hat from "@repo/shared_modules/icons/hat";
-import { PackageListItemType, PackageOrderListItemType } from "@/types/packages";
+import {
+  PackageListItemType,
+  PackageOrderListItemType,
+} from "@/types/packages";
 import { ProductListItemProps } from "@repo/core/types/props";
 
 interface Props {
   packages:
-    | InfiniteData<PaginatedResponse<(PackageListItemType )[]>, unknown>
+    | InfiniteData<
+        PaginatedResponse<(PackageListItemType | PackageOrderListItemType)[]>,
+        unknown
+      >
     | undefined;
   fetchNextPage: () => void;
   hasNextPage: boolean;
 }
 
 export const productData = (
-  package_item: PackageListItemType,
+  package_item: PackageListItemType | PackageOrderListItemType,
 ): ProductListItemProps => {
-  const categoryTitle = Array.isArray(package_item.category) 
-    ? package_item.category?.[0]?.title 
+  const categoryTitle = Array.isArray(package_item.category)
+    ? package_item.category?.[0]?.title
     : (package_item.category as any)?.name;
   return {
     id: package_item.id.toString(),
     title: package_item.title,
-    provider: package_item.provider,
+    providerTitle: package_item.provider,
     pic_url: package_item.picture,
     baseUrl: "package",
     attributes: [
-
       {
         icon: <CalenderIcon color="#8b8b8b" fontSize={16} />,
         value: package_item.publish_date || null,
@@ -66,13 +68,15 @@ export const productData = (
         ),
       },
       {
-        icon:
-        
-                  <>
-            {package_item.main_price
-              ? <HomeIcon  fontSize={16} />
-              : <DownloadIcon color="#8b8b8b" fontSize={16} />}
-          </>,
+        icon: (
+          <>
+            {package_item.main_price ? (
+              <HomeIcon fontSize={16} />
+            ) : (
+              <DownloadIcon color="#8b8b8b" fontSize={16} />
+            )}
+          </>
+        ),
         value: (
           <>
             {package_item.main_price
@@ -93,7 +97,9 @@ const PackageList = ({ packages, fetchNextPage, hasNextPage }: Props) => {
   return (
     <div className={styles.relatedCoursesWrapper}>
       <ProductList
-        products={packageDataList?.map((packageItem) => productData(packageItem))}
+        products={packageDataList?.map((packageItem) =>
+          productData(packageItem),
+        )}
         app={Apps.DOWNLOAD}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}

@@ -2,7 +2,7 @@
 import { api } from "@/api/Api";
 import PackageList from "@/components/common/PackageList";
 import FIlterNotFound from "@/components/common/FIlterNotFound";
-import Loading from "@/components/common/Loading";
+import Loading from "@/components/common/loading";
 import { FiltersNames, SortType } from "@/types/filters";
 import { PaginatedResponse } from "@repo/core/types/general";
 import { useInfiniteQuery } from "@tanstack/react-query";

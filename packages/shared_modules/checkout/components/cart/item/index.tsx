@@ -7,7 +7,10 @@ import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { DiscountPlanType, Order, OrderType } from "@repo/core/types/cart";
-import { generateSingleProductUrlFromId, generateInsuranceSlug } from "@repo/core/utils/UrlUtils";
+import {
+  generateSingleProductUrlFromId,
+  generateInsuranceSlug,
+} from "@repo/core/utils/UrlUtils";
 import {
   ListProductSnappayNotif,
   Loading,
@@ -26,8 +29,7 @@ import marketLogo from "@repo/shared_modules/images/doctor-market.png";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from "next/navigation";
 
 const CartItem = ({
   id,
@@ -176,9 +178,8 @@ const CartItem = ({
           </div>
           {canIncrease ? (
             <QuantityProductButton
-              cardActionsLoadingHandler={cartActionsLoadingHandler}
-              isLoadibg={updateCartLoading}
-              id={id}
+              orderId={id}
+              orderType={product_type}
               quantity={quantity}
               className={style.cartItemButton}
               app={Apps.BASE}

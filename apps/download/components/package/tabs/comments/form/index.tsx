@@ -20,10 +20,7 @@ const ProductCommentsForm = ({ courseId, packageId }: Props) => {
 
   const mutation = useMutation({
     mutationFn: (data: { id: number; text: string }) => {
-      if (packageId) {
-        return api.createPackageComment({ packageId: data.id, text: data.text });
-      }
-      return api.createComment({ courseId: data.id, text: data.text });
+      return api.createPackageComment({ packageId: data.id, text: data.text });
     },
     onSuccess() {
       toast("نظر شما با موفقیت ثبت شد و در انتظار تایید است", {

@@ -43,8 +43,10 @@ async function SinglePage({ params, searchParams }: Props) {
           backUrl={RoutePath.single}
           suffix={
             <FavoriteButton
-              id={data.exam.id}
-              initialFavoriteState={data.exam.favorite || false}
+              action={async (isFavorite) => {
+                api.addQuestionFavorite(Number(params.id), isFavorite ? 0 : 1);
+              }}
+              initialState={data.exam.favorite || false}
               app={Apps.EXAM}
             />
           }
