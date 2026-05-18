@@ -55,6 +55,13 @@ export const isUserLoggedIn = (haveMassage?: boolean) => {
   return true;
 };
 
+export const isUserLoggedInAsync = async (): Promise<boolean> => {
+  if (isServerSide) {
+    return !!(await getServerSideCookie(AUTH_COOKIE_KEY));
+  }
+  return isUserLoggedIn();
+};
+
 export const logOut = async (reloadPage: boolean = false) => {
   if (!isServerSide && !getClientSideCookie(AUTH_COOKIE_KEY)) return;
 

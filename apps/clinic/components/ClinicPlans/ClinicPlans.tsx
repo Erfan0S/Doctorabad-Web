@@ -3,25 +3,32 @@
 import styles from "./ClinicPlans.module.scss";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import Heart from "@/assets/img/heart.png";
+import Heart from "@repo/shared_modules/images/heart.png";
 
 import { AddToCartButton } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
-import { Apps } from "@repo/core/types/general";
 
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api"; // مسیر سرویست
+import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
+
+
 
 interface Props {
   closeModal: (clearModals?: boolean) => void;
 }
 
+
+
 const ClinicPlans: React.FC<Props> = ({ closeModal }) => {
+  const isLoggedIn = generalAuthorizeState((state) => state.isAuthorized);
   // ------------------ API CALL ------------------
 
   const { data, isLoading, isError } = useQuery({
+
     queryKey: ["discount-plans"],
     queryFn: async () => (await clinicApi.getDiscountPlans()).data.data,
+    enabled: isLoggedIn,
   });
 
   // ------------------ Local State ------------------
@@ -88,7 +95,7 @@ const ClinicPlans: React.FC<Props> = ({ closeModal }) => {
 
       {/* ADD TO CART */}
       {selected && (
-        <div >
+        <div>
           <AddToCartButton
             id={selected}
             type={OrderType.DiscountPlan}

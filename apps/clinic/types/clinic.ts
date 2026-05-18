@@ -131,12 +131,15 @@ export interface DiseaseDetails {
     file: string;
     use_type: number;
   }[];
+  keywords: string[];
+  meta_description: string;
 }
 
 export enum HeaderType {
   FAVORITES = "favorites",
   DISEASE_DETAILS = "disease_details",
   OTHERS = "others",
+  HOME = "home"
 }
 
 export interface DiscountPlan {

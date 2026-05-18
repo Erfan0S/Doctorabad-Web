@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-// import Header from "../components/common/header";
 import { Footer } from "@repo/shared_modules/components";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,10 +7,9 @@ import "../assets/styles/general.scss";
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";
 import { api } from "@repo/shared_modules/api";
-import { InstallBannerShow } from "@repo/shared_modules/components";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
-import Script from "next/script";
 import { Metadata, Viewport } from "next";
+import { SharedHeadContents } from "@repo/shared_modules";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -31,7 +29,7 @@ export default async function RootLayout({
   const statistic = (await api.getHomeStatistics()).data.data;
   return (
     <html lang="fa">
-      <head></head>
+      <SharedHeadContents />
       <body className={`${font.className} desktop_body`}>
         <NextTopLoader color="#8fcc18" />
         <div className="root">
@@ -41,7 +39,6 @@ export default async function RootLayout({
             <MobileNavBar />
 
             <Footer statistic={statistic} />
-            <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>
       </body>

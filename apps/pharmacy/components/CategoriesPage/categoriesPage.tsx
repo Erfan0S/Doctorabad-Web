@@ -9,6 +9,25 @@ import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import CategoriesSkeleton from "@/components/Skeletons/CategoriesSkeleton/CategoriesSkeleton";
+
+const STORAGE_KEY = "pharmacy-categories-open";
+
+function getOpenCategoryIds(): number[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const s = sessionStorage.getItem(STORAGE_KEY);
+    return s ? JSON.parse(s) : [];
+  } catch {
+    return [];
+  }
+}
+
+function setOpenCategoryIds(ids: number[]) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  } catch {}
+}
+
 export default function Categories() {
   
 
@@ -32,7 +51,19 @@ export default function Categories() {
 }
 
 function CategoryItem({ category }: { category: MedicineCategory }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpenState] = useState(() =>
+    getOpenCategoryIds().includes(category.id)
+  );
+
+  const setOpen = (value: boolean) => {
+    setOpenState(value);
+    const ids = getOpenCategoryIds();
+    if (value) {
+      if (!ids.includes(category.id)) setOpenCategoryIds([...ids, category.id]);
+    } else {
+      setOpenCategoryIds(ids.filter((id) => id !== category.id));
+    }
+  };
 
   const { data: children, isLoading } = useQuery({
     queryKey: ["medicine-children", category.id],

@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { FilterModalType, SelectFilterItems } from "@repo/core/types/filter";
 import { useSearchParams } from "next/navigation";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
-import ArrowRight from "../../../assets/svg/arrowRight";
-import ArrowBottom from "../../../assets/svg/arrowBottom";
 import { Button } from "..";
 import FilterItmeList, { createUniqueId } from "./FilterItemList";
 
@@ -18,7 +16,7 @@ export type onCheckType = (
   level: number,
   checked: boolean,
   children?: SelectFilterItems[],
-  parentIds?: string[]
+  parentIds?: string[],
 ) => void;
 
 export const SelectFilter = ({
@@ -29,6 +27,7 @@ export const SelectFilter = ({
   app,
   closeModal,
   showTitle = true,
+  customContent,
 }: FilterModalType & Props) => {
   const [searchInList, setSearchInList] = useState("");
   const [checks, setChecks] = useState<Record<string, boolean>>({});
@@ -54,7 +53,7 @@ export const SelectFilter = ({
 
   const haveCheckedChildren = (
     children: SelectFilterItems[],
-    checks: Record<string, boolean>
+    checks: Record<string, boolean>,
   ): boolean => {
     return (
       children.filter((item) => {
@@ -101,7 +100,7 @@ export const SelectFilter = ({
     ids: string[],
     items: SelectFilterItems[],
     checkedLevel: number,
-    level: number
+    level: number,
   ): SelectFilterItems[] => {
     // if (level >= checkedLevel) return [];
     const parent = items.find((item) => ids.includes(item.id.toString()));
@@ -110,7 +109,7 @@ export const SelectFilter = ({
         ids,
         parent.childern,
         checkedLevel,
-        level + 1
+        level + 1,
       );
       return [...parents, parent];
     }
@@ -121,7 +120,7 @@ export const SelectFilter = ({
     parentIds: string[],
     check: boolean,
     childId: string,
-    level: number
+    level: number,
   ) => {
     if (!parentIds.length) return;
     if (!check) {
@@ -152,7 +151,7 @@ export const SelectFilter = ({
     level: number,
     checked: boolean,
     children?: SelectFilterItems[],
-    parentIds?: string[]
+    parentIds?: string[],
   ) => {
     if (singleSelection) {
       setChecks({ [id]: checked });
@@ -188,28 +187,32 @@ export const SelectFilter = ({
       <div
         className={`${style.archiveFiltersCheckboxListContent} ${singleSelection ? style.archiveFiltersCheckboxListContentSingleSelection : ""}`}
       >
-        {items.length > 10 && (
-          <input
-            value={searchInList}
-            onChange={(e) => setSearchInList(e.target.value)}
-            placeholder={`جستجو در ${title}`}
-          />
-        )}
-        <FilterItmeList
-          items={filteredItems}
-          level={0}
-          checks={checks}
-          onCheck={onCheck}
-          queryKey={queryKey || ""}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-        {!singleSelection && (
-          <div className={style.submitFilters}>
-            <Button type="button" app={app} onClick={onSubmit}>
-              تایید
-            </Button>
-            {/* <Button
+        {customContent ? (
+          customContent
+        ) : (
+          <>
+            {items.length > 10 && (
+              <input
+                value={searchInList}
+                onChange={(e) => setSearchInList(e.target.value)}
+                placeholder={`جستجو در ${title}`}
+              />
+            )}
+            <FilterItmeList
+              items={filteredItems}
+              level={0}
+              checks={checks}
+              onCheck={onCheck}
+              queryKey={queryKey || ""}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+            />
+            {!singleSelection && (
+              <div className={style.submitFilters}>
+                <Button type="button" app={app} onClick={onSubmit}>
+                  تایید
+                </Button>
+                {/* <Button
             type="button"
             app={app}
             onClick={() => {
@@ -221,7 +224,9 @@ export const SelectFilter = ({
           >
             حذف فیلترها
           </Button> */}
-          </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

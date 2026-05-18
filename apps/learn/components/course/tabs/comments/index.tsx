@@ -8,21 +8,18 @@ import ProductCommentsList from "./list";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { Loading } from "@repo/shared_modules/components";
-import { CourseDataType } from "@/types/courses";
 import { Apps } from "@repo/core/types/general";
+import { CourseContentProps } from "../tabs-data";
 
-interface Props {
-  CourseData: CourseDataType;
-}
-const CourseComments: React.FC<Props> = ({ CourseData }) => {
+const CourseComments: React.FC<CourseContentProps> = ({ course }) => {
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useInfiniteQuery<ProductCommentType>({
-      queryKey: ["comments", CourseData.id],
+      queryKey: ["comments", course.id],
       initialPageParam: 1,
       staleTime: Infinity,
       queryFn: ({ pageParam }) =>
         api
-          .getCommentsList(CourseData.id, Number(pageParam))
+          .getCommentsList(course.id, Number(pageParam))
           .then((res) => res.data),
       getNextPageParam: (lastPage, allPages, lastPageParam) => {
         if (lastPage.data.length === 0) {
@@ -36,7 +33,7 @@ const CourseComments: React.FC<Props> = ({ CourseData }) => {
 
   return (
     <div className={style.productComments}>
-      <ProductCommentsForm courseId={CourseData.id} />
+      <ProductCommentsForm courseId={course.id} />
       <ProductCommentsList
         comments={data!}
         fetchNextPage={fetchNextPage}

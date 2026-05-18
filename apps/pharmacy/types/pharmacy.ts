@@ -104,11 +104,14 @@ export interface MedicineDetails {
     file: string;
     use_type: number;
   }[];
+  keywords: string[];
+  meta_description: string;
 }
 
 
 export enum HeaderType {
   FAVORITES = "favorites",
   MEDICINE_DETAILS = "medicine_details",
-  OTHERS = "others"
+  OTHERS = "others",
+  HOME = "home"
 }

@@ -15,13 +15,13 @@ $orange: #f54f1a;
 $green: #33cc33;
 $darkGreen: #0b690b;
 $blue: #00b0f0;
-$darkBlue: #0478ad;
+$darkBlue: #006797;
 $purple: #7030a0;
 $gray: #949494;
 $lightGray: #d1d1d1;
 $yellow: #ffcc00;
 
-$base-green: #8fcc18;
+$base-green: #50cf4b;
 
 $placeHolderItemsBackGround: #d1d1d1;
 
@@ -29,8 +29,9 @@ $header-bg: #f2f2f2;
 $header-nav-bg: linear-gradient(to right, #f99917, #f54f1a);
 $button-bg-orange: $header-nav-bg;
 $button-bg-blue: linear-gradient(to right, #09b6f3, #0478ad);
-$button-bg-green: linear-gradient(to right, #8fcb18, #8fcb18);
+$button-bg-green: linear-gradient(to right, #50cf4b, #50cf4b);
 $button-bg-red: linear-gradient(90deg, #ee2e53 0%, #c02745 100%);
+$button-bg-darkBlue: #006797;
 // $button-bg-purple: linear-gradient(to right, #7030a0, #5a2480);
 $button-bg-purple: $purple;
 
@@ -54,4 +55,9 @@ $card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 .exam {
   --button-bg: #{$button-bg-purple};
   --app-base: #{$purple};
+}
+
+.download {
+  --button-bg: #{$button-bg-darkBlue};
+  --app-base: #{$darkBlue};
 }

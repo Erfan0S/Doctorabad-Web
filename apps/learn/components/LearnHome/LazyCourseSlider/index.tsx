@@ -26,7 +26,7 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
   },
   [HomePageCourseSliders.MyCourses]: {
     loader: async () =>
-      (await api.getPrviosCourseOrders()).data ||
+      (await api.getPreviousCourseOrders()).data ||
       (await api.getPreviosPlanOrders()).data,
     title: "دوره‌ها و طرح‌های من",
     archiveLink: "/my_course",
@@ -75,7 +75,7 @@ export default function LazyCourseSlider({ type }: Props) {
         return (
           <CourseSlider
             title={Configs[type].title}
-            archiveLink={Configs[type].archiveLink}
+            archiveLink={Configs[type].archiveLink || undefined}
             data={d.data.data}
             amazingTime={(d.data as any).amazing_time as string | undefined}
           />

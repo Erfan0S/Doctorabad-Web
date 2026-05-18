@@ -1,0 +1,114 @@
+@import "@/assets/styles/variables";
+
+.modalContainer {
+  background: #fff;
+  width: min(92vw, 360px);
+  max-height: 800px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  direction: rtl;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  background-color: $base-green;
+  padding: 16px;
+  text-align: center;
+  color: white;
+
+  .headerTitle {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+
+.scrollContent {
+  padding: 24px 16px;
+}
+
+.selectorsRow {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  direction: rtl;
+}
+
+.selectorBox {
+  flex: 1;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0 8px;
+
+  span {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0.6;
+    path {
+      fill: #555;
+    }
+  }
+
+  &:hover {
+    border-color: $base-green;
+  }
+}
+
+.filled {
+  border-color: $base-green;
+  span {
+    color: #333;
+    font-weight: 700;
+  }
+  svg {
+    opacity: 1;
+    path {
+      fill: $base-green;
+    }
+  }
+}
+
+.footer {
+  padding: 0 16px 24px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.submitBtn {
+  width: 100%;
+  background: $base-green;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}

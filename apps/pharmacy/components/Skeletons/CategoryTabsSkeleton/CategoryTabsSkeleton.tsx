@@ -6,7 +6,7 @@ interface CategoryTabsSkeletonProps {
   count?: number;
 }
 
-export default function CategoryTabsSkeleton({ count = 6 }: CategoryTabsSkeletonProps) {
+export default function CategoryTabsSkeleton({ count = 9 }: CategoryTabsSkeletonProps) {
   return (
     <div className={styles.container}>
       {Array.from({ length: count }).map((_, index) => (

@@ -1,7 +1,6 @@
 @import "@/assets/styles/variables";
 .clinicPlansModal {
-  width: 100%;
-  max-width: 420px;
+  max-width: 80%;
   background: #fff;
   border-radius: 30px;
   padding: 24px;
@@ -9,7 +8,6 @@
   text-align: center;
   position: relative;
   direction: rtl;
-
 
   .topIcon {
     width: 100px;
@@ -33,7 +31,6 @@
     }
   }
 
-
   .description {
     font-size: 14px;
     line-height: 26px;
@@ -41,7 +38,6 @@
     margin-top: 50px;
     padding: 0 10px;
   }
-
 
   .plansList {
     margin-top: 20px;
@@ -68,16 +64,15 @@
       input[type="radio"] {
         width: 20px;
         height: 20px;
-        accent-color: $green;
+        accent-color: $base-green;
         cursor: pointer;
       }
     }
 
     .selected {
-      color: $green;
+      color: $base-green;
     }
   }
-
 
   .price {
     margin-top: 25px;
@@ -85,8 +80,6 @@
     font-weight: bold;
     color: #444;
   }
-
-
 
   .submitButtonWrapper {
     margin-top: 18px !important;

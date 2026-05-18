@@ -13,10 +13,10 @@ const initialState = {
   initLoading: !!isUserLoggedIn(),
 } as CartState;
 
-export const useCart = create<CartState>(() => initialState);
+export const storeCart = create<CartState>(() => initialState);
 
 const updateCart = (response: ResponseType<CartResponse>) =>
-  useCart.setState({ ...response.data, initLoading: false });
+  storeCart.setState({ ...response.data, initLoading: false });
 
 export const cartActions = {
   async getCartData() {
@@ -26,11 +26,15 @@ export const cartActions = {
   async addToCart(
     cartItem: number,
     type: OrderType = OrderType.ShopProduct,
-    variants?: ProductVariantsValue[]
+    variants?: ProductVariantsValue[],
+    draft_id?: number,
+    damage_history?: number,
+    last_insurance?: number,
+    current_insurance_end_date?: string,
   ) {
     if (!isUserLoggedIn(true)) return;
 
-    updateCart(await api.addToCart(cartItem, type, variants));
+    updateCart(await api.addToCart(cartItem, type, variants, draft_id, damage_history, last_insurance, current_insurance_end_date));
     toast("محصول به سبدخرید اضافه شد", { type: "success" });
   },
   async removeFromCart(cartItemId: number) {
@@ -58,6 +62,13 @@ export const cartActions = {
     toast("تعداد محصول کاهش یافت", { type: "warning", position: "top-left" });
   },
   clearCart() {
-    useCart.setState(initialState, true);
+    storeCart.setState(initialState, true);
   },
 };
+
+const createUseCart = () => {
+  cartActions.getCartData();
+  return storeCart;
+};
+
+export const useCart = createUseCart();

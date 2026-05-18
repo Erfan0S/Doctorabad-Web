@@ -14,9 +14,15 @@ interface Props {
   slider: SingleProductFile[];
   thumbnail: string;
   title: string;
+  isMobileLayout?: boolean;
 }
 
-const ProductSlider: React.FC<Props> = ({ slider, thumbnail, title }) => {
+const ProductSlider: React.FC<Props> = ({
+  slider,
+  thumbnail,
+  title,
+  isMobileLayout,
+}) => {
   const sliderItems = MultimediaGallery({
     containerSelector: "#productSlider",
     imageProps: { fill: true },
@@ -42,7 +48,9 @@ const ProductSlider: React.FC<Props> = ({ slider, thumbnail, title }) => {
   });
 
   return (
-    <div className={style.productSlider}>
+    <div
+      className={`${style.productSlider} ${isMobileLayout ? style.mobileLayout : ""}`}
+    >
       <Swiper
         id="productSlider"
         modules={[Pagination]}

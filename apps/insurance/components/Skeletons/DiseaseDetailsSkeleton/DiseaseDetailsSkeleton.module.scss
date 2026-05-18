@@ -1,0 +1,88 @@
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.image {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  background: #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+.titles {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.titleLine {
+  height: 24px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section {
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionHeader,
+.sectionBody {
+  height: 20px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+.sectionBody {
+  height: 48px;
+}
+
+.shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 0%,
+    #f5f5f5 50%,
+    #e0e0e0 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+

@@ -57,6 +57,10 @@ import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
 import { ExamFavoriteList } from "@repo/core/types/exam";
 import { ExamOrderItem } from "../userSidePanel/types/orders";
 import {
+  PackageListItemType,
+  PackageOrderListItemType,
+} from "../../../apps/download/types/packages";
+import {
   CreateOrderRequest,
   CreateProviderOrderRequest,
   IsEligibleForProviderResponse,
@@ -136,12 +140,20 @@ class Api extends Request {
     productId: number,
     type: OrderType,
     variants?: ProductVariantsValue[],
+    draft_id?: number,
+    damage_history?: number,
+    last_insurance?: number,
+    current_insurance_end_date?: string,
   ): Promise<ResponseType<CartResponse>> {
     return this.request.post<CartResponse>("/user/v1/cart", {
       id: productId,
       type: type,
       quantity: 1,
       variants: variants,
+      draft_id: draft_id,
+      damage_history: damage_history,
+      last_insurance: last_insurance,
+      current_insurance_end_date: current_insurance_end_date,
     });
   }
 
@@ -398,6 +410,14 @@ class Api extends Request {
     return this.request.get(`/user/v1/lab/order/exam`, { params: { page } });
   };
 
+  getPackageOrdersList = (
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<PackageOrderListItemType[]>>> => {
+    return this.request.get("/user/v1/package/order", {
+      params: { page },
+    });
+  };
+
   // favorites
 
   getLearnFavoriteList = (
@@ -413,6 +433,14 @@ class Api extends Request {
   ): Promise<ResponseType<{ data: Product[] }>> => {
     return this.request.get(`/user/shop/favorite/list?page=${page}`);
   };
+
+  getPackageFavoriteList = (
+    page: number = 1,
+  ): Promise<ResponseType<PaginatedResponse<PackageListItemType[]>>> => {
+    return this.request.get("/user/v1/package/favorite", {
+      params: { page },
+    });
+  }
 
   getLiveChatInformation = (): Promise<
     ResponseType<{ data: LiveChatInformation }>
@@ -543,6 +571,32 @@ class Api extends Request {
     });
   };
 
+  downloadErrorReport(id: number, error_report_text: string): Promise<any> {
+    return this.request.post("/user/v1/package/report", {
+      id,
+      error_report_text,
+    });
+  }
+
+    reportDiseaseError = (
+    text: string,
+    productId: number
+  ): Promise<ResponseType<{ message: string }>> => {
+    return this.request.post(`/user/v1/clinic/error/report`, {
+      report: text,
+      id: productId,
+    });
+  };
+    reportMedicineError = (
+    text: string,
+    productId: number
+  ): Promise<ResponseType<{ message: string }>> => {
+    return this.request.post(`/user/v1/medicine/error/report`, {
+      report: text,
+      id: productId,
+    });
+  };
+
   // favorite
 
   addLearnFavorite(id: number): Promise<{}> {
@@ -566,6 +620,14 @@ class Api extends Request {
       exam: id,
       favorite: isFavorite ? 1 : 0,
     });
+  };
+
+  addContentFavorite = (id: number): Promise<any> => {
+    return this.request.post(`/user/v1/package/favorite`, { id });
+  };
+
+  removeContentFavorite = (id: number): Promise<any> => {
+    return this.request.delete(`/user/v1/package/favorite/${id}`);
   };
 }
 

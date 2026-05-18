@@ -1,3 +1,4 @@
+// فایل HeartIcon.tsx
 import { SVGProps } from "react";
 
 interface IconProps extends SVGProps<SVGSVGElement> {
@@ -15,9 +16,11 @@ const HeartIcon: React.FC<IconProps> = ({
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill={props.fill}          // fill از props
-      stroke="black"             // همیشه مشکی
+      fill={props.fill || "none"}   // اگر fill پاس داده نشد، داخلش خالی باشد
+      stroke="#313131"             // <-- تغییر به خاکستری تیره ملایم
       strokeWidth={strokeWidth}
+      strokeLinecap="round"        // برای نرم شدن لبه‌های خطوط
+      strokeLinejoin="round"       // برای نرم شدن زاویه‌های خطوط
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >

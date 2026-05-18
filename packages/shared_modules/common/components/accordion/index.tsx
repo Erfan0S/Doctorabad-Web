@@ -5,23 +5,15 @@ import TriangleDown from "../../../assets/svg/triangleDown";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { modalActions } from "@repo/core/modal/modals";
 import { useSearchParams } from "next/navigation";
-import { FilterModalType, SelectFilterItems } from "@repo/core/types/filter";
+import {
+  AccordionProps,
+  FilterModalType,
+  SelectFilterItems,
+} from "@repo/core/types/filter";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import Loading from "../loading";
 
-interface Props {
-  title: string;
-  isActive?: boolean;
-  contentSpacing?: boolean;
-  children?: React.ReactNode;
-  className?: string;
-  modalType?: ModalTypes;
-  dependencies?: (string | null)[];
-  onClick?: () => void;
-  isLoading?: boolean;
-}
-
-const Accordion: React.FC<Props & FilterModalType> = ({
+const Accordion: React.FC<AccordionProps> = ({
   title,
   isActive = true,
   children,
@@ -32,19 +24,24 @@ const Accordion: React.FC<Props & FilterModalType> = ({
   singleSelection,
   app,
   isLoading,
+  customContent,
+  defaultValue,
 }) => {
   const params = useSearchParams();
   const [selected, setSelected] = useState<SelectFilterItems[] | null>(null);
   const changeFilters = useChangeSearchParamsFilter();
 
+  const haveContent = !!items?.length || !!customContent;
+
   const handleClick = () => {
-    if (!isActive || isLoading || !items.length) return;
+    if (!isActive || isLoading || !haveContent) return;
     modalActions.addModal(ModalTypes.SELECT_FILTER, {
       title,
       items,
       queryKey,
       singleSelection,
       app,
+      customContent,
     });
   };
 
@@ -61,6 +58,13 @@ const Accordion: React.FC<Props & FilterModalType> = ({
 
     return selectedItems;
   };
+
+  useEffect(() => {
+    if (defaultValue && !params?.get(queryKey || "")) {
+      changeFilters({ [queryKey || ""]: defaultValue });
+      setSelected(getSelectedItems(items || [], [defaultValue]) || null);
+    }
+  }, []);
 
   useEffect(() => {
     if (!queryKey) return;
@@ -95,7 +99,7 @@ const Accordion: React.FC<Props & FilterModalType> = ({
 
   return (
     <div
-      className={`${style.accordion} ${!isActive || !items.length ? style.deActive : ""} ${className} ${style[app]}`}
+      className={`${style.accordion} ${!isActive || !haveContent ? style.deActive : ""} ${className} ${style[app]}`}
     >
       <div className={style.accordionTitle} onClick={handleClick}>
         <span>
@@ -105,7 +109,9 @@ const Accordion: React.FC<Props & FilterModalType> = ({
             getSelectedTitles(selected) || title
           )}
         </span>
-        {isActive && queryKey && <TriangleDown width={18} height={18} />}
+        {isActive && (queryKey || !!customContent) && (
+          <TriangleDown width={18} height={18} />
+        )}
       </div>
 
       <div className={style.accordionContent}>{children}</div>

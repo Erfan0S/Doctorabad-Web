@@ -26,10 +26,10 @@ export default function CategoryTabsSection({
   });
 
   const categories = data ?? [];
+
   const handleCategoryChange = useCallback(
     (categoryId: number | null) => {
-      onSelectCategory(categoryId);
-      window.scrollTo({ top: 470, behavior: "smooth" });
+      onSelectCategory(categoryId); // این الان تابعی است که در بالا نوشتیم و اسکرول هم میکند
     },
     [onSelectCategory],
   );

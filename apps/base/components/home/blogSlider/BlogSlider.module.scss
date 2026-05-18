@@ -1,91 +1,126 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 
 .blogSlider {
-    padding: space(10) 0;
+  padding: space(10) 0;
 
-    &Header {
-        position: relative;
+  // Removed .container override to align with global grid.scss
+
+  &Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: space(4);
+
+    &:before {
+      display: none;
+    }
+
+    &Title {
+      padding-left: 0;
+      background-color: transparent;
+
+      span {
+        line-height: 1.2;
+        font-size: 1.25rem;
+        font-weight: 800;
+      }
+    }
+
+    &Link {
+      margin-right: 0;
+      padding-right: 0;
+      background-color: transparent;
+
+      a {
         display: flex;
         align-items: center;
-        margin-bottom: space(4);
-
-        &:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            height: 1px;
-            background-color: $green;
-            z-index: 1;
-        }
-
-        &Title {
-            position: relative;
-            z-index: 2;
-            padding-left: space(3);
-            background-color: #fff;
-
-            span {
-                line-height: 30px;
-                font-size: 22px;
-                font-weight: 900;
-            }
-        }
-
-        &Link {
-            padding-right: space(3);
-            position: relative;
-            z-index: 2;
-            background-color: #fff;
-            margin-right: auto;
-
-            a {
-                line-height: 28px;
-                display: inline-block;
-                border-radius: radius(2);
-                padding: 0 space(4);
-                font-size: 14px;
-                font-weight: 500;
-                color: #fff;
-                background-color: $green;
-                transition: 0.15s;
-                &:hover {
-                    background-color: $orange;
-                    color: #fff;
-                }
-            }
-        }
+        gap: 4px;
+        line-height: 1;
+        padding: 0;
+        border-radius: 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: $gray;
+        background-color: transparent;
+      }
     }
+  }
 
-    &Slider {
-        position: relative;
-        &:before {
-            position: absolute;
-            content: '';
-            left: space(-3.75);
-            top: 0;
-            bottom: 0;
-            z-index: 100;
-            width: space(3.75);
-            background-color: #fff;
-        }
-        :global {
-            .swiper {
-                padding: space(2.5) space(3.75) space(4);
-                margin: space(-2.5) space(-3.75) space(-4);
-            }
-        }
+  &Slider {
+    position: relative;
+    &:before {
+      position: absolute;
+      content: "";
+      left: space(-3.75);
+      top: 0;
+      bottom: 0;
+      z-index: 100;
+      width: space(3.75);
+      background-color: #fff;
     }
+    :global {
+      .swiper {
+        padding: space(2.5) space(3.75) space(4);
+        margin: space(-2.5) space(-3.75) space(-4);
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
-    .blogSlider {
-        &Slider {
-            &:before {
-                display: none;
-            }
+  .blogSlider {
+    &Header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: space(4);
+
+      &:before {
+        display: none;
+      }
+
+      &Title {
+        padding-left: 0;
+        background-color: transparent;
+
+        span {
+          line-height: 1.2;
+          font-size: 1.25rem;
+          font-weight: 800;
         }
+      }
+
+      &Link {
+        margin-right: 0;
+        padding-right: 0;
+        background-color: transparent;
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          line-height: 1;
+          padding: 0;
+          border-radius: 0;
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: $gray;
+          background-color: transparent;
+        }
+      }
     }
+
+    &Slider {
+      &:before {
+        display: none;
+      }
+    }
+    :global {
+      .swiper-slide {
+        width: 45% !important;
+        max-width: 260px !important;
+      }
+    }
+  }
 }

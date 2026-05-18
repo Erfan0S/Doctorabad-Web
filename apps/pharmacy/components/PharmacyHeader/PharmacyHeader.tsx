@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./PharmacyHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
+import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
@@ -15,24 +16,26 @@ import { Apps } from "@repo/core/types/general";
 import { useFavorite } from "@/hooks/useFavorite";
 import { pharmacyApi } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
-import {
-  authorizeClientAction
-} from "@repo/core/utils/authUtils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+
 
 interface PharmacyHeaderProps {
   title?: string;
   headerPageType: HeaderType;
+  onBackClick?: () => void;
 }
 
 export default function PharmacyHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
+  onBackClick,
 }: PharmacyHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
   const medicineId = id ? Number(id) : undefined;
+  const navHistory = useNavigationHistory();
 
-  // فقط برای صفحه جزئیات دارو، داده را fetch می‌کنیم
   const { data: medicineData } = useQuery({
     queryKey: ["medicine-details", medicineId],
     queryFn: async () => {
@@ -67,13 +70,21 @@ export default function PharmacyHeader({
       return {
         title: medicineData?.title_fa,
         description: `${medicineData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/pharmacy/${id}`,
+        url: `https://doctorabad.com/mp/${id}`,
       };
-    }
+    },
   );
 
   const handleShareButton = () => {
     shareProduct();
+  };
+  const handleBack = () => {
+    if (onBackClick) {
+      onBackClick();
+      return;
+    }
+
+    navHistory.goBack();
   };
 
   return (
@@ -101,16 +112,12 @@ export default function PharmacyHeader({
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >
-              <Heart
-                size={32}
-                strokeWidth={2}
-                fill={isFavorite ? "#57d43b" : "none"}
-              />
+              <Heart size={32} fill={isFavorite ? "#57d43b" : "none"} />
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => router.back()}>
-            <BackArrow strokeWidth={2}></BackArrow>
+          <div className={styles.backBtn} onClick={handleBack}>
+            <BackIcon></BackIcon>
           </div>
         </div>
       </div>

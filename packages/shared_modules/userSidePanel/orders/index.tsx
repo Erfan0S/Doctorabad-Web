@@ -9,7 +9,7 @@ import { appsTabsData } from "../constants/apps-tabs-data";
 import sidePanelStyle from "../sidePanel.module.scss";
 import SidePanelOrdersLearning from "./learning";
 import SidePanelOrdersShopping from "./shopping";
-import SidePanelOrdersContent from "./content";
+import SidePanelOrdersDownload from "./download";
 import SidePanelOrdersExam from "./exam";
 import classNames from "classnames";
 import { api } from "../../api/Api";
@@ -31,7 +31,7 @@ const SidePanelOrders: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const clubTabsComponents = {
     [SidePanelFavoriteTab.LEARNING_CENTER]: SidePanelOrdersLearning,
     [SidePanelFavoriteTab.SHOPPING_CENTER]: SidePanelOrdersShopping,
-    [SidePanelFavoriteTab.CONTENT_CENTER]: SidePanelOrdersContent,
+    [SidePanelFavoriteTab.DOWNLOAD_CENTER]: SidePanelOrdersDownload,
     [SidePanelFavoriteTab.EXAM_CENTER]: SidePanelOrdersExam,
   };
 

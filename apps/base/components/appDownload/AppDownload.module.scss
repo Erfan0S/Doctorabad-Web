@@ -65,7 +65,7 @@
 
 .mobileButton {
   padding: 0 15px;
-  background-color: $green;
+  background-color: $base-green;
   color: white;
   cursor: pointer;
   margin-right: 10px;
@@ -73,7 +73,7 @@
 }
 
 .mobileButton:hover {
-  color: $green;
+  color: $base-green;
   background: white;
 }
 
@@ -159,7 +159,7 @@
     border: 0;
     height: 3px;
     border-radius: 50px;
-    background-color: $green;
+    background-color: $base-green;
     flex: 1;
     margin: 0;
   }
@@ -183,7 +183,7 @@
 }
 
 .patchNoteAdd {
-  color: $green;
+  color: $base-green;
 }
 
 .patchNoteUpgrade {

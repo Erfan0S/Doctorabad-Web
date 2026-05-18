@@ -1,0 +1,55 @@
+@import "@/assets/styles/variables";
+
+.selectBox {
+  width: 100%;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: white;
+  min-height: 50px;
+
+  .label {
+    font-size: 14px;
+    color: #666;
+  }
+  .value {
+  width: 100%;
+  box-sizing: border-box; // padding باعث بزرگ‌تر شدن عرض نشود
+  display: block;         // ellipsis روی div بهتر و پایدارتر
+
+
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1.5px solid $base-green;
+  border-radius: 10px;
+  
+  height: 45px;
+  
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+
+  direction: rtl;
+  
+  // وسط‌چین کردن
+  text-align: center;
+  text-align-last: center; 
+  
+  // مدیریت سرریز
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  // پدینگ‌ها
+  padding-left: 28px;  // فضای کافی برای آیکون سمت چپ
+  padding-right: 10px; // فضای کم سمت راست برای استفاده حداکثری از عرض
+  padding-top: 8px;
+  padding-bottom: 8px;
+  }
+}

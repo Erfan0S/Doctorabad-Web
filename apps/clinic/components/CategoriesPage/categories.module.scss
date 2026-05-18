@@ -24,7 +24,7 @@
   color: #333;
   font-size: 1.1rem;
   font-weight: 700;
-  border: 2px solid lighten($green, 5%);
+  border: 2px solid lighten($base-green, 5%);
   border-radius: 1rem;
   padding: 0.6rem 1.1rem;
   cursor: pointer;
@@ -32,11 +32,16 @@
 
   .arrow {
     font-size: 1.4rem;
-    color: $green;
+    color: $base-green;
   }
 
   &:hover {
-    background-color: lighten($green, 45%);
+    background-color: $base-green;
+    color: white;
+    .arrow {
+      color: white;
+      fill: white;
+    }
   }
 }
 
@@ -63,9 +68,10 @@
   margin-top: 0.4rem;
 
   .treatment {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
-    background-color: $green;
+    background-color: $base-green;
     color: white;
     font-size: 1.1rem;
     font-weight: 700;
@@ -74,7 +80,7 @@
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: lighten($green, 45%);
+      background-color: darken($base-green, 10%);
     }
   }
 }

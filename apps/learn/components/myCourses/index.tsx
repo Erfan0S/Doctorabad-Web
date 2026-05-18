@@ -45,7 +45,7 @@ export const MyCourses = () => {
   // TODO: may api change later
   const { data: courseData, isLoading: courseLoading } = useQuery({
     queryKey: ["myCourses", tab || myCoursesTabs.COURSES],
-    queryFn: () => api.getPrviosCourseOrders(),
+    queryFn: () => api.getPreviousCourseOrders(),
   });
 
   const { data: userPlans, isLoading: userPlansLoading } = useQuery({

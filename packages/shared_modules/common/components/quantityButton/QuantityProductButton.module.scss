@@ -1,6 +1,18 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+body .outline {
+  background: transparent;
+  color: var(--app-base, #{$base-green});
+  border: 2px solid var(--app-base, #{$base-green});
+  span {
+    color: var(--app-base, #{$base-green});
+  }
+  button {
+    color: var(--app-base, #{$base-green});
+  }
+}
+
 .quantityButton {
   background: var(--button-bg, #{$button-bg-green});
   display: flex;
@@ -8,10 +20,9 @@
   justify-content: space-around;
   flex-direction: row-reverse;
   color: #fff;
-  border-radius: radius(2);
-  width: 60%;
-  flex: 0 0 60%;
+  flex: 1;
   font-size: 14px;
+  border-radius: 12px;
   padding: space(2) space(1);
 
   span {
@@ -27,6 +38,7 @@
     padding: 0;
     margin: 0;
     width: 25px;
+    font-size: 25px;
     height: 25px;
     display: flex;
     align-items: center;
@@ -38,6 +50,7 @@
     &:active,
     &:focus {
       outline: unset;
+      color: unset;
     }
   }
 }

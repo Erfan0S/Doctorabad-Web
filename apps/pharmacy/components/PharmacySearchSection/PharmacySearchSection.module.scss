@@ -7,7 +7,7 @@
   gap: 15px;
   background: white;
   position: sticky;
-  top:62px;
+  top:3.5rem;
   z-index: 100;
 }
 
@@ -25,7 +25,7 @@
   background: white;
   direction: rtl;
   padding-right: 5px;
-  border: 1px solid $green;
+  border: 1px solid $base-green;
   &::placeholder {
     color: #999;
   }
@@ -48,7 +48,7 @@
   height: 40px;
   padding: 0 20px;
   border-radius: 12px;
-  background: $green;
+  background: $base-green;
   border: none;
   color: white;
   font-weight: 600;

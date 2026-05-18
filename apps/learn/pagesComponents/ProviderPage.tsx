@@ -1,14 +1,13 @@
 "use client";
 import { api } from "@/api/Api";
-import { PageHeader } from "@repo/shared_modules/headers";
-import ProviderHeader from "@/components/Header/ProviderHeader";
 import { CourseListItemType, ProviderTabs } from "@/types/courses";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 import React from "react";
-import styles from "@/components/Header/ProviderHeader/ProviderHeader.module.scss";
 import StaticCourseList from "@/components/common/CourseList/StaticCourseList";
-import { Loading } from "@repo/shared_modules/components";
+import {
+  Loading,
+  MobileProviderPageLayout,
+} from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Apps } from "@repo/core/types/general";
 
@@ -17,46 +16,27 @@ type Props = {
 };
 
 const ProviderPageContent = ({
-  tab,
   courses,
-  description,
   fetchNextPage,
   hasNextPage,
 }: {
-  tab: string;
   courses: CourseListItemType[];
-  description: string;
   fetchNextPage: () => void;
   hasNextPage: boolean;
 }) => {
-  switch (tab) {
-    case ProviderTabs.COURSES:
-      return (
-        <div className="container">
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={fetchNextPage}
-            hasMore={hasNextPage}
-            loader={<Loading key={0} app={Apps.LEARN} />}
-          >
-            <StaticCourseList courses={courses} />
-          </InfiniteScroll>
-        </div>
-      );
-    case ProviderTabs.DESCRIPTION:
-      return (
-        <div className={styles.pageDescription}>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </div>
-      );
-    default:
-      return null;
-  }
+  return (
+    <InfiniteScroll
+      pageStart={1}
+      loadMore={fetchNextPage}
+      hasMore={hasNextPage}
+      loader={<Loading key={0} app={Apps.LEARN} />}
+    >
+      <StaticCourseList courses={courses} />
+    </InfiniteScroll>
+  );
 };
 
 const ProviderPage = ({ id }: Props) => {
-  const searchParams = useSearchParams();
-
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["providerPage", id],
     queryFn: ({ pageParam }) =>
@@ -83,39 +63,31 @@ const ProviderPage = ({ id }: Props) => {
               name: page.provider.name,
               pic_url: page.provider.pic_url,
             },
-          }) as CourseListItemType
-      )
+          }) as CourseListItemType,
+      ),
     );
   }, [data]);
 
-  return isLoading ? (
-    <Loading pageLoader app={Apps.LEARN} />
-  ) : (
-    <div>
-      <PageHeader
-        className={styles.providerHeaderWrapper}
-        title="ارائه دهنده‌ها"
-        app={Apps.LEARN}
-        children={
-          data && (
-            <ProviderHeader
-              id={id}
-              tite={data.pages[0].provider.name || ""}
-              summery={data.pages[0].provider.summary || ""}
-              image={data.pages[0].provider.pic_url || ""}
-              alt={data.pages[0].provider.name || ""}
-            />
-          )
-        }
-      />
-      <ProviderPageContent
-        tab={searchParams?.get("tab") || ProviderTabs.COURSES}
-        courses={courses}
-        description={data?.pages[0].provider.description || ""}
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage || false}
-      />
-    </div>
+  const provider = data?.pages[0].provider;
+
+  return (
+    <MobileProviderPageLayout
+      ProviderContent={
+        <ProviderPageContent
+          courses={courses}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+        />
+      }
+      ProviderInfo={provider?.description || ""}
+      id={id}
+      image={provider?.pic_url || ""}
+      summery={provider?.summary}
+      title="ارائه دهنده‌ها"
+      app={Apps.LEARN}
+      contentTitle="دوره‌ها"
+      isLoading={isLoading}
+    />
   );
 };
 export default ProviderPage;

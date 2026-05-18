@@ -3,6 +3,7 @@
 import { useRouter, useParams, usePathname } from "next/navigation";
 import styles from "./ToolsHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
+import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
@@ -14,6 +15,8 @@ import { Apps } from "@repo/core/types/general";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import { ToolDataType } from "@/types/tools";
+import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+
 
 interface ToolsHeaderProps {
   title?: string;
@@ -34,6 +37,8 @@ export default function ToolsHeader({
   
   // بررسی وضعیت فیوریت بودن ابزار فعلی (اگر toolId وجود داشته باشد)
   const isFav = toolData?.id ? isFavorite(toolData.id) : false;
+    const navHistory = useNavigationHistory();
+
 
 
 
@@ -48,7 +53,8 @@ export default function ToolsHeader({
       return {
         title: toolData?.title,
         description: `${toolData?.title} را در دکترآباد ببینید: `,
-        url: window.location.href, // اشتراک‌گذاری آدرس فعلی
+        url: `https://doctorabad.com/mt/dt/${toolData?.id}`,
+        
       };
     }
   );
@@ -84,7 +90,6 @@ export default function ToolsHeader({
             >
               <Heart
                 size={32}
-                strokeWidth={2}
                 // اگر لود شده بود و فیوریت بود سبز، در غیر این صورت خالی
                 fill={isLoaded && isFav ? "#57d43b" : "none"}
                 // برای حالت لینک به صفحه فیوریت‌ها (وقتی دیتیل نیست) همیشه توخالی یا رنگ دیگری باشد
@@ -93,8 +98,8 @@ export default function ToolsHeader({
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => router.back()}>
-            <BackArrow strokeWidth={2}></BackArrow>
+          <div className={styles.backBtn} onClick={() => navHistory.goBack()}>
+            <BackIcon></BackIcon>
           </div>
         </div>
       </div>

@@ -19,6 +19,8 @@ export const routePath = {
   pharmacyBasePath: "/pharmacy",
   clinicBasePath: "/clinic",
   toolsBasePath: "/tools",
+  downloadBasePath: "/download",
+  insuranceBasePath: "/insurance",
 };
 
 export const learnPaths = {
@@ -28,6 +30,11 @@ export const learnPaths = {
 
 export const marketPaths = {
   single: "/product",
+  mobileProviders: "/providers",
+  search: "/product-list/search",
+  productList: "/product-list",
+  archive: "/product-list/archive",
+  collections: "/collections",
 };
 
 export const examPaths = {
@@ -39,10 +46,15 @@ export const pharmacyPaths = {
 export const clinicPaths = {
   single: "/disease",
 };
+export const insurancePaths = {
+  single: "/insurance",
+};
 
+export const downloadPaths = {
+  single: "/product",
+};
 
 export const productionBaseUrl = "https://develop.doctorabad.com";
-
 
 export const baseUrls = {
   [Apps.BASE]:
@@ -61,7 +73,6 @@ export const baseUrls = {
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3004"
       : productionBaseUrl) + routePath.examBasePath,
-
   [Apps.PHARMACY]:
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3005"
@@ -74,6 +85,14 @@ export const baseUrls = {
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3007"
       : productionBaseUrl) + routePath.toolsBasePath,
+  [Apps.INSURANCE]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3008"
+      : productionBaseUrl) + routePath.insuranceBasePath,
+  [Apps.DOWNLOAD]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3009"
+      : productionBaseUrl) + routePath.downloadBasePath,
 };
 
 // export const baseUrls = {

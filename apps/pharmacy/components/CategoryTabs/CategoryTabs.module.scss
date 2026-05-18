@@ -6,7 +6,7 @@
   padding: 12px 0 0 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   position: sticky;
-  top: 120px;
+  top: 7rem;
   z-index: 50;
 }
 
@@ -17,13 +17,21 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-x;
 
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
+.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .categoryTab {
+  flex-shrink: 0;
   padding: 8px 20px;
   border: none;
   background: #f3f3f3;
@@ -36,7 +44,7 @@
   transition: all 0.2s;
 
   &.active {
-    border-bottom: $green 5px solid;
+    border-bottom: $base-green 5px solid;
     font-weight: 800;
   }
 

@@ -2,16 +2,11 @@
 
 import Link from "next/link";
 import style from "../ArchiveHeader.module.scss";
-import {useSearchParams} from "next/navigation";
-import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
-
-const sortByConfigs = [
-  {title: "جدیدترین‌ها", value: "newest"},
-  {title: "پرفروش ترین ها", value: "bestselling"},
-  {title: "محبوب ترین", value: "favorite"},
-  {title: "ارزان ترین", value: "cheapest"},
-  {title: "گران ترین", value: "expensive"},
-];
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { FilterParams, sortByConfigs } from "@/constants/filter";
+import { OptionSwitch } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
 
 const ArchiveHeader = () => {
   const searchParams = useSearchParams();
@@ -27,11 +22,11 @@ const ArchiveHeader = () => {
     <div className={style.archiveHeader}>
       <span>نمایش بر اساس:</span>
       <ul>
-        {sortByConfigs.map(({title, value}) => (
+        {sortByConfigs.map(({ title, value }) => (
           <li
             key={value}
             className={value === activeValues.sort ? style.active : undefined}
-            onClick={() => changeFilters({sort: value})}
+            onClick={() => changeFilters({ sort: value })}
           >
             {title}
           </li>
@@ -40,28 +35,22 @@ const ArchiveHeader = () => {
       <select
         value={activeValues.sort}
         onChange={(e) =>
-          changeFilters({sort: (e.target as HTMLSelectElement).value})
+          changeFilters({ sort: (e.target as HTMLSelectElement).value })
         }
       >
-        {sortByConfigs.map(({title, value}) => (
+        {sortByConfigs.map(({ title, value }) => (
           <option key={value} value={value}>
             {title}
           </option>
         ))}
       </select>
-      <div className={style.archiveHeaderOnlyAvailable}>
-        <span>فقط کالاهای موجود</span>
-        <input
-          type="checkbox"
-          name="onlyAvailable"
-          id="onlyAvailable"
-          checked={!!Number(activeValues.onlyAvailable)}
-          onChange={(e) =>
-            changeFilters({onlyAvailable: String(Number(e.target.checked))})
-          }
-        />
-        <label htmlFor="onlyAvailable"></label>
-      </div>
+      <OptionSwitch
+        name={FilterParams.OnlyAvailable}
+        title="فقط کالا‌های موجود"
+        app={Apps.MARKET}
+        addToQuery
+        className={style.archiveHeaderOnlyAvailable}
+      />
     </div>
   );
 };

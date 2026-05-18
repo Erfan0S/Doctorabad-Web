@@ -1,0 +1,109 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.productCommentsItem {
+  $productCommentsItem: &;
+  display: flex;
+  align-items: flex-end;
+  width: 60%;
+  margin-bottom: space(3);
+
+  &Avatar {
+    margin-left: space(3);
+    width: 45px;
+    flex: 0 0 45px;
+    height: 45px;
+    border: 1px solid $darkBlue;
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+      border-radius: 50%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &Content {
+    border: 2px solid $darkBlue;
+    padding: space(2) space(3);
+    border-radius: radius(3);
+    flex: 0 0 calc(100% - 45px - space(3));
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 9px;
+      left: 100%;
+      border-left: 9px solid $darkBlue;
+      border-bottom: 14px solid transparent;
+      z-index: 1;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 12px;
+      left: 100%;
+      border-left: 6px solid #fff;
+      border-bottom: 9px solid transparent;
+      z-index: 2;
+    }
+
+    &Header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $gray;
+      font-size: 12px;
+      margin-bottom: space(2);
+    }
+
+    &Comment {
+      font-size: 13px;
+      font-weight: 500;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &:last-of-type {
+    margin-bottom: unset;
+  }
+
+  &.replay {
+    margin-right: auto;
+    flex-direction: row-reverse;
+
+    #{$productCommentsItem}Avatar {
+      margin-left: unset;
+      margin-right: space(3);
+    }
+
+    #{$productCommentsItem}Content {
+      &:before {
+        content: "";
+        left: unset;
+        border-left: unset;
+        right: 100%;
+        border-right: 9px solid $darkBlue;
+      }
+
+      &:after {
+        left: unset;
+        border-left: unset;
+        right: 100%;
+        border-right: 6px solid #fff;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .productCommentsItem {
+    width: 85%;
+  }
+}

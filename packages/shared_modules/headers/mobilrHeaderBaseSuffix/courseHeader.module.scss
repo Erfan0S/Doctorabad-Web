@@ -1,0 +1,33 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+// TODO: duplicate css with page header
+.headerButton {
+  background-color: #fff;
+  margin: 0 0 0 space(2);
+  border: unset;
+  border-radius: radius(3);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+
+  &:first-of-type {
+    margin: 0;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  img,
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}

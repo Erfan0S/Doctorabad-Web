@@ -4,14 +4,16 @@
   color: #222;
 }
 .header {
-  position: relative;
-    padding-top: 1rem;
-    background: $green;
+  position: sticky;
+  z-index: 100;
+  top: 3.5rem;
+  padding-top: 1rem;
+  background: $base-green;
   --img-size: 6.7rem;
   --img-offset-right: 10px;
 
   .top {
-    background-color: $green;
+    background-color: $base-green;
     position: relative;
     min-height: 3rem;
     color: white;
@@ -44,7 +46,7 @@
   .bottom {
     display: flex;
     justify-content: flex-start;
-    color: $green;
+    color: $base-green;
     font-size: 0.9rem;
     font-weight: 700;
 
@@ -52,33 +54,28 @@
 
     background-color: white;
 
-    min-height: 3rem;
+    min-height: 4rem;
 
     padding-inline: 20px;
     padding-right: calc(var(--img-size) + var(--img-offset-right) + 10px);
   }
 }
 
-
-
-
 .pillsIcon {
-
-      width: var(--img-size);
-      height: var(--img-size);
-      position: absolute;
-      right: var(--img-offset-right);
-      bottom: calc(var(--img-size) / -2);
-      border-radius: 23px;
-      background: white;
-      border: solid 4px white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      padding: 15px;
+  width: var(--img-size);
+  height: var(--img-size);
+  position: absolute;
+  right: var(--img-offset-right);
+  bottom: calc(var(--img-size) / -2);
+  border-radius: 23px;
+  background: white;
+  border: solid 4px white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 15px;
 }
 
-
 .title_fa {
-  color: $green;
+  color: $base-green;
 }
 .title_en {
   font-size: 1.3rem;
@@ -93,7 +90,7 @@
 }
 
 .sectionButton {
-  background: $green;
+  background: $base-green;
   color: white;
   border: none;
   border-radius: 10px;
@@ -125,8 +122,7 @@
   font-size: 0.9rem;
   direction: rtl;
   line-height: 1.6;
-  margin:-0.25rem -4rem 0 -4rem;
-
+  margin: -0.25rem -4rem 0 -4rem;
 }
 
 .directionContainer {
@@ -163,12 +159,12 @@
   max-height: 70px;
 
   &:hover {
-    color: $green;
+    color: $base-green;
   }
 
   &.active {
-    color: $green;
-    border-bottom-color: $green;
+    color: $base-green;
+    border-bottom-color: $base-green;
     background: rgba(76, 175, 80, 0.05);
   }
 }
@@ -185,8 +181,6 @@
     }
   }
 }
-
-
 
 .fileImageWrapper {
   width: 100%;

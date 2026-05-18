@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "exports": {
+    "./data/*": "./src/data/*.ts",
     "./modal/*": "./src/modal/*.ts",
     "./modalComponents/*": "./src/modal/*.tsx",
     "./url/*": "./src/Url/*.ts",

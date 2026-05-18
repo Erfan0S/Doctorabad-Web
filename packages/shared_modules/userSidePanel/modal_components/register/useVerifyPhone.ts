@@ -105,8 +105,11 @@ export const useVerifyPhone = (
           refresh();
         }
         queryClient.invalidateQueries({
-          queryKey: ["messages_count", "user_club_info", "user-plans-clinic"],
+          queryKey: ["messages_count", "user_club_info"],
           exact: true,
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["user-plans-clinic"],
         });
         cartActions.getCartData();
       })

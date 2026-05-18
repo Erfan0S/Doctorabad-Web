@@ -1,3 +1,4 @@
+"use client";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -20,6 +21,7 @@ import { ExamType } from "@repo/apps_shared_components/exam/types";
 import { useRouter } from "next/navigation";
 import { baseUrls, examPaths } from "@repo/core/constants/routePath";
 import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
+import { api } from "@repo/shared_modules/api";
 
 type Props = {
   item: ExamType;
@@ -36,12 +38,12 @@ function SingleListItem({
 }: Props) {
   const router = useRouter();
   const [hasAccess, setHasAccess] = useState(
-    isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
+    isUserLoggedIn() && (item.user_has_access || haveGeneralAccess),
   );
 
   React.useEffect(() => {
     setHasAccess(
-      isUserLoggedIn() && (item.user_has_access || haveGeneralAccess)
+      isUserLoggedIn() && (item.user_has_access || haveGeneralAccess),
     );
   }, [item.user_has_access, haveGeneralAccess]);
 
@@ -73,8 +75,10 @@ function SingleListItem({
         </div>
         {haveFavoriteButton && (
           <FavoriteButton
-            id={item.id}
-            initialFavoriteState={item.favorite}
+            initialState={!!item.favorite}
+            action={() => {
+              return api.examSingleExamFavorite(item.id, !item.favorite);
+            }}
             app={Apps.EXAM}
             className={style.favoriteButton}
           />

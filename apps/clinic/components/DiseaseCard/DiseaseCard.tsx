@@ -6,8 +6,10 @@ import { Disease } from "@/types/clinic";
 import styles from "./DiseaseCard.module.scss";
 import PillsIcon from "@/assets/svg/pillsIcon";
 import Lock from "@/assets/svg/lock";
-import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { getMillisecondsUntilMidnight } from "@/utils/timeUtils";
+import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
+
 
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api";
@@ -17,6 +19,11 @@ interface DiseaseCardProps {
 }
 
 export default function DiseaseCard({ disease }: DiseaseCardProps) {
+  const router = useRouter();
+  
+  // بررسی وضعیت لاگین بودن کاربر
+  const isLoggedIn = generalAuthorizeState((state) => state.isAuthorized);
+
   const {
     data: userPlans,
     isLoading,
@@ -24,20 +31,18 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   } = useQuery({
     queryKey: ["user-plans-clinic"],
     queryFn: async () => (await clinicApi.getUserPlans()),
+    enabled: isLoggedIn, // 👈 این خط اضافه شد: فچ فقط در صورت لاگین بودن
     staleTime: getMillisecondsUntilMidnight(),
     gcTime: getMillisecondsUntilMidnight(), // Keep in cache until midnight
   });
-  const router = useRouter();
-  const  isAccessible = () => {
-    console.log(userPlans);
+  
+  const isAccessible = () => {
+    // console.log(userPlans);
     if (userPlans?.data?.data?.length || userPlans?.data?.used_free || disease.is_free) {
       return true;
     }
     return false;
   };
-
-
-
 
   const handleActionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -56,7 +61,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     >
       <div className={styles.diseaseImage}>
         {disease.picture ? (
-          <img src={disease.picture} width={100} height={100} />
+          <img src={disease.picture} width={100} height={100} alt={disease.title_en} />
         ) : (
           <PillsIcon className={styles.pillsIcon} width={75} height={75} />
         )}

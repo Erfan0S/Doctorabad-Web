@@ -1,10 +1,10 @@
 "use client";
 import style from "./ProductTabsController.module.scss";
-import { MobileHomeHeaderDataConfig } from "@repo/core/types/configs";
+import { MobileTabsConfig } from "@repo/core/types/configs";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  tabData: MobileHomeHeaderDataConfig;
+  tabData: MobileTabsConfig;
   isActive?: boolean;
   url?: string;
 };

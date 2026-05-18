@@ -1,4 +1,5 @@
-import { AvatarFile } from "@repo/core/types/general";
+import { Product } from "@repo/core/types/product";
+import { AvatarFile, PaginatedResponse } from "@repo/core/types/general";
 
 export interface ProviderInList {
   id: number;
@@ -9,3 +10,13 @@ export interface ProviderInList {
 }
 
 export type ProvidersList = ProviderInList[];
+
+export interface Provider extends PaginatedResponse<Product[]> {
+  provider: {
+    id: number;
+    name: string;
+    description: string;
+    pic_url: string;
+    summary: string;
+  };
+}

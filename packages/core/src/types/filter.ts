@@ -1,3 +1,4 @@
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { Apps } from "./general";
 
 export type SelectFilterItems = {
@@ -13,11 +14,25 @@ export type FilterModalType = {
   queryKey?: string;
   app: Apps;
   singleSelection?: boolean;
+  customContent?: React.ReactNode;
 };
 
-export type SelectQroupItemType = {
+export interface AccordionProps extends FilterModalType {
   title: string;
-  data: Array<SelectFilterItems>;
+  isActive?: boolean;
+  contentSpacing?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  modalType?: ModalTypes;
+  dependencies?: (string | null)[];
+  onClick?: () => void;
+  isLoading?: boolean;
+  defaultValue?: string;
+}
+
+export interface SelectQroupItemType
+  extends Pick<AccordionProps, "title" | "customContent" | "defaultValue"> {
+  data?: Array<SelectFilterItems>;
   name?: string;
   dontAddQuery?: boolean;
   loading: boolean;
@@ -25,4 +40,4 @@ export type SelectQroupItemType = {
   dependencies?: string[];
   className?: string;
   multiSelection?: boolean;
-};
+}

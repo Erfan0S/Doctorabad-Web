@@ -1,0 +1,56 @@
+@import "@/assets/styles/variables";
+
+.selectModal {
+  width: min(92vw, 360px);
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden; // هدر سبز و بدنه یکپارچه و گرد
+  direction: rtl;
+
+  // کمی سایه مثل نمونه
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.header {
+  background: $base-green;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 14px 12px;
+}
+
+.optionsWrapper {
+  display: flex;
+  flex-direction: column;
+  max-height: 330px; // مثل نمونه، اسکرول بخورد
+  overflow-y: auto;
+  background: #fff;
+}
+
+.option {
+  width: 100%;
+  border: 0;
+  background: #fff;
+  padding: 14px 14px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  cursor: pointer;
+
+  // خط جداکننده سبز روشن
+  border-bottom: 1px solid rgba($base-green, 0.35);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:active {
+    background: rgba($base-green, 0.08);
+  }
+}
+
+.optionActive {
+  background: rgba($base-green, 0.10);
+}

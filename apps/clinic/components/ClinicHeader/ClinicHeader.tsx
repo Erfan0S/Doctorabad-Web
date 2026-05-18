@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./ClinicHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
+import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
 import BugIcon from "@/assets/svg/bug";
@@ -15,22 +16,24 @@ import { Apps } from "@repo/core/types/general";
 import { useFavorite } from "@/hooks/useFavorite";
 import { clinicApi } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
-import {
-  authorizeClientAction
-} from "@repo/core/utils/authUtils";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
+import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 
 interface ClinicHeaderProps {
   title?: string;
-  headerPageType: HeaderType;
+  headerPageType?: HeaderType; // اضافه کردن علامت سوال اگر در برخی جاها پاس داده نمیشه
+  onBackClick?: () => void; // پراپ جدید اضافه شد
 }
 
 export default function ClinicHeader({
   title = "",
   headerPageType = HeaderType.OTHERS,
+  onBackClick,
 }: ClinicHeaderProps) {
   const router = useRouter();
   const { id } = useParams();
   const clinicId = id ? Number(id) : undefined;
+  const navHistory = useNavigationHistory();
 
   // فقط برای صفحه جزئیات بیماری، داده را fetch می‌کنیم
   const { data: diseaseData } = useQuery({
@@ -67,13 +70,24 @@ export default function ClinicHeader({
       return {
         title: diseaseData?.title_fa,
         description: `${diseaseData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/clinic/${id}`,
+        url: `https://doctorabad.com/mc/${id}`,
       };
-    }
+    },
   );
 
   const handleShareButton = () => {
     shareProduct();
+  };
+
+  const handleBack = () => {
+    // اگر تابع از پدر فرستاده شده بود (مثل حالت جستجو در صفحه اصلی)، آن را اجرا کن
+    if (onBackClick) {
+      onBackClick();
+      return;
+    }
+
+    // در غیر این صورت، رفتار پیش‌فرض (بازگشت به صفحه قبل)
+    navHistory.goBack();
   };
 
   return (
@@ -101,16 +115,12 @@ export default function ClinicHeader({
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >
-              <Heart
-                size={32}
-                strokeWidth={2}
-                fill={isFavorite ? "#57d43b" : "none"}
-              />
+              <Heart size={32} fill={isFavorite ? "#57d43b" : "none"} />
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => router.back()}>
-            <BackArrow strokeWidth={2}></BackArrow>
+          <div className={styles.backBtn} onClick={handleBack}>
+            <BackIcon ></BackIcon>
           </div>
         </div>
       </div>

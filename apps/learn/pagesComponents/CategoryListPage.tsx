@@ -5,8 +5,9 @@ import Loading from "@/components/common/Loading";
 import CategoryListHeader from "@/components/Header/CategoryListHeader";
 import { CourseListItemType } from "@/types/courses";
 import { SortType } from "@/types/filters";
+import { CategoryType } from "@/types/homePage";
 import { PaginatedResponse } from "@repo/core/types/general";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -17,6 +18,28 @@ type Props = {
 
 function CategoryListPage({ id, name }: Props) {
   const params = useSearchParams();
+  const { data: categoryTitle } = useQuery({
+    queryKey: ["category-title", id],
+    queryFn: async () => {
+      let page = 1;
+
+      while (true) {
+        const res = await api.getCategories(page);
+        const data = res.data as PaginatedResponse<CategoryType[]>;
+        const matchedCategory = data.data?.find((item) => item.id === id);
+
+        if (matchedCategory?.title) {
+          return matchedCategory.title;
+        }
+
+        if (!data.links?.next) {
+          return "";
+        }
+
+        page += 1;
+      }
+    },
+  });
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<
     PaginatedResponse<CourseListItemType[]>
@@ -41,7 +64,7 @@ function CategoryListPage({ id, name }: Props) {
 
   return (
     <div>
-      <CategoryListHeader title={name || ""} />
+      <CategoryListHeader title={name || categoryTitle || ""} />
       {isLoading ? (
         <Loading />
       ) : (

@@ -23,7 +23,8 @@ import { Apps } from "@repo/core/types/general";
 type Props = {
   course: CourseListItemType | CourseOrderItem;
   type?: "course" | "order";
-  haveFavoriteToggle?: boolean;
+  toggleFavoriteAction?: () => Promise<any>;
+  initialFavoriteState?: boolean;
 };
 
 // TODO: Make two seprate components for course and order
@@ -103,7 +104,8 @@ const OrderMetaData = ({ orderCourse }: { orderCourse: CourseOrderItem }) => {
 const CourseListItem = ({
   course,
   type = "course",
-  haveFavoriteToggle,
+  initialFavoriteState,
+  toggleFavoriteAction,
 }: Props) => {
   let MetaDataComponent;
 
@@ -143,16 +145,16 @@ const CourseListItem = ({
             href={generateSingleProductUrlFromId(
               course.id,
               "",
-              OrderType.Course
+              OrderType.Course,
             )}
             target="_blank"
           >
             <h3>{course.title}</h3>
           </a>
-          {haveFavoriteToggle && (
+          {toggleFavoriteAction && (
             <FavoriteButton
-              id={course.id}
-              initialFavoriteState
+              action={toggleFavoriteAction}
+              initialState={initialFavoriteState || false}
               app={Apps.LEARN}
             />
           )}

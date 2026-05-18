@@ -15,7 +15,7 @@ export class PlayerInitiator {
   public qualityLevels: any = [];
   constructor(
     private container: HTMLDivElement,
-    private config: VideoConfig
+    private config: VideoConfig,
   ) {}
 
   static getSources(config: VideoConfig) {
@@ -96,7 +96,7 @@ export class PlayerInitiator {
 
       // ✅ Add iOS-specific fullscreen handling
       if (videojs.browser.IS_IOS || videojs.browser.IS_SAFARI) {
-        this.player.tech_.on("fullscreenchange", () => {
+        this.player.on("fullscreenchange", () => {
           if (this.player!.isFullscreen()) {
             // Force landscape orientation on iOS fullscreen
             const videoEl = this.player!.el().querySelector("video");

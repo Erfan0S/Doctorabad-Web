@@ -1,8 +1,14 @@
 "use client";
 import style from "../ProductListFiltersFilters.module.scss";
-import {ChangeEvent, useCallback, useEffect, useReducer, useState} from "react";
-import {useSearchParams} from "next/navigation";
-import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 
 const SearchFilters = () => {
@@ -20,9 +26,9 @@ const SearchFilters = () => {
 
   const changeSearchParam = useCallback(
     (search: string | null) => {
-      if (search) changeFilters({search: search});
+      if (search) changeFilters({ search: search });
     },
-    [changeFilters]
+    [changeFilters],
   );
 
   const DebounceChangeSearchParam = useDebounceAction(changeSearchParam, 1000);
@@ -36,7 +42,7 @@ const SearchFilters = () => {
   }, [search]);
 
   return (
-    <aside className={style.archiveFilters}>
+    <aside className={`${style.archiveFilters} ${style.archiveFiltersSearch}`}>
       <div className={`${style.archiveFiltersContent}`}>
         <span>جستجو</span>
         <div className={style.archiveFiltersCheckboxList}>

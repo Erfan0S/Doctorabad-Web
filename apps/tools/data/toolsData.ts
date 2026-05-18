@@ -63,12 +63,12 @@ export const ALL_TOOLS: Tool[] = [
 
   // --- ابزارهای جدید از تصاویر ---
   {
-    id: "calcium-correction",
+    id: "calcium_correction",
     title: "Calcium Correction",
     description: "تصحیح غلظت کلسیم با توجه به میزان آلبومین",
     iconChar: "C",
     colorClass: "red", // قرمز تیره
-    href: "/calcium-correction",
+    href: "/calcium_correction",
   },
   {
     id: "gcs",
@@ -96,21 +96,21 @@ export const ALL_TOOLS: Tool[] = [
     href: "/fena",
   },
   {
-    id: "has-bled",
+    id: "has_bled_score",
     title: "HAS-BLED Score",
     description:
       "تخمین میزان خونریزی در بیماران تحت درمان با درمان‌های ضد انعقاد",
     iconChar: "H",
     colorClass: "violet", // بنفش روشن/نیلی
-    href: "/has-bled-score",
+    href: "/has_bled_score",
   },
   {
-    id: "cha2ds2-vasc",
+    id: "cha2ds2_vasc",
     title: "CHA2DS2-VASC",
     description: "تخمین ریسک سکته مغزی در بیماران قلبی",
     iconChar: "C",
     colorClass: "blue-dark", // سرمه‌ای
-    href: "/cha2ds2-vasc",
+    href: "/cha2ds2_vasc",
   },
   {
     id: "chads2",
@@ -121,12 +121,12 @@ export const ALL_TOOLS: Tool[] = [
     href: "/chads2",
   },
   {
-    id: "maintenance-fluids",
+    id: "maintenance_fluids",
     title: "Maintenance Fluids",
     description: "میزان مایع نگهداره برای سرم درمانی",
     iconChar: "M",
     colorClass: "cyan", // فیروزه‌ای/سیان
-    href: "/maintenance-fluids",
+    href: "/maintenance_fluids",
   },
   {
     id: "abcd2",
@@ -137,19 +137,19 @@ export const ALL_TOOLS: Tool[] = [
     href: "/abcd2",
   },
   {
-    id: "wells-pte",
+    id: "wells_pte",
     title: "Wells PTE",
     description: "ارزیابی خطر ترومبوآمبولی ریوی",
     iconChar: "W",
     colorClass: "green-mid", // سبز متوسط
-    href: "/wells-pte",
+    href: "/wells_pte",
   },
   {
-    id: "wells-dvt",
+    id: "wells_dvt",
     title: "Wells DVT",
     description: "ارزیابی خطر ترومبوآمبولی وریدی",
     iconChar: "W",
     colorClass: "lime", // مغز پسته‌ای / زرد-سبز
-    href: "/wells-dvt",
+    href: "/wells_dvt",
   },
 ];

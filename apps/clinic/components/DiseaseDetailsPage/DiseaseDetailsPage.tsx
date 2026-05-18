@@ -3,22 +3,24 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./DiseaseDetails.module.scss";
-import { clinicApi } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
 import PillsIcon from "@/assets/svg/pillsIcon";
-import InteractionSection from "./InteractionSection/InteractionSection";
 import DiseaseDetailsSkeleton from "@/components/Skeletons/DiseaseDetailsSkeleton/DiseaseDetailsSkeleton";
-import type { DiseaseDetails } from "@/types/clinic";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { baseUrls, pharmacyPaths } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
-import { isUserLoggedIn, authorizeClientAction } from "@repo/core/utils/authUtils";
+import {
+  isUserLoggedIn,
+  authorizeClientAction,
+} from "@repo/core/utils/authUtils";
 import { canTrackDiseaseView } from "@/utils/diseaseViewTracking";
 import { useDiseaseView } from "@/hooks/useDiseaseView";
+import sanitize from "@repo/core/utils/sanitize";
+import { clinicApi } from "@/api/Api";
 
 // Helper function to check if value is __NO_ACCESS__
 const isNoAccess = (value: any): boolean => {
@@ -31,31 +33,47 @@ const isNoAccess = (value: any): boolean => {
 // Helper function to check if array/object contains __NO_ACCESS__
 const hasNoAccess = (value: any): boolean => {
   if (isNoAccess(value)) return true;
-  if (Array.isArray(value) && value.length > 0 && isNoAccess(value[0])) return true;
+  if (Array.isArray(value) && value.length > 0 && isNoAccess(value[0]))
+    return true;
   return false;
 };
 
 // Type guards
 const isTreatmentObject = (
-  value: any
+  value: any,
 ): value is { plan: string[]; order: string[]; prescription: string[] } => {
-  return value && typeof value === "object" && !Array.isArray(value) && !isNoAccess(value);
+  return (
+    value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    !isNoAccess(value)
+  );
 };
 
 const isClinicalObject = (
-  value: any
+  value: any,
 ): value is { sign: string[]; symptom: string[] } => {
-  return value && typeof value === "object" && !Array.isArray(value) && !isNoAccess(value);
+  return (
+    value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    !isNoAccess(value)
+  );
 };
 
 const isIntroductionObject = (
-  value: any
+  value: any,
 ): value is { type: string[]; preface: string[]; definition: string[] } => {
-  return value && typeof value === "object" && !Array.isArray(value) && !isNoAccess(value);
+  return (
+    value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    !isNoAccess(value)
+  );
 };
 
 const isDiseaseArray = (
-  value: any
+  value: any,
 ): value is { id: number; title_fa: string; title_en: string }[] => {
   return Array.isArray(value) && !hasNoAccess(value);
 };
@@ -88,9 +106,8 @@ export default function DiseaseDetailsPage() {
   const toggleSection = (key: string) => {
     // Check if this section has __NO_ACCESS__
     if (data) {
-      const section = allSections.find(s => s.key === key);
+      const section = allSections.find((s) => s.key === key);
       if (section && section.hasNoAccess) {
-
         authorizeClientAction(() => {
           modalActions.addModal(ModalTypes.EXAM_DISCOUNT_PLANS);
         })();
@@ -101,7 +118,7 @@ export default function DiseaseDetailsPage() {
     setOpenSections((prev) =>
       prev.includes(key)
         ? prev.filter((section) => section !== key)
-        : [...prev, key]
+        : [...prev, key],
     );
   };
 
@@ -121,14 +138,25 @@ export default function DiseaseDetailsPage() {
       const treatmentParam = searchParams.get("treatment");
       if (treatmentParam && isTreatmentObject(data.treatment_description)) {
         setOpenSections(["treatment"]);
-        
+
         const treatDesc = data.treatment_description;
-        if (treatmentParam === "prescription" && isStringArray(treatDesc.prescription) && treatDesc.prescription.length) {
+        if (
+          treatmentParam === "prescription" &&
+          isStringArray(treatDesc.prescription) &&
+          treatDesc.prescription.length
+        ) {
           setTreatmentType("prescription");
-        } else if (treatmentParam === "order" && isStringArray(treatDesc.order) && treatDesc.order.length) {
+        } else if (
+          treatmentParam === "order" &&
+          isStringArray(treatDesc.order) &&
+          treatDesc.order.length
+        ) {
           setTreatmentType("order");
         } else if (treatmentParam === "both") {
-          if (isStringArray(treatDesc.prescription) && treatDesc.prescription.length) {
+          if (
+            isStringArray(treatDesc.prescription) &&
+            treatDesc.prescription.length
+          ) {
             setTreatmentType("prescription");
           } else if (isStringArray(treatDesc.order) && treatDesc.order.length) {
             setTreatmentType("order");
@@ -139,7 +167,10 @@ export default function DiseaseDetailsPage() {
           const treatDesc = data.treatment_description;
           if (isStringArray(treatDesc.plan) && treatDesc.plan.length) {
             setTreatmentType("plan");
-          } else if (isStringArray(treatDesc.prescription) && treatDesc.prescription.length) {
+          } else if (
+            isStringArray(treatDesc.prescription) &&
+            treatDesc.prescription.length
+          ) {
             setTreatmentType("prescription");
           } else if (isStringArray(treatDesc.order) && treatDesc.order.length) {
             setTreatmentType("order");
@@ -173,9 +204,9 @@ export default function DiseaseDetailsPage() {
 
     // Check if user has opened any section other than "introduction"
     const hasOpenedOtherSection = openSections.some(
-      (section) => section !== "introduction"
+      (section) => section !== "introduction",
     );
-    
+
     if (!hasOpenedOtherSection) return;
 
     // Check if we've already tried to record this view in this session
@@ -193,23 +224,24 @@ export default function DiseaseDetailsPage() {
     return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
 
   const disease = data;
-  
+
   // Safe checks for arrays
   const hasPrescriptionSection =
     isTreatmentObject(disease.treatment_description) &&
     isStringArray(disease.treatment_description.prescription) &&
     disease.treatment_description.prescription.length > 0;
-    
-  const hasOrderSection = 
+
+  const hasOrderSection =
     isTreatmentObject(disease.treatment_description) &&
     isStringArray(disease.treatment_description.order) &&
     disease.treatment_description.order.length > 0;
-    
-  const hasTreatmentMedications = isDiseaseArray(disease.treatment) && disease.treatment.length > 0;
+
+  const hasTreatmentMedications =
+    isDiseaseArray(disease.treatment) && disease.treatment.length > 0;
 
   const getImagesByUseType = (
     sectionKey: string,
-    subType?: string
+    subType?: string,
   ): typeof disease.files => {
     if (!disease.files?.length) return [];
 
@@ -267,102 +299,136 @@ export default function DiseaseDetailsPage() {
       key: "introduction",
       label: "معرفی",
       hasNoAccess: isNoAccess(disease.introduction),
-      content:
-        isNoAccess(disease.introduction) ? "NO_ACCESS" :
-        (isIntroductionObject(disease.introduction) && (
-          (isStringArray(disease.introduction.type) && disease.introduction.type.length) ||
-          (isStringArray(disease.introduction.preface) && disease.introduction.preface.length) ||
-          (isStringArray(disease.introduction.definition) && disease.introduction.definition.length)
-        )) ? "INTRODUCTION_COMPONENT" : null,
+      content: isNoAccess(disease.introduction)
+        ? "NO_ACCESS"
+        : isIntroductionObject(disease.introduction) &&
+            ((isStringArray(disease.introduction.type) &&
+              disease.introduction.type.length) ||
+              (isStringArray(disease.introduction.preface) &&
+                disease.introduction.preface.length) ||
+              (isStringArray(disease.introduction.definition) &&
+                disease.introduction.definition.length))
+          ? "INTRODUCTION_COMPONENT"
+          : null,
     },
     {
       key: "treatment",
       label: "درمان",
-      hasNoAccess: isNoAccess(disease.treatment_description) || isNoAccess(disease.treatment),
+      hasNoAccess:
+        isNoAccess(disease.treatment_description) ||
+        isNoAccess(disease.treatment),
       content:
-        isNoAccess(disease.treatment_description) || isNoAccess(disease.treatment) ? "NO_ACCESS" :
-        ((isTreatmentObject(disease.treatment_description) && (
-          (isStringArray(disease.treatment_description.plan) && disease.treatment_description.plan.length) ||
-          (isStringArray(disease.treatment_description.order) && disease.treatment_description.order.length) ||
-          (isStringArray(disease.treatment_description.prescription) && disease.treatment_description.prescription.length)
-        )) || (isDiseaseArray(disease.treatment) && disease.treatment.length))
-          ? "TREATMENT_COMPONENT"
-          : null,
+        isNoAccess(disease.treatment_description) ||
+        isNoAccess(disease.treatment)
+          ? "NO_ACCESS"
+          : (isTreatmentObject(disease.treatment_description) &&
+                ((isStringArray(disease.treatment_description.plan) &&
+                  disease.treatment_description.plan.length) ||
+                  (isStringArray(disease.treatment_description.order) &&
+                    disease.treatment_description.order.length) ||
+                  (isStringArray(disease.treatment_description.prescription) &&
+                    disease.treatment_description.prescription.length))) ||
+              (isDiseaseArray(disease.treatment) && disease.treatment.length)
+            ? "TREATMENT_COMPONENT"
+            : null,
     },
     {
       key: "epidemiology",
       label: "اپیدمیولوژی",
       hasNoAccess: isNoAccess(disease.epidemiology),
-      content: isNoAccess(disease.epidemiology) ? "NO_ACCESS" : disease.epidemiology,
+      content: isNoAccess(disease.epidemiology)
+        ? "NO_ACCESS"
+        : disease.epidemiology,
     },
     {
       key: "physiopathology",
       label: "فیزیوپاتولوژی و اتیولوژی",
       hasNoAccess: isNoAccess(disease.physiopathology),
-      content: isNoAccess(disease.physiopathology) ? "NO_ACCESS" : disease.physiopathology,
+      content: isNoAccess(disease.physiopathology)
+        ? "NO_ACCESS"
+        : disease.physiopathology,
     },
     {
       key: "risk_factor",
       label: "(Risk Factors)عوامل خطر",
       hasNoAccess: hasNoAccess(disease.risk_factor),
-      content: hasNoAccess(disease.risk_factor) ? "NO_ACCESS" :
-        (isStringArray(disease.risk_factor) && disease.risk_factor.length
+      content: hasNoAccess(disease.risk_factor)
+        ? "NO_ACCESS"
+        : isStringArray(disease.risk_factor) && disease.risk_factor.length
           ? disease.risk_factor.map((r) => `✓ ${r}`).join("<br/>")
-          : null),
+          : null,
     },
     {
       key: "clinical",
       label: "تظاهرات بالینی",
       hasNoAccess: isNoAccess(disease.clinical_demonstration),
-      content:
-        isNoAccess(disease.clinical_demonstration) ? "NO_ACCESS" :
-        (isClinicalObject(disease.clinical_demonstration) && (
-          (isStringArray(disease.clinical_demonstration.sign) && disease.clinical_demonstration.sign.length) ||
-          (isStringArray(disease.clinical_demonstration.symptom) && disease.clinical_demonstration.symptom.length)
-        )) ? "CLINICAL_COMPONENT" : null,
+      content: isNoAccess(disease.clinical_demonstration)
+        ? "NO_ACCESS"
+        : isClinicalObject(disease.clinical_demonstration) &&
+            ((isStringArray(disease.clinical_demonstration.sign) &&
+              disease.clinical_demonstration.sign.length) ||
+              (isStringArray(disease.clinical_demonstration.symptom) &&
+                disease.clinical_demonstration.symptom.length))
+          ? "CLINICAL_COMPONENT"
+          : null,
     },
     {
       key: "physical_exam",
       label: "معاینات فیزیکی",
       hasNoAccess: isNoAccess(disease.physical_exam),
-      content: isNoAccess(disease.physical_exam) ? "NO_ACCESS" : disease.physical_exam,
+      content: isNoAccess(disease.physical_exam)
+        ? "NO_ACCESS"
+        : disease.physical_exam,
     },
     {
       key: "paraclinic",
       label: "یافته‌های پاراکلینیکی",
       hasNoAccess: hasNoAccess(disease.paraclinic_info),
-      content: hasNoAccess(disease.paraclinic_info) ? "NO_ACCESS" :
-        (isStringArray(disease.paraclinic_info) && disease.paraclinic_info.length
+      content: hasNoAccess(disease.paraclinic_info)
+        ? "NO_ACCESS"
+        : isStringArray(disease.paraclinic_info) &&
+            disease.paraclinic_info.length
           ? disease.paraclinic_info.map((p) => `✓ ${p}`).join("<br/>")
-          : null),
+          : null,
     },
     {
       key: "differential",
       label: "تشخیص افتراقی",
-      hasNoAccess: hasNoAccess(disease.differential_diagnosis_description) || hasNoAccess(disease.differential_diagnosis),
+      hasNoAccess:
+        hasNoAccess(disease.differential_diagnosis_description) ||
+        hasNoAccess(disease.differential_diagnosis),
       content: (() => {
-        if (hasNoAccess(disease.differential_diagnosis_description) || hasNoAccess(disease.differential_diagnosis)) {
+        if (
+          hasNoAccess(disease.differential_diagnosis_description) ||
+          hasNoAccess(disease.differential_diagnosis)
+        ) {
           return "NO_ACCESS";
         }
 
-        const hasDescriptions = isStringArray(disease.differential_diagnosis_description) && disease.differential_diagnosis_description.length;
-        const hasRelatedDiseases = isDiseaseArray(disease.differential_diagnosis) && disease.differential_diagnosis.length;
+        const hasDescriptions =
+          isStringArray(disease.differential_diagnosis_description) &&
+          disease.differential_diagnosis_description.length;
+        const hasRelatedDiseases =
+          isDiseaseArray(disease.differential_diagnosis) &&
+          disease.differential_diagnosis.length;
 
         if (!hasDescriptions && !hasRelatedDiseases) return null;
 
         return (
           <div className={styles.differentialContent}>
-            {hasDescriptions && isStringArray(disease.differential_diagnosis_description) ? (
+            {hasDescriptions &&
+            isStringArray(disease.differential_diagnosis_description) ? (
               <div className={styles.differentialDescription}>
                 {disease.differential_diagnosis_description.map(
                   (description, index) => (
                     <p key={index}>✓ {description}</p>
-                  )
+                  ),
                 )}
               </div>
             ) : null}
 
-            {hasRelatedDiseases && isDiseaseArray(disease.differential_diagnosis) ? (
+            {hasRelatedDiseases &&
+            isDiseaseArray(disease.differential_diagnosis) ? (
               <div className={styles.differentialTags}>
                 {disease.differential_diagnosis.map((diffDisease) => (
                   <Link
@@ -389,7 +455,9 @@ export default function DiseaseDetailsPage() {
       key: "side_effect",
       label: "عوارض",
       hasNoAccess: isNoAccess(disease.side_effect),
-      content: isNoAccess(disease.side_effect) ? "NO_ACCESS" : disease.side_effect,
+      content: isNoAccess(disease.side_effect)
+        ? "NO_ACCESS"
+        : disease.side_effect,
     },
     {
       key: "diagnosis",
@@ -401,22 +469,27 @@ export default function DiseaseDetailsPage() {
       key: "prevention",
       label: "پیشگیری",
       hasNoAccess: isNoAccess(disease.prevention),
-      content: isNoAccess(disease.prevention) ? "NO_ACCESS" : disease.prevention,
+      content: isNoAccess(disease.prevention)
+        ? "NO_ACCESS"
+        : disease.prevention,
     },
     {
       key: "complementary",
       label: "طب مکمل",
       hasNoAccess: isNoAccess(disease.complementary_medicine),
-      content: isNoAccess(disease.complementary_medicine) ? "NO_ACCESS" : disease.complementary_medicine,
+      content: isNoAccess(disease.complementary_medicine)
+        ? "NO_ACCESS"
+        : disease.complementary_medicine,
     },
     {
       key: "point",
       label: "نکات",
       hasNoAccess: hasNoAccess(disease.point),
-      content: hasNoAccess(disease.point) ? "NO_ACCESS" :
-        (isStringArray(disease.point) && disease.point.length
+      content: hasNoAccess(disease.point)
+        ? "NO_ACCESS"
+        : isStringArray(disease.point) && disease.point.length
           ? disease.point.map((p) => `✓ ${p}`).join("<br/>")
-          : null),
+          : null,
     },
     {
       key: "gallery",
@@ -433,7 +506,7 @@ export default function DiseaseDetailsPage() {
     if (showOnlyTreatment) {
       return section.key === "treatment";
     }
-    
+
     // Show section if it has NO_ACCESS or has content
     if (section.content === "NO_ACCESS") return true;
     if (section.content === null) return false;
@@ -471,345 +544,391 @@ export default function DiseaseDetailsPage() {
       </div>
 
       <div className={styles.sections}>
-        {availableSections.map(({ key, label, content, hasNoAccess: sectionHasNoAccess }) => (
-          <div key={key}>
-            <div className={styles.section}>
-              <div
-                className={`${styles.sectionButton} ${
-                  key === "treatment" ? styles.treatmentButton : ""
-                }`}
-                onClick={() => toggleSection(key)}
-              >
-                {label}
-                <span>
-                  {openSections.includes(key) ? (
-                    <DownArrow className={styles.arrow} />
-                  ) : (
-                    <LeftArrow className={styles.arrow} />
-                  )}
-                </span>
+        {availableSections.map(
+          ({ key, label, content, hasNoAccess: sectionHasNoAccess }) => (
+            <div key={key}>
+              <div className={styles.section}>
+                <div
+                  className={`${styles.sectionButton} ${
+                    key === "treatment" ? styles.treatmentButton : ""
+                  }`}
+                  onClick={() => toggleSection(key)}
+                >
+                  {label}
+                  <span>
+                    {openSections.includes(key) ? (
+                      <DownArrow className={styles.arrow} />
+                    ) : (
+                      <LeftArrow className={styles.arrow} />
+                    )}
+                  </span>
+                </div>
               </div>
-            </div>
 
-            {openSections.includes(key) && content !== "NO_ACCESS" && (
-              <div className={styles.sectionContent}>
-                {content === "INTRODUCTION_COMPONENT" && isIntroductionObject(disease.introduction) ? (
-                  <div className={styles.directionContainer}>
-                    <div className={styles.directionTabs}>
-                      {isStringArray(disease.introduction.preface) && disease.introduction.preface.length ? (
-                        <div
-                          className={`${styles.directionTab} ${
-                            introductionType === "preface" ? styles.active : ""
-                          }`}
-                          onClick={() => setIntroductionType("preface")}
-                        >
-                          مقدمه
-                        </div>
-                      ) : null}
-
-                      {isStringArray(disease.introduction.definition) && disease.introduction.definition.length ? (
-                        <div
-                          className={`${styles.directionTab} ${
-                            introductionType === "definition"
-                              ? styles.active
-                              : ""
-                          }`}
-                          onClick={() => setIntroductionType("definition")}
-                        >
-                          تعریف
-                        </div>
-                      ) : null}
-
-                      {isStringArray(disease.introduction.type) && disease.introduction.type.length ? (
-                        <div
-                          className={`${styles.directionTab} ${
-                            introductionType === "type" ? styles.active : ""
-                          }`}
-                          onClick={() => setIntroductionType("type")}
-                        >
-                          انواع
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div className={styles.switchContent}>
-                      {introductionType === "type" &&
-                        isStringArray(disease.introduction.type) &&
-                        disease.introduction.type.map((item, index) => (
-                          <p key={index}>✓ {item}</p>
-                        ))}
-
-                      {introductionType === "preface" &&
-                        isStringArray(disease.introduction.preface) &&
-                        disease.introduction.preface.map((item, index) => (
-                          <p key={index}>✓ {item}</p>
-                        ))}
-
-                      {introductionType === "definition" &&
-                        isStringArray(disease.introduction.definition) &&
-                        disease.introduction.definition.map((item, index) => (
-                          <p key={index}>✓ {item}</p>
-                        ))}
-
-                      <>
-                        {getImagesByUseType("introduction", introductionType)
-                          .length > 0 && (
-                          <div className={styles.files}>
-                            {getImagesByUseType(
-                              "introduction",
-                              introductionType
-                            ).map((f) => (
-                              <div key={f.id} className={styles.fileImageWrapper}>
-                                <img
-                                  src={f.file}
-                                  alt="file"
-                                  className={styles.fileImage}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </>
-                    </div>
-                  </div>
-                ) : content === "TREATMENT_COMPONENT" && isTreatmentObject(disease.treatment_description) ? (
-                  <>
+              {openSections.includes(key) && content !== "NO_ACCESS" && (
+                <div className={styles.sectionContent}>
+                  {content === "INTRODUCTION_COMPONENT" &&
+                  isIntroductionObject(disease.introduction) ? (
                     <div className={styles.directionContainer}>
                       <div className={styles.directionTabs}>
-                        {isStringArray(disease.treatment_description.plan) && disease.treatment_description.plan.length ? (
+                        {isStringArray(disease.introduction.preface) &&
+                        disease.introduction.preface.length ? (
                           <div
                             className={`${styles.directionTab} ${
-                              treatmentType === "plan" ? styles.active : ""
-                            }`}
-                            onClick={() => setTreatmentType("plan")}
-                          >
-                            برنامه
-                          </div>
-                        ) : null}
-
-                        {isStringArray(disease.treatment_description.prescription) && disease.treatment_description.prescription.length ? (
-                          <div
-                            className={`${styles.directionTab} ${
-                              treatmentType === "prescription"
+                              introductionType === "preface"
                                 ? styles.active
                                 : ""
                             }`}
-                            onClick={() => setTreatmentType("prescription")}
+                            onClick={() => setIntroductionType("preface")}
                           >
-                            <>
-                              نسخه{" "}
-                              {isStringArray(disease.treatment_description.order) && disease.treatment_description.order.length
-                                ? ""
-                                : "و اوردر "}
-                            </>
+                            مقدمه
                           </div>
                         ) : null}
 
-                        {isStringArray(disease.treatment_description.order) && disease.treatment_description.order.length ? (
+                        {isStringArray(disease.introduction.definition) &&
+                        disease.introduction.definition.length ? (
                           <div
                             className={`${styles.directionTab} ${
-                              treatmentType === "order" ? styles.active : ""
+                              introductionType === "definition"
+                                ? styles.active
+                                : ""
                             }`}
-                            onClick={() => setTreatmentType("order")}
+                            onClick={() => setIntroductionType("definition")}
                           >
-                            <>
-                              {isStringArray(disease.treatment_description.prescription) && disease.treatment_description.prescription.length
-                                ? ""
-                                : "نسخه و "}
-                            </>
-                            اوردر
+                            تعریف
+                          </div>
+                        ) : null}
+
+                        {isStringArray(disease.introduction.type) &&
+                        disease.introduction.type.length ? (
+                          <div
+                            className={`${styles.directionTab} ${
+                              introductionType === "type" ? styles.active : ""
+                            }`}
+                            onClick={() => setIntroductionType("type")}
+                          >
+                            انواع
                           </div>
                         ) : null}
                       </div>
 
                       <div className={styles.switchContent}>
-                        {treatmentType === "plan" &&
-                          isStringArray(disease.treatment_description.plan) &&
-                          disease.treatment_description.plan.map(
-                            (item, index) => <p key={index}>✓ {item}</p>
-                          )}
+                        {introductionType === "type" &&
+                          isStringArray(disease.introduction.type) &&
+                          disease.introduction.type.map((item, index) => (
+                            <p key={index}>✓ {item}</p>
+                          ))}
 
-                        {treatmentType === "prescription" &&
-                          isStringArray(disease.treatment_description.prescription) &&
-                          disease.treatment_description.prescription.map(
-                            (item, index) => (
-                              <p
-                                className={styles.prescriptionItem}
-                                key={index}
-                              >
-                                ✓ {item}
-                              </p>
-                            )
-                          )}
-                        {treatmentType === "prescription" &&
-                          hasPrescriptionSection &&
-                          hasTreatmentMedications &&
-                          isDiseaseArray(disease.treatment) && (
-                            <div className={styles.treatmentTags}>
-                              {disease.treatment.map((med) => (
-                                <Link
-                                  key={med.id}
-                                  href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
-                                  className={styles.treatmentTag}
-                                >
-                                  {med.title_fa}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
+                        {introductionType === "preface" &&
+                          isStringArray(disease.introduction.preface) &&
+                          disease.introduction.preface.map((item, index) => (
+                            <p key={index}>✓ {item}</p>
+                          ))}
 
-                        {treatmentType === "order" &&
-                          isStringArray(disease.treatment_description.order) &&
-                          disease.treatment_description.order.map(
-                            (item, index) => <p key={index}>✓ {item}</p>
-                          )}
-                        {treatmentType === "order" &&
-                          !hasPrescriptionSection &&
-                          hasOrderSection &&
-                          hasTreatmentMedications &&
-                          isDiseaseArray(disease.treatment) && (
-                            <div className={styles.treatmentTags}>
-                              {disease.treatment.map((med) => (
-                                <Link
-                                  key={med.id}
-                                  href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
-                                  className={styles.treatmentTag}
+                        {introductionType === "definition" &&
+                          isStringArray(disease.introduction.definition) &&
+                          disease.introduction.definition.map((item, index) => (
+                            <p key={index}>✓ {item}</p>
+                          ))}
+
+                        <>
+                          {getImagesByUseType("introduction", introductionType)
+                            .length > 0 && (
+                            <div className={styles.files}>
+                              {getImagesByUseType(
+                                "introduction",
+                                introductionType,
+                              ).map((f) => (
+                                <div
+                                  key={f.id}
+                                  className={styles.fileImageWrapper}
                                 >
-                                  {med.title_fa}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
-                        {getImagesByUseType("treatment", treatmentType).length >
-                          0 && (
-                          <div className={styles.files}>
-                            {getImagesByUseType("treatment", treatmentType).map(
-                              (f) => (
-                                <div key={f.id} className={styles.fileImageWrapper}>
                                   <img
                                     src={f.file}
                                     alt="file"
                                     className={styles.fileImage}
                                   />
                                 </div>
-                              )
-                            )}
-                          </div>
-                        )}
+                              ))}
+                            </div>
+                          )}
+                        </>
                       </div>
                     </div>
-                  </>
-                ) : content === "CLINICAL_COMPONENT" && isClinicalObject(disease.clinical_demonstration) ? (
-                  <>
-                    <div className={styles.directionContainer}>
-                      <div className={styles.directionTabs}>
-                        {isStringArray(disease.clinical_demonstration.sign) && disease.clinical_demonstration.sign.length ? (
-                          <div
-                            className={`${styles.directionTab} ${
-                              clinicalType === "sign" ? styles.active : ""
-                            }`}
-                            onClick={() => setClinicalType("sign")}
-                          >
-                            علائم (sign)
-                          </div>
-                        ) : null}
+                  ) : content === "TREATMENT_COMPONENT" &&
+                    isTreatmentObject(disease.treatment_description) ? (
+                    <>
+                      <div className={styles.directionContainer}>
+                        <div className={styles.directionTabs}>
+                          {isStringArray(disease.treatment_description.plan) &&
+                          disease.treatment_description.plan.length ? (
+                            <div
+                              className={`${styles.directionTab} ${
+                                treatmentType === "plan" ? styles.active : ""
+                              }`}
+                              onClick={() => setTreatmentType("plan")}
+                            >
+                              برنامه
+                            </div>
+                          ) : null}
 
-                        {isStringArray(disease.clinical_demonstration.symptom) && disease.clinical_demonstration.symptom.length ? (
-                          <div
-                            className={`${styles.directionTab} ${
-                              clinicalType === "symptom" ? styles.active : ""
-                            }`}
-                            onClick={() => setClinicalType("symptom")}
-                          >
-                            نشانه‌ها (symptom)
-                          </div>
-                        ) : null}
-                      </div>
+                          {isStringArray(
+                            disease.treatment_description.prescription,
+                          ) &&
+                          disease.treatment_description.prescription.length ? (
+                            <div
+                              className={`${styles.directionTab} ${
+                                treatmentType === "prescription"
+                                  ? styles.active
+                                  : ""
+                              }`}
+                              onClick={() => setTreatmentType("prescription")}
+                            >
+                              <>
+                                نسخه{" "}
+                                {isStringArray(
+                                  disease.treatment_description.order,
+                                ) && disease.treatment_description.order.length
+                                  ? ""
+                                  : "و اوردر "}
+                              </>
+                            </div>
+                          ) : null}
 
-                      <div className={styles.switchContent}>
-                        {clinicalType === "sign" &&
-                          isStringArray(disease.clinical_demonstration.sign) &&
-                          disease.clinical_demonstration.sign.map(
-                            (item, index) => <p key={index}>{item}</p>
-                          )}
+                          {isStringArray(disease.treatment_description.order) &&
+                          disease.treatment_description.order.length ? (
+                            <div
+                              className={`${styles.directionTab} ${
+                                treatmentType === "order" ? styles.active : ""
+                              }`}
+                              onClick={() => setTreatmentType("order")}
+                            >
+                              <>
+                                {isStringArray(
+                                  disease.treatment_description.prescription,
+                                ) &&
+                                disease.treatment_description.prescription
+                                  .length
+                                  ? ""
+                                  : "نسخه و "}
+                              </>
+                              اوردر
+                            </div>
+                          ) : null}
+                        </div>
 
-                        {clinicalType === "symptom" &&
-                          isStringArray(disease.clinical_demonstration.symptom) &&
-                          disease.clinical_demonstration.symptom.map(
-                            (item, index) => <p key={index}>{item}</p>
-                          )}
+                        <div className={styles.switchContent}>
+                          {treatmentType === "plan" &&
+                            isStringArray(disease.treatment_description.plan) &&
+                            disease.treatment_description.plan.map(
+                              (item, index) => <p key={index}>✓ {item}</p>,
+                            )}
 
-                        {getImagesByUseType("clinical", clinicalType).length >
-                          0 && (
-                          <div className={styles.files}>
-                            {getImagesByUseType("clinical", clinicalType).map(
-                              (f) => (
-                                <div key={f.id} className={styles.fileImageWrapper}>
+                          {treatmentType === "prescription" &&
+                            isStringArray(
+                              disease.treatment_description.prescription,
+                            ) &&
+                            disease.treatment_description.prescription.map(
+                              (item, index) => (
+                                <p
+                                  className={styles.prescriptionItem}
+                                  key={index}
+                                >
+                                  ✓ {item}
+                                </p>
+                              ),
+                            )}
+                          {treatmentType === "prescription" &&
+                            hasPrescriptionSection &&
+                            hasTreatmentMedications &&
+                            isDiseaseArray(disease.treatment) && (
+                              <div className={styles.treatmentTags}>
+                                {disease.treatment.map((med) => (
+                                  <Link
+                                    key={med.id}
+                                    href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
+                                    className={styles.treatmentTag}
+                                  >
+                                    {med.title_fa}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+
+                          {treatmentType === "order" &&
+                            isStringArray(
+                              disease.treatment_description.order,
+                            ) &&
+                            disease.treatment_description.order.map(
+                              (item, index) => <p key={index}>✓ {item}</p>,
+                            )}
+                          {treatmentType === "order" &&
+                            !hasPrescriptionSection &&
+                            hasOrderSection &&
+                            hasTreatmentMedications &&
+                            isDiseaseArray(disease.treatment) && (
+                              <div className={styles.treatmentTags}>
+                                {disease.treatment.map((med) => (
+                                  <Link
+                                    key={med.id}
+                                    href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
+                                    className={styles.treatmentTag}
+                                  >
+                                    {med.title_fa}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          {getImagesByUseType("treatment", treatmentType)
+                            .length > 0 && (
+                            <div className={styles.files}>
+                              {getImagesByUseType(
+                                "treatment",
+                                treatmentType,
+                              ).map((f) => (
+                                <div
+                                  key={f.id}
+                                  className={styles.fileImageWrapper}
+                                >
                                   <img
                                     src={f.file}
                                     alt="file"
                                     className={styles.fileImage}
                                   />
                                 </div>
-                              )
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  ) : content === "CLINICAL_COMPONENT" &&
+                    isClinicalObject(disease.clinical_demonstration) ? (
+                    <>
+                      <div className={styles.directionContainer}>
+                        <div className={styles.directionTabs}>
+                          {isStringArray(disease.clinical_demonstration.sign) &&
+                          disease.clinical_demonstration.sign.length ? (
+                            <div
+                              className={`${styles.directionTab} ${
+                                clinicalType === "sign" ? styles.active : ""
+                              }`}
+                              onClick={() => setClinicalType("sign")}
+                            >
+                              علائم (sign)
+                            </div>
+                          ) : null}
+
+                          {isStringArray(
+                            disease.clinical_demonstration.symptom,
+                          ) && disease.clinical_demonstration.symptom.length ? (
+                            <div
+                              className={`${styles.directionTab} ${
+                                clinicalType === "symptom" ? styles.active : ""
+                              }`}
+                              onClick={() => setClinicalType("symptom")}
+                            >
+                              نشانه‌ها (symptom)
+                            </div>
+                          ) : null}
+                        </div>
+
+                        <div className={styles.switchContent}>
+                          {clinicalType === "sign" &&
+                            isStringArray(
+                              disease.clinical_demonstration.sign,
+                            ) &&
+                            disease.clinical_demonstration.sign.map(
+                              (item, index) => <p key={index}>{item}</p>,
                             )}
-                          </div>
-                        )}
+
+                          {clinicalType === "symptom" &&
+                            isStringArray(
+                              disease.clinical_demonstration.symptom,
+                            ) &&
+                            disease.clinical_demonstration.symptom.map(
+                              (item, index) => <p key={index}>{item}</p>,
+                            )}
+
+                          {getImagesByUseType("clinical", clinicalType).length >
+                            0 && (
+                            <div className={styles.files}>
+                              {getImagesByUseType("clinical", clinicalType).map(
+                                (f) => (
+                                  <div
+                                    key={f.id}
+                                    className={styles.fileImageWrapper}
+                                  >
+                                    <img
+                                      src={f.file}
+                                      alt="file"
+                                      className={styles.fileImage}
+                                    />
+                                  </div>
+                                ),
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
+                    </>
+                  ) : content === "GALLERY_COMPONENT" ? (
+                    <div className={styles.galleryGrid}>
+                      {galleryImages.map((file) => (
+                        <div key={file.id} className={styles.galleryItem}>
+                          <img
+                            src={file.file}
+                            alt="gallery image"
+                            className={styles.galleryImage}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  </>
-                ) : content === "GALLERY_COMPONENT" ? (
-                  <div className={styles.galleryGrid}>
-                    {galleryImages.map((file) => (
-                      <div key={file.id} className={styles.galleryItem}>
-                        <img
-                          src={file.file}
-                          alt="gallery image"
-                          className={styles.galleryImage}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ) : typeof content === "string" ? (
-                  <>
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                    {getImagesByUseType(key).length > 0 && (
-                      <div className={styles.files}>
-                        {getImagesByUseType(key).map((f) => (
-                          <div key={f.id} className={styles.fileImageWrapper}>
-                            <img
+                  ) : typeof content === "string" ? (
+                    <>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: sanitize(content),
+                        }}
+                      />
+                      {getImagesByUseType(key).length > 0 && (
+                        <div className={styles.files}>
+                          {getImagesByUseType(key).map((f) => (
+                            <div key={f.id} className={styles.fileImageWrapper}>
+                              <img
+                                src={f.file}
+                                alt="file"
+                                className={styles.fileImage}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {getImagesByUseType(key).length > 0 && (
+                        <div className={styles.files}>
+                          {getImagesByUseType(key).map((f) => (
+                            <Image
+                              key={f.id}
                               src={f.file}
                               alt="file"
+                              width={120}
+                              height={120}
                               className={styles.fileImage}
                             />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {getImagesByUseType(key).length > 0 && (
-                      <div className={styles.files}>
-                        {getImagesByUseType(key).map((f) => (
-                          <Image
-                            key={f.id}
-                            src={f.file}
-                            alt="file"
-                            width={120}
-                            height={120}
-                            className={styles.fileImage}
-                          />
-                        ))}
-                      </div>
-                    )}
-                    {content}
-                  </>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+                          ))}
+                        </div>
+                      )}
+                      {content}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          ),
+        )}
       </div>
     </div>
   );

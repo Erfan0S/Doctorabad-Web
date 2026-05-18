@@ -9,6 +9,7 @@ import { MinMaxPrice } from "./minMaxPrice";
 import { SelectFilter } from "./SelectFilter";
 import { SelectionItem } from "@repo/core/types/general";
 import { GradeFilter } from "./gradeFilter";
+import { FilterParams } from "@/constants/filter";
 
 interface Props {
   categories: CategoryList;
@@ -48,24 +49,24 @@ const ArchiveFilters = ({
           <SelectFilter
             title="دسته‌بندی"
             items={categories}
-            queryKey="category"
+            queryKey={FilterParams.Category}
           />
           <SelectFilter
             singleSelection
             title="رشته"
             items={fields}
-            queryKey="field"
+            queryKey={FilterParams.Field}
           />
           <GradeFilter />
           <SelectFilter
             title="فروشنده"
             items={providers.map(({ id, name }) => ({ id, title: name }))}
-            queryKey="provider"
+            queryKey={FilterParams.Provider}
           />
           <SelectFilter
             title="نوع محصول"
             items={productTypes}
-            queryKey="product_type"
+            queryKey={FilterParams.ProductType}
           />
           <MinMaxPrice priceRange={priceRange} />
         </div>

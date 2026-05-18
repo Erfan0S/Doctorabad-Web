@@ -13,7 +13,7 @@ export interface Product {
   price_main: number;
   price_off: number;
   price_amazing: null;
-  provider: null;
+  provider: null | string;
   has_variant: boolean;
   user_favorite: number;
   installment_payment: boolean;
@@ -22,6 +22,7 @@ export interface Product {
 export type ProductCard = Product & {
   gridView?: boolean;
   lazyLoadImage?: boolean;
+  isMobileLayout?: boolean;
 };
 export interface SingleProductSellerInfo {
   name: string;
@@ -194,3 +195,9 @@ export interface ProductShare {
   description: string;
   product_url: null | string;
 }
+
+export type ShareProductAction = () => Promise<{
+  title?: string;
+  description?: string;
+  url: string | null;
+}>;

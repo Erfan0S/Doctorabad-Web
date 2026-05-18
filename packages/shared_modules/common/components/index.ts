@@ -13,8 +13,6 @@ export { MultimediaGallery } from "./multimediaGallery/multimediaGallery";
 
 export { default as Logo } from "./logo";
 
-export { default as MobileHeader } from "./mobileHeader";
-
 export { default as LogoProvider } from "./logo/logoProvider";
 
 export { default as TabsController } from "./TabsController";
@@ -56,3 +54,23 @@ export { ListProductSnappayNotif } from "./productSnappayNotif";
 export { default as GlobalError } from "./globalError";
 
 export { default as FavoriteHeartIcon } from "./favoriteHeartIcon";
+
+export { default as SearchBar } from "./SearchBar";
+
+export { default as ProductSliderContainer } from "./MobileLayoutComponents/productSliderContainer";
+
+export { default as MobileProductLayout } from "./MobileLayoutComponents/MobileProductLayout";
+
+export { default as ProductList } from "./MobileLayoutComponents/MobileProductList";
+
+export { default as ProductListItem } from "./MobileLayoutComponents/MobileProductList/MobileProductListItem";
+
+export { default as StaticMobileProductList } from "./MobileLayoutComponents/MobileProductList/StaticMobileProductList";
+
+export { default as TileList } from "./CategoriesList";
+
+export { default as RedirectComponent } from "./RedirectComponent";
+
+export { default as MobileProviderPageLayout } from "./MobileLayoutComponents/MobileProviderSingle";
+
+export { default as ProductButton } from "./MobileLayoutComponents/MobileProductLayout/ProductButton";

@@ -1,0 +1,40 @@
+import React from "react";
+import { PageHeader } from "@repo/shared_modules/headers";
+import styles from "./CollectionListHeader.module.scss";
+import { SortType } from "@/types/filters";
+import { Apps } from "@repo/core/types/general";
+import { Accordion } from "@repo/shared_modules/components";
+
+type Props = {
+  title: string;
+};
+
+const filterData = [
+  { id: SortType.BESTSELLING, title: "پرفروش ترین" },
+  { id: SortType.NEWEST, title: "جدیدترین" },
+  { id: SortType.CHEAPEST, title: "ارزان ترین" },
+  { id: SortType.EXPENSIVE, title: "گران ترین" },
+  { id: SortType.FAVORITE, title: "محبوب ترین" },
+];
+
+const CollectionListHeader = ({ title }: Props) => {
+  return (
+    <PageHeader
+      title={title}
+      app={Apps.DOWNLOAD}
+      children={
+        <div className={styles.filterWrapper}>
+          <Accordion
+            title="نمایش براساس..."
+            items={filterData}
+            queryKey="sort"
+            singleSelection={true}
+            app={Apps.DOWNLOAD}
+          />
+        </div>
+      }
+    />
+  );
+};
+
+export default CollectionListHeader;

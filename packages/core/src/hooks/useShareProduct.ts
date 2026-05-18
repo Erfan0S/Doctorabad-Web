@@ -1,15 +1,9 @@
 import { useCallback, useState } from "react";
 import { copyText } from "../utils/copyText";
-import { s } from "framer-motion/client";
 import { toast } from "react-toastify";
+import { ShareProductAction } from "../types/product";
 
-export const useShareProduct = (
-  shareInfo: () => Promise<{
-    title?: string;
-    description?: string;
-    url: string | null;
-  }>
-) => {
+export const useShareProduct = (shareInfo: ShareProductAction) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const shareProduct = useCallback(() => {

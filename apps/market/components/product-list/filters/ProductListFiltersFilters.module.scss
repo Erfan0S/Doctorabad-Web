@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .archiveFilters {
   background-color: #fff;
@@ -11,6 +11,10 @@
   margin-bottom: space(10);
   max-height: 730px;
   overflow: scroll;
+
+  &Search {
+    overflow: auto;
+  }
 
   &::-webkit-scrollbar-track {
     background-color: #ccc;
@@ -90,7 +94,7 @@
           }
 
           &:before {
-            content: '';
+            content: "";
             position: absolute;
             top: 50%;
             right: 0;
@@ -102,7 +106,7 @@
           }
 
           &:after {
-            content: '';
+            content: "";
             position: absolute;
             top: 50%;
             transform: translateY(calc(-50% - 1px)) rotate(-45deg);
