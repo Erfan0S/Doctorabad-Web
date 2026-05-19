@@ -234,7 +234,7 @@ class Api extends Request {
 
   getFilterList({
     page,
-    fields,
+    field,
     grades,
     language,
     subject,
@@ -244,7 +244,7 @@ class Api extends Request {
     order_by,
   }: {
     order_by?: SortType;
-    fields?: number;
+    field?: number;
     grades?: number;
     subject?: number;
     category?: number[];
@@ -256,7 +256,7 @@ class Api extends Request {
     return this.request.get("/user/v1/package", {
       params: {
         order_by: order_by,
-        fields,
+        field,
         grades,
         language,
         subject,
