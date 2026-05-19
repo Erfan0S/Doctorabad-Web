@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: "mono-base",
+            name: "dev-base",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/base",
@@ -11,7 +11,7 @@ module.exports = {
             }
         },
         {
-            name: "mono-market",
+            name: "dev-market",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/market",
@@ -21,7 +21,7 @@ module.exports = {
             }
         },
         {
-            name: "mono-learn",
+            name: "dev-learn",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/learn",
@@ -31,7 +31,7 @@ module.exports = {
             }
         },
         {
-            name: "mono-exam",
+            name: "dev-exam",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/exam",
@@ -41,7 +41,7 @@ module.exports = {
             }
         },
         {
-            name: "mono-pharmacy",
+            name: "dev-pharmacy",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/pharmacy",
@@ -51,7 +51,7 @@ module.exports = {
             }
         },
         {
-            name: "mono-clinic",
+            name: "dev-clinic",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/clinic",
@@ -61,7 +61,7 @@ module.exports = {
             }
         },
         {
-            name: "mono-tools",
+            name: "dev-tools",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/tools",
@@ -70,7 +70,7 @@ module.exports = {
                 PORT: 3007
             }
         },{
-        name: "mono-insurance",
+        name: "dev-insurance",
         script: "npm",
         args: "start",
         cwd: "/var/www/develop/doctorabad/apps/insurance",
@@ -79,7 +79,7 @@ module.exports = {
             PORT: 3008
         }},
         {
-            name: "mono-download",
+            name: "dev-download",
             script: "npm",
             args: "start",
             cwd: "/var/www/develop/doctorabad/apps/download",
