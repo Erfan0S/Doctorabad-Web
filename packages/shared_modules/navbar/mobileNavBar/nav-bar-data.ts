@@ -40,7 +40,7 @@ export const navBarData = [
     id: 3,
     title: "دکتـــــــــــردانلود",
     subTitle: "مرکزمحتوای‌دکترآباد",
-    href: "https://doctorabad.com/download",
+    href: baseUrls.download,
     image: doctorDownload,
     color: "blue",
     mobileTitle: "مرکز‌محتوا",
