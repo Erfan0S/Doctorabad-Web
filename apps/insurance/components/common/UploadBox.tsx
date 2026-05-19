@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useUploadFile, useDestroyFile } from "@/hooks/useUserInfo";
 // فرض بر این است که تایپ ResponseType و UploadFileResponse در مسیر درست هستند
 import { UploadFileResponse } from "@/types/insurance";
-import styles from "../modals/UserInfoModal/UserInfoModal.module.scss";
+import styles from "../Modals/UserInfoModal/UserInfoModal.module.scss";
 
 interface UploadBoxProps {
   title: string;
