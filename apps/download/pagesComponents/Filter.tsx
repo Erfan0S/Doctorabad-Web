@@ -59,7 +59,7 @@ const FilterPageList = () => {
       ? Number(params?.get(FiltersNames.SUBJECT))
       : undefined,
     order_by: (params?.get(FiltersNames.SORT) as SortType) || undefined,
-    fields: params?.get(FiltersNames.FIELD)
+    field: params?.get(FiltersNames.FIELD)
       ? Number(params?.get(FiltersNames.FIELD))
       : undefined,
     grades: params?.get(FiltersNames.GRADE)

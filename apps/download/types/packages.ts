@@ -200,6 +200,9 @@ export interface PackageItem {
   user_has_access: boolean;
   installment_payment: boolean;
   installment_text: string | null;
+
+  meta_description: string | null;
+  keywords: string[];
 }
 
 export interface BaseEntity {
