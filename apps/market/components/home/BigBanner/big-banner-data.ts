@@ -54,7 +54,7 @@ export const bigBannerData = [
     subTitle: 'مرکز محتوای دکترآباد',
     image: person04,
     description: 'بازارچه فایل‌های الکترونیک علوم‌پزشکی؛کتاب‌های رفرنس، مجلات علمی و ارائه دروس',
-    primaryButtonLink: 'https://doctorabad.com/app',
+    primaryButtonLink: '/download',
     secondaryButtonLink: 'https://doctorabad.com/mag/doctordownload/',
     primaryColor: '#00B0F0',
     secondaryColor: '#0050CD',
