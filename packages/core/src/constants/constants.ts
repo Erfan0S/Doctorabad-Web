@@ -1,7 +1,7 @@
 export const defaultBaseUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3009/api"
-    : "https://develop.doctorabad.com/api";
+    : "https://dev.doctorabad.com/api";
 
 export const isServerSide = typeof window === "undefined";
 
@@ -20,4 +20,4 @@ export const IP_COUNTRY_COOKIE = "IPCountry";
 
 export const VIEWPORT_HEADER = "x-viewport";
 
-export const IS_PERVENT_GOOGLE_INDEX = false;
+export const IS_PERVENT_GOOGLE_INDEX = true;
