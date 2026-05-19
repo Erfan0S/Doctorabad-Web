@@ -55,7 +55,7 @@ export const sidebarMenuData = [
     id: 4,
     title: "دکتـــــــــــردانلود",
     subTitle: "مرکزمحتوای‌دکترآباد",
-    href: "https://doctorabad.com/app",
+    href: baseUrls.download,
     basePath: null,
     image: doctorDownload,
     color: "blue",
