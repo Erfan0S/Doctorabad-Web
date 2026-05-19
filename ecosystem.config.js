@@ -4,7 +4,7 @@ module.exports = {
             name: "dev-base",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/base",
+            cwd: "/var/www/develop/doctorabad/apps/base",
             env: {
                 NODE_ENV: "production",
                 PORT: 3001 // Choose different port for each app
@@ -14,7 +14,7 @@ module.exports = {
             name: "dev-market",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/market",
+            cwd: "/var/www/develop/doctorabad/apps/market",
             env: {
                 NODE_ENV: "production",
                 PORT: 3002 // Choose different port for each app
@@ -24,7 +24,7 @@ module.exports = {
             name: "dev-learn",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/learn",
+            cwd: "/var/www/develop/doctorabad/apps/learn",
             env: {
                 NODE_ENV: "production",
                 PORT: 3003
@@ -34,7 +34,7 @@ module.exports = {
             name: "dev-exam",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/exam",
+            cwd: "/var/www/develop/doctorabad/apps/exam",
             env: {
                 NODE_ENV: "production",
                 PORT: 3004
@@ -44,7 +44,7 @@ module.exports = {
             name: "dev-pharmacy",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/pharmacy",
+            cwd: "/var/www/develop/doctorabad/apps/pharmacy",
             env: {
                 NODE_ENV: "production",
                 PORT: 3005
@@ -54,7 +54,7 @@ module.exports = {
             name: "dev-clinic",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/clinic",
+            cwd: "/var/www/develop/doctorabad/apps/clinic",
             env: {
                 NODE_ENV: "production",
                 PORT: 3006
@@ -64,25 +64,27 @@ module.exports = {
             name: "dev-tools",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/tools",
+            cwd: "/var/www/develop/doctorabad/apps/tools",
             env: {
                 NODE_ENV: "production",
                 PORT: 3007
             }
-        },{
-        name: "dev-insurance",
-        script: "npm",
-        args: "start",
-        cwd: "/var/www/develop/Doctorabad-Web/apps/insurance",
-        env: {
-            NODE_ENV: "production",
-            PORT: 3008
-        }},
+        },
+        {
+            name: "dev-insurance",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/develop/doctorabad/apps/insurance",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3008
+            }
+        },
         {
             name: "dev-download",
             script: "npm",
             args: "start",
-            cwd: "/var/www/develop/Doctorabad-Web/apps/download",
+            cwd: "/var/www/develop/doctorabad/apps/download",
                         env: {
                 NODE_ENV: "production",
                 PORT: 3009
