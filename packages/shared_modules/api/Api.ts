@@ -67,6 +67,14 @@ import {
   PaymentProviders,
 } from "../checkout/types/cart";
 
+import {
+  CreateDrProOrderResponse,
+  DiscountCodeResponse,
+  DrProActivePlan,
+  ExplanationItem,
+  PlanItem,
+} from "@repo/core/types/dr-pro";
+
 class Api extends Request {
   constructor() {
     super({
@@ -465,6 +473,7 @@ class Api extends Request {
     return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
   };
 
+
   getUserCoinPoints = (): Promise<
     ResponseType<{ data: UserCoinPointsType }>
   > => {
@@ -629,6 +638,40 @@ class Api extends Request {
   removeContentFavorite = (id: number): Promise<any> => {
     return this.request.delete(`/user/v1/package/favorite/${id}`);
   };
+
+  //Dr Pro
+    getDrProPlansList(): Promise<ResponseType<{ data: PlanItem[] }>> {
+    return this.request.get<{ data: PlanItem[] }>("/user/v1/dr_pro/list");
+  }
+  getDrProExplanation(): Promise<ResponseType<{ data: ExplanationItem[] }>> {
+    return this.request.get<{ data: ExplanationItem[] }>(
+      "/user/v1/dr_pro/explanation",
+    );
+  }
+  getDrProActivePlan(): Promise<ResponseType<{ data: DrProActivePlan }>> {
+    return this.request.get<{ data: DrProActivePlan }>(
+      "/user/v1/dr_pro/active",
+    );
+  }
+  checkDrProDiscountCode(data: {
+    discount_code: string;
+    plan_id: number;
+  }): Promise<ResponseType<{ data: DiscountCodeResponse }>> {
+    return this.request.post<{ data: DiscountCodeResponse }>(
+      "/user/v1/dr_pro/order/check/code",
+      data,
+    );
+  }
+  createDrProOrder(data: {
+    discount_code_id: number;
+    id: number;
+    use_credit: number;
+  }): Promise<ResponseType<CreateDrProOrderResponse>> {
+    return this.request.post<CreateDrProOrderResponse>(
+      "/user/v1/dr_pro/order",
+      data,
+    );
+  }
 }
 
 export const api = new Api();

@@ -101,11 +101,11 @@ const MobileHeader = ({ type }: Props) => {
           {cart.count > 0 && <span>{cart.count}</span>}
         </button>
         <button
-          onClick={() => {
+          onClick={authorizeClientAction(() => {
             if (!isServerSide) {
               window.open(`${baseUrls[Apps.BASE]}${routePath.pro}`, "_self");
             }
-          }}
+          })}
           className={style.proButton}
         >
           <PlansIcon />
