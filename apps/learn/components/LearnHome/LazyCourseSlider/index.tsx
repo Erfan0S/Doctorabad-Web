@@ -4,6 +4,7 @@ import React from "react";
 import CourseSlider from "../CourseSlider";
 import { api } from "@/api/Api";
 import CourseSliderPlaceholder from "@/components/PlaceHolders/CourseSliderPlaceholder";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props = {
   type: HomePageCourseSliders;
@@ -15,6 +16,7 @@ type ConfigsType = {
   archiveLink: string | null;
   queryKey: string;
   isRefetchOnAuth?: boolean;
+  needAuth?: boolean;
 };
 
 const Configs: Record<HomePageCourseSliders, ConfigsType> = {
@@ -32,6 +34,7 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
     archiveLink: "/my_course",
     queryKey: "my-courses",
     isRefetchOnAuth: true,
+    needAuth: true,
   },
   [HomePageCourseSliders.Suggested]: {
     loader: async () => (await api.getSuggestedCourses()).data,
@@ -59,11 +62,13 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
     archiveLink: null,
     queryKey: "lastviewed-courses",
     isRefetchOnAuth: true,
+    needAuth: true,
   },
 };
 
 export default function LazyCourseSlider({ type }: Props) {
-  if (!Configs[type]) return null;
+  if (!Configs[type] || (Configs[type].needAuth && !isUserLoggedIn()))
+    return null;
   return (
     <LazyDataLoader
       placeHolder={() => <CourseSliderPlaceholder />}
