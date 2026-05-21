@@ -20,7 +20,7 @@ export const authorizeClientAction =
   (
     action: (...params: any) => any,
     showError?: boolean,
-    continueAction: boolean = true
+    continueAction: boolean = true,
   ) =>
   (...params: any) => {
     if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
@@ -47,6 +47,7 @@ export const isUserLoggedIn = (haveMassage?: boolean) => {
   if (isServerSide) {
     return !!getServerSideCookie(AUTH_COOKIE_KEY);
   }
+  if (generalAuthorizeState.getState().isAuthorized) return true;
   if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
     if (haveMassage)
       toast("ابتدا وارد شوید", { type: "error", position: "top-left" });

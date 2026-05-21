@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../common/Button/Button";
 import style from "./questionBank.module.scss";
 import SelectFilters from "../common/SelectFilters/SelectFilters";
@@ -26,6 +26,8 @@ function QuestionBankFilter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const queryClient = useQueryClient();
+
+  const [initialLoad, setInitialLoad] = useState(false);
 
   const {
     data: planData,
@@ -59,6 +61,11 @@ function QuestionBankFilter() {
     !!isUserLoggedIn();
 
   useEffect(() => {
+    if (!initialLoad) {
+      setInitialLoad(true);
+      return;
+    }
+
     if (!isUserLoggedIn()) {
       queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
       queryClient
@@ -104,7 +111,7 @@ function QuestionBankFilter() {
       a[key] = value;
     });
     router.push(
-      `${RoutePath.questions}?${SearchParamsUtils.paramsStringify(a)}`
+      `${RoutePath.questions}?${SearchParamsUtils.paramsStringify(a)}`,
     );
   };
 
@@ -113,7 +120,7 @@ function QuestionBankFilter() {
       <div className={`card ${style.topButtons}`}>
         <Button
           onClick={authorizeClientAction(() =>
-            router.push(RoutePath.marked_questions)
+            router.push(RoutePath.marked_questions),
           )}
         >
           سوالات نشان‌دار من
