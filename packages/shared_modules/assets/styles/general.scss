@@ -411,11 +411,16 @@ img[data-nimg="fill"] {
   padding: 0 1rem;
 }
 
-.learn-container, .download-container {
+.mobile-container {
   max-width: 800px;
-  padding-bottom: 15px;
   margin: 0 auto;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    padding-bottom: 90px;
+  }
 }
 
 .card {
