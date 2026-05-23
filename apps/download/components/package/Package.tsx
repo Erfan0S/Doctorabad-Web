@@ -26,13 +26,26 @@ const Package = ({ packageItem, activeTab }: Props) => {
       app={Apps.DOWNLOAD}
       preview={
         <div
-          style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}
+          style={{
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Image
             src={packageItem.picture}
             alt={packageItem.title}
-            fill
-            style={{ objectFit: "contain" }}
+            width={140}
+            height={100}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "200px",
+              width: "auto",
+              height: "auto",
+              borderRadius: "16px",
+            }}
           />
         </div>
       }

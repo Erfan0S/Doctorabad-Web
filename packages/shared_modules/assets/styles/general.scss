@@ -404,14 +404,14 @@ img[data-nimg="fill"] {
 // common classes
 
 .desktop_body {
-  padding-right: $sidebar-collapse-width;
+  // padding-right: $sidebar-collapse-width;
 }
 
 .container {
-  padding: 0 1rem;
+  padding: 0 10px;
 }
 
-.learn-container, .download-container {
+.learn-container, .download-container, .desktop_body {
   max-width: 800px;
   padding-bottom: 15px;
   margin: 0 auto;

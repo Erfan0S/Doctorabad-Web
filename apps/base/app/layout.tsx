@@ -10,6 +10,7 @@ import { api } from "@repo/shared_modules/api";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { Metadata, Viewport } from "next";
 import { SharedHeadContents } from "@repo/shared_modules";
+import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -20,6 +21,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = homeMetadata();
 export const viewPort: Viewport = homeViewPort;
+const isLoggedIn = await isUserLoggedInAsync();
 
 export default async function RootLayout({
   children,
@@ -35,8 +37,13 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             {/* <Header /> */}
+
             {children}
-            <MobileNavBar />
+            {isLoggedIn ? (
+              <MobileNavBar onlyOnMobile={false} />
+            ) : (
+              <MobileNavBar />
+            )}
 
             <Footer statistic={statistic} />
           </Providers>
