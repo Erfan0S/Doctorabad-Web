@@ -101,7 +101,7 @@ const Product: React.FC<ProductCard> = ({
                   className={style.productVariantButton}
                   app={Apps.MARKET}
                 >
-                  <Link href={url}>انتخاب گزینه‌ها خرید</Link>
+                  <Link href={url}>انتخاب گزینه‌ها</Link>
                 </Button>
               ) : (
                 <AddToCartButton

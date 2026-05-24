@@ -37,7 +37,7 @@ function QuestionBankFilter() {
   } = useQuery({
     queryKey: UserPlansQueryKeys,
     queryFn: () => sharedApi.getUserPlans(2),
-    enabled: !!isUserLoggedIn(),
+    enabled: isUserLoggedIn(),
     retry: false,
   });
   const {
@@ -47,7 +47,7 @@ function QuestionBankFilter() {
   } = useQuery({
     queryKey: ["userHasArchived"],
     queryFn: () => api.getArcgived(),
-    enabled: !!isUserLoggedIn(),
+    enabled: isUserLoggedIn(),
     staleTime: 0,
   });
 
