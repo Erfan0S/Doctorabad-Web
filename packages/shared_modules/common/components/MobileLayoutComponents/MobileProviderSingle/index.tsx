@@ -18,6 +18,7 @@ interface Props extends ProviderheaderPropsType {
   ProviderInfo: string;
   headertitle?: string;
   isLoading?: boolean;
+  defaultBackUrl?: string;
 }
 
 const ProviderPageContent = ({
@@ -50,6 +51,7 @@ const MobileProviderPageLayout = ({
   isLoading,
   headertitle,
   app,
+  defaultBackUrl,
   ...rest
 }: Props) => {
   const searchParams = useSearchParams();
@@ -63,6 +65,7 @@ const MobileProviderPageLayout = ({
         title={headertitle}
         app={app}
         children={<ProviderHeader app={app} {...rest} />}
+        defaultBackUrl={defaultBackUrl}
       />
       <ProviderPageContent
         tab={searchParams?.get("tab") || ProviderTabs.CONTENT}
