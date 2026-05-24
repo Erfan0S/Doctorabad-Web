@@ -404,14 +404,15 @@ img[data-nimg="fill"] {
 // common classes
 
 .desktop_body {
-  padding-right: $sidebar-collapse-width;
+  // padding-right: $sidebar-collapse-width;
 }
 
 .container {
-  padding: 0 1rem;
+  // padding: 0 1rem;
+  padding: 0 10px;
 }
 
-.mobile-container {
+.mobile-container, .desktop_body {
   max-width: 800px;
   margin: 0 auto;
   position: relative;

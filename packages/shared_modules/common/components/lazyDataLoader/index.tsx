@@ -5,6 +5,7 @@ import { ReactNode, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Button } from "..";
 import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props<D = any> = {
   loader: () => Promise<D>;
@@ -13,6 +14,7 @@ type Props<D = any> = {
   placeHolder: () => ReactNode;
   returnOnError?: boolean;
   isRefetchOnAuth?: boolean;
+  needToLoggedIn?: boolean;
 };
 
 export const LazyDataLoader = <S extends Object>({
@@ -22,6 +24,7 @@ export const LazyDataLoader = <S extends Object>({
   placeHolder: PlaceHolder,
   returnOnError,
   isRefetchOnAuth = false,
+  needToLoggedIn = false,
 }: Props<S>) => {
   const { data, isLoading, isPending, isSuccess, isError, refetch } = useQuery({
     queryFn: loader,
@@ -35,15 +38,19 @@ export const LazyDataLoader = <S extends Object>({
 
   useEffect(() => {
     if (inView && !isSuccess) {
-      refetch();
+      if (!needToLoggedIn || isUserLoggedIn()) {
+        refetch();
+      }
     }
   }, [inView, isSuccess, refetch]);
 
   useEffect(() => {
     if (isRefetchOnAuth && generalAuthorizeState.getState().isAuthorized) {
-      refetch();
+      if (!needToLoggedIn || isUserLoggedIn()) {
+        refetch();
+      }
     }
-  }, [isRefetchOnAuth, generalAuthorizeState.getState().isAuthorized]);
+  }, [isRefetchOnAuth, generalAuthorizeState.getState().isAuthorized, needToLoggedIn]);
 
   if (isLoading || isPending)
     return (

@@ -1,6 +1,9 @@
+"use client";
+
 import { HomePagePackageSliders } from "@/types/homePage";
 import { LazyDataLoader } from "@repo/shared_modules/components";
 import React from "react";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import PackageSlider from "../PackageSlider";
 import { api } from "@/api/Api";
 import PackageSliderPlaceholder from "@/components/PlaceHolders/PackageSliderPlaceholder";
@@ -59,11 +62,13 @@ const Configs: Record<HomePagePackageSliders, ConfigsType> = {
 
 export default function LazyPackageSlider({ type }: Props) {
   if (!Configs[type]) return null;
+  if (Configs[type].needToLoggedIn && !isUserLoggedIn()) return null;
   return (
     <LazyDataLoader
       placeHolder={() => <PackageSliderPlaceholder />}
       loader={Configs[type].loader}
       queryKey={Configs[type].queryKey}
+      needToLoggedIn={Configs[type].needToLoggedIn}
       returnOnError
       isRefetchOnAuth={Configs[type].isRefetchOnAuth}
       component={(d) => {

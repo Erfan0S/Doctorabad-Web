@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import styles from "./LearnHome.module.scss";
+import styles from "./DownloadHome.module.scss";
 import { HomePagePackageSliders } from "@/types/homePage";
 import LazyPackageSlider from "./LazyPackageSlider";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const MainPage = () => {
   return (
