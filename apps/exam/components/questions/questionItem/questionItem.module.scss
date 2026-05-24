@@ -92,6 +92,11 @@ html .dontKnowQuestion {
         padding: 8px;
         cursor: pointer;
       }
+
+      .filledBookMark {
+        color: $purple;
+        fill: $purple;
+      }
     }
 
     div {

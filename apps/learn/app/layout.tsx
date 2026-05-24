@@ -40,7 +40,7 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <Suspense fallback={<div></div>}>
-              <div className="learn-container">
+              <div className="mobile-container">
                 <main>{children}</main>
                 <MobileNavBar
                   onlyOnMobile={false}

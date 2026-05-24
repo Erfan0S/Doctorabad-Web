@@ -404,19 +404,23 @@ img[data-nimg="fill"] {
 // common classes
 
 .desktop_body {
-  // padding-right: $sidebar-collapse-width;
+  padding-right: $sidebar-collapse-width;
 }
 
 .container {
-  // padding: 0 1rem;
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 
-.learn-container, .download-container, .desktop_body {
+.mobile-container {
   max-width: 800px;
-  padding-bottom: 15px;
   margin: 0 auto;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    padding-bottom: 90px;
+  }
 }
 
 .card {
