@@ -25,14 +25,25 @@ body .secondary {
     }
   }
 
-  .providerInfo {
-    background: white;
-    width: 90%;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 0px 3px 5px #b5b5b5;
-    padding-top: 50px;
-  }
+.providerInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+  min-width: 0;
+}
+
+.providerInfo h3 {
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  margin: 0;
+  line-height: 1.2;
+  min-height: calc(2 * 1.2em);
+  align-items: center;
+  min-width: 0;
+}
 
   .redBackground {
     height: 67%;
@@ -64,6 +75,12 @@ body .secondary {
 }
 
 .providerInfo {
+      background: white;
+    width: 90%;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 3px 5px #b5b5b5;
+    padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;

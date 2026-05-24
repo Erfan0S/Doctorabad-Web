@@ -42,17 +42,48 @@ const MobileProductListItem = ({
           {providerTitle && providerTitle}
         </span>
         <div className={styles.metadata}>
-          <div className={styles.metadataWrapper}>
-            {attributes?.map(({ value, icon }, idx) => {
-              if (value === null || value === undefined || value === "")
-                return null;
-              return (
-                <div className={styles.metadataItem} key={idx}>
-                  {icon && icon}
-                  <span>{value}</span>
-                </div>
-              );
-            })}
+          <div className={styles.metadataItem}>
+            {attributes && attributes[0] && attributes[0].value ? (
+              <>
+                {attributes[0].icon}
+                <span>{attributes[0].value}</span>
+              </>
+            ) : (
+              <span className={styles.metaEmpty} />
+            )}
+          </div>
+
+          <div className={styles.metadataItem}>
+            {attributes && attributes[1] && attributes[1].value ? (
+              <>
+                {attributes[1].icon}
+                <span>{attributes[1].value}</span>
+              </>
+            ) : (
+              <span className={styles.metaEmpty} />
+            )}
+          </div>
+
+          <div className={styles.metadataItem}>
+            {attributes && attributes[2] && attributes[2].value ? (
+              <>
+                {attributes[2].icon}
+                <span>{attributes[2].value}</span>
+              </>
+            ) : (
+              <span className={styles.metaEmpty} />
+            )}
+          </div>
+
+          <div className={styles.metadataItem}>
+            {attributes && attributes[3] && attributes[3].value ? (
+              <>
+                {attributes[3].icon}
+                <span>{attributes[3].value}</span>
+              </>
+            ) : (
+              <span className={styles.metaEmpty} />
+            )}
           </div>
         </div>
         {price_main && (

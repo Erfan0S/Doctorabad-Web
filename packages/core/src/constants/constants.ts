@@ -1,6 +1,6 @@
 export const defaultBaseUrl =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:3005/api"
+    ? "http://localhost:3009/api"
     : "https://dev.doctorabad.com/api";
 
 export const isServerSide = typeof window === "undefined";

@@ -69,7 +69,7 @@ const MobileProductLayout = ({
               ) : (
                 preview
               )}
-              <div className={style["producte-title"]}>
+              <div className={style["product-title"]}>
                 <Link href={app == Apps.DOWNLOAD ?` /publishers/${provider?.id}` : `/providers/${provider?.id}`}>
                   {/* provider image */}
                   <Image

@@ -26,6 +26,7 @@ const Configs: Record<HomePagePackageSliders, ConfigsType> = {
     archiveLink: "/my_package",
     queryKey: "my-packages",
     isRefetchOnAuth: true,
+    
   },
   [HomePagePackageSliders.Suggested]: {
     loader: async () => (await api.getPackages(1, "newest", 1)).data,
