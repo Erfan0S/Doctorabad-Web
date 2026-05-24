@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <div className={style.logo}>
       <Link href="/">
-        <Image width={180} src={logo} alt="مرکزخرید‌دکترآباد" />
+        <Image width={147} height={40} src={logo} alt="مرکزخرید‌دکترآباد" />
       </Link>
     </div>
   );
