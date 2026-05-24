@@ -10,6 +10,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import Product from "@/components/common/product";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
+import { marketPaths } from "@repo/core/constants/routePath";
 
 const ProviderPageContent = ({
   products,
@@ -60,8 +61,7 @@ function CollectionSinglePage({ id }: { id: number }) {
 
   const collection = data?.pages[0].collection;
 
-  return (  
-    
+  return (
     <MobileProviderPageLayout
       ProviderContent={
         <ProviderPageContent
@@ -79,6 +79,7 @@ function CollectionSinglePage({ id }: { id: number }) {
       isLoading={isLoading}
       headertitle="مجموعه"
       variant="secondary"
+      defaultBackUrl={marketPaths.collections}
     />
   );
 }

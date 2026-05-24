@@ -1,5 +1,6 @@
 {
   "name": "doctor-abad",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -39,6 +40,7 @@
     "isomorphic-dompurify": "^3.0.0-rc.2",
     "jalaali-js": "^1.2.0",
     "moment-jalaali": "^0.10.4",
+    "nextjs-toploader": "^3.9.17",
     "npm": "^11.5.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-toastify": "^9.1.3",

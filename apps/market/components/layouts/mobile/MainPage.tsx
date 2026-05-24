@@ -4,7 +4,6 @@ import { AmazingProduct } from "@repo/core/types/product";
 import { Banner } from "@/types/banner";
 import { MobileHomeHeader } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";
-import { MobileTabsConfig } from "@repo/core/types/configs";
 import { MainSlider } from "@repo/shared_modules/components";
 import { HomePageProductSliders } from "@/components/HomePageProductSliders";
 import { MainTabsData } from "@/constants/tabsData";
