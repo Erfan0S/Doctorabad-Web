@@ -19,6 +19,7 @@ export type ProductListItemProps = {
   price_main?: number;
   price_off?: number;
   app?: Apps;
+  imageType?: "landscape" | "portrait" | "square" | "auto";
 };
 
 // export type PackageListItemProps = {
