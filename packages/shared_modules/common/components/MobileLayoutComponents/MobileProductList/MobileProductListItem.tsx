@@ -17,7 +17,21 @@ const MobileProductListItem = ({
   price_main,
   price_off,
   app,
+  imageType = "auto",
 }: ProductListItemProps) => {
+  const imageClassName = () => {
+    switch (imageType) {
+      case "landscape":
+        return styles.productImageLandscape;
+      case "portrait":
+        return styles.productImagePortrait;
+      case "square":
+        return styles.productImageSquare;
+      default:
+        return styles.productImageAuto;
+    }
+  };
+
   return (
     <div className={`${styles.productCard} ${app && styles[app]}`}>
       {installmentPayment && (
@@ -30,7 +44,7 @@ const MobileProductListItem = ({
           width={0}
           height={0}
           sizes="100vh"
-          className={styles.productImage}
+          className={`${styles.productImage} ${imageClassName()}`}
           placeholder={placeHolderDataUrl}
         />
       ) : (
