@@ -8,20 +8,35 @@ html .cartItem {
   padding: space(2) 0;
   position: relative;
   flex-wrap: wrap;
+  overflow: hidden;
+  justify-content: center;
+  gap: 15px;
 
   &Image {
     width: auto;
     height: 60px;
     // border: 1px solid var(--app-base, $base-green);
-    border-radius: radius(2);
-    box-shadow: 0 0 6px 0px rgba(0, 0, 0, 0.15);
 
     img {
       border-radius: radius(2);
       width: auto;
       max-width: 110px;
+      min-width: 60px;
       max-height: 100%;
       object-fit: contain;
+      box-shadow: 0 0 6px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    a .landscape {
+      width: auto;
+      height: 60px;
+      aspect-ratio: 16 / 9;
+    }
+
+    a .square {
+      width: 60px;
+      height: 60px;
+      aspect-ratio: 1 / 1;
     }
   }
 
@@ -31,10 +46,9 @@ html .cartItem {
 
   &Content {
     flex: 1;
-    padding-right: space(3);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     min-height: 70px;
     justify-content: space-between;
   }
@@ -55,7 +69,7 @@ html .cartItem {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      padding-left: 30px;
+      padding-left: 25px;
     }
     span {
       font-size: 11px;

@@ -66,6 +66,7 @@ export const productData = (
     ],
     installmentPayment: course.installment_payment,
     lang: course.language == 1 ? "Fa" : "En",
+    imageType: "landscape",
   };
 };
 
