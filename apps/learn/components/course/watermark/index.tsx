@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import styles from "./Watermark.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props = {
   active?: boolean;
@@ -10,6 +11,10 @@ type Props = {
 };
 
 export default function Watermark({ active, shown }: Props) {
+  if (!isUserLoggedIn()) {
+    return null;
+  }
+
   const [position, setPosition] = React.useState([50, 50]);
   let interval: ReturnType<typeof setInterval>;
 

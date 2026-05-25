@@ -26,6 +26,7 @@ export const routePath = {
 export const learnPaths = {
   provider: "/providers",
   single: "/course",
+  categories: "/categories",
 };
 
 export const marketPaths = {

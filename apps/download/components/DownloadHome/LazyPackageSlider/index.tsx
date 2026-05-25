@@ -18,7 +18,7 @@ type ConfigsType = {
   archiveLink: string | null;
   queryKey: string;
   isRefetchOnAuth?: boolean;
-  needToLoggedIn?: boolean;
+  needAuth?: boolean;
 };
 
 const Configs: Record<HomePagePackageSliders, ConfigsType> = {
@@ -28,7 +28,7 @@ const Configs: Record<HomePagePackageSliders, ConfigsType> = {
     archiveLink: "/my_package",
     queryKey: "my-packages",
     isRefetchOnAuth: true,
-    needToLoggedIn: true,
+    needAuth: true,
   },
   [HomePagePackageSliders.Suggested]: {
     loader: async () => (await api.getPackages(1, "newest", 1)).data,
@@ -56,19 +56,19 @@ const Configs: Record<HomePagePackageSliders, ConfigsType> = {
     archiveLink: null,
     queryKey: "lastviewed-packages",
     isRefetchOnAuth: true,
-    needToLoggedIn: true,
+    needAuth: true,
   },
 };
 
 export default function LazyPackageSlider({ type }: Props) {
   if (!Configs[type]) return null;
-  if (Configs[type].needToLoggedIn && !isUserLoggedIn()) return null;
+  // if (Configs[type].needAuth && !isUserLoggedIn()) return null;
   return (
     <LazyDataLoader
       placeHolder={() => <PackageSliderPlaceholder />}
       loader={Configs[type].loader}
       queryKey={Configs[type].queryKey}
-      needToLoggedIn={Configs[type].needToLoggedIn}
+      needAuth={Configs[type].needAuth}
       returnOnError
       isRefetchOnAuth={Configs[type].isRefetchOnAuth}
       component={(d) => {

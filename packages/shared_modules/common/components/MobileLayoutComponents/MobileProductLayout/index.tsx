@@ -10,6 +10,7 @@ import {
 } from "@repo/shared_modules/components";
 import { MobileTabsConfigWithContent } from "@repo/core/types/configs";
 import ProductButton, { ProductButtonProps } from "./ProductButton";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 type Props = {
   tabsData: MobileTabsConfigWithContent[];
@@ -70,7 +71,7 @@ const MobileProductLayout = ({
                 preview
               )}
               <div className={style["product-title"]}>
-                <Link href={app == Apps.DOWNLOAD ?` /publishers/${provider?.id}` : `/providers/${provider?.id}`}>
+                <Link href={app == Apps.DOWNLOAD ?` ${baseUrls.download}/publishers/${provider?.id}` : `${baseUrls.learn}/providers/${provider?.id}`}>
                   {/* provider image */}
                   <Image
                     src={provider?.img_url || ""}

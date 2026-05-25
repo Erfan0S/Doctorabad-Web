@@ -67,8 +67,7 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
 };
 
 export default function LazyCourseSlider({ type }: Props) {
-  if (!Configs[type] || (Configs[type].needAuth && !isUserLoggedIn()))
-    return null;
+  if (!Configs[type]) return null;
   return (
     <LazyDataLoader
       placeHolder={() => <CourseSliderPlaceholder />}
@@ -76,6 +75,7 @@ export default function LazyCourseSlider({ type }: Props) {
       queryKey={Configs[type].queryKey}
       returnOnError
       isRefetchOnAuth={Configs[type].isRefetchOnAuth}
+      needAuth={Configs[type].needAuth}
       component={(d) => {
         return (
           <CourseSlider

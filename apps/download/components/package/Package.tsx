@@ -19,55 +19,59 @@ const Package = ({ packageItem, activeTab }: Props) => {
     packageItem,
   });
 
+  const imageSrc = packageItem?.picture ?? packageItem?.provider_picture ?? undefined;
+
   return (
     <MobileProductLayout
       tabsData={tabsData}
       tabParam={activeTab || PackageTab.SPECIFICATIONS}
       app={Apps.DOWNLOAD}
       preview={
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            src={packageItem.picture}
-            alt={packageItem.title}
-            width={140}
-            height={100}
+        imageSrc ? (
+          <div
             style={{
-              maxWidth: "100%",
-              maxHeight: "200px",
-              width: "auto",
-              height: "auto",
-              borderRadius: "16px",
+              position: "relative",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
-        </div>
+          >
+            <Image
+              src={imageSrc}
+              alt={packageItem?.title || ""}
+              width={140}
+              height={100}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "200px",
+                width: "auto",
+                height: "auto",
+                borderRadius: "16px",
+              }}
+            />
+          </div>
+        ) : null
       }
-      title={packageItem.title}
+      title={packageItem?.title}
       headerSuffix={<PackageHeaderSuffix packageItem={packageItem} />}
       provider={{
         name: packageItem.authors?.[0]?.title || "",
-        img_url: packageItem.provider_picture,
-        id: packageItem.provider_id,
+        img_url: packageItem?.provider_picture,
+        id: packageItem?.provider_id,
       }}
       productButtonProps={{
-        installment_payment: packageItem.user_has_access
+        installment_payment: packageItem?.user_has_access
           ? false
-          : packageItem.installment_payment,
-        installment_text: packageItem.installment_text || undefined,
-        mainPrice: packageItem.main_price ?? 0,
-        offPrice: packageItem.off_price,
-        productId: packageItem.id,
+          : packageItem?.installment_payment,
+        installment_text: packageItem?.installment_text || undefined,
+        mainPrice: packageItem?.main_price ?? 0,
+        offPrice: packageItem?.off_price,
+        productId: packageItem?.id,
         orderType: OrderType.Package,
         app: Apps.DOWNLOAD,
-        replaceButton: (packageItem.user_has_access ||
-          packageItem.main_price == null) && (
+        replaceButton: (packageItem?.user_has_access ||
+          packageItem?.main_price == null) && (
           <PackageActiveButton packageItem={packageItem} />
         ),
         children: <PackageAppOnlyButton packageItem={packageItem} />,

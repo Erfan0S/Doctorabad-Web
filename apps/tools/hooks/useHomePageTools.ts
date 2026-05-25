@@ -1,6 +1,7 @@
 // hooks/useHomePageTools.ts
 import { useState, useEffect } from "react";
 import { api } from "@repo/shared_modules/api";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
 
@@ -19,10 +20,13 @@ export const useHomePageTools = () => {
       let resolvedKey: string | null = null;
 
       try {
-        const response = await api.getUser();
-        const user = response.data.data;
-        if (user?.mobile) {
-          resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
+        if (isUserLoggedIn()){
+
+          const response = await api.getUser();
+          const user = response.data.data;
+          if (user?.mobile) {
+            resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
+          }
         }
       } catch (e) {
         console.error("Error fetching user for tools storage:", e);

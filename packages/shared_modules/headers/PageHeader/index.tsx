@@ -3,6 +3,7 @@ import { Apps } from "@repo/core/types/general";
 import BackIcon from "../../assets/svg/back";
 import style from "./PageHeader.module.scss";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+import { useTopLoader } from "nextjs-toploader";
 
 interface Props {
   title: string | React.ReactNode;
@@ -26,8 +27,10 @@ const PageHeader: React.FC<Props> = ({
   defaultBackUrl,
 }) => {
   const navHistory = useNavigationHistory();
+  const topLoader = useTopLoader();
 
   const OnBack = () => {
+    topLoader.start();
     if (onBack) {
       onBack(() => navHistory.goBack());
     } else {
@@ -56,5 +59,3 @@ const PageHeader: React.FC<Props> = ({
 };
 
 export default PageHeader;
-
-

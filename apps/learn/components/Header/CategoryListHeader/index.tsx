@@ -4,6 +4,7 @@ import styles from "./CategoryListHeader.module.scss";
 import { SortType } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
 import { Accordion } from "@repo/shared_modules/components";
+import { learnPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   title: string;
@@ -22,6 +23,7 @@ const CategoryListHeader = ({ title }: Props) => {
     <PageHeader
       title={title}
       app={Apps.LEARN}
+      defaultBackUrl={learnPaths.categories}
       children={
         <div className={styles.filterWrapper}>
           <Accordion
