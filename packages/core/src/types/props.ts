@@ -9,7 +9,7 @@ export type ProductListItemProps = {
   title: string;
   id: string;
   pic_url?: string;
-  baseUrl: string;
+  baseUrl?: string;
   attributes?: {
     value?: string | number | React.ReactNode | null;
     icon?: React.ReactNode;
