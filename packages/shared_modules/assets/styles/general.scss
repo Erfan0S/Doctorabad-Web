@@ -406,13 +406,17 @@ img[data-nimg="fill"] {
 .desktop_body {
   // padding-right: $sidebar-collapse-width;
 }
+.market_body {
+  padding-right: $sidebar-collapse-width;
+}
 
 .container {
   // padding: 0 1rem;
   padding: 0 10px;
 }
 
-.mobile-container, .desktop_body {
+.mobile-container,
+.desktop_body {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
@@ -438,6 +442,9 @@ img[data-nimg="fill"] {
     }
   }
   .desktop_body {
+    padding-right: unset;
+  }
+  .market_body {
     padding-right: unset;
   }
 

@@ -36,7 +36,7 @@ export default async function RootLayout({
   return (
     <html lang="fa">
       <SharedHeadContents />
-      <body className={`${font.className} desktop_body`}>
+      <body className={`${font.className} market_body`}>
         <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>
