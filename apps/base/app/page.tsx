@@ -23,18 +23,19 @@ export default async function Home() {
 
   return (
     <>
-
       {isLoggedIn ? (
         <>
-        <HomeHeader />
-          <MainSliderSection />
-          <ServiceShortcuts />
-          <DoctorToolsSection />
-          <BlogSlider
-            data={blogPosts}
-            title="دکترمگ"
-            archiveLink="https://doctorabad.com/mag"
-          />
+          <div className="mobile-container">
+            <HomeHeader />
+            <MainSliderSection />
+            <ServiceShortcuts />
+            <DoctorToolsSection />
+            <BlogSlider
+              data={blogPosts}
+              title="دکترمگ"
+              archiveLink="https://doctorabad.com/mag"
+            />
+          </div>
         </>
       ) : (
         <>
