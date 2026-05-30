@@ -8,6 +8,8 @@ function DesktopProductSingle({
   data,
   relatedProductList,
 }: ProductSingleProps) {
+  console.log(data);
+
   return (
     <>
       <div className="col-xl-8">

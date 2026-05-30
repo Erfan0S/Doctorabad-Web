@@ -109,9 +109,10 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
         onBack={() => {
           const redirectApp = searchParams?.get(REDIRECTED_APP_KEY) as Apps;
           const backUrl =
-            searchParams?.get("prev") || !!redirectApp
+            searchParams?.get("prev") ||
+            (!!redirectApp && !!baseUrls[redirectApp]
               ? baseUrls[redirectApp]
-              : baseUrls.base;
+              : baseUrls.base);
           router.push(backUrl);
         }}
         title="سبد خرید"

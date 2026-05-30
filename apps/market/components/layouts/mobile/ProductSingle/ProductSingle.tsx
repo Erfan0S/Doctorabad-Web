@@ -16,6 +16,7 @@ import ProductHeaderSuffix from "@/components/product/mobileLayout/ProductHeader
 import MobileProductVariantButton from "@/components/product/mobileLayout/MobileProductVariantButton";
 import ProductSlider from "@/components/product/intro/slider";
 import styles from "./ProductSingle.module.scss";
+import bundleProviderImagefrom from "@repo/shared_modules/images/bundel_provider.jpg";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -89,9 +90,11 @@ function MobileProductSingle({
         tabsData={TabsConfig(data, relatedProductList)}
         title={data.title || data.title_en || "____"}
         provider={{
-          id: data.provider.id,
-          name: data.provider.name,
-          img_url: data.provider.pic_url,
+          id: data.is_bundle ? undefined : data.provider.id,
+          name: data.is_bundle ? undefined : data.provider.name,
+          img_url: data.is_bundle
+            ? bundleProviderImagefrom.src
+            : data.provider.pic_url,
         }}
         tabParam={searchParams?.tab as string}
         productButtonProps={{

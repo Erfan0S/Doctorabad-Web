@@ -4,7 +4,6 @@ import React from "react";
 import CourseSlider from "../CourseSlider";
 import { api } from "@/api/Api";
 import CourseSliderPlaceholder from "@/components/PlaceHolders/CourseSliderPlaceholder";
-import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 type Props = {
   type: HomePageCourseSliders;

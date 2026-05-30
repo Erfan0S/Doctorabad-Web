@@ -20,8 +20,8 @@ type Props = {
   productButtonProps?: ProductButtonProps;
   provider?: {
     img_url: string;
-    name: string;
-    id: number;
+    name?: string;
+    id?: number;
   };
   headerSuffix?: React.ReactNode;
   headerTitle?: string;
@@ -39,7 +39,7 @@ const MobileProductLayout = ({
   productButtonProps,
   tabParam,
 }: Props) => {
-  console.log(tabParam);
+  console.log(provider?.id);
 
   return (
     <div className={`${style.wrapper} ${app && style[app]}`}>
@@ -71,17 +71,34 @@ const MobileProductLayout = ({
                 preview
               )}
               <div className={style["product-title"]}>
-                <Link href={app == Apps.DOWNLOAD ?` ${baseUrls.download}/publishers/${provider?.id}` : `${baseUrls.learn}/providers/${provider?.id}`}>
-                  {/* provider image */}
+                {!!provider?.id ? (
+                  <Link
+                    href={
+                      // ?: fix for market
+                      app == Apps.DOWNLOAD
+                        ? ` ${baseUrls.download}/publishers/${provider.id}`
+                        : `${baseUrls.learn}/providers/${provider.id}`
+                    }
+                  >
+                    {/* provider image */}
+                    <Image
+                      src={provider?.img_url || ""}
+                      alt={provider?.name || "ارائه دهنده"}
+                      width={100}
+                      height={44}
+                      placeholder={placeHolderDataUrl}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </Link>
+                ) : (
                   <Image
                     src={provider?.img_url || ""}
                     alt={provider?.name || "ارائه دهنده"}
                     width={100}
                     height={44}
                     placeholder={placeHolderDataUrl}
-                    style={{ objectFit: "contain"}}
                   />
-                </Link>
+                )}
                 <h1>{title}</h1>
               </div>
             </div>

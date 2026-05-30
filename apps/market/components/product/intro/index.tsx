@@ -9,6 +9,8 @@ import ProductTitle from "./title";
 
 import ProductSidebar from "../sidebar";
 import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
+import bundleProviderImagefrom from "@repo/shared_modules/images/bundel_provider.jpg";
+
 interface Props {
   productData: SingleProduct;
 }
@@ -16,6 +18,12 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
   const category = productData?.category?.length
     ? productData?.category[0]
     : null;
+
+  const provider: SingleProduct["provider"] = productData.is_bundle
+    ? {
+        pic_url: bundleProviderImagefrom.src,
+      }
+    : productData.provider;
 
   return (
     <>
@@ -41,7 +49,7 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
                   ]}
                 />
               )}
-              <ProductSeller seller={productData.provider} />
+              <ProductSeller seller={provider} />
               <ProductTitle title={productData.title} />
               <ProductShortDescription shortDescription={productData.summary} />
             </div>
