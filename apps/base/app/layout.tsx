@@ -44,11 +44,24 @@ export default async function RootLayout({
             {children}
             {isLoggedIn ? (
               <DiviceSwitchShell
-                desktop={<MobileNavBar excludePaths={["pwa", "checkout", "register"]} onlyOnMobile={false} />}
+                desktop={
+                  <MobileNavBar
+                    excludePaths={["pwa", "checkout", "register"]}
+                    onlyOnMobile={false}
+                  />
+                }
                 mobile={<MobileNavBar />}
               />
             ) : (
-              <MobileNavBar />
+              <DiviceSwitchShell
+                desktop={
+                  <MobileNavBar
+                    excludePaths={["pwa", "checkout", "register", ""]}
+                    onlyOnMobile={false}
+                  />
+                }
+                mobile={<MobileNavBar />}
+              />
             )}
 
             <Footer statistic={statistic} />

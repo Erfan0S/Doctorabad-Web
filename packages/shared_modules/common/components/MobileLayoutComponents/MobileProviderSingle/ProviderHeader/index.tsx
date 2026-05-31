@@ -52,7 +52,13 @@ const ProviderHeader = ({
           placeholder={placeHolderDataUrl}
           style={{ objectFit: variant == "secondary" ? "cover" : undefined }}
         />
-        <div className={styles.providerInfo}>
+        <div
+          className={
+            variant == "secondary"
+              ? styles.providerInfoSecondary
+              : styles.providerInfo
+          }
+        >
           <h3>{title}</h3>
           <h3>{summery}</h3>
         </div>
