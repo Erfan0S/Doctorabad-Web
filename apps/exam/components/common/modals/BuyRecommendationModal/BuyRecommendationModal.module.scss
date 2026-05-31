@@ -1,0 +1,41 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+body .buyRecommendationModalWrapper {
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 60px;
+  max-width: 90vw;
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .examInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 18px;
+  }
+
+  p,
+  h3 {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .price {
+    color: $purple;
+    margin-bottom: 0;
+  }
+
+  p:last-of-type {
+    font-size: 13px;
+    font-weight: normal;
+    padding: 0 75px;
+    text-align: center;
+    margin-top: 15px;
+  }
+}
