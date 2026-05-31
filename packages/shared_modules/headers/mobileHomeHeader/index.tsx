@@ -11,6 +11,7 @@ interface Props extends SearchBarProps {
   type?: Apps;
   defaultTab?: string;
   haveSearch?: boolean;
+  haveTabLoading?: boolean;
 }
 
 function MobileHomeHeader({
@@ -19,6 +20,7 @@ function MobileHomeHeader({
   type = Apps.BASE,
   defaultTab = tabData[0].id,
   haveSearch = false,
+  haveTabLoading,
   ...rest
 }: Props) {
   return (
@@ -27,7 +29,12 @@ function MobileHomeHeader({
         <div className={styles.childContainer}>
           <MobileHeaderBase type={type} />
         </div>
-        <TabsController tabData={tabData} defaultTab={defaultTab} app={type} />
+        <TabsController
+          tabData={tabData}
+          defaultTab={defaultTab}
+          app={type}
+          haveLoading={haveTabLoading}
+        />
       </div>
       {haveSearch && (
         <div className={styles.childContainer}>
