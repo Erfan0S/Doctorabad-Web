@@ -42,10 +42,9 @@ const ProductList = ({
         {products.map((p) => {
           const itemApp = p.app || app;
           const productBaseUrl = baseUrls[itemApp] || "";
-          const imageType = itemApp === Apps.DOWNLOAD ? "portrait" : "auto";
           return (
             <Link href={`${productBaseUrl}/${p.baseUrl}/${p.id}`} key={p.id}>
-              <MobileProductListItem {...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {})} {...p} />
+              <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {}) } {...p} />
             </Link>
           );
         })}
