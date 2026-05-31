@@ -442,6 +442,9 @@ img[data-nimg="fill"] {
 }
 
 @media (max-width: 768px) {
+  .tools_app{
+    padding-bottom: 0 !important;
+  }
   body {
     padding-bottom: 86px;
 
@@ -449,6 +452,7 @@ img[data-nimg="fill"] {
       padding-right: unset;
     }
   }
+
   .desktop_body {
     padding-right: unset;
   }
