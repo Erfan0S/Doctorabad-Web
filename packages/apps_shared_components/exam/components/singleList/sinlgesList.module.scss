@@ -22,12 +22,6 @@
   position: relative;
   background-color: white;
 
-  .favoriteButton {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-  }
-
   > div {
     display: flex;
     flex-direction: row;
@@ -40,9 +34,23 @@
     align-items: center;
   }
 
+  &Buttons {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .favoriteButton {
+    width: 35px;
+    height: 35px;
+    min-width: auto;
+  }
+
   button {
     flex: none;
     font-size: 12px;
+    height: 35px;
+    min-width: 100px;
   }
   img {
     border-radius: 15px;
