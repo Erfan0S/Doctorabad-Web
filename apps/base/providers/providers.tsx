@@ -6,6 +6,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { ModalsList } from "@repo/shared_modules/modalsList";
 import { Providers as SharedProviders } from "@repo/shared_modules";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
+import { usePathname } from "next/navigation";
 
 const Providers = ({ children }: React.PropsWithChildren) => {
   const [client] = useState(
@@ -14,10 +16,13 @@ const Providers = ({ children }: React.PropsWithChildren) => {
     }),
   );
   const isLoggedIn = isUserLoggedIn();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <SharedProviders modalList={ModalsList}>
-      {!isLoggedIn ? <SidebarProvider /> : null}
+      {isHome && isLoggedIn ? null : <SidebarProvider />}
+      {/* {!isLoggedIn ? <SidebarProvider /> : null} */}
       {children}
     </SharedProviders>
   );

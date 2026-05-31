@@ -11,6 +11,8 @@ import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { Metadata, Viewport } from "next";
 import { SharedHeadContents } from "@repo/shared_modules";
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
+import BodyClassManager from "../components/BodyClassManager";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -32,15 +34,19 @@ export default async function RootLayout({
   return (
     <html lang="fa">
       <SharedHeadContents />
-      <body className={`${font.className} desktop_body`}>
+      <body className={`${font.className}`}>
         <NextTopLoader color="#8fcc18" />
         <div className="root">
           <Providers>
+            <BodyClassManager isLoggedIn={isLoggedIn} />
             {/* <Header /> */}
 
             {children}
             {isLoggedIn ? (
-              <MobileNavBar onlyOnMobile={false} />
+              <DiviceSwitchShell
+                desktop={<MobileNavBar excludePaths={["pwa", "checkout", "register"]} onlyOnMobile={false} />}
+                mobile={<MobileNavBar />}
+              />
             ) : (
               <MobileNavBar />
             )}
