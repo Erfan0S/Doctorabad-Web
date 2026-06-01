@@ -88,6 +88,7 @@ function MobileProductSingle({
             />
           </div>
         }
+        providerBaseUrl={marketPaths.mobileProviders}
         tabsData={TabsConfig(data, relatedProductList)}
         title={data.title || data.title_en || "____"}
         provider={{
