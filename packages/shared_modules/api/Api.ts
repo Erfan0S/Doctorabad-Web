@@ -1,3 +1,4 @@
+import { VerifyCodeType } from "@repo/core/types/register";
 import { Request } from "@repo/core/http-request/Request";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
@@ -81,8 +82,11 @@ class Api extends Request {
   }
 
   // user
-  sendVerificationCode(mobile: string): Promise<any> {
-    return this.request.post("/user/verification/send", { mobile });
+  sendVerificationCode(
+    mobile: string,
+    type: VerifyCodeType = VerifyCodeType.MOBILE,
+  ): Promise<any> {
+    return this.request.post("/user/verification/send", { mobile, type });
   }
 
   verifyPhone(data: VerifyPhoneInput): Promise<ResponseType<User>> {
@@ -440,7 +444,7 @@ class Api extends Request {
     return this.request.get("/user/v1/package/favorite", {
       params: { page },
     });
-  }
+  };
 
   getLiveChatInformation = (): Promise<
     ResponseType<{ data: LiveChatInformation }>
@@ -578,18 +582,18 @@ class Api extends Request {
     });
   }
 
-    reportDiseaseError = (
+  reportDiseaseError = (
     text: string,
-    productId: number
+    productId: number,
   ): Promise<ResponseType<{ message: string }>> => {
     return this.request.post(`/user/v1/clinic/error/report`, {
       report: text,
       id: productId,
     });
   };
-    reportMedicineError = (
+  reportMedicineError = (
     text: string,
-    productId: number
+    productId: number,
   ): Promise<ResponseType<{ message: string }>> => {
     return this.request.post(`/user/v1/medicine/error/report`, {
       report: text,
