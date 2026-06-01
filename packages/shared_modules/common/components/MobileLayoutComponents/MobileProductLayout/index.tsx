@@ -26,6 +26,7 @@ type Props = {
   headerSuffix?: React.ReactNode;
   headerTitle?: string;
   tabParam?: string;
+  providerBaseUrl?: string;
 };
 
 const MobileProductLayout = ({
@@ -38,6 +39,7 @@ const MobileProductLayout = ({
   preview,
   productButtonProps,
   tabParam,
+  providerBaseUrl = "/providers",
 }: Props) => {
   console.log(provider?.id);
 
@@ -75,9 +77,7 @@ const MobileProductLayout = ({
                   <Link
                     href={
                       // ?: fix for market
-                      app == Apps.DOWNLOAD
-                        ? ` ${baseUrls.download}/publishers/${provider.id}`
-                        : `${baseUrls.learn}/providers/${provider.id}`
+                      `${providerBaseUrl}/${provider.id}`
                     }
                   >
                     {/* provider image */}
