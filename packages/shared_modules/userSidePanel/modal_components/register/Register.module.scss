@@ -156,6 +156,60 @@
         }
       }
     }
+
+    .resendWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: space(5);
+      align-items: center;
+      border: 1px solid $lightGray;
+      border-radius: radius(3);
+      padding: space(3);
+
+      .resendCode {
+        color: rgb(43, 43, 43);
+        cursor: pointer;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 5px 10px;
+        font-weight: 500;
+        border: 1px solid $gray;
+        border-radius: radius(2);
+        width: 100%;
+        min-width: 200px;
+
+        &Completed {
+          color: $gray;
+          cursor: default;
+
+          &:hover {
+            box-shadow: none !important;
+            color: $gray !important;
+          }
+        }
+
+        &Timer {
+          border: 1px solid $lightGray;
+          border-radius: radius(1);
+          padding: 0 5px;
+        }
+
+        &:hover {
+          color: black;
+          // border-color: $base-green;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        svg {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
   }
 }
 
