@@ -12,6 +12,7 @@ import {
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
+import { isBundledWithNonProducts } from "@/utils/isBundledWithNonProducts";
 
 interface Props {
   product: SingleProduct;
@@ -60,7 +61,7 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
             id={product.id}
             type={OrderType.ShopProduct}
             app={Apps.MARKET}
-            canIncrease
+            canIncrease={!isBundledWithNonProducts(product)}
             compact
             variants={variants}
           />

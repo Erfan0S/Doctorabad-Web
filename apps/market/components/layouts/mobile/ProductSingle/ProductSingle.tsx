@@ -17,6 +17,7 @@ import MobileProductVariantButton from "@/components/product/mobileLayout/Mobile
 import ProductSlider from "@/components/product/intro/slider";
 import styles from "./ProductSingle.module.scss";
 import bundleProviderImagefrom from "@repo/shared_modules/images/bundel_provider.jpg";
+import { isBundledWithNonProducts } from "@/utils/isBundledWithNonProducts";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -87,6 +88,7 @@ function MobileProductSingle({
             />
           </div>
         }
+        providerBaseUrl={marketPaths.mobileProviders}
         tabsData={TabsConfig(data, relatedProductList)}
         title={data.title || data.title_en || "____"}
         provider={{
@@ -106,7 +108,7 @@ function MobileProductSingle({
           amazingPrice: data.price_amazing,
           productId: data.id,
           orderType: OrderType.ShopProduct,
-          canIncrease: true,
+          canIncrease: !isBundledWithNonProducts(data),
           replaceButton: haveVariant ? (
             <MobileProductVariantButton product={data} />
           ) : undefined,

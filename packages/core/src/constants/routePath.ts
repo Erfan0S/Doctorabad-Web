@@ -53,6 +53,7 @@ export const insurancePaths = {
 
 export const downloadPaths = {
   single: "/product",
+  publishers: "/publishers",
 };
 
 export const productionBaseUrl = "https://dev.doctorabad.com";

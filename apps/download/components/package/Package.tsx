@@ -7,6 +7,7 @@ import { OrderType } from "@repo/core/types/cart";
 import { PackageActiveButton, PackageAppOnlyButton } from "./PackageButton";
 import Image from "next/image";
 import PackageHeaderSuffix from "../Header/packageHeaderSuffix";
+import { downloadPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   packageItem: PackageItem;
@@ -19,13 +20,15 @@ const Package = ({ packageItem, activeTab }: Props) => {
     packageItem,
   });
 
-  const imageSrc = packageItem?.picture ?? packageItem?.provider_picture ?? undefined;
+  const imageSrc =
+    packageItem?.picture ?? packageItem?.provider_picture ?? undefined;
 
   return (
     <MobileProductLayout
       tabsData={tabsData}
       tabParam={activeTab || PackageTab.SPECIFICATIONS}
       app={Apps.DOWNLOAD}
+      providerBaseUrl={downloadPaths.publishers}
       preview={
         imageSrc ? (
           <div

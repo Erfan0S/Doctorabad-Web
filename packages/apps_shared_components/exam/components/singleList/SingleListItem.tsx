@@ -55,6 +55,10 @@ function SingleListItem({
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
+  const recommendationHandler = async () => {
+    modalActions.addModal(ModalTypes.BUY_RECOMMENDATION, { exam: item });
+  };
+
   return (
     <div
       className={`${style.singleItem} card ${isSidePanel ? style.singleItemSidePanel : ""}`}
@@ -73,16 +77,6 @@ function SingleListItem({
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
-        {haveFavoriteButton && (
-          <FavoriteButton
-            initialState={!!item.favorite}
-            action={() => {
-              return api.examSingleExamFavorite(item.id, !item.favorite);
-            }}
-            app={Apps.EXAM}
-            className={style.favoriteButton}
-          />
-        )}
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>
@@ -98,35 +92,48 @@ function SingleListItem({
             )}
           </span>
         </div>
-        {hasAccess ? (
-          <div className={style.singleItemAccessButtons}>
-            <Button
-              onClick={() => {
-                router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`);
-                setTimeout(() => {
-                  modalActions.clearModals();
-                }, 100);
+        <div className={style.singleItemButtons}>
+          {haveFavoriteButton && (
+            <FavoriteButton
+              initialState={!!item.favorite}
+              action={() => {
+                return api.examSingleExamFavorite(item.id, !item.favorite);
               }}
-            >
-              ورود
-            </Button>
-            <Button
               app={Apps.EXAM}
-              onClick={() => {
-                modalActions.addModal(ModalTypes.EXAM_START, { exam: item });
-              }}
-            >
-              شروع آزمون
-            </Button>
-          </div>
-        ) : (
-          <AddToCartButton
-            app={Apps.EXAM}
-            id={item.id}
-            type={OrderType.Exam}
-            isColumn={isSidePanel || isMobile}
-          />
-        )}
+              className={style.favoriteButton}
+            />
+          )}
+          {hasAccess ? (
+            <div className={style.singleItemAccessButtons}>
+              <Button
+                onClick={() => {
+                  router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`);
+                  setTimeout(() => {
+                    modalActions.clearModals();
+                  }, 100);
+                }}
+              >
+                ورود
+              </Button>
+              <Button
+                app={Apps.EXAM}
+                onClick={() => {
+                  modalActions.addModal(ModalTypes.EXAM_START, { exam: item });
+                }}
+              >
+                شروع آزمون
+              </Button>
+            </div>
+          ) : (
+            <AddToCartButton
+              app={Apps.EXAM}
+              id={item.id}
+              type={OrderType.Exam}
+              isColumn={isSidePanel || isMobile}
+              onClick={recommendationHandler}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

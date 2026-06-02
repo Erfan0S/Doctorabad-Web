@@ -7,6 +7,7 @@ import { MobileProductLayout } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
 import VideoPlayerComponent from "./video-player/VideoPlayerComponent";
 import { CourseActiveButton, CourseAppOnlyButton } from "./CourseButton";
+import { learnPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   course: CourseDataType;
@@ -33,6 +34,7 @@ const Course = ({ course, lessonParam, activeTab }: Props) => {
       tabsData={tabsData}
       tabParam={activeTab}
       app={Apps.LEARN}
+      providerBaseUrl={learnPaths.provider}
       preview={
         <VideoPlayerComponent
           course={course}

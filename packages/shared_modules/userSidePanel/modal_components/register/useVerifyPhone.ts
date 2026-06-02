@@ -9,15 +9,17 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { RefObject, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { VerifyCodeType } from "@repo/core/types/register";
 
 const codeLength = 4;
 
 const periodMinute = 2;
+
 export const getResendPeriod = () => Date.now() + 1000 * 60 * periodMinute;
 
 export const useVerifyPhone = (
   { phone, setStep, changePhone, onVerifySuccess }: RegisterStepProps,
-  wrapperRef: RefObject<HTMLInputElement>
+  wrapperRef: RefObject<HTMLInputElement>,
 ) => {
   const queryClient = useQueryClient();
 
@@ -25,9 +27,19 @@ export const useVerifyPhone = (
   const { replace, refresh } = useRouter();
 
   const [code, setCode] = useState(new Array(codeLength).fill(""));
-  const [resendPeriod, setResendPeriod] = useState(getResendPeriod);
+  const [resendPeriod, setResendPeriod] = useState<{
+    [key in VerifyCodeType]: number;
+  }>({
+    [VerifyCodeType.MOBILE]: getResendPeriod(),
+    [VerifyCodeType.BALE]: Date.now(),
+  });
 
-  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState<{
+    [key in VerifyCodeType]: boolean;
+  }>({
+    [VerifyCodeType.MOBILE]: false,
+    [VerifyCodeType.BALE]: false,
+  });
 
   const focusInputById = (id: string) => {
     const input = document.getElementById(id);
@@ -38,7 +50,7 @@ export const useVerifyPhone = (
     if (isNaN(Number(value))) return;
 
     setCode((code) =>
-      code.map((c, index) => (index === Number(key) ? value : c))
+      code.map((c, index) => (index === Number(key) ? value : c)),
     );
     if (!!value) focusInputById(`${Number(key) + 1}`);
   };
@@ -90,7 +102,7 @@ export const useVerifyPhone = (
   }, []);
 
   const SubmitForm = () => {
-    setSubmitLoading(true);
+    setSubmitLoading({ ...submitLoading, [VerifyCodeType.MOBILE]: true });
 
     api
       .verifyPhone({ mobile: phone, code: code.join("") })
@@ -119,18 +131,21 @@ export const useVerifyPhone = (
       });
   };
 
-  const resendCode = async () => {
-    setSubmitLoading(true);
+  const resendCode = async (type: VerifyCodeType = VerifyCodeType.MOBILE) => {
+    setSubmitLoading({ ...submitLoading, [type]: true });
     try {
       await api.getCsrf();
-      await api.sendVerificationCode(phone);
+      await api.sendVerificationCode(phone, type);
       toast("کد تایید با موفقیت ارسال شد", {
         type: "success",
         position: "top-left",
       });
-      setResendPeriod(getResendPeriod());
+      setResendPeriod({
+        ...resendPeriod,
+        [type]: getResendPeriod(),
+      });
     } catch (error) {
-      setSubmitLoading(false);
+      setSubmitLoading({ ...submitLoading, [type]: false });
     }
   };
 
