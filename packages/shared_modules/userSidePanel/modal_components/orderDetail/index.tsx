@@ -31,12 +31,10 @@ const OrderDetail: React.FC<Props> = ({
   let orderItems: OrderDetailItemType[] | undefined = [];
 
   if (
-    !!data?.data.data.shop_products.length && !!type
-      ? type === OrderType.ShopProduct
-      : true
+    !!data?.data.data.shop_products?.length && ( !!type ? type === OrderType.ShopProduct : true )
   ) {
     const shop =
-      data?.data.data.shop_products.map((product) => {
+      data?.data.data.shop_products?.map((product) => {
         return {
           price: product.price,
           id: product.id,
@@ -51,12 +49,10 @@ const OrderDetail: React.FC<Props> = ({
   }
 
   if (
-    !!data?.data.data.courses.length && !!type
-      ? type === OrderType.Course
-      : true
+    !!data?.data.data.courses?.length && ( !!type ? type === OrderType.Course : true )
   ) {
     const course =
-      data?.data.data.courses.map((product) => {
+      data?.data.data.courses?.map((product) => {
         return {
           price: product.price,
           id: product.id,
@@ -69,9 +65,9 @@ const OrderDetail: React.FC<Props> = ({
     orderItems = [...orderItems, ...course];
   }
 
-  if (!!data?.data.data.exams && !!type ? type === OrderType.Exam : true) {
+  if (!!data?.data.data.exams?.length && ( !!type ? type === OrderType.Exam : true )) {
     const exam =
-      data?.data.data.exams.map((exam) => {
+      data?.data.data.exams?.map((exam) => {
         return {
           price: exam.price,
           id: exam.id,
@@ -83,9 +79,9 @@ const OrderDetail: React.FC<Props> = ({
       }) || [];
     orderItems = [...orderItems, ...exam];
   }
-  if (!!data?.data.data.package && !!type ? type === OrderType.Package : true) {
+  if (!!data?.data.data.package?.length && ( !!type ? type === OrderType.Package : true )) {
     const package_item =
-      data?.data.data.package.map((package_item) => {
+      data?.data.data.package?.map((package_item) => {
         return {
           price: package_item.price,
           id: package_item.id,
@@ -97,9 +93,20 @@ const OrderDetail: React.FC<Props> = ({
       }) || [];
     orderItems = [...orderItems, ...package_item];
   }
-  if (!!data?.data.data.insurance && !!type ? type === OrderType.Insurance : true) {
+  if (!!data?.data.data.insurance?.length && ( !!type ? type === OrderType.Insurance : true )) {
     const insurance =
-      data?.data.data.insurance.map((insurance) => {
+      data?.data.data.insurance?.map((insurance) => {
+        const normalizedDraft = {
+          // keep existing draft fields but normalize key names expected by UrlUtils
+          ...(insurance.draft || {}),
+          last_insurance_id:
+            (insurance.draft && (insurance.draft.last_insurance_id ?? insurance.draft.last_insurance)) ?? null,
+          current_insurance_end_date:
+            (insurance.draft && (insurance.draft.current_insurance_end_date ?? insurance.draft.end_date)) ?? null,
+          insured_name: (insurance.draft && (insurance.draft.insured_name ?? insurance.draft.title)) ?? undefined,
+          insured_phone: (insurance.draft && (insurance.draft.insured_phone ?? insurance.draft.phone)) ?? undefined,
+        };
+
         return {
           price: insurance.price,
           id: insurance.insurance_id,
@@ -108,7 +115,7 @@ const OrderDetail: React.FC<Props> = ({
           pic_url: insurance.insurance_pic,
           product_type: OrderType.Insurance,
           price_main: insurance.price, // Or insurance.price_main if available
-          draft: insurance.draft,
+          draft: normalizedDraft,
         };
       }) || [];
     orderItems = [...orderItems, ...insurance];

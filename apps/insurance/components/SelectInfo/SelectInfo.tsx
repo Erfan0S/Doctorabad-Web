@@ -253,10 +253,7 @@ export default function SelectInfo({
               <div className={styles.selectInput}>
                 <InsuranceDatePicker
                   label=""
-                  onChange={(date) => {
-                    onChangeEndDate?.(date); // date به فرمت 2025-01-01 است
-                    // اینجا می‌توانید لاجیک آپدیت URL یا درخواست قیمت را فراخوانی کنید
-                  }}
+                  onChange={handleSelectExpiry}
                 />
               </div>
               <div className={styles.selectIcon}>

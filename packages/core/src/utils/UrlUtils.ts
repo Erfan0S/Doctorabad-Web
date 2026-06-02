@@ -6,6 +6,7 @@ import {
   routePath,
 } from "../constants/routePath";
 import { purgeObjectFromFalsyValues } from "./purgeObjectFromFalsyValues";
+import { toJalaali, toGregorian } from "jalaali-js";
 import { isServerSide } from "../constants/constants";
 import { DiscountPlanType, OrderType } from "../types/cart";
 
@@ -110,6 +111,11 @@ export const generateInsuranceSlug = (data: {
     province_id?: number;
     active_clinic?: boolean;
     clinic_address?: string | null;
+    // optional extras that may be present when coming from cart
+    last_insurance_id?: number | null;
+    end_date?: string | null; // ISO YYYY-MM-DD
+    insured_name?: string | null;
+    insured_phone?: string | null;
   };
 }) => {
   const params = new URLSearchParams();
@@ -136,6 +142,34 @@ export const generateInsuranceSlug = (data: {
     params.append("active_clinic", String(draft.active_clinic));
   if (draft?.clinic_address)
     params.append("clinic_address", draft.clinic_address);
+  // Append previous insurer id and end date if provided (cart -> single page)
+  const lastInsuranceId = (draft as any)?.last_insurance_id ?? (draft as any)?.last_insurance ?? null;
+  if (lastInsuranceId !== undefined && lastInsuranceId !== null)
+    params.append("lastInsurance", String(lastInsuranceId));
+
+  const endDateVal = (draft as any)?.current_insurance_end_date ?? (draft as any)?.end_date;
+  if (endDateVal) {
+    const parts = String(endDateVal).split("-");
+    const year = Number(parts[0]);
+    let endDateForParam: string | null = null;
+    if (!Number.isNaN(year) && year >= 1300) {
+      // value is Jalali — convert to Gregorian ISO for cart->single navigation
+      const jy = Number(parts[0]);
+      const jm = Number(parts[1]);
+      const jd = Number(parts[2]);
+      if (!Number.isNaN(jy) && !Number.isNaN(jm) && !Number.isNaN(jd)) {
+        const { gy, gm, gd } = toGregorian(jy, jm, jd);
+        endDateForParam = `${gy}-${String(gm).padStart(2, "0")}-${String(gd).padStart(2, "0")}`;
+      }
+    } else {
+      // already Gregorian — keep as-is
+      endDateForParam = String(endDateVal);
+    }
+    if (endDateForParam) params.append("endDate", endDateForParam);
+  }
+
+  if ((draft as any)?.insured_name) params.append("insured_name", String((draft as any).insured_name));
+  if ((draft as any)?.insured_phone) params.append("insured_phone", String((draft as any).insured_phone));
 
   return `?${params.toString()}`;
 };

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import moment from "moment-jalaali";
+import { toGregorian, toJalaali } from "jalaali-js";
 import styles from "./BuyInsurancePage.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -80,6 +81,9 @@ const BuyInsurancePage = () => {
     : undefined;
   const urlClinicAddress = searchParams.get("clinic_address") || undefined;
 
+  const urlInsuredName = searchParams.get("insured_name") || "";
+  const urlInsuredPhone = searchParams.get("insured_phone") || "";
+
   // const endDate = searchParams.get("endDate");
 
   // ----- فیلترهای کاربر (Title ها) -----
@@ -131,8 +135,8 @@ const BuyInsurancePage = () => {
   const [postalCode, setPostalCode] = useState<number | undefined>(
     urlPostalCode,
   );
-  const [insuredName, setInsuredName] = useState("");
-  const [insuredPhone, setInsuredPhone] = useState("");
+  const [insuredName, setInsuredName] = useState(urlInsuredName || "");
+  const [insuredPhone, setInsuredPhone] = useState(urlInsuredPhone || "");
   const [residencyStatusId, setResidencyStatusId] = useState<number | null>(
     null,
   );
@@ -142,7 +146,9 @@ const BuyInsurancePage = () => {
   const [selectedLastInsuranceId, setSelectedLastInsuranceId] = useState<
     number | null
   >(null);
-  const [insuranceEndDate, setInsuranceEndDate] = useState<string>("");
+  // store Gregorian ISO for backend, and Jalali for display
+  const [insuranceEndDateIso, setInsuranceEndDateIso] = useState<string>("");
+  const [insuranceEndDateJalali, setInsuranceEndDateJalali] = useState<string>("");
   const [showEndDateCalendar, setShowEndDateCalendar] = useState(false);
 
   const [nationalCardId, setNationalCardId] = useState<number | null>(null);
@@ -153,6 +159,21 @@ const BuyInsurancePage = () => {
   const [endDate, setEndDate] = useState<string>(
     searchParams.get("endDate") || "",
   );
+
+  const parseToIso = (val?: string | null): string | undefined => {
+    if (!val) return undefined;
+    const v = String(val).trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+    if (/^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(v)) {
+      const parts = v.split(/[-\/]/);
+      const year = Number(parts[0]);
+      if (!Number.isNaN(year) && year >= 1300) {
+        return moment(v, "jYYYY/jMM/jDD").format("YYYY-MM-DD");
+      }
+      return `${parts[0].padStart(4, '0')}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+    }
+    return undefined;
+  };
   const [mobileCheckboxChecked, setMobileCheckboxChecked] = useState(false);
 
   // ----- Queries -----
@@ -177,10 +198,9 @@ const BuyInsurancePage = () => {
     [selectedLastInsuranceId, lastInsuranceId],
   );
 
-  const effectiveEndDate = useMemo(
-    () => insuranceEndDate || endDate || null,
-    [insuranceEndDate, endDate],
-  );
+  const effectiveEndDateIso = useMemo(() => {
+    return insuranceEndDateIso || parseToIso(endDate) || null;
+  }, [insuranceEndDateIso, endDate]);
 
   // برای گرفتن title رشته و تخصص از API
   const { data: allFields = [] } = useInsuranceFields();
@@ -259,17 +279,33 @@ const BuyInsurancePage = () => {
     if (damageHistoryId) {
       setSelectedDamageHistoryId(damageHistoryId);
     }
+    if (urlInsuredName) {
+      setInsuredName(urlInsuredName);
+    }
+    if (urlInsuredPhone) {
+      setInsuredPhone(urlInsuredPhone);
+    }
     if (lastInsuranceId) {
       setSelectedLastInsuranceId(lastInsuranceId);
     }
     if (endDate) {
-      setInsuranceEndDate(endDate);
+      const iso = parseToIso(endDate);
+      if (iso) {
+        setInsuranceEndDateIso(iso);
+        setInsuranceEndDateJalali(moment(iso, "YYYY-MM-DD").format("jYYYY/jMM/jDD"));
+      } else {
+        // fallback: store raw
+        setInsuranceEndDateIso("");
+        setInsuranceEndDateJalali("");
+      }
     }
   }, [
     residencyId,
     damageHistoryId,
     lastInsuranceId,
     endDate,
+    urlInsuredName,
+    urlInsuredPhone,
   ]);
 
   // Sync state with fetched profile data
@@ -403,8 +439,9 @@ const BuyInsurancePage = () => {
         setSelectedDamageHistoryId(id);
         // اگر ID = 1 (صدور اولیه) باشد، بیمه‌گر قبلی و تاریخ اتمام را پاک کن
         if (id === 1) {
-          setSelectedLastInsuranceId(null);
-          setInsuranceEndDate("");
+            setSelectedLastInsuranceId(null);
+            setInsuranceEndDateIso("");
+            setInsuranceEndDateJalali("");
         }
       },
     });
@@ -420,18 +457,35 @@ const BuyInsurancePage = () => {
   };
 
   const openDatePickerModal = () => {
+    // modal expects Gregorian value; prefer ISO if we have it
+    let modalValue: string | undefined = undefined;
+    if (insuranceEndDateIso) {
+      modalValue = insuranceEndDateIso;
+    } else if (insuranceEndDateJalali) {
+      modalValue = moment(insuranceEndDateJalali, "jYYYY/jMM/jDD").format("YYYY-MM-DD");
+    } else if (endDate) {
+      modalValue = parseToIso(endDate);
+    }
+
     modalActions.addModal(ModalTypes.INSURANCE_DATE_PICKER, {
       label: "اتمام بیمه‌نامه",
-      value: insuranceEndDate,
-      onChange: (date: string) => {
-        setEndDate(date);
-        setInsuranceEndDate(date);
+      value: modalValue,
+      onChange: (gregorianDate: string) => {
+        const iso = gregorianDate;
+        setInsuranceEndDateIso(iso);
+        setInsuranceEndDateJalali(moment(iso, "YYYY-MM-DD").format("jYYYY/jMM/jDD"));
       },
     });
   };
 
   const handleSelectEndDate = (iso: string) => {
-    setInsuranceEndDate(iso);
+    if (iso) {
+      setInsuranceEndDateIso(iso);
+      setInsuranceEndDateJalali(moment(iso, "YYYY-MM-DD").format("jYYYY/jMM/jDD"));
+    } else {
+      setInsuranceEndDateIso("");
+      setInsuranceEndDateJalali("");
+    }
     setShowEndDateCalendar(false);
   };
 
@@ -476,8 +530,21 @@ const BuyInsurancePage = () => {
 
     let profileIdToUse = selectedProfileId;
 
-    // اگر پروفایلی انتخاب نشده، باید یک پروفایل جدید ایجاد کنیم
+    // اگر پروفایلی انتخاب نشده، بررسی کن که ترکیب نام و شماره موبایل قبلا در لیست ذخیره شده باشد
+    // در این صورت از آن استفاده کن و دیگر POST برای پروفایل جدید نزن
     if (!selectedProfileId) {
+      const nameToCheck = (insuredName || userProfile?.name || "").toString().trim();
+      const phoneToCheck = String(insuredPhone || userProfile?.mobile || "").trim();
+      const existingProfile = insuranceInfos.find((info) => {
+        const infoName = (info.insured_name || info.title || "").toString().trim();
+        const infoPhone = String(info.insured_phone || "").trim();
+        return infoName === nameToCheck && infoPhone === phoneToCheck;
+      });
+
+      if (existingProfile) {
+        profileIdToUse = existingProfile.id;
+        setSelectedProfileId(existingProfile.id);
+      } else {
       // بررسی فیلدهای الزامی
       if (!fieldIdToUse || !gradeIdToUse || !residencyStatusId) {
         return;
@@ -501,39 +568,40 @@ const BuyInsurancePage = () => {
         postal_code: Number(postalCode) || undefined,
       };
 
-      try {
-        // ایجاد پروفایل جدید
-        const newProfile = await storeMutation.mutateAsync(newProfilePayload);
+        try {
+          // ایجاد پروفایل جدید
+          const newProfile = await storeMutation.mutateAsync(newProfilePayload);
 
-        // استفاده از id از پاسخ (اکنون که تایپ درست شده، مطمئن هستیم id وجود دارد)
-        if (newProfile?.id) {
-          profileIdToUse = newProfile.id;
-        } else {
-          // اگر به هر دلیلی id نبود (محض اطمینان)، از لیست پیدا می‌کنیم
-          const { data: updatedInfos = [] } = await refetchInsuranceInfos();
-          const foundProfile = updatedInfos.find(
-            (info) =>
-              info.field_id === fieldIdToUse &&
-              info.grade_id === gradeIdToUse &&
-              info.title === (insuredName || userProfile?.name || ""),
-          );
-          if (foundProfile) {
-            profileIdToUse = foundProfile.id;
-          } else if (updatedInfos.length > 0) {
-            // اگر پیدا نشد، آخرین آیتم را استفاده می‌کنیم
-            profileIdToUse = updatedInfos[updatedInfos.length - 1].id;
+          // استفاده از id از پاسخ (اکنون که تایپ درست شده، مطمئن هستیم id وجود دارد)
+          if (newProfile?.id) {
+            profileIdToUse = newProfile.id;
+          } else {
+            // اگر به هر دلیلی id نبود (محض اطمینان)، از لیست پیدا می‌کنیم
+            const { data: updatedInfos = [] } = await refetchInsuranceInfos();
+            const foundProfile = updatedInfos.find(
+              (info) =>
+                info.field_id === fieldIdToUse &&
+                info.grade_id === gradeIdToUse &&
+                info.title === (insuredName || userProfile?.name || ""),
+            );
+            if (foundProfile) {
+              profileIdToUse = foundProfile.id;
+            } else if (updatedInfos.length > 0) {
+              // اگر پیدا نشد، آخرین آیتم را استفاده می‌کنیم
+              profileIdToUse = updatedInfos[updatedInfos.length - 1].id;
+            }
           }
-        }
 
-        if (profileIdToUse) {
-          // این خط باعث می‌شود هوک useInsuranceInfoSingle با آی‌دی جدید کال شود
-          // و سپس useEffect مربوطه (line 242) اطلاعات را در صفحه پر می‌کند
-          setSelectedProfileId(profileIdToUse);
-        } else {
+          if (profileIdToUse) {
+            // این خط باعث می‌شود هوک useInsuranceInfoSingle با آی‌دی جدید کال شود
+            // و سپس useEffect مربوطه (line 242) اطلاعات را در صفحه پر می‌کند
+            setSelectedProfileId(profileIdToUse);
+          } else {
+            return;
+          }
+        } catch (error) {
           return;
         }
-      } catch (error) {
-        return;
       }
     }
 
@@ -548,7 +616,7 @@ const BuyInsurancePage = () => {
         selectedDamageHistoryId === 1
           ? undefined
           : selectedLastInsuranceId || undefined,
-        selectedDamageHistoryId === 1 ? undefined : endDate || undefined,
+        selectedDamageHistoryId === 1 ? undefined : (insuranceEndDateIso || parseToIso(endDate) || undefined),
       );
     }
   };
@@ -586,13 +654,19 @@ const BuyInsurancePage = () => {
   };
 
   const getEndDateLabel = () => {
-    // 1. URL
-    if (endDate && !insuranceEndDate) {
-      return moment(endDate, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
-    }
+    const formatIsoToJalali = (iso?: string | null) => {
+      if (!iso) return null;
+      return moment(iso, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
+    };
 
-    if (!insuranceEndDate) return "تاریخ اتمام بیمه";
-    return moment(insuranceEndDate, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
+    // 1. If we have Jalali state from selection, show it
+    if (insuranceEndDateJalali) return insuranceEndDateJalali;
+
+    // 2. If ISO exists (either from URL or parsed), convert and show
+    const isoFromParam = parseToIso(endDate);
+    if (isoFromParam) return formatIsoToJalali(isoFromParam) || "تاریخ اتمام بیمه";
+
+    return "تاریخ اتمام بیمه";
   };
 
   // بررسی اینکه آیا باید فیلدهای سابقه خسارت، بیمه‌گر قبلی و تاریخ اتمام را نشان بدهیم
@@ -662,7 +736,7 @@ const BuyInsurancePage = () => {
     // اگر سابقه خسارت "صدور اولیه" نیست، بیمه‌گر قبلی و تاریخ اتمام الزامی‌اند
     if (
       effectiveDamageHistoryId !== 1 &&
-      (!effectiveLastInsuranceId || !effectiveEndDate)
+      (!effectiveLastInsuranceId || !effectiveEndDateIso)
     ) {
       return;
     }
@@ -678,7 +752,7 @@ const BuyInsurancePage = () => {
           ? undefined
           : (effectiveLastInsuranceId ?? undefined),
       current_insurance_end_date:
-        effectiveDamageHistoryId === 1 ? null : effectiveEndDate,
+        effectiveDamageHistoryId === 1 ? null : effectiveEndDateIso,
     };
 
     insuranceApi
@@ -705,7 +779,7 @@ const BuyInsurancePage = () => {
     residencyStatusId,
     effectiveDamageHistoryId,
     effectiveLastInsuranceId,
-    effectiveEndDate,
+    effectiveEndDateIso,
     selectedProfileId,
   ]);
 
