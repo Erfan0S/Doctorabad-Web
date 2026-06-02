@@ -3,7 +3,7 @@ import { sidePanelMenuData } from "./menu-data";
 import Image from "next/image";
 import style from "./SidePanelMainMenu.module.scss";
 // @ts-ignore
-import footerImage from "../../assets/img/login.jpg";
+import footerImage from "../../assets/img/login.png";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import SidePanelHeader from "../header";

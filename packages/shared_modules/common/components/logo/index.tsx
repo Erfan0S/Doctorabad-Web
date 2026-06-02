@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "../../../assets/img/logo-doctor-abad.png";
+import logo from "../../../assets/img/logo.png";
 import style from "./Logo.module.scss";
 import Link from "next/link";
 
