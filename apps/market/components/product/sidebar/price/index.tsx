@@ -9,6 +9,7 @@ import { ProductVariantsValue } from "@repo/core/types/productVariants";
 import { OrderType } from "@repo/core/types/cart";
 import {
   AddToCartButton,
+  ProductPrice,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
@@ -23,12 +24,6 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
   const { restockNotification, restockNotificationLoading } =
     useRestockNotification(product.id);
 
-  const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
-    product.price_main,
-    product.price_off,
-    product.price_amazing || undefined,
-  );
-
   const isProductHasStock = product.quantity !== 0;
   const color = isProductHasStock ? "orange" : "grey";
   return (
@@ -36,21 +31,12 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
       className={`${style.productSidebarPrice} ${color ? style[color] : ""}`}
     >
       {isProductHasStock && (
-        <div className={style.productSidebarPriceNumber}>
-          <div>
-            {discountPercent && <small>٪{discountPercent}</small>}
-            {offPrice && (
-              <span>
-                {priceFormatter(mainPrice)}
-                <small>تومن</small>
-              </span>
-            )}
-          </div>
-          <div>
-            {priceFormatter(offPrice || mainPrice)}
-            <small>تومن</small>
-          </div>
-        </div>
+        <ProductPrice
+          mainPrice={product?.price_main}
+          offPrice={product?.price_off}
+          amazingPrice={product?.price_amazing}
+          app={Apps.MARKET}
+        />
       )}
       <div className={style.productSidebarPriceButton}>
         {product.installment_payment && product.installment_text && (

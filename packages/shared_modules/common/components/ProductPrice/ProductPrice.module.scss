@@ -1,0 +1,52 @@
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.productPrice {
+  width: 100%;
+  padding-left: space(3);
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+
+    &:first-of-type {
+      max-width: 100%;
+
+      > small {
+        background: var(--app-base, $base-green);
+        padding: 0 6px;
+        font-size: 12px;
+        border-radius: 3px;
+        line-height: 14px;
+        margin-right: 4px;
+        color: #fff;
+      }
+      span {
+        color: $gray;
+        text-decoration: line-through;
+        font-weight: 600;
+        small {
+          margin-right: space(1);
+        }
+      }
+    }
+
+    &:last-of-type {
+      font-size: 18px;
+      line-height: 18px;
+      font-weight: 600;
+      color: var(--app-base, $base-green);
+      small {
+        margin-right: space(1);
+      }
+    }
+  }
+}
+
+.secondary {
+  flex-direction: row;
+}

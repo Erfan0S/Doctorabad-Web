@@ -11,13 +11,12 @@ type Props = {
 
 function HomeHeader({ haveSearch = true }: Props) {
   return (
-    <MobileHomeHeader tabData={MainTabsData} type={Apps.LEARN}>
-      {haveSearch && (
-        <div className={styles.childContainer}>
-          <SearchBar haveFilterButton={true} />
-        </div>
-      )}
-    </MobileHomeHeader>
+    <MobileHomeHeader
+      tabData={MainTabsData}
+      type={Apps.LEARN}
+      haveSearch={haveSearch}
+      haveFilterButton
+    />
   );
 }
 

@@ -3,7 +3,7 @@ import styles from "./CourseList.module.scss";
 import { CourseListItemType } from "@/types/courses";
 import { InfiniteData } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
-import { ProductList } from "@repo/shared_modules/components";
+import { ProductList, ProductPrice } from "@repo/shared_modules/components";
 import Clock from "@/assets/svg/clock";
 import formatDuration from "@/utils/formatDuration";
 import { CoinIcon, HomeIcon } from "@repo/shared_modules/icons";
@@ -33,35 +33,24 @@ export const productData = (
         value: `${formatDuration(course.duration)} ساعت`,
       },
       {
-        icon: <CoinIcon fontSize={16} />,
-        value: course.price_off ? priceFormatter(course.price_off) : null,
-      },
-      {
         icon: <Hat fontSize={16} />,
         value: course.provider.name,
       },
       {
-        icon: <CoinIcon fontSize={16} />,
-        value: (
-          <>
-            <span
-              style={{
-                textDecoration: course.price_off ? "line-through" : "",
-              }}
-            >
-              {!(course.price_main <= 0)
-                ? priceFormatter(course.price_main) + " تومن"
-                : "رایگان"}
-            </span>
-            {course.price_off ? (
-              <span>{priceFormatter(course.price_off)} تومن</span>
-            ) : null}
-          </>
-        ),
-      },
-      {
         icon: <HomeIcon fontSize={16} />,
         value: `${course.student_count} دانشجو`,
+      },
+      {
+        icon: <CoinIcon fontSize={16} />,
+        value: (
+          <ProductPrice
+            mainPrice={course.price_main}
+            offPrice={course.price_off}
+            amazingPrice={course.price_amazing}
+            app={Apps.LEARN}
+            className={styles.coursePrice}
+          />
+        ),
       },
     ],
     installmentPayment: course.installment_payment,
