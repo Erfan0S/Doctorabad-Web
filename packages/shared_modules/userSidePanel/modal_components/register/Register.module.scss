@@ -163,8 +163,7 @@
       gap: 10px;
       margin-bottom: space(5);
       align-items: center;
-      border: 1px solid $lightGray;
-      border-radius: radius(3);
+      border-top: 1px solid $lightGray;
       padding: space(3);
 
       .resendCode {
@@ -180,7 +179,7 @@
         border: 1px solid $gray;
         border-radius: radius(2);
         width: 100%;
-        min-width: 200px;
+        min-width: 225px;
 
         &Completed {
           color: $gray;
@@ -193,7 +192,7 @@
         }
 
         &Timer {
-          border: 1px solid $lightGray;
+          // border: 1px solid $lightGray;
           border-radius: radius(1);
           padding: 0 5px;
         }
