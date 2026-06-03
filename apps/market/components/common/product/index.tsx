@@ -19,6 +19,7 @@ import {
   Button,
   FavoriteHeartIcon,
   ListProductSnappayNotif,
+  ProductPrice,
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 
@@ -73,25 +74,12 @@ const Product: React.FC<ProductCard> = ({
           </h2>
         </div>
         {isProductHasStock && (
-          <div className={style.productPrice}>
-            <div className={style.productPriceRegular}>
-              {(!!price_off || !!price_amazing) && (
-                <>
-                  <span>{priceFormatter(price_main)} تومن</span>
-                  <small>
-                    %
-                    {calcDiscountPercentage(
-                      price_main,
-                      price_amazing || price_off,
-                    )}
-                  </small>
-                </>
-              )}
-            </div>
-            <span className={style.productPriceSale}>
-              {priceFormatter(price_amazing || price_off || price_main)} تومن
-            </span>
-          </div>
+          <ProductPrice
+            mainPrice={price_main}
+            offPrice={price_off}
+            amazingPrice={price_amazing}
+            className={style.productPrice}
+          />
         )}
         <div className={style.productButtons}>
           <>

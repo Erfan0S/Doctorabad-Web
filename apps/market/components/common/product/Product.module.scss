@@ -126,6 +126,10 @@
     margin-bottom: space(3);
     position: relative;
 
+    > div {
+      justify-content: center !important;
+    }
+
     &Regular {
       text-align: center;
       justify-content: center;
