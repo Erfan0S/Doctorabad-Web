@@ -18,7 +18,14 @@ const SidebarLogo = ({ active = false }: Props) => {
         </>
       )}
       <a href={baseUrls.base}>
-        <Image src={logoType} width={140} height={140} alt="دکترآباد" />
+        <Image
+          src={logoType}
+          style={{
+            width: "140px",
+            height: "auto",
+          }}
+          alt="دکترآباد"
+        />
       </a>
     </div>
   );

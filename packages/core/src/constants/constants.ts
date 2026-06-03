@@ -14,7 +14,7 @@ export const IS_INSTALL_BANNER_SHOW_LOCAL = "WebAppGuideShowed";
 //     ? "http://185.231.180.170/:path*"
 //     : "https://drabadapp.ir/:path*";
 
-export const API_DESTINATION = "http://185.231.180.170/:path*";
+export const API_DESTINATION = "http://drabadapp.ir/:path*";
 
 export const IPINFO_API_TOKEN = "abcfe9fb9d14b3";
 export const IP_CHECKED_COOKIE = "IPChecked";
