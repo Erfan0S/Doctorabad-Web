@@ -8,6 +8,7 @@ import { api } from "@repo/shared_modules/api";
 import { getClientSideCookie, getServerSideCookie } from "./cookieUtils";
 import { generalAuthorizeState } from "../states/generalAuthorizedState";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const setAuthCookie = () => {
   const expireTimeInMinute = 60 * 24 * 365;
@@ -15,6 +16,7 @@ export const setAuthCookie = () => {
     expires: new Date(Date.now() + 60 * 1000 * expireTimeInMinute),
   });
 };
+
 
 export const authorizeClientAction =
   (

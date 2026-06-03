@@ -5,6 +5,7 @@ import { EnterPhone } from "./enter-phone";
 import { VerifyPhone } from "./verify-phone";
 import { useState } from "react";
  import loginImage from "../../../assets/img/login.png";
+ import loginImageSecret from "../../../assets/img/login-secret.png";
 import Image from "next/image";
 import style from "./Register.module.scss";
 
@@ -25,9 +26,14 @@ export const Register = ({ onVerifySuccess }: Props) => {
 
   const CurrentStepComponent = registerStepsComponents[currentStep];
 
+  const imageSrc =
+  currentStep === RegisterStep.ENTER_PHONE_NUMBER
+    ? loginImage
+    : loginImageSecret;
+
   return (
     <div className={style.authWrapper}>
-      <Image src={loginImage} alt="login" />
+      <Image src={imageSrc} alt="login" />
       <CurrentStepComponent
         setStep={setCurrentStep}
         phone={phone}
