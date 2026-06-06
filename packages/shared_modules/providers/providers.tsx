@@ -1,6 +1,6 @@
 "use client";
 import ModalCreator from "@repo/core/modalComponents/ModalCreator";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { SidebarProvider } from "@repo/shared_modules";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -24,6 +24,7 @@ const Providers: React.FC<Props> = ({
       defaultOptions: { queries: { retry: 3, refetchOnWindowFocus: false } },
     })
   );
+
 
   return (
     <QueryClientProvider client={client}>

@@ -220,3 +220,40 @@
   object-fit: contain;
   display: block;
 }
+
+.shapeTableWrapper {
+  width: 100%;
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.shapeTable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #666;
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #52cc4b;
+  }
+
+  th,
+  td {
+    border: 1px solid #666;
+    text-align: center;
+    padding: 14px 10px;
+    font-size: 15px;
+  }
+
+  th {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  td {
+    background: #fff;
+    font-weight: 600;
+  }
+}

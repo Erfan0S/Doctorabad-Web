@@ -96,7 +96,7 @@ export default function PharmacyHeader({
         <div className={styles.lefSideHeader}>
           {headerPageType === HeaderType.MEDICINE_DETAILS && (
             <>
-              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal)}>
+              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal())}>
                 <BugIcon />
               </div>
               <div className={styles.favoriteBtn} onClick={handleShareButton}>
@@ -110,7 +110,7 @@ export default function PharmacyHeader({
               className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
               onClick={
                 headerPageType === HeaderType.MEDICINE_DETAILS
-                  ? authorizeClientAction (() => handleFavoriteButton)
+                  ? authorizeClientAction (() => handleFavoriteButton())
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >

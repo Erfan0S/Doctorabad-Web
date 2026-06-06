@@ -76,5 +76,22 @@ export const logOut = async (reloadPage: boolean = false) => {
     await api.logout();
     modalActions.clearModals();
   } catch (error) {}
+  // // invalidate related queries and notify providers
+  // if (!isServerSide && typeof window !== "undefined") {
+  //   try {
+  //     const anyWin = window as any;
+  //     console.debug("[authUtils] logOut called — removing cookie and dispatching logout");
+  //     if (anyWin.__REACT_QUERY_CLIENT__) {
+  //       console.debug("[authUtils] found __REACT_QUERY_CLIENT__ — calling invalidateQueries(['user-plans-clinic'])");
+  //       anyWin.__REACT_QUERY_CLIENT__.invalidateQueries({ queryKey: ["user-plans-clinic"] });
+  //       console.debug("[authUtils] invalidateQueries completed");
+  //     } else {
+  //       console.debug("[authUtils] __REACT_QUERY_CLIENT__ not found on window");
+  //     }
+  //     // also dispatch a global event so any provider can react
+  //     window.dispatchEvent(new Event("user-logout"));
+  //     console.debug("[authUtils] user-logout event dispatched");
+  //   } catch (e) {}
+  // }
   if (reloadPage) window.location.reload();
 };

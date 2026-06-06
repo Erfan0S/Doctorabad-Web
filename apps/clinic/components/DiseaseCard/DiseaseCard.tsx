@@ -60,7 +60,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
 
   useEffect(() => {
     if (!isUserLoggedIn()) {
-      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"]});
+      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"]});      
     }
   }, [isUserLoggedIn()]);
 

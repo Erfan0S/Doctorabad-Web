@@ -129,6 +129,17 @@ export default function MedicineDetailsPage() {
 
   const galleryImages = getImagesByUseType("gallery");
 
+  const hasNonNullShapeCoding = (coding: any) => {
+    if (!coding || typeof coding !== "object") return false;
+    return Object.values(coding).some((v) => {
+      if (v === null || v === undefined) return false;
+      if (typeof v === "string") return v.trim() !== "";
+      if (Array.isArray(v)) return v.length > 0;
+      if (typeof v === "object") return Object.keys(v).length > 0;
+      return true;
+    });
+  };
+
   const allSections = [
     {
       key: "category",
@@ -155,8 +166,38 @@ export default function MedicineDetailsPage() {
     {
       key: "shape",
       label: "اشکال دارویی",
-      content:
-        medicine.shapes?.map((s: string) => `✓ ${s}`).join("<br/>") || null,
+      content: (
+        <>
+          {medicine.shapes?.length ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: medicine.shapes.map((s: string) => `✓ ${s}`).join("<br/>"),
+              }}
+            />
+          ) : null}
+
+          {hasNonNullShapeCoding(medicine.shape_coding) ? (
+            <div className={styles.shapeTableWrapper}>
+              <table className={styles.shapeTable}>
+                <thead>
+                  <tr>
+                    <th>اشکال دارویی</th>
+                    <th>کد دارو</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(medicine.shape_coding).map(([k, v]) => (
+                    <tr key={k}>
+                      <td>{k}</td>
+                      <td>{typeof v === "object" ? JSON.stringify(v) : String(v)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+        </>
+      ),
     },
     {
       key: "use_case",
