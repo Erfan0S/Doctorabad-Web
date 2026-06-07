@@ -34,7 +34,7 @@ const BigBanner = ({
         <div
           className={style.bigBannerWrapper}
           style={{
-            background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
+            background: `${primaryColor}`,
           }}
         >
           <div className={style.bigBannerImage}>

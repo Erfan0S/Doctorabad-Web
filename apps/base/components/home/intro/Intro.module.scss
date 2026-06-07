@@ -10,7 +10,7 @@
     padding: space(10) space(10) 0;
     display: flex;
     position: relative;
-    background: radial-gradient(circle at 72% center, #2eb41f, #8fcc1a 35%);
+    background: $base-green;
     > svg {
       position: absolute;
       width: 201px;

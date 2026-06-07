@@ -34,11 +34,11 @@ export default async function RootLayout({
   return (
     <html lang="fa">
       <SharedHeadContents />
-      <body className={`${font.className}`}>
+      <body className={`${font.className} market_body`} >
         <NextTopLoader color="#8fcc18" />
         <div className="root">
           <Providers>
-            <BodyClassManager isLoggedIn={isLoggedIn} />
+            {/* <BodyClassManager isLoggedIn={isLoggedIn} /> */}
             {/* <Header /> */}
 
             {children}
@@ -46,7 +46,7 @@ export default async function RootLayout({
               <DiviceSwitchShell
                 desktop={
                   <MobileNavBar
-                    excludePaths={["pwa", "checkout", "register"]}
+                    excludePaths={["pwa", "checkout", "register", ""]}
                     onlyOnMobile={false}
                   />
                 }

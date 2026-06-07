@@ -20,9 +20,8 @@ const Providers = ({ children }: React.PropsWithChildren) => {
   const isHome = pathname === "/";
 
   return (
-    <SharedProviders modalList={ModalsList}>
-      {isHome && isLoggedIn ? null : <SidebarProvider />}
-      {/* {!isLoggedIn ? <SidebarProvider /> : null} */}
+    <SharedProviders haveSideBar modalList={ModalsList}>
+      {/* {isHome && isLoggedIn ? null : <SidebarProvider />} */}
       {children}
     </SharedProviders>
   );

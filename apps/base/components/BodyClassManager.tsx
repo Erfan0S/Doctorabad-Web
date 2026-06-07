@@ -17,7 +17,7 @@ export default function BodyClassManager({
       .join(" ");
 
     const isHome = pathname === "/";
-    const classToSet = isHome && isLoggedIn ? "mobile-container" : "desktop-body";
+    const classToSet = isHome && isLoggedIn ? "desktop-body" : "desktop-body";
 
     document.body.className = [preserved, classToSet].filter(Boolean).join(" ");
 

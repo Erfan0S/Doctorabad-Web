@@ -1,8 +1,8 @@
-import doctorLearn from "../../assets/img/doctor-learn.png";
-import doctorMarket from "../../assets/img/doctor-market.png";
-import doctorDownload from "../../assets/img/doctor-download.png";
-import doctorExam from "../../assets/img/doctor-exam.png";
-import menuLogo from "../../assets/img/logo-without-text.png";
+import doctorLearn from "../../assets/img/doctor-learn-new.png";
+import doctorMarket from "../../assets/img/doctor-market-new.png";
+import doctorDownload from "../../assets/img/doctor-download-new.png";
+import doctorExam from "../../assets/img/doctor-exam-new.png";
+import doctorTools from "../../assets/img/doctor-tools-new.png";
 import { baseUrls, routePath } from "@repo/core/constants/routePath";
 
 export const navBarData = [
@@ -28,10 +28,10 @@ export const navBarData = [
   },
   {
     id: 0,
-    title: "دکترآباد",
-    subTitle: "دکترآباد",
+    title: "دکتــــــرتولز",
+    subTitle: "مرکزابزاردکترآباد",
     href: baseUrls.base,
-    image: menuLogo,
+    image: doctorTools,
     color: "green",
     mobileTitle: "دکترآباد",
     basePath: routePath.home,
