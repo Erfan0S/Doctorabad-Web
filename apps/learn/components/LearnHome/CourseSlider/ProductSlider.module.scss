@@ -1,9 +1,49 @@
+.courseContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 12px;
+  color: black;
+  gap: 7px;
+  > p {
+    width: 100%;
+    margin: 0;
+    line-height: 1.5;
+    min-height: 3em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  > div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 36px;
+
+    > div > div {
+      justify-content: flex-start;
+    }
+  }
+
+  .listSnappayNotif {
+    font-size: 9px;
+    padding: 5px 2px;
+    font-weight: 600;
+  }
+}
+
 .course {
   height: 95px;
   width: 170px;
-  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-size: cover;
   background-position: center;
   object-fit: scale-down;
