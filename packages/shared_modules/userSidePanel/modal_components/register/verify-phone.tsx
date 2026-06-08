@@ -1,6 +1,6 @@
 "use client";
 import { RegisterStepProps } from "../../types/register";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useVerifyPhone } from "./useVerifyPhone";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import style from "./Register.module.scss";
@@ -59,10 +59,6 @@ export const VerifyPhone = (props: RegisterStepProps) => {
     //   </p>
     // );
   };
-
-  useEffect(() => {
-    console.log(resendPeriod);
-  }, [resendPeriod]);
 
   return (
     <div className={style.verifyPhoneForm} ref={wrapperRef}>
