@@ -7,8 +7,13 @@ import PlanItem from "./PlanItem";
 import { PlansSkeleton } from "../skeletons";
 import styles from "./Plans.module.scss";
 
-export default function Plans() {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+type Props = {
+  selectedId?: number | null;
+  onSelect?: (id: number) => void;
+};
+
+export default function Plans({ selectedId: controlledSelectedId, onSelect }: Props) {
+  const [localSelectedId, setLocalSelectedId] = useState<number | null>(null);
 
   const { data: plansData, isLoading } = useQuery({
     queryKey: ["dr_pro_plans"],
@@ -19,8 +24,11 @@ export default function Plans() {
 
   useEffect(() => {
     if (plans.length) {
-      setSelectedId((prev) => prev ?? plans[0].id);
+      const initial = controlledSelectedId ?? localSelectedId ?? plans[0].id;
+      if (controlledSelectedId == null) setLocalSelectedId(initial);
+      if (controlledSelectedId == null && onSelect) onSelect(initial);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plansData]);
 
   if (isLoading) return <PlansSkeleton />;
@@ -33,8 +41,11 @@ export default function Plans() {
         <PlanItem
           key={plan.id}
           plan={plan}
-          selected={selectedId === plan.id}
-          onSelect={setSelectedId}
+          selected={(controlledSelectedId ?? localSelectedId) === plan.id}
+          onSelect={(id) => {
+            if (onSelect) onSelect(id);
+            else setLocalSelectedId(id);
+          }}
         />
       ))}
     </div>

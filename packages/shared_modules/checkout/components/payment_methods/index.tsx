@@ -23,9 +23,20 @@ type Props = {
   payInfo: CartPayInfo;
   setPayInfo: Dispatch<SetStateAction<CartPayInfo>>;
   shippingMethod?: ShippingMethod;
+  // when true, skip calling `api.isEligibleForProvider` and use provided texts
+  drProMode?: boolean;
+  installmentTitle?: string | null;
+  installmentDescription?: string | null;
 };
 
-function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
+function PaymentMethods({
+  payInfo,
+  setPayInfo,
+  shippingMethod,
+  drProMode,
+  installmentTitle,
+  installmentDescription,
+}: Props) {
   const { data: cartData, price_paid, user_credit } = useCart();
   const [installmentEligible, setInstallmentEligible] = useState(false);
   const [providerLoading, setProviderLoading] = useState(false);
@@ -46,7 +57,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     queryKey: ["installment_eligible", priceToPay],
     queryFn: () =>
       api.isEligibleForProvider(priceToPay, PaymentProviders.SNAPP_PAY),
-    enabled: installmentEligible,
+    enabled: installmentEligible && !drProMode,
     staleTime: 0,
     retry: false,
   });
@@ -61,9 +72,11 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
     {
       id: PaymentProviders.SNAPP_PAY,
       title:
+        installmentTitle ||
         installmentEligibleData?.data.data.response.title_message ||
         "پرداخت اقساطی اسنپ‌پی",
       description:
+        installmentDescription ||
         installmentEligibleData?.data.data.response.description ||
         "پرداخت اقساطی اسنپ‌پی" +
           (priceToPay >= 4000
@@ -76,6 +89,21 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
         if (payInfo.paymentMethod === PaymentProviders.SNAPP_PAY) {
           return;
         }
+        if (drProMode) {
+          if (!installmentEligible) {
+            toast.error(
+              installmentDescription ||
+                "در حال حاضر امکان پرداخت اقساطی وجود ندارد",
+            );
+            return;
+          }
+          setPayInfo((prev) => ({
+            ...prev,
+            paymentMethod: PaymentProviders.SNAPP_PAY,
+          }));
+          return;
+        }
+
         setProviderLoading(true);
         const isEligible = await installmentRefetch();
         setProviderLoading(false);
@@ -102,10 +130,10 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
   }, [cartData, priceToPay]);
 
   useEffect(() => {
-    if (installmentEligible) {
+    if (installmentEligible && !drProMode) {
       installmentRefetch();
     }
-  }, [installmentEligible]);
+  }, [installmentEligible, drProMode]);
 
   useEffect(() => {
     if (!activeSnappay) {
@@ -114,7 +142,7 @@ function PaymentMethods({ payInfo, setPayInfo, shippingMethod }: Props) {
   }, [activeSnappay]);
 
   return (
-    <div className={`${style.paymentMethodsWrapper}`}>
+    <div className={`${style.paymentMethodsWrapper} ${drProMode ? style.pro : ""}`}>
       <div className={checkoutStyle.title}>
         <span>روش پرداخت من</span>
       </div>

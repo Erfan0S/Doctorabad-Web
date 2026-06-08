@@ -4,7 +4,9 @@
 .paymentMethodsWrapper {
   background-color: $body-bg;
   // padding: space(6);
-}
+  &.pro {
+  --app-base: #{$proGreen};
+}}
 
 .paymentMethodsList {
   display: flex;
@@ -59,7 +61,7 @@
 }
 
 .paymentMethodItem_active {
-  border-color: $base-green;
+  border-color: var(--app-base, $base-green);
 }
 
 .paymentMethodItem_disabled {
