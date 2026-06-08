@@ -82,6 +82,7 @@ export default function LazyCourseSlider({ type }: Props) {
             archiveLink={Configs[type].archiveLink || undefined}
             data={d.data.data}
             amazingTime={(d.data as any).amazing_time as string | undefined}
+            isMyCourses={type === HomePageCourseSliders.MyCourses}
           />
         );
       }}
