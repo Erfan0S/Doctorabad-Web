@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { api as sharedApi } from "../../../api/Api";
 import { toast } from "react-toastify";
 import type { CartPayInfo } from "../../../checkout/types/cart";
+import styles from "./CreateDrProOrderButton.module.scss"
 
 type Props = {
   selectedPlanId?: number | null;
@@ -41,8 +42,8 @@ const CreateDrProOrderButton = ({ selectedPlanId, payInfo }: Props) => {
 
   return (
     <div style={{ marginTop: 12 }}>
-      <button onClick={onCreate} disabled={loading} style={{ width: "100%" }}>
-        {loading ? "در حال پردازش..." : "خرید پلن"}
+      <button className={styles.button} onClick={onCreate} disabled={loading} style={{ width: "100%" }}>
+        {loading ? "در حال پردازش..." : "پرداخت و نهایی کردن سفارش"}
       </button>
     </div>
   );
