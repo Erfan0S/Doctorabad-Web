@@ -1,37 +1,34 @@
 import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
 import { CategoryInList, CategoryList } from "@/types/category";
 import style from "../Nav.module.scss";
-import MenuItem from "./navItem";
+import DesktopNavItem from "./navItem";
 
 interface Props {
   navData: CategoryList;
 }
 
+/**
+ * DesktopNav
+ * Renders a vertical sidebar list of top-level categories.
+ * Each item delegates hover-flyout rendering to DesktopNavItem.
+ */
 const DesktopNav = ({ navData }: Props) => {
-  const recursivelyRenderChildren = (childrenData: CategoryInList) => {
-    const { id, title, children, avatar_file } = childrenData;
-
-    const componentProps = {
-      href: generateProductCategoryUrlFromId(id),
-      title,
-      ...(avatar_file && { image: avatar_file.info.path }),
-      ...(children && {
-        children: children.map((innerChildrenData) =>
-          recursivelyRenderChildren(innerChildrenData)
-        ),
-      }),
-    };
-    return <MenuItem {...componentProps} key={id} />;
-  };
+  const mapCategory = (cat: CategoryInList) => ({
+    id: cat.id,
+    title: cat.title,
+    href: generateProductCategoryUrlFromId(cat.id),
+    image: cat.avatar_file?.info?.path ?? null,
+    children: cat.children ?? [],
+  });
 
   return (
-    <>
-      <nav className={style.nav}>
-        <ul>
-          {navData.map((menuItems) => recursivelyRenderChildren(menuItems))}
-        </ul>
-      </nav>
-    </>
+    <nav className={style.nav} aria-label="دسته‌بندی کالاها">
+      <ul className={style.navList} role="menubar">
+        {navData.map((cat) => (
+          <DesktopNavItem key={cat.id} category={mapCategory(cat)} />
+        ))}
+      </ul>
+    </nav>
   );
 };
 
