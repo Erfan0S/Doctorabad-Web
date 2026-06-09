@@ -676,6 +676,17 @@ class Api extends Request {
       data,
     );
   }
+  createDrProSnappPayOrder(data: {
+    discount_code_id: number;
+    id: number;
+    use_credit: number;
+    provider: PaymentProviders.SNAPP_PAY;
+  }): Promise<ResponseType<CreateDrProOrderResponse>> {
+    return this.request.post<CreateDrProOrderResponse>(
+      "/user/v1/dr_pro/order/installment",
+      data,
+    );
+  }
 }
 
 export const api = new Api();

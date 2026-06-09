@@ -27,6 +27,7 @@ type Props = {
   drProMode?: boolean;
   installmentTitle?: string | null;
   installmentDescription?: string | null;
+  installmentEligible?: boolean;
 };
 
 function PaymentMethods({
@@ -36,6 +37,7 @@ function PaymentMethods({
   drProMode,
   installmentTitle,
   installmentDescription,
+  installmentEligible: installmentEligibleProps,
 }: Props) {
   const { data: cartData, price_paid, user_credit } = useCart();
   const [installmentEligible, setInstallmentEligible] = useState(false);
@@ -47,7 +49,7 @@ function PaymentMethods({
     shippingMethod?.price,
     user_credit,
   );
-  const activeSnappay = installmentEligible && priceToPay >= 4000;
+  // console.log(priceToPay);
 
   const {
     data: installmentEligibleData,
@@ -61,6 +63,14 @@ function PaymentMethods({
     staleTime: 0,
     retry: false,
   });
+const activeSnappay = () => {
+
+  if (!drProMode) {
+    return installmentEligible && priceToPay >= 4000;
+  }
+
+  return installmentEligibleProps;
+};
 
   const PaymentMethidsConfig: PaymentMethodType[] = [
     {
@@ -84,7 +94,7 @@ function PaymentMethods({
             : ""),
       icon: <SnapPayIcon />,
       more_info_url: "https://doctorabad.com/mag/snapppay",
-      disabled: !activeSnappay,
+      disabled: !activeSnappay(),
       async onClick() {
         if (payInfo.paymentMethod === PaymentProviders.SNAPP_PAY) {
           return;
@@ -142,7 +152,9 @@ function PaymentMethods({
   }, [activeSnappay]);
 
   return (
-    <div className={`${style.paymentMethodsWrapper} ${drProMode ? style.pro : ""}`}>
+    <div
+      className={`${style.paymentMethodsWrapper} ${drProMode ? style.pro : ""}`}
+    >
       <div className={checkoutStyle.title}>
         <span>روش پرداخت من</span>
       </div>
