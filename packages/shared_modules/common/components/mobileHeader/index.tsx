@@ -25,6 +25,7 @@ import getCurrentAppName from "@repo/core/utils/getCurrentAppName";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import { isServerSide } from "@repo/core/constants/constants";
 import { baseUrls, routePath } from "@repo/core/constants/routePath";
+import DrClubIcon from "../../../assets/svg/drClub";
 
 type Props = {
   type: Apps;
@@ -47,10 +48,15 @@ const MobileHeader = ({ type }: Props) => {
     enabled: !!isUserLoggedIn(),
     retry: 1,
   });
+  const { data: userCoinPoints, isLoading: userCoinPointsLoading } = useQuery({
+    queryFn: api.getUserCoinPoints,
+    queryKey: ["user_coin_points"],
+    retry: 1,
+  });
 
-  const isPro = isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
+  const isPro =
+    isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
   console.log(activePlanData);
-  
 
   // const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
   //   queryFn: api.getUserClubInfo,
@@ -81,13 +87,13 @@ const MobileHeader = ({ type }: Props) => {
             <span className={style.buttonsBadge}>{data.data.data.counter}</span>
           )}
         </button>
-        <button
+        {/* <button
           onClick={authorizeClientAction(() =>
             modalActions.addModal(ModalTypes.QR_CONTENTS),
           )}
         >
           <QrScannerIcon />
-        </button>
+        </button> */}
         <button
           onClick={() =>
             modalActions.addModal(ModalTypes.SIDE_PANEL, {
@@ -115,9 +121,18 @@ const MobileHeader = ({ type }: Props) => {
           <CartIcon />
           {cart.count > 0 && <span>{cart.count}</span>}
         </button>
-
+        <button
+          onClick={authorizeClientAction(() => {
+            if (!isServerSide) {
+              window.open(getCheckoutUrl(true), "_self");
+            }
+          })}
+          className={style.cartButton}
+        >
+          <DrClubIcon />
+          <div className={style.drClubPoints}>{userCoinPoints?.data.data.point_sum}</div>
+        </button>
       </div>
-      
     </div>
   );
 };
