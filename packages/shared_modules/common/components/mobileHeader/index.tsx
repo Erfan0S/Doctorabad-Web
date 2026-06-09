@@ -16,6 +16,7 @@ import ChatIcon from "../../../assets/svg/chat";
 import QrScannerIcon from "../../../assets/svg/qrScanner";
 import CartIcon from "../../../assets/svg/cart";
 import PlansIcon from "../../../assets/svg/plans";
+import ProTag from "../proTag";
 import { useRouter } from "next/navigation";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { useEffect } from "react";
@@ -40,6 +41,17 @@ const MobileHeader = ({ type }: Props) => {
     retry: 1,
   });
 
+  const { data: activePlanData, isSuccess: isActivePlanSuccess } = useQuery({
+    queryFn: () => api.getDrProActivePlan(),
+    queryKey: ["active_plan"],
+    enabled: !!isUserLoggedIn(),
+    retry: 1,
+  });
+
+  const isPro = isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
+  console.log(activePlanData);
+  
+
   // const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
   //   queryFn: api.getUserClubInfo,
   //   queryKey: ["user_club_info"],
@@ -58,7 +70,10 @@ const MobileHeader = ({ type }: Props) => {
 
   return (
     <div className={`${style.mobileHeader} ${style[type]}`}>
-      <Logo />
+      <div className={style.left}>
+        <Logo />
+        <ProTag active={isPro} />
+      </div>
       <div className={style.buttons}>
         <button onClick={openSideMenu(SidePanelPage.MAIN)}>
           <HomeIcon />
@@ -100,18 +115,9 @@ const MobileHeader = ({ type }: Props) => {
           <CartIcon />
           {cart.count > 0 && <span>{cart.count}</span>}
         </button>
-        <button
-          onClick={authorizeClientAction(() => {
-            if (!isServerSide) {
-              window.open(`${baseUrls[Apps.BASE]}${routePath.pro}`, "_self");
-            }
-          })}
-          className={style.proButton}
-        >
-          <PlansIcon />
-          <span>دکتر پرو</span>
-        </button>
+
       </div>
+      
     </div>
   );
 };

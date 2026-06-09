@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import InsuranceHeader from "@/components/InsuranceHeader/InsuranceHeader";
 import styles from "./page.module.scss";
 import { HeaderType } from "@/types/insurance";
@@ -33,6 +34,7 @@ export default function InsuranceHomePage() {
 
   return (
     <div className={styles.container}>
+        <ToastContainer theme="colored" rtl position="top-left" />
       <SelectInfo
         onChangeField={setField}
         onChangeFieldsData={setFieldsData}

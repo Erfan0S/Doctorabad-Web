@@ -8,14 +8,14 @@ import ActivePlan from "../ActivePlan";
 import Explanation from "../Explanation";
 import Plans from "../Plans";
 import { ActivePlanSkeleton, ExplanationSkeleton } from "../skeletons";
-import { api } from "../../../api/Api";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import Shipping from "../../../checkout/components/shipping";
 import { ShippingMethod, ShippingAddress } from "@repo/core/types/cart";
 import Pay from "../../../checkout/components/pay";
 import CreateDrProOrderButton from "../CreateDrProOrderButton";
 import type { CartPayInfo } from "../../../checkout/types/cart";
 import PaymentMethods from "../../../checkout/components/payment_methods";
+import { api } from "../../../api/Api";
+import { useQuery } from "@tanstack/react-query";
 
 const ProPage = () => {
   const { data: activePlanData, isLoading } = useQuery({
@@ -49,7 +49,6 @@ const ProPage = () => {
     payWithCredit: false,
     paymentMethod: "cash",
   });
-
   return (
     <div className={styles.proPageContainer}>
       <PageHeader title="دکتر پرو" app={Apps.DRPRO} />
