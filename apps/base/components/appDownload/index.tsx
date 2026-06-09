@@ -96,7 +96,6 @@ const AppDownload = ({ statistic }: Props) => {
         </div>
         <AppDownloadTitle className={style.titleResponsiveShort} />
       </div>
-      <PatchNoteList />
     </div>
   );
 };

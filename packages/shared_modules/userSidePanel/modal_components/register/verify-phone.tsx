@@ -1,8 +1,10 @@
+"use client";
 import { RegisterStepProps } from "../../types/register";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useVerifyPhone } from "./useVerifyPhone";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import style from "./Register.module.scss";
+import { VerifyCodeType } from "@repo/core/types/register";
 
 export const VerifyPhone = (props: RegisterStepProps) => {
   const wrapperRef = useRef<HTMLInputElement>(null);
@@ -13,15 +15,24 @@ export const VerifyPhone = (props: RegisterStepProps) => {
   const resendRenderer = ({
     formatted: { minutes, seconds },
     completed,
+    type = VerifyCodeType.MOBILE,
   }: CountdownRenderProps) => {
+    const typeTitle =
+      type === VerifyCodeType.MOBILE ? "ارسال مجدد کد" : "ارسال کد از طریق بله";
+
     return completed ? (
-      <span onClick={resendCode}>ارسال مجدد کد</span>
+      <span onClick={() => resendCode(type)}>{typeTitle}</span>
     ) : (
       <p>
-        ارسال مجدد کد <span>{minutes}</span>:<span>{seconds}</span> دیگر
+        ارسال مجدد کد {type === VerifyCodeType.MOBILE ? "" : "از طریق بله"}{" "}
+        <span>{minutes}</span>:<span>{seconds}</span> دیگر{" "}
       </p>
     );
   };
+
+  useEffect(() => {
+    console.log(resendPeriod);
+  }, [resendPeriod]);
 
   return (
     <div className={style.verifyPhoneForm} ref={wrapperRef}>
@@ -43,11 +54,21 @@ export const VerifyPhone = (props: RegisterStepProps) => {
           />
         ))}
       </div>
+
       <span onClick={goToPrevStep}>شماره‌ام را اشتباه وارد کرده‌ام!</span>
       <Countdown
-        date={resendPeriod}
-        key={resendPeriod}
-        renderer={resendRenderer}
+        date={resendPeriod[VerifyCodeType.MOBILE]}
+        key={resendPeriod[VerifyCodeType.MOBILE]}
+        renderer={(props) =>
+          resendRenderer({ ...props, type: VerifyCodeType.MOBILE })
+        }
+      />
+      <Countdown
+        date={resendPeriod[VerifyCodeType.BALE]}
+        key={resendPeriod[VerifyCodeType.BALE]}
+        renderer={(props) =>
+          resendRenderer({ ...props, type: VerifyCodeType.BALE })
+        }
       />
     </div>
   );

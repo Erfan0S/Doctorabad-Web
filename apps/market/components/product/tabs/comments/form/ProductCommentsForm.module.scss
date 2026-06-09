@@ -1,5 +1,5 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
 
 .productCommentsForm {
   border: 2px solid $orange;
@@ -36,6 +36,7 @@
             }
             &:nth-of-type(2) {
               display: inline-block;
+              color: $orange;
             }
           }
         }
@@ -48,6 +49,7 @@
             }
             &:nth-of-type(2) {
               display: inline-block;
+              color: $orange;
             }
           }
         }

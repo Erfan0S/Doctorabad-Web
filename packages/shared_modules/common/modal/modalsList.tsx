@@ -14,6 +14,7 @@ import { VideoModal } from "./modals/VideoModal";
 import VpnWarningModal from "./modals/VpnWarningModal";
 import { ExamStartModal } from "@repo/apps_shared_components/exam/components";
 import AppOnlyModal from "./modals/AppOnlyModal";
+import MedicineCodingModal from "./modals/MedicineCodingModal";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -31,4 +32,5 @@ export const ModalsList: any = {
   [ModalTypes.VPN_WARNING]: VpnWarningModal,
   [ModalTypes.EXAM_START]: ExamStartModal,
   [ModalTypes.AppOnly]: AppOnlyModal,
+  [ModalTypes.MEDICINE_CODING]: MedicineCodingModal,
 };

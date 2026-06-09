@@ -71,11 +71,9 @@ export default function DoctorToolsSection() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>دکتر تولز</h2>
-          <Link
-            href={toolsBaseUrl}
-            className={styles.viewMore}
-          >
-            مشاهده بیشتر<LeftArrow width={16} height={16} />
+          <Link href={toolsBaseUrl} className={styles.viewMore}>
+            مشاهده بیشتر
+            <LeftArrow width={16} height={16} />
           </Link>
         </div>
         <div className={styles.toolsWrapper}>
@@ -86,14 +84,17 @@ export default function DoctorToolsSection() {
           >
             {tools.map((tool) => (
               <SwiperSlide key={tool.id} className={styles.slide}>
+                {/* <div className={styles.toolCard}> */}
                 <Link
                   href={`${toolsBaseUrl}${tool.href}`}
                   className={`${styles.toolCard} ${styles[tool.colorClass] || styles.green}`}
                 >
-                  <span className={styles.iconChar}>{tool.iconChar}</span>
+                  <div className={styles.toolCard}>
+                    <div className={styles.iconChar}>{tool.iconChar}</div>
+                  </div>
                 </Link>
-                <span className={styles.toolTitle}>{tool.title}</span>
-
+                    <div className={styles.toolTitle}>{tool.title}</div>
+                {/* </div> */}
               </SwiperSlide>
             ))}
           </Swiper>

@@ -10,6 +10,9 @@ import { api } from "@repo/shared_modules/api";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { Metadata, Viewport } from "next";
 import { SharedHeadContents } from "@repo/shared_modules";
+import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
+import BodyClassManager from "../components/BodyClassManager";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -20,6 +23,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = homeMetadata();
 export const viewPort: Viewport = homeViewPort;
+const isLoggedIn = await isUserLoggedInAsync();
 
 export default async function RootLayout({
   children,
@@ -30,13 +34,35 @@ export default async function RootLayout({
   return (
     <html lang="fa">
       <SharedHeadContents />
-      <body className={`${font.className} desktop_body`}>
+      <body className={`${font.className} market_body`} >
         <NextTopLoader color="#8fcc18" />
         <div className="root">
           <Providers>
+            {/* <BodyClassManager isLoggedIn={isLoggedIn} /> */}
             {/* <Header /> */}
+
             {children}
-            <MobileNavBar />
+            {isLoggedIn ? (
+              <DiviceSwitchShell
+                desktop={
+                  <MobileNavBar
+                    excludePaths={["pwa", "checkout", "register", ""]}
+                    onlyOnMobile={false}
+                  />
+                }
+                mobile={<MobileNavBar />}
+              />
+            ) : (
+              <DiviceSwitchShell
+                desktop={
+                  <MobileNavBar
+                    excludePaths={["pwa", "checkout", "register", ""]}
+                    onlyOnMobile={false}
+                  />
+                }
+                mobile={<MobileNavBar />}
+              />
+            )}
 
             <Footer statistic={statistic} />
           </Providers>

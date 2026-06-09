@@ -37,8 +37,8 @@ const ProviderHeader = ({ id, title, summary, image, alt }: Props) => {
           placeholder={placeHolderDataUrl}
         />
         <div className={styles.providerInfo}>
-          <h3>{title}</h3>
-          <h3>{summary}</h3>
+          <h3 >{title}</h3>
+          <h3 >{summary}</h3>
         </div>
       </div>
       <TabsController

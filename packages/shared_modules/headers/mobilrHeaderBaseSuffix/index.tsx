@@ -8,6 +8,7 @@ import { FavoriteHeartIcon, Loading } from "@repo/shared_modules/components";
 import { BugIcon, ShareIcon } from "../../assets";
 import { useToggleFavoriteProduct } from "@repo/core/hooks/useToggleFavoriteProduct";
 import { ShareProductAction } from "@repo/core/types/product";
+import { authorizeClientAction } from "@repo/core/utils/authUtils";
 
 interface Button {
   icon: React.ReactNode;
@@ -76,11 +77,12 @@ const MobileHeaderBaseSiffix = ({
     },
     {
       icon: <BugIcon />,
-      onClick: () =>
+      onClick: authorizeClientAction(() =>
         modalActions.addModal(ModalTypes.BUG_REPORT, {
           productId: id,
           app: app,
         }),
+      ),
     },
   ];
   return (

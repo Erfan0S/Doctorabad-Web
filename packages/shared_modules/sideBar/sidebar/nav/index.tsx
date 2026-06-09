@@ -7,13 +7,13 @@ import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponent
 interface Props {
   isMainLogoActive: boolean;
 }
-const squircleColor: { [key: string]: string } = {
-  red: "#F0CCCB",
-  orange: "#FEEBD6",
-  green: "#DAF4CB",
-  blue: "#C7E5F2",
-  purple: "#DCD3F0",
-};
+// const squircleColor: { [key: string]: string } = {
+//   red: "#F0CCCB",
+//   orange: "#FEEBD6",
+//   green: "#DAF4CB",
+//   blue: "#C7E5F2",
+//   purple: "#DCD3F0",
+// };
 
 const SidebarNav = ({ isMainLogoActive }: Props) => {
   const pathNmae = window.location.pathname;
@@ -49,10 +49,10 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
             <li key={id} className={active ? style.active : ""} id={String(id)}>
               <div className={style.sidebarNavShape} />
               <a type="button" href={href} className={style[color]}>
-                <Squircle fill="#fff" />
-                <Squircle fill={squircleColor[color]} />
+                {/* <Squircle fill="#fff" />
+                <Squircle fill={squircleColor[color]} /> */}
 
-                <Image src={image} alt={title} width={46} height={46} />
+                <Image src={image} alt={title} width={60} height={60} />
 
                 {!active && mobileTitle && <span>{mobileTitle}</span>}
                 <div>

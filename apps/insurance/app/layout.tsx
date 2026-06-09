@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={font.className}>
         <div className="root">
           <Providers>
-            <div className="learn-container">
+            <div className="mobile-container">
               <main>{children}</main>
               <MobileNavBar onlyOnMobile={false} />
             </div>

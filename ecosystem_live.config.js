@@ -70,5 +70,24 @@ module.exports = {
                 PORT: 3070
             }
         },
+        ,{
+            name: "live-insurance",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/web-site/web-doctorabad/apps/insurance",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3080
+            }},
+        {
+            name: "live-download",
+            script: "npm",
+            args: "start",
+            cwd: "/var/www/web-site/web-doctorabad/apps/download",
+            env: {
+                NODE_ENV: "production",
+                PORT: 3090
+            }
+        },
     ]
 };

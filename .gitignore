@@ -44,6 +44,8 @@ apps/exam/public/sw.js
 apps/clinic/public/sw.js
 apps/pharmacy/public/sw.js
 apps/tools/public/sw.js
+apps/insurance/public/sw.js
+apps/download/public/sw.js
 
 apps/base/public/workbox-*.js
 apps/learn/public/workbox-*.js
@@ -52,4 +54,5 @@ apps/exam/public/workbox-*.js
 apps/clinic/public/workbox-*.js
 apps/pharmacy/public/workbox-*.js
 apps/tools/public/workbox-*.js
-
+apps/insurance/public/workbox-*.js
+apps/download/public/workbox-*.js

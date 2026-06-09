@@ -27,7 +27,6 @@ export default function DiseaseList({
   }
 
   return (
-    <PersistQueryProvider>
     <InfiniteScroll
       dataLength={diseases.length}
       next={onLoadMore}
@@ -43,6 +42,5 @@ export default function DiseaseList({
         <DiseaseCard key={disease.id} disease={disease} />
       ))}
     </InfiniteScroll>
-    </PersistQueryProvider>
   );
 }

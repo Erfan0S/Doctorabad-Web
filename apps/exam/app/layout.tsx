@@ -41,7 +41,7 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <Suspense fallback={<Loading app={Apps.EXAM} pageLoader />}>
-              <div className="learn-container">
+              <div className="mobile-container">
                 {children}
                 <MobileNavBar
                   onlyOnMobile={false}

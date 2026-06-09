@@ -18,10 +18,20 @@ export const storeCart = create<CartState>(() => initialState);
 const updateCart = (response: ResponseType<CartResponse>) =>
   storeCart.setState({ ...response.data, initLoading: false });
 
+let pendingGetCartList: Promise<ResponseType<CartResponse>> | null = null;
+
 export const cartActions = {
   async getCartData() {
     if (!isUserLoggedIn()) return;
-    updateCart(await api.getCartList());
+
+    if (!pendingGetCartList) {
+      pendingGetCartList = api.getCartList().finally(() => {
+        pendingGetCartList = null;
+      }) as Promise<ResponseType<CartResponse>>;
+    }
+
+    const response = await pendingGetCartList;
+    updateCart(response);
   },
   async addToCart(
     cartItem: number,
@@ -34,7 +44,17 @@ export const cartActions = {
   ) {
     if (!isUserLoggedIn(true)) return;
 
-    updateCart(await api.addToCart(cartItem, type, variants, draft_id, damage_history, last_insurance, current_insurance_end_date));
+    updateCart(
+      await api.addToCart(
+        cartItem,
+        type,
+        variants,
+        draft_id,
+        damage_history,
+        last_insurance,
+        current_insurance_end_date,
+      ),
+    );
     toast("محصول به سبدخرید اضافه شد", { type: "success" });
   },
   async removeFromCart(cartItemId: number) {

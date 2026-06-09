@@ -1,6 +1,15 @@
 @import "./variables";
 @import "./functions";
-
+// :root {
+//   --toastify-font-family: inherit;
+//   font-family: sans-serif;
+// }
+/* force Toastify to use app font (body already has the next/font class) */
+.Toastify__toast,
+.Toastify__toast-body,
+.Toastify__toast-container {
+  font-family: inherit !important;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -406,16 +415,25 @@ img[data-nimg="fill"] {
 .desktop_body {
   padding-right: $sidebar-collapse-width;
 }
-
-.container {
-  padding: 0 1rem;
+.market_body {
+  padding-right: $sidebar-collapse-width;
 }
 
-.learn-container, .download-container {
+.container {
+  // padding: 0 1rem;
+  padding: 0 10px;
+}
+
+.mobile-container {
   max-width: 800px;
-  padding-bottom: 15px;
   margin: 0 auto;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    padding-bottom: 90px;
+  }
 }
 
 .card {
@@ -424,6 +442,9 @@ img[data-nimg="fill"] {
 }
 
 @media (max-width: 768px) {
+  .tools_app{
+    padding-bottom: 0 !important;
+  }
   body {
     padding-bottom: 86px;
 
@@ -431,7 +452,11 @@ img[data-nimg="fill"] {
       padding-right: unset;
     }
   }
+
   .desktop_body {
+    padding-right: unset;
+  }
+  .market_body {
     padding-right: unset;
   }
 

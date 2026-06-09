@@ -9,10 +9,12 @@ import Lock from "@/assets/svg/lock";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { getMillisecondsUntilMidnight } from "@/utils/timeUtils";
 import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 
-import { useQuery } from "@tanstack/react-query";
+
 import { clinicApi } from "@/api/Api";
+import { useEffect } from "react";
 
 interface DiseaseCardProps {
   disease: Disease;
@@ -23,6 +25,8 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   
   // بررسی وضعیت لاگین بودن کاربر
   const isLoggedIn = generalAuthorizeState((state) => state.isAuthorized);
+    const queryClient = useQueryClient();
+
 
   const {
     data: userPlans,
@@ -31,13 +35,13 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
   } = useQuery({
     queryKey: ["user-plans-clinic"],
     queryFn: async () => (await clinicApi.getUserPlans()),
-    enabled: isLoggedIn, // 👈 این خط اضافه شد: فچ فقط در صورت لاگین بودن
+    enabled: isLoggedIn, 
     staleTime: getMillisecondsUntilMidnight(),
-    gcTime: getMillisecondsUntilMidnight(), // Keep in cache until midnight
+    gcTime: getMillisecondsUntilMidnight(), 
   });
   
   const isAccessible = () => {
-    // console.log(userPlans);
+    console.log(userPlans);
     if (userPlans?.data?.data?.length || userPlans?.data?.used_free || disease.is_free) {
       return true;
     }
@@ -53,6 +57,12 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     params.set("treatment", treatmentType);
     router.push(`/disease/${disease.id}?${params.toString()}`);
   };
+
+  useEffect(() => {
+    if (!isUserLoggedIn()) {
+      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"]});      
+    }
+  }, [isUserLoggedIn()]);
 
   return (
     <div

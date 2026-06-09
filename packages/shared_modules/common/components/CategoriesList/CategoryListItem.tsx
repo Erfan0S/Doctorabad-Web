@@ -20,9 +20,7 @@ const TileListItem = ({ category, baseUrl }: Props) => {
   return (
     <Link
       href={
-        baseUrl
-          ? `/${baseUrl}/${category.id}`
-          : `/categories/${category.id}/${(category as CategoryType).title}`
+        baseUrl ? `/${baseUrl}/${category.id}` : `/categories/${category.id}`
       }
       className={style.ListItemWrapper}
     >

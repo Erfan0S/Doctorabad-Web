@@ -1,5 +1,18 @@
-@import '@/assets/styles/functions';
-@import '@/assets/styles/variables';
+@import "@/assets/styles/functions";
+@import "@/assets/styles/variables";
+
+.productBundleWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  gap: 15px;
+  > a > div {
+    margin: 0;
+    border: 1px solid $lightGray;
+  }
+}
 
 .productSpecifications {
   border: 2px solid $orange;
@@ -45,7 +58,7 @@
             position: relative;
             margin-left: 5px;
             &:not(:last-child)::after {
-              content: '';
+              content: "";
               width: 1px;
               height: 12px;
               background-color: #5b5b5b;

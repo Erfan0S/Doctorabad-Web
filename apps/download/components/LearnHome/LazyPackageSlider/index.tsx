@@ -15,17 +15,17 @@ type ConfigsType = {
   archiveLink: string | null;
   queryKey: string;
   isRefetchOnAuth?: boolean;
+  needToLoggedIn?: boolean;
 };
 
 const Configs: Record<HomePagePackageSliders, ConfigsType> = {
-
   [HomePagePackageSliders.MyPackages]: {
-    loader: async () =>
-      (await api.getPreviousPackageOrders()).data,
-    title:"محتواهای من",
+    loader: async () => (await api.getPreviousPackageOrders()).data,
+    title: "محتواهای من",
     archiveLink: "/my_package",
     queryKey: "my-packages",
     isRefetchOnAuth: true,
+    needToLoggedIn: true,
   },
   [HomePagePackageSliders.Suggested]: {
     loader: async () => (await api.getPackages(1, "newest", 1)).data,
@@ -53,6 +53,7 @@ const Configs: Record<HomePagePackageSliders, ConfigsType> = {
     archiveLink: null,
     queryKey: "lastviewed-packages",
     isRefetchOnAuth: true,
+    needToLoggedIn: true,
   },
 };
 

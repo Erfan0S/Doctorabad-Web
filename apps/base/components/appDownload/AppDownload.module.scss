@@ -150,6 +150,43 @@
   // }
 }
 
+.changelogPage {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: space(6) space(2) space(10);
+}
+
+.changelogHeader {
+  text-align: center;
+  margin-bottom: space(5);
+
+  h1 {
+    margin: 0 0 space(2);
+    font-size: 28px;
+    font-weight: 900;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+    font-weight: 600;
+  }
+}
+
+.patchNoteList {
+  display: flex;
+  flex-direction: column;
+  gap: space(4);
+}
+
+.patchNoteWrapper {
+  background-color: #f2f2f2;
+  border-radius: radius(4);
+  padding: space(3) space(4);
+}
+
 .patchNoteHeader {
   display: flex;
   flex-direction: row;
@@ -292,6 +329,24 @@
 }
 
 @media (max-width: 550px) {
+  .changelogPage {
+    padding: space(4) space(1) space(8);
+  }
+
+  .changelogHeader {
+    h1 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .patchNoteWrapper {
+    padding: space(2) space(3);
+  }
+
   .downloadTitle {
     h2 {
       font-size: 21px;

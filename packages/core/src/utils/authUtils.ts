@@ -8,6 +8,7 @@ import { api } from "@repo/shared_modules/api";
 import { getClientSideCookie, getServerSideCookie } from "./cookieUtils";
 import { generalAuthorizeState } from "../states/generalAuthorizedState";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const setAuthCookie = () => {
   const expireTimeInMinute = 60 * 24 * 365;
@@ -16,11 +17,12 @@ export const setAuthCookie = () => {
   });
 };
 
+
 export const authorizeClientAction =
   (
     action: (...params: any) => any,
     showError?: boolean,
-    continueAction: boolean = true
+    continueAction: boolean = true,
   ) =>
   (...params: any) => {
     if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
@@ -47,6 +49,7 @@ export const isUserLoggedIn = (haveMassage?: boolean) => {
   if (isServerSide) {
     return !!getServerSideCookie(AUTH_COOKIE_KEY);
   }
+  if (generalAuthorizeState.getState().isAuthorized) return true;
   if (!getClientSideCookie(AUTH_COOKIE_KEY)) {
     if (haveMassage)
       toast("ابتدا وارد شوید", { type: "error", position: "top-left" });
@@ -73,5 +76,22 @@ export const logOut = async (reloadPage: boolean = false) => {
     await api.logout();
     modalActions.clearModals();
   } catch (error) {}
+  // // invalidate related queries and notify providers
+  // if (!isServerSide && typeof window !== "undefined") {
+  //   try {
+  //     const anyWin = window as any;
+  //     console.debug("[authUtils] logOut called — removing cookie and dispatching logout");
+  //     if (anyWin.__REACT_QUERY_CLIENT__) {
+  //       console.debug("[authUtils] found __REACT_QUERY_CLIENT__ — calling invalidateQueries(['user-plans-clinic'])");
+  //       anyWin.__REACT_QUERY_CLIENT__.invalidateQueries({ queryKey: ["user-plans-clinic"] });
+  //       console.debug("[authUtils] invalidateQueries completed");
+  //     } else {
+  //       console.debug("[authUtils] __REACT_QUERY_CLIENT__ not found on window");
+  //     }
+  //     // also dispatch a global event so any provider can react
+  //     window.dispatchEvent(new Event("user-logout"));
+  //     console.debug("[authUtils] user-logout event dispatched");
+  //   } catch (e) {}
+  // }
   if (reloadPage) window.location.reload();
 };

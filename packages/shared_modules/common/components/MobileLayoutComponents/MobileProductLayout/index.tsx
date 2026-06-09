@@ -10,6 +10,7 @@ import {
 } from "@repo/shared_modules/components";
 import { MobileTabsConfigWithContent } from "@repo/core/types/configs";
 import ProductButton, { ProductButtonProps } from "./ProductButton";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 type Props = {
   tabsData: MobileTabsConfigWithContent[];
@@ -19,12 +20,13 @@ type Props = {
   productButtonProps?: ProductButtonProps;
   provider?: {
     img_url: string;
-    name: string;
-    id: number;
+    name?: string;
+    id?: number;
   };
   headerSuffix?: React.ReactNode;
   headerTitle?: string;
   tabParam?: string;
+  providerBaseUrl?: string;
 };
 
 const MobileProductLayout = ({
@@ -37,8 +39,9 @@ const MobileProductLayout = ({
   preview,
   productButtonProps,
   tabParam,
+  providerBaseUrl = "/providers",
 }: Props) => {
-  console.log(tabParam);
+  console.log(provider?.id);
 
   return (
     <div className={`${style.wrapper} ${app && style[app]}`}>
@@ -69,18 +72,33 @@ const MobileProductLayout = ({
               ) : (
                 preview
               )}
-              <div className={style["producte-title"]}>
-                <Link href={`/providers/${provider?.id}`}>
-                  {/* provider image */}
+              <div className={style["product-title"]}>
+                {!!provider?.id ? (
+                  <Link
+                    href={
+                      // ?: fix for market
+                      `${providerBaseUrl}/${provider.id}`
+                    }
+                  >
+                    {/* provider image */}
+                    <Image
+                      src={provider?.img_url || ""}
+                      alt={provider?.name || "ارائه دهنده"}
+                      width={100}
+                      height={44}
+                      placeholder={placeHolderDataUrl}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </Link>
+                ) : (
                   <Image
                     src={provider?.img_url || ""}
                     alt={provider?.name || "ارائه دهنده"}
                     width={100}
                     height={44}
                     placeholder={placeHolderDataUrl}
-                    style={{ objectFit: "contain"}}
                   />
-                </Link>
+                )}
                 <h1>{title}</h1>
               </div>
             </div>

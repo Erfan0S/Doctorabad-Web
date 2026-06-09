@@ -329,7 +329,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [title, isPlayerReady, bookmark]);
 
   return (
-    <div onContextMenu={(e) => e.preventDefault()}>
+    <div
+      onContextMenu={(e) => e.preventDefault()}
+      className={`${styles.videoContainer}`}
+    >
       {!isPlayerReady && (
         <div className={styles.palceHolder}>
           <Loading />

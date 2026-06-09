@@ -106,6 +106,16 @@ const CartItem = ({
     return placeHolderDataUrl;
   };
 
+  const imageType = () => {
+    if (isExam || isMarket || isClinic) {
+      return "square";
+    } else if (isLearn) {
+      return "landscape";
+    } else {
+      return "auto";
+    }
+  };
+
   const onClickHandler = (e: any) => {
     if (discount_plan_type === DiscountPlanType.LERN) {
       e.preventDefault();
@@ -132,10 +142,11 @@ const CartItem = ({
             width={0}
             height={0}
             sizes="100vw"
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
+            // style={{
+            //   width: "100%",
+            //   height: "auto",
+            // }}
+            className={style[imageType()]}
           />
         </a>
       </div>

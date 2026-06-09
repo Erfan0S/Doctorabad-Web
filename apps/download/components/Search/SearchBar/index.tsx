@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { SearchBar as SharedSearchBar } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
+import styles from "./SearchBar.module.scss";
 
 type Props = {
   haveFilterButton?: boolean;
@@ -19,11 +20,15 @@ const SearchBar = ({ haveFilterButton }: Props) => {
   // const packagesCount = data?.data.data.count || 0;
 
   return (
+    <div       className={styles.container}
+>
+
     <SharedSearchBar
       app={Apps.DOWNLOAD}
       haveFilterButton={haveFilterButton}
       placeholder={`در میان ${packagesCount} پکیج جست‌وجو کن!`}
-    />
+      />
+      </div>
   );
 };
 

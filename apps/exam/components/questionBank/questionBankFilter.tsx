@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../common/Button/Button";
 import style from "./questionBank.module.scss";
 import SelectFilters from "../common/SelectFilters/SelectFilters";
@@ -27,6 +27,8 @@ function QuestionBankFilter() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  const [initialLoad, setInitialLoad] = useState(false);
+
   const {
     data: planData,
     isLoading: planLoading,
@@ -35,7 +37,7 @@ function QuestionBankFilter() {
   } = useQuery({
     queryKey: UserPlansQueryKeys,
     queryFn: () => sharedApi.getUserPlans(2),
-    enabled: !!isUserLoggedIn(),
+    enabled: isUserLoggedIn(),
     retry: false,
   });
   const {
@@ -45,7 +47,7 @@ function QuestionBankFilter() {
   } = useQuery({
     queryKey: ["userHasArchived"],
     queryFn: () => api.getArcgived(),
-    enabled: !!isUserLoggedIn(),
+    enabled: isUserLoggedIn(),
     staleTime: 0,
   });
 
@@ -59,6 +61,11 @@ function QuestionBankFilter() {
     !!isUserLoggedIn();
 
   useEffect(() => {
+    if (!initialLoad) {
+      setInitialLoad(true);
+      return;
+    }
+
     if (!isUserLoggedIn()) {
       queryClient.invalidateQueries({ queryKey: UserPlansQueryKeys });
       queryClient
@@ -104,7 +111,7 @@ function QuestionBankFilter() {
       a[key] = value;
     });
     router.push(
-      `${RoutePath.questions}?${SearchParamsUtils.paramsStringify(a)}`
+      `${RoutePath.questions}?${SearchParamsUtils.paramsStringify(a)}`,
     );
   };
 
@@ -113,7 +120,7 @@ function QuestionBankFilter() {
       <div className={`card ${style.topButtons}`}>
         <Button
           onClick={authorizeClientAction(() =>
-            router.push(RoutePath.marked_questions)
+            router.push(RoutePath.marked_questions),
           )}
         >
           سوالات نشان‌دار من

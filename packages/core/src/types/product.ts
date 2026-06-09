@@ -2,6 +2,7 @@ import { StaticImageData } from "next/image";
 import { ReactNode } from "react";
 import { NextPageProps } from "./general";
 import { Variants } from "./productVariants";
+import { OrderType } from "./cart";
 
 export interface Product {
   id: number;
@@ -92,6 +93,14 @@ export interface SingleProductOption {
   value: string;
 }
 
+export type BundleProduct = {
+  id: number;
+  title: string;
+  type: OrderType;
+  provider_name: string;
+  picture: string;
+};
+
 export interface SingleProduct {
   id: number;
   title: string;
@@ -114,8 +123,8 @@ export interface SingleProduct {
   keywords: string[];
   meta_description: string;
   provider: {
-    id: number;
-    name: string;
+    id?: number;
+    name?: string;
     pic_url: string;
   };
   files: SingleProductFile[];
@@ -127,6 +136,8 @@ export interface SingleProduct {
   sample_file: ProductSampleFile[];
   installment_payment: boolean;
   installment_text: string | null;
+  is_bundle: boolean;
+  bundled_products?: BundleProduct[];
 }
 
 export interface ProductSampleFile {

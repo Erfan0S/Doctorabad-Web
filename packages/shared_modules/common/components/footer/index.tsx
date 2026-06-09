@@ -6,7 +6,7 @@ import style from "./Footer.module.scss";
 import { footerSocialMedia } from "./social-data";
 import logo from "../../../assets/img/logo.png";
 import googlePlay from "../../../assets/img/d1.jpg";
-import appStore from "../../../assets/img/d2.jpg";
+import pwaApp from "../../../assets/img/d4.png";
 import directDownload from "../../../assets/img/d3.jpg";
 import { footerLogos } from "./logo-data";
 import { HomeStatisticsType } from "@repo/core/types/homeStatistics";
@@ -58,8 +58,8 @@ const Footer = ({ statistic }: Props) => {
                   <Link href={statistic.google_play_url} target={"_blank"}>
                     <Image src={googlePlay} alt="googlePlay" />
                   </Link>
-                  <Link href={statistic.app_store_url} target={"_blank"}>
-                    <Image src={appStore} alt="appStore" />
+                  <Link href={statistic.pwa_url} target={"_blank"}>
+                    <Image src={pwaApp} alt="pwaApp" />
                   </Link>
                   <Link href={statistic.direct_download_url} target={"_blank"}>
                     <Image src={directDownload} alt="pwaApp" />

@@ -76,6 +76,9 @@
   &Nav {
     $Nav: &;
     ul {
+      // display: flex;
+      // flex-direction: column;
+      // align-items: center;
       padding: 0;
       margin: 0;
       list-style: none;
@@ -83,7 +86,7 @@
       li {
         margin-bottom: space(4);
         transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-        width: 68px;
+        width: 81px;
         position: relative;
         z-index: 10;
 
@@ -169,7 +172,7 @@
     &Shape {
       display: none;
       position: absolute;
-      left: -41px;
+      left: -35px;
       width: 75px;
       height: 150px;
       top: 50%;

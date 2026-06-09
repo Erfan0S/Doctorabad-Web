@@ -14,7 +14,7 @@
   padding: 0 10px;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 0 10px #00000078;
     background-color: white;
@@ -35,8 +35,20 @@
   flex-direction: column;
   justify-content: center;
   margin-right: 10px;
+  min-width: 0;
 }
 
+.providerInfo h3 {
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  margin: 0;
+  line-height: 1.2;
+  min-height: calc(2 * 1.2em);
+  align-items: center;
+  min-width: 0;
+}
 .blueBackground {
   background: $button-bg-darkBlue;
   top: -1px;

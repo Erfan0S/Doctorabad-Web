@@ -4,7 +4,6 @@ import { HomePagePackageSliders } from "@/types/homePage";
 import React from "react";
 import { Apps } from "@repo/core/types/general";
 import PackageListPage from "@/pagesComponents/PackageList";
-import CourseListPage from "@/pagesComponents/PackageList";
 
 type Props = {
   params: {

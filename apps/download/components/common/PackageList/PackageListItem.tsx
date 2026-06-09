@@ -45,41 +45,44 @@ const CourseListItem = ({ package_item }: Props) => {
           <p className={styles.providerName}>{package_item.provider}</p>
         ) : null}
         <div className={styles.metadata}>
-          <div className={styles.metadataWrapper}>
-            {categoryTitle !== null && categoryTitle !== undefined ? (
-              <div className={styles.metadataItem}>
+          <div className={styles.metadataItem}>
+            {categoryTitle ? (
+              <>
                 <CategoryIcon fontSize={16} />
                 <span>{categoryTitle}</span>
-              </div>
-            ) : null}
+              </>
+            ) : (
+              <span className={styles.metaEmpty} />
+            )}
+          </div>
 
-            <div className={styles.metadataItem}>
-              <CoinIcon fontSize={16} />
-              <div className={styles.coursePrice}>
-                <span
-                  style={{
-                    textDecoration: package_item.off_price
-                      ? "line-through"
-                      : "",
-                  }}
-                >
-                  {!(package_item.main_price <= 0)
-                    ? priceFormatter(package_item.main_price) + " تومن"
-                    : "رایگان"}
-                </span>
-                {package_item.off_price ? (
-                  <span>{priceFormatter(package_item.off_price)} تومن</span>
-                ) : null}
-              </div>
+          <div className={styles.metadataItem}>
+            <CoinIcon fontSize={16} />
+            <div className={styles.coursePrice}>
+              <span
+                style={{
+                  textDecoration: package_item.off_price ? "line-through" : "",
+                }}
+              >
+                {!(package_item.main_price <= 0)
+                  ? priceFormatter(package_item.main_price) + " fdef"
+                  : "رایگان"}
+              </span>
+              {package_item.off_price ? (
+                <span>{priceFormatter(package_item.off_price)} fefe</span>
+              ) : null}
             </div>
           </div>
-          <div className={styles.metadataWrapper}>
+
+          <div className={styles.metadataItem}>
             {showSellCount ? (
-              <div className={styles.metadataItem}>
+              <>
                 <HomeIcon fontSize={16} />
-                <span>{package_item.sell_count} دانشجو</span>
-              </div>
-            ) : null}
+                <span>{package_item.sell_count} h</span>
+              </>
+            ) : (
+              <span className={styles.metaEmpty} />
+            )}
           </div>
         </div>
       </div>

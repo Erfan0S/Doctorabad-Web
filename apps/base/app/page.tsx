@@ -12,6 +12,7 @@ import HomeHeader from "@/components/headers/homeHeader";
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
 import MainSliderSection from "@/components/home/mainSlider/MainSliderSection";
 import DoctorToolsSection from "@/components/home/DoctorToolsSection/DoctorToolsSection";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 
 export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
@@ -22,17 +23,19 @@ export default async function Home() {
 
   return (
     <>
-      <HomeHeader />
       {isLoggedIn ? (
         <>
-          <MainSliderSection />
-          <ServiceShortcuts />
-          <DoctorToolsSection />
-          <BlogSlider
-            data={blogPosts}
-            title="دکترمگ"
-            archiveLink="https://doctorabad.com/mag"
-          />
+          <div>
+            <HomeHeader />
+            <MainSliderSection />
+            <ServiceShortcuts />
+            <DoctorToolsSection />
+            <BlogSlider
+              data={blogPosts}
+              title="دکترمگ"
+              archiveLink="https://doctorabad.com/mag"
+            />
+          </div>
         </>
       ) : (
         <>

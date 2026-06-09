@@ -2,19 +2,25 @@
 @import '@/assets/styles/functions';
 
 .section {
-  padding: space(4) ();
+  padding: space(4) 0;
 }
 
 .wrapper {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  gap: space(1);
+  justify-content: center;
+  gap: space(5);
   margin: 0 auto;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 992px) {
   .wrapper {
+    gap: space(4);
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    align-items: stretch;
     gap: space(3);
   }
 }

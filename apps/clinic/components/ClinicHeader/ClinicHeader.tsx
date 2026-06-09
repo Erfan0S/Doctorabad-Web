@@ -18,6 +18,7 @@ import { clinicApi } from "@/api/Api";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 interface ClinicHeaderProps {
   title?: string;
@@ -87,7 +88,7 @@ export default function ClinicHeader({
     }
 
     // در غیر این صورت، رفتار پیش‌فرض (بازگشت به صفحه قبل)
-    navHistory.goBack();
+    navHistory.goBack(baseUrls.base);
   };
 
   return (
@@ -97,7 +98,7 @@ export default function ClinicHeader({
         <div className={styles.lefSideHeader}>
           {headerPageType === HeaderType.DISEASE_DETAILS && (
             <>
-              <div className={styles.favoriteBtn} onClick={toggleReportModal}>
+              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal)}>
                 <BugIcon />
               </div>
               <div className={styles.favoriteBtn} onClick={handleShareButton}>
@@ -111,7 +112,7 @@ export default function ClinicHeader({
               className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
               onClick={
                 headerPageType === HeaderType.DISEASE_DETAILS
-                  ? handleFavoriteButton
+                  ? authorizeClientAction (() => handleFavoriteButton)
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >

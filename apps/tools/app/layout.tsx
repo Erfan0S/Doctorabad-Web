@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html className={font.variable} dir="rtl" lang="fa">
       <SharedHeadContents />
-      <body className={font.className}>
+      <body className={`${font.className} tools_app`}>
         <div className="tools-container">
           <Providers>{children}</Providers>
         </div>

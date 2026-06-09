@@ -16,6 +16,11 @@ const SidePanelFriends: React.FC<SidePanelPageProps> = ({setPage}) => {
 
   const {description, introduction_code, invite, title} = data!.data.data;
 
+const inviteText = invite.replace(
+  /:\s*\n+/,
+  `:\n${introduction_code}\n`
+);
+
   return (
     <>
       <SidePanelHeader setPage={setPage} title="رفقای‌من" />
@@ -24,8 +29,8 @@ const SidePanelFriends: React.FC<SidePanelPageProps> = ({setPage}) => {
         <p>{description}</p>
         <h4>{introduction_code}</h4>
         <div className={style.sidePanelFriendsMessage}>
-          <textarea>{invite}</textarea>
-          <button onClick={() => copyText(invite, "دعوتنامه کپی شد")}>
+          <textarea>{inviteText}</textarea>
+          <button onClick={() => copyText(inviteText, "دعوتنامه کپی شد")}>
             اشتراک گذاری
           </button>
         </div>

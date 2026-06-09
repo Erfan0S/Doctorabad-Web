@@ -10,6 +10,7 @@ import {
 } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
 import { Apps } from "@repo/core/types/general";
+import { learnPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   id: number;
@@ -87,6 +88,7 @@ const ProviderPage = ({ id }: Props) => {
       app={Apps.LEARN}
       contentTitle="دوره‌ها"
       isLoading={isLoading}
+      defaultBackUrl={learnPaths.provider}
     />
   );
 };
