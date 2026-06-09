@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import person from "@/assets/img/bigBanner/people/0001.png";
+import person from "@/assets/img/bigBanner/people/KadKhoda-Mobile.png";
 import googlePlay from "@/assets/img/d1.jpg";
 import appStore from "@/assets/img/d2.jpg";
 import pwaApp from "@/assets/img/d3.jpg";
