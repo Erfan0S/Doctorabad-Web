@@ -13,6 +13,8 @@ import { SharedHeadContents } from "@repo/shared_modules";
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
 import BodyClassManager from "../components/BodyClassManager";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
+import MobileHeader from "../../../packages/shared_modules/common/components/mobileHeader";
+import HomeHeader from "@/components/headers/homeHeader";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -34,12 +36,14 @@ export default async function RootLayout({
   return (
     <html lang="fa">
       <SharedHeadContents />
-      <body className={`${font.className} market_body`} >
+      <body className={`${font.className} market_body`}>
         <NextTopLoader color="#8fcc18" />
         <div className="root">
           <Providers>
             {/* <BodyClassManager isLoggedIn={isLoggedIn} /> */}
             {/* <Header /> */}
+
+            <DiviceSwitchShell desktop={null} mobile={<HomeHeader />} />
 
             {children}
             {isLoggedIn ? (

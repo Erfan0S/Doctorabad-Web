@@ -116,7 +116,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
           router.push(backUrl);
         }}
         title="سبد خرید"
-        className={`${styles.checkoutHeader} ${mobileView && styles.headerMobileView} container`}
+        className={`${styles.checkoutHeader} ${mobileView ? styles.headerMobileView : ""}`}
       />
 
       <div

@@ -26,6 +26,8 @@ import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import { isServerSide } from "@repo/core/constants/constants";
 import { baseUrls, routePath } from "@repo/core/constants/routePath";
 import DrClubIcon from "../../../assets/svg/drClub";
+import HeadphoneIcon from "../../../assets/svg/headphone";
+
 
 type Props = {
   type: Apps;
@@ -51,6 +53,8 @@ const MobileHeader = ({ type }: Props) => {
   const { data: userCoinPoints, isLoading: userCoinPointsLoading } = useQuery({
     queryFn: api.getUserCoinPoints,
     queryKey: ["user_coin_points"],
+    enabled: !!isUserLoggedIn(),
+
     retry: 1,
   });
 
@@ -102,7 +106,7 @@ const MobileHeader = ({ type }: Props) => {
             })
           }
         >
-          <ChatIcon />
+          <HeadphoneIcon />
         </button>
         {/* <button onClick={openSideMenu(SidePanelPage.CLUB)}>
           <Image src={coin} alt="coin" width={25} height={25} />
@@ -121,9 +125,14 @@ const MobileHeader = ({ type }: Props) => {
           <CartIcon />
           {cart.count > 0 && <span>{cart.count}</span>}
         </button>
-        <button onClick={openSideMenu(SidePanelPage.CLUB)} className={style.cartButton}>
+        <button
+          onClick={openSideMenu(SidePanelPage.CLUB)}
+          className={style.cartButton}
+        >
           <DrClubIcon />
-          <div className={style.drClubPoints}>{userCoinPoints?.data.data.point_sum}</div>
+          <div className={style.drClubPoints}>
+            {userCoinPoints?.data.data.coin_sum}
+          </div>
         </button>
       </div>
     </div>

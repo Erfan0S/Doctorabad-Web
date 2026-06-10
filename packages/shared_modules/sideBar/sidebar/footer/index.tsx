@@ -3,6 +3,9 @@
 import style from "../Sidebar.module.scss";
 import Image from "next/image";
 import coin from "../../../assets/img/coin.png";
+import DrClubIcon from "../../../assets/svg/drClub";
+import HeadphoneIcon from "../../../assets/svg/headphone";
+
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import {
@@ -53,7 +56,7 @@ const SidebarFooter = () => {
           })
         }
       >
-        <ChatIcon />
+        <HeadphoneIcon />
       </button>
       <button
         onClick={authorizeClientAction(() =>
@@ -63,7 +66,8 @@ const SidebarFooter = () => {
         <QrScannerIcon />
       </button>
       <button onClick={openSideMenu(SidePanelPage.CLUB)}>
-        <Image src={coin} alt="coin" width={25} height={25} />
+        {/* <Image src={coin} alt="coin" width={25} height={25} /> */}
+        <DrClubIcon/>
         <span>{isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}</span>
       </button>
     </div>

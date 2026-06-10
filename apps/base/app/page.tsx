@@ -26,7 +26,6 @@ export default async function Home() {
       {isLoggedIn ? (
         <>
           <div>
-            <HomeHeader />
             <MainSliderSection />
             <ServiceShortcuts />
             <DoctorToolsSection />
@@ -39,11 +38,15 @@ export default async function Home() {
         </>
       ) : (
         <>
-          <Intro statistic={statistic} />
+
+          <MainSliderSection />
+          <ServiceShortcuts />
+          <DoctorToolsSection />
+          {/* <Intro statistic={statistic} />
           <Statistics statistic={statistic} />
           {bigBannerData.map((item, index) => (
             <BigBanner key={index} {...item} />
-          ))}
+          ))} */}
           <BlogSlider
             data={blogPosts}
             title="دکترمگ"

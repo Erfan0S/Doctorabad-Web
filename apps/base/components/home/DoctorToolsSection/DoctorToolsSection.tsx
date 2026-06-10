@@ -10,6 +10,7 @@ import { api } from "@repo/shared_modules/api";
 import styles from "./DoctorToolsSection.module.scss";
 import "swiper/css";
 import { LeftArrow } from "@/assets/svg/leftArrow";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
 
@@ -26,10 +27,12 @@ export default function DoctorToolsSection() {
       let resolvedKey: string | null = null;
 
       try {
-        const response = await api.getUser();
-        const user = response.data.data;
-        if (user?.mobile) {
-          resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
+        if (isUserLoggedIn()) {
+          const response = await api.getUser();
+          const user = response.data.data;
+          if (user?.mobile) {
+            resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
+          }
         }
       } catch (e) {
         console.error("Error fetching user for tools storage:", e);
@@ -93,7 +96,7 @@ export default function DoctorToolsSection() {
                     <div className={styles.iconChar}>{tool.iconChar}</div>
                   </div>
                 </Link>
-                    <div className={styles.toolTitle}>{tool.title}</div>
+                <div className={styles.toolTitle}>{tool.title}</div>
                 {/* </div> */}
               </SwiperSlide>
             ))}

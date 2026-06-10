@@ -47,6 +47,14 @@
   justify-content: space-between;
 }
 
+.checkoutHeader {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  align-items: stretch;
+}
+
 @media (max-width: 575px) {
   .checkoutHeader {
     padding: 0;
