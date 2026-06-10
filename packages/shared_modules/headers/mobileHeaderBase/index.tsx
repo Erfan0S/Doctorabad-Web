@@ -96,7 +96,9 @@ const MobileHeaderBase = ({ type, className }: Props) => {
           className={style.cartButton}
         >
           <CartIcon />
-          {cart.count > 0 && <span>{cart.count}</span>}
+          {cart.count > 0 && (
+            <span className={style.buttonsBadge}>{cart.count}</span>
+          )}
         </button>
       </div>
     </div>
