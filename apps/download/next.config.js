@@ -35,6 +35,30 @@ export default withPWA({
   sassOptions: {
     quietDeps: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/dd/pb/:id+",
+
+        destination: "/download/publishers/:id+",
+        permanent: true,
+        basePath: false,
+      },
+      {
+        source: "/dd/cp/:path*",
+        destination: "/download/collections/:path*",
+        permanent: true,
+        basePath: false,
+      },
+      {
+        source: "/dd/:id+",
+
+        destination: "/download/package/:id+",
+        permanent: true,
+        basePath: false,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

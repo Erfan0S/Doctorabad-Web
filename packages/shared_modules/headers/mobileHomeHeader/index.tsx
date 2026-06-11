@@ -13,7 +13,7 @@ interface Props extends SearchBarProps {
   haveSearch?: boolean;
   haveTabLoading?: boolean;
 }
-
+ 
 function MobileHomeHeader({
   tabData,
   children,

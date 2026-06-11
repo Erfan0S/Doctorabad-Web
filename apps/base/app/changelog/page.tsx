@@ -1,18 +1,24 @@
 import PatchNoteList from "@/components/appDownload/patchNoteList";
+import HomeHeader from "@/components/headers/homeHeader";
 import { homeMetadata } from "@repo/core/metadata/home";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import { Metadata } from "next";
 
 export const metadata: Metadata = homeMetadata(
   "/changelog",
   "تغییرات نسخه | دکترآباد",
-  "لیست تغییرات و به‌روزرسانی‌های اپلیکیشن دکترآباد"
+  "لیست تغییرات و به‌روزرسانی‌های اپلیکیشن دکترآباد",
 );
 
 const ChangelogPage = () => {
   return (
-    <div className="container">
-      <PatchNoteList />
-    </div>
+    <>
+      <DiviceSwitchShell desktop={null} mobile={<HomeHeader />} />
+
+      <div className="container">
+        <PatchNoteList />
+      </div>
+    </>
   );
 };
 

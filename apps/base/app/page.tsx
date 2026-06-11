@@ -23,6 +23,8 @@ export default async function Home() {
 
   return (
     <>
+      <DiviceSwitchShell desktop={null} mobile={<HomeHeader />} />
+
       {isLoggedIn ? (
         <>
           <div>
@@ -38,7 +40,6 @@ export default async function Home() {
         </>
       ) : (
         <>
-
           <MainSliderSection />
           <ServiceShortcuts />
           <DoctorToolsSection />

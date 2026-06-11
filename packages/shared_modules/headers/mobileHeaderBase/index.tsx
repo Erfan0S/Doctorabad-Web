@@ -12,17 +12,15 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@repo/shared_modules/api";
 import Logo from "../../common/components/logo";
 import HomeIcon from "../../assets/svg/home";
-import ChatIcon from "../../assets/svg/chat";
-import QrScannerIcon from "../../assets/svg/qrScanner";
 import CartIcon from "../../assets/svg/cart";
-import PlansIcon from "../../assets/svg/plans";
-import { useRouter } from "next/navigation";
+import ProTag from "../../common/components/proTag";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { useEffect } from "react";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import { isServerSide } from "@repo/core/constants/constants";
-import { baseUrls, routePath } from "@repo/core/constants/routePath";
+import DrClubIcon from "../../assets/svg/drClub";
+import HeadphoneIcon from "../../assets/svg/headphone";
 
 type Props = {
   type: Apps;
@@ -30,7 +28,6 @@ type Props = {
 };
 
 const MobileHeaderBase = ({ type, className }: Props) => {
-  const router = useRouter();
   const cart = useCart();
 
   const { data, isSuccess } = useQuery({
@@ -40,12 +37,22 @@ const MobileHeaderBase = ({ type, className }: Props) => {
     retry: 1,
   });
 
-  // const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
-  //   queryFn: api.getUserClubInfo,
-  //   queryKey: ["user_club_info"],
-  //   enabled: !!isUserLoggedIn(),
-  //   retry: 1,
-  // });
+  const { data: activePlanData, isSuccess: isActivePlanSuccess } = useQuery({
+    queryFn: () => api.getDrProActivePlan(),
+    queryKey: ["active_plan"],
+    enabled: !!isUserLoggedIn(),
+    retry: 1,
+  });
+
+  const { data: userCoinPoints } = useQuery({
+    queryFn: api.getUserCoinPoints,
+    queryKey: ["user_coin_points"],
+    enabled: !!isUserLoggedIn(),
+    retry: 1,
+  });
+
+  const isPro =
+    isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
 
   const openSideMenu = (menu: SidePanelPage) =>
     authorizeClientAction(() =>
@@ -57,34 +64,17 @@ const MobileHeaderBase = ({ type, className }: Props) => {
   }, []);
 
   return (
-    <div className={`${style.mobileHeader} ${style[type]} ${className}`}>
-      <Logo />
+    <div className={`${style.mobileHeader} ${style[type]} ${className ?? ""}`}>
+      <div className={style.left}>
+        <Logo />
+        <ProTag active={isPro} />
+      </div>
       <div className={style.buttons}>
         <button onClick={openSideMenu(SidePanelPage.MAIN)}>
           <HomeIcon />
           {isSuccess && data.data.data.counter > 0 && (
             <span className={style.buttonsBadge}>{data.data.data.counter}</span>
           )}
-        </button>
-
-        <button
-          onClick={() => {
-            if (!isServerSide) {
-              window.open(`${baseUrls[Apps.BASE]}${routePath.pro}`, "_self");
-            }
-          }}
-          className={style.proButton}
-        >
-          <PlansIcon />
-          <span>دکتر پرو</span>
-        </button>
-
-        <button
-          onClick={authorizeClientAction(() =>
-            modalActions.addModal(ModalTypes.QR_CONTENTS),
-          )}
-        >
-          <QrScannerIcon />
         </button>
         <button
           onClick={() =>
@@ -94,14 +84,8 @@ const MobileHeaderBase = ({ type, className }: Props) => {
             })
           }
         >
-          <ChatIcon />
+          <HeadphoneIcon />
         </button>
-        {/* <button onClick={openSideMenu(SidePanelPage.CLUB)}>
-          <Image src={coin} alt="coin" width={25} height={25} />
-          <span>
-            {isClubInfoSuccess ? clubInfo?.data?.data?.user_coin : ""}
-          </span>
-        </button> */}
         <button
           onClick={authorizeClientAction(() => {
             if (!isServerSide) {
@@ -112,6 +96,15 @@ const MobileHeaderBase = ({ type, className }: Props) => {
         >
           <CartIcon />
           {cart.count > 0 && <span>{cart.count}</span>}
+        </button>
+        <button
+          onClick={openSideMenu(SidePanelPage.CLUB)}
+          className={style.cartButton}
+        >
+          <DrClubIcon />
+          <div className={style.drClubPoints}>
+            {userCoinPoints?.data.data.coin_sum}
+          </div>
         </button>
       </div>
     </div>

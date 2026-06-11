@@ -43,7 +43,6 @@ export default async function RootLayout({
             {/* <BodyClassManager isLoggedIn={isLoggedIn} /> */}
             {/* <Header /> */}
 
-            <DiviceSwitchShell desktop={null} mobile={<HomeHeader />} />
 
             {children}
             {isLoggedIn ? (
@@ -54,7 +53,10 @@ export default async function RootLayout({
                     onlyOnMobile={false}
                   />
                 }
-                mobile={<MobileNavBar />}
+                mobile={
+                  <MobileNavBar
+                  />
+                }
               />
             ) : (
               <DiviceSwitchShell

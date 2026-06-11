@@ -1,8 +1,13 @@
+import HomeHeader from '@/components/headers/homeHeader';
 import WebAppGuide from '@/components/webApp/WebAppGuide';
+import DiviceSwitchShell from '@repo/shared_modules/components/DiviceSwitchShell';
 import React from 'react';
 
 const IosPwaGuidePage = () => {
   return (
+    <>
+                      <DiviceSwitchShell desktop={null} mobile={<HomeHeader  />} />
+
     <div
       style={{
         width: '100%',
@@ -12,9 +17,10 @@ const IosPwaGuidePage = () => {
         justifyContent: 'center',
         position: 'relative',
       }}
-    >
+      >
       <WebAppGuide />
     </div>
+      </>
   );
 };
 
