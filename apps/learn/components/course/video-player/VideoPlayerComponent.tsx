@@ -33,6 +33,8 @@ const VideoPlayerComponent = ({
     setCurrentLeasson,
   } = useContext(LessonVideoContext);
 
+  console.log(course);
+
   const changeSearchParamsFilter = useChangeSearchParamsFilter();
 
   const { data: leassonData, isLoading } = useQuery({
@@ -88,10 +90,12 @@ const VideoPlayerComponent = ({
     }
   };
 
+  const coursePreview = course?.course_preview.trim() || null;
+
   return (
     <>
-      {(!course.user_has_access && !course.course_preview) ||
-      (!currentLeasson && !course.course_preview) ? (
+      {(!course.user_has_access && !coursePreview) ||
+      (!currentLeasson && !coursePreview) ? (
         <div className={style.courseImagePrevWrapper}>
           <Image
             src={course.course_pic || ""}
@@ -116,7 +120,7 @@ const VideoPlayerComponent = ({
               : undefined,
             source: userHasAccess
               ? leassonData?.data?.data?.urls?.source
-              : course?.course_preview!,
+              : coursePreview!,
             thumbnail: course?.course_pic,
           }}
           title={currentLeasson?.title || "پیش نمایش"}
