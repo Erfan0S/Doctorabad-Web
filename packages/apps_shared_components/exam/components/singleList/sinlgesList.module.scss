@@ -65,12 +65,14 @@
   }
 
   &Price {
-    font-size: 14px;
-    color: $purple;
+    > div {
+      justify-content: flex-start !important;
+    }
   }
   &PriceWrapper {
     display: flex;
     flex-direction: column;
+    font-size: 14px;
   }
 
   &Description {

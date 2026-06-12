@@ -1,9 +1,13 @@
 import Image from "next/image";
 import styles from "./MobileProductList.module.scss";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
-import { ListProductSnappayNotif } from "@repo/shared_modules/components";
+import {
+  ListProductSnappayNotif,
+  ProductPrice,
+} from "@repo/shared_modules/components";
 import { ProductListItemProps } from "@repo/core/types/props";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
+import { CoinIcon } from "../../../../assets";
 
 const MobileProductListItem = ({
   baseUrl,
@@ -37,81 +41,78 @@ const MobileProductListItem = ({
       {installmentPayment && (
         <ListProductSnappayNotif className={styles.installmentPayment} />
       )}
-      {pic_url ? (
-        <Image
-          src={pic_url || placeHolderDataUrl}
-          alt={title}
-          width={0}
-          height={0}
-          sizes="100vh"
-          className={`${styles.productImage} ${imageClassName()}`}
-          placeholder={placeHolderDataUrl}
-        />
-      ) : (
-        <div className={styles.productImage} />
-      )}
+      <Image
+        src={pic_url || placeHolderDataUrl}
+        alt={title}
+        width={0}
+        height={0}
+        sizes="100vh"
+        className={`${styles.productImage} ${imageClassName()}`}
+        placeholder={placeHolderDataUrl}
+      />
+
       <div className={styles.productInfo}>
         <h3 className={styles.title}>{title}</h3>
-        <span className={styles.providerTitle}>
-          {providerTitle && providerTitle}
-        </span>
-        <div className={styles.metadata}>
-          <div className={styles.metadataItem}>
-            {attributes && attributes[0] && attributes[0].value ? (
-              <>
-                {attributes[0].icon}
-                <span>{attributes[0].value}</span>
-              </>
-            ) : (
-              <span className={styles.metaEmpty} />
-            )}
-          </div>
-
-          <div className={styles.metadataItem}>
-            {attributes && attributes[1] && attributes[1].value ? (
-              <>
-                {attributes[1].icon}
-                <span>{attributes[1].value}</span>
-              </>
-            ) : (
-              <span className={styles.metaEmpty} />
-            )}
-          </div>
-
-          <div className={styles.metadataItem}>
-            {attributes && attributes[2] && attributes[2].value ? (
-              <>
-                {attributes[2].icon}
-                <span>{attributes[2].value}</span>
-              </>
-            ) : (
-              <span className={styles.metaEmpty} />
-            )}
-          </div>
-
-          <div className={styles.metadataItem}>
-            {attributes && attributes[3] && attributes[3].value ? (
-              <>
-                {attributes[3].icon}
-                <span>{attributes[3].value}</span>
-              </>
-            ) : (
-              <span className={styles.metaEmpty} />
-            )}
-          </div>
-        </div>
-        {price_main && (
-          <div className={styles.productPrice}>
-            <div className={styles.productPriceRegular}>
-              {!!price_off && (
+        {providerTitle && (
+          <span className={styles.providerTitle}>{providerTitle}</span>
+        )}
+        {!!attributes?.length && (
+          <div className={styles.metadata}>
+            <div className={styles.metadataItem}>
+              {attributes && attributes[0] && attributes[0].value ? (
                 <>
-                  <span>{priceFormatter(price_main)} تومن</span>
+                  {attributes[0].icon}
+                  <span>{attributes[0].value}</span>
                 </>
+              ) : (
+                <span className={styles.metaEmpty} />
               )}
             </div>
-            <span className={styles.productPriceSale}>
-              {priceFormatter(price_off || price_main)} تومن
-            </span>
+
+            <div className={styles.metadataItem}>
+              {attributes && attributes[1] && attributes[1].value ? (
+                <>
+                  {attributes[1].icon}
+                  <span>{attributes[1].value}</span>
+                </>
+              ) : (
+                <span className={styles.metaEmpty} />
+              )}
+            </div>
+
+            <div className={styles.metadataItem}>
+              {attributes && attributes[2] && attributes[2].value ? (
+                <>
+                  {attributes[2].icon}
+                  <span>{attributes[2].value}</span>
+                </>
+              ) : (
+                <span className={styles.metaEmpty} />
+              )}
+            </div>
+
+            <div className={styles.metadataItem}>
+              {attributes && attributes[3] && attributes[3].value ? (
+                <>
+                  {attributes[3].icon}
+                  <span>{attributes[3].value}</span>
+                </>
+              ) : (
+                <span className={styles.metaEmpty} />
+              )}
+            </div>
+          </div>
+        )}
+        {price_main && (
+          <div className={styles.productPriceContainer}>
+            <CoinIcon />
+            <ProductPrice
+              mainPrice={price_main}
+              offPrice={price_off}
+              app={app}
+              className={styles.productPrice}
+              size={15}
+            />
           </div>
         )}
       </div>

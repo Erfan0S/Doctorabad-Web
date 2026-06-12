@@ -8,6 +8,7 @@ import {
   AddToCartButton,
   Button,
   FavoriteButton,
+  ProductPrice,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
@@ -59,6 +60,8 @@ function SingleListItem({
     modalActions.addModal(ModalTypes.BUY_RECOMMENDATION, { exam: item });
   };
 
+  console.log(item);
+
   return (
     <div
       className={`${style.singleItem} card ${isSidePanel ? style.singleItemSidePanel : ""}`}
@@ -80,17 +83,19 @@ function SingleListItem({
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>
-          <span className={style.singleItemPrice}>
-            {item.main_price
-              ? `${priceFormatter(item.main_price)} تومن`
-              : "رایگان"}
-            {item.installment_text && isShowInstallmentText && (
-              <ProductSnappayNotif
-                text={item.installment_text}
-                className={style.installmentPayment}
-              />
-            )}
-          </span>
+          <ProductPrice
+            mainPrice={item.main_price}
+            offPrice={item.off_price}
+            app={Apps.EXAM}
+            size={14}
+            className={style.singleItemPrice}
+          />
+          {item.installment_text && isShowInstallmentText && (
+            <ProductSnappayNotif
+              text={item.installment_text}
+              className={style.installmentPayment}
+            />
+          )}
         </div>
         <div className={style.singleItemButtons}>
           {haveFavoriteButton && (

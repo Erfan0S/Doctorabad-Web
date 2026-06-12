@@ -11,6 +11,7 @@ type Props = {
   app?: Apps;
   className?: string;
   variant?: "primery" | "secondary";
+  size?: number;
 };
 
 function ProductPrice({
@@ -20,6 +21,7 @@ function ProductPrice({
   app,
   className,
   variant = "primery",
+  size,
 }: Props) {
   const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
     pMainPrice,
@@ -33,16 +35,22 @@ function ProductPrice({
     >
       <div>
         {offPrice && (
-          <span>
+          <span style={{ fontSize: size ? size - 3 : "auto" }}>
             {priceFormatter(mainPrice)}
             {/* <small>تومن</small> */}
           </span>
         )}
         {discountPercent && <small>٪{discountPercent}</small>}
       </div>
-      <div>
-        {priceFormatter(offPrice || mainPrice)}
-        <small>تومن</small>
+      <div style={{ fontSize: size || "auto" }}>
+        {mainPrice == 0 && !offPrice ? (
+          "رایگان"
+        ) : (
+          <>
+            {priceFormatter(offPrice || mainPrice)}
+            <small>تومن</small>
+          </>
+        )}
       </div>
     </div>
   );
