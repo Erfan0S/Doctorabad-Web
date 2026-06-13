@@ -59,7 +59,7 @@ const ProviderPage = ({ id }: Props) => {
   const searchParams = useSearchParams();
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["providerPage", id],
+    queryKey: ["publisherPage", id],
     queryFn: ({ pageParam }) =>
       api.getSingleProvider(id, pageParam as number).then((res) => res.data),
     initialPageParam: 1,

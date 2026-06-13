@@ -27,8 +27,11 @@ export default async function Home() {
 
   return (
     <>
-      <DiviceSwitchShell desktop={null} mobile={<MobileHomeHeader type={Apps.BASE} />} /> 
-    
+      <DiviceSwitchShell
+        desktop={null}
+        mobile={<MobileHomeHeader type={Apps.BASE} />}
+      />
+
       {isLoggedIn ? (
         <>
           <div>
@@ -47,11 +50,6 @@ export default async function Home() {
           <MainSliderSection />
           <ServiceShortcuts />
           <DoctorToolsSection />
-          {/* <Intro statistic={statistic} />
-          <Statistics statistic={statistic} />
-          {bigBannerData.map((item, index) => (
-            <BigBanner key={index} {...item} />
-          ))} */}
           <BlogSlider
             data={blogPosts}
             title="دکترمگ"
@@ -60,7 +58,7 @@ export default async function Home() {
           <Companies list={ProvidersList} />
         </>
       )}
-            <DiviceSwitchShell
+      <DiviceSwitchShell
         desktop={<Footer statistic={statistic} />}
         mobile={null}
       />
