@@ -8,11 +8,15 @@ import Statistics from "@/components/home/Statistics";
 import ServiceShortcuts from "@/components/home/ServiceShortcuts";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
-import HomeHeader from "@/components/headers/homeHeader";
+import HomeHeader from "@/components/HomeHeader";
+import { MobileHomeHeader } from "@repo/shared_modules/headers";
+
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
 import MainSliderSection from "@/components/home/mainSlider/MainSliderSection";
 import DoctorToolsSection from "@/components/home/DoctorToolsSection/DoctorToolsSection";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
+import { Apps } from "@repo/core/types/general";
+import Footer from "../../../packages/shared_modules/common/components/footer";
 
 export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
@@ -23,8 +27,8 @@ export default async function Home() {
 
   return (
     <>
-      <DiviceSwitchShell desktop={null} mobile={<HomeHeader />} />
-
+      <DiviceSwitchShell desktop={null} mobile={<MobileHomeHeader type={Apps.BASE} />} /> 
+    
       {isLoggedIn ? (
         <>
           <div>
@@ -56,6 +60,10 @@ export default async function Home() {
           <Companies list={ProvidersList} />
         </>
       )}
+            <DiviceSwitchShell
+        desktop={<Footer statistic={statistic} />}
+        mobile={null}
+      />
     </>
   );
 }

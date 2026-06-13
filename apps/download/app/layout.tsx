@@ -36,7 +36,7 @@ export default async function RootLayout({
     <html lang="fa">
       <SharedHeadContents />
       <body className={`${font.className} ${font.variable}`}>
-        <NextTopLoader color="#006797" />
+        <NextTopLoader color="#2aaadf" />
         <div className="root">
           <Providers>
             <Suspense fallback={<div></div>}>

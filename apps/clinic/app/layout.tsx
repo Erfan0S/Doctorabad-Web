@@ -8,6 +8,7 @@ import { homeViewPort } from "@repo/core/metadata/home";
 import { homeMetadata } from "@/metadata/home";
 import { Suspense } from "react";
 import { SharedHeadContents } from "@repo/shared_modules";
+import NextTopLoader from "nextjs-toploader";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html className={font.variable} dir="rtl" lang="fa">
       <SharedHeadContents />
       <body className={font.className}>
+        <NextTopLoader color="#4fcc4c" />
         <div className="clinic-container">
           <Providers>
             <Suspense>{children}</Suspense>

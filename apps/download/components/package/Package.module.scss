@@ -47,7 +47,7 @@
   margin: 15px 0;
 
   img {
-    border: 1px solid $darkBlue;
+    border: 1px solid $blue;
     border-radius: 8px;
     width: auto;
     height: 100%;
@@ -65,7 +65,7 @@
     border-radius: 8px;
     color: black;
     background-color: white;
-    border: 1px solid $darkBlue;
+    border: 1px solid $blue;
     flex: 1;
     text-align: center;
     margin: 0;
@@ -100,7 +100,7 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 9px;
-  background: $darkBlue;
+  background: $blue;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -123,7 +123,7 @@
   }
 }
 .purchaseButtonActive {
-  background: $darkBlue;
+  background: $blue;
   cursor: default;
 }
 
@@ -152,15 +152,15 @@
   width: 75px;
   height: 45px;
   padding: 7px;
-  border: 3px solid $darkBlue;
+  border: 3px solid $blue;
   background: white;
   margin-right: 10px;
   span {
-    color: $darkBlue;
+    color: $blue;
     font-size: 10px;
   }
   svg {
-    color: $darkBlue;
+    color: $blue;
     width: 100%;
     height: 100%;
   }
@@ -177,7 +177,7 @@
   position: relative;
 
   > button {
-    background: $darkBlue;
+    background: $blue;
   }
   .priceOff {
     text-decoration: line-through;

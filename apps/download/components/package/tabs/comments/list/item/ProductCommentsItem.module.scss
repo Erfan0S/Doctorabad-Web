@@ -13,7 +13,7 @@
     width: 45px;
     flex: 0 0 45px;
     height: 45px;
-    border: 1px solid $darkBlue;
+    border: 1px solid $blue;
     border-radius: 50%;
 
     img {
@@ -25,7 +25,7 @@
   }
 
   &Content {
-    border: 2px solid $darkBlue;
+    border: 2px solid $blue;
     padding: space(2) space(3);
     border-radius: radius(3);
     flex: 0 0 calc(100% - 45px - space(3));
@@ -36,7 +36,7 @@
       position: absolute;
       bottom: 9px;
       left: 100%;
-      border-left: 9px solid $darkBlue;
+      border-left: 9px solid $blue;
       border-bottom: 14px solid transparent;
       z-index: 1;
     }
@@ -89,7 +89,7 @@
         left: unset;
         border-left: unset;
         right: 100%;
-        border-right: 9px solid $darkBlue;
+        border-right: 9px solid $blue;
       }
 
       &:after {

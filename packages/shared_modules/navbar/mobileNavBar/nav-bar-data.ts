@@ -33,7 +33,7 @@ export const navBarData = [
     href: baseUrls.base,
     image: doctorTools,
     color: "green",
-    mobileTitle: "دکترآباد",
+    mobileTitle: "مرکزابزار",
     basePath: routePath.home,
   },
   {
