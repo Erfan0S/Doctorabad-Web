@@ -1,5 +1,5 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
 .orderInformation {
   border: 2px solid $orange;
   border-radius: space(5);
@@ -20,7 +20,7 @@
         font-size: 14px;
         padding: 0 space(5);
         color: #ffff;
-        background: linear-gradient(to right, #f99917, $orange);
+        background: $button-bg-orange;
         border-radius: 8px;
         cursor: pointer;
       }
@@ -51,7 +51,7 @@
 
         &::before {
           position: absolute;
-          content: '';
+          content: "";
           left: 5px;
           right: 25px;
           top: 50%;
@@ -70,11 +70,11 @@
             z-index: 10;
           }
           &::after {
-            content: '';
+            content: "";
             position: absolute;
             width: 26px;
             height: 26px;
-            background: #ff960a;
+            background: $orange;
             border-radius: 6px;
             right: -3px;
             top: -3px;

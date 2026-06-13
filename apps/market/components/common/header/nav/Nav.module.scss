@@ -1,158 +1,230 @@
-@import '@/assets/styles/variables';
-@import '@/assets/styles/functions';
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
+
+$subMenuHeight: 550px;
+$subMenuWidth: 750px;
 
 .nav {
-  $nav: &;
+  position: relative;
+  z-index: 50;
+}
 
-  &Toggle {
-    cursor: pointer;
-    color: #fff;
-    width: 40px;
-    height: 40px;
+.navRoot {
+  display: flex;
+  align-items: stretch;
+  gap: space(1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.navItem {
+  // position: relative;
+  list-style: none;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: space(2);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navTitle {
+  display: block;
+}
+
+.navIcon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navChevron {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.level1 {
+  position: relative;
+
+  > a > .navChevron {
+    color: #fff !important;
   }
+}
 
-  &Image {
-    border-right: 1px solid $gray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: space(8);
-    position: relative;
-    width: 200px;
-    min-height: 200px;
+.navLinkLevel1 {
+  min-height: 44px;
+  padding: 0 space(3);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 44px;
+}
 
-    img {
-      max-width: 100%;
-      width: auto;
-      height: auto;
-    }
+.level1.open > .navLinkLevel1,
+.level1:hover > .navLinkLevel1 {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.hasThirdLevel {
+  position: static;
+}
+
+.subMenu {
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease;
+}
+
+.open > .subMenu,
+.navItem:hover > .subMenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.subMenuLevel2 {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 260px;
+  background-color: #fff;
+  border-bottom-left-radius: radius(4);
+  border-bottom-right-radius: radius(4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: space(3) 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  height: $subMenuHeight;
+}
+
+.subMenuHasThirdLevel {
+  &::after {
+    content: "";
+    position: absolute;
+    width: $subMenuWidth;
+    height: $subMenuHeight;
+    background-color: white;
+    top: 0;
+    right: 100%;
+    border-bottom-left-radius: radius(4);
+    border-bottom-right-radius: radius(4);
   }
+}
 
-  > ul {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0 -#{space(3)} 0 0;
+// .level2 {
+//   position: relative;
+// }
 
-    > li {
-      display: flex;
-      align-items: center;
+.navLinkLevel2 {
+  min-height: 44px;
+  padding: 0 space(4);
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: space-between;
+  line-height: 44px;
+}
 
-      a {
-        display: block;
-        line-height: 50px;
-        font-size: 15px;
-        color: #fff;
-        font-weight: 600;
-        padding: 0 space(3);
-        white-space: nowrap;
-        position: relative;
-      }
-      &.hasChild {
-        > a {
-          position: relative;
-          z-index: 5;
+.level2.open > .navLinkLevel2,
+.level2:hover > .navLinkLevel2 {
+  color: $orange;
+  background-color: #f8f8f8;
+}
 
-          &:before {
-            content: '';
-            display: none;
-            position: absolute;
-            right: 50%;
-            transform: translateX(50%);
-            bottom: -15px;
-            border-bottom: 25px solid #fff;
-            border-right: 75px solid transparent;
-            border-left: 75px solid transparent;
-            z-index: 2;
-          }
-          &::after {
-            content: '';
-            display: none;
-            position: absolute;
-            box-shadow: rgba(0, 0, 0, 0.5) 0px -11px 16px -14px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 127px;
-            bottom: -35px;
-            border-radius: 50%;
-            z-index: -1;
-            height: 34px;
-          }
-        }
-      }
+.subMenuLevel3,
+.subMenuLevel4,
+.subMenuLevel5,
+.subMenuLevel6 {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  min-width: 240px;
+  width: 100%;
+  background-color: #fff;
+  border-bottom-left-radius: radius(4);
+  border-bottom-right-radius: radius(4);
+  box-shadow: -20px 0px 24px rgba(0, 0, 0, 0.12);
+  padding: space(3) 0;
+  z-index: 220;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: $subMenuWidth;
+  overflow-y: auto;
+  height: $subMenuHeight;
+  gap: space(1);
+}
 
-      &:last-of-type {
-        margin-left: unset;
-      }
+.level3,
+.level4,
+.level5,
+.level6 {
+  position: relative;
+}
 
-      > ul {
-        position: absolute;
-        top: 130%;
-        right: -70px;
-        background-color: #fff;
-        border-radius: radius(6);
-        padding: space(8);
-        z-index: 500;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        visibility: hidden;
-        transition: 0.2s;
-        list-style: none;
-        column-count: 2;
-        max-width: calc(100% + 140px);
-        display: flex;
-        flex-wrap: wrap;
-        z-index: 3;
+.navLinkLevel3,
+.navLinkLevel4,
+.navLinkLevel5,
+.navLinkLevel6 {
+  min-height: 40px;
+  padding: 0 space(4);
+  color: #666;
+  font-size: 13px;
+  font-weight: 400;
+  justify-content: space-between;
+  line-height: 40px;
+}
 
-        svg {
-          display: none;
-        }
+.level3.open > .navLinkLevel3,
+.level3:hover > .navLinkLevel3,
+.level4.open > .navLinkLevel4,
+.level4:hover > .navLinkLevel4,
+.level5.open > .navLinkLevel5,
+.level5:hover > .navLinkLevel5,
+.level6.open > .navLinkLevel6,
+.level6:hover > .navLinkLevel6 {
+  color: $orange;
+  background-color: #fafafa;
+}
 
-        > li {
-          margin-bottom: space(3);
-        }
+.hasChild > .navLink .navChevron {
+  color: #9a9a9a;
+}
 
-        li {
-          list-style: none;
+.level1.hasChild > .navLink .navChevron {
+  transform: rotate(-90deg);
+}
 
-          a {
-            color: $orange;
-            line-height: 25px;
-            font-size: 14px;
-            font-weight: 600;
-          }
+.level2.hasChild > .navLink .navChevron,
+.level3.hasChild > .navLink .navChevron,
+.level4.hasChild > .navLink .navChevron,
+.level5.hasChild > .navLink .navChevron,
+.level6.hasChild > .navLink .navChevron {
+  transform: none;
+}
 
-          ul {
-            padding-right: space(3);
-
-            a {
-              color: $gray;
-              font-size: 13px;
-              font-weight: 400;
-
-              &:hover {
-                color: $orange;
-              }
-            }
-          }
-        }
-      }
-      &.menuHover {
-        background-color: rgba(255, 255, 255, 0.15);
-        > a {
-          &:before,
-          &:after {
-            display: block;
-          }
-        }
-        > ul {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-    }
-  }
+.navToggle {
+  cursor: pointer;
+  color: #fff;
+  width: 40px;
+  height: 40px;
 }
 
 .mobileNav {
@@ -180,6 +252,7 @@
   &Header {
     position: relative;
     margin-bottom: space(3);
+
     h6 {
       text-align: center;
       font-size: 18px;
@@ -203,6 +276,7 @@
     padding-right: 10px;
     padding-left: 70px;
     cursor: pointer;
+
     > div {
       position: absolute;
       left: 0;
@@ -211,6 +285,7 @@
       margin-right: 5px;
       width: 70px;
       text-align: left;
+
       svg {
         width: 30px;
         height: 30px;
@@ -221,6 +296,7 @@
         transform: rotate(90deg);
       }
     }
+
     span {
       line-height: 50px;
       display: block;
@@ -245,6 +321,7 @@
   > ul {
     margin: 0;
     padding: 0;
+
     > li {
       display: block;
 
@@ -272,10 +349,6 @@
         min-width: unset;
         display: none;
 
-        &:before {
-          display: none;
-        }
-
         svg {
           display: block;
         }
@@ -292,30 +365,6 @@
           ul {
             padding: 0;
           }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 1440px) {
-  .nav {
-    > ul {
-      > li {
-        &.hasChild {
-          > a {
-            &:before {
-              border-right: 25px solid transparent;
-              border-left: 25px solid transparent;
-            }
-            &::after {
-              width: 50px;
-            }
-          }
-        }
-        > ul {
-          right: -25px;
-          max-width: calc(100% + 50px);
         }
       }
     }

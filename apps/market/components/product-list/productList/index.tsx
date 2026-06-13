@@ -12,6 +12,13 @@ import ArchiveEmptyState from "../emptyState";
 import { useGetProductListConfig } from "@/hooks/useGetProductListConfig";
 import Loading from "@/components/common/loading";
 import style from "./ProductList.module.scss";
+import { ProductListItem } from "@repo/shared_modules/components";
+import { Apps } from "@repo/core/types/general";
+import { marketPaths } from "@repo/core/constants/routePath";
+import Hat from "@repo/shared_modules/icons/hat";
+import Link from "next/link";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+import { OrderType } from "@repo/core/types/cart";
 
 interface Props {
   hasFilterSideBar?: boolean;
@@ -57,6 +64,8 @@ const ProductList = ({
 
   if (!data?.pages[0].data.length) return <ArchiveEmptyState />;
 
+  console.log(data);
+
   return (
     <InfiniteScroll
       pageStart={1}
@@ -72,12 +81,50 @@ const ProductList = ({
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.data.map((product) => (
-              <div
-                key={product.id}
-                className={`col-lg-4 col-sm-6 ${!hasFilterSideBar ? "col-xl-3" : ""}`}
-              >
-                <Product gridView {...product} />
-              </div>
+              <>
+                {mobileView ? (
+                  <div
+                    key={product.id}
+                    className={`${!hasFilterSideBar ? "col-xl-3" : ""}`}
+                  >
+                    <Link
+                      href={generateSingleProductUrlFromId(
+                        product.id,
+                        product.slug,
+                        OrderType.ShopProduct,
+                      )}
+                    >
+                      <ProductListItem
+                        id={product.id.toString()}
+                        app={Apps.MARKET}
+                        title={product.title}
+                        baseUrl={marketPaths.single}
+                        imageType="square"
+                        installmentPayment={product.installment_payment}
+                        attributes={
+                          true
+                            ? [{ icon: <Hat />, value: "product.provider" }]
+                            : []
+                        }
+                        pic_url={product.product_pic}
+                        price_main={product.price_main}
+                        price_off={product.price_amazing || product.price_off}
+                      />
+                    </Link>
+                  </div>
+                ) : (
+                  <div
+                    key={product.id}
+                    className={`col-lg-4 col-sm-6 ${!hasFilterSideBar ? "col-xl-3" : ""}`}
+                  >
+                    <Product
+                      gridView
+                      isMobileLayout={mobileView}
+                      {...product}
+                    />
+                  </div>
+                )}
+              </>
             ))}
           </React.Fragment>
         ))}

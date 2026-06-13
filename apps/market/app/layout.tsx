@@ -10,11 +10,14 @@ import { api } from "@repo/shared_modules/api";
 import { InstallBannerShow } from "@repo/shared_modules/components";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
-import MarketHeader from "@/components/common/header/market";
+import MarketHeader, {
+  MarketHeaderPlaceholder,
+} from "@/components/common/header/market";
 import { Metadata, Viewport } from "next";
 import { homeMetadata } from "@/metadata/home";
 import { marketPaths } from "@repo/core/constants/routePath";
 import { SharedHeadContents } from "@repo/shared_modules";
+import { Suspense } from "react";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -40,7 +43,14 @@ export default async function RootLayout({
         <NextTopLoader color="#f54f1a" />
         <div className="root">
           <Providers>
-            <DiviceSwitchShell desktop={<MarketHeader />} mobile={null} />
+            <DiviceSwitchShell
+              desktop={
+                <Suspense fallback={<MarketHeaderPlaceholder />}>
+                  <MarketHeader />
+                </Suspense>
+              }
+              mobile={null}
+            />
 
             <main>{children}</main>
             <MobileNavBar excludePaths={[marketPaths.single]} />

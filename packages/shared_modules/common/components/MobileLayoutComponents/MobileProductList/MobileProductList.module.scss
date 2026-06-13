@@ -22,12 +22,13 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   background-color: white;
+  gap: 1rem;
 }
 
 .productInfo {
   flex: 1;
   height: 100%;
-  margin-right: 1rem;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -37,7 +38,6 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #333;
-  margin-left: 1.5rem;
   margin-bottom: 0;
 }
 
@@ -113,42 +113,21 @@
   top: 0.5rem;
 }
 
-.productPrice {
-  position: relative;
+.productPriceContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
+  align-items: center;
+  gap: 5px;
 
-  &Regular {
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    min-height: 20px;
-    span {
-      color: #aaa;
-      line-height: 13px;
-      font-size: 13px;
-      text-decoration: line-through;
-      font-weight: 700;
-    }
-
-    small {
-      margin-right: space(2);
-      padding: 0 space(3);
-      border-radius: radius(1);
-      background: $header-nav-bg;
-      color: #fff;
-    }
+  > svg {
+    color: #8b8b8b;
   }
 
-  &Sale {
-    text-align: center;
-    line-height: 30px;
-    display: block;
-    color: var(--app-base, $base-green);
-    font-size: 15px;
-    line-height: 15px;
+  .productPrice {
+    > div {
+      justify-content: flex-start;
+    }
   }
 }
 

@@ -42,6 +42,15 @@
   padding: space(3);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &Content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
   &.gridView {
     margin-bottom: space(10);
@@ -125,6 +134,10 @@
   &Price {
     margin-bottom: space(3);
     position: relative;
+
+    > div {
+      justify-content: center !important;
+    }
 
     &Regular {
       text-align: center;
