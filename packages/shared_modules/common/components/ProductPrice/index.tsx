@@ -41,7 +41,11 @@ function ProductPrice({
             {/* <small>تومن</small> */}
           </span>
         )}
-        {discountPercent && <small>٪{discountPercent}</small>}
+        {discountPercent && (
+          <small style={{ fontSize: size ? size - 4 : "auto" }}>
+            ٪{discountPercent}
+          </small>
+        )}
       </div>
       <div
         className={isFree && style.free}

@@ -87,7 +87,7 @@ function SingleListItem({
             mainPrice={item.main_price}
             offPrice={item.off_price}
             app={Apps.EXAM}
-            size={14}
+            size={15}
             className={style.singleItemPrice}
           />
           {item.installment_text && isShowInstallmentText && (
