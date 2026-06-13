@@ -1,5 +1,4 @@
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import React from "react";
 import style from "./ProductPrice.module.scss";
 import { Apps } from "@repo/core/types/general";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
@@ -29,6 +28,8 @@ function ProductPrice({
     amazingPrice || undefined,
   );
 
+  const isFree = !mainPrice && !offPrice;
+
   return (
     <div
       className={`${style.productPrice} ${style[app || ""]} ${className || ""} ${style[variant] || ""}`}
@@ -42,8 +43,11 @@ function ProductPrice({
         )}
         {discountPercent && <small>٪{discountPercent}</small>}
       </div>
-      <div style={{ fontSize: size || "auto" }}>
-        {mainPrice == 0 && !offPrice ? (
+      <div
+        className={isFree && style.free}
+        style={{ fontSize: size || "auto" }}
+      >
+        {isFree ? (
           "رایگان"
         ) : (
           <>

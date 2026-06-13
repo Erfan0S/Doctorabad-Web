@@ -20,9 +20,9 @@ const Intro = async ({ mainSliders, sideSliders }: Props) => {
           <div className="col-lg-8">
             <MainSlider app={Apps.MARKET} banners={mainSliders} />
           </div>
-          <div className="col-lg-4">
+          <div className={`col-lg-4`}>
             {!order ? (
-              <div>
+              <div className={style.sideBanners}>
                 {sideSliders.map((banner) => (
                   <MainBanner key={banner.id} {...banner} />
                 ))}

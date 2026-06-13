@@ -36,6 +36,7 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
           offPrice={product?.price_off}
           amazingPrice={product?.price_amazing}
           app={Apps.MARKET}
+          className={style.productSidebarPriceNumber}
         />
       )}
       <div className={style.productSidebarPriceButton}>

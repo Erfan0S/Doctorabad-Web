@@ -1,11 +1,18 @@
-@import '@/assets/styles/functions';
+@import "@/assets/styles/functions";
 
 .intro {
-    margin-bottom: space(10);
+  margin-bottom: space(10);
+}
+
+.sideBanners {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
-    .intro {
-        margin-bottom: space(4);
-    }
+  .intro {
+    margin-bottom: space(4);
+  }
 }

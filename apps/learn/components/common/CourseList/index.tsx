@@ -49,6 +49,7 @@ export const productData = (
             amazingPrice={course.price_amazing}
             app={Apps.LEARN}
             className={styles.coursePrice}
+            size={14}
           />
         ),
       },

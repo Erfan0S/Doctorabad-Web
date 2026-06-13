@@ -16,6 +16,10 @@ type Props = {
 };
 
 function CourseSliderItem({ course, isMyCourse }: Props) {
+  const isFree = !course.price_main;
+
+  const showInstallment = course.installment_payment && !isFree && !isMyCourse;
+
   return (
     <Link href={`/course/${course.id}`}>
       <div className={style.courseContainer}>
@@ -35,8 +39,9 @@ function CourseSliderItem({ course, isMyCourse }: Props) {
               amazingPrice={course.price_amazing}
               offPrice={course.price_off}
               app={Apps.LEARN}
+              size={14}
             />
-            {course.installment_payment && (
+            {showInstallment && (
               <ListProductSnappayNotif className={style.listSnappayNotif} />
             )}
           </div>

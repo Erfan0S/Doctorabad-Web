@@ -7,49 +7,7 @@
   margin-top: space(1);
   $productSidebarPrice: &;
 
-  &Number {
-    flex: 0 0 40%;
-    width: 40%;
-    padding-left: space(3);
-
-    div {
-      &:first-of-type {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        > small {
-          background: $button-bg-orange;
-          padding: 0 space(2);
-          font-size: 12px;
-          border-radius: radius(1);
-          line-height: 14px;
-          margin-right: space(1);
-          color: #fff;
-        }
-        span {
-          color: $gray;
-          text-decoration: line-through;
-          font-weight: 600;
-          small {
-            margin-right: space(1);
-          }
-        }
-      }
-
-      &:last-of-type {
-        font-size: 18px;
-        line-height: 18px;
-        font-weight: 600;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        color: $orange;
-        small {
-          margin-right: space(1);
-        }
-      }
-    }
-  }
+  gap: 10px;
 
   &Button {
     flex: 0 0 60%;
