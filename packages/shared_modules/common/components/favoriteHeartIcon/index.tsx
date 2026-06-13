@@ -29,13 +29,20 @@ function FavoriteHeartIcon({
     ) : (
       <HeartFillIcon
         className={`${styles.favoriteFillIcon} ${app}`}
+        width={size}
+        height={size}
         {...svgAttribute}
       />
     )
   ) : icon ? (
     <div className={`${app}`}>{icon}</div>
   ) : (
-    <HeartIcon className={`${app}`} {...svgAttribute} />
+    <HeartIcon
+      className={`${app}`}
+      width={size}
+      height={size}
+      {...svgAttribute}
+    />
   );
 }
 

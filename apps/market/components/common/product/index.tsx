@@ -127,7 +127,7 @@ const Product: React.FC<ProductCard> = ({
               <FavoriteHeartIcon
                 isFavorite={isFavorite}
                 loading={isLoading}
-                size={24}
+                size={23}
                 app={Apps.MARKET}
               />
             </button>
