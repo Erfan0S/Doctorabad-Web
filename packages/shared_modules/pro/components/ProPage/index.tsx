@@ -16,8 +16,9 @@ import type { CartPayInfo } from "../../../checkout/types/cart";
 import PaymentMethods from "../../../checkout/components/payment_methods";
 import { api } from "../../../api/Api";
 import { useQuery } from "@tanstack/react-query";
-import {PaymentProviders} from "../../../checkout/types/cart";
-
+import { PaymentProviders } from "../../../checkout/types/cart";
+import Image from "next/image";
+import characterKadkhoda from "../../../assets/img/character-kadkhoda.jpg";
 const ProPage = () => {
   const { data: activePlanData, isLoading } = useQuery({
     queryKey: ["active_plan"],
@@ -48,7 +49,7 @@ const ProPage = () => {
     description: "",
     discountCode: "",
     payWithCredit: false,
-    paymentMethod: PaymentProviders.SNAPP_PAY,
+    paymentMethod: PaymentProviders.CASH,
   });
   return (
     <div className={styles.proPageContainer}>
@@ -61,6 +62,14 @@ const ProPage = () => {
         )}
         {isExplanationLoading ? (
           <ExplanationSkeleton />
+        ) : (activePlanData?.data?.data?.left_days ?? 0) > 0 ? (
+          <Image
+            src={characterKadkhoda}
+            alt="Dr Pro"
+            width={400}
+            height={400}
+            className={styles.drProImage}
+          />
         ) : (
           <Explanation data={explanationData?.data?.data} />
         )}
