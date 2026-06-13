@@ -21,3 +21,9 @@ export interface VideoPlayerProps {
   goToPreviousTrack: () => void;
   courseId: number;
 }
+
+export type VideoErrorState = {
+  code?: number;
+  message: string;
+  rawMessage?: string;
+};
