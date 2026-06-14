@@ -8,6 +8,7 @@ import ProductSlider from "../marketHome/productSlider";
 import { Product } from "@repo/core/types/product";
 import { ResponseType } from "@repo/core/types/general";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { useEffect, useState } from "react";
 
 type Props = {
   type: "suggested" | "bestSelling" | "newest" | "lastSeen";
@@ -18,6 +19,14 @@ export const HomePageProductSliders = ({
   type,
   isMobileLayout = false,
 }: Props) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   type configsType = {
     loader: () => Promise<any>;
     title: string;
