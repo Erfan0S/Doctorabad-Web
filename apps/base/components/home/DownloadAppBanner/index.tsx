@@ -6,6 +6,7 @@ import DrAbadMobile from "../../../assets/img/bigBanner/people/KadKhoda-Mobile.p
 import Image from "next/image";
 import LeftArrow from "@/assets/svg/leftArrow";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
+import Link from "next/link";
 const DownloadAppBanner = () => {
   return (
     <section className="container">
@@ -47,10 +48,10 @@ const DownloadAppBanner = () => {
                 کاربری راحت‌تر و کسب امتیاز بیشتر
               </div>
             </div>
-            <div className={style.textBottom}>
+            <Link href="/app" className={style.textBottom}>
               <div>مشاهده لینک‌های دانلود</div>
               <LeftArrow width={26} height={26} />{" "}
-            </div>
+            </Link>
           </div>
         </div>
       </div>

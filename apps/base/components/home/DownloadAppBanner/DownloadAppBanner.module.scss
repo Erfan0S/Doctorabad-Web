@@ -110,21 +110,24 @@
   cursor: pointer;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .container {
     flex-direction: column;
     height: auto;
     padding: 16px;
   }
   .left {
-    width: 60%;
-    max-width: 280px;
+    width: 40%;
+    max-width: 180px;
   }
   .right {
     width: 100%;
     margin-top: 12px;
     flex-direction: row;
     justify-content: space-between;
+  }
+  .leftImg{
+    display: none;
   }
 }
 
