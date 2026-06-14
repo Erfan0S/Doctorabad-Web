@@ -2,16 +2,18 @@
 
 import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import style from "./Sidebar.module.scss";
-import SidebarFooter from "./footer";
 import SidebarLogo from "./logo";
 import SidebarNav from "./nav";
 import { useSidebar } from "../states/sidebar";
-// import MobileNavBar from '../mobileNavBar';
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { useEffect, useState } from "react";
+import HeaderButtons from "../../headers/HeaderButtons";
 
 const Sidebar = () => {
   const isMobile = useMediaQuery("max-width:768px");
+
+  if (isMobile) return null;
+
   const [pathname, setPathname] = useState("");
 
   useEffect(() => {
@@ -31,14 +33,9 @@ const Sidebar = () => {
       onMouseEnter={toggleShow}
       onMouseLeave={toggleShow}
     >
-      {isMobile ? null : ( // <MobileNavBar />
-        <>
-          <SidebarLogo active={isMainLogoActive} />
-          <SidebarNav isMainLogoActive={isMainLogoActive} />
-          <SidebarFooter />
-        </>
-      )}
-
+      <SidebarLogo active={isMainLogoActive} />
+      <SidebarNav isMainLogoActive={isMainLogoActive} />
+      <HeaderButtons variant="sidebar" />
       <span>v2.4.6</span>
     </aside>
   );
