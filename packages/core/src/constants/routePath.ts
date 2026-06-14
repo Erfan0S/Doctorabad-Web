@@ -59,7 +59,7 @@ export const downloadPaths = {
 
 export const productionBaseUrl = "https://dev.doctorabad.com";
 
-export const baseUrls = {
+export const baseUrls: { [key in Apps]: string } = {
   [Apps.BASE]:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3001"
@@ -96,6 +96,10 @@ export const baseUrls = {
     (process.env.NODE_ENV === "development"
       ? "http://localhost:3009"
       : productionBaseUrl) + routePath.downloadBasePath,
+  [Apps.DRPRO]:
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3001"
+      : productionBaseUrl) + routePath.pro,
 };
 
 // export const baseUrls = {
