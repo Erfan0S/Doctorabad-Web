@@ -1,10 +1,6 @@
 import { Interceptors, RequestUtils } from "./utilts/RequestUtils";
-import {
-  ResponseType,
-  RequestMethod,
-  RequestOptions,
-  RequestConfig,
-} from "./types/Request";
+import { RequestMethod, RequestOptions, RequestConfig } from "./types/Request";
+import { ResponseType } from "../types/general";
 
 export class RequestConstructor {
   protected requestUtils: RequestUtils;
@@ -25,7 +21,7 @@ export class RequestConstructor {
   }
 
   async constructResponseSuccessData<T>(
-    response: Response
+    response: Response,
   ): Promise<ResponseType<T>> {
     return {
       status: response.status,
@@ -33,14 +29,14 @@ export class RequestConstructor {
         "responseSuccess",
         response.headers.get("Content-Type") === "application/json"
           ? await response?.json()
-          : response
+          : response,
       )) as T,
     };
   }
 
   async constructResponseFailedData(
     response: Response,
-    options: RequestOptions
+    options: RequestOptions,
   ): Promise<ResponseType<any>> {
     return this.interceptorsUtils.interceptorResolver("responseFailed", {
       requestOptions: options,
@@ -55,21 +51,21 @@ export class RequestConstructor {
   protected async request<T = any>(
     url: string,
     method: RequestMethod,
-    options: RequestOptions
+    options: RequestOptions,
   ) {
     const response = await fetch(
       this.requestUtils.getRequestUrl(url, options?.params),
       {
         method,
         ...(await this.constructRequestConfig(options)),
-      }
+      },
     );
 
     if (response.ok) {
       return await this.constructResponseSuccessData<T>(response);
     }
     return Promise.reject(
-      await this.constructResponseFailedData(response, options)
+      await this.constructResponseFailedData(response, options),
     );
   }
 

@@ -5,7 +5,7 @@ import Cart from "./cart";
 import Pay from "./pay";
 import Shipping from "./shipping";
 import { cartActions, useCart } from "@repo/core/states/cart";
-import { OrderType, ShippingMethod } from "@repo/core/types/cart";
+import { OrderType, ShippingAddress, ShippingMethod } from "@repo/core/types/cart";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -51,7 +51,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   }, []);
   const { data: cartItems } = useCart();
 
-  const addressData = address?.data.data?.find((address) => address.default);
+  const addressData = address?.data.data?.find((address: ShippingAddress) => address.default);
 
   const shippingMutation = useMutation({
     mutationFn: (data: ShippingMethod) => {

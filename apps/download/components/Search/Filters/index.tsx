@@ -43,7 +43,7 @@ const FiltersContainer = () => {
       !!params?.get(FiltersNames.FIELD) && !!params?.get(FiltersNames.GRADE),
   });
 
-  const SubjectData = subject?.data.data.map((item) => ({
+  const SubjectData = subject?.data.data.map((item : { id: number; title: string }) => ({
     id: item.id,
     title: item.title,
   }));

@@ -14,11 +14,9 @@ import {
   CreateOrderResponse,
   ShippingAddress,
   ShippingMethod,
-  OrderType,
 } from "@repo/core/types/cart";
-import { ResponseType } from "@repo/core/http-request/types/Request";
 import style from "./chekcout.module.scss";
-import { Apps } from "@repo/core/types/general";
+import { Apps, ResponseType } from "@repo/core/types/general";
 import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -41,9 +39,9 @@ function CreateOrderButton({
     | undefined;
   const queryClient = useQueryClient();
   let orderApi: (
-    data: CreateOrderRequest
+    data: CreateOrderRequest,
   ) => Promise<ResponseType<CreateOrderResponse>> = async (
-    data: CreateOrderRequest
+    data: CreateOrderRequest,
   ) => api.createOrder(data);
 
   switch (paymentMethod) {
@@ -66,7 +64,7 @@ function CreateOrderButton({
         cartActions.getCartData();
         window.open(
           `${baseUrls.base}${routePath.callback}?identifier=${data.data.data.identifier}${redirectedApp ? "&app=" + redirectedApp : ""}`,
-          "_self"
+          "_self",
         );
       }
 

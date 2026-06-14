@@ -224,9 +224,7 @@ class Api extends Request {
     });
   };
 
-  getShippingMethods = (): Promise<
-    ResponseType<{ data: ShippingMethod[] }>
-  > => {
+  getShippingMethods = () => {
     return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
   };
 
@@ -477,7 +475,6 @@ class Api extends Request {
     return this.request.get<{ data: UserClubInfo }>("/user/club/user/info");
   };
 
-
   getUserCoinPoints = (): Promise<
     ResponseType<{ data: UserCoinPointsType }>
   > => {
@@ -644,7 +641,7 @@ class Api extends Request {
   };
 
   //Dr Pro
-    getDrProPlansList(): Promise<ResponseType<{ data: PlanItem[] }>> {
+  getDrProPlansList(): Promise<ResponseType<{ data: PlanItem[] }>> {
     return this.request.get<{ data: PlanItem[] }>("/user/v1/dr_pro/list");
   }
   getDrProExplanation(): Promise<ResponseType<{ data: ExplanationItem[] }>> {

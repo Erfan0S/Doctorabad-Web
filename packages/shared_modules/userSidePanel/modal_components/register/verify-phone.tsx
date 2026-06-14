@@ -14,11 +14,15 @@ export const VerifyPhone = (props: RegisterStepProps) => {
   const { code, resendPeriod, onChangeCode, resendCode, goToPrevStep } =
     useVerifyPhone(props, wrapperRef);
 
+  interface Props extends CountdownRenderProps {
+    type: VerifyCodeType;
+  }
+
   const resendRenderer = ({
     formatted: { minutes, seconds },
     completed,
     type = VerifyCodeType.MOBILE,
-  }: CountdownRenderProps) => {
+  }: Props) => {
     let TypeIcon = <></>;
     const typeTitle = () => {
       switch (type) {
