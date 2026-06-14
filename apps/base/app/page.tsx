@@ -17,6 +17,7 @@ import DoctorToolsSection from "@/components/home/DoctorToolsSection/DoctorTools
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
 import { Apps } from "@repo/core/types/general";
 import Footer from "../../../packages/shared_modules/common/components/footer";
+import DownloadAppBanner from "@/components/home/DownloadAppBanner";
 
 export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
@@ -38,6 +39,7 @@ export default async function Home() {
             <MainSliderSection />
             <ServiceShortcuts />
             <DoctorToolsSection />
+            <DownloadAppBanner/>
             <BlogSlider
               data={blogPosts}
               title="دکترمگ"

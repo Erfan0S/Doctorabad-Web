@@ -102,7 +102,7 @@ export default function ClinicHeader({
                 <BugIcon />
               </div>
               <div className={styles.favoriteBtn} onClick={handleShareButton}>
-                <ShareIcon />
+                <ShareIcon width={10} height={10} />
               </div>
             </>
           )}
