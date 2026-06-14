@@ -24,7 +24,7 @@ export class PlayerInitiator {
       dash: "application/dash+xml",
       source: "video/mp4",
     };
-    const sources = [];
+    const sources: any = [];
     for (const [key, value] of Object.entries(sourceTypes)) {
       if (config[key as keyof typeof config]) {
         sources.push({ src: config[key as keyof typeof config], type: value });

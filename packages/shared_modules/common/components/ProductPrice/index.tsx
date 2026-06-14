@@ -48,7 +48,7 @@ function ProductPrice({
         )}
       </div>
       <div
-        className={isFree && style.free}
+        className={isFree ? style.free : ""}
         style={{ fontSize: size || "auto" }}
       >
         {isFree ? (

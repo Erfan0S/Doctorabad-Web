@@ -23,7 +23,7 @@ type Props = {
   renderVideo?: (conf: MultiMediaConfig) => React.ReactNode;
   renderParent?: (
     conf: MultiMediaConfig,
-    MediaNode: React.ReactNode
+    MediaNode: React.ReactNode,
   ) => React.ReactNode;
 };
 
@@ -35,7 +35,7 @@ export const MultimediaGallery = ({
   containerSelector,
 }: Props) => {
   const [imagesDimensions, setImagesDimensions] = useState<ImagesDimensions>(
-    {}
+    {},
   );
   useEffect(() => {
     let lightbox = new PhotoSwipeLightbox({
@@ -56,7 +56,7 @@ export const MultimediaGallery = ({
 
     const props = { ...imageProps, alt: alt, src };
 
-    let node = null;
+    let node: React.ReactNode;
 
     switch (type) {
       case MultimediaType.IMAGE:
