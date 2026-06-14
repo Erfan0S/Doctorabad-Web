@@ -26,6 +26,8 @@ import learnLogo from "@repo/shared_modules/images/doctor-learn.png";
 import clinicPlanLogo from "@repo/shared_modules/images/heart.png";
 // @ts-ignore
 import marketLogo from "@repo/shared_modules/images/doctor-market.png";
+// @ts-ignore
+import downloadLogo from "@repo/shared_modules/images/doctor-download.png";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
@@ -80,6 +82,10 @@ const CartItem = ({
     product_type === OrderType.DiscountPlan &&
     discount_plan_type === DiscountPlanType.CLINIC;
   const isMarket = product_type === OrderType.ShopProduct;
+  const isDownload = product_type === OrderType.Package;
+
+  // TODO: refactor multiple app handling
+
   const description = (): string | null => {
     if (isExam) {
       return "مرکز آزمون";
@@ -89,6 +95,8 @@ const CartItem = ({
       return "کلینیک من";
     } else if (isMarket) {
       return "مرکز خرید";
+    } else if (isDownload) {
+      return "مرکز محتوا";
     }
     return null;
   };
@@ -102,6 +110,8 @@ const CartItem = ({
       return marketLogo;
     } else if (isClinic) {
       return clinicPlanLogo;
+    } else if (isDownload) {
+      return downloadLogo;
     }
     return placeHolderDataUrl;
   };
@@ -111,9 +121,10 @@ const CartItem = ({
       return "square";
     } else if (isLearn) {
       return "landscape";
-    } else {
-      return "auto";
+    } else if (isDownload) {
+      return "portrait";
     }
+    return "auto";
   };
 
   const onClickHandler = (e: any) => {
@@ -124,6 +135,8 @@ const CartItem = ({
       });
     }
   };
+
+  // TODO: continue from here
 
   return (
     <div
@@ -142,7 +155,7 @@ const CartItem = ({
             width={0}
             height={0}
             sizes="100vw"
-            className={style[imageType()]}
+            className={!!product_pic ? style[imageType()] : style.square}
           />
         </a>
       </div>

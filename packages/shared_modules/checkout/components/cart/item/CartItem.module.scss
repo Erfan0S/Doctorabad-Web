@@ -14,17 +14,18 @@ html .cartItem {
 
   &Image {
     width: auto;
-    height: 60px;
+    height: auto;
     // border: 1px solid var(--app-base, $base-green);
+    box-shadow: 0 0 6px 0px rgba(0, 0, 0, 0.15);
+    border-radius: radius(2);
+    overflow: hidden;
 
     img {
-      border-radius: radius(2);
       width: auto;
       max-width: 110px;
       min-width: 60px;
       max-height: 100%;
       object-fit: contain;
-      box-shadow: 0 0 6px 0px rgba(0, 0, 0, 0.15);
     }
 
     a .landscape {
@@ -38,10 +39,23 @@ html .cartItem {
       height: 60px;
       aspect-ratio: 1 / 1;
     }
+
+    a .portrait {
+      width: 60px;
+      height: auto;
+      aspect-ratio: 3 / 4;
+    }
   }
 
   &DefaultImage {
     padding: space(3);
+    width: 60px;
+    height: 60px;
+
+    img {
+      width: 40px !important;
+      height: 40px !important;
+    }
   }
 
   &Content {

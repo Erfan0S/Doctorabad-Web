@@ -32,7 +32,7 @@ const Cart = ({ app }: Props) => {
     {
       queryFn: api.getCartOthersBought,
       queryKey: ["cartOthersBought", cartItems],
-    }
+    },
   );
 
   const appLink = redirectedApp
