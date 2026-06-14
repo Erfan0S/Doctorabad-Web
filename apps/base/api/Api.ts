@@ -23,13 +23,7 @@ import { BlogType } from "@/types/blog";
 
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
-import {
-  CreateOrderResponse,
-  DiscountCodeResponse,
-  DrProActivePlan,
-  ExplanationItem,
-  PlanItem,
-} from "@/types/dr-pro";
+
 
 class Api extends Request {
   constructor() {

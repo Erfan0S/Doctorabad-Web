@@ -25,14 +25,14 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = homeMetadata();
 export const viewPort: Viewport = homeViewPort;
-const isLoggedIn = await isUserLoggedInAsync();
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const statistic = (await api.getHomeStatistics()).data.data;
+  const isLoggedIn = await isUserLoggedInAsync();
+
   return (
     <html lang="fa">
       <SharedHeadContents />

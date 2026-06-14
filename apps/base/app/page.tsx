@@ -8,7 +8,6 @@ import Statistics from "@/components/home/Statistics";
 import ServiceShortcuts from "@/components/home/ServiceShortcuts";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
-import HomeHeader from "@/components/HomeHeader";
 import { MobileHomeHeader } from "@repo/shared_modules/headers";
 
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";

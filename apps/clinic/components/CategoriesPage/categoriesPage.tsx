@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { clinicApi } from "@/api/Api";
-import { DiseaseCategory } from "@/types/clinic";
+import { DiseaseCategory, DiseaseTreatment } from "@/types/clinic";
 import styles from "./categories.module.scss";
 import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
@@ -29,7 +29,7 @@ function setOpenCategoryIds(ids: number[]) {
 }
 
 export default function Categories() {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<DiseaseCategory[]>({
     queryKey: ["disease-categories"],
     queryFn: async () => (await clinicApi.getDiseaseCategories()).data.data,
   });
@@ -61,14 +61,14 @@ function CategoryItem({ category }: { category: DiseaseCategory }) {
     }
   };
 
-  const { data: children, isLoading } = useQuery({
+  const { data: children, isLoading } = useQuery<DiseaseCategory[]>({
     queryKey: ["disease-children", category.id],
     queryFn: async () =>
       (await clinicApi.getDiseaseChildren(category.id)).data.data,
     enabled: open && category.has_children,
   });
 
-  const { data: treatments, isLoading: loadingTreatments } = useQuery({
+  const { data: treatments, isLoading: loadingTreatments } = useQuery<DiseaseTreatment[]>({
     queryKey: ["disease-treatments", category.id],
     queryFn: async () =>
       (await clinicApi.getDiseaseTreatments(category.id)).data.data,
