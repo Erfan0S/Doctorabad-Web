@@ -38,7 +38,7 @@ export default async function Home() {
             <MainSliderSection />
             <ServiceShortcuts />
             <DoctorToolsSection />
-            <DownloadAppBanner/>
+            <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
             <BlogSlider
               data={blogPosts}
               title="دکترمگ"
@@ -51,6 +51,7 @@ export default async function Home() {
           <MainSliderSection />
           <ServiceShortcuts />
           <DoctorToolsSection />
+          <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
           <BlogSlider
             data={blogPosts}
             title="دکترمگ"

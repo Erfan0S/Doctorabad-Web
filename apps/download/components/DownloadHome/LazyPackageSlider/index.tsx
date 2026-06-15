@@ -26,7 +26,7 @@ const Configs: Record<HomePagePackageSliders, ConfigsType> = {
     loader: async () => (await api.getPreviousPackageOrders()).data,
     title: "محتواهای من",
     archiveLink: "/my_package",
-    queryKey: "my-packages",
+    queryKey: "my-packages-home",
     isRefetchOnAuth: true,
     needAuth: true,
   },

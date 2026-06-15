@@ -1,13 +1,25 @@
+"use client";
+
 import React from "react";
 import { baseUrls } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
+import { modalActions } from "@repo/core/modal/modals";
+import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import ServiceCard from "./ServiceCard";
 import styles from "./ServiceShortcuts.module.scss";
 import myInsurance from "@/assets/img/bigBanner/icons/DA-01 (1).png";
 import myPharmacy from "@/assets/img/bigBanner/icons/DA-03 (1).png";
 import myClinic from "@/assets/img/bigBanner/icons/DA-04 (1).png";
 
+const COMING_SOON_MESSAGE = "این بخش به زودی در دسترس قرار می‌گیره";
+
 const ServiceShortcuts = () => {
+  const openInsuranceComingSoonModal = () => {
+    modalActions.addModal(ModalTypes.COMING_SOON, {
+      message: COMING_SOON_MESSAGE,
+    });
+  };
+
   const services = [
     {
       id: 3,
@@ -29,6 +41,7 @@ const ServiceShortcuts = () => {
       enTitle: "MyInsurance",
       icon: myInsurance,
       href: baseUrls[Apps.INSURANCE],
+      onClick: openInsuranceComingSoonModal,
     },
   ];
 

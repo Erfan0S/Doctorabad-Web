@@ -98,7 +98,7 @@ export default function ClinicHeader({
         <div className={styles.lefSideHeader}>
           {headerPageType === HeaderType.DISEASE_DETAILS && (
             <>
-              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal)}>
+              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal())}>
                 <BugIcon />
               </div>
               <div className={styles.favoriteBtn} onClick={handleShareButton}>
@@ -112,7 +112,7 @@ export default function ClinicHeader({
               className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
               onClick={
                 headerPageType === HeaderType.DISEASE_DETAILS
-                  ? authorizeClientAction (() => handleFavoriteButton)
+                  ? authorizeClientAction (() => handleFavoriteButton())
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >

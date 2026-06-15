@@ -53,6 +53,7 @@ export const productData = (
             mainPrice={package_item.main_price}
             offPrice={package_item.off_price}
             size={12}
+            app={Apps.DOWNLOAD}
           />
         ),
       },
@@ -81,7 +82,7 @@ export const productData = (
 };
 
 const PackageList = ({ packages, fetchNextPage, hasNextPage }: Props) => {
-  const packageDataList = packages?.pages.flatMap((page) => page.data);
+  const packageDataList = packages?.pages?.flatMap((page) => page.data) || [];
 
   return (
     <div className={styles.relatedCoursesWrapper}>

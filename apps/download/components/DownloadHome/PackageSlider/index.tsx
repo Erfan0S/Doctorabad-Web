@@ -26,7 +26,7 @@ const PackageSlider: React.FC<Props> = ({
   title,
   amazingTime,
 }) => {
-  if (!isLoading && !(data.length > 0)) return null;
+  if (!isLoading && !(data?.length > 0)) return null;
 
   return (
     <ProductSliderContainer
