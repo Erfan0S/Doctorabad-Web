@@ -10,6 +10,7 @@ type Props = {
   app?: Apps;
   className?: string;
   variant?: "primery" | "secondary";
+  colorVariant?: "simple" | "app";
   size?: number;
 };
 
@@ -20,6 +21,7 @@ function ProductPrice({
   app,
   className,
   variant = "primery",
+  colorVariant = "app",
   size,
 }: Props) {
   const { discountPercent, mainPrice, offPrice } = getDiscountInformation(
@@ -32,7 +34,7 @@ function ProductPrice({
 
   return (
     <div
-      className={`${style.productPrice} ${style[app || ""]} ${className || ""} ${style[variant] || ""}`}
+      className={`${style.productPrice} ${style[app || ""]} ${className || ""} ${style[variant] || ""} ${style[colorVariant + "ColorVariant"] || ""}`}
     >
       <div>
         {offPrice && (

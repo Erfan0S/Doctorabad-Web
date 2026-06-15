@@ -60,3 +60,11 @@
 .secondary {
   flex-direction: row;
 }
+
+.simpleColorVariant {
+  div {
+    &:last-of-type {
+      color: $darkGray;
+    }
+  }
+}

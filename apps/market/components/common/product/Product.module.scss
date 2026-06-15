@@ -44,6 +44,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 420px;
 
   &Content {
     flex: 1;
@@ -273,6 +274,8 @@
 
 @media (max-width: 425px) {
   body .product {
+    min-height: auto;
+
     &AddToCart,
     &NoStock,
     &VariantButton {

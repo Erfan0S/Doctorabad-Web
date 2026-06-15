@@ -8,7 +8,6 @@ html .cartItem {
   padding: space(2) 0;
   position: relative;
   flex-wrap: wrap;
-  overflow: hidden;
   justify-content: center;
   gap: 15px;
 
@@ -19,6 +18,9 @@ html .cartItem {
     box-shadow: 0 0 6px 0px rgba(0, 0, 0, 0.15);
     border-radius: radius(2);
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     img {
       width: auto;
@@ -62,7 +64,7 @@ html .cartItem {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    // gap: 8px;
     min-height: 70px;
     justify-content: space-between;
   }
@@ -72,6 +74,7 @@ html .cartItem {
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
+    margin-bottom: 0.5rem;
 
     a {
       text-align: right;
@@ -98,45 +101,7 @@ html .cartItem {
   }
 
   &Price {
-    div {
-      &:first-of-type:not(:only-child) {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        font-size: 11px;
-        > small {
-          background: var(--button-bg, $button-bg-green);
-          padding: 0 space(2);
-          font-size: 11px;
-          border-radius: radius(1);
-          line-height: 14px;
-          margin-right: space(1);
-          color: #fff;
-        }
-
-        span {
-          color: $gray;
-          text-decoration: line-through;
-
-          small {
-            margin-right: space(1);
-          }
-        }
-      }
-
-      &:last-of-type {
-        font-size: 17px;
-        line-height: 22px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        color: black;
-
-        small {
-          margin-right: space(1);
-        }
-      }
-    }
+    max-width: 7rem;
   }
 
   &Button {
@@ -183,7 +148,6 @@ html .cartItem {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 5px;
 
     span {
       background-color: #f8f8f8;
