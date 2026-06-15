@@ -24,7 +24,7 @@ const font = localFont({
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = homeMetadata;
-export const viewPort: Viewport = homeViewPort;
+export const viewport: Viewport = homeViewPort;
 
 export default async function RootLayout({
   children,
