@@ -27,8 +27,11 @@ body .buyRecommendationModalWrapper {
   }
 
   .price {
-    color: $purple;
     margin-bottom: 0;
+
+    > div {
+      justify-content: center !important;
+    }
   }
 
   p:last-of-type {

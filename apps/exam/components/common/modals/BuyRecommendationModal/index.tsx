@@ -5,6 +5,7 @@ import { ModalProps } from "@repo/core/types/modals";
 import {
   AddToCartButton,
   ModalWrapper,
+  ProductPrice,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import Image from "next/image";
@@ -54,8 +55,12 @@ const BuyRecommendationModal = ({
       </p>
       <p>همراه با پاسخ تشریحی</p>
 
-      {/* TODO: add offPrice */}
-      <p className={styles.price}>{priceFormatter(exam.main_price)} تومن</p>
+      <ProductPrice
+        mainPrice={exam.main_price}
+        offPrice={exam.off_price}
+        app={Apps.EXAM}
+        className={styles.price}
+      />
       {exam.installment_payment && exam.installment_text && (
         <ProductSnappayNotif
           text={exam.installment_text}

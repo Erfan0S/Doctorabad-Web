@@ -1,9 +1,9 @@
 import { DiscountPlanType } from "@/types/discountPlan";
 import React from "react";
 import style from "./discountPlans.module.scss";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import {
   AddToCartButton,
+  ProductPrice,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
@@ -26,14 +26,20 @@ function DiscountPlanItem({ item }: Props) {
       </div>
       <div className={style.planItemBottem}>
         <div className={style.planItemPrice}>
-          {!!item.off_price && (
+          <ProductPrice
+            mainPrice={item.main_price}
+            offPrice={item.off_price}
+            app={Apps.EXAM}
+            size={16}
+          />
+          {/* {!!item.off_price && (
             <span>{priceFormatter(item.main_price)} تومن</span>
           )}
           <span>
             {(!item.main_price && !item.off_price) || item.free
               ? "رایگان"
               : `${priceFormatter(item.off_price || item.main_price)} تومن`}
-          </span>
+          </span> */}
           {item.installment_payment && item.installment_text && (
             <ProductSnappayNotif
               text={item.off_price || item.main_price}

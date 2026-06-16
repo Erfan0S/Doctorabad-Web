@@ -17,8 +17,6 @@ type Props = {
   searchParams: Record<string, string | undefined>;
 };
 
-// TODO: continue fixing back
-
 async function SinglePage({ searchParams }: Props) {
   const {
     [SharedFilters.FIELD]: field,

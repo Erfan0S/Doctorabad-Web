@@ -1,4 +1,3 @@
-import TabsController from "@/components/common/TabsController";
 import { PageHeader } from "@repo/shared_modules/headers";
 import React from "react";
 import styles from "@/components/myCourses/myCourses.module.scss";
@@ -8,6 +7,7 @@ import {
   myCoursesTabsData,
 } from "@/components/course/tabs/tabs-data";
 import { Apps } from "@repo/core/types/general";
+import { TabsController } from "@repo/shared_modules/components";
 
 function MyCoursePage() {
   return (
@@ -20,6 +20,7 @@ function MyCoursePage() {
         <TabsController
           tabData={myCoursesTabsData}
           defaultTab={myCoursesTabs.COURSES}
+          app={Apps.LEARN}
         />
       </PageHeader>
       <MyCourses />

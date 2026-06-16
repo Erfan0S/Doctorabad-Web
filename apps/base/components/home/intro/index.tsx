@@ -4,7 +4,11 @@ import person from "@/assets/img/bigBanner/people/KadKhoda-Mobile.png";
 import googlePlay from "@/assets/img/d1.jpg";
 import appStore from "@/assets/img/d2.jpg";
 import pwaApp from "@/assets/img/d3.jpg";
+import anardoni from "@/assets/img/d6.jpg";
+import iApps from "@/assets/img/d7.jpg";
+import sibIrani from "@/assets/img/d8.jpg";
 import style from "./Intro.module.scss";
+import { LeftArrow } from "@/assets/svg/leftArrow";
 import { AngleDown } from "@repo/shared_modules/icons";
 import { HomeStatisticsType } from "@/types/homeStatistics";
 
@@ -22,7 +26,8 @@ const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
               دکترآباد؛ بستر جامع آموزش و پرورش گروه علوم‌پزشکی کشور بیش از 9
               سال انتخاب اول دانشجویان و فارغ التحصیلان
             </p>
-            <div>
+
+            <div className={style.downloadLinks}>
               <Link href={statistic.google_play_url} target={"_blank"}>
                 <Image src={googlePlay || ""} alt="googlePlay" />
               </Link>
@@ -32,7 +37,30 @@ const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
               <Link href={statistic.direct_download_url} target={"_blank"}>
                 <Image src={pwaApp || ""} alt="pwaApp" />
               </Link>
+              <Link
+                href="https://anardoni.com/ios/app/zgbjGaxmN?lng=fa"
+                target={"_blank"}
+              >
+                <Image src={anardoni || ""} alt="anardoni" />
+              </Link>
+              <Link
+                href="https://iapps.ir/app/DoctorAbad/986479615"
+                target={"_blank"}
+              >
+                <Image src={iApps || ""} alt="iApps" />
+              </Link>
+              <Link
+                href="https://sibirani.com/apps/DoctorAbad/"
+                target={"_blank"}
+              >
+                <Image src={sibIrani || ""} alt="sibIrani" />
+              </Link>
             </div>
+
+            <Link className={style.changelogLink} href="/changelog">
+<p>لیست تغییرات در بروزرسانی جدید</p>
+              <LeftArrow width={22} height={22} />
+            </Link>
           </div>
           <a href={"#biBanner-drlearn"} className={style.introArrow}>
             <AngleDown />

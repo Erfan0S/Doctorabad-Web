@@ -13,7 +13,6 @@ import { MobileHomeHeader } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";
 import Footer from "../../../../packages/shared_modules/common/components/footer";
 
-
 export const metadata: Metadata = homeMetadata("/", "اپلیکیشن دکترآباد");
 
 const AppDownloadPage = async () => {
@@ -22,15 +21,17 @@ const AppDownloadPage = async () => {
   // return <AppDownload statistic={statistic} />;
   return (
     <>
-      <DiviceSwitchShell desktop={null} mobile={<MobileHomeHeader type={Apps.BASE} />} /> 
-
+      <DiviceSwitchShell
+        desktop={null}
+        mobile={<MobileHomeHeader type={Apps.BASE} />}
+      />
       <Intro statistic={statistic} />
       <Statistics statistic={statistic} />
       {bigBannerData.map((item, index) => (
         <BigBanner key={index} {...item} />
       ))}
       ;
-            <DiviceSwitchShell
+      <DiviceSwitchShell
         desktop={<Footer statistic={statistic} />}
         mobile={null}
       />
