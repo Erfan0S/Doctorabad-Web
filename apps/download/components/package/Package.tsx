@@ -51,6 +51,7 @@ const Package = ({ packageItem, activeTab }: Props) => {
                 width: "auto",
                 height: "auto",
                 borderRadius: "16px",
+                aspectRatio: "3/4",
               }}
             />
           </div>
