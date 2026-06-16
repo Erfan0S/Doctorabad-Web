@@ -1,5 +1,8 @@
-import { CourseDataType, CourseTab, TabData } from "@/types/courses";
-import { MobileTabsConfigWithContent } from "@repo/core/types/configs";
+import { CourseDataType, CourseTab } from "@/types/courses";
+import {
+  MobileTabsConfig,
+  MobileTabsConfigWithContent,
+} from "@repo/core/types/configs";
 import CourseContent from "./lessons";
 import CourseDescription from "./Description";
 import CourseComments from "./comments";
@@ -39,7 +42,7 @@ export enum myCoursesTabs {
   PLANS = "plans",
 }
 
-export const myCoursesTabsData: TabData[] = [
+export const myCoursesTabsData: MobileTabsConfig[] = [
   {
     id: myCoursesTabs.COURSES,
     title: "دوره‌های من",
