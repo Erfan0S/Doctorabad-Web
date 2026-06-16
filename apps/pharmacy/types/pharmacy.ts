@@ -118,5 +118,6 @@ export enum HeaderType {
   FAVORITES = "favorites",
   MEDICINE_DETAILS = "medicine_details",
   OTHERS = "others",
+  CATEGORY = "category",
   HOME = "home"
 }

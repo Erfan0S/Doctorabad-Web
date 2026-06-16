@@ -139,6 +139,7 @@ export enum HeaderType {
   FAVORITES = "favorites",
   DISEASE_DETAILS = "disease_details",
   OTHERS = "others",
+  CATEGORY = "category",
   HOME = "home"
 }
 

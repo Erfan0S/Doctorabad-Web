@@ -105,18 +105,19 @@ export default function PharmacyHeader({
             </>
           )}
 
-          {headerPageType !== HeaderType.FAVORITES && (
+          {headerPageType !== HeaderType.FAVORITES &&
+          headerPageType !== HeaderType.CATEGORY ? (
             <div
               className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
               onClick={
                 headerPageType === HeaderType.MEDICINE_DETAILS
-                  ? authorizeClientAction (() => handleFavoriteButton())
+                  ? authorizeClientAction(() => handleFavoriteButton())
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >
               <Heart size={32} fill={isFavorite ? "#57d43b" : "none"} />
             </div>
-          )}
+          ) : null}
 
           <div className={styles.backBtn} onClick={handleBack}>
             <BackIcon></BackIcon>

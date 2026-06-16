@@ -47,17 +47,6 @@ export const productData = (
         value: categoryTitle || null,
       },
       {
-        icon: <CoinIcon fontSize={16} />,
-        value: (
-          <ProductPrice
-            mainPrice={package_item.main_price}
-            offPrice={package_item.off_price}
-            size={12}
-            app={Apps.DOWNLOAD}
-          />
-        ),
-      },
-      {
         icon: (
           <>
             {package_item.main_price ? (
@@ -71,10 +60,21 @@ export const productData = (
           <>
             {package_item.main_price
               ? `${package_item.sell_count} دانشجو`
-              : `${package_item.download_count} دانلود`}
+              : `${package_item.download_count || 0} دانلود`}
           </>
         ),
       },
+              {
+                icon: <CoinIcon fontSize={16} />,
+                value: (
+                  <ProductPrice
+                    mainPrice={package_item.main_price}
+                    offPrice={package_item.off_price}
+                    size={12}
+                    app={Apps.DOWNLOAD}
+                  />
+                ),
+              },
     ],
     installmentPayment: package_item.installment_payment,
     lang: package_item.language == 1 ? "Fa" : "En",
