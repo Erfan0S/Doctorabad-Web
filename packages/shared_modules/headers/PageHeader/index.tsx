@@ -45,7 +45,7 @@ const PageHeader: React.FC<Props> = ({
       onContextMenu={(e) => e.preventDefault()}
     >
       <div className={`${style.sidePanelHeader}`}>
-        <span>{title}</span>
+        <h1>{title}</h1>
         <div className={style.headerButtonContainer}>
           <button className={style.headerButton} onClick={OnBack}>
             <BackIcon />

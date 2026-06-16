@@ -98,7 +98,10 @@ export default function ClinicHeader({
         <div className={styles.lefSideHeader}>
           {headerPageType === HeaderType.DISEASE_DETAILS && (
             <>
-              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal())}>
+              <div
+                className={styles.favoriteBtn}
+                onClick={authorizeClientAction(() => toggleReportModal())}
+              >
                 <BugIcon />
               </div>
               <div className={styles.favoriteBtn} onClick={handleShareButton}>
@@ -107,21 +110,22 @@ export default function ClinicHeader({
             </>
           )}
 
-          {headerPageType !== HeaderType.FAVORITES && (
+          {headerPageType !== HeaderType.FAVORITES &&
+          headerPageType !== HeaderType.CATEGORY ? (
             <div
               className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
               onClick={
                 headerPageType === HeaderType.DISEASE_DETAILS
-                  ? authorizeClientAction (() => handleFavoriteButton())
+                  ? authorizeClientAction(() => handleFavoriteButton())
                   : authorizeClientAction(() => router.push("/favorites"))
               }
             >
               <Heart size={32} fill={isFavorite ? "#57d43b" : "none"} />
             </div>
-          )}
+          ) : null}
 
           <div className={styles.backBtn} onClick={handleBack}>
-            <BackIcon ></BackIcon>
+            <BackIcon></BackIcon>
           </div>
         </div>
       </div>

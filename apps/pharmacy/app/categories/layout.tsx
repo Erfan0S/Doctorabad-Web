@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <PharmacyHeader headerPageType={HeaderType.OTHERS} title="دسته‌بندی"></PharmacyHeader>
+      <PharmacyHeader headerPageType={HeaderType.CATEGORY} title="دسته‌بندی"></PharmacyHeader>
       {children}
     </>
   );

@@ -10,11 +10,16 @@
   gap: 16px;
   cursor: pointer;
   transition: all 0.2s;
-  
+
   &:active {
     transform: scale(0.98);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .diseaseImage {
@@ -76,6 +81,10 @@
   margin: 0;
   direction: ltr;
   text-align: right;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .diseaseNameFa {
@@ -83,6 +92,10 @@
   font-weight: 700;
   color: #333;
   margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .actions {
