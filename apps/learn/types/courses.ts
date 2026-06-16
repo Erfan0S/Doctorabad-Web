@@ -70,13 +70,6 @@ export enum ProviderTabs {
   DESCRIPTION = "description",
 }
 
-// TODO: may need to delete
-export interface TabData {
-  id: CourseTab | HomeTabs | ProviderTabs | string;
-  title: string;
-  url?: string;
-}
-
 export type CourseListItemType = {
   id: number;
   title: string;
@@ -96,8 +89,9 @@ export type CourseListItemType = {
   installment_payment?: boolean;
 };
 
-export interface PaginatedAmazingCourses
-  extends PaginatedResponse<CourseListItemType[]> {
+export interface PaginatedAmazingCourses extends PaginatedResponse<
+  CourseListItemType[]
+> {
   amazing_time: string;
 }
 
