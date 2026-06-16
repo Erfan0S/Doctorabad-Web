@@ -46,26 +46,31 @@
 }
 
 .metadata {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(80px, 1fr));
+  gap: 1rem 1.5rem;
   align-items: center;
-  gap: 1.5rem;
   color: #666;
   font-size: 0.875rem;
   width: 100%;
-  .metadataWrapper {
-    display: flex;
-    flex-direction: column;
-  }
 
   .metadataItem {
     display: flex;
     align-items: center;
     gap: 0.25rem;
     color: #8b8b8b;
+    min-width: 0;
     svg {
       width: 1rem;
       height: 1rem;
     }
+  }
+
+  .metaEmpty {
+    display: inline-block;
+    visibility: hidden;
+    height: 1rem;
+    width: 100%;
   }
 }
 

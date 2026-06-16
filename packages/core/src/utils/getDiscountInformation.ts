@@ -3,15 +3,15 @@ import { calcDiscountPercentage } from "./calcDiscountPercentage";
 export const getDiscountInformation = (
   price_main: number = 0,
   price_off?: number,
-  price_amazing?: number
+  price_amazing?: number,
 ) => {
-  let offPrice = null;
-  let discount = null;
+  let offPrice: number | undefined;
+  let discount: number | undefined;
 
   if (price_off || price_amazing) {
     discount = calcDiscountPercentage(
       price_main,
-      (price_amazing || price_off) as number
+      (price_amazing || price_off) as number,
     );
     offPrice = price_amazing || price_off;
   }

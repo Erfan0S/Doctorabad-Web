@@ -1,13 +1,10 @@
 "use client";
 import { SwiperProps, SwiperSlide } from "swiper/react";
-import style from "./ProductSlider.module.scss";
-import Link from "next/link";
 import "swiper/css";
 import { CourseListItemType } from "@/types/courses";
 import { Apps } from "@repo/core/types/general";
-import Image from "next/image";
-import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { ProductSliderContainer } from "@repo/shared_modules/components";
+import CourseSliderItem from "./CourseSliderItem";
 
 interface Props {
   data: CourseListItemType[];
@@ -16,6 +13,7 @@ interface Props {
   isLoading?: boolean;
   customSliderConfig?: SwiperProps;
   amazingTime?: string;
+  isMyCourses?: boolean;
 }
 
 const CourseSlider: React.FC<Props> = ({
@@ -25,6 +23,7 @@ const CourseSlider: React.FC<Props> = ({
   archiveLink,
   title,
   amazingTime,
+  isMyCourses,
 }) => {
   if (!isLoading && !(data.length > 0)) return null;
 
@@ -37,19 +36,11 @@ const CourseSlider: React.FC<Props> = ({
       isMobileLayout
       amazingTime={amazingTime}
       dynamicSlideWidth
+      slideWidth={177}
     >
       {data.map((course, i) => (
         <SwiperSlide key={course.id}>
-          <Link href={`/course/${course.id}`}>
-            <Image
-              className={style.course}
-              src={course.pic_url || placeHolderDataUrl}
-              alt={course.title || "دروس"}
-              width={170}
-              height={95}
-              placeholder={placeHolderDataUrl}
-            />
-          </Link>
+          <CourseSliderItem course={course} isMyCourse={isMyCourses} />
         </SwiperSlide>
       ))}
     </ProductSliderContainer>

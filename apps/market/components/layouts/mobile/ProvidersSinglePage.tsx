@@ -10,6 +10,7 @@ import { Apps } from "@repo/core/types/general";
 import { Product as ProductType } from "@repo/core/types/product";
 import Product from "@/components/common/product";
 import InfiniteScroll from "react-infinite-scroller";
+import { marketPaths } from "@repo/core/constants/routePath";
 
 type Props = {
   id: number;
@@ -80,6 +81,7 @@ const MobileProviderPage = ({ id }: Props) => {
       contentTitle="محصولات"
       isLoading={isLoading}
       headertitle="فروشنده"
+      defaultBackUrl={marketPaths.mobileProviders}
     />
   );
 };

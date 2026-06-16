@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import styles from "./VideoPlayer.module.scss";
-import { VideoPlayerProps } from "./types";
+import { VideoErrorState, VideoPlayerProps } from "./types";
 import { PlayerInitiator } from "@/utils/videoPlayer/playerInitiator";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -22,6 +22,7 @@ import Watermark from "../watermark";
 import Loading from "@/components/common/Loading";
 import { api } from "@/api/Api";
 import { LessonVideoContext } from "@/context/LessonVideoContext";
+import { getFriendlyVideoErrorMessage } from "@/utils/videoPlayer/getFriendlyVideoErrorMessage";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -40,6 +41,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const isVideoPlayedRef = useRef(false);
   const previousTimeRef = useRef(-1);
   const missionIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [error, setError] = useState<VideoErrorState | null>(null);
 
   const { currentLeasson, clearBookmark, bookmark } =
     useContext(LessonVideoContext);
@@ -48,6 +50,31 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   courseIdRef.current = courseId;
 
   const [isWatermarkActive, setIsWatermarkActive] = useState(false);
+
+  const handleError = (player: VideoPlayerType) => {
+    const videoError = player.error();
+
+    if (!videoError) {
+      setError({
+        message: "Something went wrong while playing the video.",
+      });
+      return;
+    }
+
+    setError({
+      code: videoError.code,
+      message: getFriendlyVideoErrorMessage(videoError.code),
+      rawMessage: videoError.message,
+    });
+  };
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
+
+  useEffect(() => {
+    setError(null);
+  }, [playerRef]);
 
   const handleMission = useCallback(
     (transactionType: VideoMissionTransactionType) => {
@@ -110,6 +137,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         handleMissionInterval();
         console.log("play");
       });
+      player.on("error", () => handleError(player));
       player.on("pause", () => {
         if (missionIntervalRef.current) {
           clearInterval(missionIntervalRef.current);
@@ -329,10 +357,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [title, isPlayerReady, bookmark]);
 
   return (
-    <div onContextMenu={(e) => e.preventDefault()}>
+    <div
+      onContextMenu={(e) => e.preventDefault()}
+      className={`${styles.videoContainer}`}
+    >
       {!isPlayerReady && (
         <div className={styles.palceHolder}>
           <Loading />
+        </div>
+      )}
+      {!!error && (
+        <div className={styles.customVideoError}>
+          {error.code && <span>error code: {error.code}</span>}
+          <p>{error.message}</p>
         </div>
       )}
       <div

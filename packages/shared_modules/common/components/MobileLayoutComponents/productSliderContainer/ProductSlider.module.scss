@@ -121,13 +121,14 @@ html .mobileLayout {
     :global {
       .swiper {
         padding: space(2.5) space(3.75) space(4);
-        margin: space(-2.5) space(-3.75) space(-4);
+        margin: space(-2.5) space(-2.5) space(-4);
       }
 
       .swiper-slide {
         height: auto;
         display: flex;
         justify-content: center;
+        width: 180px;
 
         > * {
           width: 100%;
@@ -143,7 +144,7 @@ html .mobileLayout {
     &Slider {
       :global {
         .swiper {
-          padding: space(2.5) space(3.75) space(4) space(22);
+          padding: space(2.5) space(2.5) space(4) space(22);
         }
       }
     }

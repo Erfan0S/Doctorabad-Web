@@ -9,6 +9,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  --app-base: #{$base-green};
+
+
+  &.pro {
+  --app-base: #{$proGreen};
+
+  }
 
   &Title {
     display: flex;

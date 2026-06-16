@@ -1,6 +1,6 @@
-@import '../../../assets/styles/variables.scss';
-@import '../../../assets/styles/functions.scss';
-@import '../../../assets/styles/keyframes.scss';
+@import "../../../assets/styles/variables.scss";
+@import "../../../assets/styles/functions.scss";
+@import "../../../assets/styles/keyframes.scss";
 // @import '@/sharedModules/assets/styles/functions';
 // @import '@/sharedModules/assets/styles/keyframes';
 
@@ -81,7 +81,7 @@
 
       &.loading {
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           left: calc(50% - 13px);
           top: calc(50% - 13px);
@@ -112,17 +112,21 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-bottom: space(10);
+    // padding-bottom: space(10);
 
     p {
       font-weight: 600;
       margin-bottom: 0;
     }
 
+    > p,
+    > span {
+      margin-bottom: space(3);
+    }
+
     > span {
       color: $gray;
       cursor: pointer;
-      margin-bottom: space(2);
 
       &:hover {
         color: $blue;
@@ -147,8 +151,61 @@
         width: 40px;
 
         &:focus {
-          border-color: $orange;
+          border-color: $green;
           outline: unset;
+        }
+      }
+    }
+
+    .resendWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: space(5);
+      align-items: center;
+      border-top: 1px solid $lightGray;
+      padding: space(3);
+
+      .resendCode {
+        color: rgb(43, 43, 43);
+        cursor: pointer;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 5px 10px;
+        font-weight: 500;
+        border: 1px solid $gray;
+        border-radius: radius(2);
+        width: 100%;
+        min-width: 225px;
+
+        &Completed {
+          color: $gray;
+          cursor: default;
+
+          &:hover {
+            box-shadow: none !important;
+            color: $gray !important;
+          }
+        }
+
+        &Timer {
+          // border: 1px solid $lightGray;
+          border-radius: radius(1);
+          padding: 0 5px;
+        }
+
+        &:hover {
+          color: black;
+          // border-color: $base-green;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        svg {
+          width: 15px;
+          height: 15px;
         }
       }
     }
@@ -158,7 +215,7 @@
 @media (max-width: 576px) {
   .authWrapper {
     width: 100%;
-    height: 385px;
+    min-height: 385px;
     padding: space(4) space(6) space(6);
 
     .enterPhoneForm,

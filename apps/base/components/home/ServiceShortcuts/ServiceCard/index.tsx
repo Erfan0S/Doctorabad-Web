@@ -7,6 +7,7 @@ export interface ServiceCardProps {
   enTitle: string;
   icon: StaticImageData;
   href: string;
+  onClick?: () => void;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -14,9 +15,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   enTitle,
   icon,
   href,
+  onClick,
 }) => {
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!onClick) return;
+    event.preventDefault();
+    onClick();
+  };
+
   return (
-    <a href={href} className={styles.card}>
+    <a href={href} onClick={handleClick} className={styles.card}>
       <img
         src={icon.src}
         alt={title}

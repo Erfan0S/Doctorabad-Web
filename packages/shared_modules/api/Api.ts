@@ -1,3 +1,4 @@
+import { VerifyCodeType } from "@repo/core/types/register";
 import { Request } from "@repo/core/http-request/Request";
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
@@ -67,6 +68,14 @@ import {
   PaymentProviders,
 } from "../checkout/types/cart";
 
+import {
+  CreateDrProOrderResponse,
+  DiscountCodeResponse,
+  DrProActivePlan,
+  ExplanationItem,
+  PlanItem,
+} from "@repo/core/types/dr-pro";
+
 class Api extends Request {
   constructor() {
     super({
@@ -81,8 +90,11 @@ class Api extends Request {
   }
 
   // user
-  sendVerificationCode(mobile: string): Promise<any> {
-    return this.request.post("/user/verification/send", { mobile });
+  sendVerificationCode(
+    mobile: string,
+    type: VerifyCodeType = VerifyCodeType.MOBILE,
+  ): Promise<any> {
+    return this.request.post("/user/verification/send", { mobile, type });
   }
 
   verifyPhone(data: VerifyPhoneInput): Promise<ResponseType<User>> {
@@ -212,9 +224,7 @@ class Api extends Request {
     });
   };
 
-  getShippingMethods = (): Promise<
-    ResponseType<{ data: ShippingMethod[] }>
-  > => {
+  getShippingMethods = () => {
     return this.request.get<{ data: ShippingMethod[] }>("/user/shop/shipping");
   };
 
@@ -440,7 +450,7 @@ class Api extends Request {
     return this.request.get("/user/v1/package/favorite", {
       params: { page },
     });
-  }
+  };
 
   getLiveChatInformation = (): Promise<
     ResponseType<{ data: LiveChatInformation }>
@@ -578,18 +588,18 @@ class Api extends Request {
     });
   }
 
-    reportDiseaseError = (
+  reportDiseaseError = (
     text: string,
-    productId: number
+    productId: number,
   ): Promise<ResponseType<{ message: string }>> => {
     return this.request.post(`/user/v1/clinic/error/report`, {
       report: text,
       id: productId,
     });
   };
-    reportMedicineError = (
+  reportMedicineError = (
     text: string,
-    productId: number
+    productId: number,
   ): Promise<ResponseType<{ message: string }>> => {
     return this.request.post(`/user/v1/medicine/error/report`, {
       report: text,
@@ -629,6 +639,51 @@ class Api extends Request {
   removeContentFavorite = (id: number): Promise<any> => {
     return this.request.delete(`/user/v1/package/favorite/${id}`);
   };
+
+  //Dr Pro
+  getDrProPlansList(): Promise<ResponseType<{ data: PlanItem[] }>> {
+    return this.request.get<{ data: PlanItem[] }>("/user/v1/dr_pro/list");
+  }
+  getDrProExplanation(): Promise<ResponseType<{ data: ExplanationItem[] }>> {
+    return this.request.get<{ data: ExplanationItem[] }>(
+      "/user/v1/dr_pro/explanation",
+    );
+  }
+  getDrProActivePlan(): Promise<ResponseType<{ data: DrProActivePlan }>> {
+    return this.request.get<{ data: DrProActivePlan }>(
+      "/user/v1/dr_pro/active",
+    );
+  }
+  checkDrProDiscountCode(data: {
+    discount_code: string;
+    plan_id: number;
+  }): Promise<ResponseType<{ data: DiscountCodeResponse }>> {
+    return this.request.post<{ data: DiscountCodeResponse }>(
+      "/user/v1/dr_pro/order/check/code",
+      data,
+    );
+  }
+  createDrProOrder(data: {
+    discount_code_id: number;
+    id: number;
+    use_credit: number;
+  }): Promise<ResponseType<CreateDrProOrderResponse>> {
+    return this.request.post<CreateDrProOrderResponse>(
+      "/user/v1/dr_pro/order",
+      data,
+    );
+  }
+  createDrProSnappPayOrder(data: {
+    discount_code_id: number;
+    id: number;
+    use_credit: number;
+    provider: PaymentProviders.SNAPP_PAY;
+  }): Promise<ResponseType<CreateDrProOrderResponse>> {
+    return this.request.post<CreateDrProOrderResponse>(
+      "/user/v1/dr_pro/order/installment",
+      data,
+    );
+  }
 }
 
 export const api = new Api();

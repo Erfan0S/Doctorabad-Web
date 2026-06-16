@@ -8,6 +8,7 @@ import { homeViewPort } from "@repo/core/metadata/home";
 import { homeMetadata } from "@/metadata/home";
 import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { SharedHeadContents } from "@repo/shared_modules";
+import InsuranceComingSoonGate from "@/components/InsuranceComingSoonGate";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
@@ -29,10 +30,7 @@ export default function RootLayout({
       <body className={font.className}>
         <div className="root">
           <Providers>
-            <div className="learn-container">
-              <main>{children}</main>
-              <MobileNavBar onlyOnMobile={false} />
-            </div>
+            <InsuranceComingSoonGate />
           </Providers>
         </div>
       </body>

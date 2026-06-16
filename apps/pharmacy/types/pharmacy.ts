@@ -3,6 +3,10 @@ export interface Medicine {
   title_fa?: string;
   title_en?: string;
   picture: string;
+  shape_coding: ShapeCoding | never[];
+}
+interface ShapeCoding {
+  [key: string]: string;
 }
 export interface PaginationLinks {
   first: string | null;
@@ -99,6 +103,7 @@ export interface MedicineDetails {
     title: string;
     parent: number | null;
   }[];
+  shape_coding: ShapeCoding | never[];
   files: {
     id: number;
     file: string;

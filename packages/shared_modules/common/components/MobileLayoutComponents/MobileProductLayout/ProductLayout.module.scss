@@ -57,12 +57,13 @@
   height: 250px;
 }
 
-.producte-title {
+.product-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
   justify-content: center;
   margin: 15px 0;
+  width: 100%;
 
   img {
     border: 1px solid var(--app-base, $base-green);
@@ -72,7 +73,7 @@
     object-fit: cover;
     width: 100px;
     height: 44px;
-background: white;
+    background: white;
   }
 
   h1 {
@@ -92,7 +93,9 @@ background: white;
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15);
     height: 44px;
     line-height: 17px;
-    padding: 0 10px;
+    padding: 2px 10px;
+    height: auto;
+    min-height: stretch;
   }
 }
 

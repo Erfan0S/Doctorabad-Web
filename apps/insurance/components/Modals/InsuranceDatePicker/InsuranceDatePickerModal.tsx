@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ModalProps } from "@repo/core/types/modals";
-import { toGregorian } from "jalaali-js";
+import { toGregorian, toJalaali } from "jalaali-js";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import styles from "./InsuranceDatePickerModal.module.scss";
@@ -19,12 +19,13 @@ interface InsuranceDatePickerModalProps extends ModalProps {
 
 // --- Helpers ---
 const getYears = () => {
-  const currentYear = 1403;
-  const years = [];
-  for (let i = currentYear; i < currentYear + 20; i++) {
-    years.push(i);
-  }
-  return years;
+  const today = new Date();
+  const { jy: currentJYear } = toJalaali(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    today.getDate()
+  );
+  return [currentJYear -1, currentJYear , currentJYear +1];
 };
 
 const getMonths = () => [

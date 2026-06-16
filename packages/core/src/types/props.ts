@@ -9,7 +9,7 @@ export type ProductListItemProps = {
   title: string;
   id: string;
   pic_url?: string;
-  baseUrl: string;
+  baseUrl?: string;
   attributes?: {
     value?: string | number | React.ReactNode | null;
     icon?: React.ReactNode;
@@ -19,6 +19,8 @@ export type ProductListItemProps = {
   price_main?: number;
   price_off?: number;
   app?: Apps;
+  imageType?: "landscape" | "portrait" | "square" | "auto";
+  haveStock?: boolean;
 };
 
 // export type PackageListItemProps = {

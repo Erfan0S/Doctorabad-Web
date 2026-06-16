@@ -2,6 +2,9 @@
   "extends": "@repo/typescript-config/nextjs.json",
   "moduleResolution": "bundler",
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+
+    "noImplicitAny": false,
     "plugins": [
       {
         "name": "next"

@@ -3,7 +3,7 @@
 
 .mobileHeader {
   // display: none;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
   padding: 5px 0;
@@ -29,11 +29,18 @@
       font-size: smaller;
     }
   }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: space(2);
+    order: 1;
+  }
 }
 
 .buttons {
   display: flex;
-  order: 1;
+  order: 2;
   &Badge {
     position: absolute;
     background: $red;
@@ -73,6 +80,19 @@
       font-weight: 600;
     }
   }
+
+  .proButton {
+    border-color: $proGreen; 
+    span {
+      color: $proGreen;
+      font-size: 11px;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    svg {
+      fill: $proGreen;
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -94,4 +114,10 @@
       }
     }
   }
+}
+
+.drClubPoints{
+  color: $base-green;
+  font-weight: 700;
+  font-size: 0.9rem;
 }

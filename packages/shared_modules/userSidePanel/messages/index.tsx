@@ -24,6 +24,24 @@ const SidePanelMessages = ({ setPage }: SidePanelPageProps) => {
         };
       },
     );
+    queryClient.setQueryData(["messages_count"], (prev: any) => {
+      if (!prev) return prev;
+      try {
+        const prevCounter = prev?.data?.data?.counter ?? 0;
+        return {
+          ...prev,
+          data: {
+            ...prev.data,
+            data: {
+              ...prev.data.data,
+              counter: Math.max(0, prevCounter - 1),
+            },
+          },
+        };
+      } catch (e) {
+        return prev;
+      }
+    });
   };
 
   return (

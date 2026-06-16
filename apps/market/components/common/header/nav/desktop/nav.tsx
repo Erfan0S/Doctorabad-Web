@@ -1,37 +1,26 @@
 import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
-import { CategoryInList, CategoryList } from "@/types/category";
+import { CategoryList } from "@/types/category";
 import style from "../Nav.module.scss";
-import MenuItem from "./navItem";
+import DesktopNavItem from "./navItem";
 
 interface Props {
   navData: CategoryList;
 }
 
 const DesktopNav = ({ navData }: Props) => {
-  const recursivelyRenderChildren = (childrenData: CategoryInList) => {
-    const { id, title, children, avatar_file } = childrenData;
-
-    const componentProps = {
-      href: generateProductCategoryUrlFromId(id),
-      title,
-      ...(avatar_file && { image: avatar_file.info.path }),
-      ...(children && {
-        children: children.map((innerChildrenData) =>
-          recursivelyRenderChildren(innerChildrenData)
-        ),
-      }),
-    };
-    return <MenuItem {...componentProps} key={id} />;
-  };
-
   return (
-    <>
-      <nav className={style.nav}>
-        <ul>
-          {navData.map((menuItems) => recursivelyRenderChildren(menuItems))}
-        </ul>
-      </nav>
-    </>
+    <nav className={style.nav} aria-label="دسته‌بندی کالاها">
+      <ul className={style.navRoot} role="menubar">
+        {navData.map((category) => (
+          <DesktopNavItem
+            key={category.id}
+            item={category}
+            href={generateProductCategoryUrlFromId(category.id)}
+            level={1}
+          />
+        ))}
+      </ul>
+    </nav>
   );
 };
 

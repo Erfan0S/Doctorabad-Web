@@ -3,16 +3,10 @@ import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
-import {
-  autoPlayConfig,
-  swiperBreakpoints,
-} from "@repo/core/constants/sliders";
-import { Autoplay } from "swiper/modules";
 import { Apps } from "@repo/core/types/general";
 import ArrowLeft from "../../../../assets/svg/arrowLeft";
 import DiscountCountdown from "../../DiscountCountdown";
 import { useEffect, useRef, useState } from "react";
-import { isServerSide } from "@repo/core/constants/constants";
 
 interface Props {
   children: React.ReactNode;

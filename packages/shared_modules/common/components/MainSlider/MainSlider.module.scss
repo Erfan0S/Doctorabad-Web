@@ -1,9 +1,13 @@
 @import "@/assets/styles/functions";
 @import "@/assets/styles/variables";
 
+.mobile {
+  margin: 0.5rem 0;
+}
+
 .mainSlider {
-  margin: 5px 0;
-  margin-bottom: 15px;
+  // margin: 5px 0;
+  // margin-bottom: 15px;
   border-radius: radius(5);
   box-shadow: $card-box-shadow;
   position: relative;
@@ -49,14 +53,16 @@
 
   :global {
     .swiper-pagination-bullet {
-      width: 16px;
-      height: 16px;
+      width: 0.8rem;
+      height: 0.8rem;
       border: 2px solid var(--app-base, $base-green);
       background-color: #fff;
       opacity: 1;
 
       &.swiper-pagination-bullet-active {
         background-color: var(--app-base, $base-green);
+        width: 0.85rem;
+        height: 0.85rem;
       }
     }
   }

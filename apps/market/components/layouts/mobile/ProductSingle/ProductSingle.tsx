@@ -16,6 +16,9 @@ import ProductHeaderSuffix from "@/components/product/mobileLayout/ProductHeader
 import MobileProductVariantButton from "@/components/product/mobileLayout/MobileProductVariantButton";
 import ProductSlider from "@/components/product/intro/slider";
 import styles from "./ProductSingle.module.scss";
+import bundleProviderImagefrom from "@repo/shared_modules/images/bundel_provider.jpg";
+import { isBundledWithNonProducts } from "@/utils/isBundledWithNonProducts";
+import NoStockButton from "@/components/product/sidebar/price/NoStockButton";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -86,12 +89,15 @@ function MobileProductSingle({
             />
           </div>
         }
+        providerBaseUrl={marketPaths.mobileProviders}
         tabsData={TabsConfig(data, relatedProductList)}
         title={data.title || data.title_en || "____"}
         provider={{
-          id: data.provider.id,
-          name: data.provider.name,
-          img_url: data.provider.pic_url,
+          id: data.is_bundle ? undefined : data.provider.id,
+          name: data.is_bundle ? undefined : data.provider.name,
+          img_url: data.is_bundle
+            ? bundleProviderImagefrom.src
+            : data.provider.pic_url,
         }}
         tabParam={searchParams?.tab as string}
         productButtonProps={{
@@ -103,10 +109,15 @@ function MobileProductSingle({
           amazingPrice: data.price_amazing,
           productId: data.id,
           orderType: OrderType.ShopProduct,
-          canIncrease: true,
-          replaceButton: haveVariant ? (
-            <MobileProductVariantButton product={data} />
-          ) : undefined,
+          canIncrease: !isBundledWithNonProducts(data),
+          replaceButton:
+            data.quantity > 0 ? (
+              haveVariant ? (
+                <MobileProductVariantButton product={data} />
+              ) : undefined
+            ) : (
+              <NoStockButton productId={data.id} />
+            ),
         }}
         headerSuffix={<ProductHeaderSuffix product={data} />}
       />

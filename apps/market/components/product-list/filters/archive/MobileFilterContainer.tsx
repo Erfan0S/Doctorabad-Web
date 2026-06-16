@@ -129,7 +129,7 @@ function MobileFilterContainer() {
   ];
 
   return (
-    <div className="container">
+    <div className="col">
       <SelectFilterQroup app={Apps.MARKET} items={items} />
       <div style={{ marginTop: "10px" }}>
         <OptionSwitch

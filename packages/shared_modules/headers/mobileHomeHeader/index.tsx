@@ -6,19 +6,21 @@ import { MobileTabsConfig } from "@repo/core/types/configs";
 import SearchBar, { SearchBarProps } from "../../common/components/SearchBar";
 
 interface Props extends SearchBarProps {
-  tabData: MobileTabsConfig[];
+  tabData?: MobileTabsConfig[];
   children?: React.ReactNode;
   type?: Apps;
   defaultTab?: string;
   haveSearch?: boolean;
+  haveTabLoading?: boolean;
 }
 
 function MobileHomeHeader({
   tabData,
   children,
   type = Apps.BASE,
-  defaultTab = tabData[0].id,
+  defaultTab = tabData ? tabData[0].id : undefined,
   haveSearch = false,
+  haveTabLoading,
   ...rest
 }: Props) {
   return (
@@ -27,7 +29,14 @@ function MobileHomeHeader({
         <div className={styles.childContainer}>
           <MobileHeaderBase type={type} />
         </div>
-        <TabsController tabData={tabData} defaultTab={defaultTab} app={type} />
+        {tabData && (
+          <TabsController
+            tabData={tabData}
+            defaultTab={defaultTab}
+            app={type}
+            haveLoading={haveTabLoading}
+          />
+        )}
       </div>
       {haveSearch && (
         <div className={styles.childContainer}>

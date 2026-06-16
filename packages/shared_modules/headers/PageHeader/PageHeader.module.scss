@@ -15,6 +15,12 @@ html .sidePanelHeaderContainer .baseColor {
   width: 100%;
   background-color: white;
 
+  &.dr-pro {
+    .sidePanelHeader {
+      background: $proGreen;
+    }
+  }
+
   .sidePanelHeader {
     margin-right: auto;
     display: flex;

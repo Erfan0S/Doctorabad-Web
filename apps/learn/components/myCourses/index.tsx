@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
-import CourseList from "../common/CourseList";
+import React from "react";
+import CourseList, { productData } from "../common/CourseList";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { CourseListItemType } from "@/types/courses";
@@ -12,11 +12,14 @@ import styles from "./myCourses.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import Loading from "../common/Loading";
-import { Button, UserPlanItem } from "@repo/shared_modules/components";
+import {
+  Button,
+  ProductListItem,
+  UserPlanItem,
+} from "@repo/shared_modules/components";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
-import CourseListItem from "../common/CourseList/CourseListItem";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
@@ -99,11 +102,13 @@ export const MyCourses = () => {
       if (planLoading || courseLoading) return <Loading />;
       return (
         !!courseData?.data.data &&
-        courseData?.data.data.map((course) => (
-          <Link href={`/course/${course.id}`} key={course.id}>
-            <CourseListItem course={course} />
-          </Link>
-        ))
+        courseData?.data.data.map((course) => {
+          return (
+            <Link href={`/course/${course.id}`} key={course.id}>
+              <ProductListItem {...productData(course)} />
+            </Link>
+          );
+        })
       );
     }
   };

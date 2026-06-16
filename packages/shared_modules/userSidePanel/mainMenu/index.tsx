@@ -3,7 +3,8 @@ import { sidePanelMenuData } from "./menu-data";
 import Image from "next/image";
 import style from "./SidePanelMainMenu.module.scss";
 // @ts-ignore
-import footerImage from "../../assets/img/login.jpg";
+import footerImage from "../../assets/img/DA-Success.png";
+import footerImageOpen from "../../assets/img/DA-Open.png";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import SidePanelHeader from "../header";
@@ -13,6 +14,7 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { modalActions } from "@repo/core/modal/modals";
 import { Loading } from "@repo/shared_modules/components";
 import { ModalTypes } from "../../common/modal/modalsTypes";
+import { useState } from "react";
 
 const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { data: profile, isLoading } = useQuery({
@@ -26,6 +28,13 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
     queryKey: ["messages_count"],
     retry: 1,
   });
+    const [imageSrc, setImageSrc] = useState(footerImage);
+
+  const toggleImageSrc = () => {
+    if (imageSrc == footerImage) {
+      setImageSrc(footerImageOpen);
+    } else setImageSrc(footerImage);
+  };
 
   if (isLoading)
     return (
@@ -35,6 +44,7 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
     );
 
   const userInfo = profile?.data.data;
+
 
   return (
     <div className={style.sidePanelMainMenu}>
@@ -86,7 +96,7 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
         })}
       </div>
       <div className={style.sidePanelMainMenuImage}>
-        <Image src={footerImage} alt="footerImage" />
+        <Image onClick={toggleImageSrc} src={imageSrc} alt="footerImage" />
       </div>
     </div>
   );

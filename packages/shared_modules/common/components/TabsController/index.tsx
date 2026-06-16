@@ -11,12 +11,14 @@ interface Props {
   app?: Apps;
   className?: string;
   defaultTab?: string;
+  haveLoading?: boolean;
 }
 const TabsControllerContent: React.FC<Props> = ({
   tabData,
   className,
   defaultTab,
   app = Apps.BASE,
+  haveLoading,
 }) => {
   const params = useSearchParams();
   const pathname = usePathname();
@@ -36,6 +38,7 @@ const TabsControllerContent: React.FC<Props> = ({
                 ? params?.get("tab") == data.id || pathname === data?.url
                 : data.id === defaultTab
             }
+            haveLoading={haveLoading}
           />
         ))}
       </ul>

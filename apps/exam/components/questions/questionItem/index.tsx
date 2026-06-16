@@ -48,7 +48,7 @@ const buttons = (
           isFavorite={isFavorite}
           app={Apps.EXAM}
           icon={<BookMarkIcon />}
-          filledIcon={<BookMarkIcon />}
+          filledIcon={<BookMarkIcon className={styles.filledBookMark} />}
         />
       ),
     },

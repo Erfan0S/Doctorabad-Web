@@ -12,6 +12,8 @@ import HeartIcon from "../../assets/svg/heart";
 import ProfileIcon from "../../assets/svg/profile";
 import { FC } from "react";
 import Image from "next/image";
+import HeadphoneIcon from "../../../shared_modules/assets/svg/headphone";
+
 
 interface SidePanelMenuItem {
   id: number;
@@ -31,7 +33,7 @@ export const sidePanelMenuData: SidePanelMenuItem[] = [
   {
     id: 2,
     title: "پشتیبانی",
-    Icon: ChatIcon,
+    Icon: HeadphoneIcon,
     href: SidePanelPage.SUPPORT,
   },
   {

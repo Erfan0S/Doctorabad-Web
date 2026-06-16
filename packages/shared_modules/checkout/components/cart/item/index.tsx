@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
 import style from "./CartItem.module.scss";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import RecycleBin from "../../../../assets/svg/recycleBin";
-import { calcDiscountPercentage } from "../../../utils/calcDiscountPercentage";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { DiscountPlanType, Order, OrderType } from "@repo/core/types/cart";
@@ -14,6 +12,7 @@ import {
 import {
   ListProductSnappayNotif,
   Loading,
+  ProductPrice,
   QuantityProductButton,
 } from "../../../../common/components";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
@@ -26,10 +25,11 @@ import learnLogo from "@repo/shared_modules/images/doctor-learn.png";
 import clinicPlanLogo from "@repo/shared_modules/images/heart.png";
 // @ts-ignore
 import marketLogo from "@repo/shared_modules/images/doctor-market.png";
+// @ts-ignore
+import downloadLogo from "@repo/shared_modules/images/doctor-download.png";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
-import { useRouter } from "next/navigation";
 
 const CartItem = ({
   id,
@@ -46,8 +46,6 @@ const CartItem = ({
   discount_plan_type,
   draft,
 }: Order) => {
-  const router = useRouter();
-
   const getInsuranceSlug = () => {
     return generateInsuranceSlug({
       product_id,
@@ -82,6 +80,10 @@ const CartItem = ({
     product_type === OrderType.DiscountPlan &&
     discount_plan_type === DiscountPlanType.CLINIC;
   const isMarket = product_type === OrderType.ShopProduct;
+  const isDownload = product_type === OrderType.Package;
+
+  // TODO: refactor multiple app handling
+
   const description = (): string | null => {
     if (isExam) {
       return "مرکز آزمون";
@@ -91,6 +93,8 @@ const CartItem = ({
       return "کلینیک من";
     } else if (isMarket) {
       return "مرکز خرید";
+    } else if (isDownload) {
+      return "مرکز محتوا";
     }
     return null;
   };
@@ -104,8 +108,21 @@ const CartItem = ({
       return marketLogo;
     } else if (isClinic) {
       return clinicPlanLogo;
+    } else if (isDownload) {
+      return downloadLogo;
     }
     return placeHolderDataUrl;
+  };
+
+  const imageType = () => {
+    if (isExam || isMarket || isClinic) {
+      return "square";
+    } else if (isLearn) {
+      return "landscape";
+    } else if (isDownload) {
+      return "portrait";
+    }
+    return "auto";
   };
 
   const onClickHandler = (e: any) => {
@@ -116,6 +133,8 @@ const CartItem = ({
       });
     }
   };
+
+  // TODO: continue from here
 
   return (
     <div
@@ -134,10 +153,7 @@ const CartItem = ({
             width={0}
             height={0}
             sizes="100vw"
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
+            className={!!product_pic ? style[imageType()] : style.square}
           />
         </a>
       </div>
@@ -152,30 +168,16 @@ const CartItem = ({
         </div>
 
         <div className={style.cartItemFooter}>
-          <div className={style.cartItemPrice}>
-            {(!!price_off || price_amazing) && (
-              <div className="off-price-wrapper">
-                <small>
-                  ٪
-                  {calcDiscountPercentage(
-                    price_main,
-                    price_amazing || price_off,
-                  )}
-                </small>
-                <span>{priceFormatter(price_main)}</span>
-              </div>
-            )}
-            <div>
-              {price_main ? (
-                <>
-                  {priceFormatter(price_amazing || price_off || price_main)}
-                  <small>تومن</small>
-                </>
-              ) : (
-                "رایگان"
-              )}
-            </div>
-          </div>
+          {/* TODO: use general ProductPrice component */}
+          <ProductPrice
+            mainPrice={price_main}
+            offPrice={price_off}
+            amazingPrice={price_amazing}
+            app={Apps.BASE}
+            size={14}
+            colorVariant="simple"
+            className={style.cartItemPrice}
+          />
           {canIncrease ? (
             <QuantityProductButton
               orderId={id}

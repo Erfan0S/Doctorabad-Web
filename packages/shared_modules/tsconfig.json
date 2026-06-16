@@ -1,5 +1,6 @@
 {
   "extends": "@repo/typescript-config/react-library.json",
+  "noImplicitAny": false,
   "plugins": [
     {
       "name": "s_m"

@@ -8,6 +8,7 @@ import {
   AddToCartButton,
   Button,
   FavoriteButton,
+  ProductPrice,
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import { OrderType } from "@repo/core/types/cart";
@@ -55,6 +56,12 @@ function SingleListItem({
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
+  const recommendationHandler = async () => {
+    modalActions.addModal(ModalTypes.BUY_RECOMMENDATION, { exam: item });
+  };
+
+  console.log(item);
+
   return (
     <div
       className={`${style.singleItem} card ${isSidePanel ? style.singleItemSidePanel : ""}`}
@@ -73,60 +80,65 @@ function SingleListItem({
           <span>{item.date}</span>
           <span>{item.place}</span>
         </div>
-        {haveFavoriteButton && (
-          <FavoriteButton
-            initialState={!!item.favorite}
-            action={() => {
-              return api.examSingleExamFavorite(item.id, !item.favorite);
-            }}
-            app={Apps.EXAM}
-            className={style.favoriteButton}
-          />
-        )}
       </div>
       <div>
         <div className={style.singleItemPriceWrapper}>
-          <span className={style.singleItemPrice}>
-            {item.main_price
-              ? `${priceFormatter(item.main_price)} تومن`
-              : "رایگان"}
-            {item.installment_text && isShowInstallmentText && (
-              <ProductSnappayNotif
-                text={item.installment_text}
-                className={style.installmentPayment}
-              />
-            )}
-          </span>
-        </div>
-        {hasAccess ? (
-          <div className={style.singleItemAccessButtons}>
-            <Button
-              onClick={() => {
-                router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`);
-                setTimeout(() => {
-                  modalActions.clearModals();
-                }, 100);
-              }}
-            >
-              ورود
-            </Button>
-            <Button
-              app={Apps.EXAM}
-              onClick={() => {
-                modalActions.addModal(ModalTypes.EXAM_START, { exam: item });
-              }}
-            >
-              شروع آزمون
-            </Button>
-          </div>
-        ) : (
-          <AddToCartButton
+          <ProductPrice
+            mainPrice={item.main_price}
+            offPrice={item.off_price}
             app={Apps.EXAM}
-            id={item.id}
-            type={OrderType.Exam}
-            isColumn={isSidePanel || isMobile}
+            size={15}
+            className={style.singleItemPrice}
           />
-        )}
+          {item.installment_text && isShowInstallmentText && (
+            <ProductSnappayNotif
+              text={item.installment_text}
+              className={style.installmentPayment}
+            />
+          )}
+        </div>
+        <div className={style.singleItemButtons}>
+          {haveFavoriteButton && (
+            <FavoriteButton
+              initialState={!!item.favorite}
+              action={() => {
+                return api.examSingleExamFavorite(item.id, !item.favorite);
+              }}
+              app={Apps.EXAM}
+              className={style.favoriteButton}
+            />
+          )}
+          {hasAccess ? (
+            <div className={style.singleItemAccessButtons}>
+              <Button
+                onClick={() => {
+                  router.push(`${baseUrls.exam}${examPaths.single}/${item.id}`);
+                  setTimeout(() => {
+                    modalActions.clearModals();
+                  }, 100);
+                }}
+              >
+                ورود
+              </Button>
+              <Button
+                app={Apps.EXAM}
+                onClick={() => {
+                  modalActions.addModal(ModalTypes.EXAM_START, { exam: item });
+                }}
+              >
+                شروع آزمون
+              </Button>
+            </div>
+          ) : (
+            <AddToCartButton
+              app={Apps.EXAM}
+              id={item.id}
+              type={OrderType.Exam}
+              isColumn={isSidePanel || isMobile}
+              onClick={recommendationHandler}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,21 +1,17 @@
 "use client";
 
-import { useRouter, useParams, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styles from "./ToolsHeader.module.scss";
-import BackArrow from "@/assets/svg/backArrow";
 import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
-import BugIcon from "@/assets/svg/bug";
 import { HeaderType } from "@/types/tools";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { modalActions } from "@repo/core/modal/modals";
-import { Apps } from "@repo/core/types/general";
-// ایمپورت هوک لوکال
+
 import { useFavorites } from "@/hooks/useFavorites";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import { ToolDataType } from "@/types/tools";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+import {baseUrls} from "@repo/core/constants/routePath";
 
 
 interface ToolsHeaderProps {
@@ -38,7 +34,6 @@ export default function ToolsHeader({
   // بررسی وضعیت فیوریت بودن ابزار فعلی (اگر toolId وجود داشته باشد)
   const isFav = toolData?.id ? isFavorite(toolData.id) : false;
     const navHistory = useNavigationHistory();
-
 
 
 
@@ -98,7 +93,7 @@ export default function ToolsHeader({
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => navHistory.goBack()}>
+          <div className={styles.backBtn} onClick={() => navHistory.goBack(baseUrls.base)}>
             <BackIcon></BackIcon>
           </div>
         </div>

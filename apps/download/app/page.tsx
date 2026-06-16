@@ -1,6 +1,6 @@
 import { api } from "@/api/Api";
 import HomeHeader from "@/components/Header/HomeHeader";
-import MainPage from "@/components/LearnHome";
+import MainPage from "@/components/DownloadHome";
 import { Apps } from "@repo/core/types/general";
 import { MainSlider } from "@repo/shared_modules/components";
 import { Banner } from "@/types/banner";

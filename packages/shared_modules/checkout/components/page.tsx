@@ -5,7 +5,7 @@ import Cart from "./cart";
 import Pay from "./pay";
 import Shipping from "./shipping";
 import { cartActions, useCart } from "@repo/core/states/cart";
-import { OrderType, ShippingMethod } from "@repo/core/types/cart";
+import { OrderType, ShippingAddress, ShippingMethod } from "@repo/core/types/cart";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -51,7 +51,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
   }, []);
   const { data: cartItems } = useCart();
 
-  const addressData = address?.data.data?.find((address) => address.default);
+  const addressData = address?.data.data?.find((address: ShippingAddress) => address.default);
 
   const shippingMutation = useMutation({
     mutationFn: (data: ShippingMethod) => {
@@ -109,13 +109,14 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
         onBack={() => {
           const redirectApp = searchParams?.get(REDIRECTED_APP_KEY) as Apps;
           const backUrl =
-            searchParams?.get("prev") || !!redirectApp
+            searchParams?.get("prev") ||
+            (!!redirectApp && !!baseUrls[redirectApp]
               ? baseUrls[redirectApp]
-              : baseUrls.base;
+              : baseUrls.base);
           router.push(backUrl);
         }}
         title="سبد خرید"
-        className={`${styles.checkoutHeader} ${mobileView && styles.headerMobileView} container`}
+        className={`${styles.checkoutHeader} ${mobileView ? styles.headerMobileView : ""}`}
       />
 
       <div

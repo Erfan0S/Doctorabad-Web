@@ -84,6 +84,7 @@ const OptionSwitch = ({
   return (
     <>
       <li className={`${style.options} ${className} ${style[app]}`}>
+        
         <label htmlFor={switchId}>{title}</label>
         <div className={style.optionsWrapper}>
           {isLoading ? (

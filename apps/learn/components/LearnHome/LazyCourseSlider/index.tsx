@@ -15,6 +15,7 @@ type ConfigsType = {
   archiveLink: string | null;
   queryKey: string;
   isRefetchOnAuth?: boolean;
+  needAuth?: boolean;
 };
 
 const Configs: Record<HomePageCourseSliders, ConfigsType> = {
@@ -32,6 +33,7 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
     archiveLink: "/my_course",
     queryKey: "my-courses",
     isRefetchOnAuth: true,
+    needAuth: true,
   },
   [HomePageCourseSliders.Suggested]: {
     loader: async () => (await api.getSuggestedCourses()).data,
@@ -59,6 +61,7 @@ const Configs: Record<HomePageCourseSliders, ConfigsType> = {
     archiveLink: null,
     queryKey: "lastviewed-courses",
     isRefetchOnAuth: true,
+    needAuth: true,
   },
 };
 
@@ -71,6 +74,7 @@ export default function LazyCourseSlider({ type }: Props) {
       queryKey={Configs[type].queryKey}
       returnOnError
       isRefetchOnAuth={Configs[type].isRefetchOnAuth}
+      needAuth={Configs[type].needAuth}
       component={(d) => {
         return (
           <CourseSlider
@@ -78,6 +82,7 @@ export default function LazyCourseSlider({ type }: Props) {
             archiveLink={Configs[type].archiveLink || undefined}
             data={d.data.data}
             amazingTime={(d.data as any).amazing_time as string | undefined}
+            isMyCourses={type === HomePageCourseSliders.MyCourses}
           />
         );
       }}

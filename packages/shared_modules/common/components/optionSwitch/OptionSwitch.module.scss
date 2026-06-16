@@ -11,6 +11,10 @@
   font-size: 15px;
   margin-bottom: space(1);
   list-style: none;
+    &.pro {
+  --app-base: #{$proGreen};
+
+  }
 
   label {
     cursor: pointer;

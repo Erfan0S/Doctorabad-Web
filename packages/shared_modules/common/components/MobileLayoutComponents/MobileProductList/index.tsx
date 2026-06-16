@@ -40,10 +40,11 @@ const ProductList = ({
         loader={<Loading app={app} />}
       >
         {products.map((p) => {
-          const productBaseUrl = baseUrls[p.app || app] || "";
+          const itemApp = p.app || app;
+          const productBaseUrl = baseUrls[itemApp] || "";
           return (
             <Link href={`${productBaseUrl}/${p.baseUrl}/${p.id}`} key={p.id}>
-              <MobileProductListItem {...p} />
+              <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {}) } {...p} />
             </Link>
           );
         })}

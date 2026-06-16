@@ -22,6 +22,7 @@ const HomeLearn = async () => {
           banners={mainBanners || []}
           swiperOptions={{ spaceBetween: 0 }}
           app={Apps.LEARN}
+          isMobileLayout
         />
       )}
       <MainPage />

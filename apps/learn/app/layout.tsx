@@ -24,7 +24,7 @@ const font = localFont({
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = homeMetadata;
-export const viewPort: Viewport = homeViewPort;
+export const viewport: Viewport = homeViewPort;
 
 export default async function RootLayout({
   children,
@@ -40,7 +40,7 @@ export default async function RootLayout({
         <div className="root">
           <Providers>
             <Suspense fallback={<div></div>}>
-              <div className="learn-container">
+              <div className="mobile-container">
                 <main>{children}</main>
                 <MobileNavBar
                   onlyOnMobile={false}

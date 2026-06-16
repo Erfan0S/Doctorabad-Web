@@ -5,6 +5,9 @@ import videojs from "video.js";
 import styles from "./VideoQualitySelector.module.scss";
 import { font } from "@/assets/fonts/font";
 
+
+// TODO: add type to variables in this component
+
 export const VideoQualitySelector = ({
   data,
   closeModal,
@@ -32,7 +35,7 @@ export const VideoQualitySelector = ({
     closeModal();
   };
   const getQualityLevelnodes = () => {
-    const nodes = [];
+    const nodes: any = [];
     // use for of loop
     for (const level of qualityLevels) {
       nodes.push(

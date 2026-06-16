@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { pharmacyApi } from "@/api/Api";
-import { MedicineCategory } from "@/types/pharmacy";
+import { MedicineCategory, MedicineTreatment } from "@/types/pharmacy";
 import styles from "./categories.module.scss";
 import LeftArrow from "@/assets/svg/leftArrow";
 import DownArrow from "@/assets/svg/downArrow";
@@ -29,9 +29,7 @@ function setOpenCategoryIds(ids: number[]) {
 }
 
 export default function Categories() {
-  
-
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<MedicineCategory[]>({
     queryKey: ["medicine-categories"],
     queryFn: async () => (await pharmacyApi.getMedicineCategories()).data.data,
   });
@@ -43,16 +41,14 @@ export default function Categories() {
 
   return (
     <div className={styles.container}>
-      {data?.map((cat) => (
-        <CategoryItem key={cat.id} category={cat} />
-      ))}
+      {data?.map((cat) => <CategoryItem key={cat.id} category={cat} />)}
     </div>
   );
 }
 
 function CategoryItem({ category }: { category: MedicineCategory }) {
   const [open, setOpenState] = useState(() =>
-    getOpenCategoryIds().includes(category.id)
+    getOpenCategoryIds().includes(category.id),
   );
 
   const setOpen = (value: boolean) => {
@@ -65,20 +61,20 @@ function CategoryItem({ category }: { category: MedicineCategory }) {
     }
   };
 
-  const { data: children, isLoading } = useQuery({
+  const { data: children, isLoading } = useQuery<MedicineCategory[]>({
     queryKey: ["medicine-children", category.id],
     queryFn: async () =>
       (await pharmacyApi.getMedicineChildren(category.id)).data.data,
     enabled: open && category.has_children,
   });
 
-  const { data: treatments, isLoading: loadingTreatments } = useQuery({
+  const { data: treatments, isLoading: loadingTreatments } = useQuery<MedicineTreatment[]>({
     queryKey: ["medicine-treatments", category.id],
     queryFn: async () =>
       (await pharmacyApi.getMedicineTreatments(category.id)).data.data,
     enabled: open && !category.has_children,
   });
-const router = useRouter();
+  const router = useRouter();
   return (
     <div className={styles.item}>
       <div
@@ -109,9 +105,7 @@ const router = useRouter();
             <div className={styles.treatments}>
               {treatments?.map((drug) => (
                 <div
-                  onClick={authorizeClientAction(() =>
-                    router.push(`/medicine/${drug.id}`)
-                  )}
+                  onClick={() => router.push(`/medicine/${drug.id}`)}
                   key={drug.id}
                   className={styles.treatment}
                 >

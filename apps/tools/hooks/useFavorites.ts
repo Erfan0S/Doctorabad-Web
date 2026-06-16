@@ -45,5 +45,5 @@ export const useFavorites = () => {
 
   const isFavorite = (toolId: string) => favorites.includes(toolId);
 
-  return { favorites, toggleFavorite, isFavorite, isLoaded };
+  return { favorites, toggleFavorite,  isFavorite, isLoaded };
 };

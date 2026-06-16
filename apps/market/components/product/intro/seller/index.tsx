@@ -4,6 +4,7 @@ import { SingleProduct } from "@repo/core/types/product";
 import { generateSingleProviderUrlFromId } from "@repo/core/utils/UrlUtils";
 import Image from "next/image";
 import Link from "next/link";
+
 interface Props {
   seller: SingleProduct["provider"];
 }
@@ -16,8 +17,16 @@ const ProductSeller: React.FC<Props> = ({ seller }) => {
         <Image fill src={pic_url || placeHolderDataUrl} alt="sellerImage" />
       </div>
       <div className={style.productSellerContent}>
-        <small>فروشنده:</small>
-        <Link href={generateSingleProviderUrlFromId(id)}>{name}</Link>
+        {name ? (
+          <>
+            <small>فروشنده:</small>
+            {id ? (
+              <Link href={generateSingleProviderUrlFromId(id)}>{name}</Link>
+            ) : (
+              <span>{name}</span>
+            )}
+          </>
+        ) : null}
       </div>
     </div>
   );

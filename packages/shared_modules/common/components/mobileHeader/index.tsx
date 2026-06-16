@@ -15,6 +15,8 @@ import HomeIcon from "../../../assets/svg/home";
 import ChatIcon from "../../../assets/svg/chat";
 import QrScannerIcon from "../../../assets/svg/qrScanner";
 import CartIcon from "../../../assets/svg/cart";
+import PlansIcon from "../../../assets/svg/plans";
+import ProTag from "../proTag";
 import { useRouter } from "next/navigation";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { useEffect } from "react";
@@ -22,6 +24,10 @@ import { SidePanelPage } from "@repo/core/types/sidePanel";
 import getCurrentAppName from "@repo/core/utils/getCurrentAppName";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import { isServerSide } from "@repo/core/constants/constants";
+import { baseUrls, routePath } from "@repo/core/constants/routePath";
+import DrClubIcon from "../../../assets/svg/drClub";
+import HeadphoneIcon from "../../../assets/svg/headphone";
+
 
 type Props = {
   type: Apps;
@@ -38,6 +44,24 @@ const MobileHeader = ({ type }: Props) => {
     retry: 1,
   });
 
+  const { data: activePlanData, isSuccess: isActivePlanSuccess } = useQuery({
+    queryFn: () => api.getDrProActivePlan(),
+    queryKey: ["active_plan"],
+    enabled: !!isUserLoggedIn(),
+    retry: 1,
+  });
+  const { data: userCoinPoints, isLoading: userCoinPointsLoading } = useQuery({
+    queryFn: api.getUserCoinPoints,
+    queryKey: ["user_coin_points"],
+    enabled: !!isUserLoggedIn(),
+
+    retry: 1,
+  });
+
+  const isPro =
+    isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
+  console.log(activePlanData);
+
   // const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
   //   queryFn: api.getUserClubInfo,
   //   queryKey: ["user_club_info"],
@@ -47,7 +71,7 @@ const MobileHeader = ({ type }: Props) => {
 
   const openSideMenu = (menu: SidePanelPage) =>
     authorizeClientAction(() =>
-      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu })
+      modalActions.addModal(ModalTypes.SIDE_PANEL, { initialPage: menu }),
     );
 
   useEffect(() => {
@@ -56,7 +80,10 @@ const MobileHeader = ({ type }: Props) => {
 
   return (
     <div className={`${style.mobileHeader} ${style[type]}`}>
-      <Logo />
+      <div className={style.left}>
+        <Logo />
+        <ProTag active={isPro} />
+      </div>
       <div className={style.buttons}>
         <button onClick={openSideMenu(SidePanelPage.MAIN)}>
           <HomeIcon />
@@ -64,13 +91,13 @@ const MobileHeader = ({ type }: Props) => {
             <span className={style.buttonsBadge}>{data.data.data.counter}</span>
           )}
         </button>
-        <button
+        {/* <button
           onClick={authorizeClientAction(() =>
-            modalActions.addModal(ModalTypes.QR_CONTENTS)
+            modalActions.addModal(ModalTypes.QR_CONTENTS),
           )}
         >
           <QrScannerIcon />
-        </button>
+        </button> */}
         <button
           onClick={() =>
             modalActions.addModal(ModalTypes.SIDE_PANEL, {
@@ -79,7 +106,7 @@ const MobileHeader = ({ type }: Props) => {
             })
           }
         >
-          <ChatIcon />
+          <HeadphoneIcon />
         </button>
         {/* <button onClick={openSideMenu(SidePanelPage.CLUB)}>
           <Image src={coin} alt="coin" width={25} height={25} />
@@ -97,6 +124,15 @@ const MobileHeader = ({ type }: Props) => {
         >
           <CartIcon />
           {cart.count > 0 && <span>{cart.count}</span>}
+        </button>
+        <button
+          onClick={openSideMenu(SidePanelPage.CLUB)}
+          className={style.cartButton}
+        >
+          <DrClubIcon />
+          <div className={style.drClubPoints}>
+            {userCoinPoints?.data.data.coin_sum}
+          </div>
         </button>
       </div>
     </div>

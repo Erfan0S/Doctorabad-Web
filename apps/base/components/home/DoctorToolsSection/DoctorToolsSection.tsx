@@ -10,6 +10,7 @@ import { api } from "@repo/shared_modules/api";
 import styles from "./DoctorToolsSection.module.scss";
 import "swiper/css";
 import { LeftArrow } from "@/assets/svg/leftArrow";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
 
@@ -26,10 +27,12 @@ export default function DoctorToolsSection() {
       let resolvedKey: string | null = null;
 
       try {
-        const response = await api.getUser();
-        const user = response.data.data;
-        if (user?.mobile) {
-          resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
+        if (isUserLoggedIn()) {
+          const response = await api.getUser();
+          const user = response.data.data;
+          if (user?.mobile) {
+            resolvedKey = `${user.mobile}_${STORAGE_SUFFIX}`;
+          }
         }
       } catch (e) {
         console.error("Error fetching user for tools storage:", e);
@@ -71,11 +74,9 @@ export default function DoctorToolsSection() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>دکتر تولز</h2>
-          <Link
-            href={toolsBaseUrl}
-            className={styles.viewMore}
-          >
-            مشاهده بیشتر<LeftArrow width={16} height={16} />
+          <Link href={toolsBaseUrl} className={styles.viewMore}>
+            مشاهده بیشتر
+            <LeftArrow width={16} height={16} />
           </Link>
         </div>
         <div className={styles.toolsWrapper}>
@@ -86,14 +87,17 @@ export default function DoctorToolsSection() {
           >
             {tools.map((tool) => (
               <SwiperSlide key={tool.id} className={styles.slide}>
+                {/* <div className={styles.toolCard}> */}
                 <Link
                   href={`${toolsBaseUrl}${tool.href}`}
                   className={`${styles.toolCard} ${styles[tool.colorClass] || styles.green}`}
                 >
-                  <span className={styles.iconChar}>{tool.iconChar}</span>
+                  <div className={styles.toolCard}>
+                    <div className={styles.iconChar}>{tool.iconChar}</div>
+                  </div>
                 </Link>
-                <span className={styles.toolTitle}>{tool.title}</span>
-
+                <div className={styles.toolTitle}>{tool.title}</div>
+                {/* </div> */}
               </SwiperSlide>
             ))}
           </Swiper>

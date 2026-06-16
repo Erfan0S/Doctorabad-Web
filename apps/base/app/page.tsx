@@ -8,10 +8,15 @@ import Statistics from "@/components/home/Statistics";
 import ServiceShortcuts from "@/components/home/ServiceShortcuts";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
-import HomeHeader from "@/components/headers/homeHeader";
+import { MobileHomeHeader } from "@repo/shared_modules/headers";
+
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
 import MainSliderSection from "@/components/home/mainSlider/MainSliderSection";
 import DoctorToolsSection from "@/components/home/DoctorToolsSection/DoctorToolsSection";
+import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
+import { Apps } from "@repo/core/types/general";
+import Footer from "../../../packages/shared_modules/common/components/footer";
+import DownloadAppBanner from "@/components/home/DownloadAppBanner";
 
 export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
@@ -22,25 +27,31 @@ export default async function Home() {
 
   return (
     <>
-      <HomeHeader />
+      <DiviceSwitchShell
+        desktop={null}
+        mobile={<MobileHomeHeader type={Apps.BASE} />}
+      />
+
       {isLoggedIn ? (
+        <>
+          <div>
+            <MainSliderSection />
+            <ServiceShortcuts />
+            <DoctorToolsSection />
+            <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
+            <BlogSlider
+              data={blogPosts}
+              title="دکترمگ"
+              archiveLink="https://doctorabad.com/mag"
+            />
+          </div>
+        </>
+      ) : (
         <>
           <MainSliderSection />
           <ServiceShortcuts />
           <DoctorToolsSection />
-          <BlogSlider
-            data={blogPosts}
-            title="دکترمگ"
-            archiveLink="https://doctorabad.com/mag"
-          />
-        </>
-      ) : (
-        <>
-          <Intro statistic={statistic} />
-          <Statistics statistic={statistic} />
-          {bigBannerData.map((item, index) => (
-            <BigBanner key={index} {...item} />
-          ))}
+          <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
           <BlogSlider
             data={blogPosts}
             title="دکترمگ"
@@ -49,6 +60,10 @@ export default async function Home() {
           <Companies list={ProvidersList} />
         </>
       )}
+      <DiviceSwitchShell
+        desktop={<Footer statistic={statistic} />}
+        mobile={null}
+      />
     </>
   );
 }

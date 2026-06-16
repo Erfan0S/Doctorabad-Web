@@ -49,14 +49,15 @@
 
   &Slider {
     position: relative;
+     padding: 0 6px;
     &:before {
       position: absolute;
       content: "";
-      left: space(-3.75);
+      // left: space(-3.75);
       top: 0;
       bottom: 0;
       z-index: 100;
-      width: space(3.75);
+      // width: space(3.75);
       background-color: #fff;
     }
     :global {

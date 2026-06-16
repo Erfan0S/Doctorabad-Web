@@ -1,29 +1,22 @@
 // components/InsuranceHeader/InsuranceHeader.tsx
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import styles from "./InsuranceHeader.module.scss";
 import BackIcon from "@/assets/svg/back";
 
 import { HeaderType } from "@/types/insurance";
-import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import { modalActions } from "@repo/core/modal/modals";
-import { Apps } from "@repo/core/types/general";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
+import { baseUrls } from "@repo/core/constants/routePath";
 
 interface InsuranceHeaderProps {
   title?: string;
   headerPageType: HeaderType;
 }
 
-export default function InsuranceHeader({
-  title = "",
-  headerPageType = HeaderType.OTHERS,
-}: InsuranceHeaderProps) {
-  const router = useRouter();
+export default function InsuranceHeader({ title = "" }: InsuranceHeaderProps) {
   const { id } = useParams();
-  const insuranceId = id ? Number(id) : undefined;
   const navHistory = useNavigationHistory();
 
   // برای صفحه جزئیات بیمه، داده را fetch می‌کنیم (در صورت نیاز)
@@ -39,9 +32,6 @@ export default function InsuranceHeader({
   // });
 
   // const isFavorite = insuranceData?.is_favorite ?? false;
-  const isFavorite = false;
-
-
 
   const { isLoading: shareLoading, shareProduct } = useShareProduct(
     async () => {
@@ -53,18 +43,17 @@ export default function InsuranceHeader({
     },
   );
 
-  const handleShareButton = () => {
-    shareProduct();
-  };
-
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.lefSideHeader}>
-            <div className={styles.backBtn} onClick={() => navHistory.goBack()}>
-              <BackIcon></BackIcon>
-            </div>
+          <div
+            className={styles.backBtn}
+            onClick={() => navHistory.goBack(baseUrls.base)}
+          >
+            <BackIcon></BackIcon>
+          </div>
         </div>
       </div>
     </header>

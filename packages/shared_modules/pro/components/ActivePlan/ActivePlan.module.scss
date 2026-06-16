@@ -1,0 +1,32 @@
+@import "@/assets/styles/variables";
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid $proGreen;
+  border-radius: 20px;
+  width: 100%;
+  padding: 3px 15px;
+}
+.title {
+  margin-top: 0.5rem;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+.noPlan {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: $red;
+  border-radius: 12px;
+  padding: 5px 24px;
+  color: white;
+}
+.activePlan {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: $green;
+  border-radius: 16px;
+  padding: 5px 24px;
+  color: white;
+}

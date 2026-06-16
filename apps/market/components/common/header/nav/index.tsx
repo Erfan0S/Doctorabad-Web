@@ -14,7 +14,7 @@ const Nav = ({ navData }: Props) => {
   const shouldRender = useClientComponentInitiated();
   const isMobile = useMediaQuery("max-width:1200px");
 
-  if (!shouldRender) return null;
+  if (!shouldRender) return <div />;
 
   return (
     <>

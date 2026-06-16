@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./PackageList.module.scss";
 import { InfiniteData } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
-import { ProductList } from "@repo/shared_modules/components";
+import { ProductList, ProductPrice } from "@repo/shared_modules/components";
 import { CoinIcon, HomeIcon } from "@repo/shared_modules/icons";
 import CalenderIcon from "@/assets/svg/calender";
 import DownloadIcon from "@/assets/svg/download";
@@ -49,22 +49,12 @@ export const productData = (
       {
         icon: <CoinIcon fontSize={16} />,
         value: (
-          <>
-            <div
-              style={{
-                textDecoration: package_item.off_price ? "line-through" : "",
-              }}
-            >
-              {!(package_item.main_price <= 0)
-                ? priceFormatter(package_item.main_price) + " تومن"
-                : "رایگان"}
-            </div>
-            {package_item.off_price ? (
-              <span style={{ color: "#006797" }}>
-                {priceFormatter(package_item.off_price)} تومن
-              </span>
-            ) : null}
-          </>
+          <ProductPrice
+            mainPrice={package_item.main_price}
+            offPrice={package_item.off_price}
+            size={12}
+            app={Apps.DOWNLOAD}
+          />
         ),
       },
       {
@@ -92,7 +82,7 @@ export const productData = (
 };
 
 const PackageList = ({ packages, fetchNextPage, hasNextPage }: Props) => {
-  const packageDataList = packages?.pages.flatMap((page) => page.data);
+  const packageDataList = packages?.pages?.flatMap((page) => page.data) || [];
 
   return (
     <div className={styles.relatedCoursesWrapper}>

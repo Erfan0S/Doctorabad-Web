@@ -1,4 +1,4 @@
-@import '@/assets/styles/functions';
+@import "@/assets/styles/functions";
 
 .productCommentsHeader {
   display: flex;
@@ -26,6 +26,7 @@
         top: 0;
         bottom: 0;
         overflow: hidden;
+        color: $orange;
       }
     }
     img,
