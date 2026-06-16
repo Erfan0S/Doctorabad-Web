@@ -18,6 +18,7 @@ type Props = {
   swiperOptions?: SwiperOptions;
   isLoading?: boolean;
   app?: Apps;
+  isMobileLayout?: boolean;
 };
 
 const MainSlider = ({
@@ -25,11 +26,14 @@ const MainSlider = ({
   swiperOptions = {},
   isLoading,
   app = Apps.BASE,
+  isMobileLayout = false,
 }: Props) => {
   if (!banners.length) return null;
 
   return (
-    <div className={`${style[app]} container`}>
+    <div
+      className={`${style[app]} container ${isMobileLayout ? style.mobile : ""}`}
+    >
       <div className={style.mainSlider}>
         <Swiper
           modules={[Pagination, Autoplay]}

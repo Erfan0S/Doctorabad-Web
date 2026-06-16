@@ -22,6 +22,7 @@ const MobileProductListItem = ({
   price_off,
   app,
   imageType = "auto",
+  haveStock = true,
 }: ProductListItemProps) => {
   const imageClassName = () => {
     switch (imageType) {
@@ -103,7 +104,7 @@ const MobileProductListItem = ({
             </div>
           </div>
         )}
-        {price_main && (
+        {price_main && haveStock && (
           <div className={styles.productPriceContainer}>
             <CoinIcon />
             <ProductPrice

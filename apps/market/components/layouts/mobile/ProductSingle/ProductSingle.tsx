@@ -18,6 +18,7 @@ import ProductSlider from "@/components/product/intro/slider";
 import styles from "./ProductSingle.module.scss";
 import bundleProviderImagefrom from "@repo/shared_modules/images/bundel_provider.jpg";
 import { isBundledWithNonProducts } from "@/utils/isBundledWithNonProducts";
+import NoStockButton from "@/components/product/sidebar/price/NoStockButton";
 
 const TabsConfig = (
   data: SingleProduct,
@@ -109,9 +110,14 @@ function MobileProductSingle({
           productId: data.id,
           orderType: OrderType.ShopProduct,
           canIncrease: !isBundledWithNonProducts(data),
-          replaceButton: haveVariant ? (
-            <MobileProductVariantButton product={data} />
-          ) : undefined,
+          replaceButton:
+            data.quantity > 0 ? (
+              haveVariant ? (
+                <MobileProductVariantButton product={data} />
+              ) : undefined
+            ) : (
+              <NoStockButton productId={data.id} />
+            ),
         }}
         headerSuffix={<ProductHeaderSuffix product={data} />}
       />

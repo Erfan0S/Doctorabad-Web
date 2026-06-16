@@ -35,6 +35,7 @@ function MobileMainPage({ sliders, ProvidersList, amazingProducts }: Props) {
               banners={sliders.filter((s) => s.location === 1) || []}
               swiperOptions={{ spaceBetween: 0 }}
               app={Apps.MARKET}
+              isMobileLayout
             />
           )}
           <div className="container" style={{ marginBottom: "20px" }}>

@@ -20,6 +20,7 @@ export type ProductListItemProps = {
   price_off?: number;
   app?: Apps;
   imageType?: "landscape" | "portrait" | "square" | "auto";
+  haveStock?: boolean;
 };
 
 // export type PackageListItemProps = {

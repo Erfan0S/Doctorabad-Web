@@ -30,12 +30,14 @@ function MobileProductListPage({ type }: { type: ProductListType }) {
 
   const PageHeaderChildren = () =>
     type == ProductListType.SEARCH ? (
-      <SearchBar
-        app={Apps.MARKET}
-        haveFilterButton={false}
-        searchKey={FilterParams.SEARCH}
-        customeSearchUrl={marketPaths.search}
-      />
+      <div className="col">
+        <SearchBar
+          app={Apps.MARKET}
+          haveFilterButton={false}
+          searchKey={FilterParams.SEARCH}
+          customeSearchUrl={marketPaths.search}
+        />
+      </div>
     ) : type == ProductListType.ARCHIVE ? (
       <MobileFilterContainer />
     ) : null;

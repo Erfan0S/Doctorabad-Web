@@ -64,8 +64,6 @@ const ProductList = ({
 
   if (!data?.pages[0].data.length) return <ArchiveEmptyState />;
 
-  console.log(data);
-
   return (
     <InfiniteScroll
       pageStart={1}
@@ -102,13 +100,14 @@ const ProductList = ({
                         imageType="square"
                         installmentPayment={product.installment_payment}
                         attributes={
-                          true
-                            ? [{ icon: <Hat />, value: "product.provider" }]
+                          !!product.provider
+                            ? [{ icon: <Hat />, value: product.provider }]
                             : []
                         }
                         pic_url={product.product_pic}
                         price_main={product.price_main}
                         price_off={product.price_amazing || product.price_off}
+                        haveStock={product.quantity > 0}
                       />
                     </Link>
                   </div>
