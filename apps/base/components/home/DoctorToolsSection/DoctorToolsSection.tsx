@@ -98,17 +98,17 @@ export default function DoctorToolsSection() {
             className={styles.swiper}
           >
             {tools.map((tool) => (
-              <SwiperSlide key={tool.id} className={styles.slide}>
+              <SwiperSlide key={tool?.id} className={styles.slide}>
                 {/* <div className={styles.toolCard}> */}
                 <Link
-                  href={`${toolsBaseUrl}${tool.href}`}
-                  className={`${styles.toolCard} ${styles[tool.colorClass] || styles.green}`}
+                  href={`${toolsBaseUrl}${tool?.href}`}
+                  className={`${styles.toolCard} ${styles[tool?.colorClass as string] || styles.green}`}
                 >
                   <div className={styles.toolCard}>
-                    <div className={styles.iconChar}>{tool.iconChar}</div>
+                    <div className={styles.iconChar}>{tool?.iconChar}</div>
                   </div>
                 </Link>
-                <div className={styles.toolTitle}>{tool.title}</div>
+                <div className={styles.toolTitle}>{tool?.title}</div>
                 {/* </div> */}
               </SwiperSlide>
             ))}
