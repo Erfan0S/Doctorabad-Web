@@ -101,6 +101,9 @@ const SidePanelFavoritesDownload: React.FC = () => {
 
   if (isLoading) return <Loading size={22} />;
 
+  if (data?.pages[0].data.length === 0)
+    return <span className="no_data">هیچ پکیجی یافت نشد!</span>;
+
   return (
     <ProductList
       products={packageDataList?.map((item) => productData(item))}

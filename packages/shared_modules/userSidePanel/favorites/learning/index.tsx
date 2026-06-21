@@ -25,6 +25,9 @@ const SidePanelFavoritesLearning: React.FC = () => {
 
   if (isLoading) return <Loading size={22} />;
 
+  if (data?.pages[0].data.length === 0)
+    return <span className="no_data">هیچ دوره‌ای یافت نشد!</span>;
+
   return (
     <CourseList
       courses={data}
