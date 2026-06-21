@@ -22,8 +22,7 @@ export const useHomePageTools = () => {
       let resolvedKey: string | null = null;
 
       try {
-        if (isUserLoggedIn()){
-
+        if (isUserLoggedIn()) {
           const response = await api.getUser();
           const user = response.data.data;
           if (user?.mobile) {
@@ -51,7 +50,7 @@ export const useHomePageTools = () => {
               .filter((id): id is string => typeof id === "string")
               .map((id) => id.replace(/-/g, "_"));
             setHomePageTools((prev) =>
-              Array.from(new Set([...normalized, ...prev]))
+              Array.from(new Set([...normalized, ...prev])),
             );
             setIsLoaded(true);
             return;
@@ -62,7 +61,7 @@ export const useHomePageTools = () => {
       }
 
       setHomePageTools((prev) =>
-        Array.from(new Set([...DEFAULT_TOOL_IDS, ...prev]))
+        Array.from(new Set([...DEFAULT_TOOL_IDS, ...prev])),
       );
       setIsLoaded(true);
     };
@@ -81,7 +80,7 @@ export const useHomePageTools = () => {
       if (prev.includes(toolId)) {
         return prev.filter((id) => id !== toolId);
       } else {
-        return [...prev, toolId];
+        return [toolId, ...prev];
       }
     });
   };

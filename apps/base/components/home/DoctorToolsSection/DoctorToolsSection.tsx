@@ -13,7 +13,7 @@ import { LeftArrow } from "@/assets/svg/leftArrow";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
-const DEFAULT_TOOL_IDS = ALL_TOOLS.slice(0, 5).map((tool) => tool.id);
+const DEFAULT_TOOL_IDS = ["uptodate", "gfr", "bmi", "pregnancy", "fena"];
 
 export default function DoctorToolsSection() {
   const [toolsToShow, setToolsToShow] = useState<string[]>();
@@ -60,7 +60,6 @@ export default function DoctorToolsSection() {
           console.error("Error parsing home page tools:", e);
         }
       }
-
       setToolsToShow(DEFAULT_TOOL_IDS);
       localStorage.setItem(resolvedKey, JSON.stringify(DEFAULT_TOOL_IDS));
     };
@@ -68,9 +67,18 @@ export default function DoctorToolsSection() {
     void init();
   }, []);
 
-const tools = ALL_TOOLS
-  .filter((t) => toolsToShow?.includes(t.id))
-  .reverse();
+  const customTools =
+    toolsToShow?.filter((id) => !DEFAULT_TOOL_IDS.includes(id)) ?? [];
+
+  const defaultTools = DEFAULT_TOOL_IDS.filter((id) =>
+    toolsToShow?.includes(id),
+  );
+
+  const orderedToolIds = [...customTools, ...defaultTools];
+
+  const tools = orderedToolIds
+    .map((id) => ALL_TOOLS.find((t) => t.id === id))
+    .filter(Boolean); // .reverse();
   const toolsBaseUrl = baseUrls[Apps.TOOLS];
 
   return (
