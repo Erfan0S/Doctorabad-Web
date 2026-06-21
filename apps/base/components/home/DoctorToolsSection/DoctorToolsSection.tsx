@@ -13,6 +13,7 @@ import { LeftArrow } from "@/assets/svg/leftArrow";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
+const DEFAULT_TOOL_IDS = ALL_TOOLS.slice(0, 5).map((tool) => tool.id);
 
 export default function DoctorToolsSection() {
   const [toolsToShow, setToolsToShow] = useState<string[]>();
@@ -60,20 +61,23 @@ export default function DoctorToolsSection() {
         }
       }
 
-      setToolsToShow([]);
+      setToolsToShow(DEFAULT_TOOL_IDS);
+      localStorage.setItem(resolvedKey, JSON.stringify(DEFAULT_TOOL_IDS));
     };
 
     void init();
   }, []);
 
-  const tools = ALL_TOOLS.filter((t) => toolsToShow?.includes(t.id));
+const tools = ALL_TOOLS
+  .filter((t) => toolsToShow?.includes(t.id))
+  .reverse();
   const toolsBaseUrl = baseUrls[Apps.TOOLS];
 
   return (
     <section className="container">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>دکتر تولز</h2>
+          <h2 className={styles.title}>دکترتولز</h2>
           <Link href={toolsBaseUrl} className={styles.viewMore}>
             مشاهده بیشتر
             <LeftArrow width={16} height={16} />
