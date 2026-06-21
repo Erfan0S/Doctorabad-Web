@@ -9,11 +9,10 @@ import {
   ProductSnappayNotif,
 } from "@repo/shared_modules/components";
 import Image from "next/image";
-import React from "react";
 import styles from "./BuyRecommendationModal.module.scss";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { OrderType } from "@repo/core/types/cart";
 import { useCart } from "@repo/core/states/cart";
+import examIcon from "@repo/shared_modules/images/doctor-exam.png";
 
 const BuyRecommendationModal = ({
   closeModal,
@@ -41,7 +40,7 @@ const BuyRecommendationModal = ({
       }
       customIcon={
         <Image
-          src={exam.picture || ""}
+          src={exam.picture || examIcon}
           alt={exam.title}
           width={150}
           height={150}

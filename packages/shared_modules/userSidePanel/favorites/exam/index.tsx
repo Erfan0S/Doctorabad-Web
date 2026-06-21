@@ -28,7 +28,7 @@ const SidePanelFavoritesExam: React.FC = () => {
       {isLoading ? (
         <Loading />
       ) : !!data && data?.pages[0].data.data.length <= 0 ? (
-        <span>هیچ تک آزمونی پیدا نشد!</span>
+        <span className="no_data">هیچ تک آزمونی یافت نشد!</span>
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}

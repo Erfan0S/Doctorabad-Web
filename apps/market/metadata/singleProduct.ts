@@ -17,10 +17,6 @@ export const generateMarketProductMetaData = async ({
     const { title, product_pic, meta_description, keywords, id, slug } =
       data.data;
 
-    console.log(
-      generateSingleProductUrlFromId(id, slug, OrderType.ShopProduct),
-    );
-
     return generateProductMetaData({
       productData: async () => ({
         title,

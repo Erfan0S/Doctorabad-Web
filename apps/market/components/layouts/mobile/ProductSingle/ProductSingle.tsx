@@ -75,6 +75,8 @@ function MobileProductSingle({
 }: ProductSingleProps) {
   const haveVariant = Object.keys(data.variants).length > 0;
 
+  console.log(data);
+
   return (
     <>
       <MobileProductLayout
@@ -111,7 +113,7 @@ function MobileProductSingle({
           orderType: OrderType.ShopProduct,
           canIncrease: !isBundledWithNonProducts(data),
           replaceButton:
-            data.quantity > 0 ? (
+            data.quantity == null || data.quantity > 0 ? (
               haveVariant ? (
                 <MobileProductVariantButton product={data} />
               ) : undefined

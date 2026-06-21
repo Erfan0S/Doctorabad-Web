@@ -49,6 +49,8 @@ export default function ProductButton({
     amazingPrice || undefined,
   );
 
+  const isFree = !mainPrice && !offPrice;
+
   return (
     <div className={`${style.purchaseBar}`}>
       {installment_payment && installment_text && (
@@ -72,26 +74,32 @@ export default function ProductButton({
             onClick={onClick}
           >
             <span className={style.columnWrapper}>
-              <span>
-                {!!discountPercent && (
-                  <span className={style.purcheseBarDiscountPercent}>
-                    <span>
-                      <AmazingStarIcon />
-                      <span>%{discountPercent}</span>
-                    </span>
+              {isFree ? (
+                <span>رایگان</span>
+              ) : (
+                <>
+                  <span>
+                    {!!discountPercent && (
+                      <span className={style.purcheseBarDiscountPercent}>
+                        <span>
+                          <AmazingStarIcon />
+                          <span>%{discountPercent}</span>
+                        </span>
+                      </span>
+                    )}{" "}
+                    {offPrice && (
+                      <span className={style.priceOff}>
+                        {priceFormatter(mainPrice)}
+                        تومن
+                      </span>
+                    )}
                   </span>
-                )}{" "}
-                {offPrice && (
-                  <span className={style.priceOff}>
-                    {priceFormatter(mainPrice)}
+                  <span>
+                    {priceFormatter(offPrice || mainPrice)}
                     تومن
                   </span>
-                )}
-              </span>
-              <span>
-                {priceFormatter(offPrice || mainPrice)}
-                تومن
-              </span>
+                </>
+              )}
             </span>{" "}
             <span>
               &nbsp;&nbsp;|&nbsp;&nbsp;{text ? text : "افزودن به سبد خرید"}

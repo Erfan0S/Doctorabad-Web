@@ -28,7 +28,6 @@ import { baseUrls, routePath } from "@repo/core/constants/routePath";
 import DrClubIcon from "../../../assets/svg/drClub";
 import HeadphoneIcon from "../../../assets/svg/headphone";
 
-
 type Props = {
   type: Apps;
 };
@@ -60,7 +59,6 @@ const MobileHeader = ({ type }: Props) => {
 
   const isPro =
     isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
-  console.log(activePlanData);
 
   // const { data: clubInfo, isSuccess: isClubInfoSuccess } = useQuery({
   //   queryFn: api.getUserClubInfo,

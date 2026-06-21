@@ -5,7 +5,6 @@ import EndExamModal from "./EndExamModal/EndExamModal";
 import AnswerSheetModal from "./AnswerSheet";
 import QuestionInfoModal from "./QuestionInfoModal";
 import DiscountPlansBuyModal from "./DiscountPlansBuyModal";
-import BuyRecommendationModal from "./BuyRecommendationModal";
 
 export const ModalsList: any = {
   ...SharedModulesModalList,
@@ -14,5 +13,4 @@ export const ModalsList: any = {
   [ModalTypes.EXAM_ANSWER_SHEET]: AnswerSheetModal,
   [ModalTypes.QUESTION_INFO]: QuestionInfoModal,
   [ModalTypes.EXAM_DISCOUNT_PLANS]: DiscountPlansBuyModal,
-  [ModalTypes.BUY_RECOMMENDATION]: BuyRecommendationModal,
 };

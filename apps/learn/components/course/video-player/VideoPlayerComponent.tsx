@@ -33,8 +33,6 @@ const VideoPlayerComponent = ({
     setCurrentLeasson,
   } = useContext(LessonVideoContext);
 
-  console.log(course);
-
   const changeSearchParamsFilter = useChangeSearchParamsFilter();
 
   const { data: leassonData, isLoading } = useQuery({

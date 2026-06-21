@@ -2,15 +2,14 @@
 import { api } from "@/api/Api";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import React from "react";
-import {
-  Loading,
-  MobileProviderPageLayout,
-} from "@repo/shared_modules/components";
+import { MobileProviderPageLayout } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { Product as ProductType } from "@repo/core/types/product";
 import Product from "@/components/common/product";
 import InfiniteScroll from "react-infinite-scroller";
 import { marketPaths } from "@repo/core/constants/routePath";
+import MobileProductListItem from "@/components/product-list/productList/MobileProductListItem";
+import Loading1 from "@/components/common/loading";
 
 type Props = {
   id: number;
@@ -30,11 +29,11 @@ const ProviderPageContent = ({
       pageStart={1}
       loadMore={fetchNextPage}
       hasMore={hasNextPage}
-      loader={<Loading key={0} app={Apps.LEARN} />}
+      loader={<Loading1 key={0} />}
     >
       {products.map((product) => (
         <div key={product.id} className={``}>
-          <Product gridView isMobileLayout {...product} />
+          <MobileProductListItem product={product} />
         </div>
       ))}
     </InfiniteScroll>

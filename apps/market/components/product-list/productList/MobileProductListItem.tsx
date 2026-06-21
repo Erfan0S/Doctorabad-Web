@@ -1,19 +1,18 @@
-"use client";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+import { ProductListItem } from "@repo/shared_modules/components";
+import Hat from "@repo/shared_modules/icons/hat";
 import Link from "next/link";
-import { ProductListItem } from "../../../common/components";
-import { Product } from "@repo/core/types/product";
-import { OrderType } from "@repo/core/types/cart";
+import React from "react";
+import { Product as ProductType } from "@repo/core/types/product";
 import { Apps } from "@repo/core/types/general";
 import { marketPaths } from "@repo/core/constants/routePath";
-import Hat from "../../../assets/svg/hat";
-import { modalActions } from "@repo/core/modal/modals";
+import { OrderType } from "@repo/core/types/cart";
 
 type Props = {
-  data: Product;
+  product: ProductType;
 };
 
-function ShoppingFavoriteItem({ data: product }: Props) {
+function MobileProductListItem({ product }: Props) {
   return (
     <Link
       href={generateSingleProductUrlFromId(
@@ -21,7 +20,6 @@ function ShoppingFavoriteItem({ data: product }: Props) {
         product.slug,
         OrderType.ShopProduct,
       )}
-      onClick={() => modalActions.clearModals()}
     >
       <ProductListItem
         id={product.id.toString()}
@@ -42,4 +40,4 @@ function ShoppingFavoriteItem({ data: product }: Props) {
   );
 }
 
-export default ShoppingFavoriteItem;
+export default MobileProductListItem;

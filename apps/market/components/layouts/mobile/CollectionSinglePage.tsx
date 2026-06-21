@@ -1,9 +1,6 @@
 "use client";
 import { Apps } from "@repo/core/types/general";
-import {
-  Loading,
-  MobileProviderPageLayout,
-} from "@repo/shared_modules/components";
+import { MobileProviderPageLayout } from "@repo/shared_modules/components";
 import React from "react";
 import { Product as ProductType } from "@repo/core/types/product";
 import InfiniteScroll from "react-infinite-scroller";
@@ -11,6 +8,8 @@ import Product from "@/components/common/product";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { marketPaths } from "@repo/core/constants/routePath";
+import MobileProductListItem from "@/components/product-list/productList/MobileProductListItem";
+import Loading1 from "@/components/common/loading";
 
 const ProviderPageContent = ({
   products,
@@ -26,11 +25,11 @@ const ProviderPageContent = ({
       pageStart={1}
       loadMore={fetchNextPage}
       hasMore={hasNextPage}
-      loader={<Loading key={0} app={Apps.LEARN} />}
+      loader={<Loading1 key={0} />}
     >
       {products.map((product) => (
         <div key={product.id} className={``}>
-          <Product gridView isMobileLayout {...product} />
+          <MobileProductListItem product={product} />
         </div>
       ))}
     </InfiniteScroll>

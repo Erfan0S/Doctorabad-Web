@@ -41,8 +41,6 @@ const MobileProductLayout = ({
   tabParam,
   providerBaseUrl = "/providers",
 }: Props) => {
-  console.log(provider?.id);
-
   return (
     <div className={`${style.wrapper} ${app && style[app]}`}>
       {/* ?: uncomment in product */}
