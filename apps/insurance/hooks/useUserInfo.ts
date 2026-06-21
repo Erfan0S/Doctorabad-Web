@@ -136,7 +136,6 @@ export const useStoreInsuranceInfo = () => {
   return useMutation<StoreInsuranceInfoResponse, Error, UpdateUserInfoInput>({
     mutationFn: async (payload: UpdateUserInfoInput) => {
       const res = await insuranceApi.storeInsuranceInfo(payload);
-      console.log("API Store Response:", res);
       return res.data?.data || res.data;
     },
     onSuccess: () => {

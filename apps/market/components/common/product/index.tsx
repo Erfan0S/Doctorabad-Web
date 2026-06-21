@@ -49,8 +49,6 @@ const Product: React.FC<ProductCard> = ({
 
   const isProductHasStock = quantity !== 0;
 
-  console.log(isMobileLayout);
-
   return (
     <div
       className={`${style.product} ${gridView ? style.gridView : ""} ${isMobileLayout ? style.mobileLayout : ""}`}

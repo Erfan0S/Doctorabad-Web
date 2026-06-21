@@ -59,7 +59,9 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
   const [address, setAddress] = useState("");
   const [nationalCardId, setNationalCardId] = useState<number | null>(null);
   const [medicalCardId, setMedicalCardId] = useState<number | null>(null);
-  const [lastInsurerCardId, setLastInsurerCardId] = useState<number | null>(null);
+  const [lastInsurerCardId, setLastInsurerCardId] = useState<number | null>(
+    null,
+  );
   const [insuredPhone, setInsuredPhone] = useState("");
   const [postalCode, setPostalCode] = useState<number | null>(null);
 
@@ -157,8 +159,6 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
     });
   };
 
-
-
   const openProvinceModal = () => {
     modalActions.addModal(ModalTypes.INSURANCE_FIELD_SELECT, {
       title: "انتخاب استان",
@@ -198,8 +198,6 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
       "وضعیت"
     );
   };
-
-
 
   const getProvinceLabel = () => {
     if (!provinceId) return "استان";
@@ -250,7 +248,6 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
     } else {
       storeMutation.mutate(payload, {
         onSuccess: async (response) => {
-          console.log("Store Response:", response);
           // اگر پاسخ شامل id بود، مستقیماً آن را انتخاب کن
           if (response?.id) {
             // لیست را آپدیت کن تا در پس‌زمینه سینک شود

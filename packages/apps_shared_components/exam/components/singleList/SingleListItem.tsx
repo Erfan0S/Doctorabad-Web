@@ -60,8 +60,6 @@ function SingleListItem({
     modalActions.addModal(ModalTypes.BUY_RECOMMENDATION, { exam: item });
   };
 
-  console.log(item);
-
   return (
     <div
       className={`${style.singleItem} card ${isSidePanel ? style.singleItemSidePanel : ""}`}

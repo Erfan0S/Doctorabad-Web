@@ -20,8 +20,6 @@ export default async function Product({
       Number(data.id),
     );
 
-    console.log(data);
-
     return (
       <DiviceSwitchShell
         desktop={

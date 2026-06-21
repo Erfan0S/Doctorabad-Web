@@ -11,8 +11,6 @@ import { getMillisecondsUntilMidnight } from "@/utils/timeUtils";
 import { generalAuthorizeState } from "@repo/core/states/generalAuthorizedState";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-
-
 import { clinicApi } from "@/api/Api";
 import { useEffect } from "react";
 
@@ -22,11 +20,10 @@ interface DiseaseCardProps {
 
 export default function DiseaseCard({ disease }: DiseaseCardProps) {
   const router = useRouter();
-  
+
   // بررسی وضعیت لاگین بودن کاربر
   const isLoggedIn = generalAuthorizeState((state) => state.isAuthorized);
-    const queryClient = useQueryClient();
-
+  const queryClient = useQueryClient();
 
   const {
     data: userPlans,
@@ -34,15 +31,18 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     isError,
   } = useQuery({
     queryKey: ["user-plans-clinic"],
-    queryFn: async () => (await clinicApi.getUserPlans()),
-    enabled: isLoggedIn, 
+    queryFn: async () => await clinicApi.getUserPlans(),
+    enabled: isLoggedIn,
     staleTime: getMillisecondsUntilMidnight(),
-    gcTime: getMillisecondsUntilMidnight(), 
+    gcTime: getMillisecondsUntilMidnight(),
   });
-  
+
   const isAccessible = () => {
-    console.log(userPlans);
-    if (userPlans?.data?.data?.length || userPlans?.data?.used_free || disease.is_free) {
+    if (
+      userPlans?.data?.data?.length ||
+      userPlans?.data?.used_free ||
+      disease.is_free
+    ) {
       return true;
     }
     return false;
@@ -50,7 +50,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
 
   const handleActionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
-    treatmentType: "prescription" | "order" | "both"
+    treatmentType: "prescription" | "order" | "both",
   ) => {
     e.stopPropagation();
     const params = new URLSearchParams();
@@ -60,7 +60,7 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
 
   useEffect(() => {
     if (!isUserLoggedIn()) {
-      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"]});      
+      queryClient.invalidateQueries({ queryKey: ["user-plans-clinic"] });
     }
   }, [isUserLoggedIn()]);
 
@@ -71,7 +71,12 @@ export default function DiseaseCard({ disease }: DiseaseCardProps) {
     >
       <div className={styles.diseaseImage}>
         {disease.picture ? (
-          <img src={disease.picture} width={100} height={100} alt={disease.title_en} />
+          <img
+            src={disease.picture}
+            width={100}
+            height={100}
+            alt={disease.title_en}
+          />
         ) : (
           <PillsIcon className={styles.pillsIcon} width={75} height={75} />
         )}

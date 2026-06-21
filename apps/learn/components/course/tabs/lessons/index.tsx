@@ -38,8 +38,6 @@ const CourseContent: FC<CourseContentProps> = ({ course }) => {
   const isSectionTitleValid = (title: string) =>
     !(title.length <= 0 || title == "" || title == ".");
 
-  console.log(course);
-
   const onLessonClick = (lesson: Lesson) => {
     if (!isUserLoggedIn(true)) {
       modalActions.addModal(ModalTypes.REGISTER);
