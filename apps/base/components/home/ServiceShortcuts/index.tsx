@@ -23,21 +23,21 @@ const ServiceShortcuts = () => {
   const services = [
     {
       id: 3,
-      title: "کلینیک من",
+      title: "کلینیک‌من",
       enTitle: "MyClinic",
       icon: myClinic,
       href: baseUrls[Apps.CLINIC],
     },
     {
       id: 2,
-      title: "داروخانه من",
+      title: "داروخانه‌من",
       enTitle: "MyPharmacy",
       icon: myPharmacy,
       href: baseUrls[Apps.PHARMACY],
     },
     {
       id: 1,
-      title: "بیمه من",
+      title: "بیمه‌من",
       enTitle: "MyInsurance",
       icon: myInsurance,
       href: baseUrls[Apps.INSURANCE],

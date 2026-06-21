@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import { api } from "@repo/shared_modules/api";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
+import { ALL_TOOLS } from "@/data/toolsData";
 
 const STORAGE_SUFFIX = "tools_shortcut";
+const DEFAULT_TOOL_IDS = ALL_TOOLS.slice(0, 5).map((tool) => tool.id);
 
 export const useHomePageTools = () => {
   const [homePageTools, setHomePageTools] = useState<string[]>([]);
@@ -20,8 +22,7 @@ export const useHomePageTools = () => {
       let resolvedKey: string | null = null;
 
       try {
-        if (isUserLoggedIn()){
-
+        if (isUserLoggedIn()) {
           const response = await api.getUser();
           const user = response.data.data;
           if (user?.mobile) {
@@ -44,17 +45,24 @@ export const useHomePageTools = () => {
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
+          if (Array.isArray(parsed) && parsed.length > 0) {
             const normalized = parsed
               .filter((id): id is string => typeof id === "string")
               .map((id) => id.replace(/-/g, "_"));
-            setHomePageTools(normalized);
+            setHomePageTools((prev) =>
+              Array.from(new Set([...normalized, ...prev])),
+            );
+            setIsLoaded(true);
+            return;
           }
         } catch (e) {
           console.error("Error parsing home page tools:", e);
         }
       }
 
+      setHomePageTools((prev) =>
+        Array.from(new Set([...DEFAULT_TOOL_IDS, ...prev])),
+      );
       setIsLoaded(true);
     };
 
@@ -72,7 +80,7 @@ export const useHomePageTools = () => {
       if (prev.includes(toolId)) {
         return prev.filter((id) => id !== toolId);
       } else {
-        return [...prev, toolId];
+        return [toolId, ...prev];
       }
     });
   };

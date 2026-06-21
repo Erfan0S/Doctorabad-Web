@@ -13,6 +13,7 @@ import { LeftArrow } from "@/assets/svg/leftArrow";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
+const DEFAULT_TOOL_IDS = ["uptodate", "gfr", "bmi", "pregnancy", "fena"];
 
 export default function DoctorToolsSection() {
   const [toolsToShow, setToolsToShow] = useState<string[]>();
@@ -59,21 +60,32 @@ export default function DoctorToolsSection() {
           console.error("Error parsing home page tools:", e);
         }
       }
-
-      setToolsToShow([]);
+      setToolsToShow(DEFAULT_TOOL_IDS);
+      localStorage.setItem(resolvedKey, JSON.stringify(DEFAULT_TOOL_IDS));
     };
 
     void init();
   }, []);
 
-  const tools = ALL_TOOLS.filter((t) => toolsToShow?.includes(t.id));
+  const customTools =
+    toolsToShow?.filter((id) => !DEFAULT_TOOL_IDS.includes(id)) ?? [];
+
+  const defaultTools = DEFAULT_TOOL_IDS.filter((id) =>
+    toolsToShow?.includes(id),
+  );
+
+  const orderedToolIds = [...customTools, ...defaultTools];
+
+  const tools = orderedToolIds
+    .map((id) => ALL_TOOLS.find((t) => t.id === id))
+    .filter(Boolean); // .reverse();
   const toolsBaseUrl = baseUrls[Apps.TOOLS];
 
   return (
     <section className="container">
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>دکتر تولز</h2>
+          <h2 className={styles.title}>دکترتولز</h2>
           <Link href={toolsBaseUrl} className={styles.viewMore}>
             مشاهده بیشتر
             <LeftArrow width={16} height={16} />
@@ -86,17 +98,17 @@ export default function DoctorToolsSection() {
             className={styles.swiper}
           >
             {tools.map((tool) => (
-              <SwiperSlide key={tool.id} className={styles.slide}>
+              <SwiperSlide key={tool?.id} className={styles.slide}>
                 {/* <div className={styles.toolCard}> */}
                 <Link
-                  href={`${toolsBaseUrl}${tool.href}`}
-                  className={`${styles.toolCard} ${styles[tool.colorClass] || styles.green}`}
+                  href={`${toolsBaseUrl}${tool?.href}`}
+                  className={`${styles.toolCard} ${styles[tool?.colorClass as string] || styles.green}`}
                 >
                   <div className={styles.toolCard}>
-                    <div className={styles.iconChar}>{tool.iconChar}</div>
+                    <div className={styles.iconChar}>{tool?.iconChar}</div>
                   </div>
                 </Link>
-                <div className={styles.toolTitle}>{tool.title}</div>
+                <div className={styles.toolTitle}>{tool?.title}</div>
                 {/* </div> */}
               </SwiperSlide>
             ))}
