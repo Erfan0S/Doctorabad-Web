@@ -1,6 +1,8 @@
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { BuyInsuranceUrlParams, FilterData } from "../types";
+import { api } from "@repo/shared_modules/api";
+import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const parseNumberParam = (value: string | null): number | null =>
   value ? Number(value) : null;
@@ -15,6 +17,8 @@ const buildFilterData = (
 
 export const useBuyInsuranceParams = (): BuyInsuranceUrlParams => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   return useMemo(() => {
     const fieldId = parseNumberParam(searchParams.get("field"));
@@ -60,4 +64,44 @@ export const useBuyInsuranceParams = (): BuyInsuranceUrlParams => {
       ),
     };
   }, [searchParams]);
+};
+
+// when imported & used from a client component, update missing insured_name/insured_phone
+export const useEnsureInsuredParams = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const insuredName = searchParams.get("insured_name") || "";
+    const insuredPhone = searchParams.get("insured_phone") || "";
+
+    if ((insuredName || insuredPhone) || !isUserLoggedIn()) return;
+
+    const fetchAndReplace = async () => {
+      try {
+        const response = await api.getUser();
+        const user = response?.data?.data;
+        if (!user) return;
+
+        const name = user?.name || "";
+        const phone = user?.mobile || user?.phone || "";
+
+        if (!name && !phone) return;
+
+        const params = new URLSearchParams(Array.from(searchParams.entries()));
+        if (name && !params.get("insured_name")) params.set("insured_name", name);
+        if (phone && !params.get("insured_phone")) params.set("insured_phone", phone);
+
+        const search = params.toString();
+        const url = search ? `${pathname}?${search}` : pathname;
+
+        router.replace(url, { scroll: false });
+      } catch (e) {
+        // ignore
+      }
+    };
+
+    void fetchAndReplace();
+  }, [searchParams, router, pathname]);
 };

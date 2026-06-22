@@ -16,25 +16,27 @@ import {
   Insurer,
 } from "@/types/insurance";
 
- 
 export default function InsuranceHomePage() {
   const [field, setField] = useState<number | null>(null);
   const [fieldsData, setFieldsData] = useState<InsuranceField | null>(null);
   const [grade, setGrade] = useState<number | null>(null);
   const [gradesData, setGradesData] = useState<InsuranceGrade | null>(null);
   const [residency, setResidency] = useState<number | null>(null);
-  const [residencyData, setResidencyData] = useState<ResidencyStatus | null>(null);
+  const [residencyData, setResidencyData] = useState<ResidencyStatus | null>(
+    null,
+  );
   const [damageHistory, setDamageHistory] = useState<number | null>(null);
-  const [damageHistoryData, setDamageHistoryData] = useState<DamageHistory | null>(null);
+  const [damageHistoryData, setDamageHistoryData] =
+    useState<DamageHistory | null>(null);
   const [lastInsurance, setLastInsurance] = useState<number | null>(null);
-  const [lastInsuranceData, setLastInsuranceData] = useState<Insurer | null>(null);
+  const [lastInsuranceData, setLastInsuranceData] = useState<Insurer | null>(
+    null,
+  );
   const [endDate, setEndDate] = useState<string | null>(null);
-
-
 
   return (
     <div className={styles.container}>
-        <ToastContainer theme="colored" rtl position="top-left" />
+      <ToastContainer theme="colored" rtl position="top-left" />
       <SelectInfo
         onChangeField={setField}
         onChangeFieldsData={setFieldsData}
@@ -63,6 +65,6 @@ export default function InsuranceHomePage() {
         // damageHistoryData={damageHistoryData}
         // lastInsuranceData={lastInsuranceData}
       />
-    </div> 
+    </div>
   );
 }

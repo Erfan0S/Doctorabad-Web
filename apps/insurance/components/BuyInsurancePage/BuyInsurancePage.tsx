@@ -3,7 +3,7 @@
 import styles from "./BuyInsurancePage.module.scss";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
-import { useBuyInsuranceParams } from "./hooks/useBuyInsuranceParams";
+import { useBuyInsuranceParams, useEnsureInsuredParams } from "./hooks/useBuyInsuranceParams";
 import { useBuyInsuranceForm } from "./hooks/useBuyInsuranceForm";
 import { useDynamicInsurancePrice } from "./hooks/useDynamicInsurancePrice";
 import { useBuyInsuranceActions } from "./hooks/useBuyInsuranceActions";
@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 
 const BuyInsurancePage = () => {
   const urlParams = useBuyInsuranceParams();
+  useEnsureInsuredParams();
   const form = useBuyInsuranceForm(urlParams);
   const pricing = useDynamicInsurancePrice(urlParams, form);
   const actions = useBuyInsuranceActions(urlParams, form);
