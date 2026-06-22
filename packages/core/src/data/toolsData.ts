@@ -20,7 +20,7 @@ export const ALL_TOOLS: Tool[] = [
   { id: "gcs", title: "GCS", description: "مقیاس کمای گلاسکو برای تعیین میزان هوشیاری", iconChar: "G", colorClass: "red-dark", href: "/gcs" },
   { id: "pregnancy", title: "Pregnancy", description: "محاسبه سن بارداری و زمان تقریبی زایمان", iconChar: "P", colorClass: "pink", href: "/pregnancy" },
   { id: "fena", title: "FENa", description: "کسر دفعی سدیم برای تشخیص نوع نارسایی کلیوی", iconChar: "F", colorClass: "purple", href: "/fena" },
-  { id: "has_bled", title: "HAS-BLED Score", description: "تخمین میزان خونریزی در بیماران تحت درمان با درمان‌های ضد انعقاد", iconChar: "H", colorClass: "violet", href: "/has_bled_score" },
+  { id: "has_bled_score", title: "HAS-BLED Score", description: "تخمین میزان خونریزی در بیماران تحت درمان با درمان‌های ضد انعقاد", iconChar: "H", colorClass: "violet", href: "/has_bled_score" },
   { id: "cha2ds2_vasc", title: "CHA2DS2-VASC", description: "تخمین ریسک سکته مغزی در بیماران قلبی", iconChar: "C", colorClass: "blue-dark", href: "/cha2ds2_vasc" },
   { id: "chads2", title: "CHADS2", description: "تخمین ریسک سکته مغزی در بیماران قلبی", iconChar: "C", colorClass: "blue", href: "/chads2" },
   { id: "maintenance_fluids", title: "Maintenance Fluids", description: "میزان مایع نگهداره برای سرم درمانی", iconChar: "M", colorClass: "cyan", href: "/maintenance_fluids" },
