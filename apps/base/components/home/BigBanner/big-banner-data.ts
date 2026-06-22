@@ -58,8 +58,8 @@ export const bigBannerData = [
     image: person04,
     description:
       "بازارچه فایل‌های الکترونیک علوم‌پزشکی؛کتاب‌های رفرنس، مجلات علمی و ارائه دروس",
-    primaryButtonLink: routePath.appDownload,
-    secondaryButtonLink: baseUrls.download,
+    primaryButtonLink: baseUrls.download,
+    secondaryButtonLink: "https://doctorabad.com/mag/doctordownload/",
     primaryColor: "#006797",
     secondaryColor: "#0050CD",
     id: "drdownload",
