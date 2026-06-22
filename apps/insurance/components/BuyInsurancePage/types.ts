@@ -19,8 +19,8 @@ export interface BuyInsuranceUrlParams {
   urlPostalCode: number | undefined;
   urlActiveClinic: boolean | undefined;
   urlClinicAddress: string | undefined;
-  urlInsuredName: string;
-  urlInsuredPhone: string;
+  insuredName: string;
+  insuredPhone: string;
   endDate: string;
   fieldData: FilterData | null;
   gradeData: FilterData | null;

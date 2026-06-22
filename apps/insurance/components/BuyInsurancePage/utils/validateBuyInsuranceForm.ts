@@ -6,12 +6,16 @@ export interface BuyInsuranceValidationInput {
   nationalCardId: number | null;
   medicalCardId: number | null;
   lastInsuranceFileId: number | null;
-  requiresLastInsuranceFile: boolean;
+  requiresPreviousInsurance: boolean;
   activeClinic: boolean;
   address: string;
   fieldId: number | null;
   gradeId: number | null;
   residencyStatusId: number | null;
+  damageHistoryId: number | null;
+  lastInsuranceId: number | null;
+  insuranceEndDateIso: string | null;
+  endDateFromUrl?: string;
   insuredName: string;
   insuredPhone: string;
 }
@@ -36,6 +40,36 @@ export const validateBuyInsuranceForm = (
       isValid: false,
       errorMessage: "لطفاً اطلاعات رشته، تخصص و وضعیت را تکمیل کنید.",
     };
+  }
+
+  if (!input.damageHistoryId) {
+    return {
+      isValid: false,
+      errorMessage: "لطفاً سابقه خسارت را تکمیل کنید.",
+    };
+  }
+
+  if (input.requiresPreviousInsurance) {
+    if (!input.lastInsuranceId) {
+      return {
+        isValid: false,
+        errorMessage: "لطفاً بیمه‌گر قبلی را انتخاب کنید.",
+      };
+    }
+
+    if (!input.insuranceEndDateIso && !input.endDateFromUrl) {
+      return {
+        isValid: false,
+        errorMessage: "لطفاً تاریخ اتمام بیمه‌نامه را وارد کنید.",
+      };
+    }
+
+    if (!input.lastInsuranceFileId) {
+      return {
+        isValid: false,
+        errorMessage: "لطفاً تصویر بیمه‌نامه قبلی را آپلود کنید.",
+      };
+    }
   }
 
   if (!input.insuredName.trim()) {
@@ -77,13 +111,6 @@ export const validateBuyInsuranceForm = (
     return {
       isValid: false,
       errorMessage: "لطفاً تصویر کارت نظام پزشکی را آپلود کنید.",
-    };
-  }
-
-  if (input.requiresLastInsuranceFile && !input.lastInsuranceFileId) {
-    return {
-      isValid: false,
-      errorMessage: "لطفاً تصویر بیمه‌نامه قبلی را آپلود کنید.",
     };
   }
 

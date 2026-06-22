@@ -1,12 +1,11 @@
 import UploadBox from "@/components/common/UploadBox";
 import styles from "../BuyInsurancePage.module.scss";
-import { FilterData } from "../types";
 
 interface DocumentUploadSectionProps {
   nationalCardId: number | null;
   medicalCardId: number | null;
   lastInsuranceFileId: number | null;
-  lastInsuranceData: FilterData | null;
+  showLastInsuranceUpload: boolean;
   onNationalCardChange: (id: number | null) => void;
   onMedicalCardChange: (id: number | null) => void;
   onLastInsuranceFileChange: (id: number | null) => void;
@@ -16,7 +15,7 @@ export const DocumentUploadSection = ({
   nationalCardId,
   medicalCardId,
   lastInsuranceFileId,
-  lastInsuranceData,
+  showLastInsuranceUpload,
   onNationalCardChange,
   onMedicalCardChange,
   onLastInsuranceFileChange,
@@ -40,7 +39,7 @@ export const DocumentUploadSection = ({
       />
       <div style={{ height: 10 }} />
 
-      {lastInsuranceData && (
+      {showLastInsuranceUpload && (
         <UploadBox
           type={3}
           title=" بیمه‌نامه قبلی"

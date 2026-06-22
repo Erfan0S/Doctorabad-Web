@@ -41,8 +41,8 @@ export const useBuyInsuranceParams = (): BuyInsuranceUrlParams => {
         ? searchParams.get("active_clinic") === "true"
         : undefined,
       urlClinicAddress: searchParams.get("clinic_address") || undefined,
-      urlInsuredName: searchParams.get("insured_name") || "",
-      urlInsuredPhone: searchParams.get("insured_phone") || "",
+      insuredName: searchParams.get("insured_name") || "",
+      insuredPhone: searchParams.get("insured_phone") || "",
       endDate: searchParams.get("endDate") || "",
       fieldData: buildFilterData(fieldId, searchParams.get("field_title")),
       gradeData: buildFilterData(gradeId, searchParams.get("grade_title")),

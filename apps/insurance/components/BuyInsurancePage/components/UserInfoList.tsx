@@ -2,6 +2,8 @@ import styles from "../BuyInsurancePage.module.scss";
 import { InfoRow } from "./InfoRow";
 
 interface UserInfoListProps {
+  insuredName: string;
+  insuredPhone: string;
   displayFieldTitle: string;
   displayGradeTitle: string;
   residencyLabel: string;
@@ -12,6 +14,8 @@ interface UserInfoListProps {
 }
 
 export const UserInfoList = ({
+  insuredName,
+  insuredPhone,
   displayFieldTitle,
   displayGradeTitle,
   residencyLabel,
@@ -21,6 +25,9 @@ export const UserInfoList = ({
   endDateLabel,
 }: UserInfoListProps) => (
   <div className={styles.infoList}>
+    <InfoRow label="نام بیمه‌گذار" value={insuredName} />
+    <InfoRow label="شماره موبایل" value={insuredPhone} />
+
     <InfoRow label="رشته" value={displayFieldTitle} />
     <InfoRow label="تخصص" value={displayGradeTitle} />
     <InfoRow label="وضعیت" value={residencyLabel} />

@@ -6,9 +6,9 @@ import { HeaderType } from "@/types/insurance";
 
 export default async function ClinicPage() {
   return (
-    <Providers>
+    <>
       <InsuranceHeader headerPageType={HeaderType.OTHERS} title="بیمه من" />
       <MainPage />
-    </Providers>
+    </>
   );
 }
