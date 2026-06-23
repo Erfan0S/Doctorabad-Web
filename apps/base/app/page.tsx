@@ -37,7 +37,10 @@ export default async function Home() {
           <div>
             <MainSliderSection />
             <ServiceShortcuts />
-            <DoctorToolsSection />
+            <DiviceSwitchShell
+              desktop={<DoctorToolsSection isDesktop />}
+              mobile={<DoctorToolsSection isDesktop={false} />}
+            />{" "}
             <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
             <BlogSlider
               data={blogPosts}
@@ -50,7 +53,10 @@ export default async function Home() {
         <>
           <MainSliderSection />
           <ServiceShortcuts />
-          <DoctorToolsSection />
+          <DiviceSwitchShell
+            desktop={<DoctorToolsSection isDesktop />}
+            mobile={<DoctorToolsSection isDesktop={false} />}
+          />{" "}
           <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
           <BlogSlider
             data={blogPosts}
