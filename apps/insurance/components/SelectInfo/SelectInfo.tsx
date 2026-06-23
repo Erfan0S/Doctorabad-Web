@@ -22,6 +22,7 @@ import {
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import InsuranceDatePicker from "../common/InsuranceDatePicker/InsuranceDatePicker";
+import { isoToJalali, parseToIso } from "../BuyInsurancePage/utils/dateUtils";
 
 moment.loadPersian({ usePersianDigits: true });
 
@@ -189,6 +190,8 @@ export default function SelectInfo({
     return item ? item.title : defaultLabel;
   };
 
+  const isoValue = parseToIso(expiryDateIso) || "";
+
   return (
     <div className={styles.container}>
       <div className={styles.inputGrid}>
@@ -249,13 +252,15 @@ export default function SelectInfo({
             </div>
 
             {/* 6. اتمام بیمه‌نامه (تقویم) */}
+      
             <div className={styles.pickerGroup}>
               <div className={styles.selectInput}>
-                <InsuranceDatePicker
-                  label=""
-                  onChange={handleSelectExpiry}
-                />
-              </div>
+                  <InsuranceDatePicker
+                    label=""
+                    value={isoValue}
+                    onChange={handleSelectExpiry}
+                  />
+                </div>
               <div className={styles.selectIcon}>
                 <DownArrow />
               </div>

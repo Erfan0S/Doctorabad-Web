@@ -144,6 +144,32 @@ export const useBuyInsuranceForm = (urlParams: BuyInsuranceUrlParams) => {
     urlInsuredPhone,
   ]);
 
+  // وقتی پروفایل انتخاب‌شده عوض شد و دیتایش آمد، کل فرم را با همان پروفایل پر کن
+  useEffect(() => {
+    if (!profileData) return;
+
+    // نام و تلفن
+    setInsuredName(profileData.insured_name ?? profileData.title ?? "");
+    setInsuredPhone(profileData.insured_phone ?? "");
+
+    // مطب و آدرس
+    setActiveClinic(!!profileData.active_clinic);
+    setAddress(profileData.clinic_address ?? "");
+
+    // استان / شهر / کد پستی
+    setProvinceId(profileData.province_id ?? undefined);
+    setCityId(profileData.city_id ?? undefined);
+    setPostalCode(
+      profileData.postal_code ? Number(profileData.postal_code) : undefined,
+    );
+
+
+    // عکس‌ها / فایل‌ها
+    setNationalCardId(profileData.national_id_card_files?.[0]?.id ?? null);
+    setMedicalCardId(profileData.medical_education_card_files?.[0]?.id ?? null);
+    setLastInsuranceFileId(profileData.last_insurance_files?.[0]?.id ?? null);
+  }, [profileData]);
+
   const getProvinceLabel = () =>
     provinces.find((p) => p.id === provinceId)?.title || "استان";
 

@@ -250,7 +250,7 @@ export const useBuyInsuranceActions = (
       }
 
       if (!profileIdToUse) {
-        toast.error("خطا در ذخیره اطلاعات. لطفاً دوباره تلاش کنید.");
+      toast.error(validation.errorMessage!);
         return;
       }
 
@@ -268,7 +268,7 @@ export const useBuyInsuranceActions = (
           : insuranceEndDateIso || parseToIso(endDate) || undefined,
       );
     } catch {
-      toast.error("خطا در افزودن به سبد خرید. لطفاً دوباره تلاش کنید.");
+      toast.error(validation.errorMessage!);
       return;
     }
   };
