@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Footer, InstallBannerShow } from "@repo/shared_modules/components";
+import { InstallBannerShow } from "@repo/shared_modules/components";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
@@ -11,10 +11,7 @@ import MobileNavBar from "@repo/shared_modules/navbar/mobile";
 import { Metadata, Viewport } from "next";
 import { SharedHeadContents } from "@repo/shared_modules";
 import { isUserLoggedInAsync } from "@repo/core/utils/authUtils";
-import BodyClassManager from "../components/BodyClassManager";
 import DiviceSwitchShell from "@repo/shared_modules/components/DiviceSwitchShell";
-import MobileHeader from "../../../packages/shared_modules/common/components/mobileHeader";
-import HomeHeader from "@/components/headers/homeHeader";
 
 const font = localFont({
   src: "../assets/fonts/IRANSansXV.woff2",
