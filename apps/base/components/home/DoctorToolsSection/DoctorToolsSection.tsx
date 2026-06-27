@@ -13,7 +13,9 @@ import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
 const DEFAULT_TOOL_IDS = ["uptodate", "gfr", "bmi", "pregnancy", "fena"];
-const DEFAULT_TOOL_IDS_DESKTOP = ALL_TOOLS.map((t) => t.id); //all
+const DEFAULT_TOOL_IDS_DESKTOP = ALL_TOOLS.map((t) => t.id);
+const UNAUTHENTICATED_STORAGE_KEY = `guest_${STORAGE_SUFFIX}`;
+
 
 interface DoctorToolsSectionProps {
   isDesktop?: boolean;
@@ -24,7 +26,6 @@ export default function DoctorToolsSection({
 }: DoctorToolsSectionProps) {
   const [toolsToShow, setToolsToShow] = useState<string[]>();
 
-  // 👇 انتخاب آرایهٔ پیش‌فرض بر اساس دسکتاپ/موبایل
   const defaultToolIds = isDesktop ? DEFAULT_TOOL_IDS_DESKTOP : DEFAULT_TOOL_IDS;
 
   useEffect(() => {
@@ -48,8 +49,7 @@ export default function DoctorToolsSection({
       }
 
       if (!resolvedKey) {
-        setToolsToShow([]);
-        return;
+        resolvedKey = UNAUTHENTICATED_STORAGE_KEY;
       }
 
       const stored = localStorage.getItem(resolvedKey);
