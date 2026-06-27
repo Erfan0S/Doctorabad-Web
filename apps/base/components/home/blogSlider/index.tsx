@@ -32,7 +32,8 @@ const BlogSlider: React.FC<Props> = ({
             {archiveLink && (
               <div className={style.blogSliderHeaderLink}>
                 <Link href={archiveLink} title={title} target={"_blank"}>
-                  مشاهده بیشتر<LeftArrow width={16} height={16} />
+                  مشاهده بیشتر
+                  <LeftArrow width={16} height={16} />
                 </Link>
               </div>
             )}
@@ -40,9 +41,15 @@ const BlogSlider: React.FC<Props> = ({
         )}
         <div className={style.blogSliderSlider}>
           <Swiper
+            dir="rtl"
             spaceBetween={16}
             slidesPerView="auto"
             breakpoints={swiperBreakpoints}
+            loop={true}
+            loopAdditionalSlides={20}
+            watchOverflow={true}
+            observer={true}
+            observeParents={true}
           >
             {data.map((blog) => (
               <SwiperSlide key={blog.id}>
