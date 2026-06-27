@@ -1,10 +1,6 @@
 import { api } from "@/api/Api";
-import BigBanner from "@/components/home/BigBanner";
-import { bigBannerData } from "@/components/home/BigBanner/big-banner-data";
 import BlogSlider from "@/components/home/blogSlider";
 import Companies from "@/components/home/companies";
-import Intro from "@/components/home/intro";
-import Statistics from "@/components/home/Statistics";
 import ServiceShortcuts from "@/components/home/ServiceShortcuts";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
@@ -22,7 +18,6 @@ export default async function Home() {
   const ProvidersList = (await api.getProviders()).data.data;
   const statistic = (await api.getHomeStatistics()).data.data;
   const blogPosts = (await api.getMagazinePosts()).data.data;
-  const country = cookies().get(IP_COUNTRY_COOKIE)?.value;
   const isLoggedIn = await isUserLoggedInAsync();
 
   return (
@@ -68,7 +63,7 @@ export default async function Home() {
       )}
       <DiviceSwitchShell
         desktop={<Footer statistic={statistic} />}
-        mobile={null}
+        mobile={<Footer statistic={statistic} />}
       />
     </>
   );

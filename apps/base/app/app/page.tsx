@@ -33,7 +33,7 @@ const AppDownloadPage = async () => {
       ;
       <DiviceSwitchShell
         desktop={<Footer statistic={statistic} />}
-        mobile={null}
+        mobile={<Footer statistic={statistic} />}
       />
     </>
   );
