@@ -25,22 +25,10 @@ interface SidePanelMenuItem {
 
 export const sidePanelMenuData: SidePanelMenuItem[] = [
   {
-    id: 1,
-    title: "دکترکلاب",
-    Icon: () => <Image src={coinIcon} alt="دکترکلاب" />,
-    href: SidePanelPage.CLUB,
-  },
-  {
-    id: 2,
-    title: "پشتیبانی",
-    Icon: HeadphoneIcon,
-    href: SidePanelPage.SUPPORT,
-  },
-  {
-    id: 3,
-    title: "خروج از کلبه",
-    Icon: ExitIcon,
-    action: () => logOut(true),
+    id: 6,
+    title: "پیام‌های‌من",
+    Icon: MassagesIcon,
+    href: SidePanelPage.MESSAGES,
   },
   {
     id: 4,
@@ -53,12 +41,6 @@ export const sidePanelMenuData: SidePanelMenuItem[] = [
     title: "سفارش‌های‌من",
     Icon: OrdersIcon,
     href: SidePanelPage.ORDERS,
-  },
-  {
-    id: 6,
-    title: "پیام‌های‌من",
-    Icon: MassagesIcon,
-    href: SidePanelPage.MESSAGES,
   },
   {
     id: 7,
@@ -77,5 +59,23 @@ export const sidePanelMenuData: SidePanelMenuItem[] = [
     title: "اطلاعات‌من",
     Icon: ProfileIcon,
     href: SidePanelPage.PROFILE,
+  },
+  {
+    id: 1,
+    title: "دکترکلاب",
+    Icon: () => <Image src={coinIcon} alt="دکترکلاب" />,
+    href: SidePanelPage.CLUB,
+  },
+  {
+    id: 2,
+    title: "پشتیبانی",
+    Icon: HeadphoneIcon,
+    href: SidePanelPage.SUPPORT,
+  },
+  {
+    id: 3,
+    title: "خروج از کلبه",
+    Icon: ExitIcon,
+    action: () => logOut(true),
   },
 ];

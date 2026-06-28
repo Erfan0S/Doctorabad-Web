@@ -11,7 +11,8 @@ type Porps = {
 };
 
 const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
-  const [isExcludePath, setIsExcludePath] = useState(false);
+  // به‌جای فرض اولیه‌ی نمایش، با null شروع می‌کنیم یعنی «هنوز نمی‌دونیم»
+  const [isExcludePath, setIsExcludePath] = useState<boolean | null>(null);
   const [fullPathname, setFullPathname] = useState("");
   const pathname = usePathname();
 
@@ -28,7 +29,8 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
     );
   };
 
-  if (isExcludePath) return null;
+  // تا وقتی بررسی کامل نشده (null) یا مسیر جزو exclude بود، هیچی نشون نده
+  if (isExcludePath === null || isExcludePath) return null;
 
   return (
     <div
@@ -36,16 +38,7 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
     >
       <ul>
         {navBarData.map(
-          ({
-            id,
-            title,
-            subTitle,
-            image,
-            color,
-            href,
-            mobileTitle,
-            basePath,
-          }) => {
+          ({ id, title, subTitle, image, color, href, mobileTitle, basePath }) => {
             return (
               <li
                 key={id}
@@ -56,7 +49,6 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
                   <div>
                     <Image src={image} alt={title} width={40} height={40} />
                   </div>
-
                   <span>{mobileTitle}</span>
                 </a>
               </li>
