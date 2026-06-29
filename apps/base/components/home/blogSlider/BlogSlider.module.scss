@@ -19,6 +19,7 @@
     &Title {
       padding-left: 0;
       background-color: transparent;
+      color: #141f23;
 
       span {
         line-height: 1.2;
@@ -41,7 +42,7 @@
         border-radius: 0;
         font-size: 0.9rem;
         font-weight: 500;
-        color: $gray;
+        color: #afafaf;
         background-color: transparent;
       }
     }
@@ -107,7 +108,7 @@
           border-radius: 0;
           font-size: 0.7rem;
           font-weight: 500;
-          color: $gray;
+          color: #afafaf;
           background-color: transparent;
         }
       }
@@ -119,13 +120,10 @@
       }
     }
     :global {
-
       .swiper-slide {
-      width: 180px !important;   // هرچی خواستی کوچیک‌ترش کن
-      max-width: none !important; // max-width رو بردار تا تداخل نکنه
+        width: 180px !important; // هرچی خواستی کوچیک‌ترش کن
+        max-width: none !important; // max-width رو بردار تا تداخل نکنه
       }
-      
     }
-
   }
 }

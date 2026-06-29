@@ -11,13 +11,13 @@ type Props = {
 };
 
 export function CourseActiveButton({ course }: Props) {
-  if (!course.user_has_access) return null;
+  if (!course.user_has_access && course.price_main) return null;
   return (
     <div
       className={`${style.purchaseButtonWrapper} ${course.user_has_access && style.purchaseBarAccess}`}
     >
       <span className={`${style.purchaseButton} ${style.purchaseButtonActive}`}>
-        دانشجوی این دوره‌ام!
+       {!course.price_main ? "رایگان!" : " دانشجوی این دوره‌ام!"}
       </span>
     </div>
   );

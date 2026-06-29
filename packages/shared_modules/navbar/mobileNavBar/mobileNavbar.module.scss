@@ -12,7 +12,7 @@
     max-width: 800px;
 
     ul {
-      background-color: rgb(242, 242, 242);
+      background-color: $whiteSmoke;
       display: flex;
       justify-content: space-around;
       padding: 0;
@@ -31,7 +31,7 @@
           flex-direction: column;
           transition: 0.5s;
           border-radius: radius(4);
-          color: #92938e;
+      color: #afafaf;
           position: relative;
           border: 2px solid transparent;
           padding: space(2) space(2) space(2) space(2);
@@ -60,7 +60,7 @@
           z-index: 5;
 
           a {
-            color: #000;
+            color: #141F23;
           }
         }
       }

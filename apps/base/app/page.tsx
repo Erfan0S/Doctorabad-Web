@@ -14,7 +14,20 @@ import { Apps } from "@repo/core/types/general";
 import Footer from "../../../packages/shared_modules/common/components/footer";
 import DownloadAppBanner from "@/components/home/DownloadAppBanner";
 
-export default async function Home() {
+import { SidePanelPage } from "@repo/core/types/sidePanel";
+import SidePanelAutoOpener from "@/components/SidePanelAutoOpener";
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { sidePanel?: string };
+}) {
+  const { sidePanel } = searchParams;
+  const safePage =
+    sidePanel && (Object.values(SidePanelPage) as string[]).includes(sidePanel)
+      ? (sidePanel as SidePanelPage)
+      : undefined;
+
   const ProvidersList = (await api.getProviders()).data.data;
   const statistic = (await api.getHomeStatistics()).data.data;
   const blogPosts = (await api.getMagazinePosts()).data.data;
@@ -22,6 +35,8 @@ export default async function Home() {
 
   return (
     <>
+      {safePage && <SidePanelAutoOpener initialPage={safePage} />}
+
       <DiviceSwitchShell
         desktop={null}
         mobile={<MobileHomeHeader type={Apps.BASE} />}
