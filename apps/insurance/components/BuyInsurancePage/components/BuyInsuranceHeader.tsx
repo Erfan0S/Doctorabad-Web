@@ -1,5 +1,6 @@
 import styles from "../BuyInsurancePage.module.scss";
 
+
 interface BuyInsuranceHeaderProps {
   title: string;
   logo: string | null;

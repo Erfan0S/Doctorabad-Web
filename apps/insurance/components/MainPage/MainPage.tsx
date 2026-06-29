@@ -50,6 +50,15 @@ export default function InsuranceHomePage() {
         onChangeLastInsuranceData={setLastInsuranceData}
         onChangeEndDate={setEndDate}
       />
+      <div>
+        <p>
+          با توجه به اینکه بیمه‌نامه قبلی شما از شرکت بیمه X است تنها تخفیف به
+          خرید از شرکت بیمه X تعلق می‌گیرد. همچنین نباید از تاریخ اتمام
+          بیمه‌نامه قبلی گذشته باشد(درصورت فاصله افتادن بین بیمه‌نامه قبلی و
+          جدید، هزینه توسط شرکت بیمه‌گر بدون تخفیف و مطابق صدور اولیه محاسبه
+          می‌گردد.)
+        </p>
+      </div>
 
       <InsurerListSection
         selectedFieldId={field}
