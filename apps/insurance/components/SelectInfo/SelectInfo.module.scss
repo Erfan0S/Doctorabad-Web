@@ -31,6 +31,21 @@
   min-width: 0; // مهم: جلوگیری از تغییر عرض به خاطر متن طولانی
 }
 
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+
+  .selectInput {
+    background: #f5f5f5;
+    border-color: #dcdcdc;
+    color: #8a8a8a;
+    pointer-events: none;
+  }
+  svg {
+    display: none;
+  }
+}
+
 .selectIcon {
   position: absolute;
   left: 8px;
@@ -52,40 +67,37 @@
   }
 }
 
-
 .selectInput {
-
   width: 100%;
   box-sizing: border-box; // padding باعث بزرگ‌تر شدن عرض نشود
-  display: block;         // ellipsis روی div بهتر و پایدارتر
-
+  display: block; // ellipsis روی div بهتر و پایدارتر
 
   appearance: none;
   -webkit-appearance: none;
   background: #fff;
   border: 1.5px solid $base-green;
   border-radius: 10px;
-  
+
   height: 45px;
-  
+
   font-size: 0.95rem;
   font-weight: 600;
   color: #333;
   cursor: pointer;
 
   direction: rtl;
-  
+
   // وسط‌چین کردن
   text-align: center;
-  text-align-last: center; 
-  
+  text-align-last: center;
+
   // مدیریت سرریز
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
   // پدینگ‌ها
-  padding-left: 28px;  // فضای کافی برای آیکون سمت چپ
+  padding-left: 28px; // فضای کافی برای آیکون سمت چپ
   padding-right: 10px; // فضای کم سمت راست برای استفاده حداکثری از عرض
   padding-top: 8px;
   padding-bottom: 8px;

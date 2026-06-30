@@ -232,7 +232,9 @@ export default function SelectInfo({
           <div className={styles.selectInput} onClick={openGradeModal}>
             {getLabel(selectedGradeId, grades, "تخصص")}
           </div>
-          <div className={styles.selectIcon}>
+          <div className={`${styles.selectIcon} ${
+            !isGradeEnabled ? styles.disabled : ""
+          }`}>
             <DownArrow />
           </div>
         </div>
