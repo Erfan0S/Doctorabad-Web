@@ -11,7 +11,7 @@ export default async function RootLayout({
   return (
     <>
         <div>
-        <InsuranceHeader headerPageType={HeaderType.OTHERS} title="" />
+        <InsuranceHeader headerPageType={HeaderType.INSURANCE_DETAILS} title="" />
           {children}</div>
 
     </>

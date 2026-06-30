@@ -49,6 +49,7 @@ export const useBuyInsuranceActions = (
     lastInsuranceFileId,
     mobileCheckboxChecked,
     profileData,
+    insuranceInfos,
     refetchInsuranceInfos,
     residencyStatuses,
     damageHistories,
@@ -223,7 +224,20 @@ export const useBuyInsuranceActions = (
     let profileIdToUse = selectedProfileId;
 
     try {
-      if (profileIdToUse) {
+      const normalizedPhone = insuredPhone.trim();
+      const latestInfosResult = await refetchInsuranceInfos();
+      const latestInfos = latestInfosResult?.data ?? insuranceInfos;
+      const matchingProfile = normalizedPhone
+        ? latestInfos.find(
+            (info) => String(info.insured_phone ?? "").trim() === normalizedPhone,
+          )
+        : undefined;
+
+      if (matchingProfile?.id) {
+        profileIdToUse = matchingProfile.id;
+        await updateMutation.mutateAsync({ id: profileIdToUse, payload });
+        setSelectedProfileId(profileIdToUse);
+      } else if (profileIdToUse) {
         await updateMutation.mutateAsync({ id: profileIdToUse, payload });
       } else {
         const newProfile = await storeMutation.mutateAsync(payload);
@@ -231,8 +245,7 @@ export const useBuyInsuranceActions = (
         if (newProfile?.id) {
           profileIdToUse = newProfile.id;
         } else {
-          const { data: updatedInfos = [] } = await refetchInsuranceInfos();
-          const foundProfile = updatedInfos.find(
+          const foundProfile = latestInfos.find(
             (info) =>
               info.field_id === fieldId &&
               info.grade_id === gradeId &&
@@ -240,7 +253,7 @@ export const useBuyInsuranceActions = (
           );
           profileIdToUse =
             foundProfile?.id ??
-            updatedInfos[updatedInfos.length - 1]?.id ??
+            latestInfos[latestInfos.length - 1]?.id ??
             null;
         }
 
@@ -250,7 +263,7 @@ export const useBuyInsuranceActions = (
       }
 
       if (!profileIdToUse) {
-      toast.error(validation.errorMessage!);
+        toast.error(validation.errorMessage!);
         return;
       }
 
