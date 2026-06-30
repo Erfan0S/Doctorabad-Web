@@ -30,7 +30,8 @@ export default function RootLayout({
       <body className={font.className}>
         <div className="root">
           <Providers>
-            <InsuranceComingSoonGate />
+            {/* <InsuranceComingSoonGate /> */}
+            {children}
           </Providers>
         </div>
       </body>

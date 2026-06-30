@@ -22,6 +22,7 @@ import {
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import InsuranceDatePicker from "../common/InsuranceDatePicker/InsuranceDatePicker";
+import { isoToJalali, parseToIso } from "../BuyInsurancePage/utils/dateUtils";
 
 moment.loadPersian({ usePersianDigits: true });
 
@@ -74,11 +75,21 @@ export default function SelectInfo({
   // ----- Logic & Memos -----
   const selectedHistoryItem = useMemo(
     () => history.find((h) => String(h.id) === selectedHistoryId),
-    [history, selectedHistoryId]
+    [history, selectedHistoryId],
+  );
+
+  const selectedInsurerItem = useMemo(
+    () => insurers.find((i) => String(i.id) === selectedInsurerId),
+    [insurers, selectedInsurerId],
   );
 
   const showInsurerAndExpiry =
     selectedHistoryId && selectedHistoryItem?.id !== 1; // 1 = صدور اولیه
+
+  const showInsurerNotice =
+    Boolean(selectedHistoryId) &&
+    selectedHistoryItem?.id !== 1 &&
+    Boolean(selectedInsurerId);
 
   const isGradeEnabled = Boolean(selectedFieldId);
 
@@ -162,6 +173,14 @@ export default function SelectInfo({
         onChangeDamageHistory?.(id);
         const selectedHistory = history.find((h) => h.id === id);
         onChangeDamageHistoryData?.(selectedHistory || null);
+
+        if (id === 1) {
+          setSelectedInsurerId("");
+          setExpiryDateIso("");
+          onChangeLastInsurance?.(null);
+          onChangeLastInsuranceData?.(null);
+          onChangeEndDate?.(null);
+        }
       },
     });
   };
@@ -189,6 +208,8 @@ export default function SelectInfo({
     return item ? item.title : defaultLabel;
   };
 
+  const isoValue = parseToIso(expiryDateIso) || "";
+
   return (
     <div className={styles.container}>
       <div className={styles.inputGrid}>
@@ -204,8 +225,9 @@ export default function SelectInfo({
 
         {/* 2. تخصص */}
         <div
-          className={`${styles.pickerGroup} ${!isGradeEnabled ? styles.disabled : ""
-            }`}
+          className={`${styles.pickerGroup} ${
+            !isGradeEnabled ? styles.disabled : ""
+          }`}
         >
           <div className={styles.selectInput} onClick={openGradeModal}>
             {getLabel(selectedGradeId, grades, "تخصص")}
@@ -253,6 +275,7 @@ export default function SelectInfo({
               <div className={styles.selectInput}>
                 <InsuranceDatePicker
                   label=""
+                  value={isoValue}
                   onChange={handleSelectExpiry}
                 />
               </div>
@@ -263,6 +286,19 @@ export default function SelectInfo({
           </>
         )}
       </div>
+
+      {showInsurerNotice && (
+        <div className={styles.noticeBox}>
+          <p className={styles.noticeText}>
+            با توجه به اینکه بیمه‌نامه قبلی شما از شرکت{" "}
+            {selectedInsurerItem?.title ?? "انتخاب‌شده"} است، تنها تخفیف به خرید
+            از شرکت  {selectedInsurerItem?.title ?? "انتخاب‌شده"} تعلق
+            می‌گیرد. همچنین نباید از تاریخ اتمام بیمه‌نامه قبلی گذشته باشد. در
+            صورت فاصله افتادن بین بیمه‌نامه قبلی و جدید، هزینه توسط شرکت بیمه‌گر
+            بدون تخفیف و مطابق صدور اولیه محاسبه می‌گردد.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
