@@ -41,12 +41,12 @@ const BlogSlider: React.FC<Props> = ({
         )}
         <div className={style.blogSliderSlider}>
           <Swiper
-            dir="rtl"
             spaceBetween={16}
             slidesPerView="auto"
-            breakpoints={swiperBreakpoints}
-            loop={true}
-            loopAdditionalSlides={5}
+            // breakpoints={swiperBreakpoints}
+            // loop={true}
+            // loopAdditionalSlides={6}
+            // loopPreventsSliding={true}
             watchOverflow={true}
             observer={true}
             observeParents={true}

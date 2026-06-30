@@ -67,6 +67,10 @@
         // margin: space(-2.5) space(-3.75) space(-4);
         padding: space(2.5) 0 space(4); // فقط padding بدون margin منفی
       }
+      .swiper-slide {
+        width: 250px !important; // هرچی خواستی کوچیک‌ترش کن
+        max-width: none !important; // max-width رو بردار تا تداخل نکنه
+      }
     }
   }
 }
@@ -121,7 +125,7 @@
     }
     :global {
       .swiper-slide {
-        width: 180px !important; // هرچی خواستی کوچیک‌ترش کن
+        width: 160px !important; // هرچی خواستی کوچیک‌ترش کن
         max-width: none !important; // max-width رو بردار تا تداخل نکنه
       }
     }
