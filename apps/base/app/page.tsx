@@ -39,7 +39,13 @@ export default async function Home({
 
       <DiviceSwitchShell
         desktop={null}
-        mobile={<MobileHomeHeader type={Apps.BASE} />}
+        mobile={
+          <MobileHomeHeader
+            haveSearch={true}
+            type={Apps.BASE}
+            haveFilterButton
+          />
+        }
       />
 
       {isLoggedIn ? (
