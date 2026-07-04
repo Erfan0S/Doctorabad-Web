@@ -135,7 +135,6 @@ export interface UpdateUserInfoInput {
 }
 
 export enum HeaderType {
-  FAVORITES = "favorites",
   INSURANCE_DETAILS = "insurance_details",
   OTHERS = "others",
 }

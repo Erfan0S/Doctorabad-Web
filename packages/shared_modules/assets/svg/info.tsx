@@ -1,8 +1,15 @@
-import { SVGProps } from 'react';
+import { SVGProps } from "react";
 
 const InfoIcon: React.FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg
+      width="24"
+      height="24"
+      viewBox="2.25 2.25 21.5 21.5"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <path
         fill="currentColor"
         d="M12.9603 2.25024C18.8903 2.2285 23.7279 7.03081 23.7497 12.9608C23.7714 18.8907 18.9691 23.7284 13.0391 23.7501C7.10917 23.7718 2.27154 18.9695 2.24981 13.0396C2.22807 7.10961 7.03037 2.27197 12.9603 2.25024ZM13.0336 22.2501C18.1336 22.2314 22.2684 18.0662 22.2497 12.9663C22.231 7.8663 18.0658 3.73154 12.9658 3.75023C7.86586 3.76892 3.7311 7.9341 3.7498 13.0341C3.76849 18.134 7.93367 22.2688 13.0336 22.2501Z"

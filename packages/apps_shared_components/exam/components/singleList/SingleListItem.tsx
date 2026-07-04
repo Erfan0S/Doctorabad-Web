@@ -75,8 +75,8 @@ function SingleListItem({
         />
         <div className={style.singleItemDescription}>
           <h3>{item.title}</h3>
-          <span>{item.date}</span>
-          <span>{item.place}</span>
+          <span>{item.date === "بدون زمان" ? "" : item.date }</span>
+          <span>{item.place === "بدون مکان" ? "" : item.place }</span>
         </div>
       </div>
       <div>

@@ -21,7 +21,7 @@ const SidebarLogo = ({ active = false }: Props) => {
         <Image
           src={logoType}
           style={{
-            width: "90px",
+            width: "75px",
             height: "auto",
           }}
           alt="دکترآباد"

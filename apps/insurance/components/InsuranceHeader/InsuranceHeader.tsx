@@ -4,18 +4,20 @@
 import { useParams } from "next/navigation";
 import styles from "./InsuranceHeader.module.scss";
 import BackIcon from "@/assets/svg/back";
+import InfoIcon from "@repo/shared_modules/icons/info";
 
 import { HeaderType } from "@/types/insurance";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 import { baseUrls } from "@repo/core/constants/routePath";
+import Link from "next/link";
 
 interface InsuranceHeaderProps {
   title?: string;
   headerPageType: HeaderType;
 }
 
-export default function InsuranceHeader({ title = "" }: InsuranceHeaderProps) {
+export default function InsuranceHeader({ title = "", headerPageType }: InsuranceHeaderProps) {
   const { id } = useParams();
   const navHistory = useNavigationHistory();
 
@@ -48,6 +50,17 @@ export default function InsuranceHeader({ title = "" }: InsuranceHeaderProps) {
       <div className={styles.headerTop}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.lefSideHeader}>
+          {headerPageType !== HeaderType.INSURANCE_DETAILS && (
+            <Link
+              href={"https://doctorabad.com/mag/myinsurance"}
+              target="blank"
+            >
+              <div className={styles.backBtn}>
+                <InfoIcon />
+              </div>
+            </Link>
+          )}
+
           <div
             className={styles.backBtn}
             onClick={() => navHistory.goBack(baseUrls.base)}

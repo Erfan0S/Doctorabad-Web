@@ -4,11 +4,11 @@ import { baseUrls } from "../constants/routePath";
 export const homeMetadata = (
   baseUrl: string = "",
   title?: string,
-  description?: string
+  description?: string,
 ): Metadata => {
   const defaultTitle = "دکترآباد | سرزمین علوم پزشکی کشور";
   const defaultDescription =
-    "دکترآباد - پلتفرم جامع آموزش، آزمون و بازار محصولات پزشکی";
+    "پلتفرم ۳۶۰ درجه بهداشت، درمان، آموزش و پرورش علوم پزشکی است که با تاکید بر نوآوری و جامعیت پایه‌گذاری گردیده و انتخاب اول گروه علوم‌پزشکی کشور برای رفع نیازهای روزمره است.";
 
   return {
     title: title || defaultTitle,
@@ -17,12 +17,37 @@ export const homeMetadata = (
     manifest: `${baseUrl}/manifest.webmanifest`,
     keywords: [
       "دکترآباد",
-      "علوم‌پزشکی",
-      "دارو",
-      "داروخانه",
-      "دکتر",
-      "پزشک",
+      "دکتر آباد",
+      "دکتراباد",
+      "دکتر اباد",
+      "کدخدای دکترآباد",
+      "doctor abad",
+      "دکترآبادی",
+      "دکترلند",
+      "آموزش پزشکی",
+      "دکترلرن",
+      "دکترمارکت",
+      "دکتردانلود",
+      "دکتراگزم",
+      "دکترتولز",
+      "دکترکست",
+      "دکترکلاب",
+      "دکترپرو",
+      "بهداشت",
+      "درمان",
+      "Doctorabad",
+      "Doctorabad.com",
+      "doctorabad.ir",
       "پزشکی",
+      "دندانپزشکی",
+      "داروسازی",
+      "علوم آزمایشگاهی",
+      "پرستاری",
+      "اپلیکیشن دکترآباد",
+      "vnhcgfhv",
+      "اپلیکیشن",
+      "اپ",
+      "drabad",
     ],
     twitter: {
       card: "summary_large_image",
@@ -59,5 +84,8 @@ export const homeViewPort: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: { media: "(prefers-color-scheme: dark)", color: "#fff" },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#f5f5f5" },
+  ],
 };

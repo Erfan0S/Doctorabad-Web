@@ -3,7 +3,8 @@ import Image from "next/image";
 import person from "@/assets/img/bigBanner/people/KadKhoda-Mobile.png";
 import googlePlay from "@/assets/img/d1.jpg";
 import appStore from "@/assets/img/d2.jpg";
-import pwaApp from "@/assets/img/d3.jpg";
+import direct from "@/assets/img/d3.jpg";
+import pwa from "@/assets/img/d4.png";
 import anardoni from "@/assets/img/d6.jpg";
 import iApps from "@/assets/img/d7.jpg";
 import sibIrani from "@/assets/img/d8.jpg";
@@ -31,11 +32,11 @@ const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
               <Link href={statistic.google_play_url} target={"_blank"}>
                 <Image src={googlePlay || ""} alt="googlePlay" />
               </Link>
-              <Link href={statistic.app_store_url} target={"_blank"}>
-                <Image src={appStore || ""} alt="appStore" />
+              <Link href="/pwa" target={"_blank"}>
+                <Image src={pwa || ""} alt="pwaApp" />
               </Link>
               <Link href={statistic.direct_download_url} target={"_blank"}>
-                <Image src={pwaApp || ""} alt="pwaApp" />
+                <Image src={direct || ""} alt="directDownload" />
               </Link>
               <Link
                 href="https://anardoni.com/ios/app/zgbjGaxmN?lng=fa"

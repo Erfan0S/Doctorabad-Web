@@ -1,2 +1,11 @@
 @import "@repo/shared_modules/assets/styles/general";
 
+@media (min-width: 1024px) {
+  .insurance-container {
+    max-width: 800px;
+    width: 800px;
+    margin: 0 auto ;
+    position: relative;
+    padding-bottom: 160px
+  }
+}
