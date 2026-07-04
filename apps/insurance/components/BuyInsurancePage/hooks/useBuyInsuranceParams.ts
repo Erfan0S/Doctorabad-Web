@@ -85,7 +85,7 @@ export const useEnsureInsuredParams = () => {
         if (!user) return;
 
         const name = user?.name || "";
-        const phone = user?.mobile || user?.phone || "";
+        const phone = user?.mobile || "";
 
         if (!name && !phone) return;
 

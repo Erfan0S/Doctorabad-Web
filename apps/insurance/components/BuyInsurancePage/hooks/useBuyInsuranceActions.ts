@@ -234,8 +234,9 @@ export const useBuyInsuranceActions = (
         : undefined;
 
       if (matchingProfile?.id) {
-        profileIdToUse = matchingProfile.id;
-        await updateMutation.mutateAsync({ id: profileIdToUse, payload });
+        const matchingProfileId = matchingProfile.id;
+        profileIdToUse = matchingProfileId;
+        await updateMutation.mutateAsync({ id: matchingProfileId, payload });
         setSelectedProfileId(profileIdToUse);
       } else if (profileIdToUse) {
         await updateMutation.mutateAsync({ id: profileIdToUse, payload });

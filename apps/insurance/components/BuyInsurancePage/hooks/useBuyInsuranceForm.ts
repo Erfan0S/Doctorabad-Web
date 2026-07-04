@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import moment from "moment-jalaali";
 import {
   useProvinces,
@@ -13,12 +19,88 @@ import {
   useDamageHistory,
   useLastInsurer,
 } from "@/hooks/useInsuranceFind";
-import { BuyInsuranceUrlParams } from "../types";
+import {
+  Province,
+  City,
+  InsuranceInfo,
+  ResidencyStatus,
+  DamageHistory,
+  Insurer,
+} from "@/types/insurance";
+import { BuyInsuranceUrlParams, FilterData } from "../types";
 import { formatIsoToJalali, isoToJalali, parseToIso } from "../utils/dateUtils";
 
 moment.loadPersian({ usePersianDigits: true });
 
-export const useBuyInsuranceForm = (urlParams: BuyInsuranceUrlParams) => {
+type Setter<T> = Dispatch<SetStateAction<T>>;
+type UseInsuranceInfosRefetch = ReturnType<typeof useInsuranceInfos>["refetch"];
+
+export type BuyInsuranceFormState = {
+  selectedProfileId: number | null;
+  setSelectedProfileId: Setter<number | null>;
+  activeClinic: boolean;
+  setActiveClinic: Setter<boolean>;
+  provinceId: number | undefined;
+  setProvinceId: Setter<number | undefined>;
+  cityId: number | undefined;
+  setCityId: Setter<number | undefined>;
+  address: string;
+  setAddress: Setter<string>;
+  postalCode: number | undefined;
+  setPostalCode: Setter<number | undefined>;
+  insuredName: string;
+  setInsuredName: Setter<string>;
+  insuredPhone: string;
+  setInsuredPhone: Setter<string>;
+  residencyStatusId: number | null;
+  setResidencyStatusId: Setter<number | null>;
+  selectedDamageHistoryId: number | null;
+  setSelectedDamageHistoryId: Setter<number | null>;
+  selectedLastInsuranceId: number | null;
+  setSelectedLastInsuranceId: Setter<number | null>;
+  insuranceEndDateIso: string;
+  setInsuranceEndDateIso: Setter<string>;
+  insuranceEndDateJalali: string;
+  setInsuranceEndDateJalali: Setter<string>;
+  showEndDateCalendar: boolean;
+  setShowEndDateCalendar: Setter<boolean>;
+  nationalCardId: number | null;
+  setNationalCardId: Setter<number | null>;
+  medicalCardId: number | null;
+  setMedicalCardId: Setter<number | null>;
+  lastInsuranceFileId: number | null;
+  setLastInsuranceFileId: Setter<number | null>;
+  mobileCheckboxChecked: boolean;
+  setMobileCheckboxChecked: Setter<boolean>;
+  provinces: Province[];
+  cities: City[];
+  profileData: InsuranceInfo | undefined;
+  insuranceInfos: InsuranceInfo[];
+  refetchInsuranceInfos: UseInsuranceInfosRefetch;
+  residencyStatuses: ResidencyStatus[];
+  damageHistories: DamageHistory[];
+  lastInsurers: Insurer[];
+  fieldIdToUse: number | null;
+  gradeIdToUse: number | null;
+  effectiveDamageHistoryId: number | null;
+  effectiveLastInsuranceId: number | null;
+  effectiveEndDateIso: string | null;
+  displayFieldTitle: string;
+  displayGradeTitle: string;
+  getProvinceLabel: () => string;
+  getCityLabel: () => string;
+  getLastInsuranceLabel: () => string;
+  getEndDateLabel: () => string;
+  getResidencyLabel: () => string;
+  getDamageHistoryLabel: () => string;
+  showPreviousInsuranceFields: boolean;
+  lastInsuranceData: FilterData | null;
+  damageHistoryId: number | null;
+};
+
+export const useBuyInsuranceForm = (
+  urlParams: BuyInsuranceUrlParams,
+): BuyInsuranceFormState => {
   const {
     fieldId,
     gradeId,
@@ -251,7 +333,9 @@ export const useBuyInsuranceForm = (urlParams: BuyInsuranceUrlParams) => {
     postalCode,
     setPostalCode,
     insuredName,
+    setInsuredName,
     insuredPhone,
+    setInsuredPhone,
     residencyStatusId,
     setResidencyStatusId,
     selectedDamageHistoryId,
@@ -298,5 +382,3 @@ export const useBuyInsuranceForm = (urlParams: BuyInsuranceUrlParams) => {
     damageHistoryId,
   };
 };
-
-export type BuyInsuranceFormState = ReturnType<typeof useBuyInsuranceForm>;
