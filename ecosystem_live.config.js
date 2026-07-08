@@ -70,7 +70,7 @@ module.exports = {
                 PORT: 3070
             }
         },
-        ,{
+        {
             name: "live-insurance",
             script: "npm",
             args: "start",
@@ -78,7 +78,8 @@ module.exports = {
             env: {
                 NODE_ENV: "production",
                 PORT: 3080
-            }},
+            }
+         },
         {
             name: "live-download",
             script: "npm",
