@@ -11,27 +11,27 @@ const DrClubIcon: React.FC<SVGProps<SVGSVGElement>> = (props) => {
       {...props}
     >
       <path
-        stroke="#292D32"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M12.15 16.5v2.1"
       ></path>
       <path
-        stroke="#292D32"
+        stroke="currentColor"
         strokeMiterlimit="10"
         strokeWidth="1.5"
         d="M7.15 22h10v-1c0-1.1-.9-2-2-2h-6c-1.1 0-2 .9-2 2v1Z"
       ></path>
       <path
-        stroke="#292D32"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M6.15 22h12M12 16c-3.87 0-7-3.13-7-7V6c0-2.21 1.79-4 4-4h6c2.21 0 4 1.79 4 4v3c0 3.87-3.13 7-7 7"
       ></path>
       <path
-        stroke="#292D32"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.5"

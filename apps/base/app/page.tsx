@@ -1,10 +1,6 @@
 import { api } from "@/api/Api";
-import BigBanner from "@/components/home/BigBanner";
-import { bigBannerData } from "@/components/home/BigBanner/big-banner-data";
 import BlogSlider from "@/components/home/blogSlider";
 import Companies from "@/components/home/companies";
-import Intro from "@/components/home/intro";
-import Statistics from "@/components/home/Statistics";
 import ServiceShortcuts from "@/components/home/ServiceShortcuts";
 import { IP_COUNTRY_COOKIE } from "@repo/core/constants/constants";
 import { cookies } from "next/headers";
@@ -18,15 +14,29 @@ import { Apps } from "@repo/core/types/general";
 import Footer from "../../../packages/shared_modules/common/components/footer";
 import DownloadAppBanner from "@/components/home/DownloadAppBanner";
 
-export default async function Home() {
+import { SidePanelPage } from "@repo/core/types/sidePanel";
+import SidePanelAutoOpener from "@/components/SidePanelAutoOpener";
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { sidePanel?: string };
+}) {
+  const { sidePanel } = searchParams;
+  const safePage =
+    sidePanel && (Object.values(SidePanelPage) as string[]).includes(sidePanel)
+      ? (sidePanel as SidePanelPage)
+      : undefined;
+
   const ProvidersList = (await api.getProviders()).data.data;
   const statistic = (await api.getHomeStatistics()).data.data;
   const blogPosts = (await api.getMagazinePosts()).data.data;
-  const country = cookies().get(IP_COUNTRY_COOKIE)?.value;
   const isLoggedIn = await isUserLoggedInAsync();
 
   return (
     <>
+      {safePage && <SidePanelAutoOpener initialPage={safePage} />}
+
       <DiviceSwitchShell
         desktop={null}
         mobile={<MobileHomeHeader type={Apps.BASE} />}
@@ -37,7 +47,10 @@ export default async function Home() {
           <div>
             <MainSliderSection />
             <ServiceShortcuts />
-            <DoctorToolsSection />
+            <DiviceSwitchShell
+              desktop={<DoctorToolsSection isDesktop />}
+              mobile={<DoctorToolsSection isDesktop={false} />}
+            />{" "}
             <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
             <BlogSlider
               data={blogPosts}
@@ -50,7 +63,10 @@ export default async function Home() {
         <>
           <MainSliderSection />
           <ServiceShortcuts />
-          <DoctorToolsSection />
+          <DiviceSwitchShell
+            desktop={<DoctorToolsSection isDesktop />}
+            mobile={<DoctorToolsSection isDesktop={false} />}
+          />{" "}
           <DiviceSwitchShell desktop={<DownloadAppBanner />} mobile={null} />
           <BlogSlider
             data={blogPosts}
@@ -62,7 +78,7 @@ export default async function Home() {
       )}
       <DiviceSwitchShell
         desktop={<Footer statistic={statistic} />}
-        mobile={null}
+        mobile={<Footer statistic={statistic} />}
       />
     </>
   );

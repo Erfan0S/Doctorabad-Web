@@ -81,6 +81,7 @@ const CartItem = ({
     discount_plan_type === DiscountPlanType.CLINIC;
   const isMarket = product_type === OrderType.ShopProduct;
   const isDownload = product_type === OrderType.Package;
+  const isInsurance = product_type === OrderType.Insurance;
 
   // TODO: refactor multiple app handling
 
@@ -95,6 +96,8 @@ const CartItem = ({
       return "مرکز خرید";
     } else if (isDownload) {
       return "مرکز محتوا";
+    } else if (isInsurance) {
+      return "بیمه‌من";
     }
     return null;
   };
@@ -115,7 +118,7 @@ const CartItem = ({
   };
 
   const imageType = () => {
-    if (isExam || isMarket || isClinic) {
+    if (isExam || isMarket || isClinic || isInsurance) {
       return "square";
     } else if (isLearn) {
       return "landscape";

@@ -37,7 +37,7 @@ html .sidebar {
   button {
     min-width: 32px;
     height: 32px;
-    border: 2px solid $gray;
+    border: 2px solid #AFAFAF;
     background-color: #fff;
     border-radius: radius(2);
     display: flex;
@@ -50,6 +50,9 @@ html .sidebar {
     img {
       width: 20px;
       height: 20px;
+    }
+    svg{
+      color: #141F23;
     }
 
     span {

@@ -72,7 +72,7 @@ export const VerifyPhone = (props: RegisterStepProps) => {
           <input
             key={index}
             type="tel"
-            autoComplete="off"
+            autoComplete="one-time-code"
             min={0}
             max={1}
             id={index.toString()}

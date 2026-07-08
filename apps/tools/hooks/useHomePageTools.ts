@@ -2,15 +2,17 @@
 import { useState, useEffect } from "react";
 import { api } from "@repo/shared_modules/api";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
-import { ALL_TOOLS } from "@/data/toolsData";
 
 const STORAGE_SUFFIX = "tools_shortcut";
-const DEFAULT_TOOL_IDS = ALL_TOOLS.slice(0, 5).map((tool) => tool.id);
+const UNAUTHENTICATED_STORAGE_KEY = `guest_${STORAGE_SUFFIX}`;
+
 
 export const useHomePageTools = () => {
   const [homePageTools, setHomePageTools] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [storageKey, setStorageKey] = useState<string | null>(null);
+
+
 
   useEffect(() => {
     const init = async () => {
@@ -33,9 +35,9 @@ export const useHomePageTools = () => {
         console.error("Error fetching user for tools storage:", e);
       }
 
+      // Use unauthenticated key if user is not logged in
       if (!resolvedKey) {
-        setIsLoaded(true);
-        return;
+        resolvedKey = UNAUTHENTICATED_STORAGE_KEY;
       }
 
       setStorageKey(resolvedKey);
@@ -49,9 +51,7 @@ export const useHomePageTools = () => {
             const normalized = parsed
               .filter((id): id is string => typeof id === "string")
               .map((id) => id.replace(/-/g, "_"));
-            setHomePageTools((prev) =>
-              Array.from(new Set([...normalized, ...prev])),
-            );
+            setHomePageTools(normalized);
             setIsLoaded(true);
             return;
           }
@@ -60,9 +60,6 @@ export const useHomePageTools = () => {
         }
       }
 
-      setHomePageTools((prev) =>
-        Array.from(new Set([...DEFAULT_TOOL_IDS, ...prev])),
-      );
       setIsLoaded(true);
     };
 

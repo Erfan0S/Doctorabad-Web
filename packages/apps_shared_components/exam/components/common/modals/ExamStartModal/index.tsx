@@ -60,7 +60,7 @@ function ExamStartModal({ closeModal, data }: Props) {
       <div className={style.examStartModalOptions}>
         <OptionSwitch
           name="Show_Record"
-          title="نمایش کارنامه تحصیلی"
+          title="نمایش کارنامه تحلیلی"
           app={Apps.EXAM}
           onToggle={(value) => setShowRecord(value)}
         />

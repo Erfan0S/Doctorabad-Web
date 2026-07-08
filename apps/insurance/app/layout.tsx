@@ -28,9 +28,10 @@ export default function RootLayout({
     <html className={font.variable} dir="rtl" lang="fa">
       <SharedHeadContents />
       <body className={font.className}>
-        <div className="root">
+        <div className="insurance-container">
           <Providers>
-            <InsuranceComingSoonGate />
+            {/* <InsuranceComingSoonGate /> */}
+            {children}
           </Providers>
         </div>
       </body>

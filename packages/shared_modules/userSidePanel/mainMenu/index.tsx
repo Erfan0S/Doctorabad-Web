@@ -28,8 +28,8 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
     queryKey: ["messages_count"],
     retry: 1,
   });
-    const [imageSrc, setImageSrc] = useState(footerImage);
 
+  const [imageSrc, setImageSrc] = useState(footerImage);
   const toggleImageSrc = () => {
     if (imageSrc == footerImage) {
       setImageSrc(footerImageOpen);
@@ -38,17 +38,17 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
 
   if (isLoading)
     return (
-      <div style={{ display: "flex", height: "100vh", alignItems: "center" }}>
+      <div style= {{display: "flex", height: "100vh", alignItems: "center" }}>
         <Loading size={32} />
       </div>
     );
 
   const userInfo = profile?.data.data;
 
-
   return (
     <div className={style.sidePanelMainMenu}>
       <SidePanelHeader setPage={setPage} title="کلبه من" />
+
       <div
         className={style.sidePanelMainMenuHeader}
         onClick={() => setPage(SidePanelPage.PROFILE)}
@@ -65,38 +65,69 @@ const SidePanelMainMenu: React.FC<SidePanelPageProps> = ({ setPage }) => {
           <span>
             {userInfo?.name || userInfo?.nickname || userInfo?.mobile}
           </span>
-          <span>اعتبار من : {priceFormatter(userInfo?.credit || 0)}تومن!</span>
+          <span>کیف‌پول‌من : {priceFormatter(userInfo?.credit || 0)}تومن!</span>
         </div>
       </div>
-      <div className={style.sidePanelMainMenuWrapper}>
-        {sidePanelMenuData.map(({ id, href, Icon, title, action }) => {
-          const notifications = id === 6 &&
-            isSuccess &&
-            data.data.data.counter > 0 && (
-              <span className={style.sidePanelMainMenuWrapperNotification}>
-                {data.data.data.counter}
-              </span>
+
+      {/* ناحیه‌ی اسکرول‌شونده: لیست + فوتر */}
+      <div className={style.sidePanelMainMenuScroll}>
+        <div className={style.sidePanelMainMenuWrapper}>
+          {sidePanelMenuData.map(({ id, href, Icon, title, action }) => {
+            const notifications = id === 6 &&
+              isSuccess &&
+              data.data.data.counter > 0 && (
+                <span className={style.sidePanelMainMenuWrapperNotification}>
+                  {data.data.data.counter}
+                </span>
+              );
+            return (
+              <div
+                key={id}
+                onClick={() =>
+                  action
+                    ? action()
+                    : modalActions.addModal(ModalTypes.SIDE_PANEL, {
+                        initialPage: href,
+                      })
+                }
+              >
+                {/* سمت راست: آیکون + عنوان */}
+                <div className={style.sidePanelMainMenuWrapperItemContent}>
+                  <span className={style.sidePanelMainMenuWrapperItemIcon}>
+                    <Icon />
+                    {notifications}
+                  </span>
+                  <span className={style.sidePanelMainMenuWrapperItemTitle}>
+                    {title}
+                  </span>
+                </div>
+
+                {/* سمت چپ: فلش جهت */}
+                <span className={style.sidePanelMainMenuWrapperItemArrow}>
+                  <svg
+                    width="10"
+                    height="16"
+                    viewBox="0 0 10 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 1L2 8L8 15"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
             );
-          return (
-            <div
-              key={id}
-              onClick={() =>
-                action
-                  ? action()
-                  : modalActions.addModal(ModalTypes.SIDE_PANEL, {
-                      initialPage: href,
-                    })
-              }
-            >
-              <Icon />
-              <span>{title}</span>
-              {notifications}
-            </div>
-          );
-        })}
-      </div>
-      <div className={style.sidePanelMainMenuImage}>
-        <Image onClick={toggleImageSrc} src={imageSrc} alt="footerImage" />
+          })}
+        </div>
+
+        <div className={style.sidePanelMainMenuImage}>
+          <Image onClick={toggleImageSrc} src={imageSrc} alt="footerImage" />
+        </div>
       </div>
     </div>
   );

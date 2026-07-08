@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,9 +13,20 @@ import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 
 const STORAGE_SUFFIX = "tools_shortcut";
 const DEFAULT_TOOL_IDS = ["uptodate", "gfr", "bmi", "pregnancy", "fena"];
+const DEFAULT_TOOL_IDS_DESKTOP = ALL_TOOLS.map((t) => t.id);
+const UNAUTHENTICATED_STORAGE_KEY = `guest_${STORAGE_SUFFIX}`;
 
-export default function DoctorToolsSection() {
+
+interface DoctorToolsSectionProps {
+  isDesktop?: boolean;
+}
+
+export default function DoctorToolsSection({
+  isDesktop = false,
+}: DoctorToolsSectionProps) {
   const [toolsToShow, setToolsToShow] = useState<string[]>();
+
+  const defaultToolIds = isDesktop ? DEFAULT_TOOL_IDS_DESKTOP : DEFAULT_TOOL_IDS;
 
   useEffect(() => {
     const init = async () => {
@@ -26,7 +36,6 @@ export default function DoctorToolsSection() {
       }
 
       let resolvedKey: string | null = null;
-
       try {
         if (isUserLoggedIn()) {
           const response = await api.getUser();
@@ -40,12 +49,10 @@ export default function DoctorToolsSection() {
       }
 
       if (!resolvedKey) {
-        setToolsToShow([]);
-        return;
+        resolvedKey = UNAUTHENTICATED_STORAGE_KEY;
       }
 
       const stored = localStorage.getItem(resolvedKey);
-
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
@@ -60,25 +67,25 @@ export default function DoctorToolsSection() {
           console.error("Error parsing home page tools:", e);
         }
       }
-      setToolsToShow(DEFAULT_TOOL_IDS);
-      localStorage.setItem(resolvedKey, JSON.stringify(DEFAULT_TOOL_IDS));
+
+      setToolsToShow(defaultToolIds);
+      localStorage.setItem(resolvedKey, JSON.stringify(defaultToolIds));
     };
 
     void init();
-  }, []);
+  }, [defaultToolIds]);
 
   const customTools =
-    toolsToShow?.filter((id) => !DEFAULT_TOOL_IDS.includes(id)) ?? [];
-
-  const defaultTools = DEFAULT_TOOL_IDS.filter((id) =>
+    toolsToShow?.filter((id) => !defaultToolIds.includes(id)) ?? [];
+  const defaultTools = defaultToolIds.filter((id) =>
     toolsToShow?.includes(id),
   );
 
   const orderedToolIds = [...customTools, ...defaultTools];
-
   const tools = orderedToolIds
     .map((id) => ALL_TOOLS.find((t) => t.id === id))
-    .filter(Boolean); // .reverse();
+    .filter(Boolean);
+
   const toolsBaseUrl = baseUrls[Apps.TOOLS];
 
   return (
@@ -92,24 +99,20 @@ export default function DoctorToolsSection() {
           </Link>
         </div>
         <div className={styles.toolsWrapper}>
-          <Swiper
-            spaceBetween={12}
-            slidesPerView="auto"
-            className={styles.swiper}
-          >
+          <Swiper spaceBetween={12} slidesPerView="auto" className={styles.swiper}>
             {tools.map((tool) => (
               <SwiperSlide key={tool?.id} className={styles.slide}>
-                {/* <div className={styles.toolCard}> */}
                 <Link
                   href={`${toolsBaseUrl}${tool?.href}`}
-                  className={`${styles.toolCard} ${styles[tool?.colorClass as string] || styles.green}`}
+                  className={`${styles.toolCard} ${
+                    styles[tool?.colorClass as string] || styles.green
+                  }`}
                 >
                   <div className={styles.toolCard}>
                     <div className={styles.iconChar}>{tool?.iconChar}</div>
                   </div>
                 </Link>
                 <div className={styles.toolTitle}>{tool?.title}</div>
-                {/* </div> */}
               </SwiperSlide>
             ))}
           </Swiper>

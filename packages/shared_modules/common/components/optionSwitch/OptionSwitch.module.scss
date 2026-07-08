@@ -11,16 +11,14 @@
   font-size: 15px;
   margin-bottom: space(1);
   list-style: none;
-    &.pro {
-  --app-base: #{$proGreen};
-
+  &.pro {
+    --app-base: #{$proGreen};
   }
 
   label {
     cursor: pointer;
     margin: 0;
     padding-right: 10px;
-
   }
 
   &Wrapper {
@@ -48,7 +46,8 @@
       background-color: $gray;
     }
     &Active {
-      background-color: #e6f7ff;
+      // background-color: #e6f7ff;
+      background-color: color-mix(in srgb, var(--app-base, #4fcc4c) 10%, white);
       &:before {
         left: 26px;
         background-color: var(--app-base, $base-green);

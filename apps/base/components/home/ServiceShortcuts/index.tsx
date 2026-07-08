@@ -41,7 +41,7 @@ const ServiceShortcuts = () => {
       enTitle: "MyInsurance",
       icon: myInsurance,
       href: baseUrls[Apps.INSURANCE],
-      onClick: openInsuranceComingSoonModal,
+      // onClick: openInsuranceComingSoonModal,
     },
   ];
 

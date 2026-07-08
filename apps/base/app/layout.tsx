@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Footer } from "@repo/shared_modules/components";
+import { Footer, InstallBannerShow } from "@repo/shared_modules/components";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
@@ -32,6 +32,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const isLoggedIn = await isUserLoggedInAsync();
+  const statistic = (await api.getHomeStatistics()).data.data;
 
   return (
     <html lang="fa">
@@ -70,6 +71,7 @@ export default async function RootLayout({
               desktop={<Footer statistic={statistic} />}
               mobile={null}
             /> */}
+            <InstallBannerShow statistic={statistic} />
           </Providers>
         </div>
       </body>

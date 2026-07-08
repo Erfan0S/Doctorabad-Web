@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { homeMetadata as sharedHomeMetadataFactory } from "@repo/core/metadata/home";
 
-const title = "دکترآباد | ابزارهای من";
+const title = "دکترتولز | مرکز ابزار دکترآباد";
 const description =
-  "مجموعه کامل ابزارهای پزشکی، ماشین حساب‌های بالینی و اسکورهای ارزیابی شامل BMI، GFR، GCS، APGAR، CHADS2، HAS-BLED، Wells Score و سایر Clinical Calculators در دکترآباد.";
+  "دیتابیس‌ها و ماشین‌حساب‌های تخصصی علوم‌پزشکی؛ ابزارهای تخصصی و رایگان دکترآباد برای تصمیم‌گیری بالینی دقیق: آپتودیت رایگان و مرجع محاسبه سریع GFR ، BMI ، CHADS ، GCS ، مایع نگهدارنده ، FENa ، اصلاح کلسیم ، MAP ، آپگار ، سن جنین و پیش‌بینی تاریخ زایمان";
 
 const sharedHomeMetadata = sharedHomeMetadataFactory(
   "/tools",
@@ -21,67 +21,31 @@ export const homeMetadata: Metadata = {
   keywords: [
     ...(sharedHomeMetadata.keywords as string[]),
 
-    "ابزارهای پزشکی",
-    "ماشین حساب پزشکی",
-    "محاسبات پزشکی",
-    "کلینیکال کالکولاتور",
-    "clinical calculators",
-    "medical calculators",
-    "doctorabad tools",
-    "ابزارهای بالینی",
-    "clinical tools",
-    "medical tools",
-
-    "Apgar score",
-    "اپگار",
-    "Alvarado score",
-    "آپاندیسیت",
-    "GFR calculator",
-    "نرخ فیلتراسیون گلومرولی",
-    "MAP calculator",
-    "فشار متوسط شریانی",
-    "BMI calculator",
-    "شاخص توده بدنی",
-
-    "Calcium correction",
-    "تصحیح کلسیم",
-    "albumin corrected calcium",
-
-    "GCS",
-    "Glasgow Coma Scale",
-    "مقیاس کمای گلاسکو",
-
-    "Pregnancy calculator",
-    "محاسبه سن بارداری",
-    "زمان زایمان",
-
-    "FENa",
-    "Fractional Excretion of Sodium",
-    "کسر دفعی سدیم",
-
-    "HAS-BLED",
-    "HAS-BLED score",
-    "ریسک خونریزی",
-
-    "CHA2DS2-VASc",
-    "CHA2DS2 VASc",
-    "ریسک سکته مغزی",
-
+    "آپتودیت",
+    "آپ تو دیت",
+    "uptodate",
+    "up to date",
+    "آپتودیت رایگان",
+    "رایگان",
+    "دانلود آپتودیت",
+    "GFR",
+    "BMI",
     "CHADS2",
-    "CHADS2 score",
-
-    "Maintenance fluids",
+    "GCS",
     "مایع نگهدارنده",
-    "سرم درمانی",
-
-    "ABCD2 score",
-    "ریسک سکته مغزی",
-
-    "Wells score",
-    "Wells PTE",
-    "Wells DVT",
-    "ترومبوآمبولی ریوی",
-    "DVT score",
+    "FENa",
+    "اصلاح کلسیم",
+    "MAP",
+    "آپگار",
+    "سن جنین و پیش‌بینی تاریخ زایمان",
+    "TIMI SCORE",
+    "ASCVD",
+    "ABCD2",
+    "معیارهای ولز",
+    "wells score PTE",
+    "DVT",
+    "Alvarado",
+    "Hasbled score",
   ],
 
   openGraph: {
