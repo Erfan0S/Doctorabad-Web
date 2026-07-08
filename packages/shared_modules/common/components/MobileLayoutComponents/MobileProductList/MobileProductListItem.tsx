@@ -104,16 +104,18 @@ const MobileProductListItem = ({
             </div>
           </div>
         )}
-        {price_main && haveStock && (
+        {haveStock && (
           <div className={styles.productPriceContainer}>
             <CoinIcon />
-            <ProductPrice
-              mainPrice={price_main}
-              offPrice={price_off}
-              app={app}
-              className={styles.productPrice}
-              size={15}
-            />
+            <div className={styles.productPriceWrapper}>
+              <ProductPrice
+                mainPrice={price_main ?? 0}
+                offPrice={price_off}
+                app={app}
+                className={styles.productPrice}
+                size={15}
+              />
+            </div>
           </div>
         )}
       </div>

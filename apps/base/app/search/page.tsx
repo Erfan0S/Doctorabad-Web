@@ -4,6 +4,7 @@ import SearchPageComponent from "@/components/Search/SearchPage";
 import React from "react";
 import { Apps } from "@repo/core/types/general";
 
+
 const SearchPage = () => {
   return (
     <div>

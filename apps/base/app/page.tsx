@@ -37,16 +37,7 @@ export default async function Home({
     <>
       {safePage && <SidePanelAutoOpener initialPage={safePage} />}
 
-      <DiviceSwitchShell
-        desktop={null}
-        mobile={
-          <MobileHomeHeader
-            haveSearch={true}
-            type={Apps.BASE}
-            haveFilterButton
-          />
-        }
-      />
+      <MobileHomeHeader haveSearch={true} type={Apps.BASE} haveFilterButton={false} />
 
       {isLoggedIn ? (
         <>

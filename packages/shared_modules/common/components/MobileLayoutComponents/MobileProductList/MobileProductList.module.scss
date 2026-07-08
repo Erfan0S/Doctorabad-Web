@@ -133,6 +133,10 @@
   }
 }
 
+.productPriceWrapper {
+  width:fit-content;
+}
+
 @media (max-width: 768px) {
   .metadata {
     font-size: 0.75rem;

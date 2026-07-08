@@ -4,7 +4,7 @@ import { CourseListItemType } from "@repo/core/types/course";
 import { InfiniteData } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { ProductList, ProductPrice } from "@repo/shared_modules/components";
-import Clock from "@repo/shared_modules/assets/svg/clock";
+import Clock from "@repo/shared_modules/icons/clock";
 import formatDuration from "@repo/core/utils/formatDuration";
 import { CoinIcon, HomeIcon } from "@repo/shared_modules/icons";
 import Hat from "@repo/shared_modules/icons/hat";
