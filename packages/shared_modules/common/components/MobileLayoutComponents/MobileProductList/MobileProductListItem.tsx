@@ -6,7 +6,6 @@ import {
   ProductPrice,
 } from "@repo/shared_modules/components";
 import { ProductListItemProps } from "@repo/core/types/props";
-import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { CoinIcon } from "../../../../assets";
 
 const MobileProductListItem = ({
@@ -112,7 +111,7 @@ const MobileProductListItem = ({
               offPrice={price_off}
               app={app}
               className={styles.productPrice}
-              size={15}
+              size={13}
             />
           </div>
         )}
