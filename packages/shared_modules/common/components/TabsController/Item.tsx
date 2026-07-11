@@ -19,6 +19,13 @@ const Item = ({ tabData, url, isActive, haveLoading = true }: Props) => {
     if (!!url && haveLoading) {
       topLoader.start();
     }
+    if (!!window) {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
     router.push(url ? url : `?tab=${tabData.id}`);
   };
 

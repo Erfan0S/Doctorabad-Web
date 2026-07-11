@@ -100,10 +100,13 @@ const MobileProductLayout = ({
                 <h1>{title}</h1>
               </div>
             </div>
+          </div>
+          <div className={style.tabsControllerWrapper}>
             <TabsController
               tabData={tabsData}
               app={app}
               defaultTab={tabsData[0].id}
+              className={style.tabsController}
             />
           </div>
           <div className={style.tabsContent}>

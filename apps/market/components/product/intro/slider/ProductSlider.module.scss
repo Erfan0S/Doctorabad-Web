@@ -59,6 +59,13 @@
   }
 }
 
+body .mobileLayout {
+  .productSliderItem {
+    border: unset;
+    padding: 1px;
+  }
+}
+
 @media (max-height: 700px) {
   .mobileLayout {
     .productSliderItem {
