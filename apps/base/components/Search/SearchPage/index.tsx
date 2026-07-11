@@ -16,12 +16,22 @@ import { ProductListItemProps } from "@repo/core/types/props";
 import { ProductListItem } from "@repo/shared_modules/components";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { SearchProductType } from "@/types/globalSerach";
 import styles from "./searchPage.module.scss";
 import DownArrow from "@/assets/svg/downArrow";
 import UpArrow from "@/assets/svg/upArrow";
-import FIlterNotFound from "../../common/FIlterNotFound"
+import FIlterNotFound from "../../common/FIlterNotFound";
+import Link from "next/link";
+import {
+  baseUrls,
+  learnPaths,
+  examPaths,
+  downloadPaths,
+  marketPaths,
+  clinicPaths,
+  pharmacyPaths,
+} from "@repo/core/constants/routePath";
 
 const SearchPageComponent = () => {
   const params = useSearchParams();
@@ -31,7 +41,7 @@ const SearchPageComponent = () => {
     queryKey: ["search", query],
     queryFn: async () => (await api.globalSearch(query)).data,
     enabled: Boolean(query),
-    retry:false,
+    retry: false,
   });
 
   const sections = [
@@ -42,6 +52,7 @@ const SearchPageComponent = () => {
       mapItem: mapShopProductToListItem,
       app: Apps.MARKET,
       showSeeMore: Boolean(data?.data?.shopProduct?.see_more),
+      baseUrl: baseUrls.market + marketPaths.single,
     },
     {
       key: "course" as const,
@@ -50,6 +61,7 @@ const SearchPageComponent = () => {
       mapItem: mapCourseToListItem,
       app: Apps.LEARN,
       showSeeMore: Boolean(data?.data?.course?.see_more),
+      baseUrl: baseUrls.learn + learnPaths.single,
     },
     {
       key: "package" as const,
@@ -58,6 +70,7 @@ const SearchPageComponent = () => {
       mapItem: mapPackageToListItem,
       app: Apps.DOWNLOAD,
       showSeeMore: Boolean(data?.data?.package?.see_more),
+      baseUrl: baseUrls.download + downloadPaths.single,
     },
     {
       key: "exam" as const,
@@ -66,6 +79,7 @@ const SearchPageComponent = () => {
       mapItem: mapExamToListItem,
       app: Apps.EXAM,
       showSeeMore: Boolean(data?.data?.exam?.see_more),
+      baseUrl: baseUrls.exam + examPaths.single,
     },
     {
       key: "medicine" as const,
@@ -74,6 +88,7 @@ const SearchPageComponent = () => {
       mapItem: mapMedicineToListItem,
       app: Apps.PHARMACY,
       showSeeMore: Boolean(data?.data?.medicine?.see_more),
+      baseUrl: baseUrls.pharmacy + pharmacyPaths.single,
     },
     {
       key: "clinic" as const,
@@ -82,6 +97,7 @@ const SearchPageComponent = () => {
       mapItem: mapClinicToListItem,
       app: Apps.CLINIC,
       showSeeMore: Boolean(data?.data?.clinic?.see_more),
+      baseUrl: baseUrls.clinic + clinicPaths.single,
     },
   ];
 
@@ -92,6 +108,12 @@ const SearchPageComponent = () => {
   const [expandedSections, setExpandedSections] = useState<
     Record<string, boolean>
   >({});
+    useEffect(() => {
+	setMoreItems({});
+	setExpandedSections({});
+	setLoadingMore({});
+}, [query]);
+
 
   const handleSeeMore = useCallback(
     async (sectionKey: SearchProductType) => {
@@ -122,6 +144,21 @@ const SearchPageComponent = () => {
     [expandedSections, query],
   );
 
+  const handleResultClick = useCallback(
+    (productType: SearchProductType, productId: number | string) => {
+      const trimmedQuery = query.trim();
+
+      if (!trimmedQuery) return;
+
+      void api.storeSearchHistory(trimmedQuery);
+      void api.storePopularSearch({
+        product_id: Number(productId),
+        product_type: productType,
+      });
+    },
+    [query],
+  );
+
   if (!query) {
     return null;
   }
@@ -131,7 +168,7 @@ const SearchPageComponent = () => {
   }
 
   if (isError || !hasResults || query.length < 1) {
-    return <FIlterNotFound/>;
+    return <FIlterNotFound />;
   }
 
   return (
@@ -153,11 +190,17 @@ const SearchPageComponent = () => {
               {section.title}
             </h2>
             {itemsToRender.map((item) => (
-              <ProductListItem
+              <Link
+                href={`${section.baseUrl}/${item.id}`}
                 key={item.id}
-                {...section.mapItem(item as never)}
-                app={section.app}
-              />
+                onClick={() => handleResultClick(section.key, item.id)}
+              >
+                <ProductListItem
+                  key={item.id}
+                  {...section.mapItem(item as never)}
+                  app={section.app}
+                />
+              </Link>
             ))}
 
             {section.showSeeMore && (hasInitial || hasFetched) && (
@@ -192,7 +235,7 @@ const mapShopProductToListItem = (
   price_main: item.price_main ?? undefined,
   price_off: item.price_off ?? undefined,
   installmentPayment: item.installment_payment,
-  imageType: "portrait",
+  imageType: "square",
   app: Apps.MARKET,
 });
 

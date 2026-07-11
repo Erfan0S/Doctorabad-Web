@@ -1,0 +1,47 @@
+@import "@/assets/styles/variables";
+@import "@/assets/styles/functions";
+
+.popularListWrapper {
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.popularTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--app-base, $base-green);
+  margin-bottom: 12px;
+}
+
+.popularList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.popularCard {
+	border: 1px solid var(--app-base, $base-green);
+	border-radius: 999px;
+	background-color: #fff;
+	padding: 10px 14px;
+	cursor: pointer;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+	max-width: 100%; // هر مقداری که مناسب طراحیته
+	display: flex; // تا span درست کشیده بشه
+	align-items: center;
+}
+
+.popularText {
+	font-size: 14px;
+	color: #334155;
+
+	// این سه خط کار اصلی رو انجام میدن:
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	display: block;
+	max-width: 100%;
+	min-width: 0; // مهم برای فلکس‌باکس تا اجازهٔ کوچک شدن بده
+}

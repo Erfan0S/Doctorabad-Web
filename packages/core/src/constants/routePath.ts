@@ -53,7 +53,7 @@ export const insurancePaths = {
 };
 
 export const downloadPaths = {
-  single: "/product",
+  single: "/package",
   publishers: "/publishers",
 };
 
