@@ -37,12 +37,14 @@ body .secondary {
     white-space: normal;
     word-break: normal;
     overflow-wrap: break-word;
-    max-width: 100%;
+    max-width: 90%;
     margin: 0;
     line-height: 1.2;
-    min-height: calc(2 * 1.2em);
+    min-height: 2.4rem;
     align-items: center;
     min-width: 0;
+    height: auto;
+    padding-bottom: 10px;
   }
 
   .redBackground {

@@ -32,7 +32,7 @@ const StaticMobileProductList = ({
 
         return (
           <Link href={`/${p.baseUrl}/${p.id}`} key={p.id}>
-            <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {}) } app={app} {...p} />
+            <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait", haveStock: false } : {}) } app={app} {...p} />
           </Link>
         );
       })}

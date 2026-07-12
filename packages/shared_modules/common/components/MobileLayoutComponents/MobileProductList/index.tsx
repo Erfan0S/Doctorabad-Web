@@ -44,7 +44,12 @@ const ProductList = ({
           const productBaseUrl = baseUrls[itemApp] || "";
           return (
             <Link href={`${productBaseUrl}/${p.baseUrl}/${p.id}`} key={p.id}>
-              <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {}) } {...p} />
+              <MobileProductListItem
+                {...(app === Apps.DOWNLOAD
+                  ? { imageType: "portrait", haveStock: false }
+                  : {})}
+                {...p}
+              />
             </Link>
           );
         })}
