@@ -13,7 +13,7 @@
   }
 
   &Logo {
-    max-width: 240px;
+    max-width: 350px;
     margin: 0 auto space(5);
     img {
       width: 100%;
@@ -43,7 +43,7 @@
       text-align: center;
       span,
       a {
-        color: #777;
+        color: #141F23;
         font-size: 14px;
         font-weight: 700;
         line-height: 24px;
@@ -86,6 +86,7 @@
     line-height: 24px;
     font-size: 14px;
     font-weight: 700;
+    padding-top: space(4);
   }
 
   &Socials {
@@ -232,7 +233,7 @@
     &AppItems {
       margin-bottom: space(5);
       img {
-        max-width: 50%;
+        max-width: 70%;
       }
     }
     &Socials {
@@ -245,6 +246,11 @@
 
 @media (max-width: 768px) {
   .footer {
+        &AppItems {
+      margin-bottom: space(5);
+      img {
+        max-width: 100%;
+      }}
     &Wrapper {
       padding: space(10) space(6) space(10);
       border-radius: radius(8);
@@ -262,11 +268,11 @@
 @media (max-width: 576px) {
   .footer {
     &AppItems {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       a {
-        flex: unset;
-        width: auto;
+        flex: 0 0 33.333%;
+        width: 33.333%;
       }
     }
   }

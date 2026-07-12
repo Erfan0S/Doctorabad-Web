@@ -5,6 +5,7 @@ import Image from "next/image";
 import style from "./Footer.module.scss";
 import { footerSocialMedia } from "./social-data";
 import logo from "../../../assets/img/logo.png";
+import engLogo from "../../../assets/img/logo-eng-green.png";
 import googlePlay from "../../../assets/img/d1.jpg";
 import pwaApp from "../../../assets/img/d4.png";
 import directDownload from "../../../assets/img/d3.jpg";
@@ -23,7 +24,7 @@ const Footer = ({ statistic }: Props) => {
           <div className="row">
             <div className="col-lg-4">
               <div className={style.footerLogo}>
-                <Image src={logo} alt="logo" />
+                <Image src={engLogo} alt="logo" />
               </div>
               <div className={style.footerAbout}>
                 <p>
@@ -48,7 +49,9 @@ const Footer = ({ statistic }: Props) => {
                         {action ? (
                           <span>{title}</span>
                         ) : (
-                          <Link href={href}>{title}</Link>
+                          <Link target="_blank" href={href}>
+                            {title}
+                          </Link>
                         )}
                       </li>
                     ))}

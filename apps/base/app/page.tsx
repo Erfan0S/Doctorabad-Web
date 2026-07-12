@@ -16,6 +16,7 @@ import DownloadAppBanner from "@/components/home/DownloadAppBanner";
 
 import { SidePanelPage } from "@repo/core/types/sidePanel";
 import SidePanelAutoOpener from "@/components/SidePanelAutoOpener";
+import SearchBar from "@/components/Search/SearchBar";
 
 export default async function Home({
   searchParams,
@@ -36,8 +37,26 @@ export default async function Home({
   return (
     <>
       {safePage && <SidePanelAutoOpener initialPage={safePage} />}
+      <DiviceSwitchShell
+        desktop={
+          <div className="container">
+            <SearchBar />
+          </div>
+        }
+        mobile={
+          <MobileHomeHeader
+            haveSearch={true}
+            type={Apps.BASE}
+            haveFilterButton={false}
+          />
+        }
+      />
 
-      <MobileHomeHeader haveSearch={true} type={Apps.BASE} haveFilterButton={false} />
+      {/* <MobileHomeHeader
+        haveSearch={true}
+        type={Apps.BASE}
+        haveFilterButton={false}
+      /> */}
 
       {isLoggedIn ? (
         <>

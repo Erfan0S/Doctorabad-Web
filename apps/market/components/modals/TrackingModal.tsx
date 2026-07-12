@@ -1,6 +1,3 @@
-import Tracking from "@/components/tracking";
-import { ModalProps } from "@repo/core/types/modals";
+import { TrackingModal as SharedTrackingModal } from "@repo/shared_modules/common/modal/modals/TrackingModal";
 
-export const TrackingModal: React.FC<ModalProps> = ({ closeModal }) => {
-  return <Tracking closeModal={closeModal} />;
-};
+export const TrackingModal = SharedTrackingModal;
