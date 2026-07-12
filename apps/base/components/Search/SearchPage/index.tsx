@@ -108,12 +108,11 @@ const SearchPageComponent = () => {
   const [expandedSections, setExpandedSections] = useState<
     Record<string, boolean>
   >({});
-    useEffect(() => {
-	setMoreItems({});
-	setExpandedSections({});
-	setLoadingMore({});
-}, [query]);
-
+  useEffect(() => {
+    setMoreItems({});
+    setExpandedSections({});
+    setLoadingMore({});
+  }, [query]);
 
   const handleSeeMore = useCallback(
     async (sectionKey: SearchProductType) => {
@@ -167,7 +166,8 @@ const SearchPageComponent = () => {
     return <Loading />;
   }
 
-  if (isError || !hasResults || query.length < 1) {
+  if (isError || !hasResults) {
+    if (query.length < 3) return null;
     return <FIlterNotFound />;
   }
 

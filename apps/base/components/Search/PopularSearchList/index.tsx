@@ -35,9 +35,9 @@ const PopularSearchList = () => {
     [params, pathname, router],
   );
 
-  if (!query) {
-    return null;
-  }
+  // if (!query) {
+  //   return null;
+  // }
 
   if (!Array.isArray(popularData) || popularData.length === 0) {
     return null;

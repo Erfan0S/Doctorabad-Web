@@ -9,7 +9,16 @@ import { Apps } from "@repo/core/types/general";
 const SearchPage = () => {
   return (
     <div>
-      <PageHeader app={Apps.BASE} title="جستجو" children={<SearchBar />} />
+      <PageHeader
+        app={Apps.BASE}
+        title="جستجو"
+        children={
+          <div style={{ paddingLeft: "10px" , paddingRight: "10px" }}>
+            <SearchBar />
+          </div>
+        }
+      />
+
       <SearchHistoryList />
       <SearchPageComponent />
       <PopularSearchList />

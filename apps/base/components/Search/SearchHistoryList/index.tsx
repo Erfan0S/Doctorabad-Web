@@ -48,9 +48,9 @@ const SearchHistoryList = () => {
     [params, pathname, router],
   );
 
-  if (!query) {
-    return null;
-  }
+  // if (!query) {
+  //   return null;
+  // }
 
   if (!Array.isArray(historyData) || historyData.length === 0) {
     return null;
