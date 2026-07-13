@@ -20,8 +20,7 @@
   &Item {
     border-radius: radius(5);
 
-    height: 400px;
-
+aspect-ratio: 16/9;
     a {
       display: block;
       height: 100%;
@@ -49,6 +48,8 @@
     font-weight: bold;
     text-align: right;
     z-index: 2;
+      
+
   }
   :global {
     .swiper-pagination {
@@ -86,10 +87,10 @@
   // }
 }
 
-@media (max-width: 768px) {
-  .mainSlider {
-    &Item {
-      height: 50vw;
-    }
-  }
-}
+// @media (max-width: 768px) {
+//   .mainSlider {
+//     &Item {
+//       height: 50vw;
+//     }
+//   }
+// }

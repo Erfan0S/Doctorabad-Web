@@ -51,6 +51,7 @@ export default function MainSlider({ sliders }: MainSliderProps) {
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         className={styles.swiper}
+        loop
       >
         {sliders.map((slider) => {
           const href = getSliderHref(slider);
