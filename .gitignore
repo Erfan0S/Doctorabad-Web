@@ -56,3 +56,5 @@ apps/pharmacy/public/workbox-*.js
 apps/tools/public/workbox-*.js
 apps/insurance/public/workbox-*.js
 apps/download/public/workbox-*.js
+
+tailwind-migration

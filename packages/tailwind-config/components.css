@@ -1,0 +1,51 @@
+@layer base {
+  /* Per-app theme classes — moved verbatim from variables.scss */
+  .base {
+    --button-bg: #4fcc4c;
+    --app-base: #4fcc4c;
+  }
+  .market {
+    --button-bg: #ff6506;
+    --app-base: #ff6506;
+  }
+  .learn {
+    --button-bg: #ed3152;
+    --app-base: #ed3152;
+  }
+  .exam {
+    --button-bg: #a167d0;
+    --app-base: #a167d0;
+  }
+  .download {
+    --button-bg: #2aaadf;
+    --app-base: #2aaadf;
+  }
+  .dr-pro {
+    --button-bg: #3b9e97;
+    --app-base: #3b9e97;
+  }
+}
+
+@layer components {
+  /* From general.scss — names kept identical to existing usage */
+  .card {
+    @apply rounded-[10px] shadow-card;
+  }
+  .card_hover:hover {
+    @apply shadow-card-hover -translate-y-px;
+  }
+  .no_data {
+    @apply flex h-full w-full items-center justify-center text-center font-medium;
+    font-size: larger; /* no exact Tailwind utility — keep raw for parity */
+  }
+  .mobile-container {
+    @apply relative mx-auto max-w-[800px] md:pb-[90px];
+  }
+  .sidebar-tab-contents {
+    @apply overflow-auto bg-header-bg pb-[10px];
+    flex: 0 0 calc(100% - 61px);
+    max-height: calc(100% - 61px);
+  }
+  /* Add new shared classes here as they emerge during component conversion,
+     e.g. .btn-primary, .section-title, .input-base … */
+}
