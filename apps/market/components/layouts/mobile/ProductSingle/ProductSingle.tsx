@@ -75,8 +75,6 @@ function MobileProductSingle({
 }: ProductSingleProps) {
   const haveVariant = Object.keys(data.variants).length > 0;
 
-  console.log(data);
-
   return (
     <>
       <MobileProductLayout

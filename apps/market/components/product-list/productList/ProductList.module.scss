@@ -1,11 +1,15 @@
 .productList {
-    height: 350px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &ItemProvider {
+    font-weight: 600;
+  }
+  &Loader {
     display: flex;
     align-items: center;
     justify-content: center;
-    &Loader {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  }
 }

@@ -75,7 +75,7 @@ const MobileProviderPage = ({ id }: Props) => {
       id={id}
       image={provider?.pic_url || ""}
       summery={provider?.summary || ""}
-      title="فروشنده"
+      title={provider?.name || ""}
       app={Apps.MARKET}
       contentTitle="محصولات"
       isLoading={isLoading}

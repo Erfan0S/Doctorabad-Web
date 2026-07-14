@@ -7,6 +7,7 @@ import { Product as ProductType } from "@repo/core/types/product";
 import { Apps } from "@repo/core/types/general";
 import { marketPaths } from "@repo/core/constants/routePath";
 import { OrderType } from "@repo/core/types/cart";
+import style from "./ProductList.module.scss";
 
 type Props = {
   product: ProductType;
@@ -29,7 +30,18 @@ function MobileProductListItem({ product }: Props) {
         imageType="square"
         installmentPayment={product.installment_payment}
         attributes={
-          !!product.provider ? [{ icon: <Hat />, value: product.provider }] : []
+          !!product.provider
+            ? [
+                {
+                  icon: <Hat />,
+                  value: (
+                    <span className={style.productListItemProvider}>
+                      {product.provider}
+                    </span>
+                  ),
+                },
+              ]
+            : []
         }
         pic_url={product.product_pic}
         price_main={product.price_main}
