@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   /* Per-app theme classes — moved verbatim from variables.scss */
   .base {
