@@ -1,6 +1,5 @@
 import React from "react";
 import SearchBar from "@/components/Search/SearchBar";
-import styles from "./HomeHeader.module.scss";
 import { MainTabsData } from "@/constants/tabs-data";
 import { MobileHomeHeader } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";
@@ -13,7 +12,7 @@ function HomeHeader({ haveSearch = true }: Props) {
   return (
     <MobileHomeHeader tabData={MainTabsData} type={Apps.DOWNLOAD}>
       {haveSearch && (
-        <div className={styles.childContainer}>
+        <div className="w-full px-2.5">
           <SearchBar haveFilterButton={true} />
         </div>
       )}

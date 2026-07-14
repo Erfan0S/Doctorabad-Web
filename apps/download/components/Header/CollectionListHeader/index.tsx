@@ -1,6 +1,5 @@
 import React from "react";
 import { PageHeader } from "@repo/shared_modules/headers";
-import styles from "./CollectionListHeader.module.scss";
 import { SortType } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
 import { Accordion } from "@repo/shared_modules/components";
@@ -23,7 +22,7 @@ const CollectionListHeader = ({ title }: Props) => {
       title={title}
       app={Apps.DOWNLOAD}
       children={
-        <div className={styles.filterWrapper}>
+        <div className="mt-2.5 px-2.5">
           <Accordion
             title="نمایش براساس..."
             items={filterData}
