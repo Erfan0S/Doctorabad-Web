@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./Specifications.module.scss";
 import { PackageContentProps } from "../tabs-data";
 import { FileType, Language } from "@/types/packages";
 
@@ -67,16 +66,22 @@ const PackageSpecifications = ({ packageItem }: PackageContentProps) => {
     { label: "تعداد صفحات", value: packageItem.page },
   ].filter((item) => item.value && item.value !== "0" && item.value !== "");
 
+  //!: table styles not working
+
   return (
-    <div className={style.specifications}>
-      <table>
+    <div className="w-full py-[15px]">
+      <table className="w-full border-separate border-spacing-0 overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] [direction:rtl]">
         <tbody>
           {specData
             .filter((item) => item.value !== "-")
             .map((item, index) => (
               <tr key={index}>
-                <td>{item.label}</td>
-                <td>{item.value}</td>
+                <td className="border-l border-black px-2 py-3 text-center text-sm first:w-[120px] first:font-medium first:text-black last:border-l-0 last:font-semibold last:text-black">
+                  {item.label}
+                </td>
+                <td className="px-2 py-3 text-center text-sm border-b">
+                  {item.value}
+                </td>
               </tr>
             ))}
         </tbody>

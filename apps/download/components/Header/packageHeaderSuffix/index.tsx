@@ -7,7 +7,6 @@ import { MobileHeaderBaseSiffix } from "@repo/shared_modules/headers";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { Loading } from "@repo/shared_modules/components";
 import EyeIcon from "../../../assets/svg/eye";
-import style from "./packageHeader.module.scss";
 
 type Props = {
   packageItem: PackageItem;
@@ -60,7 +59,7 @@ const PackageHeaderSuffix = ({ packageItem }: Props) => {
       />
       {sampleUrl && (
         <button
-          className={style.headerButton}
+          className="ml-2 flex h-[45px] w-[45px] cursor-pointer items-center justify-center rounded-xl border-none bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] outline-none first-of-type:m-0 focus:outline-none active:outline-none [&_img]:h-[30px] [&_img]:w-[30px] [&_svg]:h-[30px] [&_svg]:w-[30px]"
           onClick={handleDownloadSample}
           disabled={loading}
         >

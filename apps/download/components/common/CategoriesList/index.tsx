@@ -1,7 +1,6 @@
 import { CollectionType, ProviderType } from "@/types/homePage";
 import React from "react";
 import CategoryListItem from "./CategoryListItem";
-import style from "./CategoriesList.module.scss";
 
 type Props = {
   categories: CollectionType[] | ProviderType[];
@@ -10,7 +9,7 @@ type Props = {
 
 const CategoriesList = ({ categories, isProvider }: Props) => {
   return (
-    <div className={style.ListWrapper}>
+    <div className="mx-auto flex w-full flex-wrap justify-center gap-x-2 gap-y-3 px-2.5 pt-2">
       {categories.map((category, i) => (
         <CategoryListItem
           key={`${category.id}-${i}`}

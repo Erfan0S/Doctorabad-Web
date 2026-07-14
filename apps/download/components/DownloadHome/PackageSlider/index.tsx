@@ -1,6 +1,5 @@
 "use client";
 import { SwiperProps, SwiperSlide } from "swiper/react";
-import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
 import { PackageListItemType } from "@/types/packages";
@@ -43,7 +42,7 @@ const PackageSlider: React.FC<Props> = ({
         <SwiperSlide key={packageItem.id}>
           <Link href={`/package/${packageItem.id}/${packageItem.title.replace(/\s+/g, "-")}`}>
             <Image
-              className={style.course}
+              className="aspect-[16/9] h-[150px] w-[110px] rounded-[10px] bg-white bg-cover bg-center shadow-[0_0_10px_rgba(0,0,0,0.1)]"
               src={packageItem.picture || placeHolderDataUrl}
               alt={packageItem.title || "دروس"}
               width={100}

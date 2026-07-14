@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import style from './CallbackDiscountInfo.module.scss';
 import coinsImage from '@/assets/img/coins.png';
 import coinIcon from '@/assets/img/coin.png';
 
@@ -10,7 +9,7 @@ type Props = {
 
 const CallbackDiscountInfo = ({ discountCode, earnedCoins }: Props) => {
   return (
-    <div className={style.callbackDiscountInfo}>
+    <div className="text-center leading-[30px] max-lg:mb-3 [&_img]:max-w-full [&_p]:mb-0 [&_p]:font-semibold [&_p]:text-[#463d89]">
       <Image src={coinsImage} alt="callbackDiscountInfo" />
       {!!earnedCoins && (
         <>
