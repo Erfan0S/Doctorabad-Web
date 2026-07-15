@@ -14,6 +14,9 @@
     "@types/jalaali-js": "^1.2.0",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.19",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "@repo/tailwind-config": "*",
     "turbo": "^2.3.3",
     "typescript": "5.1.6"
   },
