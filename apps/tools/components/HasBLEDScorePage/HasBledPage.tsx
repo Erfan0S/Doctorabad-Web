@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import styles from "./HasBledPage.module.scss"; // فایل استایل مشابه صفحات قبل
+import styles from "./toolStyles"; // فایل استایل مشابه صفحات قبل
 import useHasBled from "@/hooks/useHasBled";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

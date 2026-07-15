@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import styles from "./Cha2ds2VascPage.module.scss"; // مشابه استایل صفحات قبلی
+import styles from "./toolStyles"; // مشابه استایل صفحات قبلی
 import useCha2ds2Vasc from "@/hooks/useCha2ds2Vasc";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

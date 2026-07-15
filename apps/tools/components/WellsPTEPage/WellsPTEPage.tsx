@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import styles from "./WellsPTEPage.module.scss"; // مشابه استایل صفحات قبلی
+import styles from "./toolStyles"; // مشابه استایل صفحات قبلی
 import useWellsPte from "@/hooks/useWellsPte";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./ApgarPage.module.scss";
+import styles from "./toolStyles";
 import useApgar from "@/hooks/useApgar";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useFENa } from "@/hooks/useFENa";
-import styles from "./FENaPage.module.scss";
+import styles from "./toolStyles";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function FENaPage() {

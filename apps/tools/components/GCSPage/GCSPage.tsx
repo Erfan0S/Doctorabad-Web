@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./GCSPage.module.scss";
+import styles from "./toolStyles";
 import useGCS from "@/hooks/useGCS";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

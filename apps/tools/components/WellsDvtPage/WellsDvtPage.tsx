@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import styles from "./WellsDvtPage.module.scss"; // مشابه استایل صفحات قبلی
+import styles from "./toolStyles"; // مشابه استایل صفحات قبلی
 import useWellsDvt from "@/hooks/useWellsDvt";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

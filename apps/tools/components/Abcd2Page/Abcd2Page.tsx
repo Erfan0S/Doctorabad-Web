@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./Abcd2Page.module.scss"; // استایل مشابه صفحات قبلی
+import styles from "./toolStyles"; // استایل مشابه صفحات قبلی
 import useAbcd2 from "@/hooks/useAbcd2";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

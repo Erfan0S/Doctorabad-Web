@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./MaintenanceFluidsPage.module.scss"; // استایل مشابه صفحات قبل
+import styles from "./toolStyles"; // استایل مشابه صفحات قبل
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 import { useMaintenanceFluids } from "@/hooks/useMaintenanceFluids";
 

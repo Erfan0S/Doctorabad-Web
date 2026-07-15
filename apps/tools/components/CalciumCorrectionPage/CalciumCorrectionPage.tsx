@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCalciumCorrection } from "@/hooks/useCalciumCorrection";
-import styles from "./CalciumCorrectionPage.module.scss";
+import styles from "./toolStyles";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function CalciumCorrectionPage() {

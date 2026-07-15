@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useGFR } from "@/hooks/useGFR";
-import styles from "./GFRPage.module.scss";
+import styles from "./toolStyles";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function GFRPage() {

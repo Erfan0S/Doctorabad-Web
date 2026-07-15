@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useBMI } from "@/hooks/useBMI";
-import styles from "./BMIPage.module.scss";
+import styles from "./toolStyles";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function BMIPage() {

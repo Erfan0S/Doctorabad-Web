@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import styles from "./AlvaradoPage.module.scss";
+import styles from "./toolStyles";
 import useAlvarado from "@/hooks/useAlvarado";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

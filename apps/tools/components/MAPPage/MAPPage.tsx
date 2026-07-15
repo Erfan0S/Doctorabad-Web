@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useMAP } from "@/hooks/useMAP";
-import styles from "./MAPPage.module.scss";
+import styles from "./toolStyles";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 
 export default function MAPPage() {

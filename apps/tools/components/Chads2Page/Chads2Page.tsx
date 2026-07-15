@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import styles from "./Chads2Page.module.scss"; // مشابه استایل صفحات قبلی
+import styles from "./toolStyles"; // مشابه استایل صفحات قبلی
 import useChads2 from "@/hooks/useChads2";
 import ResultToast from "@/components/common/ResultToast/ResultToast";
 

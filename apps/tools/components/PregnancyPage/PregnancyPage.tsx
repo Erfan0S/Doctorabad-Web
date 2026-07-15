@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./PregnancyPage.module.scss";
+import styles from "./toolStyles";
 import usePregnancy from "@/hooks/usePregnancy";
 import DownArrow from "@/assets/svg/downArrow"; // ایمپورت آیکون
 import ResultToast from "@/components/common/ResultToast/ResultToast";
