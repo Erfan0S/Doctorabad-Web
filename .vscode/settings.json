@@ -1,0 +1,7 @@
+{
+  "tailwindCSS.forceEnableIntelliSense": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.emmetCompletions": true
+}
