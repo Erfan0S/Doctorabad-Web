@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import styles from "./ToolsHeader.module.scss";
 import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
 import ShareIcon from "@/assets/svg/share";
@@ -13,6 +12,9 @@ import { ToolDataType } from "@/types/tools";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 import {baseUrls} from "@repo/core/constants/routePath";
 
+// دکمه‌های آیکونی سفید هدر (back / favorite / share)
+const iconBtnClasses =
+  "flex h-[45px] w-[45px] cursor-pointer items-center justify-center rounded-lg border-none bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-transform duration-200 active:scale-95 [&_svg]:h-[30px] [&_svg]:w-[30px] [&_svg]:text-[#333]";
 
 interface ToolsHeaderProps {
   title?: string;
@@ -48,7 +50,7 @@ export default function ToolsHeader({
       return {
         title: toolData?.title,
         description: `${toolData?.title} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/mt/dt/${toolData?.id}`,
+        url: `{{https://doctorabad.com/mt/dt/${toolData?.id}}}`,
         
       };
     }
@@ -62,13 +64,13 @@ export default function ToolsHeader({
   // اما اینجا چون فقط رنگ عوض می‌شود، می‌توانیم دیفالت را "خالی" در نظر بگیریم.
 
   return (
-    <header className={styles.header}>
-      <div className={styles.headerTop}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.lefSideHeader}>
+    <header className="sticky top-0 z-[100] bg-white">
+      <div className="flex items-center justify-between bg-green-base py-[7px] pl-4 pr-5">
+        <h1 className="m-0 font-black text-white">{title}</h1>
+        <div className="flex items-center gap-2">
             {headerPageType === HeaderType.TOOL_DETAILS && (
             <>
-              <div className={styles.favoriteBtn} onClick={handleShareButton}>
+              <div className={iconBtnClasses} onClick={handleShareButton}>
                 <ShareIcon />
               </div>
             </>
@@ -76,7 +78,7 @@ export default function ToolsHeader({
 
           {headerPageType !== HeaderType.FAVORITES && (
             <div
-              className={styles.favoriteBtn}
+              className={iconBtnClasses}
               onClick={
                 headerPageType === HeaderType.TOOL_DETAILS && toolData?.id
                   ? handleFavoriteButton
@@ -93,7 +95,7 @@ export default function ToolsHeader({
             </div>
           )}
 
-          <div className={styles.backBtn} onClick={() => navHistory.goBack(baseUrls.base)}>
+          <div className={iconBtnClasses} onClick={() => navHistory.goBack(baseUrls.base)}>
             <BackIcon></BackIcon>
           </div>
         </div>

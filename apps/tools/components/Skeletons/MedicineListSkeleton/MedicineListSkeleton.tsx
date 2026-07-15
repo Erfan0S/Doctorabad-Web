@@ -2,7 +2,6 @@
 "use client";
 
 import MedicineCardSkeleton from "./MedicineCardSkeleton";
-import styles from "./MedicineListSkeleton.module.scss";
 
 interface MedicineListSkeletonProps {
   count?: number;
@@ -10,7 +9,7 @@ interface MedicineListSkeletonProps {
 
 export default function MedicineListSkeleton({ count = 6 }: MedicineListSkeletonProps) {
   return (
-    <div className={styles.medicinesList}>
+    <div className="flex flex-col gap-3 p-4">
       {Array.from({ length: count }).map((_, index) => (
         <MedicineCardSkeleton key={index} />
       ))}

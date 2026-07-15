@@ -1,9 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "./ResultToast.module.scss";
 
 type Tone = "green" | "yellow" | "red";
+
+const TONE_CLASSES: Record<Tone, string> = {
+  green: "border-t-green-base",
+  yellow: "border-t-[#f4c430]",
+  red: "border-t-red",
+};
 
 type Props = {
   open: boolean;
@@ -46,19 +51,44 @@ export default function ResultToast({
 
   return (
     <div
-      className={`${styles.overlay} ${visible ? styles.open : styles.closed}`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center ${
+        visible ? "pointer-events-auto" : "pointer-events-none"
+      }`}
       role="dialog"
       aria-modal="true"
     >
-      <div className={styles.backdrop} onClick={onClose} />
+      <div
+        className={`absolute inset-0 transition-[background] duration-[220ms] ease-[ease] motion-reduce:transition-none ${
+          visible ? "bg-black/45" : "bg-black/0"
+        }`}
+        onClick={onClose}
+      />
       
-      <div className={`${styles.modal} ${styles[tone]}`}>
-      <button type="button" className={styles.closeBtn} onClick={onClose}>
+      <div
+        className={`relative z-[1] w-[min(92vw,420px)] rounded-[14px] border-0 border-t-[12px] border-solid bg-white px-4 pb-3.5 pt-4 shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-[transform,opacity] duration-[220ms] ease-[ease] will-change-[transform,opacity] motion-reduce:transition-none ${
+          visible
+            ? "translate-y-0 scale-100 opacity-100"
+            : "translate-y-[10px] scale-[0.98] opacity-0"
+        } ${TONE_CLASSES[tone]}`}
+      >
+        <button
+          type="button"
+          className="absolute left-1.5 top-1.5 h-5 w-5 cursor-pointer rounded-lg border-none bg-black/[0.06] text-base leading-5"
+          onClick={onClose}
+        >
           ×
         </button>
 
-        {title ? <div className={styles.title}>{title}</div> : null}
-        {message ? <div className={styles.text}>{message}</div> : null}
+        {title ? (
+          <div className="mb-2 flex justify-center text-center text-lg font-bold">
+            {title}
+          </div>
+        ) : null}
+        {message ? (
+          <div className="text-center text-sm font-medium leading-[1.6]">
+            {message}
+          </div>
+        ) : null}
       </div>
     </div>
   );
