@@ -6,7 +6,6 @@ import { PackageListItemType, ProviderTabs } from "@/types/packages";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React from "react";
-import styles from "@/components/Header/ProviderHeader/ProviderHeader.module.scss";
 import StaticPackageList from "@/components/common/PackageList/StaticPackageList";
 import { Loading } from "@repo/shared_modules/components";
 import InfiniteScroll from "react-infinite-scroller";
@@ -46,8 +45,11 @@ const ProviderPageContent = ({
       );
     case ProviderTabs.DESCRIPTION:
       return (
-        <div className={styles.pageDescription}>
-          <div dangerouslySetInnerHTML={{ __html: sanitize(description) }} />
+        <div className="w-full p-4">
+          <div
+            className="text-[16px]"
+            dangerouslySetInnerHTML={{ __html: sanitize(description) }}
+          />
         </div>
       );
     default:
@@ -119,7 +121,7 @@ const ProviderPage = ({ id }: Props) => {
   ) : (
     <div>
       <PageHeader
-        className={styles.providerHeaderWrapper}
+        className="[&>div]:last:p-0"
         title="ناشر"
         app={Apps.DOWNLOAD}
         children={

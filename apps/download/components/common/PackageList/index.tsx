@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./PackageList.module.scss";
 import { InfiniteData } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
 import { ProductList, ProductPrice } from "@repo/shared_modules/components";
@@ -85,7 +84,7 @@ const PackageList = ({ packages, fetchNextPage, hasNextPage }: Props) => {
   const packageDataList = packages?.pages?.flatMap((page) => page.data) || [];
 
   return (
-    <div className={styles.relatedCoursesWrapper}>
+    <div className="flex flex-col">
       <ProductList
         products={packageDataList?.map((packageItem) =>
           productData(packageItem),

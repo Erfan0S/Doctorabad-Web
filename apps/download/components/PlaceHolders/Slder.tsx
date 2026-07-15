@@ -1,10 +1,9 @@
 import React from "react";
-import style from "./PlaceHolder.module.scss";
 
 export default function MainSliderPlaceHolder() {
   return (
     <div className="container">
-      <div className={style.mainSlider}>
+      <div className="mb-[15px] mt-[5px] h-[400px] max-h-[40vw] w-full rounded-[20px] bg-[#e6e6e6] shadow-card">
         <div className="">
           <div className="">
             {[1, 2, 3].map((i) => (

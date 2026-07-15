@@ -50,6 +50,14 @@
     flex: 0 0 calc(100% - 61px);
     max-height: calc(100% - 61px);
   }
+  /* Comments suite (package/tabs/comments) — bubble & avatar shared by
+     the visitor comment and the admin reply (2+ elements → named class) */
+  .comment-avatar {
+    @apply h-[45px] w-[45px] flex-[0_0_45px] rounded-full border border-solid border-blue;
+  }
+  .comment-bubble {
+    @apply relative flex-[0_0_calc(100%-45px-12px)] rounded-xl border-2 border-solid border-blue px-3 py-2;
+  }
   /* Add new shared classes here as they emerge during component conversion,
      e.g. .btn-primary, .section-title, .input-base … */
 }

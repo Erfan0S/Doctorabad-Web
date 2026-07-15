@@ -1,5 +1,4 @@
 "use client";
-import style from "./ProductTabsController.module.scss";
 import Item from "./Item";
 import { TabData } from "@/types/packages";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -19,8 +18,10 @@ const TabsController: React.FC<Props> = ({
   const pathname = usePathname();
 
   return (
-    <div className={`${style.productTabsController} ${className}`}>
-      <ul>
+    <div
+      className={`top-0 z-[200] w-full select-none transition-all duration-200 max-md:top-[154px] ${className}`}
+    >
+      <ul className="m-0 flex list-none items-center justify-center p-0">
         {tabData.map((data) => (
           <Item
             key={data.id}
