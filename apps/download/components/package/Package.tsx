@@ -31,28 +31,13 @@ const Package = ({ packageItem, activeTab }: Props) => {
       providerBaseUrl={downloadPaths.publishers}
       preview={
         imageSrc ? (
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className="relative flex w-full items-center justify-center">
             <Image
               src={imageSrc}
               alt={packageItem?.title || ""}
               width={140}
               height={100}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "200px",
-                width: "auto",
-                height: "auto",
-                borderRadius: "16px",
-                aspectRatio: "3/4",
-              }}
+              className="aspect-[3/4] h-auto max-h-[200px] w-auto max-w-full rounded-2xl"
             />
           </div>
         ) : null

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import style from "./Package.module.scss";
 import { PackageItem } from "@/types/packages";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -50,9 +49,13 @@ export function PackageActiveButton({ packageItem }: Props) {
                 }),
               )
       }
-      className={`${style.purchaseButtonWrapper} ${(packageItem.user_has_access || packageItem.main_price == null) && style.purchaseBarAccess} ${loading && style.loading}`}
+      className={`flex w-full flex-1 flex-row items-center ${
+        packageItem.user_has_access || packageItem.main_price == null
+          ? "px-4 py-2 [&_button]:p-[7px]"
+          : "px-[15px] py-[10px]"
+      } ${loading ? "pointer-events-none opacity-70" : ""}`}
     >
-      <span className={`${style.purchaseButton} ${style.purchaseButtonActive}`}>
+      <span className="btn-purchase cursor-default">
         {loading ? "در حال دریافت..." : "دانلود کن!"}
       </span>
     </div>
@@ -63,7 +66,7 @@ export const PackageAppOnlyButton = ({ packageItem }: Props) => {
   if (!packageItem.only_usable_on_app) return null;
   return (
     <div
-      className={`${style.appOnly} ${style.purchaseButton}`}
+      className="btn-purchase mr-[10px] h-[45px] w-[75px] flex-none border-[3px] border-solid border-blue bg-white p-[7px] [&_span]:text-[10px] [&_span]:text-blue [&_svg]:h-full [&_svg]:w-full"
       onClick={() =>
         modalActions.addModal(ModalTypes.AppOnly, { app: Apps.DOWNLOAD })
       }
