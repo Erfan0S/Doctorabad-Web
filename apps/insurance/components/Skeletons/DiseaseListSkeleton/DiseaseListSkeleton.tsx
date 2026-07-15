@@ -2,7 +2,6 @@
 "use client";
 
 import DiseaseCardSkeleton from "./DiseaseCardSkeleton";
-import styles from "./DiseaseListSkeleton.module.scss";
 
 interface DiseaseListSkeletonProps {
   count?: number;
@@ -10,7 +9,7 @@ interface DiseaseListSkeletonProps {
 
 export default function DiseaseListSkeleton({ count = 6 }: DiseaseListSkeletonProps) {
   return (
-    <div className={styles.diseasesList}>
+    <div className="flex flex-col gap-3 p-4">
       {Array.from({ length: count }).map((_, index) => (
         <DiseaseCardSkeleton key={index} />
       ))}

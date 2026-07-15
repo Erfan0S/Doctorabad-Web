@@ -1,0 +1,43 @@
+diff --git a/apps/insurance/app/layout.tsx b/apps/insurance/app/layout.tsx
+index 2aa8caf..26b9bad 100644
+--- a/apps/insurance/app/layout.tsx
++++ b/apps/insurance/app/layout.tsx
+@@ -4,6 +4,7 @@ import localFont from "next/font/local";
+ import "react-toastify/dist/ReactToastify.css";
+ import "../assets/styles/grid.scss";
+ import "../assets/styles/general.scss";
++import "@repo/tailwind-config/components.css";
+ import { homeViewPort } from "@repo/core/metadata/home";
+ import { homeMetadata } from "@/metadata/home";
+ import MobileNavBar from "@repo/shared_modules/navbar/mobile";
+diff --git a/apps/insurance/postcss.config.json b/apps/insurance/postcss.config.json
+new file mode 100644
+index 0000000..380d676
+--- /dev/null
++++ b/apps/insurance/postcss.config.json
+@@ -0,0 +1,6 @@
++{
++  "plugins": {
++    "tailwindcss": {},
++    "autoprefixer": {}
++  }
++}
+diff --git a/apps/insurance/tailwind.config.cjs b/apps/insurance/tailwind.config.cjs
+new file mode 100644
+index 0000000..e719bf0
+--- /dev/null
++++ b/apps/insurance/tailwind.config.cjs
+@@ -0,0 +1,13 @@
++const preset = require("@repo/tailwind-config");
++
++/** @type {import('tailwindcss').Config} */
++module.exports = {
++  presets: [preset],
++  content: [
++    "./app/**/*.{ts,tsx}",
++    "./components/**/*.{ts,tsx}",
++    "../../packages/shared_modules/**/*.{ts,tsx}",
++    "../../packages/apps_shared_components/**/*.{ts,tsx}",
++    "../../packages/core/**/*.{ts,tsx}",
++  ],
++};

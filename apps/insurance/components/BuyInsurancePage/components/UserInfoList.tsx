@@ -1,4 +1,3 @@
-import styles from "../BuyInsurancePage.module.scss";
 import { InfoRow } from "./InfoRow";
 
 interface UserInfoListProps {
@@ -24,7 +23,7 @@ export const UserInfoList = ({
   lastInsuranceLabel,
   endDateLabel,
 }: UserInfoListProps) => (
-  <div className={styles.infoList}>
+  <div className="mb-5 flex flex-col gap-2">
     <InfoRow label="نام بیمه‌گذار" value={insuredName} />
     <InfoRow label="شماره موبایل" value={insuredPhone} />
 

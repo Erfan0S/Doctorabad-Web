@@ -3,7 +3,6 @@ import { ModalProps } from "@repo/core/types/modals";
 import { toGregorian, toJalaali } from "jalaali-js";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import styles from "./InsuranceDatePickerModal.module.scss";
 import DownArrow from "@/assets/svg/downArrow";
 import SelectOptionsModal from "@/components/SelectOptions/SelectOptions";
 
@@ -72,6 +71,13 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
   };
   const getDayLabel = () => selectedDay || "روز";
 
+  const selectorBoxCls =
+    "flex h-12 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-solid bg-white px-2 transition-all duration-200 hover:border-green-base [&_svg]:h-3 [&_svg]:w-3";
+  const selectorIdleCls =
+    "border-[#ddd] [&_span]:text-sm [&_span]:font-medium [&_span]:text-[#555] [&_svg]:opacity-60 [&_svg_path]:fill-[#555]";
+  const selectorFilledCls =
+    "border-green-base [&_span]:text-sm [&_span]:font-bold [&_span]:text-[#333] [&_svg]:opacity-100 [&_svg_path]:fill-green-base";
+
   if (activeSelector) {
     let options: { id: number | string; label: string }[] = [];
     let title = "";
@@ -107,18 +113,18 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
   }
 
   return (
-    <div className={styles.modalContainer}>
-      <div className={styles.header}>
-        <h3 className={styles.headerTitle}>تاریخ اتمام بیمه‌نامه</h3>
+    <div className="relative flex max-h-[800px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_40px_rgba(0,0,0,0.15)] [direction:rtl]">
+      <div className="bg-green-base p-4 text-center text-white">
+        <h3 className="m-0 text-base font-bold">تاریخ اتمام بیمه‌نامه</h3>
       </div>
 
-      <div className={styles.scrollContent}>
-        <div className={styles.selectorsRow}>
+      <div className="px-4 py-6">
+        <div className="flex justify-center gap-2 [direction:rtl]">
 
 
           {/* Day */}
           <div 
-            className={`${styles.selectorBox} ${selectedDay ? styles.filled : ''}`} 
+            className={`${selectorBoxCls} ${selectedDay ? selectorFilledCls : selectorIdleCls}`} 
             onClick={() => setActiveSelector('day')}
           >
             <span>{getDayLabel()}</span>
@@ -126,7 +132,7 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
           </div>
           {/* Month */}
           <div 
-            className={`${styles.selectorBox} ${selectedMonth ? styles.filled : ''}`} 
+            className={`${selectorBoxCls} ${selectedMonth ? selectorFilledCls : selectorIdleCls}`} 
             onClick={() => setActiveSelector('month')}
           >
             <span>{getMonthLabel()}</span>
@@ -134,7 +140,7 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
           </div>
           {/* Year */}
           <div 
-            className={`${styles.selectorBox} ${selectedYear ? styles.filled : ''}`} 
+            className={`${selectorBoxCls} ${selectedYear ? selectorFilledCls : selectorIdleCls}`} 
             onClick={() => setActiveSelector('year')}
           >
             <span>{getYearLabel()}</span>
@@ -143,9 +149,9 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
         </div>
       </div>
 
-      <div className={styles.footer}>
+      <div className="flex justify-center px-4 pb-6">
         <button
-          className={styles.submitBtn}
+          className="h-12 w-full cursor-pointer rounded-xl border-none bg-green-base text-base font-bold text-white transition-[background] duration-200 enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:bg-[#ccc]"
           onClick={handleConfirm}
           disabled={!selectedYear || !selectedMonth || !selectedDay}
         >

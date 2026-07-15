@@ -1,0 +1,395 @@
+diff --git a/apps/insurance/components/Modals/InsuranceDatePicker/InsuranceDatePickerModal.tsx b/apps/insurance/components/Modals/InsuranceDatePicker/InsuranceDatePickerModal.tsx
+index 5d25d45..edee306 100644
+--- a/apps/insurance/components/Modals/InsuranceDatePicker/InsuranceDatePickerModal.tsx
++++ b/apps/insurance/components/Modals/InsuranceDatePicker/InsuranceDatePickerModal.tsx
+@@ -3,7 +3,6 @@ import { ModalProps } from "@repo/core/types/modals";
+ import { toGregorian, toJalaali } from "jalaali-js";
+ import { modalActions } from "@repo/core/modal/modals";
+ import { ModalTypes } from "@repo/shared_modules/modalsTypes";
+-import styles from "./InsuranceDatePickerModal.module.scss";
+ import DownArrow from "@/assets/svg/downArrow";
+ import SelectOptionsModal from "@/components/SelectOptions/SelectOptions";
+ 
+@@ -72,6 +71,13 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
+   };
+   const getDayLabel = () => selectedDay || "روز";
+ 
++  const selectorBoxCls =
++    "flex h-12 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-solid bg-white px-2 transition-all duration-200 hover:border-green-base [&_svg]:h-3 [&_svg]:w-3";
++  const selectorIdleCls =
++    "border-[#ddd] [&_span]:text-sm [&_span]:font-medium [&_span]:text-[#555] [&_svg]:opacity-60 [&_svg_path]:fill-[#555]";
++  const selectorFilledCls =
++    "border-green-base [&_span]:text-sm [&_span]:font-bold [&_span]:text-[#333] [&_svg]:opacity-100 [&_svg_path]:fill-green-base";
++
+   if (activeSelector) {
+     let options: { id: number | string; label: string }[] = [];
+     let title = "";
+@@ -107,18 +113,18 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
+   }
+ 
+   return (
+-    <div className={styles.modalContainer}>
+-      <div className={styles.header}>
+-        <h3 className={styles.headerTitle}>تاریخ اتمام بیمه‌نامه</h3>
++    <div className="relative flex max-h-[800px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_40px_rgba(0,0,0,0.15)] [direction:rtl]">
++      <div className="bg-green-base p-4 text-center text-white">
++        <h3 className="m-0 text-base font-bold">تاریخ اتمام بیمه‌نامه</h3>
+       </div>
+ 
+-      <div className={styles.scrollContent}>
+-        <div className={styles.selectorsRow}>
++      <div className="px-4 py-6">
++        <div className="flex justify-center gap-2 [direction:rtl]">
+ 
+ 
+           {/* Day */}
+           <div 
+-            className={`${styles.selectorBox} ${selectedDay ? styles.filled : ''}`} 
++            className={`${selectorBoxCls} ${selectedDay ? selectorFilledCls : selectorIdleCls}`} 
+             onClick={() => setActiveSelector('day')}
+           >
+             <span>{getDayLabel()}</span>
+@@ -126,7 +132,7 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
+           </div>
+           {/* Month */}
+           <div 
+-            className={`${styles.selectorBox} ${selectedMonth ? styles.filled : ''}`} 
++            className={`${selectorBoxCls} ${selectedMonth ? selectorFilledCls : selectorIdleCls}`} 
+             onClick={() => setActiveSelector('month')}
+           >
+             <span>{getMonthLabel()}</span>
+@@ -134,7 +140,7 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
+           </div>
+           {/* Year */}
+           <div 
+-            className={`${styles.selectorBox} ${selectedYear ? styles.filled : ''}`} 
++            className={`${selectorBoxCls} ${selectedYear ? selectorFilledCls : selectorIdleCls}`} 
+             onClick={() => setActiveSelector('year')}
+           >
+             <span>{getYearLabel()}</span>
+@@ -143,9 +149,9 @@ export const InsuranceDatePickerModal: React.FC<InsuranceDatePickerModalProps> =
+         </div>
+       </div>
+ 
+-      <div className={styles.footer}>
++      <div className="flex justify-center px-4 pb-6">
+         <button
+-          className={styles.submitBtn}
++          className="h-12 w-full cursor-pointer rounded-xl border-none bg-green-base text-base font-bold text-white transition-[background] duration-200 enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:bg-[#ccc]"
+           onClick={handleConfirm}
+           disabled={!selectedYear || !selectedMonth || !selectedDay}
+         >
+diff --git a/apps/insurance/components/Modals/UserInfoModal/UserInfoModal.tsx b/apps/insurance/components/Modals/UserInfoModal/UserInfoModal.tsx
+index 1909246..a7e2662 100644
+--- a/apps/insurance/components/Modals/UserInfoModal/UserInfoModal.tsx
++++ b/apps/insurance/components/Modals/UserInfoModal/UserInfoModal.tsx
+@@ -2,7 +2,6 @@
+ "use client";
+ 
+ import React, { useState, useEffect } from "react";
+-import styles from "./UserInfoModal.module.scss";
+ import { ModalProps } from "@repo/core/types/modals";
+ import {
+   useInsuranceInfos,
+@@ -288,10 +287,22 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+     selectedGradeId !== null &&
+     selectedResidencyId !== null;
+ 
++  const formSectionCls = "flex flex-col gap-2";
++  const labelCls = "text-sm font-semibold text-[#333]";
++  const inputCls =
++    "w-full rounded-[10px] border-2 border-solid border-[#e9ecef] bg-white p-3 text-sm transition-all duration-200 [font-family:inherit] placeholder:text-[#999] focus:border-[#2ecc71] focus:shadow-[0_0_0_3px_rgba(46,204,113,0.1)] focus:outline-none";
++  const selectBoxCls =
++    "flex min-h-[44px] w-full cursor-pointer items-center justify-between rounded-[10px] border-2 border-solid border-[#e9ecef] bg-white p-3 text-sm transition-all duration-200 hover:border-[#2ecc71] hover:bg-[#f8f9fa]";
++  const selectBoxDisabledCls =
++    "flex min-h-[44px] w-full cursor-not-allowed items-center justify-between rounded-[10px] border-2 border-solid border-[#e9ecef] bg-smoke p-3 text-sm opacity-50";
++  const dividerCls = "my-2 h-px w-full bg-[#e9ecef]";
++  const addNewBtnCls =
++    "mt-2 cursor-pointer rounded-xl border-none bg-green-base p-4 text-[15px] font-bold text-white shadow-[0_4px_12px_rgba(46,204,113,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(46,204,113,0.4)] active:translate-y-0";
++
+   return (
+-    <div className={styles.modalContainer}>
+-      <div className={styles.header}>
+-        <h3 className={styles.headerTitle}>
++    <div className="relative flex h-[90vh] max-h-[800px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_40px_rgba(0,0,0,0.15)] [direction:rtl]">
++      <div className="flex shrink-0 items-center justify-between border-b border-solid border-[#eee] bg-green-base p-5 text-white">
++        <h3 className="m-0 text-[18px] font-bold">
+           {view === "list"
+             ? "انتخاب اطلاعات بیمه‌گذار"
+             : editingId
+@@ -299,23 +310,23 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               : "افزودن اطلاعات جدید"}
+         </h3>
+         {view === "form" && (
+-          <button className={styles.backBtn} onClick={handleBack}>
++          <button className="cursor-pointer rounded-lg border border-solid border-white/30 bg-white/20 px-4 py-[6px] text-[13px] text-white transition-all duration-200 hover:bg-white/30" onClick={handleBack}>
+             بازگشت
+           </button>
+         )}
+       </div>
+ 
+-      <div className={styles.scrollContent}>
++      <div className="flex-1 overflow-y-auto p-4 [-webkit-overflow-scrolling:touch]">
+         {view === "list" ? (
+-          <div className={styles.listWrapper}>
++          <div className="flex flex-col gap-3">
+             {isLoading && (
+-              <div className={styles.loading}>در حال بارگذاری...</div>
++              <div className="px-5 py-10 text-center text-sm text-[#666]">در حال بارگذاری...</div>
+             )}
+ 
+             {!isLoading && infos.length === 0 && (
+-              <div className={styles.emptyState}>
++              <div className="px-5 py-[60px] text-center text-[#666] [&_p]:mb-5 [&_p]:mt-0 [&_p]:text-sm">
+                 <p>اطلاعاتی ثبت نشده است</p>
+-                <button className={styles.addNewBtn} onClick={handleAddNew}>
++                <button className={addNewBtnCls} onClick={handleAddNew}>
+                   + افزودن اطلاعات جدید
+                 </button>
+               </div>
+@@ -325,13 +336,15 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               infos.map((info) => (
+                 <div
+                   key={info.id}
+-                  className={`${styles.infoItem} ${
+-                    info.id === data.currentId ? styles.selected : ""
++                  className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl border-2 border-solid p-4 transition-all duration-200 hover:-translate-y-0.5 ${
++                    info.id === data.currentId
++                      ? "border-green-base bg-[rgba(46,204,113,0.1)] shadow-[0_0_0_3px_rgba(46,204,113,0.1)]"
++                      : "border-[#e9ecef] bg-[#f8f9fa] hover:border-green-base hover:bg-[#e9ecef] hover:shadow-[0_4px_12px_rgba(46,204,113,0.15)]"
+                   }`}
+                   onClick={() => handleSelect(info.id)}
+                 >
+-                  <div className={styles.infoContent}>
+-                    <div className={styles.infoTitle}>
++                  <div className="min-w-0 flex-1">
++                    <div className="mb-1 overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold text-[#333]">
+                       {`${info.insured_name} (${info.insured_phone})` ||
+                         "بدون عنوان"}
+                     </div>
+@@ -344,7 +357,7 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+                     </div> */}
+                   </div>
+                   <button
+-                    className={styles.editBtn}
++                    className="shrink-0 cursor-pointer whitespace-nowrap rounded-lg border-none bg-green-base px-4 py-2 text-xs font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-[0.98]"
+                     onClick={(e) => handleEdit(info.id, e)}
+                   >
+                     ویرایش
+@@ -353,17 +366,17 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               ))}
+ 
+             {!isLoading && infos.length > 0 && (
+-              <button className={styles.addNewBtn} onClick={handleAddNew}>
++              <button className={addNewBtnCls} onClick={handleAddNew}>
+                 + افزودن اطلاعات جدید
+               </button>
+             )}
+           </div>
+         ) : (
+-          <div className={styles.formWrapper}>
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>نام و نام خانوادگی:</label>
++          <div className="flex flex-col gap-5">
++            <div className={formSectionCls}>
++              <label className={labelCls}>نام و نام خانوادگی:</label>
+               <input
+-                className={styles.input}
++                className={inputCls}
+                 type="text"
+                 value={formTitle}
+                 onChange={(e) => setFormTitle(e.target.value)}
+@@ -371,10 +384,10 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               />
+             </div>
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>شماره تماس:</label>
++            <div className={formSectionCls}>
++              <label className={labelCls}>شماره تماس:</label>
+               <input
+-                className={styles.input}
++                className={inputCls}
+                 type="tel"
+                 value={insuredPhone}
+                 onChange={(e) => setInsuredPhone(e.target.value)}
+@@ -382,37 +395,35 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               />
+             </div>
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>رشته:</label>
+-              <div className={styles.selectBox} onClick={openFieldModal}>
++            <div className={formSectionCls}>
++              <label className={labelCls}>رشته:</label>
++              <div className={selectBoxCls} onClick={openFieldModal}>
+                 {getFieldLabel()} <DownArrow />
+               </div>
+             </div>
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>تخصص:</label>
++            <div className={formSectionCls}>
++              <label className={labelCls}>تخصص:</label>
+               <div
+-                className={`${styles.selectBox} ${
+-                  !selectedFieldId ? styles.disabled : ""
+-                }`}
++                className={!selectedFieldId ? selectBoxDisabledCls : selectBoxCls}
+                 onClick={openGradeModal}
+               >
+                 {getGradeLabel()} <DownArrow />
+               </div>
+             </div>
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>وضعیت:</label>
+-              <div className={styles.selectBox} onClick={openResidencyModal}>
++            <div className={formSectionCls}>
++              <label className={labelCls}>وضعیت:</label>
++              <div className={selectBoxCls} onClick={openResidencyModal}>
+                 {getResidencyLabel()} <DownArrow />
+               </div>
+             </div>
+ 
+-            <div className={styles.divider} />
++            <div className={dividerCls} />
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>آپلود فایل‌ها:</label>
+-              <div className={styles.uploadSection}>
++            <div className={formSectionCls}>
++              <label className={labelCls}>آپلود فایل‌ها:</label>
++              <div className="flex flex-col gap-3">
+                 <UploadBox
+                   title=" کارت ملی"
+                   type={1}
+@@ -437,24 +448,24 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               </div>
+             </div>
+ 
+-            <div className={styles.divider} />
++            <div className={dividerCls} />
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>استان و شهر:</label>
+-              <div className={styles.geoRow}>
+-                <div className={styles.selectBox} onClick={openProvinceModal}>
++            <div className={formSectionCls}>
++              <label className={labelCls}>استان و شهر:</label>
++              <div className="flex gap-3 [&>div]:flex-1">
++                <div className={selectBoxCls} onClick={openProvinceModal}>
+                   {getProvinceLabel()} <DownArrow />
+                 </div>
+-                <div className={styles.selectBox} onClick={openCityModal}>
++                <div className={selectBoxCls} onClick={openCityModal}>
+                   {getCityLabel()} <DownArrow />
+                 </div>
+               </div>
+             </div>
+ 
+-            <div className={styles.formSection}>
+-              <label className={styles.label}>کد پستی:</label>
++            <div className={formSectionCls}>
++              <label className={labelCls}>کد پستی:</label>
+               <input
+-                className={styles.input}
++                className={inputCls}
+                 type="text"
+                 value={postalCode ? String(postalCode) : ""}
+                 onChange={(e) => setPostalCode(Number(e.target.value))}
+@@ -462,25 +473,26 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+               />
+             </div>
+ 
+-            <div className={styles.divider} />
++            <div className={dividerCls} />
+ 
+-            <div className={styles.clinicSection}>
+-              <div className={styles.switchRow}>
++            <div className="flex flex-col gap-4">
++              <div className="flex items-center justify-between text-sm font-semibold text-[#333]">
+                 <span>مطب فعال دارم</span>
+-                <label className={styles.switch}>
++                <label className="relative inline-block h-7 w-[50px]">
+                   <input
++                    className="peer h-0 w-0 opacity-0"
+                     type="checkbox"
+                     checked={activeClinic}
+                     onChange={(e) => setActiveClinic(e.target.checked)}
+                   />
+-                  <span className={styles.slider}></span>
++                  <span className="absolute inset-0 cursor-pointer rounded-[34px] bg-[#ccc] transition-all duration-300 before:absolute before:bottom-1 before:left-1 before:h-5 before:w-5 before:rounded-full before:bg-white before:transition-all before:duration-300 before:content-[''] peer-checked:bg-green-base peer-checked:before:translate-x-[22px]"></span>
+                 </label>
+               </div>
+ 
+               {activeClinic && (
+-                <div className={styles.clinicInputs}>
++                <div className="flex flex-col gap-3">
+                   <textarea
+-                    className={styles.addressInput}
++                    className="min-h-[100px] w-full resize-y rounded-[10px] border-2 border-solid border-[#e9ecef] p-3 text-sm transition-all duration-200 [font-family:inherit] placeholder:text-[#999] focus:border-green-base focus:shadow-[0_0_0_3px_rgba(46,204,113,0.1)] focus:outline-none"
+                     placeholder="کلیه مراکز بهداشتی و درمانی مجاز سراسر کشور"
+                     value={address}
+                     onChange={(e) => setAddress(e.target.value)}
+@@ -493,9 +505,9 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({ closeModal, data }) => {
+       </div>
+ 
+       {view === "form" && (
+-        <div className={styles.footer}>
++        <div className="flex shrink-0 items-center justify-center border-t border-solid border-white/10 px-5 py-4 text-white">
+           <button
+-            className={styles.saveBtn}
++            className="w-full max-w-[300px] cursor-pointer rounded-[10px] border-2 border-solid border-white bg-green-base px-8 py-3 text-[15px] font-bold text-white transition-all duration-200 enabled:hover:-translate-y-0.5 enabled:hover:bg-white/30 enabled:hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] enabled:active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+             onClick={handleSave}
+             disabled={
+               !isFormValid ||
+diff --git a/apps/insurance/components/common/UploadBox.tsx b/apps/insurance/components/common/UploadBox.tsx
+index 1b6b553..7c9f186 100644
+--- a/apps/insurance/components/common/UploadBox.tsx
++++ b/apps/insurance/components/common/UploadBox.tsx
+@@ -3,7 +3,14 @@ import React, { useRef } from "react";
+ import { useUploadFile, useDestroyFile } from "@/hooks/useUserInfo";
+ // فرض بر این است که تایپ ResponseType و UploadFileResponse در مسیر درست هستند
+ import { UploadFileResponse } from "@/types/insurance";
+-import styles from "../Modals/UserInfoModal/UserInfoModal.module.scss";
++
++const uploadBoxCls =
++  "relative flex h-[60px] cursor-pointer select-none items-center justify-center rounded-xl border-2 border-dashed border-[#d1d5db] bg-[#fafafa] text-sm font-medium text-[#6b7280] transition-all duration-200 hover:border-green-base hover:bg-white hover:text-green-base";
++const uploadedBoxCls =
++  "relative flex h-[60px] cursor-default select-none items-center justify-center rounded-xl border-2 border-solid border-green-base bg-[rgba(46,204,113,0.05)] pe-10 text-sm font-medium text-[#03a145] transition-all duration-200";
++const loadingCls = "pointer-events-none opacity-60";
++const deleteBtnCls =
++  "absolute end-3 top-1/2 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border-none bg-transparent text-[#ef4444] opacity-70 transition-all duration-200 hover:bg-[rgba(239,68,68,0.1)] hover:opacity-100 [&_svg]:h-[18px] [&_svg]:w-[18px]";
+ 
+ interface UploadBoxProps {
+   title: string;
+@@ -77,16 +84,16 @@ const UploadBox: React.FC<UploadBoxProps> = ({
+   // --- حالت آپلود شده (مینیمال و تمیز) ---
+   if (fileId) {
+     return (
+-      <div className={`${styles.uploadBox} ${styles.uploaded} ${isLoading ? styles.loading : ""}`}>
++      <div className={`${uploadedBoxCls} ${isLoading ? loadingCls : ""}`}>
+         {isLoading ? (
+           <span>در حال پردازش...</span>
+         ) : (
+           <>
+-            <span className={styles.fileName}>
++            <span>
+                ✓ {title}
+             </span>
+             <button 
+-              className={styles.deleteBtn} 
++              className={deleteBtnCls} 
+               onClick={handleDelete}
+               title="حذف فایل"
+               type="button"
+@@ -105,7 +112,7 @@ const UploadBox: React.FC<UploadBoxProps> = ({
+   // --- حالت پیش‌فرض (آپلود) ---
+   return (
+     <div
+-      className={`${styles.uploadBox} ${isLoading ? styles.loading : ""}`}
++      className={`${uploadBoxCls} ${isLoading ? loadingCls : ""}`}
+       onClick={() => !isLoading && fileInputRef.current?.click()}
+     >
+       {isLoading ? "در حال آپلود..." : `+ افزودن${title}`}

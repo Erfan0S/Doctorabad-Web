@@ -1,5 +1,4 @@
 import UploadBox from "@/components/common/UploadBox";
-import styles from "../BuyInsurancePage.module.scss";
 
 interface DocumentUploadSectionProps {
   nationalCardId: number | null;
@@ -20,8 +19,8 @@ export const DocumentUploadSection = ({
   onMedicalCardChange,
   onLastInsuranceFileChange,
 }: DocumentUploadSectionProps) => (
-  <div className={styles.uploadSection}>
-    <div className={styles.bigUploadBox}>
+  <div className="mb-5">
+    <div className="rounded-xl bg-[#f0f0f0] p-4">
       <UploadBox
         title=" کارت ملی"
         type={1}

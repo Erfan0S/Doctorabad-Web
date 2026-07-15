@@ -1,6 +1,5 @@
 // components/SelectInfo/SelectInfo.tsx
 import React, { useMemo, useState } from "react";
-import styles from "./SelectInfo.module.scss";
 import DownArrow from "@/assets/svg/downArrow";
 // import CalendarIcon from "@/assets/svg/CalendarIcon"; // اضافه کردن ایمپورت آیکون که کامنت بود
 import moment from "moment-jalaali";
@@ -210,51 +209,59 @@ export default function SelectInfo({
 
   const isoValue = parseToIso(expiryDateIso) || "";
 
+  const pickerGroupCls = "relative flex min-w-0 flex-1 flex-col";
+  const selectInputBase =
+    "box-border block h-[45px] w-full appearance-none overflow-hidden text-ellipsis whitespace-nowrap rounded-[10px] border-[1.5px] border-solid pb-2 pt-2 ps-[10px] pe-7 text-center text-[0.95rem] font-semibold [direction:rtl] [text-align-last:center]";
+  const selectInputEnabled = `${selectInputBase} cursor-pointer border-green-base bg-white text-[#333] focus:outline-none focus:ring-2 focus:ring-green-base/20`;
+  const selectInputDisabled = `${selectInputBase} pointer-events-none border-[#dcdcdc] bg-smoke text-[#8a8a8a]`;
+  const selectIconCls =
+    "pointer-events-none absolute end-2 top-1/2 flex -translate-y-1/2 items-center justify-center [&_svg]:h-6 [&_svg]:w-6 [&_svg]:fill-green-base [&_svg_path]:fill-green-base";
+
   return (
-    <div className={styles.container}>
-      <div className={styles.inputGrid}>
+    <div className="mx-auto -mt-4 w-[calc(100%-10px)] rounded-[10px] border border-solid border-[#eee] bg-white px-[0.8rem] pb-[0.6rem] pt-6 text-[0.9rem] leading-[1.6] shadow-[0_4px_12px_rgba(0,0,0,0.15)] [direction:rtl]">
+      <div className="grid grid-cols-2 gap-3 [direction:rtl]">
         {/* 1. رشته */}
-        <div className={styles.pickerGroup}>
-          <div className={styles.selectInput} onClick={openFieldModal}>
+        <div className={pickerGroupCls}>
+          <div className={selectInputEnabled} onClick={openFieldModal}>
             {getLabel(selectedFieldId, fields, "رشته")}
           </div>
-          <div className={styles.selectIcon}>
+          <div className={selectIconCls}>
             <DownArrow />
           </div>
         </div>
 
         {/* 2. تخصص */}
         <div
-          className={`${styles.pickerGroup} ${
-            !isGradeEnabled ? styles.disabled : ""
+          className={`${pickerGroupCls} ${
+            !isGradeEnabled ? "cursor-not-allowed opacity-70" : ""
           }`}
         >
-          <div className={styles.selectInput} onClick={openGradeModal}>
+          <div className={isGradeEnabled ? selectInputEnabled : selectInputDisabled} onClick={openGradeModal}>
             {getLabel(selectedGradeId, grades, "تخصص")}
           </div>
-          <div className={`${styles.selectIcon} ${
-            !isGradeEnabled ? styles.disabled : ""
+          <div className={`${selectIconCls} ${
+            !isGradeEnabled ? "[&_svg]:hidden" : ""
           }`}>
             <DownArrow />
           </div>
         </div>
 
         {/* 3. وضعیت */}
-        <div className={styles.pickerGroup}>
-          <div className={styles.selectInput} onClick={openResidencyModal}>
+        <div className={pickerGroupCls}>
+          <div className={selectInputEnabled} onClick={openResidencyModal}>
             {getLabel(selectedResidencyId, residency, "وضعیت")}
           </div>
-          <div className={styles.selectIcon}>
+          <div className={selectIconCls}>
             <DownArrow />
           </div>
         </div>
 
         {/* 4. سابقه خسارت */}
-        <div className={styles.pickerGroup}>
-          <div className={styles.selectInput} onClick={openHistoryModal}>
+        <div className={pickerGroupCls}>
+          <div className={selectInputEnabled} onClick={openHistoryModal}>
             {getLabel(selectedHistoryId, history, "سابقه خسارت")}
           </div>
-          <div className={styles.selectIcon}>
+          <div className={selectIconCls}>
             <DownArrow />
           </div>
         </div>
@@ -263,25 +270,25 @@ export default function SelectInfo({
         {showInsurerAndExpiry && (
           <>
             {/* 5. بیمه‌گر قبلی */}
-            <div className={styles.pickerGroup}>
-              <div className={styles.selectInput} onClick={openInsurerModal}>
+            <div className={pickerGroupCls}>
+              <div className={selectInputEnabled} onClick={openInsurerModal}>
                 {getLabel(selectedInsurerId, insurers, "بیمه‌گر قبلی")}
               </div>
-              <div className={styles.selectIcon}>
+              <div className={selectIconCls}>
                 <DownArrow />
               </div>
             </div>
 
             {/* 6. اتمام بیمه‌نامه (تقویم) */}
-            <div className={styles.pickerGroup}>
-              <div className={styles.selectInput}>
+            <div className={pickerGroupCls}>
+              <div className={selectInputEnabled}>
                 <InsuranceDatePicker
                   label=""
                   value={isoValue}
                   onChange={handleSelectExpiry}
                 />
               </div>
-              <div className={styles.selectIcon}>
+              <div className={selectIconCls}>
                 <DownArrow />
               </div>
             </div>
@@ -290,8 +297,8 @@ export default function SelectInfo({
       </div>
 
       {showInsurerNotice && (
-        <div className={styles.noticeBox}>
-          <p className={styles.noticeText}>
+        <div className="mt-3 rounded-[10px] border border-solid border-gray bg-white px-[0.9rem] py-3 text-red">
+          <p className="m-0 text-justify text-[0.85rem] leading-[1.7]">
             با توجه به اینکه بیمه‌نامه قبلی شما از شرکت{" "}
             {selectedInsurerItem?.title ?? "انتخاب‌شده"} است، تنها تخفیف به خرید
             از شرکت  {selectedInsurerItem?.title ?? "انتخاب‌شده"} تعلق

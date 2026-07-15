@@ -3,7 +3,6 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import styles from "./InsurerCard.module.scss";
 import { Insurer } from "@/types/insurance";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { ProductPrice } from "@repo/shared_modules/components";
@@ -77,20 +76,23 @@ export default function InsurerCard({
   };
 
   return (
-    <div className={styles.card}>
-      <div className={styles.logoSection}>
-        <img src={insurer.picture} alt={insurer.title} />
+    <div className="flex cursor-pointer items-stretch gap-4 rounded-2xl bg-white p-[10px] shadow-[0_2px_8px_rgba(0,0,0,0.2)] transition-all duration-200 active:scale-[0.98] active:shadow-[0_2px_8px_rgba(0,0,0,0.1)]">
+      <div className="flex h-[100px] w-[100px] shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-solid border-[#ccc] p-[10px] shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+        <img
+          src={insurer.picture}
+          alt={insurer.title}
+          className="block h-full w-full rounded-xl object-cover"
+        />
       </div>
 
-      <div className={styles.infoSection}>
-        <div className={styles.title}>{insurer.title}</div>
-        <div className={styles.branch}>
+      <div className="flex min-h-[100px] min-w-0 flex-1 flex-col justify-between text-start">
+        <div className="mb-1 whitespace-normal break-words text-base font-bold text-[#333]">{insurer.title}</div>
+        <div className="mb-[6px] whitespace-normal break-words text-[13px] text-[#777]">
           {insurer.damage_branch_count} شعبه پرداخت
         </div>
         <ProductPrice
           mainPrice={insurer.main_price}
           offPrice={insurer.off_price}
-          className={styles.productPrice}
           size={15}
         />
 
@@ -106,22 +108,22 @@ export default function InsurerCard({
         </div> */}
       </div>
 
-      <div className={styles.actionSection}>
-        <div className={styles.badgesRow}>
+      <div className="flex w-[100px] shrink-0 flex-col items-end justify-between gap-2">
+        <div className="flex flex-col items-start gap-1">
           {insurer.payment_commitment && (
-            <span className={styles.badge}>
+            <span className="w-full whitespace-nowrap rounded-full bg-[#f3f7ff] px-[6px] py-[2px] text-center text-[11px] text-[#333]">
               تعهد پرداخت: {insurer.payment_commitment}
             </span>
           )}
           {insurer.need_active_medical_education_card && (
-            <span className={`${styles.badge} ${styles.badgeWarning}`}>
+            <span className="w-full whitespace-nowrap rounded-full bg-[#fff7e6] px-[6px] py-[2px] text-center text-[11px] text-[#c27a00]">
               نیاز به کارت نظام پزشکی
             </span>
           )}
         </div>
 
         <button
-          className={styles.buyButton}
+          className="cursor-pointer rounded-xl border-none bg-green-base px-[18px] py-[6px] text-[13px] text-white"
           onClick={authorizeClientAction(() => handleBuyClick())}
         >
           خرید

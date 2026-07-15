@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import InsuranceHeader from "@/components/InsuranceHeader/InsuranceHeader";
-import styles from "./page.module.scss";
 import { HeaderType } from "@/types/insurance";
 import SelectInfo from "@/components/SelectInfo/SelectInfo";
 import InsurerListSection from "@/components/InsurerList/InsurerListSection";
@@ -35,7 +34,7 @@ export default function InsuranceHomePage() {
   const [endDate, setEndDate] = useState<string | null>(null);
 
   return (
-    <div className={styles.container}>
+    <div className="min-h-screen bg-[#f8f9fa] px-[10px] py-[30px]">
       <ToastContainer theme="colored" rtl position="top-left" />
       <SelectInfo
         onChangeField={setField}

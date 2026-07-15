@@ -3,7 +3,14 @@ import React, { useRef } from "react";
 import { useUploadFile, useDestroyFile } from "@/hooks/useUserInfo";
 // فرض بر این است که تایپ ResponseType و UploadFileResponse در مسیر درست هستند
 import { UploadFileResponse } from "@/types/insurance";
-import styles from "../Modals/UserInfoModal/UserInfoModal.module.scss";
+
+const uploadBoxCls =
+  "relative flex h-[60px] cursor-pointer select-none items-center justify-center rounded-xl border-2 border-dashed border-[#d1d5db] bg-[#fafafa] text-sm font-medium text-[#6b7280] transition-all duration-200 hover:border-green-base hover:bg-white hover:text-green-base";
+const uploadedBoxCls =
+  "relative flex h-[60px] cursor-default select-none items-center justify-center rounded-xl border-2 border-solid border-green-base bg-[rgba(46,204,113,0.05)] pe-10 text-sm font-medium text-[#03a145] transition-all duration-200";
+const loadingCls = "pointer-events-none opacity-60";
+const deleteBtnCls =
+  "absolute end-3 top-1/2 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border-none bg-transparent text-[#ef4444] opacity-70 transition-all duration-200 hover:bg-[rgba(239,68,68,0.1)] hover:opacity-100 [&_svg]:h-[18px] [&_svg]:w-[18px]";
 
 interface UploadBoxProps {
   title: string;
@@ -77,16 +84,16 @@ const UploadBox: React.FC<UploadBoxProps> = ({
   // --- حالت آپلود شده (مینیمال و تمیز) ---
   if (fileId) {
     return (
-      <div className={`${styles.uploadBox} ${styles.uploaded} ${isLoading ? styles.loading : ""}`}>
+      <div className={`${uploadedBoxCls} ${isLoading ? loadingCls : ""}`}>
         {isLoading ? (
           <span>در حال پردازش...</span>
         ) : (
           <>
-            <span className={styles.fileName}>
+            <span>
                ✓ {title}
             </span>
             <button 
-              className={styles.deleteBtn} 
+              className={deleteBtnCls} 
               onClick={handleDelete}
               title="حذف فایل"
               type="button"
@@ -105,7 +112,7 @@ const UploadBox: React.FC<UploadBoxProps> = ({
   // --- حالت پیش‌فرض (آپلود) ---
   return (
     <div
-      className={`${styles.uploadBox} ${isLoading ? styles.loading : ""}`}
+      className={`${uploadBoxCls} ${isLoading ? loadingCls : ""}`}
       onClick={() => !isLoading && fileInputRef.current?.click()}
     >
       {isLoading ? "در حال آپلود..." : `+ افزودن${title}`}

@@ -1,5 +1,7 @@
 import DownArrow from "@/assets/svg/downArrow";
-import styles from "../BuyInsurancePage.module.scss";
+
+const selectBoxCls =
+  "flex flex-1 cursor-pointer items-center justify-between rounded-lg border border-solid border-[#ddd] bg-white p-[10px] text-[13px]";
 
 interface LocationSectionProps {
   provinceLabel: string;
@@ -18,18 +20,18 @@ export const LocationSection = ({
   onCityClick,
   onPostalCodeChange,
 }: LocationSectionProps) => (
-  <div className={styles.clinicSection}>
-    <div className={styles.geoRow}>
-      <div className={styles.selectBox} onClick={onProvinceClick}>
+  <div className="mt-4">
+    <div className="mb-3 flex items-center gap-3">
+      <div className={selectBoxCls} onClick={onProvinceClick}>
         {provinceLabel} <DownArrow />
       </div>
-      <div className={styles.selectBox} onClick={onCityClick}>
+      <div className={selectBoxCls} onClick={onCityClick}>
         {cityLabel} <DownArrow />
       </div>
     </div>
 
     <input
-      className={styles.addressInput}
+      className="min-h-[80px] w-full resize-y rounded-lg border border-solid border-[#ddd] p-[10px] text-[13px] [font-family:inherit]"
       type="text"
       placeholder="کد پستی (ثبت شده در amlak.mrud.ir)"
       value={postalCode ? String(postalCode) : ""}

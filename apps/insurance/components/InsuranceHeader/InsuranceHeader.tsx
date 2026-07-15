@@ -2,7 +2,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import styles from "./InsuranceHeader.module.scss";
 import BackIcon from "@/assets/svg/back";
 import InfoIcon from "@repo/shared_modules/icons/info";
 
@@ -45,24 +44,27 @@ export default function InsuranceHeader({ title = "", headerPageType }: Insuranc
     },
   );
 
+  const backBtnCls =
+    "flex h-[45px] w-[45px] cursor-pointer items-center justify-center rounded-lg bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-transform duration-200 active:scale-95 [&_svg]:h-[30px] [&_svg]:w-[30px] [&_svg]:text-[#333]";
+
   return (
-    <header className={styles.header}>
-      <div className={styles.headerTop}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.lefSideHeader}>
+    <header className="sticky top-0 z-[100] bg-white">
+      <div className="flex items-center justify-between bg-green-base py-[7px] ps-5 pe-[10px]">
+        <h1 className="m-0 font-black text-white">{title}</h1>
+        <div className="flex items-center gap-2">
           {headerPageType !== HeaderType.INSURANCE_DETAILS && (
             <Link
               href={"https://doctorabad.com/mag/myinsurance"}
               target="blank"
             >
-              <div className={styles.backBtn}>
+              <div className={backBtnCls}>
                 <InfoIcon />
               </div>
             </Link>
           )}
 
           <div
-            className={styles.backBtn}
+            className={backBtnCls}
             onClick={() => navHistory.goBack(baseUrls.base)}
           >
             <BackIcon></BackIcon>

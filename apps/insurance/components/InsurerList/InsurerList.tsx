@@ -3,7 +3,6 @@
 
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Insurer } from "@/types/insurance";
-import styles from "./InsurerList.module.scss";
 import Loading from "@/components/common/loading";
 import InsurerListSkeleton from "@/components/Skeletons/DiseaseListSkeleton/DiseaseListSkeleton";
 import InsurerCard from "../InsurerCard/InsurerCard";
@@ -48,11 +47,11 @@ export default function InsurerList({
         next={onLoadMore}
         hasMore={hasMore}
         loader={
-          <div className={styles.loadingMore}>
+          <div className="flex flex-col items-center justify-center gap-3 py-5">
             <Loading />
           </div>
         }
-        className={styles.insurerList}
+        className="flex flex-col gap-3 px-[5px] py-4"
       >
         {insurers.map((insurer) => (
           <InsurerCard 

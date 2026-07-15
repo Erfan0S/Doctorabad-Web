@@ -1,6 +1,5 @@
 // components/common/InsuranceDatePicker.tsx
 import React from "react";
-import styles from "./InsuranceDatePicker.module.scss";
 import DownArrow from "@/assets/svg/downArrow";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -61,7 +60,7 @@ const InsuranceDatePicker: React.FC<DatePickerProps> = ({
   return (
     <div onClick={handleClick}>
       <span>{label}</span>
-      <div className={styles.value}>
+      <div>
         {getDisplayDate() || "اتمام بیمه‌نامه"}
       </div>
     </div>

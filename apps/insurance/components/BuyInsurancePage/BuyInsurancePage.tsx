@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./BuyInsurancePage.module.scss";
 import { useCartActionsLoadingHandler } from "@repo/core/hooks/useCartActionsLoadingHandler";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useBuyInsuranceParams, useEnsureInsuredParams } from "./hooks/useBuyInsuranceParams";
@@ -30,23 +29,23 @@ const BuyInsurancePage = () => {
     <>
       <ToastContainer theme="colored" rtl position="top-left" />
 
-      <div className={styles.pageContainer}>
+      <div className="min-h-screen bg-white [direction:rtl]">
         <BuyInsuranceHeader
           title={urlParams.insurerTitle}
           logo={urlParams.insurerLogo}
         />
 
-        <div className={styles.infoCard}>
-          <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>اطلاعات من</span>
+        <div className="mx-4 mt-[calc(6.7rem/2+20px)] rounded-2xl bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+          <div className="mb-4 flex items-center justify-between">
+            <span className="text-base font-bold">اطلاعات من</span>
             <button
-              className={styles.editBtn}
+              className="cursor-pointer rounded-lg border-none bg-green-base px-4 py-[6px] text-xs text-white"
               onClick={actions.handleEditClick}
             >
               ویرایش
             </button>
           </div>
-          <hr className={styles.divider} />
+          <hr className="my-4 w-full border-0 border-t border-solid border-[#e0e0e0]" />
 
           {/* Name and phone come from URL params and are shown below */}
 
