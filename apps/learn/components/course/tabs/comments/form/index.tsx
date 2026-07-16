@@ -1,6 +1,5 @@
 "use client";
 import { api } from "@/api/Api";
-import style from "./ProductCommentsForm.module.scss";
 import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -42,9 +41,10 @@ const ProductCommentsForm = ({ courseId }: Props) => {
   };
 
   return (
-    <div className={style.productCommentsForm}>
-      <div className={style.productCommentsFormHeader}>
+    <div className="mb-3 rounded-2xl border-2 border-solid border-red p-2">
+      <div className="relative mb-3 flex items-center">
         <button
+          className="ms-auto h-[35px] min-w-[170px] cursor-pointer rounded-xl border-0 bg-red px-3 text-center text-[13px] font-semibold leading-[35px] text-white shadow-[0_3px_10px_rgba(0,0,0,0.1)] outline-none transition-all duration-150 hover:shadow-[0_0_0_rgba(0,0,0,0.1)] max-[568px]:min-w-[120px]"
           onClick={authorizeClientAction(submitComment)}
           disabled={mutation.isPending}
         >
@@ -58,6 +58,7 @@ const ProductCommentsForm = ({ courseId }: Props) => {
         </button>
       </div>
       <textarea
+        className="m-0 block min-h-[150px] w-full rounded-xl border-2 border-solid border-gray px-3 py-2"
         name="comment"
         value={comment}
         onChange={(e) => setComment(e.target.value)}

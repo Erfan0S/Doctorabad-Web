@@ -1,5 +1,4 @@
 "use client";
-import style from "./courseHeader.module.scss";
 import ProfileIcon from "@/assets/svg/profile";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -60,7 +59,10 @@ const CourseHeaderSiffix = ({ course, currentLessonId }: Props) => {
         }}
       />
       {course.user_has_access && (
-        <button className={style.headerButton} onClick={onBookMarkClick}>
+        <button
+          className="me-2 flex h-[45px] w-[45px] cursor-pointer items-center justify-center rounded-xl border-0 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] outline-none first-of-type:me-0 focus:outline-none active:outline-none [&_img]:h-[30px] [&_img]:w-[30px] [&_svg]:h-[30px] [&_svg]:w-[30px]"
+          onClick={onBookMarkClick}
+        >
           <ProfileIcon />
         </button>
       )}

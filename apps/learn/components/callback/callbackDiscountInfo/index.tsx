@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import style from './CallbackDiscountInfo.module.scss';
 import coinsImage from '@/assets/img/coins.png';
 import coinIcon from '@/assets/img/coin.png';
 
@@ -8,19 +7,21 @@ type Props = {
   discountCode: string | null;
 };
 
+const pClass = 'mb-0 font-semibold text-[#463d89]';
+
 const CallbackDiscountInfo = ({ discountCode, earnedCoins }: Props) => {
   return (
-    <div className={style.callbackDiscountInfo}>
-      <Image src={coinsImage} alt="callbackDiscountInfo" />
+    <div className="text-center leading-[30px] max-lg:mb-3">
+      <Image className="max-w-full" src={coinsImage} alt="callbackDiscountInfo" />
       {!!earnedCoins && (
         <>
-          <p>
-            با این سفارش {earnedCoins} <Image width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
+          <p className={pClass}>
+            با این سفارش {earnedCoins} <Image className="max-w-full" width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
           </p>
-          <p>که میتونین تو دکترکلاب ازش استفاده کنین!</p>
+          <p className={pClass}>که میتونین تو دکترکلاب ازش استفاده کنین!</p>
         </>
       )}
-      {discountCode && <p>کد تخفیف برای سفارش بعدیتون : {discountCode}</p>}
+      {discountCode && <p className={pClass}>کد تخفیف برای سفارش بعدیتون : {discountCode}</p>}
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./CourseList.module.scss";
 import { CourseListItemType } from "@/types/courses";
 import { InfiniteData } from "@tanstack/react-query";
 import { Apps, PaginatedResponse } from "@repo/core/types/general";
@@ -48,7 +47,7 @@ export const productData = (
             offPrice={course.price_off}
             amazingPrice={course.price_amazing}
             app={Apps.LEARN}
-            className={styles.coursePrice}
+            className="[&_span]:leading-[13px]"
             size={12}
           />
         ),
@@ -64,7 +63,7 @@ const CourseList = ({ courses, fetchNextPage, hasNextPage }: Props) => {
   const courseData = courses?.pages.flatMap((page) => page.data);
 
   return (
-    <div className={styles.relatedCoursesWrapper}>
+    <div className="flex flex-col">
       <ProductList
         products={courseData?.map((course) => productData(course))}
         app={Apps.LEARN}

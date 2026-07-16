@@ -2,7 +2,6 @@
 "use client";
 
 import { ProductComments as ProductCommentType } from "@repo/core/types/product";
-import style from "./ProductComments.module.scss";
 import ProductCommentsForm from "./form";
 import ProductCommentsList from "./list";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -32,7 +31,7 @@ const CourseComments: React.FC<CourseContentProps> = ({ course }) => {
   if (isLoading) return <Loading size={10} app={Apps.LEARN} />;
 
   return (
-    <div className={style.productComments}>
+    <div>
       <ProductCommentsForm courseId={course.id} />
       <ProductCommentsList
         comments={data!}

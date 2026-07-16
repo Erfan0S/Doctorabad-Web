@@ -8,7 +8,6 @@ import { SelectFilterQroup } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { SelectQroupItemType } from "@repo/core/types/filter";
 import { PersistQueryProvider } from "@repo/shared_modules";
-import style from "./style.module.scss";
 
 const FiltersContainer = () => {
   const params = useSearchParams();
@@ -122,7 +121,7 @@ const FiltersContainer = () => {
   ];
 
   return (
-    <div className={`${style.filtersWrapper} card`}>
+    <div className="card m-[10px] p-[15px] [&>div]:m-0">
       <SelectFilterQroup items={FiltersData} app={Apps.LEARN} />
     </div>
   );

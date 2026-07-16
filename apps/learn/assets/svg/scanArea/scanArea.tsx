@@ -1,9 +1,7 @@
-import styles from './scanArea.module.scss';
-
 export const ScanArea = () => {
   return (
     <svg
-      className={`scan-region-highlight-svg ${styles.ScanArea}`}
+      className="scan-region-highlight-svg absolute start-1/4 top-1/4 h-1/2 w-1/2 animate-scan-pulse fill-none stroke-green stroke-[4] [stroke-linecap:round] [stroke-linejoin:round]"
       viewBox="0 0 238 238"
       preserveAspectRatio="none"
     >

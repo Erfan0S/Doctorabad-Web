@@ -1,6 +1,5 @@
 import { PageHeader } from "@repo/shared_modules/headers";
 import React from "react";
-import styles from "@/components/myCourses/myCourses.module.scss";
 import { MyCourses } from "@/components/myCourses";
 import {
   myCoursesTabs,
@@ -15,7 +14,7 @@ function MyCoursePage() {
       <PageHeader
         app={Apps.LEARN}
         title="دوره‌ها و طرح‌های من"
-        className={styles.tabs}
+        className="[&>div:last-of-type]:bg-[#f5f5f5] [&>div:last-of-type]:p-0 [&>div:last-of-type]:pt-[5px]"
       >
         <TabsController
           tabData={myCoursesTabsData}

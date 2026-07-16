@@ -2,7 +2,6 @@
 import CircleCheck from "@/assets/svg/circleCheck";
 import Close from "@/assets/svg/close";
 
-import style from "./CallbackDetail.module.scss";
 import Copy from "@/assets/svg/copy";
 import { copyText } from "@repo/core/utils/copyText";
 import { toFullPersianDateString } from "@repo/core/utils/toFullPersianDateString";
@@ -13,6 +12,11 @@ type Props = {
   isOrderSuccess: boolean;
   trackingId?: string;
 };
+
+const liClass = "mb-1 flex items-center";
+const liLabelClass = "me-1 text-gray";
+const liValueClass =
+  "flex items-center [&_svg]:ms-3 [&_svg]:w-[25px] [&_svg]:cursor-pointer";
 
 const CallbackDetail = ({
   isOrderSuccess,
@@ -29,9 +33,11 @@ const CallbackDetail = ({
     : "";
 
   return (
-    <div className={style.callbackDetail}>
+    <div>
       <div
-        className={`${style.callbackDetailAlert} ${!isOrderSuccess ? style.callbackDetailAlertFailed : ""}`}
+        className={`mb-6 flex items-center rounded-lg p-2 text-[13px] font-semibold text-white [&_svg]:me-2 [&_svg]:w-[30px] [&_svg]:fill-white ${
+          isOrderSuccess ? "bg-[#00ae00]" : "bg-red"
+        }`}
       >
         {isOrderSuccess ? <CircleCheck fill="#fff" /> : <Close fill="#fff" />}
         <span>
@@ -41,14 +47,14 @@ const CallbackDetail = ({
         </span>
       </div>
       {isOrderSuccess && (
-        <div className={style.callbackDetailDetail}>
-          <span>
+        <div className="ps-5">
+          <span className="mb-1 block text-[14px] font-medium leading-[30px]">
             {orderDateString} ساعت {orderTimeString}
           </span>
-          <ul>
-            <li>
-              <span>شماره سفارش :</span>
-              <span>
+          <ul className="m-0 list-none p-0 text-[14px] font-medium leading-[30px]">
+            <li className={liClass}>
+              <span className={liLabelClass}>شماره سفارش :</span>
+              <span className={liValueClass}>
                 {orderId}
                 <Copy
                   onClick={() => copyText(orderId!, "شماره سفارش کپی شد")}
@@ -56,9 +62,9 @@ const CallbackDetail = ({
               </span>
             </li>
             {trackingId && (
-              <li>
-                <span>شماره رهگیری :</span>
-                <span>
+              <li className={liClass}>
+                <span className={liLabelClass}>شماره رهگیری :</span>
+                <span className={liValueClass}>
                   {trackingId}
                   <Copy
                     onClick={() => copyText(trackingId!, "کد رهگیری کپی شد")}

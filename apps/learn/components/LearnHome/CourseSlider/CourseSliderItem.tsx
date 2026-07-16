@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import style from "./ProductSlider.module.scss";
 import { CourseListItemType } from "@/types/courses";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import {
@@ -22,18 +21,20 @@ function CourseSliderItem({ course, isMyCourse }: Props) {
 
   return (
     <Link href={`/course/${course.id}`}>
-      <div className={style.courseContainer}>
+      <div className="flex flex-col items-center justify-center gap-[7px] rounded-xl bg-white p-1 pb-[7px] text-black shadow-[0_0_10px_rgba(0,0,0,0.1)]">
         <Image
-          className={style.course}
+          className="aspect-video h-[95px] w-[170px] rounded-[10px] bg-cover bg-center object-scale-down"
           src={course.pic_url || placeHolderDataUrl}
           alt={course.title || "دروس"}
           width={170}
           height={95}
           placeholder={placeHolderDataUrl}
         />
-        <p>{course.title}</p>
+        <p className="m-0 line-clamp-2 min-h-[3em] w-full leading-normal">
+          {course.title}
+        </p>
         {!isMyCourse && (
-          <div>
+          <div className="flex min-h-[36px] w-full flex-row items-end justify-end [&>div>div]:justify-start">
             <ProductPrice
               mainPrice={course.price_main}
               amazingPrice={course.price_amazing}
@@ -42,7 +43,7 @@ function CourseSliderItem({ course, isMyCourse }: Props) {
               size={14}
             />
             {showInstallment && (
-              <ListProductSnappayNotif className={style.listSnappayNotif} />
+              <ListProductSnappayNotif className="px-[2px] py-[5px] text-[9px] font-semibold" />
             )}
           </div>
         )}

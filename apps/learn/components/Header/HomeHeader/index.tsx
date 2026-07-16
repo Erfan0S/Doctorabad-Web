@@ -1,6 +1,5 @@
 import React from "react";
 import SearchBar from "@/components/Search/SearchBar";
-import styles from "./HomeHeader.module.scss";
 import { MainTabsData } from "@/constants/tabs-data";
 import { MobileHomeHeader } from "@repo/shared_modules/headers";
 import { Apps } from "@repo/core/types/general";

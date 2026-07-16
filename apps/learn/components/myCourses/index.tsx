@@ -8,7 +8,6 @@ import { CourseListItemType } from "@/types/courses";
 import { myCoursesTabs } from "../course/tabs/tabs-data";
 import { api } from "@/api/Api";
 import { api as coreApi } from "@repo/shared_modules/api";
-import styles from "./myCourses.module.scss";
 import Link from "next/link";
 import { routePath } from "@repo/core/constants/routePath";
 import Loading from "../common/Loading";
@@ -20,6 +19,9 @@ import {
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
+
+const emptyStateClass =
+  "flex h-[calc(100vh-300px)] w-full flex-col items-center justify-center";
 
 export const MyCourses = () => {
   const searchParams = useSearchParams();
@@ -58,9 +60,12 @@ export const MyCourses = () => {
 
   if (!planLoading && !planData && !courseLoading && !courseData) {
     return (
-      <div className={styles.noData}>
-        <span>هیج دوره‌ای نیست!</span>
-        <Link className={styles.noDataButton} href={routePath.learnBasePath}>
+      <div className={emptyStateClass}>
+        <span className="text-[16px]">هیج دوره‌ای نیست!</span>
+        <Link
+          className="mt-5 w-[165px] rounded-[5px] border-2 border-solid border-[#ff0000] text-center font-bold leading-[30px] text-black shadow-[0_0_3px_0_#737373]"
+          href={routePath.learnBasePath}
+        >
           بازگشت به صفحه اصلی
         </Link>
       </div>
@@ -82,8 +87,8 @@ export const MyCourses = () => {
           />
         </>
       ) : (
-        <div className={styles.noPlan}>
-          <span>هیچ دوره‌ای نیست!</span>
+        <div className={`${emptyStateClass} [&_button]:flex-none`}>
+          <span className="mb-5">هیچ دوره‌ای نیست!</span>
           <Button
             variant="outline"
             app={Apps.LEARN}

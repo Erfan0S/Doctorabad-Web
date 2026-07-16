@@ -1,5 +1,4 @@
 import { ProductComments } from "@repo/core/types/product";
-import style from "./ProductCommentsList.module.scss";
 import ProductCommentsItem from "./item";
 import { InfiniteData } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
@@ -24,12 +23,12 @@ const ProductCommentsList: React.FC<Props> = ({
       loadMore={() => fetchNextPage()}
       hasMore={hasNextPage}
       loader={
-        <div className={style.productListLoader} key={0}>
+        <div key={0}>
           <Loading size={36} app={Apps.LEARN} />
         </div>
       }
     >
-      <div className={style.productCommentsHeader}>
+      <div className="flex flex-col">
         {comments.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.data.map((commentItem, index) => (
@@ -40,7 +39,9 @@ const ProductCommentsList: React.FC<Props> = ({
       </div>
     </InfiniteScroll>
   ) : (
-    <span className={style.noComments}>اولین نفری باش که نظر میذاره...</span>
+    <span className="mt-[15px] block w-full text-center text-[16px] font-extrabold">
+      اولین نفری باش که نظر میذاره...
+    </span>
   );
 };
 

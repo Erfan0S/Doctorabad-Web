@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import styles from "./Watermark.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
@@ -43,9 +42,9 @@ export default function Watermark({ active, shown }: Props) {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className="pointer-events-none absolute inset-0 h-full w-full">
       <span
-        className={styles.watermark}
+        className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[18px] text-[rgb(0,212,0)] opacity-70 transition-all duration-[1500ms]"
         style={{ left: `${position[0]}%`, top: `${position[1]}%` }}
       >
         {data?.data.data.mobile || "سرزمین علوم پزشکی دکترآباد"}

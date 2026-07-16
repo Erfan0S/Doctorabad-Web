@@ -1,6 +1,5 @@
 import React from "react";
 import { PageHeader } from "@repo/shared_modules/headers";
-import styles from "./CategoryListHeader.module.scss";
 import { SortType } from "@/types/filters";
 import { Apps } from "@repo/core/types/general";
 import { Accordion } from "@repo/shared_modules/components";
@@ -25,7 +24,7 @@ const CategoryListHeader = ({ title }: Props) => {
       app={Apps.LEARN}
       defaultBackUrl={learnPaths.categories}
       children={
-        <div className={styles.filterWrapper}>
+        <div className="mt-[10px] px-[10px]">
           <Accordion
             title="نمایش براساس..."
             items={filterData}
