@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./VideoNotesListModal.module.scss";
 import { convertSecondsToNormalTime } from "@/utils/convertSecondsToNormalTime";
 import { ModalProps } from "@repo/core/types/modals";
 import { api } from "@/api/Api";
@@ -12,6 +11,10 @@ type Props = ModalProps<{
   goToBookmark: (lessonId: number, jumpTime: number) => void;
   currentLessonId: number;
 }>;
+
+// Stable hook class — InfiniteScroll's getScrollParent queries the list by
+// class name, so it can't be an anonymous Tailwind-only element.
+const NOTES_LIST_CLASS = "notes-scroll-list";
 
 export const VideoNotesListModal: React.FC<Props> = ({
   data: { courseId, goToBookmark, currentLessonId },
@@ -38,10 +41,10 @@ export const VideoNotesListModal: React.FC<Props> = ({
   }, [data]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>لیست یادداشت‌ها</div>
+    <div className="w-[500px] max-w-[90vw] overflow-hidden rounded-2xl bg-white">
+      <div className="bg-red p-4 text-start text-[20px] text-white">لیست یادداشت‌ها</div>
       {isLoading ? (
-        <div className={styles.loadingWrapper}>
+        <div className="mx-auto my-5">
           <Loading />
         </div>
       ) : (
@@ -52,25 +55,27 @@ export const VideoNotesListModal: React.FC<Props> = ({
           loader={<Loading key={0} />}
           useWindow={false}
           getScrollParent={() =>
-            document.querySelector(`.${styles.notesList}`) as HTMLElement
+            document.querySelector(`.${NOTES_LIST_CLASS}`) as HTMLElement
           }
         >
-          <ul className={styles.notesList}>
+          <ul
+            className={`${NOTES_LIST_CLASS} m-0 max-h-[80vh] list-none overflow-auto p-0`}
+          >
             {notes.length > 0 ? (
               notes.map((note) => (
                 <li
                   key={note.id}
-                  className={styles.noteItem}
+                  className="flex cursor-pointer items-center justify-between border-b border-solid border-[#eee] p-4 last:border-b-0"
                   onClick={() => goToBookmark(note.lesson_id, note.jump_time)}
                 >
-                  <span className={styles.timestamp}>
+                  <span className="text-[14px] text-[#666] [direction:ltr]">
                     {convertSecondsToNormalTime(note.jump_time)}
                   </span>
-                  <span className={styles.noteText}>{note.description}</span>
+                  <span className="ps-[10px] text-start text-[16px] text-[#333]">{note.description}</span>
                 </li>
               ))
             ) : (
-              <li className={styles.emptyState}>هیچ یادداشتی یافت نشد</li>
+              <li className="p-4 text-center text-[#666]">هیچ یادداشتی یافت نشد</li>
             )}
           </ul>
         </InfiniteScroll>

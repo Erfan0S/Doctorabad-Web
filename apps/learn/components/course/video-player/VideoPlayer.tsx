@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import styles from "./VideoPlayer.module.scss";
+import "./videojs-theme.css";
 import { VideoErrorState, VideoPlayerProps } from "./types";
 import { PlayerInitiator } from "@/utils/videoPlayer/playerInitiator";
 import { modalActions } from "@repo/core/modal/modals";
@@ -23,6 +23,9 @@ import Loading from "@/components/common/Loading";
 import { api } from "@/api/Api";
 import { LessonVideoContext } from "@/context/LessonVideoContext";
 import { getFriendlyVideoErrorMessage } from "@/utils/videoPlayer/getFriendlyVideoErrorMessage";
+
+const videoContainerClass =
+  "learn-video-player relative h-full w-full overflow-hidden rounded-[20px]";
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   config,
@@ -359,21 +362,21 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   return (
     <div
       onContextMenu={(e) => e.preventDefault()}
-      className={`${styles.videoContainer}`}
+      className={videoContainerClass}
     >
       {!isPlayerReady && (
-        <div className={styles.palceHolder}>
+        <div className="video-placeholder">
           <Loading />
         </div>
       )}
       {!!error && (
-        <div className={styles.customVideoError}>
+        <div className="absolute inset-0 z-[1] flex h-full w-full flex-col items-center justify-center bg-black/75 p-5 text-center text-[20px] font-medium text-white [white-space:break-spaces]">
           {error.code && <span>error code: {error.code}</span>}
           <p>{error.message}</p>
         </div>
       )}
       <div
-        className={`${styles.videoContainer} ${className || ""}`}
+        className={`${videoContainerClass} ${className || ""}`}
         ref={videoRef}
       ></div>
       {isPlayerReady && [

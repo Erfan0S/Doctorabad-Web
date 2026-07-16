@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./AddLeasonNoteModal.module.scss";
 import { ModalProps } from "@repo/core/types/modals";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/api/Api";
@@ -14,6 +13,11 @@ interface AddLeasonNoteModalProps {
   showOnPlayer?: boolean;
   onSuccess?: () => void;
 }
+
+// ponytail: `!` on every utility — the old scss used !important everywhere to
+// win over modal/player styles; keeping that behavior verbatim.
+const modalContentClass =
+  "!absolute !left-1/2 !top-1/2 !z-[1001] !w-[500px] !max-w-[90vw] !-translate-x-1/2 !-translate-y-1/2 !rounded-xl !bg-white !p-5 !shadow-[0_4px_6px_rgba(0,0,0,0.1)] ![direction:rtl]";
 
 const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
   data,
@@ -59,33 +63,33 @@ const AddLeasonNoteModal: React.FC<ModalProps<AddLeasonNoteModalProps>> = ({
     <>
       {data.showOnPlayer && (
         <div
-          className={styles.modalOverlay}
+          className="fixed left-0 top-0 z-[1000] h-full w-full bg-black/50"
           onClick={() => closeModal()}
           onContextMenu={(e) => e.preventDefault()}
         />
       )}
       <div
-        className={`${styles.modalContent} ${font.className}`}
+        className={`${modalContentClass} ${font.className}`}
         onContextMenu={(e) => e.preventDefault()}
       >
-        <div className={styles.modalHeader}>
-          <h2 className={styles.title}>یادداشت</h2>
-          <span className={styles.timestamp}>
+        <div className="!mb-5 !flex !items-center !justify-between">
+          <h2 className="!m-0 !text-[1.25rem] !font-semibold !text-[#333]">یادداشت</h2>
+          <span className="!inline-block !font-mono !text-[1.2rem] !text-[#666] ![direction:ltr]">
             {convertSecondsToNormalTime(data.currentTime)}
           </span>
         </div>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className="!flex !flex-col !gap-4">
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className={styles.textarea}
+            className="!min-h-[120px] !w-full !resize-y !rounded-lg !border-2 !border-solid !border-[#e0e0e0] !p-3 !text-[1rem] !leading-normal ![font-family:inherit] focus:!border-red focus:!outline-none"
             placeholder="یادداشت خود را وارد کنید..."
             autoFocus
             disabled={createBookmarkMutation.isPending}
           />
           <button
             type="submit"
-            className={styles.submitButton}
+            className="!w-full !cursor-pointer !rounded-lg !border-none !bg-red !px-6 !py-3 !text-[1rem] !font-semibold !text-white ![transition:background-color_0.2s_ease] hover:!bg-[#d81335] active:!translate-y-px"
             disabled={createBookmarkMutation.isPending}
           >
             {createBookmarkMutation.isPending ? "در حال ثبت..." : "ثبت"}

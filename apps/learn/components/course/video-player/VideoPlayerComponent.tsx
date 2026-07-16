@@ -8,8 +8,6 @@ import { CourseDataType, Lesson } from "@/types/courses";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { api } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
-import style from "../Course.module.scss";
-import videoPlayerStyle from "./VideoPlayer.module.scss";
 import { LessonVideoContext } from "@/context/LessonVideoContext";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 
@@ -94,7 +92,7 @@ const VideoPlayerComponent = ({
     <>
       {(!course.user_has_access && !coursePreview) ||
       (!currentLeasson && !coursePreview) ? (
-        <div className={style.courseImagePrevWrapper}>
+        <div className="relative aspect-[16/9] overflow-hidden rounded-[20px] bg-[#eee] pt-[56.25%]">
           <Image
             src={course.course_pic || ""}
             alt={course.title}
@@ -103,7 +101,7 @@ const VideoPlayerComponent = ({
           />
         </div>
       ) : course.user_has_access && isLoading ? (
-        <div className={videoPlayerStyle.palceHolder}>
+        <div className="video-placeholder">
           <Loading />
         </div>
       ) : (
