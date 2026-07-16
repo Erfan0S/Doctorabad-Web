@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
-import styles from "./questionItem.module.scss";
 import { BugIcon, InfoIcon } from "@repo/shared_modules/icons";
 import { Button, FavoriteHeartIcon } from "@repo/shared_modules/components";
 
@@ -20,6 +19,9 @@ import { generateQuestionId } from "@/utils/generateQuestionId";
 import BookMarkIcon from "@/assets/svg/bookMark";
 import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 import { api } from "@/api/Api";
+
+const BTN_ROW =
+  "flex flex-row items-center gap-[10px] [&>button]:flex-none [&>button]:[font-size:larger]";
 
 const buttons = (
   question: QuestionType,
@@ -48,7 +50,7 @@ const buttons = (
           isFavorite={isFavorite}
           app={Apps.EXAM}
           icon={<BookMarkIcon />}
-          filledIcon={<BookMarkIcon className={styles.filledBookMark} />}
+          filledIcon={<BookMarkIcon className="text-purple fill-purple" />}
         />
       ),
     },
@@ -100,6 +102,13 @@ function QuestionItem({
   );
   const { addAnswer } = useContext(QuestionsAnswersContext);
 
+  const statusBg =
+    questionStatus === QuestionStatus.NoT_SURE
+      ? "bg-[#ffffca]"
+      : questionStatus === QuestionStatus.DONT_KNOW
+        ? "bg-[#e9e9e9]"
+        : "";
+
   useEffect(() => {
     addAnswer(
       {
@@ -141,7 +150,7 @@ function QuestionItem({
       pathName?.includes("make")
     ) {
       return (
-        <div>
+        <div className={BTN_ROW}>
           <Button
             app={Apps.EXAM}
             onClick={() =>
@@ -173,7 +182,7 @@ function QuestionItem({
     if (status === ExamStatus.STARTED) return null;
 
     return (
-      <div>
+      <div className={BTN_ROW}>
         {question.has_explanation && (
           <Button
             app={Apps.EXAM}
@@ -207,17 +216,19 @@ function QuestionItem({
 
   return (
     <div
-      className={`${styles.questionItem} card ${mobileMode ? styles.mobileMode : ""} ${questionStatus === QuestionStatus.NoT_SURE ? styles.notSureQuestion : ""} ${questionStatus === QuestionStatus.DONT_KNOW ? styles.dontKnowQuestion : ""}`}
+      className={`overflow-hidden flex flex-col relative ${statusBg || "bg-white"} card ${mobileMode ? "flex-nowrap gap-[5px] [&_button]:!text-[11px] [&_div]:gap-[5px]" : ""}`}
       id={generateQuestionId(
         question.id.toString(),
         question.lesson_id.toString(),
       )}
     >
-      <h4>
+      <h4
+        className={`p-3 shadow-[0_3px_8px_rgba(0,0,0,0.13)] ${statusBg || "bg-[#eeeeee]"} text-[14px] font-medium relative z-10 [&_span]:font-extrabold`}
+      >
         <span>{`${index + 1}/${total}`} - </span>
         {question.title}
         <span
-          className={styles.category}
+          className="absolute left-3 bottom-0 translate-y-1/2 bg-blue rounded-[20px] text-[12px] font-bold px-[7px] py-1 text-white"
           style={{
             backgroundColor: `#${question.lesson_color_code}`,
           }}
@@ -226,12 +237,12 @@ function QuestionItem({
           {question.lesson || question.lesson_title}
         </span>
       </h4>
-      <div className={styles.optionsWrapper}>
+      <div className="p-3 flex flex-col gap-[5px] relative [&_img]:mt-[10px]">
         <QuestionItemWaterMark />
 
         {isTextQuestion ? (
           <textarea
-            className={styles.questionTextInput}
+            className="w-full z-[1] min-h-[30px] max-h-[200px] rounded-[3px] focus-visible:outline-none focus-visible:border-purple"
             name={question.id.toString()}
             id={question.id.toString()}
             cols={10}
@@ -267,7 +278,7 @@ function QuestionItem({
           <Image
             src={file}
             alt="عکس سوال"
-            className={styles.questionImages}
+            className="exam-question-img"
             width={0}
             height={0}
             sizes="100vw"
@@ -284,8 +295,12 @@ function QuestionItem({
           answer={questionAnswerStatus}
         />
       )}
-      <div className={styles.buttonsWrapper}>
-        <div className={styles.actionButtons}>
+      <div
+        className={`flex flex-row justify-between p-3 ${statusBg || "bg-[#eeeeee]"} z-10 max-[425px]:flex-nowrap max-[425px]:gap-[5px] max-[425px]:[&_button]:text-[11px] max-[425px]:[&_svg]:w-[17px] max-[425px]:[&_svg]:h-auto max-[425px]:[&_div]:gap-[5px] ${mobileMode ? "[&_svg]:w-[17px] [&_svg]:h-auto" : ""}`}
+      >
+        <div
+          className={`${BTN_ROW} [&>button]:text-black [&>button]:bg-white [&>button]:rounded-[10px] [&>button]:border [&>button]:border-solid [&>button]:border-gray-light [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:p-2 [&>button]:cursor-pointer`}
+        >
           {buttons(question, examTitle || "_", isFavorite).map((button, i) => {
             return (
               <button onClick={button.onClick} key={i}>

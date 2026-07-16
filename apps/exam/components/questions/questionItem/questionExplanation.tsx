@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import styles from "./questionItem.module.scss";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
@@ -51,12 +50,12 @@ function QuestionExplanation({
   if (error || !explanation) return null;
 
   return (
-    <div className={styles.answerWrapper}>
+    <div className="flex flex-col gap-[10px] px-[15px] py-[10px] mx-[10px] border-t border-solid border-purple z-[5] [&_p]:w-full [&_p]:text-start [&_p]:m-0">
       <p>{explanation?.explanation}</p>
       {explanation?.files.map((file, i) => (
         <Image
           src={file}
-          className={styles.questionImages}
+          className="exam-question-img"
           alt="پاسخ تشریحی"
           width={0}
           height={0}
@@ -65,7 +64,7 @@ function QuestionExplanation({
         />
       ))}
       {!!explanation?.references && (
-        <span className={`${styles.explanationReferences} card`}>
+        <span className="border border-solid border-purple w-fit px-[9px] py-1 card">
           {explanation.references}
         </span>
       )}

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Button from "../common/Button/Button";
-import style from "./questionBank.module.scss";
 import SelectFilters from "../common/SelectFilters/SelectFilters";
 import { Apps } from "@repo/core/types/general";
 import { OptionSwitch } from "@repo/shared_modules/components";
@@ -116,8 +115,8 @@ function QuestionBankFilter() {
   };
 
   return (
-    <div className={`${style.filterContainer} container`}>
-      <div className={`card ${style.topButtons}`}>
+    <div className="w-full flex flex-col pt-[5px] container">
+      <div className="card w-full flex flex-row px-[15px] py-[10px] [&_button]:flex-1 [&_button]:ms-[10px] [&_button:first-child]:ms-0 max-md:[&_button]:text-[12px]">
         <Button
           onClick={authorizeClientAction(() =>
             router.push(RoutePath.marked_questions),
@@ -136,7 +135,7 @@ function QuestionBankFilter() {
           آزمون‌های ساخته شده من
         </Button>
       </div>
-      <div className={`card ${style.filtersWrapper}`}>
+      <div className="card exam-filters-card">
         <SelectFilters page="questionBank" />
         <QuestionSearchInpt />
         <OptionSwitch
@@ -169,7 +168,7 @@ function QuestionBankFilter() {
         />
 
         <Button
-          className={style.submitBtn}
+          className="absolute right-1/2 bottom-0 translate-x-1/2 translate-y-1/2"
           type="button"
           onClick={onSubmitHandler}
         >

@@ -1,7 +1,6 @@
 import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper } from "@repo/shared_modules/components";
-import style from "./discountPlansBuy.module.scss";
 import DiscountPlans from "@/components/discountPlans";
 
 type Props = ModalProps<{}>;
@@ -9,7 +8,7 @@ type Props = ModalProps<{}>;
 function DiscountPlansBuyModal({ closeModal }: Props) {
   return (
     <ModalWrapper closeModal={closeModal} app={Apps.EXAM}>
-      <div className={style.discountPlansBuyModal}>
+      <div className="flex flex-col gap-[10px] max-h-[75vh] overflow-y-auto p-[10px] [&_h4]:text-center [&_h4]:font-semibold [&_h4]:text-[14px]">
         <h4>
           برای دسترسی به ((پاسخ تشریحی)) سوالات و ((تک آزمون‌ها)) یکی از طرح‌های
           زیر را انتخاب کن!

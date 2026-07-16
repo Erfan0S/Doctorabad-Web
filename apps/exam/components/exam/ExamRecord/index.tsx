@@ -1,6 +1,5 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import style from "./examRecord.module.scss";
 import { OptionSwitch } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import PercentageBar from "./PercentageBar";
@@ -24,11 +23,13 @@ function ExamRecord({ lessons, totalQuestions }: Props) {
 
   return (
     <div
-      className={`${style.examRecordWrapper} card`}
+      className="w-[95%] flex flex-col items-center gap-[10px] pb-[10px] overflow-hidden mx-auto z-[2] relative card"
       onContextMenu={(e) => e.preventDefault()}
     >
-      <h3>کارنامه تحلیلی آزمون</h3>
-      <div className={style.percentageBars}>
+      <h3 className="w-full text-center bg-purple text-white p-[10px]">
+        کارنامه تحلیلی آزمون
+      </h3>
+      <div className="w-full flex flex-col px-[25px]">
         <PercentageBar
           percentage={calculatePercentage(
             correctAnswers.length,
@@ -59,14 +60,14 @@ function ExamRecord({ lessons, totalQuestions }: Props) {
           color="yellow"
         />
       </div>
-      <div className={`${style.tableWrapper} card`}>
+      <div className="w-[95%] flex flex-col gap-[10px] p-[10px] mx-auto overflow-auto card">
         <OptionSwitch
           title="آزمون نمره منفی دارد؟"
           name="negativeScore"
           app={Apps.EXAM}
           onToggle={(value) => setNegativeScore(value)}
         />
-        <table>
+        <table className="border border-[#dededf] h-full w-full border-collapse text-center [&_th]:border [&_th]:border-[#dededf] [&_th]:bg-purple [&_th]:text-white [&_th]:p-[5px] [&_td]:border [&_td]:border-[#dededf] [&_td]:bg-white [&_td]:text-black [&_td]:p-[5px] [&_td]:[direction:ltr]">
           <thead>
             <tr>
               <th>درس</th>

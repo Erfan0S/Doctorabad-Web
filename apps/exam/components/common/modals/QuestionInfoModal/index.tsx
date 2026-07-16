@@ -2,7 +2,6 @@ import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper } from "@repo/shared_modules/components";
 import React from "react";
-import style from "./questionInfoModal.module.scss";
 import { QuestionType } from "@/types/exam";
 
 type Props = ModalProps<{
@@ -16,9 +15,9 @@ function QuestionInfoModal({
 }: Props) {
   return (
     <ModalWrapper closeModal={closeModal} app={Apps.EXAM}>
-      <div className={style.questionInfoModal}>
-        <h3>اطلاعات سوال</h3>
-        <ul>
+      <div>
+        <h3 className="w-full text-center text-purple text-[17px] font-extrabold mb-[21px]">اطلاعات سوال</h3>
+        <ul className="flex flex-col gap-[5px] ps-[10px] [&>li]:ps-[14px] [&>li]:text-[15px] [&>li]:font-medium [&>li]:marker:content-['✔']">
           <li>
             <span>رشته {question.field}</span>
           </li>

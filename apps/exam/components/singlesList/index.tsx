@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import React, { Fragment } from "react";
 import Loading from "../common/Loading/Loading";
 import InfiniteScroll from "react-infinite-scroller";
-import style from "./sinlgesList.module.scss";
 import { SingleListItem } from "@repo/apps_shared_components/exam/components";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types";
@@ -39,11 +38,11 @@ function SingleList() {
   });
 
   return (
-    <div className={style.listWrapper}>
+    <div className="mt-[15px] [&>div]:flex [&>div]:flex-col [&>div]:gap-3">
       {isLoading ? (
         <Loading />
       ) : !!data && data?.pages[0].data.data.length <= 0 ? (
-        <span className={style.noData}>هیچ تک آزمونی پیدا نشد!</span>
+        <span className="w-full text-center mt-[50px] block">هیچ تک آزمونی پیدا نشد!</span>
       ) : (
         <InfiniteScroll
           loadMore={() => fetchNextPage()}

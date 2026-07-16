@@ -4,7 +4,6 @@ import Loading from "@/components/common/Loading/Loading";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import style from "./archived.module.scss";
 import ArchivedItem from "./ArchivedItem";
 
 function Archived() {
@@ -24,7 +23,7 @@ function Archived() {
     <>
       {!!isLoading && <Loading />}
       <InfiniteScroll
-        className={style.archivedWrapper}
+        className="w-full flex flex-row flex-wrap gap-[15px]"
         pageStart={1}
         loadMore={() => fetchNextPage()}
         hasMore={hasNextPage}

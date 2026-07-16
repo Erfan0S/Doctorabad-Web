@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./timer.module.scss";
 import Button from "@/components/common/Button/Button";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
@@ -68,12 +67,16 @@ function ExamTimer({ totalQuestions }: Props) {
   };
 
   return (
-    <div className={styles.timerWrapper}>
-      <span>
+    <div className="flex flex-row items-center justify-between gap-[10px] bg-purple rounded-[15px] px-[15px] py-2 m-[10px]">
+      <span className="text-white [font-size:larger] [&>span]:font-bold">
         زمان باقی مانده: <span>{formatDuration(time, true)}</span>
       </span>
       {status !== ExamStatus.FINISHED && (
-        <Button onClick={handleEnd} variant="secondary">
+        <Button
+          className="flex-none [font-size:small] text-black p-[5px]"
+          onClick={handleEnd}
+          variant="secondary"
+        >
           {loading ? (
             <Loading />
           ) : status === ExamStatus.STARTED ? (

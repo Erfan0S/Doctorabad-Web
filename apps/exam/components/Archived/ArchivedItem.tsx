@@ -2,7 +2,6 @@ import { SelectQroupItemType } from "@repo/core/types/filter";
 import { Apps } from "@repo/core/types/general";
 import { SelectFilterQroup } from "@repo/shared_modules/components";
 import React, { useState } from "react";
-import style from "./archived.module.scss";
 import Button from "../common/Button/Button";
 import { formatTimeJ } from "@repo/core/utils/formatTime";
 import { api } from "@/api/Api";
@@ -126,14 +125,14 @@ function ArchivedItem({ data }: Props) {
   if (deleted) return null;
 
   return (
-    <div className={`${style.archivedItemWrapper} card`}>
+    <div className="p-[10px] pt-0 w-[48%] max-md:w-full flex flex-col justify-between gap-2 [&_p]:text-gray [&_p]:[font-size:larger] [&_p]:font-semibold [&_p]:m-0 card">
       <SelectFilterQroup dontHaveQuery items={filters} app={Apps.EXAM} />
       {!!data.title && <p>عبارت جست و جو شده: {data.title}</p>}
       {!!data.budgeting && <p>نمایش بودجه بندی سوالات</p>}
       {!!data.tip && <p>نمایش سوالات تیپ‌دار</p>}
-      <div className={style.archivedItemFooter}>
+      <div className="flex flex-row justify-between items-center [&_span]:text-purple [&_span]:font-medium">
         <span>{formatTimeJ(data.created_at)}</span>
-        <div>
+        <div className="flex flex-row items-center gap-[5px] [&_button]:flex-none [&_button]:px-[10px] [&_button]:py-[5px] [&_button]:[font-size:larger]">
           <Button onClick={deleteHandler} variant="danger">
             {deleteLoading ? <Loading /> : "حذف"}
           </Button>

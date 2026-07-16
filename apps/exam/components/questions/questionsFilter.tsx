@@ -2,7 +2,6 @@
 import React from "react";
 import Button from "../common/Button/Button";
 import SortIcon from "@/assets/svg/sort";
-import style from "./questions.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { Apps } from "@repo/core/types/general";
@@ -58,7 +57,7 @@ function QuestionsFilterButton() {
   return (
     <Button
       variant="secondary"
-      className={style.filterBtn}
+      className="!text-black me-[10px] [&_svg]:ms-[10px]"
       onClick={onClickHandler}
     >
       {currectFilter.title || "فیلتر"} <SortIcon />

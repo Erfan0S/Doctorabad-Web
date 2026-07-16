@@ -6,7 +6,6 @@ import {
   ExamStartSearchParams,
   QuestionType,
 } from "../../types/exam";
-import styles from "./questions.module.scss";
 import { useSearchParams } from "next/navigation";
 import { QuestionsAnswersContext } from "../../contexts/questionsAnswersContext";
 import ExamFIlterNotFound from "@/components/common/FIlterNotFound";
@@ -101,7 +100,7 @@ function Questions({
 
   return (
     <div
-      className={`${styles.questionsWrapper} container`}
+      className="flex flex-col gap-[15px] mt-[10px] select-none container"
       onContextMenu={(e) => e.preventDefault()}
     >
       {filtredQuestions.map((question, index) => {

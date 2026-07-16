@@ -7,7 +7,6 @@ import { api as coreApi } from "@repo/shared_modules/api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import SelectFilters from "../../common/SelectFilters/SelectFilters";
-import style from "../questionBank.module.scss";
 import Button from "@/components/common/Button/Button";
 import { Input } from "@repo/shared_modules/ui";
 import { RoutePath } from "@/constants/routPaths";
@@ -97,7 +96,7 @@ function MakeInputs() {
   };
 
   return (
-    <div className={`card ${style.filtersWrapper} ${style.makeInputs}`}>
+    <div className="card exam-filters-card pb-[45px] max-md:!pb-[85px]">
       <SelectFilters page="maker" />
       <OptionSwitch
         name={SharedFilters.EXPLANATION}
@@ -134,7 +133,7 @@ function MakeInputs() {
         onToggle={(value) => setManual(value)}
       />
       {manual && (
-        <div className={style.manualInputsWrapper}>
+        <div className="flex flex-row justify-between gap-[10px] w-full mx-auto mb-[50px] max-md:mb-[10px] max-w-[500px] max-[425px]:flex-col">
           <Input
             app={Apps.EXAM}
             type="number"
@@ -161,7 +160,8 @@ function MakeInputs() {
           />
         </div>
       )}
-      <div className={style.makeInputsButtonWrapper}>
+      {/* ponytail: physical left-1/2 centering trick kept from scss */}
+      <div className="flex flex-col justify-center m-auto absolute gap-[10px] bottom-0 left-1/2 -translate-x-1/2 translate-y-[20%]">
         <Button
           variant="secondary"
           onClick={authorizeClientAction(() => onStartClick())}

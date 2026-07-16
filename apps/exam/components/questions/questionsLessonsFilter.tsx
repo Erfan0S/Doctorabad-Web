@@ -1,8 +1,10 @@
 "use client";
 import { useContext } from "react";
-import style from "./questions.module.scss";
 import { LessonType } from "@/types/exam";
 import { QuestionsLessonsFilterContext } from "@/contexts/questionsLessonFilterContext";
+
+const LESSON_BTN =
+  "border-none rounded-[5px] cursor-pointer p-[10px] whitespace-nowrap focus:outline-none";
 
 type Props = {
   lessons: LessonType[];
@@ -22,11 +24,11 @@ function QuestionsLessonsFilter({ lessons }: Props) {
   };
 
   return (
-    <div className={style.lessonFilterWrapper}>
+    <div className="w-full flex flex-row flex-nowrap overflow-auto bg-[#eeeeee] px-3 py-[10px] gap-[10px]">
       <button
         type="button"
         onClick={() => clearLessons()}
-        className={!lessonIds.length ? style.active : ""}
+        className={`${LESSON_BTN} ${!lessonIds.length ? "bg-purple text-white" : "bg-white"}`}
       >
         همه
       </button>
@@ -35,9 +37,11 @@ function QuestionsLessonsFilter({ lessons }: Props) {
           key={lesson.id}
           onClick={() => onClickHandler(lesson.id)}
           type="button"
-          className={
-            lessonIds.includes(lesson.id.toString()) ? style.active : ""
-          }
+          className={`${LESSON_BTN} ${
+            lessonIds.includes(lesson.id.toString())
+              ? "bg-purple text-white"
+              : "bg-white"
+          }`}
           style={{
             backgroundColor: lessonIds.includes(lesson.id.toString())
               ? `#${lesson.color_code}`

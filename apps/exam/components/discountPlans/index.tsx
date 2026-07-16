@@ -3,7 +3,6 @@ import { api } from "@repo/shared_modules/api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import DiscountPlanItem from "./DiscountPlanItem";
-import style from "./discountPlans.module.scss";
 import { UserPlanItem } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
@@ -36,7 +35,7 @@ function DiscountPlans({ haveUserPlan = true }: Props) {
 
   return (
     <div
-      className={`container ${style.DiscontPlansWrapper}`}
+      className="container w-full flex flex-col items-center gap-3 mt-[10px]"
       id="discountPlansElement"
     >
       {userPlansLoading ? (
