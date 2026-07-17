@@ -1,4 +1,3 @@
-import style from "./ProductSidebarPrice.module.scss";
 import { SingleProduct } from "@repo/core/types/product";
 import { CartItem as Props } from "@repo/shared_modules";
 import { ProductVariantsValue } from "@repo/core/types/productVariants";
@@ -19,21 +18,19 @@ interface Props {
 
 const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
   const isProductHasStock = product.quantity !== 0;
-  const color = isProductHasStock ? "orange" : "grey";
+  // ponytail: old style.orange / style.grey / style.productSidebarPriceNumber
+  // had no rules in the scss module - dropped
   return (
-    <div
-      className={`${style.productSidebarPrice} ${color ? style[color] : ""}`}
-    >
+    <div className="flex items-end gap-[10px]">
       {isProductHasStock && (
         <ProductPrice
           mainPrice={product?.price_main}
           offPrice={product?.price_off}
           amazingPrice={product?.price_amazing}
           app={Apps.MARKET}
-          className={style.productSidebarPriceNumber}
         />
       )}
-      <div className={style.productSidebarPriceButton}>
+      <div className="w-[60%]">
         {product.installment_payment && product.installment_text && (
           <ProductSnappayNotif text={product.installment_text} />
         )}

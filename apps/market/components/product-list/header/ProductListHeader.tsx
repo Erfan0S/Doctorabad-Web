@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import React from "react";
 import ArchiveHeader from "./archive";
 import { generateProductListMetaData } from "@/metadata/archiveProduct";
-import style from "./ArchiveHeader.module.scss";
 
 export const ProductListHeader = () => {
   const { type } = useParams();
@@ -22,6 +21,6 @@ export const ProductListHeader = () => {
       return <ArchiveHeader />;
 
     default:
-      return <h1 className={style.pageTitle}>{title}</h1>;
+      return <h1 className="mb-8">{title}</h1>;
   }
 };

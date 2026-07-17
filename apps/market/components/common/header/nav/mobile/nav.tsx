@@ -4,12 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { CategoryInList, CategoryList } from "@/types/category";
 import Menu from "@/assets/svg/menu";
-import style from "../Nav.module.scss";
 import Close from "@/assets/svg/close";
 import MenuItem from "./navItem";
 import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
 import BackArrow from "@/assets/svg/backArrow";
-import modalStyle from "@/components/common/modal/modal.module.scss";
 import {
   fadeInAnimation,
   mobileNavListReplace,
@@ -22,6 +20,7 @@ interface Props {
   navData: CategoryList;
 }
 
+// .market-mobile-nav / .market-modal-overlay live in packages/tailwind-config/components.css
 const MobileNav = ({ navData }: Props) => {
   const router = useRouter();
 
@@ -64,14 +63,14 @@ const MobileNav = ({ navData }: Props) => {
         <motion.div
           {...fadeInAnimation}
           onClick={toggleMobileMenu}
-          className={modalStyle.modalOverlay}
+          className="market-modal-overlay"
         ></motion.div>
       )}
-      <Menu className={style.navToggle} onClick={toggleMobileMenu} />
+      <Menu className="market-nav-toggle" onClick={toggleMobileMenu} />
       <AnimatePresence>
         {showMobileMenu && (
-          <motion.nav {...slideRightAnimation} className={`${style.mobileNav}`}>
-            <div className={style.mobileNavHeader}>
+          <motion.nav {...slideRightAnimation} className="market-mobile-nav">
+            <div className="market-mobile-nav-header">
               {parentId ? (
                 <BackArrow
                   onClick={openParentList}

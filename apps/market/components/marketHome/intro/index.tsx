@@ -14,15 +14,15 @@ const Intro = async ({ mainSliders, sideSliders }: Props) => {
   const order = await api.getLastProcessingOrder().catch(() => null);
 
   return (
-    <section className={style.intro}>
+    <section className="mb-10 max-md:mb-4">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
             <MainSlider app={Apps.MARKET} banners={mainSliders} />
           </div>
-          <div className={`col-lg-4`}>
+          <div className="col-lg-4">
             {!order ? (
-              <div className={style.sideBanners}>
+              <div className="flex flex-col justify-between h-full">
                 {sideSliders.map((banner) => (
                   <MainBanner key={banner.id} {...banner} />
                 ))}

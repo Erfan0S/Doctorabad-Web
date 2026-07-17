@@ -1,16 +1,13 @@
-import Image from 'next/image';
-import archiveEmptyState from '@/assets/img/archive-empty-state.png';
-import style from './ArchiveEmptyState.module.scss';
+import Image from "next/image";
+import emptyStateImage from "@/assets/img/empty-list.png";
 
-const ArchiveEmptyState = () => {
-    return (
-        <div className={style.archiveEmptyState}>
-            <Image src={archiveEmptyState} alt="ArchiveEmptyState" width={100} height={100} />
-            <p>گفتند یافت می نشود جسته ایم ما<br/>گفت آن که یافت می نشود، آنم آرزوست</p>
-            <p>فیلترهای کمتری اعمال کنین تا نتایج بیشتر پیدا بشه!<br/>یا تو جستجوی کلمه موردنظر بیشتر دقت کنین!</p>
-            <p>اگه آخرشم پیدا نشد غصه نداره که؛ به کدخدا بگین!</p>
-        </div>
-    );
+const ProductListEmptyState = () => {
+  return (
+    <div className="flex h-full max-h-[90vh] flex-col items-center justify-center text-center [&_img]:mb-10 [&_p]:text-sm [&_p]:font-semibold">
+      <Image src={emptyStateImage} alt="محصولی یافت نشد" />
+      <p>محصولی مطابق با فیلترهای انتخابی شما یافت نشد!</p>
+    </div>
+  );
 };
 
-export default ArchiveEmptyState;
+export default ProductListEmptyState;

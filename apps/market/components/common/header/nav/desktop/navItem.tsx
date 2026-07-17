@@ -6,7 +6,6 @@ import classNames from "classnames";
 import { useState } from "react";
 import { generateProductCategoryUrlFromId } from "@repo/core/utils/UrlUtils";
 import { CategoryInList } from "@/types/category";
-import style from "../Nav.module.scss";
 
 interface Props {
   item: CategoryInList;
@@ -14,6 +13,7 @@ interface Props {
   level: number;
 }
 
+// Class names live in packages/tailwind-config/components.css (.market-nav-*).
 const DesktopNavItem = ({ item, href, level }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = Boolean(item.children?.length);
@@ -22,10 +22,10 @@ const DesktopNavItem = ({ item, href, level }: Props) => {
 
   return (
     <li
-      className={classNames(style.navItem, style[`level${level}`], {
-        [style.hasChild]: hasChildren,
-        [style.open]: isOpen,
-        [style.hasThirdLevel]: hasThirdLevel,
+      className={classNames("market-nav-item", `market-nav-level${level}`, {
+        "market-nav-has-child": hasChildren,
+        open: isOpen,
+        "market-nav-has-3rd": hasThirdLevel,
       })}
       role="none"
       onMouseEnter={() => setIsOpen(true)}
@@ -33,13 +33,13 @@ const DesktopNavItem = ({ item, href, level }: Props) => {
     >
       <Link
         href={href}
-        className={classNames(style.navLink, style[`navLinkLevel${level}`])}
+        className={classNames("market-nav-link", `market-nav-link-level${level}`)}
         role="menuitem"
         aria-haspopup={hasChildren ? "menu" : undefined}
         aria-expanded={hasChildren ? isOpen : undefined}
       >
         {level === 1 && item.avatar_file?.info?.path && (
-          <span className={style.navIcon}>
+          <span className="market-nav-icon">
             <Image
               src={item.avatar_file.info.path}
               alt=""
@@ -49,11 +49,11 @@ const DesktopNavItem = ({ item, href, level }: Props) => {
           </span>
         )}
 
-        <span className={style.navTitle}>{item.title}</span>
+        <span className="market-nav-title">{item.title}</span>
 
         {hasChildren && (
           <svg
-            className={style.navChevron}
+            className="market-nav-chevron"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -68,10 +68,10 @@ const DesktopNavItem = ({ item, href, level }: Props) => {
       {hasChildren && (
         <ul
           className={classNames(
-            style.subMenu,
-            style[`subMenuLevel${level + 1}`],
+            "market-nav-submenu",
+            `market-nav-submenu-level${level + 1}`,
             {
-              [style.subMenuHasThirdLevel]: hasThirdLevel,
+              "market-nav-submenu-has-3rd": hasThirdLevel,
             },
           )}
           role="menu"

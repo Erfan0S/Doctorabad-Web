@@ -4,7 +4,6 @@ import Companies from "@/components/marketHome/companies";
 import Discounts from "@/components/marketHome/discounts";
 import Intro from "@/components/marketHome/intro";
 import React from "react";
-import style from "@/components/marketHome/banners/Banners.module.scss";
 import Banners from "@/components/marketHome/banners";
 import classNames from "classnames";
 import { ProvidersList } from "@/types/providers";
@@ -37,7 +36,7 @@ function DesktopMainPage({ sliders, amazingProducts, ProvidersList }: Props) {
       <HomePageProductSliders type="suggested" />
       <HomePageProductSliders type="bestSelling" />
       <HomePageProductSliders type="lastSeen" />
-      <section className={`${style.bannersItem} ${style.bannersItemFull}`}>
+      <section className="market-banner-item market-banner-item-full">
         <div className="container">
           {sliders
             .filter((s) => s.location === 4)
@@ -63,7 +62,7 @@ function DesktopMainPage({ sliders, amazingProducts, ProvidersList }: Props) {
       <Banners
         data={sliders.filter((s) => s.location === 6)}
         imageOptions={{ width: 140, height: 110 }}
-        className={classNames("col-4 col-lg-2", style.bannersPropertyItem)}
+        className={classNames("col-4 col-lg-2", "market-banner-property-item")}
         showTitles
       />
     </>

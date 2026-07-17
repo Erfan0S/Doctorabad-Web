@@ -1,6 +1,5 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import style from "./BlogSlider.module.scss";
 import "swiper/css";
 import Link from "next/link";
 import type { BlogType } from "@/types/blog";
@@ -19,25 +18,30 @@ const BlogSlider: React.FC<Props> = ({
   archiveLink = undefined,
 }) => {
   return (
-    <section className={style.blogSlider}>
+    <section className="py-10">
       <div className="container">
         {(title || archiveLink) && (
-          <div className={style.blogSliderHeader}>
+          <div className="market-slider-header before:bg-[#33cc33]">
             {title ? (
-              <div className={style.blogSliderHeaderTitle}>
-                <span>{title}</span>
+              <div className="market-slider-header-title">
+                <span className="leading-[30px] text-[22px] font-black">{title}</span>
               </div>
             ) : null}
             {archiveLink && (
-              <div className={style.blogSliderHeaderLink}>
-                <Link href={archiveLink} title={title} target={"_blank"}>
+              <div className="market-slider-header-link">
+                <Link
+                  href={archiveLink}
+                  title={title}
+                  target="_blank"
+                  className="leading-7 inline-block rounded-lg px-4 text-sm font-medium text-white bg-[#33cc33] transition-all duration-150 hover:bg-orange"
+                >
                   مشاهده‌همه
                 </Link>
               </div>
             )}
           </div>
         )}
-        <div className={style.blogSliderSlider}>
+        <div className="market-slider-mask">
           <Swiper
             spaceBetween={30}
             slidesPerView="auto"

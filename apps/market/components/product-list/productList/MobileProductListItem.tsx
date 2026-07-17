@@ -7,7 +7,6 @@ import { Product as ProductType } from "@repo/core/types/product";
 import { Apps } from "@repo/core/types/general";
 import { marketPaths } from "@repo/core/constants/routePath";
 import { OrderType } from "@repo/core/types/cart";
-import style from "./ProductList.module.scss";
 
 type Props = {
   product: ProductType;
@@ -35,9 +34,7 @@ function MobileProductListItem({ product }: Props) {
                 {
                   icon: <Hat />,
                   value: (
-                    <span className={style.productListItemProvider}>
-                      {product.provider}
-                    </span>
+                    <span className="font-semibold">{product.provider}</span>
                   ),
                 },
               ]

@@ -1,19 +1,14 @@
-import { SingleProduct } from "@repo/core/types/product";
-import style from "./ProductDescription.module.scss";
 import sanitize from "@repo/core/utils/sanitize";
 
 interface Props {
-  productData: SingleProduct;
+  description: string;
 }
-const ProductDescription: React.FC<Props> = ({ productData }) => {
+const ProductDescription: React.FC<Props> = ({ description }) => {
   return (
-    <>
-      <div
-        className={style.productDescription}
-        dangerouslySetInnerHTML={{ __html: sanitize(productData.description) }}
-      ></div>
-      {/* <ProductFaq faq={productData.faq} /> */}
-    </>
+    <div
+      className="text-justify text-[13px] leading-[25px]"
+      dangerouslySetInnerHTML={{ __html: sanitize(description) }}
+    ></div>
   );
 };
 

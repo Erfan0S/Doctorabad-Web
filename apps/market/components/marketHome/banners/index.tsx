@@ -1,8 +1,6 @@
-import Image, { ImageProps } from "next/image";
-import style from "./Banners.module.scss";
+import Image from "next/image";
 import Link from "next/link";
 import { Banner } from "@/types/banner";
-import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 
 interface Props {
   data: Banner[];
@@ -23,7 +21,7 @@ const Banners: React.FC<Props> = ({
   className = "",
 }) => {
   return (
-    <section className={style.banners}>
+    <section className="py-10 max-md:py-0 max-lg:[&_.row>div]:mb-[15px]">
       <div className="container">
         <div className="row">
           {data.map(({ id, title, pic_url, url }) => {
@@ -31,7 +29,7 @@ const Banners: React.FC<Props> = ({
               <>
                 <Image
                   {...imageOptions}
-                  src={pic_url || placeHolderDataUrl}
+                  src={pic_url || ""}
                   alt={title || "Banner"}
                 />
                 {showTitles && <span>{title}</span>}
@@ -47,7 +45,7 @@ const Banners: React.FC<Props> = ({
                 }
               >
                 <div
-                  className={style.bannersItem}
+                  className="market-banner-item"
                   style={{ height: imageOptions.parentHeight || "auto" }}
                 >
                   {url ? (

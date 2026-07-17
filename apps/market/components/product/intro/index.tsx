@@ -1,6 +1,5 @@
 "use client";
 import { SingleProduct } from "@repo/core/types/product";
-import style from "./ProductIntro.module.scss";
 import ProductBreadcrumb from "./breadcrumb";
 import ProductSeller from "./seller";
 import ProductShortDescription from "./shortDescription";
@@ -27,7 +26,7 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
 
   return (
     <>
-      <div className={style.productIntro}>
+      <div className="market-panel mb-5 min-h-[375px] p-6">
         <div className="row">
           <div className="col-lg-6">
             <ProductSlider
@@ -37,7 +36,8 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
             />
           </div>
           <div className="col-lg-6">
-            <div className={style.productIntroContent}>
+            {/* ponytail: old style.productIntroContent had no rules in the scss module - dropped */}
+            <div>
               {category && (
                 <ProductBreadcrumb
                   items={[

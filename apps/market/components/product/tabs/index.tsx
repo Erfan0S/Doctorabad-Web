@@ -1,45 +1,53 @@
-import { Product, ProductTab, SingleProduct } from "@repo/core/types/product";
-import style from "./ProductTabs.module.scss";
+import { ProductTabData, SingleProduct } from "@repo/core/types/product";
 import ProductComments from "./comments";
 import ProductTabsController from "./controller";
 import ProductDescription from "./description";
-import ProductRelated from "./related";
+import ProductFaq from "./faq";
 import ProductSpecifications from "./specifications";
 
-import { productTabsData } from "./tabs-data";
+// each tab section; on mobile give grid columns inside a section a gap
+const SECTION_CLASS = "mb-8 max-md:[&_[class^='col-']]:mb-3";
+
 interface Props {
   productData: SingleProduct;
-  relatedProductList: Product[];
 }
 
-const productSectionsComponents = {
-  [ProductTab.DESCRIPTION]: ProductDescription,
-  [ProductTab.SPECIFICATIONS]: ProductSpecifications,
-  [ProductTab.RELATED_PRODUCTS]: ProductRelated,
-  [ProductTab.COMMENTS]: ProductComments,
-};
+const ProductTabs: React.FC<Props> = ({ productData }) => {
+  const tabData: ProductTabData[] = [];
 
-const ProductTabs: React.FC<Props> = ({ productData, relatedProductList }) => {
+  if (productData.description)
+    tabData.push({ id: "description", title: "معرفی" });
+  if (productData.attributes.length || productData.bundle_products?.length)
+    tabData.push({ id: "specifications", title: "مشخصات" });
+  if (productData.faq.length) tabData.push({ id: "faq", title: "پرسش و پاسخ" });
+  tabData.push({ id: "comments", title: "دیدگاه کاربران" });
+
   return (
     <>
-      <ProductTabsController
-        tabData={productTabsData.filter(
-          (tab) =>
-            !(
-              !relatedProductList.length &&
-              tab.id === ProductTab.RELATED_PRODUCTS
-            )
+      <ProductTabsController tabData={tabData} />
+      <div className="market-panel mb-5 p-6">
+        {productData.description && (
+          <section id="description" className={SECTION_CLASS}>
+            <ProductDescription description={productData.description} />
+          </section>
         )}
-      />
-      <div id="productInfoContainer" className={style.productTabsContent}>
-        {Object.entries(productSectionsComponents).map(([id, Component]) => (
-          <div className={style.productTabsContentSection} id={id} key={id}>
-            <Component
-              productData={productData}
-              relatedProducts={relatedProductList}
+        {(productData.attributes.length ||
+          productData.bundle_products?.length) && (
+          <section id="specifications" className={SECTION_CLASS}>
+            <ProductSpecifications
+              specifications={productData.attributes}
+              bundleProducts={productData.bundle_products}
             />
-          </div>
-        ))}
+          </section>
+        )}
+        {productData.faq.length ? (
+          <section id="faq" className={SECTION_CLASS}>
+            <ProductFaq faq={productData.faq} />
+          </section>
+        ) : null}
+        <section id="comments" className={SECTION_CLASS}>
+          <ProductComments productData={productData} />
+        </section>
       </div>
     </>
   );

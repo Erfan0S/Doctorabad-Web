@@ -1,9 +1,8 @@
-import styles from './scanArea.module.scss';
-
+// was scanArea.module.scss (its @keyframes now lives in components.css as market-scan)
 export const ScanArea = () => {
   return (
     <svg
-      className={`scan-region-highlight-svg ${styles.ScanArea}`}
+      className="scan-region-highlight-svg absolute w-1/2 h-1/2 left-1/4 top-1/4 fill-none stroke-green stroke-[4] [stroke-linecap:round] [stroke-linejoin:round] [animation:market-scan_0.5s_infinite_alternate]"
       viewBox="0 0 238 238"
       preserveAspectRatio="none"
     >

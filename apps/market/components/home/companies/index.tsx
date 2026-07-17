@@ -5,7 +5,6 @@ import Image from "next/image";
 import { ProvidersList } from "@/types/providers";
 import Link from "next/link";
 import { generateSingleProviderUrlFromId } from "@repo/core/utils/UrlUtils";
-import style from "./Companies.module.scss";
 import "swiper/css";
 import { autoPlayConfig } from "@repo/core/constants/sliders";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
@@ -15,8 +14,9 @@ interface Props {
 }
 
 const Companies = ({ list }: Props) => {
+  if (!list.length) return null;
   return (
-    <section className={style.companies}>
+    <section className="py-10 max-md:mb-4 [&_.swiper-slide]:w-[120px]">
       <div className="container">
         <Swiper
           modules={[Autoplay]}
@@ -34,16 +34,17 @@ const Companies = ({ list }: Props) => {
         >
           {list.map(({ id, name, avatar_file }) => (
             <SwiperSlide key={id}>
-              <div className={style.companiesItem}>
-                <Link href={generateSingleProviderUrlFromId(id)}>
-                  <Image
-                    src={avatar_file?.info.path || placeHolderDataUrl}
-                    alt={name}
-                    fill
-                    priority
-                  />
-                </Link>
-              </div>
+              <Link
+                href={generateSingleProviderUrlFromId(id)}
+                className="market-company-logo"
+              >
+                <Image
+                  src={avatar_file?.info.path || placeHolderDataUrl}
+                  alt={name}
+                  fill
+                  priority
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

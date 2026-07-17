@@ -1,6 +1,5 @@
 "use client";
 import { useRestockNotification } from "@/hooks/useRestockNotification";
-import style from "./ProductSidebarPrice.module.scss";
 import React from "react";
 import Loading from "@/components/common/loading";
 
@@ -14,7 +13,7 @@ function NoStockButton({ productId }: Props) {
 
   return (
     <button
-      className={style.productSidebarPriceButtonNoStuck}
+      className="h-10 w-full cursor-pointer rounded-lg border-0 !bg-gray p-0 text-center text-[13px] font-semibold leading-10 text-white shadow-[0_3px_10px_rgba(0,0,0,0.1)] outline-none transition duration-150 hover:shadow-none"
       onClick={restockNotification}
       disabled={restockNotificationLoading}
     >

@@ -3,11 +3,15 @@ import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import Slider from "rc-slider";
 import React, { useEffect, useState } from "react";
 import "rc-slider/assets/index.css";
-import style from "../ProductListFiltersFilters.module.scss";
 import useDebounceAction from "@repo/core/hooks/useDebounceAction";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
 import { useSearchParams } from "next/navigation";
 import { FilterParams } from "@/constants/filter";
+
+// ponytail: physical `left` kept on the last mark - rc-slider positions marks
+// with inline LTR `left` values, so logical properties don't apply here
+const SLIDER_CLASS =
+  "[&_.rc-slider-track]:bg-orange [&_.rc-slider-handle]:border-orange [&_.rc-slider-mark-text:last-child]:!left-[calc(100%-10px)]";
 
 type Props = {
   priceRange: { min: number; max: number };
@@ -63,7 +67,7 @@ export const MinMaxPrice = ({ priceRange, extandable = true }: Props) => {
         range
         onChange={(values) => setValues(values as number[])}
         value={values}
-        className={style.archiveFiltersSliderMark}
+        className={SLIDER_CLASS}
       />
     );
   }

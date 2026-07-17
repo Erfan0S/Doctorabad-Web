@@ -1,5 +1,4 @@
 "use client";
-import style from "../ProductListFiltersFilters.module.scss";
 import { useEffect, useReducer } from "react";
 import { CategoryList } from "@/types/category";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -32,19 +31,20 @@ const ArchiveFilters = ({
   const [showMobileMenu, toggleMobileMenu] = useReducer((prev) => !prev, false);
 
   return (
-    <aside className={style.archiveFilters}>
+    <aside className="market-panel market-orange-scrollbar sticky top-[168px] mb-10 max-h-[730px] overflow-scroll p-6 max-md:mb-4">
       <>
-        <div className={style.archiveFiltersHeader}>
+        <div className="mb-6 flex items-center font-semibold max-xl:mb-0 max-xl:[&_span]:cursor-pointer">
           <span onClick={toggleMobileMenu}>فیلتر ها</span>
           <span
-            className={style.archiveFiltersClearAll}
+            className="ms-auto cursor-pointer border-b border-solid border-orange text-orange"
             onClick={() => push(pathname)}
           >
             حذف همه فیلتر ها
           </span>
         </div>
+        {/* filters stay visible on desktop; toggle only applies below xl */}
         <div
-          className={`${style.archiveFiltersContent} ${showMobileMenu ? style.open : ""}`}
+          className={`${showMobileMenu ? "max-xl:block" : "max-xl:hidden"} max-xl:pt-3`}
         >
           <SelectFilter
             title="دسته‌بندی"

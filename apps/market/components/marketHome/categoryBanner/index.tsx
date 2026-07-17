@@ -13,6 +13,7 @@ import style from "./CategoryBanner.module.scss";
 import { Autoplay } from "swiper/modules";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
+
 interface Props {
   data: Banner[];
 }
@@ -24,46 +25,44 @@ const CategoryBanner: React.FC<Props> = ({ data }) => {
   if (!shouldRender) return null;
 
   return (
-    <>
-      <section className={style.categoryBanner}>
-        <div className="container">
-          {isMobile ? (
-            <Swiper
-              modules={[Autoplay]}
-              spaceBetween={30}
-              slidesPerView={"auto"}
-              loop
-              autoplay={autoPlayConfig}
-              breakpoints={categoryBannerBreakpoint}
-            >
-              {data.map(({ id, title, pic_url, url }) => {
-                const BannerItem = () => (
-                  <Image
-                    className={style.categoryBannerImage}
-                    {...imageOptions}
-                    src={pic_url || placeHolderDataUrl}
-                    alt={title || "Banner"}
-                  />
-                );
-                return (
-                  <SwiperSlide key={id}>
-                    {url ? (
-                      <Link target="_blank" href={url} title={title}>
-                        <BannerItem />
-                      </Link>
-                    ) : (
+    <section className="max-md:[&_a]:w-full max-md:[&_img]:w-full max-md:[&_img]:h-[100px]">
+      <div className="container">
+        {isMobile ? (
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={30}
+            slidesPerView={"auto"}
+            loop
+            autoplay={autoPlayConfig}
+            breakpoints={categoryBannerBreakpoint}
+          >
+            {data.map(({ id, title, pic_url, url }) => {
+              const BannerItem = () => (
+                <Image
+                  className="max-md:w-full max-md:h-[100px]"
+                  {...imageOptions}
+                  src={pic_url || placeHolderDataUrl}
+                  alt={title || "Banner"}
+                />
+              );
+              return (
+                <SwiperSlide key={id} className="max-md:w-[180px] max-md:h-[90px]">
+                  {url ? (
+                    <Link target="_blank" href={url} title={title}>
                       <BannerItem />
-                    )}
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          ) : (
-            <Banners data={data} imageOptions={imageOptions} />
-          )}
-        </div>
-      </section>
-    </>
+                    </Link>
+                  ) : (
+                    <BannerItem />
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        ) : (
+          <Banners data={data} imageOptions={imageOptions} />
+        )}
+      </div>
+    </section>
   );
 };
 

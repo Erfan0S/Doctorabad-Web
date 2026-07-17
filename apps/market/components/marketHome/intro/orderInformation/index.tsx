@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import style from "./OrderInformation.module.scss";
 import clubImage from "@/assets/img/club.png";
 import coinIcon from "@/assets/img/coin.png";
 import { LastProcessingOrder } from "@/types/orders";
@@ -20,9 +19,17 @@ import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponent
 import { useRouter } from "next/navigation";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 
-const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
-  order,
-}) => {
+type Props = {
+  order: LastProcessingOrder;
+};
+
+const STEP =
+  "relative flex items-center flex-[0_1_100%] last:flex-[0_1_20px] text-[#f7d985] before:absolute before:content-[''] before:left-[5px] before:right-[25px] before:top-1/2 before:border-t before:border-solid last:before:content-none";
+const STEP_ON =
+  "before:border-orange [&_svg]:text-white [&_svg]:relative [&_svg]:z-10 after:content-[''] after:absolute after:w-[26px] after:h-[26px] after:bg-orange after:rounded-md after:right-[-3px] after:top-[-3px]";
+const STEP_OFF = "before:border-[#f7d985]";
+
+const OrderInformation: React.FC<Props> = ({ order }) => {
   const isInitiated = useClientComponentInitiated();
   const cart = useCart();
   const { refresh, push } = useRouter();
@@ -48,60 +55,58 @@ const OrderInformation: React.FC<{ order: LastProcessingOrder }> = ({
     }
   };
 
+  const stepClass = (step: number) =>
+    `${STEP} ${orderStatus >= step ? STEP_ON : STEP_OFF}`;
+
   return (
-    <div className={style.orderInformation}>
-      <div className={style.orderInformationTitle}>
-        <span>سفارش من</span>
-        <span onClick={onClickAction}>
+    <div className="border-2 border-solid border-orange rounded-[20px] px-3 py-4 h-full flex flex-col justify-center max-lg:mt-7 max-lg:h-auto">
+      <div className="flex justify-between mb-5">
+        <span className="text-base leading-[35px] font-bold">سفارش من</span>
+        <span
+          onClick={onClickAction}
+          className="text-sm leading-[35px] font-bold px-5 text-white bg-orange rounded-lg cursor-pointer"
+        >
           {isOrderNotPurchaseYet ? "تکمیل خرید" : "جزئیات سفارش"}
         </span>
       </div>
-      <div className={style.orderInformationBody}>
-        <p>{toFullPersianDateString(order.data.created_at)}</p>
-        <p>
+      <div>
+        <p className="text-[13px] mb-0">{toFullPersianDateString(order.data.created_at)}</p>
+        <p className="text-[13px] mb-4">
           شماره سفارش : <b>{order.data.order_code}</b>
         </p>
-        <ul>
-          <li className={orderStatus >= ORDER_STATUS.NEW ? style.active : ""}>
+        <ul className="flex items-center list-none p-0">
+          <li className={stepClass(ORDER_STATUS.NEW)}>
             <Card height={20} width={20} />
           </li>
-          <li
-            className={
-              orderStatus >= ORDER_STATUS.PREPARING ? style.active : ""
-            }
-          >
+          <li className={stepClass(ORDER_STATUS.PREPARING)}>
             <BagTick height={20} width={20} />
           </li>
-          <li
-            className={
-              orderStatus >= ORDER_STATUS.LEAVING_WAREHOUSE ? style.active : ""
-            }
-          >
+          <li className={stepClass(ORDER_STATUS.LEAVING_WAREHOUSE)}>
             <Box height={20} width={20} />
           </li>
-          <li
-            className={orderStatus >= ORDER_STATUS.POSTED ? style.active : ""}
-          >
+          <li className={stepClass(ORDER_STATUS.POSTED)}>
             <Group height={20} width={20} />
           </li>
-          <li
-            className={
-              orderStatus >= ORDER_STATUS.DELIVERED ? style.active : ""
-            }
-          >
+          <li className={stepClass(ORDER_STATUS.DELIVERED)}>
             <BoxTick height={20} width={20} />
           </li>
         </ul>
       </div>
-      <div className={style.orderInformationStatus}>
-        <span>آخرین‌وضعیت:</span>
-        <span>{order.order_shipping.last_text_status}</span>
+      <div className="flex mb-6">
+        <span className="text-[13px] leading-[30px] me-[15px] max-sm:text-xs max-sm:me-2">آخرین‌وضعیت:</span>
+        <span className="text-[13px] leading-[30px] block bg-[#f7d985] text-center font-bold rounded-lg cursor-pointer grow-[2] px-2 max-sm:text-xs">
+          {order.order_shipping.last_text_status}
+        </span>
       </div>
       {Boolean(order.coin_received || order.discount_code) && (
-        <div className={style.orderInformationFooter}>
-          <Image src={clubImage} alt="Club" />
+        <div className="flex flex-col items-center">
+          <Image
+            src={clubImage}
+            alt="Club"
+            className="max-w-[125px] h-[86px] mb-2"
+          />
           {order.coin_received && (
-            <p style={{ margin: "5px 0 10px" }}>
+            <p className="m-0 text-[13px] font-medium leading-[13px]" style={{ margin: "5px 0 10px" }}>
               با این سفارش {order.coin_received}{" "}
               <Image width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
             </p>

@@ -1,5 +1,4 @@
 import sanitize from "@repo/core/utils/sanitize";
-import style from "./ProductShortDescription.module.scss";
 
 interface Props {
   shortDescription: string;
@@ -7,7 +6,7 @@ interface Props {
 const ProductShortDescription: React.FC<Props> = ({ shortDescription }) => {
   return (
     <div
-      className={style.productShortDescription}
+      className="text-justify text-[13px] leading-[25px] [&_p]:mb-0"
       dangerouslySetInnerHTML={{ __html: sanitize(shortDescription) }}
     ></div>
   );

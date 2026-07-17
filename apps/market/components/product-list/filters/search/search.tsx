@@ -1,5 +1,4 @@
 "use client";
-import style from "../ProductListFiltersFilters.module.scss";
 import {
   ChangeEvent,
   useCallback,
@@ -42,11 +41,14 @@ const SearchFilters = () => {
   }, [search]);
 
   return (
-    <aside className={`${style.archiveFilters} ${style.archiveFiltersSearch}`}>
-      <div className={`${style.archiveFiltersContent}`}>
-        <span>جستجو</span>
-        <div className={style.archiveFiltersCheckboxList}>
+    <aside className="market-panel market-orange-scrollbar sticky top-[168px] mb-10 max-h-[730px] overflow-auto p-6 max-md:mb-4">
+      {/* faithful to the old scss: the search filter had no mobile toggle,
+          so its content is simply hidden below xl */}
+      <div className="max-xl:hidden max-xl:pt-3">
+        <span className="font-semibold">جستجو</span>
+        <div>
           <input
+            className="mb-[10px] mt-2 w-full rounded-lg border-2 border-solid border-orange bg-white px-2 leading-[30px] text-[#121212] outline-none"
             value={searchText}
             onChange={changeSearchText}
             placeholder="نام محصول"

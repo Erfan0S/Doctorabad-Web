@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ProductTabData } from "@repo/core/types/product";
 
-import style from "./ProductTabsController.module.scss";
+// tab item with the 6px indicator bar under the active tab
+const LI_BASE =
+  "relative me-4 cursor-pointer px-3 text-[15px] font-semibold leading-10 last-of-type:me-0 before:absolute before:inset-x-0 before:bottom-[-3px] before:h-[6px] before:rounded-[3px] before:content-['']";
 
 type Props = {
   tabData: ProductTabData;
@@ -49,7 +51,9 @@ const Item = ({ tabData }: Props) => {
   return (
     <li
       key={tabData.id}
-      className={isActive ? style.active : ""}
+      className={`${LI_BASE} ${
+        isActive ? "before:bg-orange" : "before:bg-transparent"
+      }`}
       onClick={goToSection}
     >
       {tabData.title}

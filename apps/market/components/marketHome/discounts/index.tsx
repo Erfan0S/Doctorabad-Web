@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Product from "@/components/common/product";
 import DiscountRightContent from "./right-content";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import style from "./Discounts.module.scss";
 import "swiper/css";
 import { autoPlayConfig } from "@repo/core/constants/sliders";
 import { AmazingProduct } from "@repo/core/types/product";
@@ -16,17 +15,14 @@ interface Props {
 
 const Discounts = ({ products, expireTime }: Props) => {
   const shouldRender = useClientComponentInitiated();
-
   const isDesktop = useMediaQuery("min-width:1200px");
 
   return (
-    <section className={style.discounts}>
+    <section className="py-10 max-md:pt-0 max-md:pb-4 [&_.swiper-slide]:h-auto max-md:[&_.container]:p-0">
       <div className="container">
-        <div className={style.discountsWrapper}>
-          {isDesktop && shouldRender && (
-            <DiscountRightContent endDate={expireTime} />
-          )}
-          <div className={`${style.discountsContent}`}>
+        <div className="rounded-[20px] bg-orange flex py-5 max-md:rounded-none">
+          {isDesktop && shouldRender && <DiscountRightContent endDate={expireTime} />}
+          <div className="flex-[0_0_calc(100%_-_200px)] max-w-[calc(100%_-_200px)] max-xl:flex-[0_0_100%] max-xl:max-w-full [&_.swiper]:p-5">
             <Swiper
               autoplay={isDesktop ? autoPlayConfig : undefined}
               spaceBetween={30}

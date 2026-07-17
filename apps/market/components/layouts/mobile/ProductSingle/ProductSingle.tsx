@@ -15,7 +15,6 @@ import { marketPaths } from "@repo/core/constants/routePath";
 import ProductHeaderSuffix from "@/components/product/mobileLayout/ProductHeaderSuffix";
 import MobileProductVariantButton from "@/components/product/mobileLayout/MobileProductVariantButton";
 import ProductSlider from "@/components/product/intro/slider";
-import styles from "./ProductSingle.module.scss";
 import bundleProviderImagefrom from "@repo/shared_modules/images/bundel_provider.jpg";
 import { isBundledWithNonProducts } from "@/utils/isBundledWithNonProducts";
 import NoStockButton from "@/components/product/sidebar/price/NoStockButton";
@@ -80,7 +79,7 @@ function MobileProductSingle({
       <MobileProductLayout
         app={Apps.MARKET}
         preview={
-          <div className={styles.productSlyderContainer}>
+          <div className="max-w-[326px] [@media(max-height:700px)]:max-w-[225px]">
             <ProductSlider
               title={data.title}
               slider={data.files}

@@ -11,7 +11,6 @@ import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFals
 import ArchiveEmptyState from "../emptyState";
 import { useGetProductListConfig } from "@/hooks/useGetProductListConfig";
 import Loading from "@/components/common/loading";
-import style from "./ProductList.module.scss";
 import MobileProductListItem from "./MobileProductListItem";
 
 interface Props {
@@ -51,7 +50,7 @@ const ProductList = ({
 
   if (isLoading)
     return (
-      <div className={style.productList}>
+      <div className="flex h-[350px] items-center justify-center">
         <Loading size={30} />
       </div>
     );
@@ -64,7 +63,7 @@ const ProductList = ({
       loadMore={() => fetchNextPage()}
       hasMore={hasNextPage}
       loader={
-        <div className={style.productListLoader} key={0}>
+        <div className="flex items-center justify-center" key={0}>
           <Loading size={25} />
         </div>
       }

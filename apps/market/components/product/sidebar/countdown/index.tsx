@@ -1,7 +1,10 @@
 "use client";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
-import style from "./ProductSidebarCountdown.module.scss";
 import Countdown, { CountdownRenderProps } from "react-countdown";
+
+// white digit chips on the orange festival banner
+const DIGIT_CLASS =
+  "mx-1 mb-0.5 block min-w-[26px] rounded-lg bg-white text-center text-sm font-bold leading-[26px] text-orange";
 
 type Props = {
   discountFestivalEndDate: string;
@@ -13,22 +16,22 @@ const ProductSidebarCountdown = ({ discountFestivalEndDate }: Props) => {
   const renderer = ({
     formatted: { days, hours, minutes, seconds },
   }: CountdownRenderProps) => (
-    <div className={style.discountsCountDown}>
-      <div>
-        <span>{days}</span>
-        <small>روز</small>
+    <div className="ms-auto flex flex-row-reverse">
+      <div className="text-center">
+        <span className={DIGIT_CLASS}>{days}</span>
+        <small className="text-white">روز</small>
       </div>
-      <div>
-        <span>{hours}</span>
-        <small>ساعت</small>
+      <div className="text-center">
+        <span className={DIGIT_CLASS}>{hours}</span>
+        <small className="text-white">ساعت</small>
       </div>
-      <div>
-        <span>{minutes}</span>
-        <small>دقیقه</small>
+      <div className="text-center">
+        <span className={DIGIT_CLASS}>{minutes}</span>
+        <small className="text-white">دقیقه</small>
       </div>
-      <div>
-        <span>{seconds}</span>
-        <small>ثانیه</small>
+      <div className="text-center">
+        <span className={DIGIT_CLASS}>{seconds}</span>
+        <small className="text-white">ثانیه</small>
       </div>
     </div>
   );
@@ -39,8 +42,8 @@ const ProductSidebarCountdown = ({ discountFestivalEndDate }: Props) => {
   if (now > endFestivalTime) return null;
 
   return (
-    <div className={style.productSidebarCountdown}>
-      <span>تا پایان جشنواره</span>
+    <div className="flex items-center rounded-xl bg-orange px-3 py-2 shadow-[0_5px_15px_rgba(0,0,0,0.15)]">
+      <span className="text-sm font-semibold text-white">تا پایان جشنواره</span>
       {shouldRender && <Countdown date={endFestivalTime} renderer={renderer} />}
     </div>
   );

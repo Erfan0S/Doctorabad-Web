@@ -4,7 +4,6 @@ import {
   ProductComments as ProductCommentType,
   SingleProduct,
 } from "@repo/core/types/product";
-import style from "./ProductComments.module.scss";
 import ProductCommentsForm from "./form";
 import ProductCommentsHeader from "./header";
 import ProductCommentsList from "./list";
@@ -35,7 +34,8 @@ const ProductComments: React.FC<Props> = ({ productData }) => {
   if (isLoading) return <Loading size={10} />;
 
   return (
-    <div className={style.productComments}>
+    // ponytail: old .productComments scss rule was empty - no classes needed
+    <div>
       <ProductCommentsHeader
         averageRating={Number(Number(data!.pages[0].rate).toFixed(1))}
         totalRating={data!.pages[0].rate_count}

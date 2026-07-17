@@ -1,5 +1,4 @@
 import { SingleProduct } from "@repo/core/types/product";
-import style from "./ProductSidebarAttribute.module.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import {
@@ -15,6 +14,10 @@ import {
   VariantsCheckBox,
 } from "@repo/core/types/productVariants";
 import { Apps } from "@repo/core/types/general";
+
+// explanation inputs (selection + option switch) share the same look
+const INPUT_CLASS =
+  "block w-full rounded-lg border-2 border-solid border-gray py-0 ps-3 pe-12 leading-9 focus-visible:border-orange focus-visible:outline-none";
 
 export interface ProductSidebarAttributeProps {
   product: SingleProduct;
@@ -97,6 +100,7 @@ const ProductSidebarAttribute: React.FC<ProductSidebarAttributeProps> = ({
     return selectedVariant?.need_user_explanation ? (
       <li>
         <input
+          className={INPUT_CLASS}
           placeholder={`توضیحات ${category} را وارد کنید.`}
           onChange={(e) => {
             const {
@@ -120,6 +124,7 @@ const ProductSidebarAttribute: React.FC<ProductSidebarAttributeProps> = ({
   const optionSwitchesInput = (variant: VariantsCheckBox) => {
     return variant.variants[0].need_user_explanation ? (
       <input
+        className={INPUT_CLASS}
         placeholder={`توضیحات ${variant.category} را وارد کنید.`}
         onChange={(e) => {
           const {
@@ -144,12 +149,13 @@ const ProductSidebarAttribute: React.FC<ProductSidebarAttributeProps> = ({
   };
 
   return (
-    <div className={style.productSidebarAttribute}>
-      <ul>
+    <div className="mb-4">
+      <ul className="mt-5 w-full list-none p-0 [&_li]:mt-[15px]">
         {Object.entries(selections).map(([category, variant], index) => {
           return (
             <li key={index}>
               <select
+                className="block h-[35px] w-full rounded-md border-2 border-solid border-orange text-center text-lg leading-[31px] text-gray"
                 onChange={(e) => {
                   setVariantValues({
                     id: e.target.value,

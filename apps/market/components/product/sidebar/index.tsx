@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import style from "./ProductSidebar.module.scss";
 
 import ProductSidebarCountdown from "./countdown";
 import ProductSidebarHeader from "./header";
@@ -24,7 +23,7 @@ const ProductSidebar = ({ product }: Props) => {
   }, [product]);
 
   return (
-    <div className={style.productSidebar}>
+    <div className="market-panel sticky top-[150px] flex min-h-[375px] flex-col p-6 max-xl:static">
       <ProductSidebarHeader
         isFavorite={!!currentPrduct?.user_favorite}
         id={currentPrduct.id}

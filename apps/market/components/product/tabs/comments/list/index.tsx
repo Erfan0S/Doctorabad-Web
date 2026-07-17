@@ -1,5 +1,4 @@
 import { ProductComments } from "@repo/core/types/product";
-import style from "./ProductCommentsList.module.scss";
 import ProductCommentsItem from "./item";
 import { InfiniteData } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
@@ -22,12 +21,13 @@ const ProductCommentsList: React.FC<Props> = ({
       loadMore={() => fetchNextPage()}
       hasMore={hasNextPage}
       loader={
-        <div className={style.productListLoader} key={0}>
+        // ponytail: old style.productListLoader had no rules in this scss module - dropped
+        <div key={0}>
           <Loading size={36} />
         </div>
       }
     >
-      <div className={style.productCommentsHeader}>
+      <div className="flex flex-col">
         {comments.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.data.map((commentItem, index) => (

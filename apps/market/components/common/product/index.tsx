@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import style from "./Product.module.scss";
 import { ProductCard } from "@repo/core/types/product";
 import Link from "next/link";
 
@@ -23,6 +22,7 @@ import {
 } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
 
+// Card styling lives in packages/tailwind-config/components.css (.market-product-*).
 const Product: React.FC<ProductCard> = ({
   title,
   id,
@@ -51,11 +51,11 @@ const Product: React.FC<ProductCard> = ({
 
   return (
     <div
-      className={`${style.product} ${gridView ? style.gridView : ""} ${isMobileLayout ? style.mobileLayout : ""}`}
+      className={`market-product-card ${gridView ? "market-product-card-grid" : ""} ${isMobileLayout ? "market-product-card-mobile" : ""}`}
     >
-      <div className={style.productImage}>
+      <div className="market-product-image">
         {installment_payment && (
-          <ListProductSnappayNotif className={style.installmentPayment} />
+          <ListProductSnappayNotif className="market-product-installment" />
         )}
         <Link href={url}>
           <Image
@@ -67,8 +67,8 @@ const Product: React.FC<ProductCard> = ({
           />
         </Link>
       </div>
-      <div className={style.productContent}>
-        <div className={style.productTitle}>
+      <div className="market-product-content">
+        <div className="market-product-title">
           <h2>
             <Link href={url}>{title}</Link>
           </h2>
@@ -78,16 +78,16 @@ const Product: React.FC<ProductCard> = ({
             mainPrice={price_main}
             offPrice={price_off}
             amazingPrice={price_amazing}
-            className={style.productPrice}
+            className="market-product-price"
             app={Apps.MARKET}
           />
         )}
-        <div className={style.productButtons}>
+        <div className="market-product-buttons">
           <>
             {isProductHasStock ? (
               has_variant ? (
                 <Button
-                  className={style.productVariantButton}
+                  className="market-product-variant-btn"
                   app={Apps.MARKET}
                 >
                   <Link href={url}>انتخاب گزینه‌ها</Link>
@@ -97,7 +97,7 @@ const Product: React.FC<ProductCard> = ({
                   id={id}
                   type={OrderType.ShopProduct}
                   app={Apps.MARKET}
-                  className={`${style.productAddToCart}`}
+                  className="market-product-add-to-cart"
                   compact
                   isFullWidth
                   canIncrease
@@ -106,7 +106,7 @@ const Product: React.FC<ProductCard> = ({
             ) : (
               <Button
                 app={Apps.MARKET}
-                className={style.productNoStock}
+                className="market-product-no-stock"
                 onClick={restockNotification}
                 disabled={restockNotificationLoading}
               >
@@ -119,7 +119,7 @@ const Product: React.FC<ProductCard> = ({
             )}
             <button
               aria-label="AddToFavorite"
-              className={style.productAddToFavorite}
+              className="market-product-add-to-favorite"
               onClick={() => toggleFavorite(id)}
             >
               <FavoriteHeartIcon
