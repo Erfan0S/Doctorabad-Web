@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./DiseaseDetails.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 import LeftArrow from "@/assets/svg/leftArrow";
@@ -21,6 +20,73 @@ import { canTrackDiseaseView } from "@/utils/diseaseViewTracking";
 import { useDiseaseView } from "@/hooks/useDiseaseView";
 import sanitize from "@repo/core/utils/sanitize";
 import { clinicApi } from "@/api/Api";
+
+// Tailwind classes lifted 1:1 from the old DiseaseDetails.module.scss.
+// ponytail: that scss module never defined `error`, `arrow`, `files` or
+// `prescriptionItem`, so those refs were always undefined (unstyled); the
+// converted markup keeps them class-less on purpose.
+const CONTAINER = "bg-white text-[#222]";
+
+// ponytail: header image is physically right-anchored (matches old scss
+// exactly); the padding clearing it is physical pr-*, not logical pe-*.
+const HEADER =
+  "sticky top-14 z-[100] bg-green-base pt-4 [--img-size:6.7rem] [--img-offset-right:10px]";
+
+const HEADER_TOP =
+  "relative flex min-h-12 items-end justify-end bg-green-base px-5 pr-[calc(var(--img-size)_+_var(--img-offset-right)_+_10px)] text-left text-base font-bold text-white [direction:ltr]";
+
+const IMG_BADGE =
+  "absolute bottom-[calc(var(--img-size)_/_-2)] right-[var(--img-offset-right)] h-[var(--img-size)] w-[var(--img-size)] rounded-[23px] border-4 border-solid border-white bg-white shadow-[0_4px_12px_rgba(0,0,0,0.15)]";
+
+const HEADER_BOTTOM =
+  "flex min-h-16 justify-start bg-white px-5 pr-[calc(var(--img-size)_+_var(--img-offset-right)_+_10px)] text-[0.9rem] font-bold text-green-base text-start";
+
+const SECTION_BUTTON =
+  "relative flex w-full items-center justify-center rounded-[10px] border-none bg-green-base px-4 py-[0.7rem] text-center text-[0.9rem] font-semibold text-white";
+
+const SECTION_BUTTON_ICON = "absolute end-4 flex h-full items-center";
+
+const SECTION_CONTENT =
+  "mx-[-4rem] mb-4 mt-[-0.7rem] rounded-[10px] border border-solid border-[#eee] bg-white px-[0.8rem] py-[0.6rem] text-[0.9rem] leading-[1.6] shadow-[0_4px_12px_rgba(0,0,0,0.15)] [direction:rtl]";
+
+const DIRECTION_TABS =
+  "mb-2.5 flex !w-full items-center justify-between overflow-x-scroll overflow-y-hidden border-0 border-b-2 border-solid border-[#e0e0e0]";
+
+const DIR_TAB_BASE =
+  "flex h-[50px] max-h-[50px] flex-1 cursor-pointer items-center justify-center border-0 border-b-[3px] border-solid bg-transparent p-2 text-center font-bold transition-all duration-300";
+
+const dirTabClass = (isActive: boolean) =>
+  `${DIR_TAB_BASE} ${
+    isActive
+      ? "border-b-green-base text-[1rem] text-green-base"
+      : "border-b-transparent text-sm text-[#4b4b4b]"
+  }`;
+
+const SWITCH_CONTENT =
+  "text-justify leading-[1.8] [&_p]:mb-[0.1rem] [&_p:last-child]:mb-0";
+
+const FILE_IMAGE_WRAPPER =
+  "flex w-full max-w-full justify-center rounded-[17px] shadow-[0_4px_12px_rgba(0,0,0,0.15)]";
+
+const FILE_IMAGE = "max-h-60 max-w-full rounded-[17px]";
+
+const DIFFERENTIAL_CONTENT = "flex flex-col gap-3";
+
+const DIFFERENTIAL_DESCRIPTION =
+  "[&_p]:mb-[0.2rem] [&_p]:leading-[1.7] [&_p:last-child]:mb-0";
+
+// shared by differential + treatment tag lists (identical in the old scss)
+const TAG_ROW = "flex flex-wrap gap-2";
+
+const TAG =
+  "inline-block whitespace-nowrap rounded-xl bg-green-base px-2.5 py-[5px] text-[0.85rem] !text-white no-underline shadow-[0_2px_5px_rgba(0,0,0,0.1)] transition-all duration-200 hover:-translate-y-0.5";
+
+const GALLERY_GRID = "flex flex-col items-center gap-3";
+
+const GALLERY_ITEM =
+  "w-full max-w-[520px] overflow-hidden rounded-[14px] bg-[#f8f8f8] shadow-[0_4px_12px_rgba(0,0,0,0.1)]";
+
+const GALLERY_IMAGE = "block h-auto max-h-[360px] w-full object-contain";
 
 // Helper function to check if value is __NO_ACCESS__
 const isNoAccess = (value: any): boolean => {
@@ -221,7 +287,7 @@ export default function DiseaseDetailsPage() {
 
   if (isLoading) return <DiseaseDetailsSkeleton />;
   if (error || !data)
-    return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
+    return <div>خطا در دریافت اطلاعات</div>;
 
   const disease = data;
 
@@ -415,10 +481,10 @@ export default function DiseaseDetailsPage() {
         if (!hasDescriptions && !hasRelatedDiseases) return null;
 
         return (
-          <div className={styles.differentialContent}>
+          <div className={DIFFERENTIAL_CONTENT}>
             {hasDescriptions &&
             isStringArray(disease.differential_diagnosis_description) ? (
-              <div className={styles.differentialDescription}>
+              <div className={DIFFERENTIAL_DESCRIPTION}>
                 {disease.differential_diagnosis_description.map(
                   (description, index) => (
                     <p key={index}>✓ {description}</p>
@@ -429,12 +495,12 @@ export default function DiseaseDetailsPage() {
 
             {hasRelatedDiseases &&
             isDiseaseArray(disease.differential_diagnosis) ? (
-              <div className={styles.differentialTags}>
+              <div className={TAG_ROW}>
                 {disease.differential_diagnosis.map((diffDisease) => (
                   <Link
                     key={diffDisease.id}
                     href={`/disease/${diffDisease.id}`}
-                    className={styles.differentialTag}
+                    className={TAG}
                   >
                     {diffDisease.title_fa}
                   </Link>
@@ -517,9 +583,9 @@ export default function DiseaseDetailsPage() {
   });
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.top}>
+    <div className={CONTAINER}>
+      <div className={HEADER}>
+        <div className={HEADER_TOP}>
           {disease.title_en}
           <div>
             {disease.picture ? (
@@ -528,11 +594,11 @@ export default function DiseaseDetailsPage() {
                 alt={disease.title_fa}
                 width={140}
                 height={140}
-                className={styles.image}
+                className={IMG_BADGE}
               />
             ) : (
               <PillsIcon
-                className={styles.pillsIcon}
+                className={`${IMG_BADGE} p-[15px]`}
                 width={100}
                 height={100}
               />
@@ -540,45 +606,43 @@ export default function DiseaseDetailsPage() {
           </div>
         </div>
 
-        <div className={styles.bottom}>{disease.title_fa}</div>
+        <div className={HEADER_BOTTOM}>{disease.title_fa}</div>
       </div>
 
-      <div className={styles.sections}>
+      <div className="mx-20 my-4">
         {availableSections.map(
           ({ key, label, content, hasNoAccess: sectionHasNoAccess }) => (
             <div key={key}>
-              <div className={styles.section}>
+              <div className="mb-[0.6rem]">
                 <div
-                  className={`${styles.sectionButton} ${
-                    key === "treatment" ? styles.treatmentButton : ""
+                  className={`${SECTION_BUTTON} ${
+                    key === "treatment" ? "!bg-[#c51d47]" : ""
                   }`}
                   onClick={() => toggleSection(key)}
                 >
                   {label}
-                  <span>
+                  <span className={SECTION_BUTTON_ICON}>
                     {openSections.includes(key) ? (
-                      <DownArrow className={styles.arrow} />
+                      <DownArrow />
                     ) : (
-                      <LeftArrow className={styles.arrow} />
+                      <LeftArrow />
                     )}
                   </span>
                 </div>
               </div>
 
               {openSections.includes(key) && content !== "NO_ACCESS" && (
-                <div className={styles.sectionContent}>
+                <div className={SECTION_CONTENT}>
                   {content === "INTRODUCTION_COMPONENT" &&
                   isIntroductionObject(disease.introduction) ? (
-                    <div className={styles.directionContainer}>
-                      <div className={styles.directionTabs}>
+                    <div className="mt-2.5">
+                      <div className={DIRECTION_TABS}>
                         {isStringArray(disease.introduction.preface) &&
                         disease.introduction.preface.length ? (
                           <div
-                            className={`${styles.directionTab} ${
-                              introductionType === "preface"
-                                ? styles.active
-                                : ""
-                            }`}
+                            className={dirTabClass(
+                              introductionType === "preface",
+                            )}
                             onClick={() => setIntroductionType("preface")}
                           >
                             مقدمه
@@ -588,11 +652,9 @@ export default function DiseaseDetailsPage() {
                         {isStringArray(disease.introduction.definition) &&
                         disease.introduction.definition.length ? (
                           <div
-                            className={`${styles.directionTab} ${
-                              introductionType === "definition"
-                                ? styles.active
-                                : ""
-                            }`}
+                            className={dirTabClass(
+                              introductionType === "definition",
+                            )}
                             onClick={() => setIntroductionType("definition")}
                           >
                             تعریف
@@ -602,9 +664,7 @@ export default function DiseaseDetailsPage() {
                         {isStringArray(disease.introduction.type) &&
                         disease.introduction.type.length ? (
                           <div
-                            className={`${styles.directionTab} ${
-                              introductionType === "type" ? styles.active : ""
-                            }`}
+                            className={dirTabClass(introductionType === "type")}
                             onClick={() => setIntroductionType("type")}
                           >
                             انواع
@@ -612,7 +672,7 @@ export default function DiseaseDetailsPage() {
                         ) : null}
                       </div>
 
-                      <div className={styles.switchContent}>
+                      <div className={SWITCH_CONTENT}>
                         {introductionType === "type" &&
                           isStringArray(disease.introduction.type) &&
                           disease.introduction.type.map((item, index) => (
@@ -634,19 +694,19 @@ export default function DiseaseDetailsPage() {
                         <>
                           {getImagesByUseType("introduction", introductionType)
                             .length > 0 && (
-                            <div className={styles.files}>
+                            <div>
                               {getImagesByUseType(
                                 "introduction",
                                 introductionType,
                               ).map((f) => (
                                 <div
                                   key={f.id}
-                                  className={styles.fileImageWrapper}
+                                  className={FILE_IMAGE_WRAPPER}
                                 >
                                   <img
                                     src={f.file}
                                     alt="file"
-                                    className={styles.fileImage}
+                                    className={FILE_IMAGE}
                                   />
                                 </div>
                               ))}
@@ -658,14 +718,12 @@ export default function DiseaseDetailsPage() {
                   ) : content === "TREATMENT_COMPONENT" &&
                     isTreatmentObject(disease.treatment_description) ? (
                     <>
-                      <div className={styles.directionContainer}>
-                        <div className={styles.directionTabs}>
+                      <div className="mt-2.5">
+                        <div className={DIRECTION_TABS}>
                           {isStringArray(disease.treatment_description.plan) &&
                           disease.treatment_description.plan.length ? (
                             <div
-                              className={`${styles.directionTab} ${
-                                treatmentType === "plan" ? styles.active : ""
-                              }`}
+                              className={dirTabClass(treatmentType === "plan")}
                               onClick={() => setTreatmentType("plan")}
                             >
                               برنامه
@@ -677,11 +735,9 @@ export default function DiseaseDetailsPage() {
                           ) &&
                           disease.treatment_description.prescription.length ? (
                             <div
-                              className={`${styles.directionTab} ${
-                                treatmentType === "prescription"
-                                  ? styles.active
-                                  : ""
-                              }`}
+                              className={dirTabClass(
+                                treatmentType === "prescription",
+                              )}
                               onClick={() => setTreatmentType("prescription")}
                             >
                               <>
@@ -698,9 +754,7 @@ export default function DiseaseDetailsPage() {
                           {isStringArray(disease.treatment_description.order) &&
                           disease.treatment_description.order.length ? (
                             <div
-                              className={`${styles.directionTab} ${
-                                treatmentType === "order" ? styles.active : ""
-                              }`}
+                              className={dirTabClass(treatmentType === "order")}
                               onClick={() => setTreatmentType("order")}
                             >
                               <>
@@ -717,7 +771,7 @@ export default function DiseaseDetailsPage() {
                           ) : null}
                         </div>
 
-                        <div className={styles.switchContent}>
+                        <div className={SWITCH_CONTENT}>
                           {treatmentType === "plan" &&
                             isStringArray(disease.treatment_description.plan) &&
                             disease.treatment_description.plan.map(
@@ -730,24 +784,19 @@ export default function DiseaseDetailsPage() {
                             ) &&
                             disease.treatment_description.prescription.map(
                               (item, index) => (
-                                <p
-                                  className={styles.prescriptionItem}
-                                  key={index}
-                                >
-                                  ✓ {item}
-                                </p>
+                                <p key={index}>✓ {item}</p>
                               ),
                             )}
                           {treatmentType === "prescription" &&
                             hasPrescriptionSection &&
                             hasTreatmentMedications &&
                             isDiseaseArray(disease.treatment) && (
-                              <div className={styles.treatmentTags}>
+                              <div className={TAG_ROW}>
                                 {disease.treatment.map((med) => (
                                   <Link
                                     key={med.id}
                                     href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
-                                    className={styles.treatmentTag}
+                                    className={TAG}
                                   >
                                     {med.title_fa}
                                   </Link>
@@ -767,12 +816,12 @@ export default function DiseaseDetailsPage() {
                             hasOrderSection &&
                             hasTreatmentMedications &&
                             isDiseaseArray(disease.treatment) && (
-                              <div className={styles.treatmentTags}>
+                              <div className={TAG_ROW}>
                                 {disease.treatment.map((med) => (
                                   <Link
                                     key={med.id}
                                     href={`${baseUrls[Apps.PHARMACY as keyof typeof baseUrls]}${pharmacyPaths.single}/${med.id}`}
-                                    className={styles.treatmentTag}
+                                    className={TAG}
                                   >
                                     {med.title_fa}
                                   </Link>
@@ -781,19 +830,19 @@ export default function DiseaseDetailsPage() {
                             )}
                           {getImagesByUseType("treatment", treatmentType)
                             .length > 0 && (
-                            <div className={styles.files}>
+                            <div>
                               {getImagesByUseType(
                                 "treatment",
                                 treatmentType,
                               ).map((f) => (
                                 <div
                                   key={f.id}
-                                  className={styles.fileImageWrapper}
+                                  className={FILE_IMAGE_WRAPPER}
                                 >
                                   <img
                                     src={f.file}
                                     alt="file"
-                                    className={styles.fileImage}
+                                    className={FILE_IMAGE}
                                   />
                                 </div>
                               ))}
@@ -805,14 +854,12 @@ export default function DiseaseDetailsPage() {
                   ) : content === "CLINICAL_COMPONENT" &&
                     isClinicalObject(disease.clinical_demonstration) ? (
                     <>
-                      <div className={styles.directionContainer}>
-                        <div className={styles.directionTabs}>
+                      <div className="mt-2.5">
+                        <div className={DIRECTION_TABS}>
                           {isStringArray(disease.clinical_demonstration.sign) &&
                           disease.clinical_demonstration.sign.length ? (
                             <div
-                              className={`${styles.directionTab} ${
-                                clinicalType === "sign" ? styles.active : ""
-                              }`}
+                              className={dirTabClass(clinicalType === "sign")}
                               onClick={() => setClinicalType("sign")}
                             >
                               علائم (sign)
@@ -823,9 +870,7 @@ export default function DiseaseDetailsPage() {
                             disease.clinical_demonstration.symptom,
                           ) && disease.clinical_demonstration.symptom.length ? (
                             <div
-                              className={`${styles.directionTab} ${
-                                clinicalType === "symptom" ? styles.active : ""
-                              }`}
+                              className={dirTabClass(clinicalType === "symptom")}
                               onClick={() => setClinicalType("symptom")}
                             >
                               نشانه‌ها (symptom)
@@ -833,7 +878,7 @@ export default function DiseaseDetailsPage() {
                           ) : null}
                         </div>
 
-                        <div className={styles.switchContent}>
+                        <div className={SWITCH_CONTENT}>
                           {clinicalType === "sign" &&
                             isStringArray(
                               disease.clinical_demonstration.sign,
@@ -852,17 +897,17 @@ export default function DiseaseDetailsPage() {
 
                           {getImagesByUseType("clinical", clinicalType).length >
                             0 && (
-                            <div className={styles.files}>
+                            <div>
                               {getImagesByUseType("clinical", clinicalType).map(
                                 (f) => (
                                   <div
                                     key={f.id}
-                                    className={styles.fileImageWrapper}
+                                    className={FILE_IMAGE_WRAPPER}
                                   >
                                     <img
                                       src={f.file}
                                       alt="file"
-                                      className={styles.fileImage}
+                                      className={FILE_IMAGE}
                                     />
                                   </div>
                                 ),
@@ -873,13 +918,13 @@ export default function DiseaseDetailsPage() {
                       </div>
                     </>
                   ) : content === "GALLERY_COMPONENT" ? (
-                    <div className={styles.galleryGrid}>
+                    <div className={GALLERY_GRID}>
                       {galleryImages.map((file) => (
-                        <div key={file.id} className={styles.galleryItem}>
+                        <div key={file.id} className={GALLERY_ITEM}>
                           <img
                             src={file.file}
                             alt="gallery image"
-                            className={styles.galleryImage}
+                            className={GALLERY_IMAGE}
                           />
                         </div>
                       ))}
@@ -892,13 +937,13 @@ export default function DiseaseDetailsPage() {
                         }}
                       />
                       {getImagesByUseType(key).length > 0 && (
-                        <div className={styles.files}>
+                        <div>
                           {getImagesByUseType(key).map((f) => (
-                            <div key={f.id} className={styles.fileImageWrapper}>
+                            <div key={f.id} className={FILE_IMAGE_WRAPPER}>
                               <img
                                 src={f.file}
                                 alt="file"
-                                className={styles.fileImage}
+                                className={FILE_IMAGE}
                               />
                             </div>
                           ))}
@@ -908,7 +953,7 @@ export default function DiseaseDetailsPage() {
                   ) : (
                     <>
                       {getImagesByUseType(key).length > 0 && (
-                        <div className={styles.files}>
+                        <div>
                           {getImagesByUseType(key).map((f) => (
                             <Image
                               key={f.id}
@@ -916,7 +961,7 @@ export default function DiseaseDetailsPage() {
                               alt="file"
                               width={120}
                               height={120}
-                              className={styles.fileImage}
+                              className={FILE_IMAGE}
                             />
                           ))}
                         </div>

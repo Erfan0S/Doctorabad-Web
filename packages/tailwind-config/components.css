@@ -1300,3 +1300,38 @@
     transform: scale(0.95);
   }
 }
+
+/* ---- clinic app ---- */
+@layer components {
+  .clinic-slider-section {
+    @apply bg-white p-4 pb-6;
+  }
+  .clinic-slider {
+    @apply overflow-hidden rounded-2xl;
+  }
+  .clinic-disease-list {
+    @apply flex flex-col gap-3 p-4;
+  }
+  .clinic-pill-row {
+    @apply flex flex-wrap gap-2;
+  }
+  .clinic-pill-link {
+    @apply inline-block whitespace-nowrap rounded-xl bg-green-base px-2.5 py-[5px] text-[0.85rem] !text-white no-underline shadow-[0_2px_5px_rgba(0,0,0,0.1)] transition-all duration-200 hover:-translate-y-0.5;
+  }
+}
+
+/* clinic: swiper pagination overrides (plain CSS — targets swiper-generated DOM) */
+.clinic-slider .swiper-pagination {
+  bottom: 8px;
+}
+.clinic-slider .swiper-pagination-bullet {
+  width: 7px;
+  height: 7px;
+  background: #fff;
+  opacity: 0.5;
+}
+.clinic-slider .swiper-pagination-bullet-active {
+  width: 22px;
+  border-radius: 4px;
+  opacity: 1;
+}

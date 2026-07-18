@@ -5,7 +5,6 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import ClinicHeader from "@/components/ClinicHeader/ClinicHeader";
 import ClinicSearchSection from "@/components/ClinicSearchSection/ClinicSearchSection";
-import styles from "./page.module.scss";
 import { HeaderType } from "@/types/clinic";
 import ClinicSliderSection from "@/components/ClinicSlider/ClinicSliderSection";
 import CategoryTabsSection from "@/components/CategoryTabs/CategoryTabsSection";
@@ -77,7 +76,7 @@ export default function ClinicHomePage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="min-h-screen bg-[#f8f9fa]">
       <ClinicHeader
         headerPageType={HeaderType.HOME}
         title="کلینیک من"

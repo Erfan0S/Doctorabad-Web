@@ -4,7 +4,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Slider } from "@/types/clinic";
-import styles from "./ClinicSlider.module.scss";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useRouter } from "next/navigation";
 
@@ -18,14 +17,14 @@ export default function ClinicSlider({ sliders }: ClinicSliderProps) {
   if (sliders.length === 0) return null;
 
   return (
-    <div className={styles.sliderSection}>
+    <div className="clinic-slider-section">
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={16}
         slidesPerView={1}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        className={styles.swiper}
+        className="clinic-slider"
       >
         {sliders.map((slider) => (
           <SwiperSlide key={slider.id}>
@@ -33,9 +32,13 @@ export default function ClinicSlider({ sliders }: ClinicSliderProps) {
               onClick={authorizeClientAction(() =>
                 router.push(`/disease/${slider.clinic_id}`)
               )}
-              className={styles.slide}
+              className="aspect-video cursor-pointer overflow-hidden rounded-2xl bg-gradient-to-br from-[#64b5f6] to-[#42a5f5]"
             >
-              <img src={slider.picture} alt={slider.title || ""} />
+              <img
+                className="h-full w-full object-cover"
+                src={slider.picture}
+                alt={slider.title || ""}
+              />
             </div>
           </SwiperSlide>
         ))}
