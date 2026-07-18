@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import styles from "./MedicineDetails.module.scss";
 import { pharmacyApi } from "@/api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -14,6 +13,18 @@ import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { canTrackMedicineView } from "@/utils/medicineViewTracking";
 import { useMedicineView } from "@/hooks/useMedicineView";
 import sanitize from "@repo/core/utils/sanitize";
+
+const medallionCls =
+  "absolute bottom-[calc(var(--img-size)/-2)] right-[var(--img-offset-right)] h-[var(--img-size)] w-[var(--img-size)] rounded-[23px] border-4 border-solid border-white bg-white shadow-[0_4px_12px_rgba(0,0,0,0.15)]";
+
+const directionTabCls =
+  "flex h-[70px] max-h-[70px] flex-1 cursor-pointer items-center justify-center border-b-[3px] p-2 text-center text-sm font-semibold transition-all duration-300 [border-bottom-style:solid] hover:text-green-base";
+const directionTabActiveCls =
+  "border-b-[#4fcc4c] bg-[rgba(76,175,80,0.05)] text-green-base";
+const directionTabIdleCls = "border-b-transparent text-[#666]";
+
+const shapeTableCls =
+  "w-full border-collapse border border-solid border-[#666] [&_th]:border [&_th]:border-solid [&_th]:border-[#666] [&_th]:px-[10px] [&_th]:py-[14px] [&_th]:text-center [&_th]:text-[15px] [&_th]:font-bold [&_th]:text-white [&_td]:border [&_td]:border-solid [&_td]:border-[#666] [&_td]:bg-white [&_td]:px-[10px] [&_td]:py-[14px] [&_td]:text-center [&_td]:text-[15px] [&_td]:font-semibold [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-[2] [&_thead_th]:bg-[#52cc4b]";
 
 export default function MedicineDetailsPage() {
   const { id } = useParams();
@@ -100,8 +111,7 @@ export default function MedicineDetailsPage() {
   }
 
   if (isLoading) return <MedicineDetailsSkeleton />;
-  if (error || !data)
-    return <div className={styles.error}>خطا در دریافت اطلاعات</div>;
+  if (error || !data) return <div>خطا در دریافت اطلاعات</div>;
 
   const medicine = data;
   type MedicineFile = {
@@ -171,14 +181,16 @@ export default function MedicineDetailsPage() {
           {medicine.shapes?.length ? (
             <div
               dangerouslySetInnerHTML={{
-                __html: medicine.shapes.map((s: string) => `✓ ${s}`).join("<br/>"),
+                __html: medicine.shapes
+                  .map((s: string) => `✓ ${s}`)
+                  .join("<br/>"),
               }}
             />
           ) : null}
 
           {hasNonNullShapeCoding(medicine.shape_coding) ? (
-            <div className={styles.shapeTableWrapper}>
-              <table className={styles.shapeTable}>
+            <div className="mt-3 w-full overflow-x-auto">
+              <table className={shapeTableCls}>
                 <thead>
                   <tr>
                     <th>اشکال دارویی</th>
@@ -189,7 +201,9 @@ export default function MedicineDetailsPage() {
                   {Object.entries(medicine.shape_coding).map(([k, v]) => (
                     <tr key={k}>
                       <td>{k}</td>
-                      <td>{typeof v === "object" ? JSON.stringify(v) : String(v)}</td>
+                      <td>
+                        {typeof v === "object" ? JSON.stringify(v) : String(v)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -270,11 +284,11 @@ export default function MedicineDetailsPage() {
   });
 
   return (
-    <div className={styles.container}>
+    <div className="bg-white text-[#222]">
       {/* --- Header --- */}
 
-      <div className={styles.header}>
-        <div className={styles.top}>
+      <div className="sticky top-[3.5rem] z-[100] bg-green-base pt-4 [--img-size:6.7rem] [--img-offset-right:10px]">
+        <div className="relative flex min-h-[3rem] items-end justify-end bg-green-base pl-5 pr-[calc(var(--img-size)_+_var(--img-offset-right)_+_10px)] text-left text-[1rem] font-bold text-white [direction:ltr]">
           {medicine.title_en}
           <div>
             {" "}
@@ -284,48 +298,47 @@ export default function MedicineDetailsPage() {
                 alt={medicine.title_fa}
                 width={140}
                 height={140}
-                className={styles.image}
+                className={medallionCls}
               />
             ) : (
               <PillsIcon
-                className={styles.pillsIcon}
+                className={`${medallionCls} p-[15px]`}
                 width={100}
                 height={100}
               />
             )}
           </div>
         </div>
-
-        <div className={styles.bottom}>{medicine.title_fa}</div>
+        <div className="flex min-h-[4rem] justify-start bg-white pl-5 pr-[calc(var(--img-size)_+_var(--img-offset-right)_+_10px)] text-right text-[0.9rem] font-bold text-green-base">
+          {medicine.title_fa}
+        </div>
       </div>
 
       {/* --- Accordion sections --- */}
-      <div className={styles.sections}>
+      <div className="mx-20 my-4">
         {availableSections.map(({ key, label, content }) => (
-          <div key={key} className={styles.section}>
+          <div key={key} className="mb-[0.6rem]">
             <div
-              className={styles.sectionButton}
+              className="relative flex w-full items-center justify-center rounded-[10px] border-none bg-green-base px-4 py-[0.7rem] text-center text-[0.9rem] font-semibold text-white"
               onClick={() => toggleSection(key)}
             >
               {label}
-              <span>
-                {openSections.includes(key) ? (
-                  <DownArrow className={styles.arrow} />
-                ) : (
-                  <LeftArrow className={styles.arrow} />
-                )}
+              <span className="absolute left-4 flex h-full items-center">
+                {openSections.includes(key) ? <DownArrow /> : <LeftArrow />}
               </span>
             </div>
 
             {openSections.includes(key) && (
-              <div className={styles.sectionContent}>
+              <div className="-mx-16 -mt-1 mb-0 rounded-[10px] border border-solid border-[#eee] bg-white px-[0.8rem] py-[0.6rem] text-[0.9rem] leading-[1.6] [direction:rtl]">
                 {content === "DIRECTION_COMPONENT" ? (
-                  <div className={styles.directionContainer}>
-                    <div className={styles.directionTabs}>
+                  <div className="mt-[10px]">
+                    <div className="mb-5 flex w-full items-center justify-between overflow-x-scroll overflow-y-hidden [border-bottom:2px_solid_#e0e0e0]">
                       {medicine.direction?.adult?.length ? (
                         <div
-                          className={`${styles.directionTab} ${
-                            selectedAgeGroup === "adult" ? styles.active : ""
+                          className={`${directionTabCls} ${
+                            selectedAgeGroup === "adult"
+                              ? directionTabActiveCls
+                              : directionTabIdleCls
                           }`}
                           onClick={() => setSelectedAgeGroup("adult")}
                         >
@@ -340,8 +353,10 @@ export default function MedicineDetailsPage() {
 
                       {medicine.direction?.child?.length ? (
                         <div
-                          className={`${styles.directionTab} ${
-                            selectedAgeGroup === "child" ? styles.active : ""
+                          className={`${directionTabCls} ${
+                            selectedAgeGroup === "child"
+                              ? directionTabActiveCls
+                              : directionTabIdleCls
                           }`}
                           onClick={() => setSelectedAgeGroup("child")}
                         >
@@ -351,8 +366,10 @@ export default function MedicineDetailsPage() {
 
                       {medicine.direction?.elder?.length ? (
                         <div
-                          className={`${styles.directionTab} ${
-                            selectedAgeGroup === "elder" ? styles.active : ""
+                          className={`${directionTabCls} ${
+                            selectedAgeGroup === "elder"
+                              ? directionTabActiveCls
+                              : directionTabIdleCls
                           }`}
                           onClick={() => setSelectedAgeGroup("elder")}
                         >
@@ -361,7 +378,7 @@ export default function MedicineDetailsPage() {
                       ) : null}
                     </div>
 
-                    <div className={styles.directionContent}>
+                    <div className="text-justify leading-[1.8] [&_p]:mb-[15px] [&_p:last-child]:mb-0">
                       {selectedAgeGroup === "adult" &&
                         medicine.direction?.adult?.map(
                           (item: string, index: number) => (
@@ -385,13 +402,16 @@ export default function MedicineDetailsPage() {
                     </div>
                   </div>
                 ) : content === "GALLERY_COMPONENT" ? (
-                  <div className={styles.galleryGrid}>
+                  <div className="flex flex-col items-center gap-3">
                     {galleryImages.map((file: MedicineFile) => (
-                      <div key={file.id} className={styles.galleryItem}>
+                      <div
+                        key={file.id}
+                        className="w-full max-w-[520px] overflow-hidden rounded-[14px] bg-[#f8f8f8] shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
+                      >
                         <img
                           src={file.file}
                           alt="gallery image"
-                          className={styles.galleryImage}
+                          className="block h-auto max-h-[360px] w-full object-contain"
                         />
                       </div>
                     ))}
@@ -402,16 +422,16 @@ export default function MedicineDetailsPage() {
                       dangerouslySetInnerHTML={{ __html: sanitize(content) }}
                     />
                     {getImagesByUseType(key).length > 0 && (
-                      <div className={styles.files}>
+                      <div>
                         {getImagesByUseType(key).map((file: MedicineFile) => (
                           <div
                             key={file.id}
-                            className={styles.fileImageWrapper}
+                            className="flex w-full max-w-full justify-center rounded-[17px] shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
                           >
                             <img
                               src={file.file}
                               alt="file"
-                              className={styles.fileImage}
+                              className="max-h-[15rem] max-w-full rounded-[17px]"
                             />
                           </div>
                         ))}
@@ -421,16 +441,16 @@ export default function MedicineDetailsPage() {
                 ) : (
                   <>
                     {getImagesByUseType(key).length > 0 && (
-                      <div className={styles.files}>
+                      <div>
                         {getImagesByUseType(key).map((file: MedicineFile) => (
                           <div
                             key={file.id}
-                            className={styles.fileImageWrapper}
+                            className="flex w-full max-w-full justify-center rounded-[17px] shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
                           >
                             <img
                               src={file.file}
                               alt="file"
-                              className={styles.fileImage}
+                              className="max-h-[15rem] max-w-full rounded-[17px]"
                             />
                           </div>
                         ))}

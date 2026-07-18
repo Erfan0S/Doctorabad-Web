@@ -3,7 +3,6 @@
 
 import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./PharmacyHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
 import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
@@ -20,7 +19,8 @@ import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 import {baseUrls} from "@repo/core/constants/routePath";
 
-
+const iconBtnCls =
+  "flex h-[45px] w-[45px] cursor-pointer items-center justify-center rounded-lg border-none bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-transform duration-200 active:scale-95 [&_svg]:h-[30px] [&_svg]:w-[30px] [&_svg]:text-[#333]";
 
 interface PharmacyHeaderProps {
   title?: string;
@@ -90,16 +90,16 @@ export default function PharmacyHeader({
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.headerTop}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.lefSideHeader}>
+    <header className="sticky top-0 z-[100] bg-white">
+      <div className="flex items-center justify-between bg-green-base py-[7px] ps-5 pe-4">
+        <h1 className="m-0 font-black text-white">{title}</h1>
+        <div className="flex items-center gap-2">
           {headerPageType === HeaderType.MEDICINE_DETAILS && (
             <>
-              <div className={styles.favoriteBtn} onClick={authorizeClientAction (() => toggleReportModal())}>
+              <div className={iconBtnCls} onClick={authorizeClientAction (() => toggleReportModal())}>
                 <BugIcon />
               </div>
-              <div className={styles.favoriteBtn} onClick={handleShareButton}>
+              <div className={iconBtnCls} onClick={handleShareButton}>
                 <ShareIcon />
               </div>
             </>
@@ -108,7 +108,7 @@ export default function PharmacyHeader({
           {headerPageType !== HeaderType.FAVORITES &&
           headerPageType !== HeaderType.CATEGORY ? (
             <div
-              className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
+              className={iconBtnCls}
               onClick={
                 headerPageType === HeaderType.MEDICINE_DETAILS
                   ? authorizeClientAction(() => handleFavoriteButton())
@@ -119,7 +119,7 @@ export default function PharmacyHeader({
             </div>
           ) : null}
 
-          <div className={styles.backBtn} onClick={handleBack}>
+          <div className={iconBtnCls} onClick={handleBack}>
             <BackIcon></BackIcon>
           </div>
         </div>

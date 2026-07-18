@@ -1,6 +1,7 @@
 "use client";
 
-import styles from "./Loading.module.scss";
+const loadingCls =
+  "inline-block animate-[spin_0.6s_linear_infinite] rounded-full border-[3px] border-solid border-black/10 border-t-[#1677ff]";
 
 interface LoadingProps {
   size?: number;
@@ -12,7 +13,7 @@ export default function Loading({ size = 32, className }: LoadingProps) {
     <span
       role="status"
       aria-label="loading"
-      className={`${styles.loading} ${className ?? ""}`.trim()}
+      className={`${loadingCls} ${className ?? ""}`.trim()}
       style={{ width: size, height: size }}
     />
   );
