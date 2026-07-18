@@ -1,17 +1,18 @@
 "use client";
 
-import styles from "./CategoryTabsSkeleton.module.scss";
-
 interface CategoryTabsSkeletonProps {
   count?: number;
 }
 
 export default function CategoryTabsSkeleton({ count = 9 }: CategoryTabsSkeletonProps) {
   return (
-    <div className={styles.container}>
+    <div className="flex gap-3 overflow-x-auto px-4 pb-4">
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className={styles.tab}>
-          <div className={styles.shimmer} />
+        <div
+          key={index}
+          className="relative h-9 w-20 flex-shrink-0 overflow-hidden rounded-full bg-[#e0e0e0]"
+        >
+          <div className="skeleton-shimmer" />
         </div>
       ))}
     </div>

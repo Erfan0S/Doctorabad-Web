@@ -1,32 +1,37 @@
 "use client";
 
-import styles from "./MedicineDetailsSkeleton.module.scss";
+// repeated within this file only → module-level consts (rule 2)
+const titleLine = "relative h-6 overflow-hidden rounded-lg bg-[#e0e0e0]";
+const sectionLine = "relative overflow-hidden rounded-lg bg-[#e0e0e0]";
 
 export default function MedicineDetailsSkeleton() {
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.image}>
-          <div className={styles.shimmer} />
+    <div className="flex flex-col gap-6 p-4">
+      <div className="flex items-center gap-4">
+        <div className="relative h-[120px] w-[120px] overflow-hidden rounded-2xl bg-[#e0e0e0]">
+          <div className="skeleton-shimmer" />
         </div>
-        <div className={styles.titles}>
-          <div className={styles.titleLine}>
-            <div className={styles.shimmer} />
+        <div className="flex flex-1 flex-col gap-3">
+          <div className={titleLine}>
+            <div className="skeleton-shimmer" />
           </div>
-          <div className={styles.titleLine}>
-            <div className={styles.shimmer} />
+          <div className={titleLine}>
+            <div className="skeleton-shimmer" />
           </div>
         </div>
       </div>
 
-      <div className={styles.sections}>
+      <div className="flex flex-col gap-4">
         {Array.from({ length: 4 }).map((_, index) => (
-          <div key={index} className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.shimmer} />
+          <div
+            key={index}
+            className="flex flex-col gap-3 rounded-2xl border border-solid border-[#f0f0f0] bg-white p-4"
+          >
+            <div className={`${sectionLine} h-5`}>
+              <div className="skeleton-shimmer" />
             </div>
-            <div className={styles.sectionBody}>
-              <div className={styles.shimmer} />
+            <div className={`${sectionLine} h-12`}>
+              <div className="skeleton-shimmer" />
             </div>
           </div>
         ))}
