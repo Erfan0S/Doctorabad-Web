@@ -17,12 +17,12 @@ const separatorSpanClass =
   "[&:not(:last-child)]:after:top-[25%] [&:not(:last-child)]:after:left-0";
 
 const tdClass =
-  "text-center border-b border-b-[#949494] border-l border-l-[#949494] " +
-  "leading-[30px] last:border-l-0";
+  "text-center border-b border-b-gray-light border-l-gray-light border-solid border-0 " +
+  "leading-[30px] first-of-type:border-l";
 
 const thClass =
-  "bg-[#ff6506] text-white text-center leading-[30px] border-l border-[#949494] " +
-  "first:rounded-tr-lg last:rounded-tl-lg last:border-l-0";
+  "bg-market text-white text-center leading-[30px] border-gray-light border-solid border-0 " +
+  "first:rounded-tr-lg last:rounded-tl-lg first:border-l";
 
 const ProductSpecifications: React.FC<Props> = ({ productData }) => {
   return (
@@ -66,11 +66,11 @@ const ProductSpecifications: React.FC<Props> = ({ productData }) => {
         </div>
       )}
 
-      <div className="border-2 border-[#ff6506] rounded-xl">
+      <div className="border-2 rounded-xl border-solid border-market">
         <table className="w-full">
           <thead>
             <tr>
-              <th className={thClass}>شناسه محصول</th>
+              <th className={`${thClass}`}>شناسه محصول</th>
               <th className={thClass}>{productData.sku_code}</th>
             </tr>
           </thead>

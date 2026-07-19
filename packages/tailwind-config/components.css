@@ -8,35 +8,79 @@
    ancestor — including apps that never had a theme class (pharmacy, clinic,
    tools, insurance) — resolve to these, like the old green fallbacks. */
 :root {
+  /* ---- Spacing & radius ---- */
+  --spacing: 4;
+  --radius: 4;
+
+  /* ---- Base colours ---- */
+  --body-bg: #fff;
+  --main_text: #212529;
+  --card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+
+  /* ---- Layout ---- */
+  --sidebar-bg: #f5f5f5;
+  --sidebar-collapse-width: 150px;
+  --sidebar-expand-width: 230px;
+  --header-with-spacing-height: 160px;
+  --header-bg: #f2f2f2;
+  --placeHolderItemsBackGround: #d1d1d1;
+
+  /* ---- Palette ---- */
+  --red: #ed3152;
+  --orange: #ff6506;
+  --green: #33cc33;
+  --darkGreen: #0b690b;
+  --blue: #2aaadf;
+  --darkBlue: #006797;
+  --purple: #a167d0;
+  --gray: #949494;
+  --whiteSmoke: #f5f5f5;
+  --lightGray: #d1d1d1;
+  --darkGray: #5f5f5f;
+  --yellow: #ffcc00;
+  --proGreen: #3b9e97;
+  --base-green: #4fcc4c;
+
+  /* ---- Button / nav background tokens ---- */
+  --header-nav-bg: #ff6506; /* $orange */
+  --button-bg-orange: #ff6506;
+  --button-bg-blue: #2aaadf;
+  --button-bg-green: #4fcc4c; /* $base-green */
+  --button-bg-red: #ed3152;
+  --button-bg-proGreen: #3b9e97;
+  --button-bg-darkBlue: #006797;
+  --button-bg-purple: #a167d0;
+
+  /* ---- Per-app theme (default fallback = green) ---- */
   --button-bg: #4fcc4c; /* $button-bg-green = $base-green */
   --app-base: #4fcc4c; /* $base-green */
 }
 
 @layer base {
-  /* Per-app theme classes — moved verbatim from variables.scss */
+  /* Per-app theme classes — reference :root palette variables */
   .base {
-    --button-bg: #4fcc4c;
-    --app-base: #4fcc4c;
+    --button-bg: var(--base-green);
+    --app-base: var(--base-green);
   }
   .market {
-    --button-bg: #ff6506;
-    --app-base: #ff6506;
+    --button-bg: var(--orange);
+    --app-base: var(--orange);
   }
   .learn {
-    --button-bg: #ed3152;
-    --app-base: #ed3152;
+    --button-bg: var(--red);
+    --app-base: var(--red);
   }
   .exam {
-    --button-bg: #a167d0;
-    --app-base: #a167d0;
+    --button-bg: var(--purple);
+    --app-base: var(--purple);
   }
   .download {
-    --button-bg: #2aaadf;
-    --app-base: #2aaadf;
+    --button-bg: var(--blue);
+    --app-base: var(--blue);
   }
   .dr-pro {
-    --button-bg: #3b9e97;
-    --app-base: #3b9e97;
+    --button-bg: var(--proGreen);
+    --app-base: var(--proGreen);
   }
 }
 

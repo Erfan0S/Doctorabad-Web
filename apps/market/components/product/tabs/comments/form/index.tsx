@@ -10,12 +10,8 @@ import { purgeObjectFromFalsyValues } from "@repo/core/utils/purgeObjectFromFals
 import StarIcon from "@/assets/svg/newIcons/star";
 import StarFillIcon from "@/assets/svg/newIcons/starFill";
 
-// star rating (row-reverse): hovering a star also fills the stars after it
-// (visually before it). Filled state from the JS `rate` value.
-const STAR_IDLE =
-  "cursor-pointer [&_svg]:h-[25px] [&_svg]:w-[25px] [&_svg]:cursor-pointer [&_svg:nth-of-type(2)]:hidden hover:[&_svg:nth-of-type(1)]:hidden hover:[&_svg:nth-of-type(2)]:inline-block hover:[&_svg:nth-of-type(2)]:text-orange [div:hover~&_svg:nth-of-type(1)]:hidden [div:hover~&_svg:nth-of-type(2)]:inline-block [div:hover~&_svg:nth-of-type(2)]:text-orange";
-const STAR_ACTIVE =
-  "cursor-pointer [&_svg]:h-[25px] [&_svg]:w-[25px] [&_svg]:cursor-pointer [&_svg:nth-of-type(1)]:hidden [&_svg:nth-of-type(2)]:inline-block [&_svg:nth-of-type(2)]:text-orange";
+const STAR_WRAPPER =
+  "cursor-pointer [&_svg]:h-[25px] [&_svg]:w-[25px] [&_svg]:cursor-pointer";
 
 type Props = {
   productId: number;
@@ -24,6 +20,7 @@ type Props = {
 
 const ProductCommentsForm = ({ productId, userRating }: Props) => {
   const [rate, setRate] = useState(0);
+  const [hoveredRate, setHoveredRate] = useState(0);
   const [comment, setComment] = useState("");
 
   const mutation = useMutation({
@@ -45,7 +42,7 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
   const submitComment = () => {
     if (comment) {
       mutation.mutate(
-        purgeObjectFromFalsyValues({ id: productId, text: comment, rate })
+        purgeObjectFromFalsyValues({ id: productId, text: comment, rate }),
       );
     } else {
       toast("لطفا نظر خود را وارد کنید", { type: "warning" });
@@ -55,19 +52,29 @@ const ProductCommentsForm = ({ productId, userRating }: Props) => {
   return (
     <div className="mb-3 rounded-2xl border-2 border-solid border-orange p-2">
       <div className="relative mb-3 flex items-center">
-        <div className="flex flex-row-reverse items-center">
+        <div
+          className="flex flex-row-reverse items-center"
+          onMouseLeave={() => setHoveredRate(0)}
+        >
           {Array(5)
             .fill(0)
-            .map((_, index) => (
-              <div
-                key={index}
-                className={rate >= 5 - index ? STAR_ACTIVE : STAR_IDLE}
-                onClick={() => setRate(5 - index)}
-              >
-                <StarIcon />
-                <StarFillIcon />
-              </div>
-            ))}
+            .map((_, index) => {
+              const starValue = 5 - index;
+              const isActive = (hoveredRate || rate) >= starValue;
+              return (
+                <div
+                  key={index}
+                  className={STAR_WRAPPER}
+                  onClick={() => setRate(starValue)}
+                  onMouseEnter={() => setHoveredRate(starValue)}
+                >
+                  <StarIcon className={isActive ? "hidden" : "inline-block"} />
+                  <StarFillIcon
+                    className={isActive ? "inline-block text-orange" : "hidden"}
+                  />
+                </div>
+              );
+            })}
         </div>
 
         <button
