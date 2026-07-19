@@ -6,7 +6,6 @@ import { Apps } from "@repo/core/types/general";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import ServiceCard from "./ServiceCard";
-import styles from "./ServiceShortcuts.module.scss";
 import myInsurance from "@/assets/img/bigBanner/icons/DA-01 (1).png";
 import myPharmacy from "@/assets/img/bigBanner/icons/DA-03 (1).png";
 import myClinic from "@/assets/img/bigBanner/icons/DA-04 (1).png";
@@ -47,7 +46,7 @@ const ServiceShortcuts = () => {
 
   return (
     <section style={{ paddingBottom: 15 }} className="container">
-      <div className={styles.wrapper}>
+      <div className="mx-auto flex justify-center gap-5 max-[992px]:gap-4 max-[768px]:items-stretch max-[768px]:gap-3">
         {services.map((service) => (
           <ServiceCard key={service.id} {...service} />
         ))}

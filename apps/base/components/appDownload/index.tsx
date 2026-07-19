@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./AppDownload.module.scss";
 import AppDownloadTitle from "./appDownloadTitle";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
@@ -71,30 +70,26 @@ const AppDownload = ({ statistic }: Props) => {
   ];
 
   return (
-    <div className={style.downloadPageWrapper}>
-      <div className={style.downloadWrapper}>
-        <div className={style.downloadHeader}>
-          <AppDownloadTitle className={style.titleResponsiveWide} />
-          <Image src={downloadImage || ""} alt="download page image" />
+    <div className="w-full px-[100px] max-[1750px]:px-5">
+      <div className="mb-5 flex h-screen min-h-[800px] w-full flex-row pb-[85px] pt-[60px] max-[750px]:h-auto max-[750px]:flex-col-reverse">
+        <div className="ml-[15px] flex h-full flex-1 flex-col items-center justify-center">
+          <AppDownloadTitle className="max-[750px]:hidden" />
+          <Image src={downloadImage || ""} alt="download page image" className="h-auto w-full" />
         </div>
-        <div className={style.downloadLinksWrapper}>
-          <div className={style.downloadLinks}>
+        <div className="flex max-h-[90%] flex-1 flex-col flex-wrap items-center justify-center rounded-[55px] bg-[#f2f2f2] px-[85px] max-[1750px]:px-[50px] max-[1750px]:py-[70px] max-[1150px]:px-[30px] max-[1150px]:py-[50px] max-[750px]:rounded-[30px] max-[750px]:px-10 max-[750px]:pb-5 max-[750px]:pt-[5px]">
+          <div className="flex w-[65%] flex-row flex-wrap justify-center max-[750px]:w-full">
             {DownloadLinks.map((link) => (
-              <Link href={link.url} target={"_blank"} key={link.url}>
+              <Link href={link.url} target={"_blank"} key={link.url} className="ml-5 mt-5 w-[45%] max-w-[350px] even:ml-0">
                 <Image
                   src={link.image || ""}
                   alt={link.alt || "download link"}
+                  className="h-auto w-full rounded-lg"
                 />
               </Link>
             ))}
           </div>
-
-          {/*<div className={style.mobileWrapper}>*/}
-          {/*  <input type="number" className={style.mobileInput} placeholder="شماره موبایلتون چند بود؟!" />*/}
-          {/*  <button className={style.mobileButton}>ارسال لینک دانلود اپلیکیشن</button>*/}
-          {/*</div>*/}
         </div>
-        <AppDownloadTitle className={style.titleResponsiveShort} />
+        <AppDownloadTitle className="hidden max-[750px]:flex" />
       </div>
     </div>
   );
