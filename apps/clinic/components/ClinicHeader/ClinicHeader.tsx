@@ -3,7 +3,6 @@
 
 import { useRouter, useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./ClinicHeader.module.scss";
 import BackArrow from "@/assets/svg/backArrow";
 import BackIcon from "@/assets/svg/back";
 import Heart from "@/assets/svg/heart";
@@ -19,6 +18,10 @@ import { useShareProduct } from "@repo/core/hooks/useShareProduct";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 import { baseUrls } from "@repo/core/constants/routePath";
+
+// ponytail: shared square icon-button style (old .backBtn/.favoriteBtn were identical)
+const ICON_BTN =
+  "flex h-[45px] w-[45px] cursor-pointer items-center justify-center rounded-lg border-none bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-transform duration-200 active:scale-95 [&_svg]:h-[30px] [&_svg]:w-[30px] [&_svg]:text-[#333]";
 
 interface ClinicHeaderProps {
   title?: string;
@@ -71,7 +74,7 @@ export default function ClinicHeader({
       return {
         title: diseaseData?.title_fa,
         description: `${diseaseData?.title_fa} را در دکترآباد ببینید: `,
-        url: `https://doctorabad.com/mc/${id}`,
+        url: `{{https://doctorabad.com/mc/${id}}}`,
       };
     },
   );
@@ -92,19 +95,19 @@ export default function ClinicHeader({
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.headerTop}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.lefSideHeader}>
+    <header className="sticky top-0 z-[100] bg-white">
+      <div className="flex items-center justify-between bg-green-base py-[7px] ps-5 pe-4">
+        <h1 className="m-0 font-black text-white">{title}</h1>
+        <div className="flex items-center gap-2">
           {headerPageType === HeaderType.DISEASE_DETAILS && (
             <>
               <div
-                className={styles.favoriteBtn}
+                className={ICON_BTN}
                 onClick={authorizeClientAction(() => toggleReportModal())}
               >
                 <BugIcon />
               </div>
-              <div className={styles.favoriteBtn} onClick={handleShareButton}>
+              <div className={ICON_BTN} onClick={handleShareButton}>
                 <ShareIcon width={10} height={10} />
               </div>
             </>
@@ -112,8 +115,10 @@ export default function ClinicHeader({
 
           {headerPageType !== HeaderType.FAVORITES &&
           headerPageType !== HeaderType.CATEGORY ? (
+            // ponytail: the old scss-module `loading` modifier resolved to undefined
+            // (no .loading class existed), so it was dropped here.
             <div
-              className={`${styles.favoriteBtn} ${isLoading ? styles.loading : ""}`}
+              className={ICON_BTN}
               onClick={
                 headerPageType === HeaderType.DISEASE_DETAILS
                   ? authorizeClientAction(() => handleFavoriteButton())
@@ -124,7 +129,7 @@ export default function ClinicHeader({
             </div>
           ) : null}
 
-          <div className={styles.backBtn} onClick={handleBack}>
+          <div className={ICON_BTN} onClick={handleBack}>
             <BackIcon></BackIcon>
           </div>
         </div>
