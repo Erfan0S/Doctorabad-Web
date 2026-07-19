@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default app theme values — fallback parity with the old scss usage
+   `var(--button-bg, #{$button-bg-green})` / `var(--app-base, ...)`.
+   Components rendered without a .base/.market/... class on themselves or an
+   ancestor — including apps that never had a theme class (pharmacy, clinic,
+   tools, insurance) — resolve to these, like the old green fallbacks. */
+:root {
+  --button-bg: #4fcc4c; /* $button-bg-green = $base-green */
+  --app-base: #4fcc4c; /* $base-green */
+}
+
 @layer base {
   /* Per-app theme classes — moved verbatim from variables.scss */
   .base {

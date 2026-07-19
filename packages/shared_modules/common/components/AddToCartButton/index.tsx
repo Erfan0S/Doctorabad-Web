@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import styles from "./style.module.scss";
 import { cartActions, useCart } from "@repo/core/states/cart";
 import { Apps } from "@repo/core/types/general";
 import { OrderType } from "@repo/core/types/cart";
@@ -74,8 +73,8 @@ function AddToCartButton({
     return (
       <div
         className={` ${
-          isFullWidth && styles.fullWidth
-        } ${className} ${styles.buttonWrapper}`}
+          isFullWidth && "w-full [&>button]:w-full"
+        } ${className}`}
       >
         <Button app={app}>{children || "افزودن به سبد خرید"}</Button>
       </div>
@@ -89,13 +88,13 @@ function AddToCartButton({
 
   return (
     <div
-      className={`${styles.addToCartWrapper} ${
-        isFullWidth && styles.fullWidth
-      } ${className} ${styles.buttonWrapper}`}
+      className={`[&>button]:w-full ${
+        isFullWidth && "w-full"
+      } ${className}`}
     >
       {isUserLoggedIn() && orderId && quantity ? (
         <div
-          className={`${styles.addedButtonsWrapper} ${isColumn && styles.column}`}
+          className={`flex w-full items-center gap-[10px] whitespace-pre text-center [&>button]:h-[43px] [&>button]:flex-1 [&>div]:h-[43px] [&>div]:flex-1 ${isColumn && "flex-col"}`}
         >
           {canIncrease ? (
             <QuantityProductButton
@@ -104,7 +103,6 @@ function AddToCartButton({
               orderType={type}
               app={app}
               style="outline"
-              className={styles.quantityButton}
             />
           ) : (
             <Button
@@ -135,7 +133,6 @@ function AddToCartButton({
       ) : (
         <Button
           app={app}
-          className={styles.addToCartButton}
           onClick={
             onClick
               ? onClick
