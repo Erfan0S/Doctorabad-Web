@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
 import "../assets/styles/general.scss";
+import "@repo/tailwind-config/components.css";
 import { homeViewPort } from "@repo/core/metadata/home";
 import { homeMetadata } from "@/metadata/home";
 import { Suspense } from "react";

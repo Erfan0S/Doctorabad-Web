@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./ClinicSearchSection.module.scss";
 
 interface ClinicSearchSectionProps {
   searchQuery: string; 
@@ -41,18 +40,20 @@ export default function ClinicSearchSection({
   };
 
   return (
-    <div className={styles.searchSection}>
-      <div className={styles.searchWrapper}>
+    // ponytail: old scss had `align-items: space-between` which is invalid CSS
+    // (browsers ignored it), so no align class is emitted here.
+    <div className="sticky top-14 z-[100] flex gap-[15px] bg-white px-4 py-2.5">
+      <div className="relative flex-1">
         <input
           type="text"
           placeholder="هرچه می‌خواهد دل تنگت بجوی!"
-          className={styles.searchInput}
+          className="h-10 w-full rounded-xl border border-solid border-green-base bg-white ps-[5px] text-sm [direction:rtl] placeholder:text-[#999] disabled:cursor-not-allowed disabled:bg-white"
           value={searchQuery}
           onChange={handleSearchChange}
         />
 
         <svg
-          className={styles.searchIcon}
+          className="absolute end-[5px] top-1/2 -translate-y-1/2 text-[#999]"
           width="20"
           height="20"
           viewBox="0 0 24 24"
@@ -68,7 +69,10 @@ export default function ClinicSearchSection({
         </svg>
       </div>
 
-      <button className={styles.categoriesBtn} onClick={handleCategoriesClick}>
+      <button
+        className="h-10 cursor-pointer whitespace-nowrap rounded-xl border-none bg-green-base px-5 text-sm font-semibold text-white transition-all duration-200 active:scale-95"
+        onClick={handleCategoriesClick}
+      >
         دسته‌بندی
       </button>
     </div>

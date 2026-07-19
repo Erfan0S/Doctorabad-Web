@@ -2,7 +2,13 @@
 
 import { useMemo, useRef, useState } from "react";
 import { MedicineCategory } from "@/types/pharmacy";
-import styles from "./CategoryTabs.module.scss";
+
+const scrollBaseCls =
+  "flex cursor-grab touch-pan-x gap-2 overflow-x-auto px-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
+const tabCls =
+  "shrink-0 cursor-pointer whitespace-nowrap border-none bg-[#f3f3f3] px-5 py-2 text-sm text-black transition-all duration-200 active:scale-95 [font-family:var(--font-iran-sans)]";
+const tabActiveCls = "[border-bottom:5px_solid_#4fcc4c] font-extrabold";
+const tabIdleCls = "font-medium";
 
 interface CategoryTabsProps {
   categories: MedicineCategory[];
@@ -81,12 +87,12 @@ export default function CategoryTabs({
   };
 
   const scrollClassName = useMemo(
-    () => `${styles.categoriesScroll} ${dragging ? styles.dragging : ""}`,
+    () => `${scrollBaseCls} ${dragging ? "cursor-grabbing select-none" : ""}`,
     [dragging],
   );
 
   return (
-    <div className={styles.categoriesNav}>
+    <div className="sticky top-[7rem] z-50 bg-[#f3f3f3] pt-3 shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
       <div
         ref={scrollRef}
         className={scrollClassName}
@@ -98,8 +104,8 @@ export default function CategoryTabs({
       >
         {categories.length !== 0 && (
           <div
-            className={`${styles.categoryTab} ${
-              selectedCategory === null ? styles.active : ""
+            className={`${tabCls} ${
+              selectedCategory === null ? tabActiveCls : tabIdleCls
             }`}
             onClick={handleTabClick(null)}
           >
@@ -110,8 +116,8 @@ export default function CategoryTabs({
         {categories.map((category) => (
           <div
             key={category.id}
-            className={`${styles.categoryTab} ${
-              selectedCategory === category.id ? styles.active : ""
+            className={`${tabCls} ${
+              selectedCategory === category.id ? tabActiveCls : tabIdleCls
             }`}
             onClick={handleTabClick(category.id)}
           >

@@ -4,7 +4,6 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Medicine } from "@/types/pharmacy";
 import MedicineCard from "../MedicineCard/MedicineCard";
-import styles from "./MedicineList.module.scss";
 import Loading from "@/components/common/loading";
 import MedicineListSkeleton from "@/components/Skeletons/MedicineListSkeleton/MedicineListSkeleton";
 
@@ -31,11 +30,11 @@ export default function MedicineList({
       next={onLoadMore}
       hasMore={hasMore}
       loader={
-        <div className={styles.loadingMore}>
+        <div className="flex flex-col items-center justify-center gap-3 py-5">
           <Loading />
         </div>
       }
-      className={styles.medicinesList}
+      className="flex flex-col gap-3 p-4"
     >
       {medicines.map((medicine) => (
         <MedicineCard key={medicine.id} medicine={medicine} />

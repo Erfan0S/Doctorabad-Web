@@ -4,10 +4,9 @@ import { Autoplay } from "swiper/modules";
 import { autoPlayConfig } from "@repo/core/constants/sliders";
 import { testimonialsData } from "./testimonials-data";
 import TestimonialsItem from "./TestimonialsItem";
-import style from "./Testimonials.module.scss";
 const Testimonials = () => {
   return (
-    <section className={style.testimonials}>
+    <section className="[&_.swiper]:-mx-[10px] [&_.swiper]:my-0 [&_.swiper]:px-[10px] [&_.swiper]:py-[15px]">
       <div className="container">
         <Swiper
           modules={[Autoplay]}

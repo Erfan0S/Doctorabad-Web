@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./PharmacySearchSection.module.scss";
+
+const searchInputCls =
+  "h-10 w-full rounded-xl border border-solid border-green-base bg-white ps-[5px] text-sm [direction:rtl] placeholder:text-[#999] disabled:cursor-not-allowed disabled:bg-white";
 
 interface PharmacySearchSectionProps {
   onSearchChange: (query: string) => void;
@@ -41,18 +43,18 @@ export default function PharmacySearchSection({
   };
 
   return (
-    <div className={styles.searchSection}>
-      <div className={styles.searchWrapper}>
+    <div className="sticky top-[3.5rem] z-[100] flex gap-[15px] bg-white px-[16px] py-[10px]">
+      <div className="relative flex-1 w-full">
         <input
           type="text"
           placeholder="هرچه می‌خواهد دل تنگت بجوی!"
-          className={styles.searchInput}
+          className={searchInputCls}
           value={searchQuery}
           onChange={handleSearchChange}
         />
 
         <svg
-          className={styles.searchIcon}
+          className="absolute left-[5px] top-1/2 -translate-y-1/2 text-[#999]"
           width="20"
           height="20"
           viewBox="0 0 24 24"
@@ -68,7 +70,10 @@ export default function PharmacySearchSection({
         </svg>
       </div>
 
-      <button className={styles.categoriesBtn} onClick={handleCategoriesClick}>
+      <button
+        className="h-10 cursor-pointer whitespace-nowrap rounded-xl border-none bg-green-base px-5 text-sm font-semibold text-white transition-all duration-200 active:scale-95"
+        onClick={handleCategoriesClick}
+      >
         دسته‌بندی
       </button>
     </div>
