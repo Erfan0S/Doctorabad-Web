@@ -1,80 +1,126 @@
-import {
-  BundleProducts,
-  SingleProductAttribute,
-} from "@repo/core/types/product";
-import Product from "@/components/common/product";
-
-// orange-bordered spec table
-const TH_CLASS =
-  "border-e border-solid border-gray bg-orange text-center leading-[30px] text-white first-of-type:rounded-ss-md last-of-type:rounded-se-md last-of-type:border-e-0";
-const TD_CLASS =
-  "border-b border-e border-solid border-gray text-center leading-[30px] last-of-type:border-e-0";
-// comma-less tag list separated by thin vertical bars
-const SPEC_TAG =
-  "relative me-[5px] inline-block pe-[5px] text-[#f54f1a] [&:not(:last-child)]:after:absolute [&:not(:last-child)]:after:end-0 [&:not(:last-child)]:after:top-1/4 [&:not(:last-child)]:after:inline-block [&:not(:last-child)]:after:h-3 [&:not(:last-child)]:after:w-px [&:not(:last-child)]:after:bg-[#5b5b5b] [&:not(:last-child)]:after:content-['']";
+import { SingleProduct } from "@repo/core/types/product";
+import { Apps } from "@repo/core/types/general";
+import { ProductListItem } from "@repo/shared_modules/components";
+import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+import { OrderType } from "@repo/core/types/cart";
+import { ProductListItemProps } from "@repo/core/types/props";
 
 interface Props {
-  specifications: SingleProductAttribute[];
-  bundleProducts?: BundleProducts[];
+  productData: SingleProduct;
 }
-const ProductSpecifications: React.FC<Props> = ({
-  specifications,
-  bundleProducts,
-}) => {
+
+const separatorSpanClass =
+  "inline-block text-[#f54f1a] pl-[5px] relative ml-[5px] " +
+  "[&:not(:last-child)]:after:content-[''] [&:not(:last-child)]:after:w-px " +
+  "[&:not(:last-child)]:after:h-3 [&:not(:last-child)]:after:bg-[#5b5b5b] " +
+  "[&:not(:last-child)]:after:inline-block [&:not(:last-child)]:after:absolute " +
+  "[&:not(:last-child)]:after:top-[25%] [&:not(:last-child)]:after:left-0";
+
+const tdClass =
+  "text-center border-b border-b-[#949494] border-l border-l-[#949494] " +
+  "leading-[30px] last:border-l-0";
+
+const thClass =
+  "bg-[#ff6506] text-white text-center leading-[30px] border-l border-[#949494] " +
+  "first:rounded-tr-lg last:rounded-tl-lg last:border-l-0";
+
+const ProductSpecifications: React.FC<Props> = ({ productData }) => {
   return (
-    <div>
-      {bundleProducts?.length ? (
-        <div className="mb-[10px] flex flex-col gap-[15px] rounded-[5px] px-[10px] py-[5px] [&>a>div]:m-0 [&>a>div]:border [&>a>div]:border-solid [&>a>div]:border-gray-light">
-          {bundleProducts.map((product) => (
-            <Product
-              key={product.id}
-              productData={{ ...product, price_main: 0 }}
-              hidePrice
-            />
-          ))}
+    <>
+      {productData.is_bundle && !!productData.bundled_products?.length && (
+        <div className="flex flex-col px-2.5 py-[5px] rounded-[5px] mb-2.5 gap-[15px] [&_a>div]:m-0 [&_a>div]:border [&_a>div]:border-[#d1d1d1]">
+          {productData.bundled_products.map((product) => {
+            const imageType: () => ProductListItemProps["imageType"] = () => {
+              switch (product.type) {
+                case OrderType.Course:
+                  return "landscape";
+                case OrderType.ShopProduct:
+                  return "square";
+                case OrderType.Package:
+                  return "portrait";
+                default:
+                  return "auto";
+              }
+            };
+
+            return (
+              <a
+                href={generateSingleProductUrlFromId(
+                  product.id,
+                  "",
+                  product.type,
+                )}
+                target="_blank"
+              >
+                <ProductListItem
+                  app={Apps.MARKET}
+                  id={product.id?.toString()}
+                  title={product.title}
+                  pic_url={product.picture}
+                  imageType={imageType()}
+                  providerTitle={product.provider_name}
+                />
+              </a>
+            );
+          })}
         </div>
-      ) : null}
-      {specifications.length ? (
-        <table className="w-full rounded-lg border-2 border-solid border-orange">
+      )}
+
+      <div className="border-2 border-[#ff6506] rounded-xl">
+        <table className="w-full">
           <thead>
             <tr>
-              <th className={TH_CLASS}>عنوان</th>
-              <th className={TH_CLASS}>نوع</th>
-              <th className={TH_CLASS}>رشته</th>
-              <th className={TH_CLASS}>پایه</th>
+              <th className={thClass}>شناسه محصول</th>
+              <th className={thClass}>{productData.sku_code}</th>
             </tr>
           </thead>
-          <tbody className="[&_tr:last-of-type_td]:border-b-0">
-            {specifications.map((specification, index) => (
-              <tr key={index}>
-                <td className={TD_CLASS}>{specification.title}</td>
-                <td className={TD_CLASS}>
-                  {specification.types.map((type) => (
-                    <span key={type} className={SPEC_TAG}>
-                      {type}
-                    </span>
-                  ))}
-                </td>
-                <td className={TD_CLASS}>
-                  {specification.fields.map((field) => (
-                    <span key={field} className={SPEC_TAG}>
-                      {field}
-                    </span>
-                  ))}
-                </td>
-                <td className={TD_CLASS}>
-                  {specification.grades.map((grade) => (
-                    <span key={grade} className={SPEC_TAG}>
-                      {grade}
+          <tbody className="[&>tr:last-child>td]:border-b-0">
+            {!!productData.product_type.length && (
+              <tr>
+                <td className={tdClass}>نوع</td>
+                <td className={tdClass}>
+                  {productData.product_type.map((e) => (
+                    <span key={e.id} className={separatorSpanClass}>
+                      {e.title}
                     </span>
                   ))}
                 </td>
               </tr>
+            )}
+            {!!productData.fields.length && (
+              <tr>
+                <td className={tdClass}>رشته</td>
+                <td className={tdClass}>
+                  {productData.fields.map((e) => (
+                    <span key={e.id} className={separatorSpanClass}>
+                      {e.title}
+                    </span>
+                  ))}
+                </td>
+              </tr>
+            )}
+            {!!productData.grades.length && (
+              <tr>
+                <td className={tdClass}>مقطع</td>
+                <td className={tdClass}>
+                  {productData.grades.map((e) => (
+                    <span key={e.id} className={separatorSpanClass}>
+                      {e.title}
+                    </span>
+                  ))}
+                </td>
+              </tr>
+            )}
+            {productData.options.map(({ key, value }) => (
+              <tr key={key}>
+                <td className={tdClass}>{key}</td>
+                <td className={tdClass}>{value}</td>
+              </tr>
             ))}
           </tbody>
         </table>
-      ) : null}
-    </div>
+      </div>
+    </>
   );
 };
 
