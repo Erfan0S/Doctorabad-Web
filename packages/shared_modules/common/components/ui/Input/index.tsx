@@ -1,7 +1,6 @@
 import { Apps } from "@repo/core/types/general";
 import { BaseUiProps } from "@repo/core/types/props";
 import React from "react";
-import style from "../uiComponents.module.scss";
 
 function Input({
   app = Apps.BASE,
@@ -13,7 +12,10 @@ function Input({
     HTMLInputElement
   >) {
   return (
-    <input className={`${style.input} ${style[app]} ${className}`} {...rest} />
+    <input
+      className={`w-full rounded-[10px] border border-solid border-app-base px-[10px] py-[5px] focus:outline-none ${app} ${className}`}
+      {...rest}
+    />
   );
 }
 

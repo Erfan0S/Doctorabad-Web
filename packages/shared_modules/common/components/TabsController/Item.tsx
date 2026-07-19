@@ -1,5 +1,4 @@
 "use client";
-import style from "./ProductTabsController.module.scss";
 import { MobileTabsConfig } from "@repo/core/types/configs";
 import { useRouter } from "next/navigation";
 import { useTopLoader } from "nextjs-toploader";
@@ -32,7 +31,7 @@ const Item = ({ tabData, url, isActive, haveLoading = true }: Props) => {
   return (
     <li
       key={tabData.id}
-      className={isActive ? style.active : ""}
+      className={isActive ? "!font-bold before:!bg-app-base" : ""}
       onClick={changeTab}
     >
       {tabData.title}
