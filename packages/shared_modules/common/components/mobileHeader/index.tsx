@@ -2,7 +2,6 @@
 
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
-import style from "./MobileHeader.module.scss";
 import {
   authorizeClientAction,
   isUserLoggedIn,
@@ -77,16 +76,20 @@ const MobileHeader = ({ type }: Props) => {
   }, []);
 
   return (
-    <div className={`${style.mobileHeader} ${style[type]}`}>
-      <div className={style.left}>
+    <div
+      className={`flex w-full flex-row-reverse items-center justify-between py-[5px] ${type}`}
+    >
+      <div className="order-1 flex items-center gap-[8px]">
         <Logo />
         <ProTag active={isPro} />
       </div>
-      <div className={style.buttons}>
+      <div className="order-2 flex [&_button]:relative [&_button]:mb-[8px] [&_button]:me-[8px] [&_button]:flex [&_button]:h-[32px] [&_button]:min-w-[32px] [&_button]:cursor-pointer [&_button]:items-center [&_button]:justify-center [&_button]:rounded-[8px] [&_button]:border-2 [&_button]:border-solid [&_button]:border-gray [&_button]:bg-white [&_button]:px-[4.8px] [&_button_svg]:h-[20px] [&_button_svg]:w-[20px] [&_button_img]:h-[20px] [&_button_img]:w-[20px] [&_button_span]:ms-[8px] [&_button_span]:font-semibold [&_button_span]:text-gray max-[375px]:[&_button]:h-[25px] max-[375px]:[&_button]:min-w-[25px] max-[375px]:[&_button]:me-[4px] max-[375px]:[&_button_svg]:h-[18px] max-[375px]:[&_button_svg]:w-[18px] max-[375px]:[&_button_img]:h-[18px] max-[375px]:[&_button_img]:w-[18px]">
         <button onClick={openSideMenu(SidePanelPage.MAIN)}>
           <HomeIcon />
           {isSuccess && data.data.data.counter > 0 && (
-            <span className={style.buttonsBadge}>{data.data.data.counter}</span>
+            <span className="absolute -start-[20px] -top-[6px] flex h-[20px] w-[20px] items-center justify-center rounded-full bg-red !text-white">
+              {data.data.data.counter}
+            </span>
           )}
         </button>
         {/* <button
@@ -118,17 +121,17 @@ const MobileHeader = ({ type }: Props) => {
               window.open(getCheckoutUrl(true), "_self");
             }
           })}
-          className={style.cartButton}
         >
           <CartIcon />
-          {cart.count > 0 && <span>{cart.count}</span>}
+          {cart.count > 0 && (
+            <span className="absolute -end-[7px] -top-[7px] min-w-[20px] rounded-full border border-solid border-white bg-[#ff0000] p-[2px] pt-[4px] text-center text-[length:smaller] leading-[12px] !text-white">
+              {cart.count}
+            </span>
+          )}
         </button>
-        <button
-          onClick={openSideMenu(SidePanelPage.CLUB)}
-          className={style.cartButton}
-        >
+        <button onClick={openSideMenu(SidePanelPage.CLUB)}>
           <DrClubIcon />
-          <div className={style.drClubPoints}>
+          <div className="text-[0.9rem] font-bold text-green-base">
             {userCoinPoints?.data.data.coin_sum}
           </div>
         </button>

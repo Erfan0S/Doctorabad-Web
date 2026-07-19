@@ -1,5 +1,4 @@
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import style from "./style.module.scss";
 
 type Props = {
   text: number | string;
@@ -8,8 +7,10 @@ type Props = {
 
 function ProductSnappayNotif({ text, className }: Props) {
   return (
-    <div className={`${className} ${style.snappayNotif}`}>
-      <span>
+    <div
+      className={`${className} mb-[10px] w-full rounded-[4px] bg-[#afdcf754] px-[10px] py-[3px] text-blue-dark`}
+    >
+      <span className="inline-block w-full text-center">
         {typeof text === "string"
           ? text
           : `4 قسط${priceFormatter(text / 4)} تومانی بدون کارمزد با اسنپ‌پی!`}
@@ -20,7 +21,9 @@ function ProductSnappayNotif({ text, className }: Props) {
 
 export function ListProductSnappayNotif({ className }: Omit<Props, "text">) {
   return (
-    <span className={`${className} ${style.listSnappayNotif}`}>
+    <span
+      className={`${className} absolute z-[1] w-fit rounded-[4px] bg-[#afdcf754] px-[5px] py-[2px] text-[11px] text-blue-dark`}
+    >
       خرید اقساطی
     </span>
   );

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import style from "./Accordion.module.scss";
 import TriangleDown from "../../../assets/svg/triangleDown";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { modalActions } from "@repo/core/modal/modals";
@@ -99,10 +98,13 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      className={`${style.accordion} ${!isActive || !haveContent ? style.deActive : ""} ${className} ${style[app]}`}
+      className={`flex cursor-pointer items-center rounded-[12px] border-2 border-solid border-app-base px-[8px] py-[6px] ${!isActive || !haveContent ? "!cursor-default !border-gray [&_span]:!text-gray [&_svg]:!fill-gray" : ""} ${className} ${app}`}
     >
-      <div className={style.accordionTitle} onClick={handleClick}>
-        <span>
+      <div
+        className="flex w-full items-center [&_svg]:ms-auto [&_svg]:fill-app-base"
+        onClick={handleClick}
+      >
+        <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-center font-semibold text-black">
           {isLoading ? (
             <Loading app={app} />
           ) : (
@@ -114,7 +116,7 @@ const Accordion: React.FC<AccordionProps> = ({
         )}
       </div>
 
-      <div className={style.accordionContent}>{children}</div>
+      <div className="hidden">{children}</div>
     </div>
   );
 };
