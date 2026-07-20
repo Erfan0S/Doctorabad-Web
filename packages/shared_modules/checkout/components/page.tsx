@@ -10,7 +10,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
-import styles from "./chekcout.module.scss";
 import { Apps } from "@repo/core/types/general";
 import PaymentMethods from "./payment_methods";
 import { CartPayInfo, PaymentProviders } from "../types/cart";
@@ -116,11 +115,15 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
           router.push(backUrl);
         }}
         title="سبد خرید"
-        className={`${styles.checkoutHeader} ${mobileView ? styles.headerMobileView : ""}`}
+        className="m-0 w-full max-w-none items-stretch p-0"
       />
 
       <div
-        className={`${styles.checkoutWrapper} ${mobileView && styles.mobileView} ${styles[app]} container`}
+        className={`flex flex-wrap justify-center gap-4 pb-5 pt-4 [&>div]:w-full ${
+          mobileView
+            ? "xl:mt-5 xl:[&>div]:mt-2.5 xl:[&>div:first-child]:mt-0"
+            : "xl:flex-nowrap xl:[&>div]:flex-[0_0_32%] xl:[&>div]:max-w-[32%] xl:[&>div]:me-[10px] xl:[&>div:last-child]:me-0"
+        } ${app} container`}
       >
         <div>
           <Cart app={app} />
@@ -143,7 +146,7 @@ export function CheckoutPage({ app = Apps.BASE, mobileView = false }: Props) {
             setPayInfo={setPayInfo}
           >
             {isCartNotEmpty && (
-              <div className={styles.payChildrenWrapper}>
+              <div className="mt-10 flex h-full flex-col justify-between gap-4">
                 <PaymentMethods
                   payInfo={payInfo}
                   setPayInfo={setPayInfo}

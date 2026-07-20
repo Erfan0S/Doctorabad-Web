@@ -1389,3 +1389,15 @@
   border-radius: 4px;
   opacity: 1;
 }
+
+/* ---- checkout package (PKG-6) ---- */
+@layer components {
+  /* Shared section-title row: used by Cart, Pay, Shipping and PaymentMethods
+     card headers (4 usages, multi-declaration -> shared class per rule 2). */
+  .checkout-title {
+    @apply mb-2 flex border-0 border-b border-solid border-gray pb-2 leading-[26px];
+  }
+  .checkout-title span {
+    @apply me-auto text-[14px] font-extrabold;
+  }
+}

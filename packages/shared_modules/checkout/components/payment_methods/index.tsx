@@ -1,6 +1,4 @@
 "use client";
-import style from "./paymentMethods.module.scss";
-import checkoutStyle from "../chekcout.module.scss";
 import {
   CartPayInfo,
   PaymentMethodType,
@@ -153,12 +151,12 @@ const activeSnappay = () => {
 
   return (
     <div
-      className={`${style.paymentMethodsWrapper} ${drProMode ? style.pro : ""}`}
+      className={`bg-body-bg ${drProMode ? "[--app-base:#3b9e97]" : ""}`}
     >
-      <div className={checkoutStyle.title}>
+      <div className="checkout-title">
         <span>روش پرداخت من</span>
       </div>
-      <div className={style.paymentMethodsList}>
+      <div className="flex flex-col gap-2">
         {PaymentMethidsConfig.map((item) =>
           item.isHide ? null : (
             <PaymentMethodItem

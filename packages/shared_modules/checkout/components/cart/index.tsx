@@ -1,7 +1,6 @@
 "use client";
 import { useCart } from "@repo/core/states/cart";
 import CartItem from "./item";
-import style from "./Cart.module.scss";
 import { baseUrls } from "@repo/core/constants/routePath";
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
@@ -40,11 +39,13 @@ const Cart = ({ app }: Props) => {
     : baseUrls[Apps.MARKET];
 
   return (
-    <div className={`${style.cart} ${style[app]}`}>
-      <div className={style.cartContent}>
-        <div className={style.cartTitle}>
+    <div
+      className={`flex h-full flex-col justify-between overflow-visible text-center max-xl:h-auto [&::-webkit-scrollbar]:w-[25px] [&::-webkit-scrollbar]:rounded-[10px] ${app}`}
+    >
+      <div className="market-panel p-6 [&::-webkit-scrollbar-track]:rounded-[10px] [&::-webkit-scrollbar-track]:border-[12px] [&::-webkit-scrollbar-track]:border-solid [&::-webkit-scrollbar-track]:border-white [&::-webkit-scrollbar-track]:bg-[#ccc] [&::-webkit-scrollbar-thumb]:w-[25px] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-thumb]:border-0 [&::-webkit-scrollbar-thumb]:border-x-[9px] [&::-webkit-scrollbar-thumb]:border-solid [&::-webkit-scrollbar-thumb]:border-white [&::-webkit-scrollbar-thumb]:bg-app-base">
+        <div className="checkout-title">
           <span>محصولات‌من</span>
-          <small>{count} عدد کالا</small>
+          <small className="text-[13px] font-semibold text-gray">{count} عدد کالا</small>
         </div>
         <div>
           {cartItems.length ? (
@@ -58,14 +59,17 @@ const Cart = ({ app }: Props) => {
             })
           ) : (
             // TODO: Might need change
-            <a href={appLink} className={style.cartEmpty}>
+            <a
+              href={appLink}
+              className="mt-5 inline-block cursor-pointer rounded-lg bg-button-bg px-3 py-[10px] text-[13px] font-semibold !text-white"
+            >
               مشاهده محصولات
             </a>
           )}
         </div>
       </div>
 
-      <div className={style.cartSggestions}>
+      <div className="mt-10">
         {!!cartLastSeen?.data.data.length && (
           <ProductSlider
             data={cartLastSeen?.data.data || []}

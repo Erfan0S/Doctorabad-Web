@@ -15,7 +15,6 @@ import {
   ShippingAddress,
   ShippingMethod,
 } from "@repo/core/types/cart";
-import style from "./chekcout.module.scss";
 import { Apps, ResponseType } from "@repo/core/types/general";
 import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
@@ -105,7 +104,7 @@ function CreateOrderButton({
   };
 
   return (
-    <Button onClick={onCreateOrder} className={style.createOrderButton}>
+    <Button onClick={onCreateOrder} className="w-full flex-none">
       {" "}
       {createOrder.isPending ? (
         <Loading size={25} />
