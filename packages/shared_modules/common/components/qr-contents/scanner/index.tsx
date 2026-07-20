@@ -1,7 +1,6 @@
 import { Loading } from "@repo/shared_modules/components";
 import { useLoadHeavyModule } from "@repo/core/hooks/useLoadHeavyModule";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import styles from "./QrScanner.module.scss";
 import { toast } from "react-toastify";
 import { ScanArea } from "../../../../assets/svg/scanArea/scanArea";
 import { MultiMediaQrPage } from "..";
@@ -56,14 +55,14 @@ export const Scanner = ({ setId, setPage }: Props) => {
           0,
           0,
           canvasElement.width,
-          canvasElement.height
+          canvasElement.height,
         );
 
         const imageData = canvas.getImageData(
           0,
           0,
           canvasElement.width,
-          canvasElement.height
+          canvasElement.height,
         );
         const code = jsQR!(imageData.data, imageData.width, imageData.height, {
           inversionAttempts: "dontInvert",
@@ -107,12 +106,12 @@ export const Scanner = ({ setId, setPage }: Props) => {
   };
 
   return (
-    <div className={styles.QrScanner}>
+    <div className="relative flex flex-1 items-center justify-center bg-black">
       {loadingQrScanner ? (
         <Loading size={30} />
       ) : (
-        <div>
-          <video ref={videoRef} />
+        <div className="relative h-full max-h-[600px]">
+          <video ref={videoRef} className="h-full w-full object-cover" />
           <canvas
             id="QrCanvas"
             ref={canvasRef}
@@ -120,7 +119,10 @@ export const Scanner = ({ setId, setPage }: Props) => {
             style={{ width: "100%" }}
           ></canvas>
           <ScanArea />
-          <button onClick={() => setPage(MultiMediaQrPage.ERROR)}>
+          <button
+            onClick={() => setPage(MultiMediaQrPage.ERROR)}
+            className="absolute bottom-[45px] right-1/2 z-[200] translate-x-1/2 cursor-pointer rounded-xl border-none bg-button-bg px-3 py-[5px] text-center text-sm leading-5 text-white shadow-[0_3px_10px_rgba(0,0,0,0.1)] outline-none"
+          >
             QrCode کار نمیکند؟
             <br />
             اینجا کلیک کنید

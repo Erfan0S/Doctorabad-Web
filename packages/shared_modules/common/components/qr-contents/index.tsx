@@ -1,7 +1,6 @@
 "use client";
 import { fadeInAnimation } from "@repo/core/constants/animationConfigs";
 import { motion } from "framer-motion";
-import styles from "./QrContents.module.scss";
 import { Loading } from "@repo/shared_modules/components";
 import { useEffect, useState } from "react";
 import { SidePanelHeader } from "@repo/shared_modules";
@@ -71,7 +70,10 @@ export const QRContents = ({ closeModal }: ModalProps) => {
   const Component = pageComponents[page];
   const bookTitle = data?.data?.data.book_title;
   return (
-    <motion.div {...fadeInAnimation} className={styles.QrContents}>
+    <motion.div
+      {...fadeInAnimation}
+      className="mx-auto flex h-[600px] max-h-screen w-[400px] max-w-[100vw] flex-col justify-center overflow-hidden rounded-[24px] bg-white max-sm:h-screen max-sm:h-dvh max-sm:w-screen max-sm:rounded-none"
+    >
       <SidePanelHeader
         onBack={onBack}
         title={
@@ -80,7 +82,7 @@ export const QRContents = ({ closeModal }: ModalProps) => {
             : "مولتی مدیا"
         }
       />
-      <div className={styles.QrContentsWrapper}>
+      <div className="flex max-h-[calc(100%-60px)] flex-1 flex-col justify-center">
         {isLoading ? (
           <Loading size={30} />
         ) : (

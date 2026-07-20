@@ -1,5 +1,4 @@
 import Accordion from "../../accordion";
-import style from "../Filters.module.scss";
 import { SelectQroupItemType } from "@repo/core/types/filter";
 import { Apps } from "@repo/core/types/general";
 
@@ -15,11 +14,11 @@ const SelectFilterQroup: React.FC<Props> = ({
   dontHaveQuery,
 }) => {
   return (
-    <div className={style.filters}>
+    <div className="mt-[10px] flex w-full flex-row flex-wrap justify-between gap-2">
       {items.map((item, index) => (
         <Accordion
           key={index}
-          className={`${style.filtersAccordion} ${item.className}`}
+          className={`w-[calc(50%-8px)] ${item.className}`}
           title={item.title}
           items={item.data || []}
           queryKey={dontHaveQuery ? undefined : item.name}

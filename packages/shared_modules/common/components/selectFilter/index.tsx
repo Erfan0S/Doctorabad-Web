@@ -1,5 +1,4 @@
 "use client";
-import style from "./Filters.module.scss";
 import { useEffect, useState } from "react";
 import { FilterModalType, SelectFilterItems } from "@repo/core/types/filter";
 import { useSearchParams } from "next/navigation";
@@ -180,12 +179,16 @@ export const SelectFilter = ({
   };
 
   return (
-    <div className={`${style.archiveFiltersCheckboxList} ${style[app]}`}>
+    <div
+      className={`relative max-h-[730px] w-[70vw] min-w-[200px] max-w-[500px] rounded-xl bg-white max-md:w-[90vw] ${app}`}
+    >
       {showTitle && (
-        <div className={style.archiveFiltersCheckboxListTitle}>{title}</div>
+        <div className="w-full rounded-t-xl bg-app-base text-center leading-[37px] text-white">
+          {title}
+        </div>
       )}
       <div
-        className={`${style.archiveFiltersCheckboxListContent} ${singleSelection ? style.archiveFiltersCheckboxListContentSingleSelection : ""}`}
+        className={`p-4 ${singleSelection ? "[&_.itemChecked>span]:!text-black [&_.itemChecked>span]:!font-bold [&_ul_li_div]:!justify-center [&_ul_li_div_label]:w-full [&_ul_li_div_label]:!justify-center [&_ul_li_div_label]:p-0 [&_ul_li_div_label::before]:hidden [&_ul_li_div_label::after]:hidden" : ""}`}
       >
         {customContent ? (
           customContent
@@ -196,6 +199,7 @@ export const SelectFilter = ({
                 value={searchInList}
                 onChange={(e) => setSearchInList(e.target.value)}
                 placeholder={`جستجو در ${title}`}
+                className="mb-[10px] mt-2 w-full rounded-lg border-2 border-solid border-app-base bg-white px-2 leading-[30px] text-[#121212] outline-none"
               />
             )}
             <FilterItmeList
@@ -208,7 +212,7 @@ export const SelectFilter = ({
               setIsOpen={setIsOpen}
             />
             {!singleSelection && (
-              <div className={style.submitFilters}>
+              <div className="absolute bottom-0 right-1/2 mt-4 flex translate-x-1/2 translate-y-1/2 items-center justify-center gap-[10px] px-[30px] py-[9px] [&_button]:flex-none [&_button]:px-5 [&_button]:py-[10px] [&_button]:text-[larger]">
                 <Button type="button" app={app} onClick={onSubmit}>
                   تایید
                 </Button>
