@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./MobileProductList.module.scss";
 import Link from "next/link";
 import { Apps } from "@repo/core/types/general";
 import Loading from "../../loading";
@@ -24,7 +23,7 @@ const ProductList = ({
 }) => {
   if (!products || products.length === 0) {
     return (
-      <div className={styles.relatedCoursesWrapper}>
+      <div className="flex flex-col">
         <p style={{ textAlign: "center", padding: "20px" }}>
           {emptyErrorMassage || "هیچ محصولی یافت نشد"}
         </p>
@@ -33,7 +32,7 @@ const ProductList = ({
   }
 
   return (
-    <div className={styles.relatedCoursesWrapper}>
+    <div className="flex flex-col">
       <InfiniteScroll
         loadMore={() => fetchNextPage()}
         hasMore={hasNextPage}
@@ -44,7 +43,10 @@ const ProductList = ({
           const productBaseUrl = baseUrls[itemApp] || "";
           return (
             <Link href={`${productBaseUrl}/${p.baseUrl}/${p.id}`} key={p.id}>
-              <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {}) } {...p} />
+              <MobileProductListItem
+                {...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {})}
+                {...p}
+              />
             </Link>
           );
         })}

@@ -1,6 +1,5 @@
 "use client";
 import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
-import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
 import { Apps } from "@repo/core/types/general";
@@ -88,29 +87,41 @@ const ProductSliderContainer: React.FC<Props> = ({
 
   return (
     <section
-      className={`${style.productSlider} ${isMobileLayout ? style.mobileLayout : ""} ${style[app]}`}
+      className={`w-full ${isMobileLayout ? "mb-[20px] p-0" : "px-0 py-10"} ${app}`}
     >
       <div className="container">
         {(title || archiveLink) && (
-          <div className={style.productSliderHeader}>
+          <div
+            className={`relative mb-4 flex w-full max-w-full items-center ${isMobileLayout ? "" : "before:absolute before:inset-x-0 before:top-1/2 before:z-[1] before:h-px before:bg-app-base before:content-['']"}`}
+          >
             {title && (
-              <div className={style.productSliderHeaderTitle}>
-                <span>{title}</span>
+              <div
+                className={`relative z-[2] grow-0 pe-3 ${isMobileLayout ? "bg-transparent" : "bg-white"}`}
+              >
+                <span className="text-[14px] font-extrabold leading-[30px]">
+                  {title}
+                </span>
               </div>
             )}
             {amazingTime && (
-              <div className={style.productSliderHeaderAmazingTime}>
+              <div>
                 <DiscountCountdown
                   endDate={amazingTime}
                   style="secondary"
                   app={app}
-                  className={style.amazingTimeCountdown}
+                  className="max-[425px]:text-[20px] max-[425px]:[&_span]:min-w-[25px] max-[425px]:[&_span]:text-[14px] max-[425px]:[&_span]:leading-[25px]"
                 />
               </div>
             )}
             {archiveLink && (
-              <div className={style.productSliderHeaderLink}>
-                <Link href={archiveLink} title={title}>
+              <div
+                className={`relative z-[2] ms-auto ps-3 ${isMobileLayout ? "bg-transparent" : "bg-white"}`}
+              >
+                <Link
+                  href={archiveLink}
+                  title={title}
+                  className={`flex flex-row items-center rounded-lg px-4 text-[14px] font-medium leading-[28px] transition-all duration-150 max-[425px]:text-[12px] ${isMobileLayout ? "bg-transparent pe-0 text-gray-dark hover:bg-transparent hover:text-black" : "bg-button-bg text-white hover:bg-app-base hover:text-white"}`}
+                >
                   مشاهده‌همه
                   {isMobileLayout && <ArrowLeft fontSize={10} height={15} />}
                 </Link>
@@ -118,7 +129,10 @@ const ProductSliderContainer: React.FC<Props> = ({
             )}
           </div>
         )}
-        <div className={style.productSliderSlider} ref={containerRef}>
+        <div
+          className="relative before:absolute before:end-[-15px] before:top-0 before:bottom-0 before:z-[100] before:w-[15px] before:bg-white before:content-[''] max-md:before:hidden [&_.swiper]:pt-[10px] [&_.swiper]:px-[15px] [&_.swiper]:pb-4 [&_.swiper]:mx-[-10px] [&_.swiper]:mt-[-10px] [&_.swiper]:mb-[-16px] max-lg:[&_.swiper]:ps-[10px] max-lg:[&_.swiper]:pe-[88px] [&_.swiper-slide]:h-auto [&_.swiper-slide]:flex [&_.swiper-slide]:justify-center [&_.swiper-slide]:w-[180px] [&_.swiper-slide>*]:w-full [&_.swiper-slide>*]:max-w-full"
+          ref={containerRef}
+        >
           <Swiper
             // modules={[Autoplay]}
             // autoplay={autoPlayConfig}

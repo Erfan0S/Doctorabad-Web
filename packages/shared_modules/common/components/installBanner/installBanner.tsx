@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import style from "./installBanner.module.scss";
 import Image from "next/image";
 // @ts-ignore
 import logo from "../../../assets/img/logo-without-text.png";
@@ -35,14 +34,21 @@ const InstallBanner = ({ androidDownloadLink }: Props) => {
   return (
     <div
       className={
-        style.installBannerWrapper +
+        "fixed bottom-[10px] left-1/2 z-[1000] mx-auto flex h-[60px] w-[90%] max-w-[500px] -translate-x-1/2 -translate-y-1/2 flex-row items-center justify-between rounded-[10px] bg-[rgba(0,0,0,0.5)] p-[8px] backdrop-blur-[10px] max-md:bottom-[55px] [&_svg]:w-[40px] [&_svg]:h-auto [&_svg]:cursor-pointer" +
         " " +
-        (isClose ? style.installBannerClose : "")
+        (isClose ? "hidden" : "")
       }
     >
-      <Image className={style.logo} src={logo} alt="drabad logo" />
-      <span>دانلود اپلیکیشن دکترآباد</span>
-      <button onClick={onInstallHandler}>نصب</button>
+      <Image className="h-full w-auto" src={logo} alt="drabad logo" />
+      <span className="ms-[20px] flex-1 text-[18px] font-bold text-white max-[500px]:text-[12px]">
+        دانلود اپلیکیشن دکترآباد
+      </span>
+      <button
+        onClick={onInstallHandler}
+        className="me-[20px] h-full w-[110px] rounded-[13px] border-none bg-green text-[20px] font-bold text-white max-[500px]:h-[40px] max-[500px]:w-[70px] max-[500px]:text-[12px]"
+      >
+        نصب
+      </button>
       <Close_X onClick={onDismisHandler} />
     </div>
   );

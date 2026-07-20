@@ -1,6 +1,5 @@
 import { HeartFillIcon, HeartIcon } from "../../../assets";
 import { Apps } from "@repo/core/types/general";
-import styles from "./style.module.scss";
 import Loading from "../loading";
 
 type Props = {
@@ -25,10 +24,10 @@ function FavoriteHeartIcon({
     <Loading size={size} app={app} />
   ) : isFavorite ? (
     filledIcon ? (
-      <div className={`${styles.favoriteFillIcon} ${app}`}>{filledIcon}</div>
+      <div className={`!fill-app-base !text-app-base ${app}`}>{filledIcon}</div>
     ) : (
       <HeartFillIcon
-        className={`${styles.favoriteFillIcon} ${app}`}
+        className={`!fill-app-base !text-app-base ${app}`}
         width={size}
         height={size}
         {...svgAttribute}

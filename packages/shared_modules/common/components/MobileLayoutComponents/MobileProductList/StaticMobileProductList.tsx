@@ -1,4 +1,3 @@
-import styles from "./MobileProductList.module.scss";
 import Link from "next/link";
 import MobileProductListItem from "./MobileProductListItem";
 import { ProductListItemProps } from "@repo/core/types/props";
@@ -15,7 +14,7 @@ const StaticMobileProductList = ({
 }) => {
   if (!products || products.length === 0) {
     return (
-      <div className={styles.relatedCoursesWrapper}>
+      <div className="flex flex-col">
         <p style={{ textAlign: "center", padding: "20px" }}>
           {emptyErrorMassage ? emptyErrorMassage : "هیچ محصولی یافت نشد"}
         </p>
@@ -24,7 +23,7 @@ const StaticMobileProductList = ({
   }
 
   return (
-    <div className={styles.relatedCoursesWrapper}>
+    <div className="flex flex-col">
       {products.map((p) => {
         const itemApp = p.app || app;
 

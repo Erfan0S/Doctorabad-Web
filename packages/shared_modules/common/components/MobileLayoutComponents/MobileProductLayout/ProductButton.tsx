@@ -1,5 +1,4 @@
 "use client";
-import style from "./ProductLayout.module.scss";
 import { OrderType } from "@repo/core/types/cart";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import {
@@ -52,14 +51,13 @@ export default function ProductButton({
   const isFree = !mainPrice && !offPrice;
 
   return (
-    <div className={`${style.purchaseBar}`}>
+    <div
+      className={`fixed inset-x-0 bottom-0 z-[100] mx-auto flex w-full max-w-[800px] flex-col items-center bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] [&_:focus]:text-white max-[425px]:[&_button]:text-[14px]`}
+    >
       {installment_payment && installment_text && (
-        <ProductSnappayNotif
-          text={installment_text}
-          className={style.snappayNotif}
-        />
+        <ProductSnappayNotif text={installment_text} className="!mb-0" />
       )}
-      <div className={`${style.purchaseButtonWrapper}`}>
+      <div className={`flex w-full flex-row items-center px-[15px] py-[10px]`}>
         {replaceButton ? (
           replaceButton
         ) : (
@@ -68,27 +66,29 @@ export default function ProductButton({
             type={orderType}
             app={app}
             isFullWidth
-            className={`${style.addToCartButton} ${!!offPrice && style.priceOffWrapper}`}
+            className={`relative [&>button]:bg-button-bg ${!!offPrice && "leading-[17px] [&>button]:p-[7px]"}`}
             canIncrease={canIncrease}
             compact={compact}
             onClick={onClick}
           >
-            <span className={style.columnWrapper}>
+            <span className="!flex flex-col">
               {isFree ? (
                 <span>رایگان</span>
               ) : (
                 <>
                   <span>
                     {!!discountPercent && (
-                      <span className={style.purcheseBarDiscountPercent}>
-                        <span>
+                      <span className="absolute end-[10px] top-0 -translate-y-1/2 rounded-[50px] p-[8px] text-black">
+                        <span className="relative block w-[40px] max-[425px]:w-[30px] [&_svg]:absolute [&_svg]:start-0 [&_svg]:top-0 [&_svg]:z-[-1] [&_svg]:h-[40px] [&_svg]:w-[40px] [&_svg]:translate-y-[-20%] [&_svg]:text-[orange] max-[425px]:[&_svg]:h-[30px] max-[425px]:[&_svg]:w-[30px]">
                           <AmazingStarIcon />
-                          <span>%{discountPercent}</span>
+                          <span className="inline-block w-full text-center text-[12px] max-[425px]:text-[10px]">
+                            %{discountPercent}
+                          </span>
                         </span>
                       </span>
                     )}{" "}
                     {offPrice && (
-                      <span className={style.priceOff}>
+                      <span className="line-through">
                         {priceFormatter(mainPrice)}
                         تومن
                       </span>

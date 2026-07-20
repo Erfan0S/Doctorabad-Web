@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./Loading.module.scss";
 import { Apps } from "@repo/core/types/general";
 
 export interface LoadingProps {
@@ -16,11 +15,11 @@ const Loading: React.FC<LoadingProps> = ({
   app = Apps.BASE,
   haveMargin = false,
 }) => {
-  const classNames = `${style.loading} ${className} ${style[app]}`;
+  const classNames = `mx-auto aspect-[1/1] h-[25px] w-[25px] rounded-full border-2 border-solid [border-color:#ddd_#ddd_var(--app-base,#4fcc4c)] animate-[spin_0.5s_linear_infinite] ${className} ${app}`;
 
   if (pageLoader) {
     return (
-      <div className={style.pageLoader}>
+      <div className="flex h-[80vh] min-h-full items-center justify-center">
         <div className={classNames} style={{ width: size, height: size }} />
       </div>
     );

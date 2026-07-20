@@ -64,7 +64,7 @@ const SearchBar = ({
         {haveFilterButton && (
           <Link
             href={`${customeFilterUrl}`}
-            className="ms-2 cursor-pointer rounded-lg border-none bg-button-bg px-4 font-semibold leading-10 text-white disabled:cursor-default disabled:opacity-50"
+            className="ms-2 cursor-pointer rounded-lg border-none bg-button-bg px-3 font-semibold leading-10 text-white disabled:cursor-default disabled:opacity-50"
           >
             فیلترکردن
           </Link>
