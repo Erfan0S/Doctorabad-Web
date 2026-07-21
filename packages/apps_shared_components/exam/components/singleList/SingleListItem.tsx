@@ -25,7 +25,8 @@ import { api } from "@repo/shared_modules/api";
 
 const singleItemCls =
   "relative flex flex-col gap-[10px] border-[1.5px] border-solid border-gray-light bg-white p-[10px] shadow-none [&>div]:flex [&>div]:flex-row [&>div]:justify-between [&>div]:items-end [&>div]:gap-[10px] [&>div:first-child]:justify-start [&>div:first-child]:items-center [&_button]:flex-none [&_button]:h-[35px] [&_button]:min-w-[100px] [&_button]:text-[0.7rem] max-md:[&_button]:text-[10px] [&_img]:aspect-square [&_img]:h-[100px] [&_img]:w-auto [&_img]:rounded-[15px]";
-const favoriteButtonCls ="!h-[35px] !w-[35px] !min-w-[35px] !max-w-[35px] !p-1 shrink-0 aspect-square";
+const favoriteButtonCls =
+  "[&_button]:!h-[35px] [&_button]:!w-[35px] [&_button]:!min-w-[35px] [&_button]:!max-w-[35px] [&_button]:!p-0 [&_button]:shrink-0 [&_button]:aspect-square";
 const noImageCls = "border border-solid border-gray-light bg-white p-3";
 const singleItemPriceCls = "[&>div]:!justify-start";
 const singleItemPriceWrapperCls = "flex flex-col text-[14px]";
@@ -72,9 +73,7 @@ function SingleListItem({
   };
 
   return (
-    <div
-      className={`${singleItemCls} card`}
-    >
+    <div className={`${singleItemCls} card`}>
       <div>
         <Image
           src={item.picture || examIcon}
@@ -86,8 +85,8 @@ function SingleListItem({
         />
         <div className={singleItemDescriptionCls}>
           <h3>{item.title}</h3>
-          <span>{item.date === "بدون زمان" ? "" : item.date }</span>
-          <span>{item.place === "بدون مکان" ? "" : item.place }</span>
+          <span>{item.date === "بدون زمان" ? "" : item.date}</span>
+          <span>{item.place === "بدون مکان" ? "" : item.place}</span>
         </div>
       </div>
       <div>
