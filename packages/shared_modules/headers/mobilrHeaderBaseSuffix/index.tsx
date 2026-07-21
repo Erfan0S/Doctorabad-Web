@@ -1,5 +1,4 @@
 "use client";
-import style from "./courseHeader.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { useShareProduct } from "@repo/core/hooks/useShareProduct";
@@ -88,7 +87,7 @@ const MobileHeaderBaseSiffix = ({
   return (
     <>
       {buttons.map((button, i) => (
-        <button className={style.headerButton} onClick={button.onClick} key={i}>
+        <button className="header-icon-button" onClick={button.onClick} key={i}>
           {button.icon}
         </button>
       ))}

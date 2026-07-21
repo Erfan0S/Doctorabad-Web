@@ -1,7 +1,6 @@
 "use client";
 import { Apps } from "@repo/core/types/general";
 import BackIcon from "../../assets/svg/back";
-import style from "./PageHeader.module.scss";
 import { useNavigationHistory } from "@repo/core/hooks/useNavigationBack";
 import { useTopLoader } from "nextjs-toploader";
 
@@ -41,19 +40,21 @@ const PageHeader: React.FC<Props> = ({
   return (
     <div
       style={{ marginBottom: haveMargin ? 10 : 0 }}
-      className={`${style.sidePanelHeaderContainer} ${className} ${style[app]}`}
+      className={`sticky top-0 z-[1000] flex w-full flex-col items-center bg-white ${className} ${app}`}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <div className={`${style.sidePanelHeader}`}>
-        <h1>{title}</h1>
-        <div className={style.headerButtonContainer}>
-          <button className={style.headerButton} onClick={OnBack}>
+      <div className="ms-auto flex w-full items-center justify-between bg-[var(--button-bg,var(--button-bg-red))] px-[10px] py-[5px]">
+        <h1 className="max-w-[calc(100%-100px)] overflow-hidden text-ellipsis whitespace-nowrap font-black text-white">
+          {title}
+        </h1>
+        <div className="header-buttons-container">
+          <button className="w-[45px]" onClick={OnBack}>
             <BackIcon />
           </button>
           {suffix}
         </div>
       </div>
-      <div className={style.sidePanelHeaderChildren}>{children}</div>
+      <div className="w-full">{children}</div>
     </div>
   );
 };
