@@ -4,7 +4,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { MainSliderItem } from "@/types/slider";
-import styles from "./MainSlider.module.scss";
 import { authorizeClientAction } from "@repo/core/utils/authUtils";
 import { useRouter } from "next/navigation";
 import {
@@ -17,6 +16,9 @@ import {
 interface MainSliderProps {
   sliders: MainSliderItem[];
 }
+
+const SWIPER_CLS =
+  "rounded-[16px] overflow-hidden [&_.swiper-pagination]:bottom-2 [&_.swiper-pagination-bullet]:bg-white [&_.swiper-pagination-bullet]:opacity-50 [&_.swiper-pagination-bullet]:w-[7px] [&_.swiper-pagination-bullet]:h-[7px] [&_.swiper-pagination-bullet-active]:opacity-100 [&_.swiper-pagination-bullet-active]:w-[22px] [&_.swiper-pagination-bullet-active]:rounded-[4px]";
 
 function getSliderHref(slider: MainSliderItem): string | null {
   if (slider.url) return slider.url;
@@ -43,14 +45,14 @@ export default function MainSlider({ sliders }: MainSliderProps) {
   return (
     <div className="container">
 
-    <div className={styles.sliderSection}>
+    <div className="bg-white pt-4 pb-6">
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={16}
         slidesPerView={1}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        className={styles.swiper}
+        className={SWIPER_CLS}
       >
         {sliders.map((slider) => {
           const href = getSliderHref(slider);
@@ -68,10 +70,14 @@ export default function MainSlider({ sliders }: MainSliderProps) {
                       })
                     : undefined
                 }
-                className={styles.slide}
+                className="aspect-[16/9] overflow-hidden rounded-[16px] [background:linear-gradient(135deg,#64b5f6_0%,#42a5f5_100%)]"
                 style={href ? { cursor: "pointer" } : undefined}
               >
-                <img src={slider.picture} alt={slider.title || ""} />
+                <img
+                  src={slider.picture}
+                  alt={slider.title || ""}
+                  className="h-full w-full object-cover"
+                />
               </div>
             </SwiperSlide>
           );

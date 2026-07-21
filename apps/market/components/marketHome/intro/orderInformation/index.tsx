@@ -59,18 +59,22 @@ const OrderInformation: React.FC<Props> = ({ order }) => {
     `${STEP} ${orderStatus >= step ? STEP_ON : STEP_OFF}`;
 
   return (
-    <div className="border-2 border-solid border-orange rounded-[20px] px-3 py-4 h-full flex flex-col justify-center max-lg:mt-7 max-lg:h-auto">
+    <div className="border-2 border-solid border-market rounded-[20px] px-3 py-4 h-full flex flex-col justify-center max-lg:mt-7 max-lg:h-auto">
       <div className="flex justify-between mb-5">
-        <span className="text-base leading-[35px] font-bold">سفارش من</span>
+        <span className="text-base text-black leading-[35px] font-bold">
+          سفارش من
+        </span>
         <span
           onClick={onClickAction}
-          className="text-sm leading-[35px] font-bold px-5 text-white bg-orange rounded-lg cursor-pointer"
+          className="text-sm leading-[35px] font-bold px-5 text-white bg-market rounded-lg cursor-pointer"
         >
           {isOrderNotPurchaseYet ? "تکمیل خرید" : "جزئیات سفارش"}
         </span>
       </div>
       <div>
-        <p className="text-[13px] mb-0">{toFullPersianDateString(order.data.created_at)}</p>
+        <p className="text-[13px] mb-0">
+          {toFullPersianDateString(order.data.created_at)}
+        </p>
         <p className="text-[13px] mb-4">
           شماره سفارش : <b>{order.data.order_code}</b>
         </p>
@@ -92,9 +96,11 @@ const OrderInformation: React.FC<Props> = ({ order }) => {
           </li>
         </ul>
       </div>
-      <div className="flex mb-6">
-        <span className="text-[13px] leading-[30px] me-[15px] max-sm:text-xs max-sm:me-2">آخرین‌وضعیت:</span>
-        <span className="text-[13px] leading-[30px] block bg-[#f7d985] text-center font-bold rounded-lg cursor-pointer grow-[2] px-2 max-sm:text-xs">
+      <div className="flex mb-6 items-center">
+        <span className="text-[13px] leading-[30px] me-[15px] max-sm:text-xs max-sm:me-2">
+          آخرین‌وضعیت:
+        </span>
+        <span className="text-[13px] !leading-[30px] block bg-[#f7d985] text-center font-bold rounded-lg cursor-pointer grow-[2] px-2 max-sm:text-xs">
           {order.order_shipping.last_text_status}
         </span>
       </div>
@@ -106,7 +112,10 @@ const OrderInformation: React.FC<Props> = ({ order }) => {
             className="max-w-[125px] h-[86px] mb-2"
           />
           {order.coin_received && (
-            <p className="m-0 text-[13px] font-medium leading-[13px]" style={{ margin: "5px 0 10px" }}>
+            <p
+              className="m-0 text-[13px] font-medium leading-[13px]"
+              style={{ margin: "5px 0 10px" }}
+            >
               با این سفارش {order.coin_received}{" "}
               <Image width={20} height={20} src={coinIcon} alt="coin" /> گرفتین!
             </p>

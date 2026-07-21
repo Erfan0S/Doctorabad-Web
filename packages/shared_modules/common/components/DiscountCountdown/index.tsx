@@ -1,6 +1,5 @@
 "use client";
 import Countdown, { CountdownRenderProps } from "react-countdown";
-import style from "./style.module.scss";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { Apps } from "@repo/core/types/general";
 
@@ -23,7 +22,7 @@ function DiscountCountdown({
     formatted: { days, hours, minutes, seconds },
   }: CountdownRenderProps) => (
     <div
-      className={`${style.discountCountdown} ${app ? style[app] : ""} ${discountStyle ? style[discountStyle] : ""} ${className}`}
+      className={`flex flex-row-reverse items-center justify-center text-center text-[24px] text-white [&>span]:mx-[0.8px] [&>span]:min-w-[30px] [&>span]:rounded-[8px] [&>span]:bg-white [&>span]:text-[16px] [&>span]:font-bold [&>span]:leading-[30px] [&>span]:text-app-base ${app ? app : ""} ${discountStyle ? "!text-app-base [&>span]:!bg-app-base [&>span]:!text-white" : ""} ${className}`}
     >
       <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:
       <span>{seconds}</span>

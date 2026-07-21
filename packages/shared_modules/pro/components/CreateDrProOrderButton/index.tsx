@@ -7,7 +7,6 @@ import {
   PaymentProviders,
   type CartPayInfo,
 } from "../../../checkout/types/cart";
-import styles from "./CreateDrProOrderButton.module.scss";
 
 type Props = {
   selectedPlanId?: number | null;
@@ -65,7 +64,7 @@ const CreateDrProOrderButton = ({ selectedPlanId, payInfo }: Props) => {
   return (
     <div style={{ marginTop: 12 }}>
       <button
-        className={styles.button}
+        className="mt-[10px] h-[45px] w-full cursor-pointer rounded-xl border-none bg-green-pro text-[1rem] font-bold text-white"
         onClick={onCreate}
         disabled={loading}
         style={{ width: "100%" }}

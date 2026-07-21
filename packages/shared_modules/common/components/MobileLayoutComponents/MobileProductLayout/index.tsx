@@ -1,5 +1,4 @@
 import Image from "next/image";
-import style from "./ProductLayout.module.scss";
 import { PageHeader } from "@repo/shared_modules/headers";
 import Link from "next/link";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
@@ -42,7 +41,7 @@ const MobileProductLayout = ({
   providerBaseUrl = "/providers",
 }: Props) => {
   return (
-    <div className={`${style.wrapper} ${app && style[app]}`}>
+    <div className={`z-[3] ${app}`}>
       {/* ?: uncomment in product */}
       {/* <PreventContext /> */}
       <PageHeader
@@ -52,12 +51,12 @@ const MobileProductLayout = ({
         haveMargin={false}
       />
       <div>
-        <div className={style.container}>
-          <div className={style.producteHeader}>
-            <div className={style.producteHeaderTop}>
+        <div className="w-full [direction:rtl]">
+          <div className="relative z-[100] bg-smoke pt-[10px]">
+            <div className="flex w-full max-w-[100vw] flex-col items-center px-[15px]">
               {/* image or video */}
               {typeof preview === "string" ? (
-                <div className={style.ProductpreviewImage}>
+                <div className="flex w-full justify-center [&>img]:h-full [&>img]:w-auto [&>img]:max-h-[min(250px,25vh)] [&>img]:rounded-[20px]">
                   <Image
                     src={preview}
                     alt={title}
@@ -70,7 +69,7 @@ const MobileProductLayout = ({
               ) : (
                 preview
               )}
-              <div className={style["product-title"]}>
+              <div className="my-[15px] flex w-full items-center justify-center">
                 {!!provider?.id ? (
                   <Link
                     href={
@@ -85,6 +84,7 @@ const MobileProductLayout = ({
                       width={100}
                       height={44}
                       placeholder={placeHolderDataUrl}
+                      className="h-[44px] w-[100px] rounded-lg border border-solid border-app-base bg-white object-cover"
                       style={{ objectFit: "contain" }}
                     />
                   </Link>
@@ -95,21 +95,24 @@ const MobileProductLayout = ({
                     width={100}
                     height={44}
                     placeholder={placeHolderDataUrl}
+                    className="h-[44px] w-[100px] rounded-lg border border-solid border-app-base bg-white object-cover"
                   />
                 )}
-                <h1>{title}</h1>
+                <h1 className="m-0 !ms-[5px] flex h-auto min-h-[stretch] flex-1 items-center justify-center rounded-lg border border-solid border-app-base bg-white px-[10px] py-[2px] text-center text-[16px] font-bold leading-[17px] text-black shadow-sm">
+                  {title}
+                </h1>
               </div>
             </div>
           </div>
-          <div className={style.tabsControllerWrapper}>
+          <div className="sticky top-[55px] z-20 bg-smoke shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
             <TabsController
               tabData={tabsData}
               app={app}
               defaultTab={tabsData[0].id}
-              className={style.tabsController}
+              className="[&_ul>li]:leading-[40px]"
             />
           </div>
-          <div className={style.tabsContent}>
+          <div className="relative z-[2] mt-[15px] px-[15px]">
             {tabsData.map((tab, i) => {
               return tabParam
                 ? tab.id == tabParam

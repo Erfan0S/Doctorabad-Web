@@ -1,15 +1,14 @@
 "use client";
 import Image from "next/image";
-import style from "./Blog.module.scss";
 
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
 import { BlogType } from "@/types/blog";
 
 const Blog: React.FC<BlogType> = ({ pic_url, title, link }) => {
   return (
-    <div className={style.blog}>
-      <div className={style.blogImage}>
-        <a target="_blank" href={link}>
+    <div className="rounded-xl border-[1.5px] border-solid border-[#dadada] bg-white px-2 pb-1 pt-2 shadow-[0_5px_15px_rgba(0,0,0,0.15)]">
+      <div className="relative mb-3 aspect-square w-full overflow-hidden rounded-xl">
+        <a target="_blank" href={link} className="block h-full w-full">
           <Image
             fill
             src={pic_url || placeHolderDataUrl}
@@ -19,14 +18,14 @@ const Blog: React.FC<BlogType> = ({ pic_url, title, link }) => {
           />
         </a>
       </div>
-      <div className={style.blogTitle}>
-        <h2>
-          <a target="_blank" href={link}>
+      <div className="mb-3 h-10">
+        <h2 className="m-0 text-center text-xs">
+          <a target="_blank" href={link} className="line-clamp-2 leading-5 text-black">
             {title}
           </a>
         </h2>
       </div>
-      <div className={style.blogCategory}>{/* <span>{category}</span> */}</div>
+      <div className="text-center text-xs font-light text-gray">{/* <span>{category}</span> */}</div>
     </div>
   );
 };

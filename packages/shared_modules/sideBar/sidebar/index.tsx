@@ -1,7 +1,6 @@
 "use client";
 
 import { useMediaQuery } from "@repo/core/hooks/useMediaQuery";
-import style from "./Sidebar.module.scss";
 import SidebarLogo from "./logo";
 import SidebarNav from "./nav";
 import { useSidebar } from "../states/sidebar";
@@ -29,7 +28,7 @@ const Sidebar = () => {
   }
   return (
     <aside
-      className={`${style.sidebar} ${show ? style.open : ""}`}
+      className={`app-sidebar ${show ? "open" : ""}`}
       onMouseEnter={toggleShow}
       onMouseLeave={toggleShow}
     >

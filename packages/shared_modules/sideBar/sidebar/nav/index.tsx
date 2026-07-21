@@ -1,5 +1,4 @@
 import Image from "next/image";
-import style from "../Sidebar.module.scss";
 import { sidebarMenuData } from "./menu-data";
 import { Squircle } from "@repo/shared_modules/icons";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
@@ -33,7 +32,7 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
   if (!shouldRender) return null;
 
   return (
-    <div className={style.sidebarNav}>
+    <div className="app-sidebar-nav">
       <ul>
         {getSideMenuData().map(
           ({
@@ -46,9 +45,9 @@ const SidebarNav = ({ isMainLogoActive }: Props) => {
             active,
             mobileTitle,
           }) => (
-            <li key={id} className={active ? style.active : ""} id={String(id)}>
-              <div className={style.sidebarNavShape} />
-              <a type="button" href={href} className={style[color]}>
+            <li key={id} className={active ? "active" : ""} id={String(id)}>
+              <div className="app-sidebar-nav-shape" />
+              <a type="button" href={href} className={`app-side-${color}`}>
                 {/* <Squircle fill="#fff" />
                 <Squircle fill={squircleColor[color]} /> */}
 

@@ -36,7 +36,7 @@ const ArchiveFilters = ({
         <div className="mb-6 flex items-center font-semibold max-xl:mb-0 max-xl:[&_span]:cursor-pointer">
           <span onClick={toggleMobileMenu}>فیلتر ها</span>
           <span
-            className="ms-auto cursor-pointer border-b border-solid border-orange text-orange"
+            className="ms-auto cursor-pointer border-0 border-b border-solid border-orange text-orange"
             onClick={() => push(pathname)}
           >
             حذف همه فیلتر ها

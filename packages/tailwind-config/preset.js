@@ -18,7 +18,9 @@ module.exports = {
     },
     extend: {
       colors: {
+        /* ---- Direct palette (1:1 with $variables.scss) ---- */
         "main-text": "#212529", // $main_text
+        "body-bg": "#fff", // $body-bg
         red: "#ed3152", // $red
         orange: "#ff6506", // $orange
         green: "#33cc33", // $green
@@ -34,8 +36,29 @@ module.exports = {
         smoke: "#f5f5f5", // $whiteSmoke / $sidebar-bg
         yellow: "#ffcc00", // $yellow
         "header-bg": "#f2f2f2", // $header-bg
-        // Per-app theming — resolved by the .base/.market/... classes
-        // defined in components.css
+        "header-nav": "#ff6506", // $header-nav-bg (=$orange)
+
+        /* ---- Semantic app aliases ---- */
+        market: "#ff6506", // $orange — text-market / bg-market
+        learn: "#ed3152", // $red
+        exam: "#a167d0", // $purple
+        download: "#2aaadf", // $blue
+        "dr-pro": "#3b9e97", // $proGreen
+        base: "#4fcc4c", // $base-green
+
+        /* ---- Button / nav background tokens ---- */
+        "button-bg-orange": "#ff6506",
+        "button-bg-blue": "#2aaadf",
+        "button-bg-green": "#4fcc4c",
+        "button-bg-red": "#ed3152",
+        "button-bg-pro-green": "#3b9e97",
+        "button-bg-dark-blue": "#006797",
+        "button-bg-purple": "#a167d0",
+
+        /* ---- Placeholder ---- */
+        "placeholder-bg": "#d1d1d1", // $placeHolderItemsBackGround
+
+        /* ---- Per-app theme (resolved via .base/.market/... CSS classes) ---- */
         "app-base": "var(--app-base)",
         "button-bg": "var(--button-bg)",
       },

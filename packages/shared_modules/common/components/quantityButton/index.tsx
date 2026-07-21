@@ -1,5 +1,4 @@
 import RecycleBin from "../../../assets/svg/recycleBin";
-import style from "./QuantityProductButton.module.scss";
 import React from "react";
 import { cartActions } from "@repo/core/states/cart";
 import { Loading } from "..";
@@ -28,7 +27,11 @@ const QuantityProductButton: React.FC<Props> = ({
 
   return (
     <div
-      className={`${style.quantityButton} ${style[componentStyle || "default"]}  ${className} ${style[app]}`}
+      className={`flex flex-1 flex-row-reverse items-center justify-around rounded-[12px] px-[4px] py-[8px] text-[14px] [&_span]:w-[25px] [&_span]:text-center [&_button]:m-0 [&_button]:flex [&_button]:h-[25px] [&_button]:w-[25px] [&_button]:cursor-pointer [&_button]:items-center [&_button]:justify-center [&_button]:border-none [&_button]:bg-transparent [&_button]:p-0 [&_button]:text-[25px] [&_button]:leading-[40px] [&_button:hover]:outline-none [&_button:active]:outline-none [&_button:focus]:outline-none ${
+        componentStyle === "outline"
+          ? "border-2 border-solid border-app-base bg-transparent text-app-base [&_span]:text-app-base [&_button]:text-app-base"
+          : "bg-button-bg text-white [&_span]:text-white [&_button]:text-white"
+      } ${className} ${app}`}
     >
       <button
         onClick={cartActionsLoadingHandler(() =>

@@ -2,7 +2,9 @@ import { api } from "../../api/Api";
 import { ShippingAddress } from "@repo/core/types/cart";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import style from "./SidePanelProfile.module.scss";
+
+const FORM_SELECT =
+  "mb-2 [&_input]:h-10 [&_input]:w-full [&_input]:rounded-xl [&_input]:border-2 [&_input]:border-solid [&_input]:border-green-base [&_input]:px-3 [&_input]:leading-10 [&_select]:h-10 [&_select]:w-full [&_select]:rounded-xl [&_select]:border-2 [&_select]:border-solid [&_select]:border-green-base [&_select]:px-3 [&_select]:leading-10";
 
 export const ProvinceCitySelection = () => {
   const { values } = useFormikContext<ShippingAddress>();
@@ -30,7 +32,7 @@ export const ProvinceCitySelection = () => {
   return (
     <>
       <div className="col-6">
-        <div className={style.formSelect}>
+        <div className={FORM_SELECT}>
           <Field
             defaultValue={values.province_id}
             as="select"
@@ -55,7 +57,7 @@ export const ProvinceCitySelection = () => {
         </div>
       </div>
       <div className="col-6">
-        <div className={style.formSelect}>
+        <div className={FORM_SELECT}>
           <Field
             as="select"
             name="city_id"

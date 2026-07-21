@@ -1,15 +1,15 @@
-import starEmpty from '@/assets/img/star-empty.png';
-import starFill from '@/assets/img/star-fill.png';
-import Image from 'next/image';
-import StarFillIcon from '@/assets/svg/newIcons/starFill';
-import StarIcon from '@/assets/svg/newIcons/star';
+import StarFillIcon from "@/assets/svg/newIcons/starFill";
+import StarIcon from "@/assets/svg/newIcons/star";
 
 interface Props {
   averageRating: number;
   totalRating: number;
 }
 
-const ProductCommentsHeader: React.FC<Props> = ({ averageRating, totalRating }) => {
+const ProductCommentsHeader: React.FC<Props> = ({
+  averageRating,
+  totalRating,
+}) => {
   const fillWidth = `${(averageRating / 5) * 100}%`;
   return (
     <div className="mb-5 flex items-center">

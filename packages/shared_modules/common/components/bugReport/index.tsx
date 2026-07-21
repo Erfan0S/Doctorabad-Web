@@ -1,5 +1,4 @@
 "use client";
-import style from "./BugReport.module.scss";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
@@ -51,17 +50,25 @@ const BugReport = ({
   };
 
   return (
-    <div className={`${style.bugReportModal} ${style[data.app as string]}`}>
-      <div className={style.bugReportModalIcon}>
+    <div
+      className={`mx-auto flex w-[400px] min-w-[250px] max-w-full flex-col items-center rounded-[24px] bg-white px-[20px] max-sm:w-full [&_button]:relative [&_button]:-mb-[22px] [&_button]:min-h-[45px] [&_button]:cursor-pointer [&_button]:rounded-[12px] [&_button]:border-none [&_button]:px-[24px] [&_button]:text-center [&_button]:text-[14px] [&_button]:font-semibold [&_button]:leading-[45px] [&_button]:text-white [&_button]:shadow-[0_3px_10px_rgba(0,0,0,0.1)] [&_button:focus]:shadow-none [&_button:focus]:outline-none [&_button:active]:shadow-none [&_button:active]:outline-none [&_button:disabled]:!cursor-default [&_button:disabled]:!bg-gray [&_button:disabled]:!shadow-none ${(data.app as string) === "course" ? "[&_label]:!text-red [&_svg]:!fill-red [&_svg]:!text-red [&_textarea]:!border-red [&_button]:!bg-red" : ""} ${data.app as string}`}
+    >
+      <div className="-mt-[45px] mb-[8px] flex h-[90px] w-[90px] items-center justify-center rounded-[8px] bg-white p-[8px] text-app-base shadow-[0_0_10px_rgba(0,0,0,0.15)] [&_img]:h-full [&_img]:max-h-full [&_img]:w-full [&_img]:max-w-full [&_svg]:h-full [&_svg]:max-h-full [&_svg]:w-full [&_svg]:max-w-full">
         <BugIcon />
       </div>
-      <label htmlFor="bugReport">گزارش خطا</label>
+      <label
+        htmlFor="bugReport"
+        className="mb-[8px] text-[14px] font-semibold text-app-base"
+      >
+        گزارش خطا
+      </label>
       <textarea
         onChange={(e) => setText(e.target.value)}
         value={text}
         id="bugReport"
         name="bugReport"
         placeholder="هر چه میخواهد دل تنگت بگو ..."
+        className="mb-[12px] min-h-[120px] w-full rounded-[8px] border border-solid border-app-base px-[12px] py-[4px] leading-[25px] focus:outline-none active:outline-none"
       />
       <Button onClick={submit} app={data.app as Apps}>
         {isPending ? (

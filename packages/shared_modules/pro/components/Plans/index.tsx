@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import PlanItem from "./PlanItem";
 import { PlansSkeleton } from "../skeletons";
-import styles from "./Plans.module.scss";
+const plansListCls = "mt-4 flex w-full flex-col gap-3 [direction:rtl]";
 
 type Props = {
   selectedId?: number | null;
@@ -36,7 +36,7 @@ export default function Plans({ selectedId: controlledSelectedId, onSelect }: Pr
   if (!plans.length) return null;
 
   return (
-    <div className={styles.plansList}>
+    <div className={plansListCls}>
       {plans.map((plan) => (
         <PlanItem
           key={plan.id}

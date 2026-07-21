@@ -13,10 +13,8 @@ import { FavoriteHeartIcon } from "@repo/shared_modules/components";
 
 // 35px square orange-bordered icon buttons
 const ICON_SPAN =
-  "ms-1 flex h-[35px] w-[35px] flex-[0_0_35px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-orange transition duration-150 hover:bg-orange hover:text-white [&_svg]:transition [&_svg]:duration-150 hover:[&_svg]:!text-white";
+  "ms-1 flex h-[35px] w-[35px] flex-[0_0_35px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-orange transition duration-150 hover:bg-orange hover:text-white [&_svg]:transition [&_svg]:duration-150 hover:[&_svg]:!text-white [&_a]:text-center [&_a]:transition [&_a]:duration-150 hover:[&_a]:!text-white [@media(max-width:400px)]:[&_a]:text-[length:small]";
 // sample-file button stretches to fill the remaining row width
-const SAMPLE_SPAN =
-  "ms-1 flex h-[35px] flex-1 cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-orange transition duration-150 hover:bg-orange [&_a]:text-center [&_a]:transition [&_a]:duration-150 hover:[&_a]:!text-white [@media(max-width:400px)]:[&_a]:text-[length:small]";
 
 interface Props {
   id: number;
@@ -40,7 +38,7 @@ const ProductSidebarHeader = ({
         description: res.data.data.description,
         url: res.data.data.product_url,
       };
-    }
+    },
   );
 
   const onShareProduct = async () => {
@@ -52,14 +50,14 @@ const ProductSidebarHeader = ({
       modalActions.addModal(ModalTypes.BUG_REPORT, {
         productId: id,
         app: Apps.MARKET,
-      })
+      }),
     );
 
   return (
     <div className="mb-5 flex items-center justify-end">
       {/* <Link href="#">دانلود نمونه صفحات</Link> */}
       {sampleUrl && (
-        <span className={SAMPLE_SPAN}>
+        <span className={`${ICON_SPAN} !flex-1 text-[1rem] text-center`}>
           <a href={sampleUrl} target="_blank">
             دانلود فایل نمونه
           </a>

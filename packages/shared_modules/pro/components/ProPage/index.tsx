@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { PageHeader } from "../../../headers";
-import styles from "./ProPage.module.scss";
 import { Apps } from "@repo/core/types/general";
 import ActivePlan from "../ActivePlan";
 import Explanation from "../Explanation";
@@ -19,6 +18,13 @@ import { useQuery } from "@tanstack/react-query";
 import { PaymentProviders } from "../../../checkout/types/cart";
 import Image from "next/image";
 import characterKadkhoda from "../../../assets/img/character-kadkhoda.jpg";
+
+const proPageContainerCls = "flex min-h-screen flex-col bg-white";
+const contentCls =
+  "flex flex-1 flex-col p-4 text-center min-[1100px]:mx-auto min-[1100px]:w-full min-[1100px]:max-w-[700px]";
+const drProImageCls =
+  "mx-auto mb-0 mt-5 block h-auto w-full max-w-[700px] rounded-2xl";
+
 const ProPage = () => {
   const { data: activePlanData, isLoading } = useQuery({
     queryKey: ["active_plan"],
@@ -52,9 +58,9 @@ const ProPage = () => {
     paymentMethod: PaymentProviders.CASH,
   });
   return (
-    <div className={styles.proPageContainer}>
+    <div className={proPageContainerCls}>
       <PageHeader title="دکتر پرو" app={Apps.DRPRO} />
-      <div className={styles.content}>
+      <div className={contentCls}>
         {isLoading ? (
           <ActivePlanSkeleton />
         ) : (
@@ -68,7 +74,7 @@ const ProPage = () => {
             alt="Dr Pro"
             width={400}
             height={400}
-            className={styles.drProImage}
+            className={drProImageCls}
           />
         ) : (
           <Explanation data={explanationData?.data?.data} />

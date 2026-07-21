@@ -8,7 +8,6 @@ import { Button, Loading } from "@repo/shared_modules/components";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
-import style from "./Callback.module.scss";
 import { baseUrls } from "@repo/core/constants/routePath";
 import { REDIRECTED_APP_KEY } from "@repo/core/constants/queryKeys";
 
@@ -44,7 +43,7 @@ function Callback({ app }: { app: Apps }) {
   const isOrderSuccess = !isError && data?.data.type === "success";
 
   return (
-    <div className={style.callbackContainer}>
+    <div className="mb-[100px] flex min-h-[60vh] flex-col items-center justify-center gap-5 [&>div]:w-full [&>button]:flex-none [&>button_a]:text-white">
       <div className="row align-items-center justify-content-center">
         {isOrderSuccess && (
           <div className="col-lg-4">

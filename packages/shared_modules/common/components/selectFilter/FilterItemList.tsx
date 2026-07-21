@@ -3,7 +3,6 @@ import ArrowBottom from "../../../assets/svg/arrowBottom";
 import ArrowRight from "../../../assets/svg/arrowRight";
 import { Dispatch, SetStateAction } from "react";
 import { onCheckType } from ".";
-import styles from "./Filters.module.scss";
 
 export const createUniqueId = (id: string, queryKey: string) =>
   `checkbox_${queryKey}_${id}_id`;
@@ -30,12 +29,17 @@ const FilterItmeList = ({
   setIsOpen,
 }: Props) => {
   return (
-    <ul>
+    <ul
+      className={`mx-0 my-[5px] w-full list-none p-0 [&::-webkit-scrollbar-track]:rounded-[10px] [&::-webkit-scrollbar-track]:border-[10px] [&::-webkit-scrollbar-track]:border-solid [&::-webkit-scrollbar-track]:border-white [&::-webkit-scrollbar-track]:bg-[#ccc] [&::-webkit-scrollbar-thumb]:w-[25px] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-thumb]:border-solid [&::-webkit-scrollbar-thumb]:border-white [&::-webkit-scrollbar-thumb]:border-0 [&::-webkit-scrollbar-thumb]:border-l-[9px] [&::-webkit-scrollbar-thumb]:border-r-[9px] [&::-webkit-scrollbar-thumb]:bg-app-base [&::-webkit-scrollbar]:w-[25px] [&::-webkit-scrollbar]:rounded-lg ${level === 0 ? "max-h-[400px] select-none overflow-auto" : "px-[15px]"}`}
+    >
       {items.map(({ id, title, childern }, i) => {
         const uniqueId = createUniqueId(id.toString(), queryKey);
         return (
-          <li key={uniqueId}>
-            <div>
+          <li
+            key={uniqueId}
+            className={`flex flex-row flex-wrap items-center justify-between border-solid border-[#eee] border-0 border-t ${level === 0 ? "first:border-none" : ""}`}
+          >
+            <div className="flex w-full flex-row items-center justify-between">
               <input
                 id={uniqueId}
                 type="checkbox"
@@ -46,15 +50,16 @@ const FilterItmeList = ({
                     level,
                     !checks[id],
                     childern,
-                    parentIds
+                    parentIds,
                   )
                 }
+                className="hidden [&:checked+label::before]:bg-app-base [&:checked+label::before]:border-app-base"
               />
               <label
-                className={checks[id] ? styles.itemChecked : ""}
+                className={`relative mb-0 flex cursor-pointer items-center justify-between ps-6 leading-10 before:absolute before:start-0 before:top-1/2 before:h-4 before:w-4 before:-translate-y-1/2 before:rounded-[4px] before:border before:border-solid before:border-[#eee] before:content-[''] after:absolute after:start-[4px] after:top-1/2 after:h-[5px] after:w-2 after:translate-y-[calc(-50%-1px)] after:-rotate-45 after:border-solid after:border-white after:border-0 after:border-b after:border-l after:content-[''] ${checks[id] ? "itemChecked" : ""}`}
                 htmlFor={uniqueId}
               >
-                <span>{title}</span>
+                <span className="font-semibold text-[#777]">{title}</span>
               </label>
               {!!childern?.length && (
                 <span
@@ -64,6 +69,7 @@ const FilterItmeList = ({
                       [uniqueId]: !prev[uniqueId],
                     }))
                   }
+                  className="[&_svg]:h-auto [&_svg]:w-5 [&_svg]:cursor-pointer [&_svg]:text-[purple]"
                 >
                   {isOpen[uniqueId] ? <ArrowBottom /> : <ArrowRight />}
                 </span>

@@ -1,8 +1,10 @@
 import { api } from "../../api/Api";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import style from "./SidePanelProfile.module.scss";
 import { User } from "@repo/core/types/user";
+
+const FORM_SELECT =
+  "mb-2 [&_input]:h-10 [&_input]:w-full [&_input]:rounded-xl [&_input]:border-2 [&_input]:border-solid [&_input]:border-green-base [&_input]:px-3 [&_input]:leading-10 [&_select]:h-10 [&_select]:w-full [&_select]:rounded-xl [&_select]:border-2 [&_select]:border-solid [&_select]:border-green-base [&_select]:px-3 [&_select]:leading-10";
 
 export const FieldGradeSelection = () => {
   const { values } = useFormikContext<User>();
@@ -30,7 +32,7 @@ export const FieldGradeSelection = () => {
   return (
     <>
       <div className="col-6">
-        <div className={style.formSelect}>
+        <div className={FORM_SELECT}>
           <Field
             defaultValue={values.field_id}
             as="select"
@@ -57,7 +59,7 @@ export const FieldGradeSelection = () => {
       </div>
 
       <div className="col-6">
-        <div className={style.formSelect}>
+        <div className={FORM_SELECT}>
           <Field
             as="select"
             name="grade_id"

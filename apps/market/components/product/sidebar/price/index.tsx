@@ -30,7 +30,7 @@ const ProductSidebarPrice: React.FC<Props> = ({ product, variants }) => {
           app={Apps.MARKET}
         />
       )}
-      <div className="w-[60%]">
+      <div className="w-[60%] shrink-0">
         {product.installment_payment && product.installment_text && (
           <ProductSnappayNotif text={product.installment_text} />
         )}

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import style from "./OptionSwitch.module.scss";
 import classNames from "classnames";
 import { Apps } from "@repo/core/types/general";
 import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
@@ -83,10 +82,14 @@ const OptionSwitch = ({
 
   return (
     <>
-      <li className={`${style.options} ${className} ${style[app]}`}>
+      <li
+        className={`mb-[4px] flex w-full list-none items-center text-[15px] font-medium leading-[30px] text-black ${className} ${(app as string) === "pro" ? "[--app-base:#3b9e97]" : ""} ${app}`}
+      >
         
-        <label htmlFor={switchId}>{title}</label>
-        <div className={style.optionsWrapper}>
+        <label htmlFor={switchId} className="m-0 cursor-pointer ps-[10px]">
+          {title}
+        </label>
+        <div className="ms-auto flex">
           {isLoading ? (
             <Loading app={app} />
           ) : (
@@ -100,13 +103,18 @@ const OptionSwitch = ({
                 defaultValue={isDefaulChecked ? "1" : undefined}
                 name={name}
               />
-              <label htmlFor={switchId}>
+              <label htmlFor={switchId} className="m-0 cursor-pointer ps-[10px]">
                 {" "}
                 <div
-                  className={classNames(style.optionsSwitch, {
-                    [style.optionsSwitchActive]: isChecked,
-                    [style.disabled]: !isActive,
-                  })}
+                  className={classNames(
+                    "relative m-0 h-[26px] w-[50px] cursor-pointer rounded-[16px] border-2 border-solid border-app-base before:absolute before:top-[2px] before:h-[18px] before:w-[18px] before:rounded-[10px] before:content-[''] before:[transition:0.15s]",
+                    isChecked
+                      ? "bg-[color-mix(in_srgb,var(--app-base,#4fcc4c)_10%,white)] before:left-[26px] before:bg-app-base"
+                      : "before:left-[2px] before:bg-gray",
+                    {
+                      "!cursor-default !border-gray !text-gray": !isActive,
+                    },
+                  )}
                 />
               </label>
             </>

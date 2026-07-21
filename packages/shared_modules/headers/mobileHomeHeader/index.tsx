@@ -1,7 +1,6 @@
 import { Apps } from "@repo/core/types/general";
 import MobileHeaderBase from "../mobileHeaderBase";
 import TabsController from "../../common/components/TabsController";
-import styles from "./HomeHeader.module.scss";
 import { MobileTabsConfig } from "@repo/core/types/configs";
 import SearchBar, { SearchBarProps } from "../../common/components/SearchBar";
 
@@ -24,9 +23,9 @@ function MobileHomeHeader({
   ...rest
 }: Props) {
   return (
-    <div className={styles.container}>
-      <div className={styles.topHeaderContainer}>
-        <div className={styles.childContainer}>
+    <div className="sticky top-0 z-[1000] flex flex-col items-center bg-white pb-[10px]">
+      <div className="flex w-full flex-col bg-[#f5f5f5] shadow-[0_0_4px_0_rgba(0,0,0,0.295)]">
+        <div className="w-full px-[10px]">
           <MobileHeaderBase type={type} />
         </div>
         {tabData && (
@@ -39,7 +38,7 @@ function MobileHomeHeader({
         )}
       </div>
       {haveSearch && (
-        <div className={styles.childContainer}>
+        <div className="w-full px-[10px]">
           <SearchBar app={type} {...rest} />
         </div>
       )}

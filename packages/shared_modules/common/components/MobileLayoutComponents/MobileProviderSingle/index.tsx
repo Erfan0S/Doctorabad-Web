@@ -1,7 +1,6 @@
 "use client";
 import { PageHeader } from "@repo/shared_modules/headers";
 import React from "react";
-import styles from "./ProviderHeader/ProviderHeader.module.scss";
 import { Loading } from "@repo/shared_modules/components";
 import sanitize from "@repo/core/utils/sanitize";
 import ProviderHeader, { ProviderheaderPropsType } from "./ProviderHeader";
@@ -35,7 +34,7 @@ const ProviderPageContent = ({
       return <div className="container">{content}</div>;
     case ProviderTabs.DESCRIPTION:
       return (
-        <div className={styles.pageDescription}>
+        <div className="w-full p-[15px] [&>div]:text-[16px]">
           <div dangerouslySetInnerHTML={{ __html: sanitize(description) }} />
         </div>
       );
@@ -61,7 +60,7 @@ const MobileProviderPageLayout = ({
   ) : (
     <div>
       <PageHeader
-        className={styles.providerHeaderWrapper}
+        className="[&>div:last-child]:p-0"
         title={headertitle}
         app={app}
         children={<ProviderHeader app={app} {...rest} />}

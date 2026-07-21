@@ -1,5 +1,4 @@
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import style from "./ProductPrice.module.scss";
 import { Apps } from "@repo/core/types/general";
 import { getDiscountInformation } from "@repo/core/utils/getDiscountInformation";
 
@@ -34,23 +33,23 @@ function ProductPrice({
 
   return (
     <div
-      className={`${style.productPrice} ${style[app || ""]} ${className || ""} ${style[variant] || ""} ${style[colorVariant + "ColorVariant"] || ""}`}
+      className={`flex w-full ${app || ""} ${className || ""} ${variant === "secondary" ? "flex-row" : "flex-col"}`}
     >
-      <div>
+      <div className="flex max-w-full flex-row items-center justify-start">
         {offPrice && (
-          <span style={{ fontSize: size ? size - 3 : "auto" }}>
+          <span className="font-semibold text-gray line-through [&_small]:ms-[4px]" style={{ fontSize: size ? size - 3 : "auto" }}>
             {priceFormatter(mainPrice)}
             {/* <small>تومن</small> */}
           </span>
         )}
         {discountPercent && (
-          <small style={{ fontSize: size ? size - 4 : "auto" }}>
+          <small className="ms-[4px] rounded-[3px] bg-app-base px-[6px] text-[12px] leading-[14px] text-white" style={{ fontSize: size ? size - 4 : "auto" }}>
             ٪{discountPercent}
           </small>
         )}
       </div>
       <div
-        className={isFree ? style.free : ""}
+        className={`flex flex-row items-center justify-start text-[18px] font-semibold leading-[18px] ${colorVariant === "simple" ? "text-gray-dark" : "text-app-base"} ${isFree ? "!justify-center rounded-[5px] bg-[#90ee9057] p-[4px] text-center !text-[darkgreen]" : ""}`}
         style={{ fontSize: size || "auto" }}
       >
         {isFree ? (

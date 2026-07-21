@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import style from "./QrError.module.scss";
 import BugIcon from "../../../../assets/svg/bug";
 import { useLoadHeavyModule } from "@repo/core/hooks/useLoadHeavyModule";
 import { toast } from "react-toastify";
@@ -55,7 +54,7 @@ const QrError = ({ setId }: Props) => {
         0,
         0,
         canvasElement.width,
-        canvasElement.height
+        canvasElement.height,
       );
       const code: any = jsQR!(
         imageData.data,
@@ -63,7 +62,7 @@ const QrError = ({ setId }: Props) => {
         imageData.height,
         {
           inversionAttempts: "dontInvert",
-        }
+        },
       );
 
       if (code) {
@@ -86,9 +85,17 @@ const QrError = ({ setId }: Props) => {
   }, [qrData, setId]);
 
   return (
-    <div className={style.QrError}>
-      {imageSrc ? <img src={imageSrc} width={100} /> : <BugIcon />}
-      <p>
+    <div className="relative flex h-full w-full flex-col items-center justify-center px-10 [&_svg]:mb-[30px] [&_svg]:h-auto [&_svg]:w-[100px]">
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          width={100}
+          className="mb-[30px] h-auto max-h-[200px] w-auto"
+        />
+      ) : (
+        <BugIcon />
+      )}
+      <p className="mb-[30px] text-center text-base">
         متاسفانه نتونستیم QrCode شما را اسکن کنیم. <br />
         اگر از صحت QrCode خود اطمینان دارید،
         <br />
@@ -103,8 +110,14 @@ const QrError = ({ setId }: Props) => {
         accept="image/*"
         id="UserQrImage"
         onChange={handleImageUpload}
+        className="invisible absolute"
       />
-      <label htmlFor="UserQrImage">QrCode خود را اینجا وارد کنید</label>
+      <label
+        htmlFor="UserQrImage"
+        className="cursor-pointer rounded-xl border-none bg-green px-3 text-center text-[15px] leading-10 text-white shadow-[0_3px_10px_rgba(0,0,0,0.1)] outline-none"
+      >
+        QrCode خود را اینجا وارد کنید
+      </label>
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </div>
   );

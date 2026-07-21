@@ -1,6 +1,5 @@
 "use client";
 import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
-import style from "./ProductSlider.module.scss";
 import Link from "next/link";
 import "swiper/css";
 import { useEffect, useState } from "react";
@@ -11,6 +10,10 @@ import ArrowLeft from "@repo/shared_modules/icons/arrowLeft";
 import { Loading } from "@repo/shared_modules/components";
 import { OrderType, CartProductSliderItemType } from "@repo/core/types/cart";
 import { generateSingleProductUrlFromId } from "@repo/core/utils/UrlUtils";
+
+// SCSS→Tailwind: stable literal class replacing style.productSliderSlider,
+// which is read back via document.querySelector for the slidesPerView math.
+const SLIDER_CONTAINER_CLASS = "product-slider-slider";
 
 interface Props {
   data: CartProductSliderItemType[];
@@ -35,7 +38,7 @@ const ProductSlider: React.FC<Props> = ({
   useEffect(() => {
     const handleResize = () => {
       const containerWidth =
-        document.querySelector(`.${style.productSliderSlider}`)?.clientWidth ||
+        document.querySelector(`.${SLIDER_CONTAINER_CLASS}`)?.clientWidth ||
         0;
       const slideWidth = 175; // Assume each slide has a fixed width of 200px
       const newSlidesPerView = containerWidth / (slideWidth + spaceBetween);
@@ -53,18 +56,24 @@ const ProductSlider: React.FC<Props> = ({
   if (!isLoading && !data?.length) return null;
 
   return (
-    <section className={style.productSlider}>
+    <section className="mb-4 last:mb-0">
       <div>
         {(title || archiveLink) && (
-          <div className={style.productSliderHeader}>
+          <div className="relative mb-2 flex items-center justify-center">
             {title && (
-              <div className={style.productSliderHeaderTitle}>
-                <span>{title}</span>
+              <div className="relative z-[2]">
+                <span className="text-right text-[12px] font-bold leading-5 text-gray-dark">
+                  {title}
+                </span>
               </div>
             )}
             {archiveLink && (
-              <div className={style.productSliderHeaderLink}>
-                <Link href={archiveLink} title={title}>
+              <div className="relative z-[2] ms-auto bg-white ps-3">
+                <Link
+                  href={archiveLink}
+                  title={title}
+                  className="flex items-center rounded-lg ps-4 text-[14px] font-medium leading-7 text-gray-dark transition-all duration-150 hover:text-black"
+                >
                   مشاهده‌همه
                   <ArrowLeft fontSize={10} height={15} />
                 </Link>
@@ -72,7 +81,9 @@ const ProductSlider: React.FC<Props> = ({
             )}
           </div>
         )}
-        <div className={style.productSliderSlider}>
+        <div
+          className={`${SLIDER_CONTAINER_CLASS} relative before:absolute before:bottom-0 before:left-[-15px] before:top-0 before:z-[90] before:w-[15px] before:bg-white before:content-[''] max-md:before:hidden [&_.swiper]:pb-3 [&_.swiper-slide]:w-auto`}
+        >
           {isLoading ? (
             <Loading />
           ) : (
@@ -95,7 +106,7 @@ const ProductSlider: React.FC<Props> = ({
                     target="_blank"
                   >
                     <Image
-                      className={style.course}
+                      className="aspect-auto h-[95px] w-auto rounded-[10px] bg-white bg-cover bg-center object-scale-down shadow-[0_0_10px_rgba(0,0,0,0.1)]"
                       src={item.product_picture || placeHolderDataUrl}
                       alt={item.product_type || "محصول"}
                       width={150}

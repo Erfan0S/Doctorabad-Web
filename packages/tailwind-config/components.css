@@ -2,31 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default app theme values — fallback parity with the old scss usage
+   `var(--button-bg, #{$button-bg-green})` / `var(--app-base, ...)`.
+   Components rendered without a .base/.market/... class on themselves or an
+   ancestor — including apps that never had a theme class (pharmacy, clinic,
+   tools, insurance) — resolve to these, like the old green fallbacks. */
+:root {
+  /* ---- Spacing & radius ---- */
+  --spacing: 4;
+  --radius: 4;
+
+  /* ---- Base colours ---- */
+  --body-bg: #fff;
+  --main_text: #212529;
+  --card-box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+
+  /* ---- Layout ---- */
+  --sidebar-bg: #f5f5f5;
+  --sidebar-collapse-width: 150px;
+  --sidebar-expand-width: 230px;
+  --header-with-spacing-height: 160px;
+  --header-bg: #f2f2f2;
+  --placeHolderItemsBackGround: #d1d1d1;
+
+  /* ---- Palette ---- */
+  --red: #ed3152;
+  --orange: #ff6506;
+  --green: #33cc33;
+  --darkGreen: #0b690b;
+  --blue: #2aaadf;
+  --darkBlue: #006797;
+  --purple: #a167d0;
+  --gray: #949494;
+  --whiteSmoke: #f5f5f5;
+  --lightGray: #d1d1d1;
+  --darkGray: #5f5f5f;
+  --yellow: #ffcc00;
+  --proGreen: #3b9e97;
+  --base-green: #4fcc4c;
+
+  /* ---- Button / nav background tokens ---- */
+  --header-nav-bg: #ff6506; /* $orange */
+  --button-bg-orange: #ff6506;
+  --button-bg-blue: #2aaadf;
+  --button-bg-green: #4fcc4c; /* $base-green */
+  --button-bg-red: #ed3152;
+  --button-bg-proGreen: #3b9e97;
+  --button-bg-darkBlue: #006797;
+  --button-bg-purple: #a167d0;
+
+  /* ---- Per-app theme (default fallback = green) ---- */
+  --button-bg: #4fcc4c; /* $button-bg-green = $base-green */
+  --app-base: #4fcc4c; /* $base-green */
+}
+
 @layer base {
-  /* Per-app theme classes — moved verbatim from variables.scss */
+  /* Per-app theme classes — reference :root palette variables */
   .base {
-    --button-bg: #4fcc4c;
-    --app-base: #4fcc4c;
+    --button-bg: var(--base-green);
+    --app-base: var(--base-green);
   }
   .market {
-    --button-bg: #ff6506;
-    --app-base: #ff6506;
+    --button-bg: var(--orange);
+    --app-base: var(--orange);
   }
   .learn {
-    --button-bg: #ed3152;
-    --app-base: #ed3152;
+    --button-bg: var(--red);
+    --app-base: var(--red);
   }
   .exam {
-    --button-bg: #a167d0;
-    --app-base: #a167d0;
+    --button-bg: var(--purple);
+    --app-base: var(--purple);
   }
   .download {
-    --button-bg: #2aaadf;
-    --app-base: #2aaadf;
+    --button-bg: var(--blue);
+    --app-base: var(--blue);
   }
   .dr-pro {
-    --button-bg: #3b9e97;
-    --app-base: #3b9e97;
+    --button-bg: var(--proGreen);
+    --app-base: var(--proGreen);
   }
 }
 
@@ -1334,4 +1388,414 @@
   width: 22px;
   border-radius: 4px;
   opacity: 1;
+}
+
+/* ---- checkout package (PKG-6) ---- */
+@layer components {
+  /* Shared section-title row: used by Cart, Pay, Shipping and PaymentMethods
+     card headers (4 usages, multi-declaration -> shared class per rule 2). */
+  .checkout-title {
+    @apply mb-2 flex border-0 border-b border-solid border-gray pb-2 leading-[26px];
+  }
+  .checkout-title span {
+    @apply me-auto text-[14px] font-extrabold;
+  }
+}
+
+/* ---- PKG-2: app shell (sideBar/sidebar + headers) ----
+   Sidebar is a 1:1 port of Sidebar.module.scss as plain CSS: the hover-expand
+   `.open` cascade, `.active` nav shapes and the mobile bottom-bar order tricks
+   can't be expressed as utilities without changing the JSX. Physical
+   left/right kept intentionally for pixel parity in the RTL layout.
+   Dead rules dropped (see patch NOTES): sidebarFooter*, a.darkBlue,
+   logo-shape svg, invalid `font-weight: 800px`. */
+.app-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 700;
+  background-color: var(--sidebar-bg);
+  width: var(--sidebar-collapse-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 12px;
+  justify-content: space-between;
+  transition: 1s width cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.app-sidebar > span {
+  font-size: 12px;
+  line-height: 12px;
+  display: block;
+  color: var(--gray);
+}
+.app-sidebar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.app-sidebar-logo > svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 124px;
+  height: 124px;
+  fill: #fff;
+  z-index: -1;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.app-sidebar-logo-shape {
+  position: absolute;
+  left: -38px;
+  width: 75px;
+  height: 220px;
+  top: 50%;
+  z-index: -1;
+  transform: translateY(-50%);
+  background-image: linear-gradient(to right, #fff 80%, rgba(255, 255, 255, 0));
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  overflow: hidden;
+  opacity: 1;
+}
+.app-sidebar-logo-shape::before,
+.app-sidebar-logo-shape::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(-50%);
+  height: 94px;
+  width: 175%;
+  background-color: var(--sidebar-bg);
+  border-radius: 50%;
+}
+.app-sidebar-logo-shape::after {
+  top: unset;
+  bottom: 0;
+  transform: translateY(50%);
+}
+.app-sidebar-nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.app-sidebar-nav ul li {
+  margin-bottom: 16px;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  width: 81px;
+  position: relative;
+  z-index: 10;
+}
+.app-sidebar-nav ul li a {
+  display: flex;
+  align-items: center;
+  transition: 0.5s;
+  border-radius: 16px;
+  color: #000;
+  position: relative;
+  border: 2px solid transparent;
+  padding: 8px 8px 8px 4px;
+}
+.app-sidebar-nav ul li a > span {
+  display: none;
+}
+.app-sidebar-nav ul li a svg {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  width: 50px;
+  height: 50px;
+}
+.app-sidebar-nav ul li a svg:first-of-type {
+  opacity: 1;
+  width: 54px;
+  height: 54px;
+  right: 4px;
+}
+.app-sidebar-nav ul li a img {
+  position: relative;
+  z-index: 2;
+  padding: 5px;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.app-sidebar-nav ul li a div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  flex: 0 0 0px;
+  width: 0;
+  overflow: hidden;
+}
+.app-sidebar-nav ul li a div span {
+  font-weight: 900;
+  font-size: 17px;
+  white-space: nowrap;
+  line-height: 22px;
+}
+.app-sidebar-nav ul li a div small {
+  font-weight: 700;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.app-sidebar-nav ul li:last-of-type {
+  margin-bottom: 0;
+}
+.app-sidebar-nav ul li:hover {
+  transform: scale(1.05);
+}
+.app-sidebar-nav ul li.active {
+  position: relative;
+  z-index: 5;
+}
+.app-sidebar-nav ul li.active .app-sidebar-nav-shape {
+  display: block;
+}
+.app-sidebar-nav-shape {
+  display: none;
+  position: absolute;
+  left: -35px;
+  width: 75px;
+  height: 150px;
+  top: 50%;
+  z-index: -1;
+  transform: translateY(-50%);
+  background-image: linear-gradient(to right, #fff 80%, rgba(255, 255, 255, 0));
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  overflow: hidden;
+  opacity: 1;
+}
+.app-sidebar-nav-shape::before,
+.app-sidebar-nav-shape::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(-50%);
+  height: 94px;
+  width: 175%;
+  background-color: var(--sidebar-bg);
+  border-radius: 50%;
+}
+.app-sidebar-nav-shape::after {
+  top: unset;
+  bottom: 0;
+  transform: translateY(50%);
+}
+.app-sidebar.open {
+  width: var(--sidebar-expand-width);
+}
+.app-sidebar.open .app-sidebar-logo > svg {
+  opacity: 0;
+}
+.app-sidebar.open .app-sidebar-logo .app-sidebar-logo-shape {
+  opacity: 0;
+  left: -45px;
+}
+.app-sidebar.open .app-sidebar-nav ul li {
+  width: 200px;
+}
+.app-sidebar.open .app-sidebar-nav ul li a {
+  background-color: #fff;
+}
+.app-sidebar.open .app-sidebar-nav ul li a.app-side-red {
+  border-color: var(--red);
+}
+.app-sidebar.open .app-sidebar-nav ul li a.app-side-orange {
+  border-color: var(--orange);
+}
+.app-sidebar.open .app-sidebar-nav ul li a.app-side-green {
+  border-color: var(--green);
+}
+.app-sidebar.open .app-sidebar-nav ul li a.app-side-blue {
+  border-color: var(--blue);
+}
+.app-sidebar.open .app-sidebar-nav ul li a.app-side-purple {
+  border-color: var(--purple);
+}
+.app-sidebar.open .app-sidebar-nav ul li a div {
+  padding-right: 6px;
+  flex: 0 0 calc(100% - 40px - 12px);
+  width: calc(100% - 40px - 12px);
+}
+.app-sidebar.open .app-sidebar-nav-shape {
+  opacity: 0;
+  left: -15px;
+  width: 18px;
+}
+@media (max-width: 768px) {
+  .app-sidebar {
+    left: 0;
+    top: unset;
+    bottom: 0;
+    width: auto;
+    display: block;
+    padding: 0 16px;
+  }
+  .app-sidebar-nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .app-sidebar-nav ul li {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    width: unset;
+    margin-bottom: unset;
+  }
+  .app-sidebar-nav ul li a {
+    padding: 8px;
+    border: unset;
+  }
+  .app-sidebar-nav ul li a div {
+    display: none;
+  }
+  .app-sidebar-nav ul li:not(.active):nth-child(1) {
+    order: -2;
+  }
+  .app-sidebar-nav ul li:not(.active):nth-child(2) {
+    order: -1;
+  }
+  .app-sidebar-nav ul li:not(.active):nth-child(3) {
+    order: 1;
+  }
+  .app-sidebar-nav ul li:not(.active):nth-child(4) {
+    order: 2;
+  }
+  .app-sidebar-nav ul li.active {
+    position: relative;
+    background-color: #fff;
+    order: 0;
+    padding-bottom: 12px;
+  }
+  .app-sidebar-nav ul li.active a {
+    display: flex;
+    flex-direction: column;
+  }
+  .app-sidebar-nav ul li.active a svg {
+    display: none;
+  }
+  .app-sidebar-nav ul li.active a > span {
+    display: block;
+    text-align: center;
+    z-index: 12;
+    font-weight: 800;
+    line-height: 15px;
+  }
+  .app-sidebar-nav ul li.active img {
+    transform: translateY(-15px);
+    width: 50px;
+    height: 50px;
+  }
+  .app-sidebar-nav-shape,
+  .app-sidebar-nav-shape::before,
+  .app-sidebar-nav-shape::after {
+    display: none !important;
+  }
+  .app-sidebar.open {
+    width: auto;
+  }
+  .app-sidebar.open .app-sidebar-nav ul li {
+    width: unset;
+  }
+  .app-sidebar.open .app-sidebar-nav ul li:hover {
+    transform: unset;
+  }
+  .app-sidebar.open .app-sidebar-nav ul li a {
+    background-color: unset;
+    border: unset;
+  }
+  .app-sidebar.open .app-sidebar-nav ul li a.app-side-red,
+  .app-sidebar.open .app-sidebar-nav ul li a.app-side-orange,
+  .app-sidebar.open .app-sidebar-nav ul li a.app-side-green,
+  .app-sidebar.open .app-sidebar-nav ul li a.app-side-blue,
+  .app-sidebar.open .app-sidebar-nav ul li a.app-side-purple {
+    border-color: transparent;
+  }
+  .app-sidebar.open .app-sidebar-nav ul li a div {
+    display: none;
+  }
+  .app-sidebar.open .app-sidebar-nav-shape {
+    opacity: 1;
+    width: 150px;
+    left: 50%;
+  }
+  .app-sidebar-logo,
+  .app-sidebar > span {
+    display: none;
+  }
+}
+
+/* ---- PKG-2: page headers ----
+   .header-buttons-container ports PageHeader's .headerButtonContainer incl.
+   its `button` descendant rules (suffix buttons passed in as children rely
+   on them). .header-icon-button ports courseHeader.module.scss's
+   .headerButton (the scss itself flags "TODO: duplicate css with page
+   header"); the overlap when suffix buttons render inside the container is
+   by design, same as the old scss. */
+.header-buttons-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  border-radius: 12px;
+}
+.header-buttons-container button {
+  flex-direction: row;
+  background-color: #fff;
+  margin: 0 0 0 8px;
+  border: unset;
+  border-radius: 12px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+  color: black;
+  gap: 5px;
+}
+.header-buttons-container button:first-of-type {
+  margin: 0;
+}
+.header-buttons-container button:active,
+.header-buttons-container button:focus {
+  outline: none;
+}
+.header-buttons-container button img,
+.header-buttons-container button svg {
+  width: 30px;
+  height: 30px;
+}
+.header-icon-button {
+  background-color: #fff;
+  margin: 0 0 0 8px;
+  border: unset;
+  border-radius: 12px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+}
+.header-icon-button:first-of-type {
+  margin: 0;
+}
+.header-icon-button:active,
+.header-icon-button:focus {
+  outline: none;
+}
+.header-icon-button img,
+.header-icon-button svg {
+  width: 30px;
+  height: 30px;
 }

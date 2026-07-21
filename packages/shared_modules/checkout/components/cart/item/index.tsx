@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import style from "./CartItem.module.scss";
 import RecycleBin from "../../../../assets/svg/recycleBin";
 import { cartActions } from "@repo/core/states/cart";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";
@@ -30,6 +29,18 @@ import downloadLogo from "@repo/shared_modules/images/doctor-download.png";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import { SidePanelPage } from "@repo/core/types/sidePanel";
+
+// SCSS→Tailwind: image ratio variants (was style[imageType()] module lookup)
+const imageTypeClasses = {
+  square: "aspect-square h-[60px] w-[60px]",
+  landscape: "aspect-video h-[60px] w-auto",
+  portrait: "aspect-[3/4] h-auto w-[60px]",
+  auto: "w-auto",
+} as const;
+
+// Shared by QuantityProductButton and the remove-button wrapper (same class in scss)
+const cartItemButtonClasses =
+  "ms-auto flex h-[25px] w-auto flex-none flex-row-reverse items-center rounded-lg bg-button-bg px-1 text-[14px] text-white [&_span]:w-[25px] [&_span]:text-center [&_button]:m-0 [&_button]:flex [&_button]:w-[25px] [&_button]:cursor-pointer [&_button]:items-center [&_button]:justify-center [&_button]:border-0 [&_button]:bg-transparent [&_button]:p-0 [&_button]:leading-[25px] [&_button]:text-white [&_button]:outline-none [&_button:hover]:outline-none [&_button:active]:outline-none [&_button:focus]:outline-none";
 
 const CartItem = ({
   id,
@@ -140,14 +151,16 @@ const CartItem = ({
   // TODO: continue from here
 
   return (
-    <div
-      className={`${style.cartItem} ${installment_payment ? style.cartItemInstallmentPayment : ""}`}
-    >
+    <div className="relative flex flex-wrap items-center justify-center gap-[15px] border-0 border-b border-solid border-gray px-0 py-2">
       {installment_payment && (
-        <ListProductSnappayNotif className={style.listSnappayNotif} />
+        <ListProductSnappayNotif className="left-0 top-[5px] text-[10px]" />
       )}
       <div
-        className={`${style.cartItemImage} ${!product_pic ? style.cartItemDefaultImage : ""}`}
+        className={`flex items-center justify-center overflow-hidden rounded-lg shadow-[0_0_6px_0px_rgba(0,0,0,0.15)] ${
+          !product_pic
+            ? "h-[60px] w-[60px] p-3 [&_img]:!h-10 [&_img]:!w-10"
+            : "h-auto w-auto"
+        }`}
       >
         <a href={url} onClick={onClickHandler} target="_blank">
           <Image
@@ -156,21 +169,34 @@ const CartItem = ({
             width={0}
             height={0}
             sizes="100vw"
-            className={!!product_pic ? style[imageType()] : style.square}
+            className={`max-h-full min-w-[60px] max-w-[110px] object-contain ${
+              !!product_pic
+                ? imageTypeClasses[imageType()]
+                : imageTypeClasses.square
+            }`}
           />
         </a>
       </div>
-      <div className={style.cartItemContent}>
-        <div className={style.cartItemTitle}>
-          <a href={url} onClick={onClickHandler} target="_blank">
+      <div className="flex min-h-[70px] flex-1 flex-col justify-between">
+        <div className="mb-2 flex flex-col items-start gap-[3px]">
+          <a
+            href={url}
+            onClick={onClickHandler}
+            target="_blank"
+            className={`line-clamp-2 overflow-hidden text-ellipsis text-right font-semibold leading-[17px] text-black ${
+              installment_payment ? "pe-16" : "pe-[25px]"
+            }`}
+          >
             {product_title}
           </a>
           {description() && (
-            <span className={style.cartItemDescription}>{description()}</span>
+            <span className="text-[11px] leading-[18px] text-[#88898d]">
+              {description()}
+            </span>
           )}
         </div>
 
-        <div className={style.cartItemFooter}>
+        <div className="flex items-end">
           {/* TODO: use general ProductPrice component */}
           <ProductPrice
             mainPrice={price_main}
@@ -179,18 +205,18 @@ const CartItem = ({
             app={Apps.BASE}
             size={14}
             colorVariant="simple"
-            className={style.cartItemPrice}
+            className="max-w-28"
           />
           {canIncrease ? (
             <QuantityProductButton
               orderId={id}
               orderType={product_type}
               quantity={quantity}
-              className={style.cartItemButton}
+              className={cartItemButtonClasses}
               app={Apps.BASE}
             />
           ) : (
-            <div className={style.cartItemButton}>
+            <div className={cartItemButtonClasses}>
               <button
                 onClick={cartActionsLoadingHandler(() =>
                   cartActions.removeFromCart(id),
@@ -206,9 +232,12 @@ const CartItem = ({
           )}
         </div>
         {!!variants && variants.length > 0 ? (
-          <div className={style.cartItemVariants}>
+          <div className="flex flex-row flex-wrap">
             {variants.map((variant) => (
-              <span key={variant.product_variant_id}>
+              <span
+                key={variant.product_variant_id}
+                className="me-[5px] mt-[5px] rounded-[50px] bg-[#f8f8f8] px-[10px] py-0 text-[10px] leading-[18px] text-[#88898d]"
+              >
                 {variant.option_title}
                 {!variant.check_box ? ": " + variant.option_value : null}
               </span>

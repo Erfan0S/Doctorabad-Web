@@ -1,7 +1,7 @@
 import Accordion from "@/components/app/accordion";
-import {useSearchParams} from "next/navigation";
-import {useChangeSearchParamsFilter} from "@repo/core/hooks/useChangeSearchParamsFilter";
-import {useState} from "react";
+import { useSearchParams } from "next/navigation";
+import { useChangeSearchParamsFilter } from "@repo/core/hooks/useChangeSearchParamsFilter";
+import { useState } from "react";
 
 // custom checkbox: hide the input (peer), draw the box with label::before
 // and the checkmark with label::after (preflight is off, so border widths
@@ -11,7 +11,7 @@ const CHECKBOX_LABEL =
 
 type Props = {
   title: string;
-  items: {id: number; title: string}[];
+  items: { id: number; title: string }[];
   queryKey: string;
   singleSelection?: boolean;
 };
@@ -33,7 +33,7 @@ export const SelectFilter = ({
   const activeItems = filter ? filter.split(",") : [];
 
   const filteredItems = searchInList
-    ? items.filter(({title}) => title.includes(searchInList))
+    ? items.filter(({ title }) => title.includes(searchInList))
     : items;
 
   const changeCategoryFilter = (filterId: number, checked: boolean) => {
@@ -58,10 +58,13 @@ export const SelectFilter = ({
           />
         )}
         <ul className="market-orange-scrollbar my-[5px] max-h-[300px] list-none overflow-auto p-0">
-          {filteredItems.map(({id, title}) => {
+          {filteredItems.map(({ id, title }) => {
             const uniqueId = `checkbox_${queryKey}_${id}_id`;
             return (
-              <li key={id} className="border-b border-solid border-[#eee]">
+              <li
+                key={id}
+                className="border-0 border-b border-solid border-[#eee]"
+              >
                 <input
                   className="peer hidden"
                   id={uniqueId}

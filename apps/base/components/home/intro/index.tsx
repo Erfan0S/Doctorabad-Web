@@ -8,27 +8,26 @@ import pwa from "@/assets/img/d4.png";
 import anardoni from "@/assets/img/d6.jpg";
 import iApps from "@/assets/img/d7.jpg";
 import sibIrani from "@/assets/img/d8.jpg";
-import style from "./Intro.module.scss";
 import { LeftArrow } from "@/assets/svg/leftArrow";
 import { AngleDown } from "@repo/shared_modules/icons";
 import { HomeStatisticsType } from "@/types/homeStatistics";
 
 const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
   return (
-    <section className={style.intro}>
+    <section className="py-[60px] max-[768px]:py-5">
       <div className="container">
-        <div className={style.introWrapper}>
-          <div className={style.introImage}>
-            <Image src={person || ""} alt="person" />
+        <div className="relative flex h-[550px] rounded-[56px] bg-green-base px-10 pt-10 pb-0 [&>svg]:absolute [&>svg]:left-1/2 [&>svg]:bottom-[-1px] [&>svg]:h-auto [&>svg]:w-[201px] [&>svg]:-translate-x-1/2 max-[1200px]:h-[450px] max-[992px]:h-[350px] max-[992px]:rounded-[40px] max-[992px]:px-5 max-[992px]:pt-5 max-[768px]:h-auto max-[768px]:flex-col-reverse max-[768px]:items-stretch max-[768px]:rounded-[32px] max-[768px]:pt-[60px] max-[768px]:[background:radial-gradient(circle_at_center_72%,#2eb41f,#8fcc1a_35%)]">
+          <div className="flex w-1/2 flex-[0_0_50%] justify-center self-end max-[768px]:w-full max-[768px]:flex-[unset] max-[768px]:self-center">
+            <Image src={person || ""} alt="person" className="h-auto max-w-[320px]" />
           </div>
-          <div className={style.introContent}>
-            <span>دنیای شیرین علوم‌پزشکی در دستان من!</span>
-            <p>
+          <div className="flex w-1/2 flex-[0_0_50%] flex-col items-center self-center text-center text-white max-[768px]:mb-10 max-[768px]:w-full max-[768px]:flex-[unset]">
+            <span className="mb-4 block text-[26px] font-black max-[992px]:text-[22px]">دنیای شیرین علوم‌پزشکی در دستان من!</span>
+            <p className="mb-10 max-w-[400px] text-[16px] font-semibold max-[992px]:text-[14px]">
               دکترآباد؛ بستر جامع آموزش و پرورش گروه علوم‌پزشکی کشور بیش از 9
               سال انتخاب اول دانشجویان و فارغ التحصیلان
             </p>
 
-            <div className={style.downloadLinks}>
+            <div className="grid w-full max-w-[400px] grid-cols-3 gap-1 [&_a]:block [&_a]:w-full [&_img]:block [&_img]:h-auto [&_img]:w-full [&_img]:rounded-[0.65rem] max-[768px]:max-w-[360px] max-[768px]:[&_img]:rounded-[0.5rem] max-[480px]:grid-cols-2">
               <Link href={statistic.google_play_url} target={"_blank"}>
                 <Image src={googlePlay || ""} alt="googlePlay" />
               </Link>
@@ -58,15 +57,21 @@ const Intro = ({ statistic }: { statistic: HomeStatisticsType }) => {
               </Link>
             </div>
 
-            <Link className={style.changelogLink} href="/changelog">
-<p>لیست تغییرات در بروزرسانی جدید</p>
+            <Link
+              className="mt-[30px] flex items-center justify-center gap-[5px] text-inherit no-underline hover:text-inherit hover:no-underline active:text-inherit visited:text-inherit [&_p]:mb-0 [&_p]:text-inherit"
+              href="/changelog"
+            >
+              <p>لیست تغییرات در بروزرسانی جدید</p>
               <LeftArrow width={22} height={22} />
             </Link>
           </div>
-          <a href={"#biBanner-drlearn"} className={style.introArrow}>
-            <AngleDown />
-            <AngleDown />
-            <AngleDown />
+          <a
+            href={"#biBanner-drlearn"}
+            className="absolute left-1/2 bottom-[-8px] z-10 flex -translate-x-1/2 cursor-pointer flex-col items-center"
+          >
+            <AngleDown className="h-4 w-4 text-[#ddd] animate-[pulse-grow_1.5s_linear_infinite]" />
+            <AngleDown className="mt-[-11.2px] h-5 w-5 text-[#ddd] animate-[pulse-grow_1.5s_linear_infinite] [animation-delay:0.5s]" />
+            <AngleDown className="mt-[-14px] h-6 w-6 text-[#ddd] animate-[pulse-grow_1.5s_linear_infinite] [animation-delay:1s]" />
           </a>
           <svg xmlns="http://www.w3.org/2000/svg" width="201px" height="31px">
             <path

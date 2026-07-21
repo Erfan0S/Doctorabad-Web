@@ -1,6 +1,5 @@
 import { ModalProps } from "@repo/core/types/modals";
 import React from "react";
-import style from "./modalWrapper.module.scss";
 import { Button } from "..";
 import { Apps } from "@repo/core/types/general";
 // @ts-ignore
@@ -58,10 +57,12 @@ function ModalWrapper({
 
   return (
     <div
-      className={`${style.modalWrapper} ${className} ${style[app]} ${appIcon && style.haveAppIcon}`}
+      className={`relative flex min-h-[300px] min-w-[300px] max-w-[500px] flex-col items-center justify-center rounded-[15px] bg-white p-[10px] pb-[30px] max-[300px]:min-w-[100vw] ${className} ${app} ${appIcon && "pt-[50px]"}`}
     >
       {haveAppIcon && (appIcon || customIcon) && (
-        <div className={`card ${style.appIcon}`}>
+        <div
+          className={`card absolute right-1/2 top-0 translate-x-1/2 -translate-y-1/2 bg-white p-[5px] [&_img]:h-[60px] [&_img]:w-[60px] [&_img]:rounded-[10px]`}
+        >
           {customIcon
             ? customIcon
             : appIcon && <Image src={appIcon} alt="appIcon" />}
@@ -69,7 +70,7 @@ function ModalWrapper({
       )}
       {children}
       {haveCloseBtn && (
-        <div className={style.closeBtn}>
+        <div className="absolute bottom-0 right-1/2 flex min-w-[100px] flex-none translate-x-1/2 translate-y-[25px] flex-col gap-[5px] [&_button]:w-full">
           {submitButton ? (
             submitButton
           ) : (

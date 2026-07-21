@@ -6,7 +6,6 @@ import Image from "next/image";
 import clubImage from "../../../assets/img/club.png";
 // @ts-ignore
 import coinIcon from "../../../assets/img/coin.png";
-import style from "./Pay.module.scss";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useCart } from "@repo/core/states/cart";
 import { ShippingMethod, DiscountInfo } from "@repo/core/types/cart";
@@ -19,6 +18,11 @@ import OptionSwitch from "../../../common/components/optionSwitch";
 import { CartPayInfo } from "../../types/cart";
 import { calcPriceToPay } from "../../utils/calcPriceToPay";
 import { Apps } from "@repo/core/types/general";
+
+// SCSS→Tailwind: shared classes for the two payDiscount input wrappers
+const payFieldWrapperClasses = "relative mb-2 mt-2 w-full";
+const paySumPriceClasses = "my-1 text-center";
+const paySumPriceTextClasses = "block text-[14px] font-semibold text-app-base";
 
 type Props = {
   shippingMethod: ShippingMethod | undefined;
@@ -93,7 +97,7 @@ const Pay = ({
   }, [discountInfo]);
 
   const discountInput = (
-    <div className={style.payDiscount}>
+    <div className={payFieldWrapperClasses}>
       <input
         type="text"
         placeholder="کد تخفیف"
@@ -101,9 +105,10 @@ const Pay = ({
         onChange={(e) =>
           setPayInfo((prev) => ({ ...prev, discountCode: e.target.value }))
         }
+        className="block w-full rounded-lg border-2 border-solid border-gray py-0 pe-12 ps-3 leading-[36px] focus-visible:border-app-base focus-visible:outline-none"
       />
       {discountLoading && (
-        <span className={style.payDiscountLoader}>
+        <span className="absolute left-3 top-1/2 -translate-y-1/2">
           <Loading size={15} />
         </span>
       )}
@@ -114,13 +119,14 @@ const Pay = ({
   );
 
   const descriptionInput = (
-    <div className={style.payDiscount}>
+    <div className={payFieldWrapperClasses}>
       <textarea
         placeholder="هر توضیحی درباره این سفارش دارین اینجا بنویسین..."
         value={description}
         onChange={(e) =>
           setPayInfo((prev) => ({ ...prev, description: e.target.value }))
         }
+        className="block w-full rounded-lg border-2 border-solid border-gray py-0 pe-12 ps-3 text-[11px] focus-visible:border-app-base focus-visible:outline-none"
       />
     </div>
   );
@@ -132,58 +138,62 @@ const Pay = ({
   }, [discountCode]);
 
   return (
-    <div className={`${style.pay} ${drProMode ? style.pro : ""}`}>
-      <div className={style.payTitle}>
+    <div
+      className={`market-panel flex h-full flex-col p-6 max-xl:h-auto ${
+        drProMode ? "[--app-base:#3b9e97]" : "[--app-base:#4fcc4c]"
+      }`}
+    >
+      <div className="checkout-title">
         <span>صورتحساب من</span>
       </div>
       {!drProMode && (
         <>
-          <div className={style.payClub}>
+          <div className="mb-5 text-center [&_img]:mb-2 [&_img]:h-auto [&_img]:max-w-[160px]">
             <Image src={clubImage} alt="Club" />
-            <p>
+            <p className="mb-0 font-semibold text-[#463d89]">
               با تکمیل این سفارش {coins}{" "}
               <Image width={20} height={20} src={coinIcon} alt="coin" /> میگیرم!
             </p>
           </div>
-          <div className={style.payDetail}>
-            <ul>
+          <div className="mx-auto w-full max-w-[200px]">
+            <ul className="m-0 list-none p-0">
               {shippingMethod &&
                 (!!shippingMethod.price || !!shippingMethod.price_text) &&
                 Number(count) > 0 && (
-                  <li>
+                  <li className="mb-1 flex items-center justify-between text-[13px] font-medium leading-[30px] text-gray">
                     <span>هزینه ارسال:</span>
                     {shippingMethod.price > 0 ? (
                       <span>
                         {priceFormatter(shippingMethod.price)}
-                        <small>تومن</small>
+                        <small className="ms-1">تومن</small>
                       </span>
                     ) : (
-                      <span className={style.priceText}>
+                      <span className="text-left">
                         {shippingMethod.price_text}
                       </span>
                     )}
                   </li>
                 )}
-              <li>
+              <li className="mb-1 flex items-center justify-between text-[13px] font-medium leading-[30px] text-gray">
                 <span>مجموع:</span>
                 <span>
                   {priceFormatter(price_paid)}
-                  <small>تومن</small>
+                  <small className="ms-1">تومن</small>
                 </span>
               </li>
-              <li>
+              <li className="mb-1 flex items-center justify-between text-[13px] font-medium leading-[30px] text-gray">
                 <span>سود من:</span>
                 <span>
                   {priceFormatter(my_profit)}
-                  <small>تومن</small>
+                  <small className="ms-1">تومن</small>
                 </span>
               </li>
             </ul>
           </div>
         </>
       )}
-      <div className={style.payOptions}>
-        <ul>
+      <div className="mx-auto mb-2 w-full max-w-[200px]">
+        <ul className="m-0 list-none p-0">
           {!drProMode && (
             <OptionSwitch
               title="توضیحات سفارش"
@@ -217,8 +227,11 @@ const Pay = ({
       </div>
       {payWithCredit && (
         <>
-          <div className={style.paySumPrice}>
-            <span style={{ textDecoration: "line-through", color: "#000" }}>
+          <div className={paySumPriceClasses}>
+            <span
+              className={paySumPriceTextClasses}
+              style={{ textDecoration: "line-through", color: "#000" }}
+            >
               {priceFormatter(
                 calcPriceToPay(price_paid, payInfo, shippingMethod?.price, 0),
               )}{" "}
@@ -228,13 +241,13 @@ const Pay = ({
           {/* <div className={style.paySumPrice}>
             <span>پرداخت با اعتبار : {priceFormatter(Math.min(user_credit, finalPrice))} تومن</span>
           </div> */}
-          <div className={style.paySumPrice}>
-            <span>اعتبار من : {priceFormatter(user_credit)} تومن</span>
+          <div className={paySumPriceClasses}>
+            <span className={paySumPriceTextClasses}>اعتبار من : {priceFormatter(user_credit)} تومن</span>
           </div>
         </>
       )}
-      <div className={style.paySumPrice}>
-        <span>
+      <div className={paySumPriceClasses}>
+        <span className={paySumPriceTextClasses}>
           قابل پرداخت:{" "}
           {priceFormatter(
             calcPriceToPay(

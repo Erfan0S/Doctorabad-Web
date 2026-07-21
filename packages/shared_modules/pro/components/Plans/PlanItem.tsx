@@ -2,7 +2,18 @@
 
 import type { PlanItem as DrProPlanItem } from "@repo/core/types/dr-pro";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
-import styles from "./Plans.module.scss";
+const planItemCls =
+  "flex w-full cursor-pointer items-center gap-3 rounded-2xl border-solid bg-white px-4 py-3 transition-[border-width] duration-150 ease-[ease]";
+const planItemSelectedCls = "border-2 border-green-pro";
+const planItemUnselectedCls = "border border-black";
+const radioCls = "h-5 w-5 shrink-0 cursor-pointer accent-green-pro";
+const titleCls = "flex-1 text-[16px] font-bold text-black text-end";
+const pricesCls = "flex shrink-0 flex-col items-center gap-2";
+const mainPriceCls = "text-[14px] text-gray line-through";
+const offPriceCls = "text-[16px] font-extrabold text-green-pro";
+const discountPercentCls =
+  "rounded-lg bg-green-pro px-2 py-[2px] text-[13px] font-bold text-white";
+const discountCls = "flex flex-row-reverse gap-[5px]";
 
 interface PlanItemProps {
   plan: DrProPlanItem;
@@ -21,28 +32,28 @@ export default function PlanItem({ plan, selected, onSelect }: PlanItemProps) {
   const displayPrice = plan.off_price ?? plan.main_price;
 
   return (
-    <label className={`${styles.planItem} ${selected ? styles.selected : ""}`}>
+    <label className={`${planItemCls} ${selected ? planItemSelectedCls : planItemUnselectedCls}`}>
       <input
         type="radio"
         name="dr-pro-plan"
         checked={selected}
         onChange={() => onSelect(plan.id)}
-        className={styles.radio}
+        className={radioCls}
       />
-      <span className={styles.title}>{plan.title}</span>
-      <div className={styles.prices}>
-        <div className={styles.discount}>
+      <span className={titleCls}>{plan.title}</span>
+      <div className={pricesCls}>
+        <div className={discountCls}>
 
       {discountPercent != null && (
-          <span className={styles.discountPercent}>{discountPercent}٪</span>
+          <span className={discountPercentCls}>{discountPercent}٪</span>
         )}
         {hasDiscount && (
-            <span className={styles.mainPrice}>
+            <span className={mainPriceCls}>
             {priceFormatter(plan.main_price)} تومان
           </span>
         )}
         </div>
-        <span className={styles.offPrice}>
+        <span className={offPriceCls}>
           {priceFormatter(displayPrice)} تومان
         </span>
 

@@ -2,7 +2,6 @@
 import { Autoplay, Pagination } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
-import style from "./MainSlider.module.scss";
 import "swiper/css/pagination";
 import "swiper/css";
 
@@ -31,10 +30,8 @@ const MainSlider = ({
   if (!banners.length) return null;
 
   return (
-    <div
-      className={`${style[app]} container ${isMobileLayout ? style.mobile : ""}`}
-    >
-      <div className={style.mainSlider}>
+    <div className={`${app} container ${isMobileLayout ? "my-2" : ""}`}>
+      <div className="relative overflow-hidden rounded-[20px] shadow-[0_0_6px_rgba(0,0,0,0.4)] [&_div]:bg-transparent [&_.swiper-pagination]:bottom-[8px] [&_.swiper-pagination-bullet]:h-[7px] [&_.swiper-pagination-bullet]:w-[7px] [&_.swiper-pagination-bullet]:bg-white [&_.swiper-pagination-bullet]:opacity-50 [&_.swiper-pagination-bullet-active]:!w-[22px] [&_.swiper-pagination-bullet-active]:!opacity-100 [&_.swiper-pagination-bullet-active]:rounded-[4px]">
         <Swiper
           modules={[Pagination, Autoplay]}
           autoplay={autoPlayConfig}
@@ -56,9 +53,11 @@ const MainSlider = ({
             );
             return (
               <SwiperSlide key={id}>
-                <div className={style.mainSliderItem}>
+                <div className="h-[400px] rounded-[20px] max-md:h-[50vw] [&_a]:block [&_a]:h-full [&_img]:h-full [&_img]:w-full [&_img]:rounded-[20px] [&_img]:object-cover">
                   {title && (
-                    <div className={style.mainSliderItemTitle}>{title}</div>
+                    <div className="absolute inset-x-0 top-0 z-[2] min-h-[50px] bg-gradient-to-b from-[#161616] to-transparent p-[10px] ps-[20px] text-start text-[16px] font-bold text-white">
+                      {title}
+                    </div>
                   )}
                   {url ? (
                     <Link href={url}>

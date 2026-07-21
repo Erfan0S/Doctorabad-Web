@@ -1,5 +1,4 @@
 import Image from "next/image";
-import style from "./SidePanelProfile.module.scss";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../api/Api";
 import { UserAvatar } from "@repo/core/types/user";
@@ -22,7 +21,7 @@ const ProfileAvatars: React.FC<Props> = ({ onAvatarSelect }) => {
 
   return (
     <>
-      <div className={style.formAvatars}>
+      <div className="flex flex-wrap justify-center gap-7 overflow-hidden">
         {data?.data.map((item) => (
           <Image
             key={item.filename || placeHolderDataUrl}
@@ -30,6 +29,7 @@ const ProfileAvatars: React.FC<Props> = ({ onAvatarSelect }) => {
             width={75}
             height={75}
             alt="avatarImage"
+            className="cursor-pointer rounded-full border border-solid border-[#c3c3c3c3] p-0.5 hover:border-[#f54f1a] hover:[transition:ease-in-out_0.1s]"
             onClick={() => mutate(item)}
           />
         ))}

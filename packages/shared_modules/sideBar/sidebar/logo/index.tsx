@@ -1,4 +1,3 @@
-import style from "../Sidebar.module.scss";
 import logoType from "../../../assets/img/logo-type.png";
 import { Squircle } from "@repo/shared_modules/icons";
 import Image from "next/image";
@@ -10,10 +9,10 @@ interface Props {
 
 const SidebarLogo = ({ active = false }: Props) => {
   return (
-    <div className={style.sidebarLogo}>
+    <div className="app-sidebar-logo">
       {active && (
         <>
-          <div className={style.sidebarLogoShape} />
+          <div className="app-sidebar-logo-shape" />
           <Squircle />
         </>
       )}
