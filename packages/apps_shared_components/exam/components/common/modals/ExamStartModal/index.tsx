@@ -2,7 +2,6 @@ import { Apps } from "@repo/core/types/general";
 import { ModalProps } from "@repo/core/types/modals";
 import { ModalWrapper, OptionSwitch } from "@repo/shared_modules/components";
 import React, { useState } from "react";
-import style from "./ExamStartodal.module.scss";
 import { useRouter } from "next/navigation";
 import { Input } from "@repo/shared_modules/ui";
 import { inBoundValue } from "@repo/core/utils/inBoundValue";
@@ -11,6 +10,12 @@ import { ExamStatus } from "@repo/apps_shared_components/exam/types";
 import { SharedFilters } from "@repo/apps_shared_components/exam/types";
 import { ExamType } from "@repo/apps_shared_components/exam/types";
 import { baseUrls, examPaths } from "@repo/core/constants/routePath";
+
+const wrapperCls =
+  "!min-h-[200px] !min-w-[250px] !justify-start gap-5 !px-5 !pb-10 items-center";
+const infoCls = "flex flex-col gap-[5px] text-[13px] font-medium";
+const optionsCls = "flex w-full flex-col items-center gap-[5px]";
+const timeCls = "max-w-[200px]";
 
 type Props = ModalProps<{
   exam: ExamType;
@@ -45,7 +50,7 @@ function ExamStartModal({ closeModal, data }: Props) {
 
   return (
     <ModalWrapper
-      className={style.examStartModalWrapper}
+      className={wrapperCls}
       app={Apps.EXAM}
       closeModal={closeModal}
       haveAppIcon
@@ -53,11 +58,11 @@ function ExamStartModal({ closeModal, data }: Props) {
       onSubmit={handleStart}
     >
       <h3>{exam.title}</h3>
-      <div className={style.examStartModalInfo}>
+      <div className={infoCls}>
         <span>{exam.date}</span>
         <span>{exam.place}</span>
       </div>
-      <div className={style.examStartModalOptions}>
+      <div className={optionsCls}>
         <OptionSwitch
           name="Show_Record"
           title="نمایش کارنامه تحلیلی"
@@ -74,7 +79,7 @@ function ExamStartModal({ closeModal, data }: Props) {
           <Input
             type="number"
             placeholder="زمان آزمون(حداکثر 300 دقیقه)"
-            className={style.examStartModalTime}
+            className={timeCls}
             onChange={(e) =>
               setManualTime(inBoundValue(Number(e.target.value), 0, 300))
             }
