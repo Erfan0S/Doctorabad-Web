@@ -14,11 +14,16 @@ import HeadphoneIcon from "../../assets/svg/headphone";
 import { isServerSide } from "@repo/core/constants/constants";
 import getCheckoutUrl from "@repo/core/utils/getCheckoutUrl";
 import DrClubIcon from "../../assets/svg/drClub";
-import style from "./HeaderButtons.module.scss";
 
 type Props = {
   variant?: "header" | "sidebar";
 };
+
+const buttonClass =
+  "relative flex h-8 min-w-[32px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#AFAFAF] bg-white px-[4.8px] py-0 max-[375px]:h-[25px] max-[375px]:min-w-[25px] max-[375px]:ms-1 [&_img]:h-5 [&_img]:w-5 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:text-[#141F23] max-[375px]:[&_img]:h-[18px] max-[375px]:[&_img]:w-[18px] max-[375px]:[&_svg]:h-[18px] max-[375px]:[&_svg]:w-[18px]";
+
+const badgeClass =
+  "absolute -top-[6px] start-[10px] z-10 flex h-5 w-5 items-center justify-center rounded-full border border-solid border-white bg-[#ff0307] text-[10px] font-semibold text-white shadow-[0_0_3px_rgba(0,0,0,0.9)]";
 
 function HeaderButtons({ variant = "header" }: Props) {
   const cart = useCart();
@@ -47,11 +52,17 @@ function HeaderButtons({ variant = "header" }: Props) {
   }, []);
 
   return (
-    <div className={`${style.buttons} ${style[variant]}`}>
-      <button onClick={openSideMenu(SidePanelPage.MAIN)}>
+    <div
+      className={`flex gap-2 ${
+        variant === "sidebar"
+          ? "order-[initial] flex-wrap justify-center"
+          : "order-2 justify-start"
+      }`}
+    >
+      <button onClick={openSideMenu(SidePanelPage.MAIN)} className={buttonClass}>
         <HomeIcon />
         {isSuccess && data.data.data.counter > 0 && (
-          <span className={style.buttonsBadge}>{data.data.data.counter}</span>
+          <span className={badgeClass}>{data.data.data.counter}</span>
         )}
       </button>
       <button
@@ -61,6 +72,7 @@ function HeaderButtons({ variant = "header" }: Props) {
             data: { fromHome: true },
           })
         }
+        className={buttonClass}
       >
         <HeadphoneIcon />
       </button>
@@ -70,19 +82,19 @@ function HeaderButtons({ variant = "header" }: Props) {
             window.open(getCheckoutUrl(true), "_self");
           }
         })}
-        className={style.cartButton}
+        className={buttonClass}
       >
         <CartIcon />
         {cart.count > 0 && (
-          <span className={style.buttonsBadge}>{cart.count}</span>
+          <span className={badgeClass}>{cart.count}</span>
         )}
       </button>
       <button
         onClick={openSideMenu(SidePanelPage.CLUB)}
-        className={style.cartButton}
+        className={`${buttonClass} ${variant === "sidebar" ? "w-[90px]" : ""}`}
       >
         <DrClubIcon />
-        <div className={style.drClubPoints}>
+        <div className="text-[0.9rem] font-bold text-green-base">
           {userCoinPoints?.data.data.coin_sum}
         </div>
       </button>

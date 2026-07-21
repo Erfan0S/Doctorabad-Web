@@ -1,6 +1,5 @@
 "use client";
 
-import style from "./MobileHeader.module.scss";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
 import { Apps } from "@repo/core/types/general";
 import { useQuery } from "@tanstack/react-query";
@@ -26,8 +25,10 @@ const MobileHeaderBase = ({ type, className }: Props) => {
     isActivePlanSuccess && (activePlanData?.data?.data?.left_days ?? 0) > 0;
 
   return (
-    <div className={`${style.mobileHeader} ${style[type]} ${className ?? ""}`}>
-      <div className={style.left}>
+    <div
+      className={`flex w-full flex-row-reverse items-center justify-between py-[5px] ${type} ${className ?? ""}`}
+    >
+      <div className="order-1 flex items-center gap-2">
         <Logo />
         <ProTag active={isPro} />
       </div>
