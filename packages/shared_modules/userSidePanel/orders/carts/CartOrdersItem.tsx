@@ -1,6 +1,5 @@
 import React from "react";
 import { PreviousOrder } from "../../../checkout/types/orders";
-import style from "./cartOrders.module.scss";
 import { CartIcon } from "../../../assets";
 import CartCheckIcon from "../../../assets/svg/cartCheck";
 import CardCheck from "../../../assets/svg/cardCheck";
@@ -18,11 +17,11 @@ function CartOrdersItem({ order }: { order: PreviousOrder }) {
   };
 
   return (
-    <div className={`card ${style.cartOrdersItem}`} onClick={handleOnClick}>
-      <div className={style.cartOrdersItemIcon}>
+    <div className="card flex cursor-pointer flex-row items-center justify-start gap-[15px] border border-solid border-gray-light p-2 shadow-[0_2px_4px_rgba(0,0,0,0.1)]" onClick={handleOnClick}>
+      <div className="flex items-center justify-center rounded-[10px] border border-solid border-gray-light bg-white p-3 [&_svg]:h-auto [&_svg]:w-[45px] [&_svg]:text-[30px] [&_svg]:text-green">
         <CartIcon />
       </div>
-      <div className={style.cartOrdersItemInfo}>
+      <div className="flex flex-wrap items-stretch justify-start gap-4 text-[11px] text-gray [&_svg]:h-auto [&_svg]:w-[17px] [&>div]:flex [&>div]:flex-col [&>div]:justify-end [&>div]:gap-2 [&_span]:flex [&_span]:items-center [&_span]:gap-2 max-[425px]:text-[10px] max-[425px]:[&_svg]:w-[15px]">
         <div>
           <span>
             <CartCheckIcon /> {order.order_code}

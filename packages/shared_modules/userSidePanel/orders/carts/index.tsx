@@ -7,7 +7,6 @@ import { api } from "../../../api/Api";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../common/components";
 import CartOrdersItem from "./CartOrdersItem";
-import style from "./cartOrders.module.scss";
 
 const PrevCarts: React.FC<SidePanelPageProps> = ({ setPage }) => {
   const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
@@ -33,7 +32,7 @@ const PrevCarts: React.FC<SidePanelPageProps> = ({ setPage }) => {
       {isLoading && !data ? (
         <Loading pageLoader />
       ) : (
-        <div className={style.cartOrders}>
+        <div className="[&>div]:flex [&>div]:max-h-[calc(100vh-61px)] [&>div]:flex-col [&>div]:items-stretch [&>div]:justify-start [&>div]:gap-4 [&>div]:overflow-y-auto [&>div]:p-4">
           <InfiniteScroll
             loadMore={() => fetchNextPage()}
             hasMore={hasNextPage}

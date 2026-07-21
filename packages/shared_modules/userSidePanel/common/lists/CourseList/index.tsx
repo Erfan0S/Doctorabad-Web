@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./CourseList.module.scss";
 import { CourseListItemType } from "@repo/core/types/course";
 import CourseListItem from "./CourseListItem";
 import { InfiniteData } from "@tanstack/react-query";
@@ -26,7 +25,7 @@ const CourseList = ({
   const router = useRouter();
 
   return (
-    <div className={styles.relatedCoursesWrapper}>
+    <div className="flex flex-col">
       <InfiniteScroll
         loadMore={() => fetchNextPage()}
         hasMore={hasNextPage}

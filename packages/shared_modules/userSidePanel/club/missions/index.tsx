@@ -4,7 +4,6 @@ import MissionsItem from "./MissionsItem";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { Loading } from "../../../common/components";
-import clubStyle from "../SidePanelClub.module.scss";
 import { toast } from "react-toastify";
 
 export default function Missions() {
@@ -50,7 +49,7 @@ export default function Missions() {
   });
 
   return (
-    <div className={clubStyle.clubContainer}>
+    <div className="px-3 py-4">
       {missions.map((m, i) => (
         <MissionsItem mission={m} key={i} />
       ))}

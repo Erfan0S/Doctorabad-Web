@@ -1,5 +1,4 @@
 import Image from "next/image";
-import style from "./SidePanelOrdersLearning.module.scss";
 import Link from "next/link";
 import React from "react";
 import { Loading } from "@repo/shared_modules/components";
@@ -52,28 +51,28 @@ const SidePanelFavoritesLearning: React.FC = () => {
         </div>
       }
     >
-      <div className={style.sidePanelFavoritesLearning}>
+      <div>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.map(({ created_at, id, oder_code, price_paid }) => (
               <div
                 key={id}
-                className={style.sidePanelOrdersLearningItem}
+                className="relative mb-2 cursor-pointer rounded-2xl bg-white p-2 shadow-[0_3px_5px_rgba(0,0,0,0.05)] transition-all duration-150 hover:shadow-[0_0_5px_rgba(0,0,0,0.15)] [&>a]:absolute [&>a]:inset-0 [&>a]:z-[2] [&>a]:rounded-2xl"
                 onClick={() =>
                   modalActions.addModal(ModalTypes.ORDER_DETAIL, {
                     orderCode: oder_code,
                   })
                 }
               >
-                <div className={style.sidePanelOrdersLearningItemContent}>
-                  <div className={style.sidePanelFavoritesLearningItem}>
-                    <div className={style.sidePanelOrdersLearningItemCart}>
+                <div className="flex flex-[0_0_calc(100%-100px)] flex-col ps-3">
+                  <div>
+                    <div className="mb-1 [&_span]:me-2 [&_span]:flex [&_span]:items-center [&_span]:text-base [&_span]:font-semibold [&_span]:text-[#f54f1a] [&_span:last-of-type]:me-0 [&_span_svg]:me-1 [&_span_svg]:h-5 [&_span_svg]:w-5 [&_span_svg]:fill-[#f54f1a]">
                       <span>
                         <Basket />
                         {oder_code}
                       </span>
                     </div>
-                    <div className={style.sidePanelOrdersLearningItemFooter}>
+                    <div className="mt-auto flex items-center [&_span]:me-2 [&_span]:flex [&_span]:items-center [&_span]:text-[11px] [&_span]:text-gray [&_span:last-of-type]:me-0 [&_span:last-of-type]:ms-auto [&_span_svg]:me-1 [&_span_svg]:h-[18px] [&_span_svg]:w-[18px] [&_small]:ms-auto [&_small]:rounded [&_small]:bg-[#ccc] [&_small]:px-1 [&_small]:leading-5 [&_small]:text-white">
                       <span>
                         <Clock fill="#949494" />{" "}
                         {toFullPersianDateString(created_at)}

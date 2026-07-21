@@ -1,5 +1,3 @@
-import style from "./SidePanelFavoritesShopping.module.scss";
-
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { Product } from "@repo/core/types/product";
@@ -45,7 +43,7 @@ const SidePanelFavoritesShopping: React.FC = () => {
         </div>
       }
     >
-      <div className={style.sidePanelFavoritesLearning}>
+      <div>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.map((item) => (

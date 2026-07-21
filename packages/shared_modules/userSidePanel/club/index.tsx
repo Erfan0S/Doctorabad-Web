@@ -5,7 +5,6 @@ import {
 } from "@repo/core/types/sidePanel";
 import SidePanelHeader from "../header";
 import Image from "next/image";
-import style from "./SidePanelClub.module.scss";
 import { modalActions } from "@repo/core/modal/modals";
 import { ModalTypes } from "@repo/shared_modules/modalsTypes";
 import SidePanelClubSingle from "./singleShow";
@@ -84,9 +83,9 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
         }
       />
       {!isLoading && !userCoinPointsLoading ? (
-        <div className={style.sidePanelClub} id="clubListContainer">
-          <div className={style.sidePanelClubHeader}>
-            <div className={style.sidePanelClubHeaderImage}>
+        <div className="!max-h-[calc(100%-62px)] !flex-[0_0_calc(100%-62px)] overflow-y-auto overflow-x-hidden bg-header-bg" id="clubListContainer">
+          <div className="relative flex items-center bg-white px-3 py-4 before:absolute before:inset-x-0 before:top-0 before:z-[1] before:h-1/2 before:bg-green-base before:content-['']">
+            <div className="relative z-[2] flex h-[90px] w-[90px] flex-[0_0_90px] items-center justify-center rounded-2xl border-2 border-solid border-white bg-white shadow-[0_5px_15px_rgba(0,0,0,0.15)] [&_img]:max-h-full [&_img]:max-w-full [&_img]:rounded-2xl">
               <Image
                 src={data?.data.data.club_state_pic_url || placeHolderDataUrl}
                 alt="clubImage"
@@ -94,7 +93,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
                 height={90}
               />
             </div>
-            <div className={style.sidePanelClubHeaderContent}>
+            <div className="relative z-[2] flex flex-[0_0_calc(100%-90px)] flex-col ps-3 [&_span]:leading-[30px] [&_span:first-of-type]:mb-1 [&_span:first-of-type]:text-xl [&_span:first-of-type]:font-extrabold [&_span:first-of-type]:text-white [&_span:last-of-type]:text-lg [&_span:last-of-type]:font-bold [&_span:last-of-type]:text-green-base">
               <span>{userCoinPoints?.data.data.point_sum} امتیاز</span>
               <span>
                 {userCoinPoints?.data.data.coin_sum}
@@ -104,7 +103,7 @@ const SidePanelClub: React.FC<SidePanelPageProps> = ({ setPage }) => {
           </div>
           <UserSidePanelTabsController
             tabData={clubTabsData}
-            className={style.sidePanelClubContent}
+            className="!max-h-[calc(100%-122px)] !flex-[0_0_calc(100%-122px)] [&>div]:p-0"
           />
         </div>
       ) : (

@@ -1,4 +1,3 @@
-import style from "../SidePanelClubHistory.module.scss";
 import DownArrow from "../../../../assets/svg/downArrow";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { api } from "../../../../api/Api";
@@ -43,7 +42,6 @@ const SidePanelClubHistoryCoins: React.FC = () => {
           fetchNextPage();
         }}
         useWindow={false}
-        className={style.sidePanelClubHistory}
         getScrollParent={() =>
           document.getElementById("clubListContainer") as HTMLElement
         }
@@ -68,10 +66,10 @@ const SidePanelClubHistoryCoins: React.FC = () => {
                     title={reason}
                     badge={
                       <div
-                        className={`${style.sidePanelClubHistoryItemBadge} ${
+                        className={`flex flex-row items-center justify-center [&_span]:font-medium [&_span:first-of-type]:me-auto ${
                           isMinusTransaction
-                            ? style.sidePanelClubHistoryItemBadgeRed
-                            : style.sidePanelClubHistoryItemBadgeGreen
+                            ? "text-[#ff0000]"
+                            : "fill-green-base text-green-base [&_svg]:rotate-180"
                         }`}
                       >
                         <span>{amount} سکه</span>

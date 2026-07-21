@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../api/Api";
 import { Loading } from "../../../common/components";
 import UserRankDetail from "./userRankDetail";
-import style from "./ranking.module.scss";
 import RankingListItem from "./rankingListItem";
 
 const SidePanelClubRanking: React.FC = () => {
@@ -23,9 +22,9 @@ const SidePanelClubRanking: React.FC = () => {
   if (!data?.data) return null;
 
   return (
-    <div className={style.rankingContainer}>
+    <div className="h-full overflow-y-auto">
       <UserRankDetail detail={data.data.user_rank} user={userData?.data.data} />
-      <div className={style.rankingList}>
+      <div className="px-4 pb-5">
         {data.data.data.map((user, index) => (
           <RankingListItem key={user.id} user={user} rank={index + 1} />
         ))}

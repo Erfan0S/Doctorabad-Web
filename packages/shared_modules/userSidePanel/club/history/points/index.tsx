@@ -5,7 +5,6 @@ import ClubHistoryItem from "../historyItem";
 import InfiniteScroll from "react-infinite-scroller";
 import { Loading } from "../../../../common/components";
 import DownArrow from "../../../../assets/svg/downArrow";
-import style from "../SidePanelClubHistory.module.scss";
 
 function SidePanelClubHistoryPoints() {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -40,7 +39,6 @@ function SidePanelClubHistoryPoints() {
           fetchNextPage();
         }}
         useWindow={false}
-        className={style.sidePanelClubHistory}
         getScrollParent={() =>
           document.getElementById("clubListContainer") as HTMLElement
         }

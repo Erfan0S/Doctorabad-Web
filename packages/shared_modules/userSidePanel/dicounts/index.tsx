@@ -3,7 +3,6 @@ import { api } from "../../api/Api";
 import { SidePanelPageProps } from "@repo/core/types/sidePanel";
 import { Loading } from "../../common/components";
 import { DiscountItem } from "./DiscountItem";
-import styles from "./Discounts.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { PaginationOptions } from "swiper/types";
 import { Pagination } from "swiper/modules";
@@ -31,10 +30,10 @@ export const SidePanelDiscounts: React.FC<SidePanelPageProps> = ({
       {isLoading ? (
         <Loading />
       ) : (
-        <div className={styles.discountsWrapper}>
+        <div className="h-full w-full p-[50px] pb-[100px]">
           <Swiper
             modules={[Pagination]}
-            className={styles.swiper}
+            className="relative flex h-full flex-row overflow-visible [&_.swiper-pagination]:absolute [&_.swiper-pagination]:-bottom-[50px] [&_.swiper-pagination-bullet]:h-[10px] [&_.swiper-pagination-bullet]:w-[10px] [&_.swiper-pagination-bullet]:bg-black [&_.swiper-pagination-bullet-active]:!bg-green-base"
             spaceBetween={30}
             pagination={paginationOption}
             direction="horizontal"

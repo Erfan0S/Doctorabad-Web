@@ -5,7 +5,6 @@ import { Loading } from "../../../common/components";
 import { api } from "@repo/apps_shared_components/exam";
 import { SingleListItem } from "@repo/apps_shared_components/exam/components";
 import { isUserLoggedIn } from "@repo/core/utils/authUtils";
-import style from "./style.module.scss";
 
 // ! haveGeneralAccess dont exist in api, exam_id is not return and set currectly so add and remove from cart not working
 
@@ -24,7 +23,7 @@ const SidePanelFavoritesExam: React.FC = () => {
   });
 
   return (
-    <div className={style.listWrapper}>
+    <div className="flex w-full flex-col gap-4">
       {isLoading ? (
         <Loading />
       ) : !!data && data?.pages[0].data.data.length <= 0 ? (
@@ -34,7 +33,7 @@ const SidePanelFavoritesExam: React.FC = () => {
           loadMore={() => fetchNextPage()}
           hasMore={hasNextPage}
           loader={<Loading key="infinite-scroll-loader" />}
-          className={style.list}
+          className="flex w-full flex-col gap-4"
         >
           {data?.pages.map((page, i) => {
             return (
