@@ -1,5 +1,4 @@
 import MainBanner from "./banner";
-import style from "./Intro.module.scss";
 import { Banner } from "@/types/banner";
 import OrderInformation from "./orderInformation";
 import { api } from "@/api/Api";

@@ -3,7 +3,6 @@ import Footer from "@/components/common/footer";
 import { homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/grid.scss";
-import "../assets/styles/general.scss";
 import "@repo/tailwind-config/components.css";
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";

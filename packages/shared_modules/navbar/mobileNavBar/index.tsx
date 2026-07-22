@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import style from "./mobileNavbar.module.scss";
 import { navBarData } from "./nav-bar-data";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -34,7 +33,7 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
 
   return (
     <div
-      className={`${style.sidebarNav} ${onlyOnMobile && style.sidebarNavBarMobile}`}
+      className={`mobile-navbar ${onlyOnMobile && "mobile-navbar-mobile-only"}`}
     >
       <ul>
         {navBarData.map(
@@ -42,10 +41,10 @@ const MobileNavBar = ({ excludePaths, onlyOnMobile = true }: Porps) => {
             return (
               <li
                 key={id}
-                className={activeCondition(basePath) ? style.active : ""}
+                className={activeCondition(basePath) ? "active" : ""}
                 id={String(id)}
               >
-                <a href={href} className={style[color]}>
+                <a href={href}>
                   <div>
                     <Image src={image} alt={title} width={40} height={40} />
                   </div>

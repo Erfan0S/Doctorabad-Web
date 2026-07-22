@@ -1,9 +1,0 @@
-@import './variables';
-
-@function space($number) {
-    @return #{$number * $spacing}px;
-}
-
-@function radius($number) {
-    @return #{$number * $radius}px;
-}
