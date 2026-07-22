@@ -71,25 +71,25 @@ const AddAddress = ({
             {!loadingMap && Map ? <Map /> : <Loading size={15} />}
           </div> */}
           <ErrorMessage name="latitude" component="p" />
-          <div className="row">
-            <div className="col-lg-12">
+          <div className="flex flex-wrap -mx-[15px]">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_100%] lg:max-w-[100%]">
               <label>شماره همراه</label>
               <Field type="text" name="mobile" placeholder="شماره همراه" />
               <ErrorMessage name="mobile" component="p" />
             </div>
-            <div className="col-lg-6">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_50%] lg:max-w-[50%]">
               <label>گیرنده</label>
               <Field type="text" name="receiver" placeholder="گیرنده" />
               <ErrorMessage name="receiver" component="p" />
             </div>
 
-            <div className="col-lg-6">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_50%] lg:max-w-[50%]">
               <label>کد پستی</label>
               <Field type="text" name="postal_code" placeholder="کد پستی" />
               <ErrorMessage name="postal_code" component="p" />
             </div>
             <ProvinceCitySelection />
-            <div className="col-lg-12">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_100%] lg:max-w-[100%]">
               <label>آدرس</label>
               <Field
                 as="textarea"

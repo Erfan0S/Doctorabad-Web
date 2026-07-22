@@ -31,7 +31,7 @@ export const FieldGradeSelection = () => {
 
   return (
     <>
-      <div className="col-6">
+      <div className="relative w-full px-[15px] flex-[0_0_50%] max-w-[50%]">
         <div className={FORM_SELECT}>
           <Field
             defaultValue={values.field_id}
@@ -58,7 +58,7 @@ export const FieldGradeSelection = () => {
         </div>
       </div>
 
-      <div className="col-6">
+      <div className="relative w-full px-[15px] flex-[0_0_50%] max-w-[50%]">
         <div className={FORM_SELECT}>
           <Field
             as="select"

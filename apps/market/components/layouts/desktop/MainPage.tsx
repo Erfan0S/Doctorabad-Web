@@ -56,13 +56,13 @@ function DesktopMainPage({ sliders, amazingProducts, ProvidersList }: Props) {
       <Banners
         data={sliders.filter((s) => s.location === 5)}
         imageOptions={{ width: 250, height: 165 }}
-        className={classNames("col-6 col-lg-3")}
+        className={classNames("relative w-full px-[15px] flex-[0_0_50%] max-w-[50%] lg:flex-[0_0_25%] lg:max-w-[25%]")}
       />
 
       <Banners
         data={sliders.filter((s) => s.location === 6)}
         imageOptions={{ width: 140, height: 110 }}
-        className={classNames("col-4 col-lg-2", "market-banner-property-item")}
+        className={classNames("relative w-full px-[15px] flex-[0_0_33.333333%] max-w-[33.333333%] lg:flex-[0_0_16.666667%] lg:max-w-[16.666667%]", "market-banner-property-item")}
         showTitles
       />
     </>

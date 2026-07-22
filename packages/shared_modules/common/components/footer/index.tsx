@@ -19,8 +19,8 @@ const Footer = ({ statistic }: Props) => {
     <footer className="relative mt-10 mb-[100px] max-lg:mt-5 max-lg:mb-8">
       <div className="container">
         <div className="rounded-[40px] bg-[#f2f2f2] px-20 pb-10 pt-20 max-xl:rounded-[32px] max-xl:px-12 max-xl:pt-[60px] max-md:rounded-[32px] max-md:px-6 max-md:pt-10">
-          <div className="row">
-            <div className="col-lg-4">
+          <div className="flex flex-wrap -mx-[15px]">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
               <div className="mx-auto mb-5 mt-0 max-w-[240px] [&_img]:h-auto [&_img]:w-full">
                 <Image src={logo} alt="logo" />
               </div>
@@ -35,7 +35,7 @@ const Footer = ({ statistic }: Props) => {
                 </p>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
               <div className="flex flex-col max-lg:flex-col-reverse">
                 <div className="mb-6">
                   <ul className="m-0 list-none p-0 text-center text-[20px]">
@@ -98,7 +98,7 @@ const Footer = ({ statistic }: Props) => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
               <div className="text-center text-sm font-bold leading-6 text-[#777]">
                 <p>
                   تهران، میدان انقلاب اسلامی، خیابان ۱۲ فروردین، خیابان شهدای

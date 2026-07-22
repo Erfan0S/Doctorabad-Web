@@ -9,7 +9,6 @@ import {
   autoPlayConfig,
   categoryBannerBreakpoint,
 } from "@repo/core/constants/sliders";
-import style from "./CategoryBanner.module.scss";
 import { Autoplay } from "swiper/modules";
 import { useClientComponentInitiated } from "@repo/core/hooks/useClientComponentInitiated";
 import { placeHolderDataUrl } from "@repo/core/constants/placeHolderDataUrl";

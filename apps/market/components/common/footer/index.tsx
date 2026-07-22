@@ -33,8 +33,8 @@ const Footer = ({ statistic }: Props) => {
     <footer className="mt-10 mb-[100px] relative max-lg:mt-5 max-lg:mb-8">
       <div className="container">
         <div className={WRAPPER}>
-          <div className="row">
-            <div className="col-lg-4">
+          <div className="flex flex-wrap -mx-[15px]">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
               <div className="max-w-[240px] mx-auto mb-5 [&_img]:w-full [&_img]:h-auto">
                 <Image src={logo} alt="logo" />
               </div>
@@ -49,7 +49,7 @@ const Footer = ({ statistic }: Props) => {
                 </p>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
               <div className="flex flex-col max-lg:flex-col-reverse">
                 <div className="mb-6">
                   <ul className={LINKS_UL}>
@@ -81,7 +81,7 @@ const Footer = ({ statistic }: Props) => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
               <div className={DETAIL}>
                 <p>
                   تهران، میدان انقلاب اسلامی، نبش خیابان 12 فروردین، پلاک 1302

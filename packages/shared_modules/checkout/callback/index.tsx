@@ -44,16 +44,16 @@ function Callback({ app }: { app: Apps }) {
 
   return (
     <div className="mb-[100px] flex min-h-[60vh] flex-col items-center justify-center gap-5 [&>div]:w-full [&>button]:flex-none [&>button_a]:text-white">
-      <div className="row align-items-center justify-content-center">
+      <div className="flex flex-wrap -mx-[15px] items-center justify-center">
         {isOrderSuccess && (
-          <div className="col-lg-4">
+          <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
             <CallbackDiscountInfo
               discountCode={data!.data.discount_code}
               earnedCoins={data!.data.coin_received}
             />
           </div>
         )}
-        <div className="col-lg-5">
+        <div className="relative w-full px-[15px] lg:flex-[0_0_41.666667%] lg:max-w-[41.666667%]">
           <CallbackDetail
             isOrderSuccess={isOrderSuccess}
             orderDate={data?.data.data.created_at}

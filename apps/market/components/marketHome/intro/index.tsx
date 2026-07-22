@@ -15,11 +15,11 @@ const Intro = async ({ mainSliders, sideSliders }: Props) => {
   return (
     <section className="mb-10 max-md:mb-4">
       <div className="container">
-        <div className="row">
-          <div className="col-lg-8">
+        <div className="flex flex-wrap -mx-[15px]">
+          <div className="relative w-full px-[15px] lg:flex-[0_0_66.666667%] lg:max-w-[66.666667%]">
             <MainSlider app={Apps.MARKET} banners={mainSliders} />
           </div>
-          <div className="col-lg-4">
+          <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
             {!order ? (
               <div className="flex flex-col justify-between h-full">
                 {sideSliders.map((banner) => (

@@ -2418,3 +2418,52 @@
     border: unset;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* 0073 (PKG-8 Phase C): Bootstrap grid.scss teardown replacements     */
+/* .container port: general.scss parity (padding 0 10px, NOT the       */
+/* 15px Bootstrap default - fixes the pre-existing 15px regression).   */
+/* box-sizing globals were previously provided only by grid.scss.      */
+/* ------------------------------------------------------------------ */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}
+
+.container {
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}

@@ -2,7 +2,6 @@ import localFont from "next/font/local";
 import { InstallBannerShow } from "@repo/shared_modules/components";
 import { homeMetadata, homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
-import "../assets/styles/grid.scss";
 import "@repo/tailwind-config/components.css";
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";

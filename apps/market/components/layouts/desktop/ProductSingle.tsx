@@ -10,14 +10,14 @@ function DesktopProductSingle({
 }: ProductSingleProps) {
   return (
     <>
-      <div className="col-xl-8">
+      <div className="relative w-full px-[15px] xl:flex-[0_0_66.666667%] xl:max-w-[66.666667%]">
         <ProductIntro productData={data} />
         <ProductTabs
           productData={data}
           relatedProductList={relatedProductList}
         />
       </div>
-      <div className="col-xl-4 d-none d-xl-block">
+      <div className="relative w-full px-[15px] hidden xl:block xl:flex-[0_0_33.333333%] xl:max-w-[33.333333%]">
         <ProductSidebar product={data} />
       </div>
     </>

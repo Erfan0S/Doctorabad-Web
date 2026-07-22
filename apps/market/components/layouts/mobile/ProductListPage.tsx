@@ -30,7 +30,7 @@ function MobileProductListPage({ type }: { type: ProductListType }) {
 
   const PageHeaderChildren = () =>
     type == ProductListType.SEARCH ? (
-      <div className="col">
+      <div className="relative w-full px-[15px] flex-[1_0_0%] max-w-full">
         <SearchBar
           app={Apps.MARKET}
           haveFilterButton={false}

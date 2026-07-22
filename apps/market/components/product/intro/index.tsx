@@ -27,15 +27,15 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
   return (
     <>
       <div className="market-panel mb-5 min-h-[375px] p-6">
-        <div className="row">
-          <div className="col-lg-6">
+        <div className="flex flex-wrap -mx-[15px]">
+          <div className="relative w-full px-[15px] lg:flex-[0_0_50%] lg:max-w-[50%]">
             <ProductSlider
               title={productData.title}
               slider={productData.files}
               thumbnail={productData.product_pic}
             />
           </div>
-          <div className="col-lg-6">
+          <div className="relative w-full px-[15px] lg:flex-[0_0_50%] lg:max-w-[50%]">
             {/* ponytail: old style.productIntroContent had no rules in the scss module - dropped */}
             <div>
               {category && (
@@ -56,7 +56,7 @@ const ProductIntro: React.FC<Props> = ({ productData }) => {
           </div>
         </div>
       </div>
-      <div className="d-xl-none">
+      <div className="xl:hidden">
         <ProductSidebar product={productData} />
       </div>
     </>

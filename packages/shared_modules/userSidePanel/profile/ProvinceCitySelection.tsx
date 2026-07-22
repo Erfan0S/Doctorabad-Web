@@ -31,7 +31,7 @@ export const ProvinceCitySelection = () => {
 
   return (
     <>
-      <div className="col-6">
+      <div className="relative w-full px-[15px] flex-[0_0_50%] max-w-[50%]">
         <div className={FORM_SELECT}>
           <Field
             defaultValue={values.province_id}
@@ -56,7 +56,7 @@ export const ProvinceCitySelection = () => {
           <ErrorMessage name="province_id" component="p" />
         </div>
       </div>
-      <div className="col-6">
+      <div className="relative w-full px-[15px] flex-[0_0_50%] max-w-[50%]">
         <div className={FORM_SELECT}>
           <Field
             as="select"

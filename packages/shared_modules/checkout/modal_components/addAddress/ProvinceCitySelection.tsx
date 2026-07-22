@@ -41,7 +41,7 @@ export const ProvinceCitySelection = () => {
 
   return (
     <>
-      <div className="col-lg-6">
+      <div className="relative w-full px-[15px] lg:flex-[0_0_50%] lg:max-w-[50%]">
         <label>استان</label>
         <Field
           defaultValue={values.province_id}
@@ -70,7 +70,7 @@ export const ProvinceCitySelection = () => {
         <ErrorMessage name="province_id" component="p" />
       </div>
       <div
-        className="col-lg-6"
+        className="relative w-full px-[15px] lg:flex-[0_0_50%] lg:max-w-[50%]"
         key={String(citiesLoading || waitingToSelectProvince)}
       >
         <label>شهر</label>

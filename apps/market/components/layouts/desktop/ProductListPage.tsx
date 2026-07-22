@@ -22,13 +22,13 @@ function DesktopProductListPage({ type }: { type: ProductListType }) {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="flex flex-wrap -mx-[15px]">
         {FilterComponent && (
-          <div className="col-xl-3">
+          <div className="relative w-full px-[15px] xl:flex-[0_0_25%] xl:max-w-[25%]">
             <FilterComponent />
           </div>
         )}
-        <div className={`col-xl-${FilterComponent ? "9" : "12"}`}>
+        <div className={`relative w-full px-[15px] ${FilterComponent ? "xl:flex-[0_0_75%] xl:max-w-[75%]" : "xl:flex-[0_0_100%] xl:max-w-[100%]"}`}>
           <ProductListHeader />
           <ArchiveList hasFilterSideBar={!!FilterComponent} />
         </div>

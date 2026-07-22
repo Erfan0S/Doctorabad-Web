@@ -68,7 +68,7 @@ const ProductList = ({
         </div>
       }
     >
-      <div className={`${mobileView ? null : "row"}`}>
+      <div className={`${mobileView ? null : "flex flex-wrap -mx-[15px]"}`}>
         {data?.pages.map((data, i) => (
           <React.Fragment key={i}>
             {data.data.map((product) => (
@@ -76,14 +76,14 @@ const ProductList = ({
                 {mobileView ? (
                   <div
                     key={product.id}
-                    className={`${!hasFilterSideBar ? "col-xl-3" : ""}`}
+                    className={`${!hasFilterSideBar ? "relative w-full px-[15px] xl:flex-[0_0_25%] xl:max-w-[25%]" : ""}`}
                   >
                     <MobileProductListItem product={product} />
                   </div>
                 ) : (
                   <div
                     key={product.id}
-                    className={`col-lg-4 col-sm-6 ${!hasFilterSideBar ? "col-xl-3" : ""}`}
+                    className={`relative w-full px-[15px] sm:flex-[0_0_50%] sm:max-w-[50%] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%] ${!hasFilterSideBar ? "xl:flex-[0_0_25%] xl:max-w-[25%]" : ""}`}
                   >
                     <Product
                       gridView

@@ -24,7 +24,7 @@ export default async function Product({
       <DiviceSwitchShell
         desktop={
           <div className="container">
-            <div className="row">
+            <div className="flex flex-wrap -mx-[15px]">
               <DesktopProductSingle
                 data={data}
                 relatedProductList={relatedProductList.data}

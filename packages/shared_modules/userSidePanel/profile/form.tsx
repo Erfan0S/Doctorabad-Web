@@ -47,7 +47,7 @@ const ProfileForm = () => {
           position="left"
         />
       </div>
-      <div className="row">
+      <div className="flex flex-wrap -mx-[15px]">
         <FieldGradeSelection />
         <ProvinceCitySelection />
       </div>
