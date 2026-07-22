@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Providers from "@/providers/providers";
 import localFont from "next/font/local";
 import "react-toastify/dist/ReactToastify.css";
+import "../assets/styles/app-components.css";
 import "@repo/tailwind-config/components.css";
 import { homeViewPort } from "@repo/core/metadata/home";
 import { homeMetadata } from "@/metadata/home";

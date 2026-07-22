@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 
 import "react-toastify/dist/ReactToastify.css";
+import "../assets/styles/app-components.css";
 import "@repo/tailwind-config/components.css";
 
 import Providers from "@/providers/providers";

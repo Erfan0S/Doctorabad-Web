@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import Footer from "@/components/common/footer";
 import { homeViewPort } from "@repo/core/metadata/home";
 import "react-toastify/dist/ReactToastify.css";
+import "../assets/styles/app-components.css";
 import "@repo/tailwind-config/components.css";
 import Providers from "@/providers/providers";
 import NextTopLoader from "nextjs-toploader";

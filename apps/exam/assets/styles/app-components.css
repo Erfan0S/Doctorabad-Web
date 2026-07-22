@@ -1,0 +1,14 @@
+/* exam-only classes, moved here from packages/tailwind-config/components.css
+   (patch 0074). layout.tsx imports this file BEFORE the shared components.css,
+   so Tailwind utilities keep winning specificity ties — same behavior as
+   when these lived in @layer components. */
+
+/* exam app — filters card (questionBankFilter.tsx + makeExam/inputs.tsx) */
+.exam-filters-card {
+  @apply flex flex-row flex-wrap gap-[10px] px-[15px] py-[10px] mt-[15px] relative mb-[30px] max-md:pb-[25px];
+}
+
+/* exam app — question/explanation images (questionItem/index.tsx + questionExplanation.tsx) */
+.exam-question-img {
+  @apply w-full max-w-[450px] h-auto m-auto;
+}

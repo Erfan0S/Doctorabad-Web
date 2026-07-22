@@ -1,0 +1,9 @@
+/* learn-only classes, moved here from packages/tailwind-config/components.css
+   (patch 0074). layout.tsx imports this file BEFORE the shared components.css,
+   so Tailwind utilities keep winning specificity ties — same behavior as
+   when these lived in @layer components. */
+
+/* learn video player loading placeholder (VideoPlayer.tsx + VideoPlayerComponent.tsx) */
+.video-placeholder {
+  @apply flex aspect-video w-full items-center justify-center rounded-[20px] bg-[#d4d4d4];
+}
