@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { ModalProps } from "@repo/core/types/modals";
-import style from "./MedicineCodingModal.module.scss";
 import { Button } from "@repo/shared_modules/components";
 import PillsIcon from "../../../../../apps/pharmacy/assets/svg/pillsIcon";
 import Image from "next/image";
@@ -20,19 +19,19 @@ const MedicineCodingModalInner: React.FC<Props> = ({ data, closeModal }) => {
     const rows: Array<[string, any]> = Object.entries(coding);
 
     return (
-      <table className={style.table}>
+      <table className="w-full border-collapse border border-solid border-[#666]">
         <thead>
           <tr>
-            <th>اشکال دارویی</th>
-            <th>کد دارو</th>
+            <th className="sticky top-0 z-[2] bg-[#52cc4b] border border-solid border-[#666] text-center py-[14px] px-[10px] text-[15px] text-white font-bold">اشکال دارویی</th>
+            <th className="sticky top-0 z-[2] bg-[#52cc4b] border border-solid border-[#666] text-center py-[14px] px-[10px] text-[15px] text-white font-bold">کد دارو</th>
           </tr>
         </thead>
 
         <tbody>
           {rows.map(([k, v]) => (
             <tr key={k}>
-              <td>{k}</td>
-              <td>{typeof v === "object" ? JSON.stringify(v) : String(v)}</td>
+              <td className="border border-solid border-[#666] text-center py-[14px] px-[10px] text-[15px] bg-white font-semibold">{k}</td>
+              <td className="border border-solid border-[#666] text-center py-[14px] px-[10px] text-[15px] bg-white font-semibold">{typeof v === "object" ? JSON.stringify(v) : String(v)}</td>
             </tr>
           ))}
         </tbody>
@@ -41,21 +40,21 @@ const MedicineCodingModalInner: React.FC<Props> = ({ data, closeModal }) => {
   };
 
   return (
-    <div className={style.medicineCodingModal}>
+    <div className="w-[420px] max-w-[calc(100vw-32px)] bg-white rounded-[24px] pt-0 px-[20px] pb-[50px] flex flex-col items-center relative">
         {medicine?.picture ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <Image width={110} height={110} className={style.medicineCodingModalImage} src={medicine.picture} alt={medicine.title_en || "medicine"} />
+          <Image width={110} height={110} className="w-[110px] h-[110px] bg-white rounded-[16px] shadow-[0_6px_18px_rgba(0,0,0,0.15)] flex items-center justify-center -mt-[55px] mb-[20px]" src={medicine.picture} alt={medicine.title_en || "medicine"} />
         ) : (
-          <PillsIcon className={style.medicineCodingModalIcon} />
+          <PillsIcon className="w-[110px] h-[110px] bg-white rounded-[16px] shadow-[0_6px_18px_rgba(0,0,0,0.15)] p-[10px] flex items-center justify-center -mt-[55px] mb-[20px]" />
         )}
-      <div className={style.titleContainer}>
-        <div className={style.titleFa}>{medicine?.title_fa}</div>
-        <div className={style.titleEn}>{medicine?.title_en}</div>
+      <div className="text-center mb-[20px]">
+        <div className="text-[#52cc4b] text-[18px] font-bold mb-[4px]">{medicine?.title_fa}</div>
+        <div className="text-[#52cc4b] text-[16px] font-semibold">{medicine?.title_en}</div>
       </div>
-      <div className={style.tableContainer}>
+      <div className="w-full mb-[20px] max-h-[min(400px,calc(100vh-320px))] overflow-y-auto">
         {renderTable(medicine?.shape_coding)}
       </div>
-      <Button className={style.confirmButton} onClick={() => closeModal(false)}>
+      <Button className="w-[210px] h-[40px] rounded-[12px] text-[16px] font-bold absolute -bottom-[20px]" onClick={() => closeModal(false)}>
         تایید
       </Button>{" "}
     </div>

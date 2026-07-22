@@ -3,7 +3,6 @@ import { RegisterStepProps } from "../../types/register";
 import { useRef } from "react";
 import { useVerifyPhone } from "./useVerifyPhone";
 import Countdown, { CountdownRenderProps } from "react-countdown";
-import style from "./Register.module.scss";
 import { VerifyCodeType } from "@repo/core/types/register";
 import BaleIconBorder from "../../../assets/svg/baleIcon_border";
 import VerifyMassageIcon from "../../../assets/svg/verifyMassageIcon";
@@ -39,11 +38,11 @@ export const VerifyPhone = (props: RegisterStepProps) => {
 
     return (
       <p
-        className={`${style.resendCode} ${!completed ? style.resendCodeCompleted : ""}`}
+        className={`text-[rgb(43,43,43)] cursor-pointer flex flex-row-reverse items-center justify-center gap-[5px] py-[5px] px-[10px] font-medium border border-solid border-[#949494] rounded-[8px] w-full min-w-[225px] mb-0 hover:text-black hover:shadow-[0_3px_10px_rgba(0,0,0,0.1)] [&_svg]:w-[15px] [&_svg]:h-[15px] ${!completed ? "!text-[#949494] cursor-default hover:!shadow-none hover:!text-[#949494]" : ""}`}
         onClick={() => completed && resendCode(type)}
       >
         {!completed && (
-          <p className={style.resendCodeTimer}>
+          <p className="rounded-[4px] py-0 px-[5px] font-semibold mb-0">
             <span>{minutes}</span>:<span>{seconds}</span>
           </p>
         )}
@@ -65,13 +64,14 @@ export const VerifyPhone = (props: RegisterStepProps) => {
   };
 
   return (
-    <div className={style.verifyPhoneForm} ref={wrapperRef}>
-      <p>کد ارسال شده به شماره {props.phone} را وارد کنین!</p>
-      <div className={style.verifyPhoneFormInputs}>
+    <div className="flex flex-col items-center text-center" ref={wrapperRef}>
+      <p className="font-semibold mb-[12px]">کد ارسال شده به شماره {props.phone} را وارد کنین!</p>
+      <div className="flex justify-center flex-row-reverse gap-x-[10px] my-[12px] mx-0">
         {code.map((c, index) => (
           <input
             key={index}
             type="tel"
+            className="py-0 px-[4px] leading-[32px] rounded-[12px] text-center border-2 border-solid border-[#33cc33] tracking-[2px] text-[16px] w-[40px] focus:border-[#33cc33] focus:outline-none"
             autoComplete="one-time-code"
             min={0}
             max={1}
@@ -85,9 +85,9 @@ export const VerifyPhone = (props: RegisterStepProps) => {
         ))}
       </div>
 
-      <span onClick={goToPrevStep}>شماره‌ام را اشتباه وارد کرده‌ام!</span>
-      <div className={style.resendWrapper}>
-        <p>ارسال مجدد کد از طریق:</p>
+      <span onClick={goToPrevStep} className="mb-[12px] text-[#949494] cursor-pointer hover:text-[#2aaadf]">شماره‌ام را اشتباه وارد کرده‌ام!</span>
+      <div className="flex flex-col gap-[10px] mb-[20px] items-center border-solid border-[#d1d1d1] border-0 border-t p-[12px]">
+        <p className="font-semibold mb-0">ارسال مجدد کد از طریق:</p>
         <Countdown
           date={resendPeriod[VerifyCodeType.MOBILE]}
           key={resendPeriod[VerifyCodeType.MOBILE]}

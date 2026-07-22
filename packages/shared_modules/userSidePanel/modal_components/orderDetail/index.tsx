@@ -1,4 +1,3 @@
-import style from "./OrderDetail.module.scss";
 import OrderDetailItem from "./orderDetailItem";
 import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { useQuery } from "@tanstack/react-query";
@@ -160,26 +159,26 @@ const OrderDetail: React.FC<Props> = ({
 
   return (
     <>
-      <div className={style.orderDetail}>
+      <div className="w-[400px] max-w-full mx-auto my-0 p-[20px] pt-[48px] pb-[28px] bg-white rounded-[24px] flex flex-col relative max-sm:w-[320px]">
         {isLoading ? (
           <Loading size={22} />
         ) : (
           <>
-            <div className={`${style.orderDetailLogo} card`}>
+            <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 flex items-center justify-center p-4 bg-white [&_svg]:w-[45px] [&_svg]:h-auto card">
               <CartIcon />
             </div>
-            <div className={style.orderDetailHeader}>
+            <div className="flex flex-col items-start gap-[8px] mb-[20px] border-2 border-solid border-[#4fcc4c] rounded-[10px] py-[8px] px-[12px]">
               {orderDetailsConfig.map(
                 (item) =>
                   (item.show === undefined || item.show) && (
-                    <div key={item.label}>
-                      <span>{item.label}</span>
-                      <span>{item.value || "_"}</span>
+                    <div key={item.label} className="flex flex-row items-start justify-start flex-wrap gap-[4px]">
+                      <span className="text-[12px] font-medium text-[#949494]">{item.label}</span>
+                      <span className="text-[12px] font-medium text-black">{item.value || "_"}</span>
                     </div>
                   )
               )}
             </div>
-            <div className={style.orderDetailContent}>
+            <div className="flex flex-col gap-[10px] max-h-[35vh] overflow-y-auto">
               {orderItems?.map((cartItem) => {
                 return <OrderDetailItem key={cartItem.id} {...cartItem} />;
               })}
@@ -187,7 +186,7 @@ const OrderDetail: React.FC<Props> = ({
             <Button
               type="button"
               onClick={() => closeModal && closeModal()}
-              className={style.orderDetailButton}
+              className="absolute bottom-0 right-1/2 translate-x-1/2 translate-y-1/2 min-w-[150px]"
             >
               حله!
             </Button>

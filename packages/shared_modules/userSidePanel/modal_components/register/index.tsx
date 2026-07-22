@@ -7,7 +7,6 @@ import { useState } from "react";
  import loginImage from "../../../assets/img/login.png";
  import loginImageSecret from "../../../assets/img/login-secret.png";
 import Image from "next/image";
-import style from "./Register.module.scss";
 
 type Props = {
   onVerifySuccess?: () => void;
@@ -32,8 +31,8 @@ export const Register = ({ onVerifySuccess }: Props) => {
     : loginImageSecret;
 
   return (
-    <div className={style.authWrapper}>
-      <Image src={imageSrc} alt="login" />
+    <div className="w-[400px] max-w-full mx-auto my-0 pt-[40px] px-[40px] pb-0 bg-white flex flex-col items-center rounded-[24px] max-sm:w-full max-sm:min-h-[385px] max-sm:pt-[16px] max-sm:px-[24px] max-sm:pb-[24px]">
+      <Image src={imageSrc} alt="login" className="w-[270px] h-auto mb-[40px]" />
       <CurrentStepComponent
         setStep={setCurrentStep}
         phone={phone}
