@@ -21,7 +21,7 @@ const Footer = ({ statistic }: Props) => {
         <div className="rounded-[40px] bg-[#f2f2f2] px-20 pb-10 pt-20 max-xl:rounded-[32px] max-xl:px-12 max-xl:pt-[60px] max-md:rounded-[32px] max-md:px-6 max-md:pt-10">
           <div className="flex flex-wrap -mx-[15px]">
             <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
-              <div className="mx-auto mb-5 mt-0 max-w-[240px] [&_img]:h-auto [&_img]:w-full">
+              <div className="mx-auto mb-5 mt-0 max-w-[350px] [&_img]:h-auto [&_img]:w-full">
                 <Image src={logo} alt="logo" />
               </div>
               <div className="text-justify text-base leading-6 text-[#666] max-lg:text-center">
@@ -46,12 +46,13 @@ const Footer = ({ statistic }: Props) => {
                         className="relative"
                       >
                         {action ? (
-                          <span className="cursor-pointer text-sm font-bold leading-6 text-[#777] transition duration-150 hover:text-[#333]">
+                          <span className="cursor-pointer text-sm font-bold leading-6 text-[#141F23] transition duration-150 hover:text-[#333]">
                             {title}
                           </span>
                         ) : (
                           <Link
                             href={href}
+                            target="_blank"
                             className="cursor-pointer text-sm font-bold leading-6 text-[#777] transition duration-150 hover:text-[#333]"
                           >
                             {title}
@@ -61,45 +62,45 @@ const Footer = ({ statistic }: Props) => {
                     ))}
                   </ul>
                 </div>
-                <div className="flex items-center gap-1 max-lg:mb-5 max-sm:flex-wrap max-sm:justify-center">
+                <div className="flex items-center gap-1 max-lg:mb-5 max-sm:flex-nowrap max-sm:justify-center max-md:mb-5">
                   <Link
                     href={statistic.google_play_url}
                     target={"_blank"}
-                    className="w-[calc(33.33333%-4px)] flex-[0_0_calc(33.33333%-4px)] text-center max-sm:w-auto max-sm:flex-none"
+                    className="w-[calc(33.33333%-4px)] flex-[0_0_calc(33.33333%-4px)] text-center max-sm:flex[0-0-33.333%] max-sm:w-[33.333%]"
                   >
                     <Image
                       src={googlePlay}
                       alt="googlePlay"
-                      className="h-auto max-w-full max-lg:max-w-[50%]"
+                      className="h-auto max-w-full max-lg:max-w-[70%] max-md:max-w-full"
                     />
                   </Link>
                   <Link
                     href={statistic.pwa_url}
                     target={"_blank"}
-                    className="w-[calc(33.33333%-4px)] flex-[0_0_calc(33.33333%-4px)] text-center max-sm:w-auto max-sm:flex-none"
+                    className="w-[calc(33.33333%-4px)] flex-[0_0_calc(33.33333%-4px)] text-center max-sm:flex[0-0-33.333%] max-sm:w-[33.333%]"
                   >
                     <Image
                       src={pwaApp}
                       alt="pwaApp"
-                      className="h-auto max-w-full max-lg:max-w-[50%]"
+                      className="h-auto max-w-full max-lg:max-w-[70%] max-md:max-w-full"
                     />
                   </Link>
                   <Link
                     href={statistic.direct_download_url}
                     target={"_blank"}
-                    className="w-[calc(33.33333%-4px)] flex-[0_0_calc(33.33333%-4px)] text-center max-sm:w-auto max-sm:flex-none"
+                    className="w-[calc(33.33333%-4px)] flex-[0_0_calc(33.33333%-4px)] text-center max-sm:flex[0-0-33.333%] max-sm:w-[33.333%]"
                   >
                     <Image
                       src={directDownload}
                       alt="pwaApp"
-                      className="h-auto max-w-full max-lg:max-w-[50%]"
+                      className="h-auto max-w-full max-lg:max-w-[70%] max-md:max-w-full"
                     />
                   </Link>
                 </div>
               </div>
             </div>
             <div className="relative w-full px-[15px] lg:flex-[0_0_33.333333%] lg:max-w-[33.333333%]">
-              <div className="text-center text-sm font-bold leading-6 text-[#777]">
+              <div className="text-center text-sm font-bold leading-6 text-[#777] pt-4">
                 <p>
                   تهران، میدان انقلاب اسلامی، خیابان ۱۲ فروردین، خیابان شهدای
                   ژاندارمری، پلاک ۸۸، واحد ۵

@@ -14,22 +14,32 @@ export const footerLinks = [
   },
   {
     id: 3,
-    href: "#",
-    title: "راهنما",
-  },
-  {
-    id: 4,
-    href: "#",
+    href: "https://doctorabad.com/mag/support/",
     title: "تماس‌با‌ما",
   },
   {
-    id: 5,
-    href: "#",
+    id: 4,
+    href: "https://doctorabad.com/mag/about/",
     title: "درباره‌ما",
   },
   {
+    id: 5,
+    href: "https://doctorabad.com/mag/team/",
+    title: "تیم‌ما",
+  },
+  {
     id: 6,
-    href: "#",
+    href: "https://doctorabad.com/mag/invitation/",
     title: "همکاری‌باما",
+  },
+  {
+    id: 7,
+    href: "https://doctorabad.com/mag/privacy-policy/",
+    title: "شرایطاستفاده",
+  },
+  {
+    id: 8,
+    href: "https://doctorabad.com/mag/bug/",
+    title: "گزارش‌خطا",
   },
 ];

@@ -54,7 +54,7 @@ export const generateProductMetaData = async ({
 
     const description = truncate(descriptionText);
 
-    const seoTitle = ["دکترآباد", title].filter(Boolean).join(" | ");
+    const seoTitle = title ? `دانلود ${title} | دکتردانلود` : "دکتردانلود";
 
     const image = product.picture || product.provider_picture;
 
@@ -146,7 +146,7 @@ export const generateProductMetaData = async ({
     };
   } catch (error) {
     return {
-      title: "دکترآباد | مرکز محتوا",
+      title: "دکترآباد | دکتردانلود",
 
       description: "کتاب‌ها، منابع و محتواهای آموزشی پزشکی در دکترآباد.",
 

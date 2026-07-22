@@ -44,46 +44,46 @@ export default function MainSlider({ sliders }: MainSliderProps) {
 
   return (
     <div className="container">
-
-    <div className="bg-white pt-4 pb-6">
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        spaceBetween={16}
-        slidesPerView={1}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        className={SWIPER_CLS}
-      >
-        {sliders.map((slider) => {
-          const href = getSliderHref(slider);
-          return (
-            <SwiperSlide key={slider.id}>
-              <div
-                onClick={
-                  href
-                    ? authorizeClientAction(() => {
-                        if (href.startsWith("http")) {
-                          window.open(href, "_blank");
-                        } else {
-                          router.push(href);
-                        }
-                      })
-                    : undefined
-                }
-                className="aspect-[16/9] overflow-hidden rounded-[16px] [background:linear-gradient(135deg,#64b5f6_0%,#42a5f5_100%)]"
-                style={href ? { cursor: "pointer" } : undefined}
-              >
-                <img
-                  src={slider.picture}
-                  alt={slider.title || ""}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </div>
+      <div className="bg-white pt-4 pb-6">
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={16}
+          slidesPerView={1}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          className={SWIPER_CLS}
+          loop
+        >
+          {sliders.map((slider) => {
+            const href = getSliderHref(slider);
+            return (
+              <SwiperSlide key={slider.id}>
+                <div
+                  onClick={
+                    href
+                      ? authorizeClientAction(() => {
+                          if (href.startsWith("http")) {
+                            window.open(href, "_blank");
+                          } else {
+                            router.push(href);
+                          }
+                        })
+                      : undefined
+                  }
+                  className="aspect-[16/9] overflow-hidden rounded-[16px] [background:linear-gradient(135deg,#64b5f6_0%,#42a5f5_100%)]"
+                  style={href ? { cursor: "pointer" } : undefined}
+                >
+                  <img
+                    src={slider.picture}
+                    alt={slider.title || ""}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
     </div>
   );
 }

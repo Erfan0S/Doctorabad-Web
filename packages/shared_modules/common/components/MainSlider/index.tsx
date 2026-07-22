@@ -36,7 +36,7 @@ const MainSlider = ({
           modules={[Pagination, Autoplay]}
           autoplay={autoPlayConfig}
           slidesPerView={1}
-          spaceBetween={30}
+          spaceBetween={16}
           pagination={{ clickable: true }}
           loop
           {...swiperOptions}

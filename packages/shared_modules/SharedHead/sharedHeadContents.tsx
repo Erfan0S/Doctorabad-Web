@@ -8,7 +8,9 @@ type Props = {
 function SharedHeadContents({ children }: Props) {
   return (
     <head>
-      {IS_PERVENT_GOOGLE_INDEX && <meta name="robots" content="noindex" />}
+      {IS_PERVENT_GOOGLE_INDEX && (
+        <meta name="robots" content="noindex, nofollow" />
+      )}
       {children}
     </head>
   );

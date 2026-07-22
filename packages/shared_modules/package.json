@@ -16,6 +16,7 @@
     "./api": "./api/Api.ts",
     "./modalsList": "./common/modal/modalsList.tsx",
     "./modalsTypes": "./common/modal/modalsTypes.ts",
+    "./common/modal/modals/TrackingModal": "./common/modal/modals/TrackingModal.tsx",
     "./components": "./common/components/index.ts",
     "./assets/styles/*": "./assets/styles/*.scss",
     "./headers": "./headers/index.ts",

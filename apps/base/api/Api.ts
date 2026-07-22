@@ -23,6 +23,7 @@ import { BlogType } from "@/types/blog";
 
 import { defaultBaseUrl, isServerSide } from "@repo/core/constants/constants";
 import { toast } from "react-toastify";
+import { GlobalSearchItem, PopularSearchItem, SearchHistoryItem, SearchProductType } from "@/types/globalSerach";
 
 
 class Api extends Request {
@@ -286,6 +287,56 @@ class Api extends Request {
   }
 
   //DR Pro
+
+    // search
+// لیست تاریخچه‌ی جستجوی کاربر
+getSearchHistory(): Promise<ResponseType<{ data: SearchHistoryItem[] }>> {
+  return this.request.get<{ data: SearchHistoryItem[] }>(
+    "/user/v1/search/history",
+  );
+}
+
+// ذخیره‌ی یک عبارت در تاریخچه‌ی جستجو
+storeSearchHistory(search: string): Promise<any> {
+  return this.request.post("/user/v1/search/history", { search });
+}
+
+// حذف یک آیتم از تاریخچه‌ی جستجو
+deleteSearchHistory(id: number): Promise<any> {
+  return this.request.delete(`/user/v1/search/history/${id}`);
+}
+
+// لیست جستجوهای پرطرفدار
+getPopularSearch(): Promise<ResponseType<{ data: PopularSearchItem[] }>> {
+  return this.request.get<{ data: PopularSearchItem[] }>(
+    "/user/v1/search/popular",
+  );
+}
+
+// ثبت یک محصول به عنوان جستجوی پرطرفدار
+storePopularSearch(data: {
+  product_id: number;
+  product_type: SearchProductType;
+}): Promise<any> {
+  return this.request.post("/user/v1/search/popular", data);
+}
+
+// جستجوی سراسری
+globalSearch(search: string): Promise<ResponseType<{ data: GlobalSearchItem }>> {
+  return this.request.get<{ data: GlobalSearchItem }>("/user/v1/search/global", {
+    params: { search },
+  });
+}
+
+// جستجو در یک دسته‌ی مشخص
+subSearch(
+  search: string,
+  product_type: SearchProductType,
+): Promise<ResponseType<{ data: GlobalSearchItem }>> {
+  return this.request.get<{ data: GlobalSearchItem }>("/user/v1/search/sub", {
+    params: { search, product_type },
+  });
+}
 
 
 }

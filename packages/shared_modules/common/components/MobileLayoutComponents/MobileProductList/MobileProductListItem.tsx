@@ -5,6 +5,7 @@ import {
   ProductPrice,
 } from "@repo/shared_modules/components";
 import { ProductListItemProps } from "@repo/core/types/props";
+import { priceFormatter } from "@repo/core/utils/priceFormatter";
 import { CoinIcon } from "../../../../assets";
 
 const MobileProductListItem = ({
@@ -111,13 +112,15 @@ const MobileProductListItem = ({
         {price_main && haveStock && (
           <div className="flex flex-row items-center gap-[5px] [&>svg]:text-[#8b8b8b]">
             <CoinIcon />
-            <ProductPrice
-              mainPrice={price_main}
-              offPrice={price_off}
-              app={app}
-              className="[&>div]:justify-start"
-              size={13}
-            />
+            <div className="w-fit">
+              <ProductPrice
+                mainPrice={price_main ?? 0}
+                offPrice={price_off}
+                app={app}
+                className="[&>div]:justify-start"
+                size={15}
+              />
+            </div>
           </div>
         )}
       </div>

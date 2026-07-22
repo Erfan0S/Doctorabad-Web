@@ -17,6 +17,7 @@ import AppOnlyModal from "./modals/AppOnlyModal";
 import MedicineCodingModal from "./modals/MedicineCodingModal";
 import ComingSoonModal from "./modals/ComingSoonModal";
 import BuyRecommendationModal from "./modals/BuyRecommendationModal";
+import { TrackingModal } from "./modals/TrackingModal";
 
 export const ModalsList: any = {
   [ModalTypes.REGISTER]: RegisterModal,
@@ -26,6 +27,7 @@ export const ModalsList: any = {
   [ModalTypes.CLUB_SINGLE_GET_CODE]: ClubSingleGetCodeModal,
   [ModalTypes.CLUB_SINGLE_SHOW_DESC]: ClubSingleDescModal,
   [ModalTypes.BUG_REPORT]: BugReportModal,
+  [ModalTypes.TRACKING]: TrackingModal,
   [ModalTypes.MY_MESSAGES_DETAIL]: MyMessageDetailModal,
   [ModalTypes.ADD_ADDRESS]: AddAddressModal,
   [ModalTypes.QR_CONTENTS]: QRContents,

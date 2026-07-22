@@ -2,6 +2,8 @@ import Link from "next/link";
 import MobileProductListItem from "./MobileProductListItem";
 import { ProductListItemProps } from "@repo/core/types/props";
 import { Apps } from "@repo/core/types/general";
+import { baseUrls } from "@repo/core/constants/routePath";
+
 
 const StaticMobileProductList = ({
   products,
@@ -29,11 +31,7 @@ const StaticMobileProductList = ({
 
         return (
           <Link href={`/${p.baseUrl}/${p.id}`} key={p.id}>
-            <MobileProductListItem
-              {...(app === Apps.DOWNLOAD ? { imageType: "portrait" } : {})}
-              app={app}
-              {...p}
-            />
+            <MobileProductListItem { ...(app === Apps.DOWNLOAD ? { imageType: "portrait", haveStock: false } : {}) } app={app} {...p} />
           </Link>
         );
       })}
