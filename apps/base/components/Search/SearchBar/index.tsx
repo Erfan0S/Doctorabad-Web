@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/api/Api";
 import { SearchBar as SharedSearchBar } from "@repo/shared_modules/components";
 import { Apps } from "@repo/core/types/general";
-import style from "./searchBar.module.scss"
 
 type Props = {
   haveFilterButton?: boolean;
@@ -11,7 +10,7 @@ type Props = {
 
 const SearchBar = ({ haveFilterButton }: Props) => {
   return (
-    <div className={style.container}>
+    <div>
       <SharedSearchBar
         app={Apps.BASE}
         placeholder={"در دکترآباد جست‌و‌جو کن!"}

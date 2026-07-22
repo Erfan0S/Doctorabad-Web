@@ -4,7 +4,6 @@ import { api } from "@/api/Api";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./popularSearchList.module.scss";
 import { PopularSearchItem } from "@/types/globalSerach";
 
 const PopularSearchList = () => {
@@ -45,17 +44,19 @@ const PopularSearchList = () => {
 
   return (
     <div className="container">
-      <div className={styles.popularListWrapper}>
-        <h3 className={styles.popularTitle}>جستجوهای پرطرفدار</h3>
-        <div className={styles.popularList}>
+      <div className="my-6">
+        <h3 className="mb-3 text-[18px] font-bold text-app-base">جستجوهای پرطرفدار</h3>
+        <div className="flex flex-wrap gap-3">
           {popularData.map((item: PopularSearchItem) => (
             <button
               key={item.id}
               type="button"
-              className= {`${styles.popularCard} ${item.product_type}`}
+              className={`flex max-w-full cursor-pointer items-center rounded-full border border-solid border-app-base bg-white px-3.5 py-2.5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] ${item.product_type}`}
               onClick={() => handlePopularSelect(item.title)}
             >
-              <span className={styles.popularText}>{item.title}</span>
+              <span className="block max-w-full min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-[#334155]">
+                {item.title}
+              </span>
             </button>
           ))}
         </div>

@@ -4,7 +4,6 @@ import { api } from "@/api/Api";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./searchHistoryList.module.scss";
 
 const SearchHistoryList = () => {
   const params = useSearchParams();
@@ -58,19 +57,19 @@ const SearchHistoryList = () => {
 
   return (
     <div className="container">
-      <div className={styles.historyListWrapper}>
-        <h3 className={styles.historyTitle}>تاریخچه جستجو</h3>
-        <div className={styles.historyList}>
+      <div className="mb-6">
+        <h3 className="mb-3 text-[18px] font-bold text-app-base">تاریخچه جستجو</h3>
+        <div className="flex flex-wrap gap-3">
           {historyData.map((item: { id: number; search: string }) => (
             <div
               key={item.id}
-              className={styles.historyCard}
+              className="flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-solid border-[#e2e8f0] bg-white px-3.5 py-2.5 shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
               onClick={() => handleHistorySelect(item.search)}
             >
-              <span className={styles.historyText}>{item.search}</span>
+              <span className="text-sm text-[#334155]">{item.search}</span>
               <button
                 type="button"
-                className={styles.historyRemove}
+                className="cursor-pointer border-0 bg-transparent p-0 text-[18px] leading-none text-[#64748b] hover:text-[#ef4444]"
                 onClick={(event) => handleHistoryDelete(event, item.id)}
                 aria-label={`حذف ${item.search}`}
               >

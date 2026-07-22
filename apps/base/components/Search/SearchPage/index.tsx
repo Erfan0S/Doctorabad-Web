@@ -18,7 +18,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import React, { useState, useCallback, useEffect } from "react";
 import { SearchProductType } from "@/types/globalSerach";
-import styles from "./searchPage.module.scss";
 import DownArrow from "@/assets/svg/downArrow";
 import UpArrow from "@/assets/svg/upArrow";
 import FIlterNotFound from "../../common/FIlterNotFound";
@@ -185,8 +184,13 @@ const SearchPageComponent = () => {
           hasFetched && isExpanded ? fetched : section.items;
 
         return (
-          <div key={section.key} className={styles.section}>
-            <h2 className={`${styles.sectionTitle} ${section.app}`}>
+          <div
+            key={section.key}
+            className="border-solid border-[#dddddd] border-0 border-b py-[15px]"
+          >
+            <h2
+              className={`mb-3 text-[20px] font-bold text-app-base ${section.app}`}
+            >
               {section.title}
             </h2>
             {itemsToRender.map((item) => (
@@ -206,7 +210,7 @@ const SearchPageComponent = () => {
             {section.showSeeMore && (hasInitial || hasFetched) && (
               <>
                 <div
-                  className={`${styles.showMore} ${section.app}`}
+                  className={`mt-2 flex cursor-pointer items-center justify-center pb-2.5 text-sm font-bold text-app-base ${section.app}`}
                   onClick={() =>
                     handleSeeMore(section.key as SearchProductType)
                   }
